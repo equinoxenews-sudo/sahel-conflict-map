@@ -31,7 +31,7 @@ export default function Globe3D() {
         if (disposed) return;
 
         const el = container;
-        const globe = Globe()(el)
+        const globe = new Globe(el)
           .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-night.jpg")
           .backgroundImageUrl("https://unpkg.com/three-globe/example/img/night-sky.png")
           .backgroundColor("rgba(0,0,0,0)")
