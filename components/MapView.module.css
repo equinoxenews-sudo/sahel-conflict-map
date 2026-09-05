@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.mapWrapper {
+  flex: 1;
+  min-height: 0;
+}
+
+.footer {
+  padding: 6px 16px;
+  font-size: 12px;
+  color: #666;
+  border-top: 1px solid #eee;
+}
