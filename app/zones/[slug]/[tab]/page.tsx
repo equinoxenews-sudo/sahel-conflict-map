@@ -55,10 +55,7 @@ export default async function ZoneTabPage({
       </div>
 
       {isLiveActualite ? (
-        <>
-          <div className={styles.mapArea}>
-            <MapView events={await getAfricaEvents()} />
-          </div>
+        <div className={styles.splitLayout}>
           <div className={styles.newsList}>
             {AFRICA_NEWS.map((item) => (
               <article key={item.title} className={styles.newsItem}>
@@ -68,7 +65,10 @@ export default async function ZoneTabPage({
               </article>
             ))}
           </div>
-        </>
+          <div className={styles.mapArea}>
+            <MapView events={await getAfricaEvents()} />
+          </div>
+        </div>
       ) : (
         <div className={styles.placeholder}>
           <p>{zone.active ? "Aperçu à venir" : "Bientôt disponible"}</p>
