@@ -2,19 +2,20 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/equinoxe/Header";
 import MapView from "@/components/MapView";
-import { AFRICA_NEWS } from "@/lib/africaNews";
 import { supabase } from "@/lib/supabaseClient";
+import { ZONE_NEWS } from "@/lib/zoneNews";
 import { getZone, TAB_LABELS, TABS, type Tab } from "@/lib/zones";
 import type { ConflictEvent } from "@/types/event";
 import styles from "./page.module.css";
 
 export const revalidate = 3600;
 
-async function getAfricaEvents(): Promise<ConflictEvent[]> {
+async function getZoneEvents(countries: string[]): Promise<ConflictEvent[]> {
   try {
     const { data, error } = await supabase
       .from("conflict_events")
       .select("*")
+      .in("country", countries)
       .order("event_date", { ascending: false })
       .limit(5000);
 
@@ -39,7 +40,8 @@ export default async function ZoneTabPage({
   const zone = getZone(slug);
   if (!zone || !TABS.includes(tab as Tab)) notFound();
 
-  const isLiveActualite = zone.active && tab === "actualite";
+  const isLiveActualite = zone.active && tab === "actualite" && zone.countries.length > 0;
+  const newsItems = ZONE_NEWS[zone.slug] ?? [];
 
   return (
     <main className={styles.main}>
@@ -57,7 +59,7 @@ export default async function ZoneTabPage({
       {isLiveActualite ? (
         <div className={styles.splitLayout}>
           <div className={styles.newsList}>
-            {AFRICA_NEWS.map((item) => (
+            {newsItems.map((item) => (
               <article key={item.title} className={styles.newsItem}>
                 <span className={styles.newsDate}>{item.date}</span>
                 <h2 className={styles.newsTitle}>{item.title}</h2>
@@ -66,7 +68,7 @@ export default async function ZoneTabPage({
             ))}
           </div>
           <div className={styles.mapArea}>
-            <MapView events={await getAfricaEvents()} />
+            <MapView events={await getZoneEvents(zone.countries)} />
           </div>
         </div>
       ) : (
