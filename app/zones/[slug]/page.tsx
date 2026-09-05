@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/equinoxe/Header";
+import { getZoneImage } from "@/lib/zoneImages";
 import { getZone, TABS, TAB_LABELS } from "@/lib/zones";
 import styles from "./page.module.css";
 
@@ -28,10 +29,16 @@ export default async function ZonePage({ params }: { params: Promise<{ slug: str
       )}
 
       <div className={styles.tabs}>
-        {TABS.map((tab) => (
+        {TABS.map((tab) => {
+          const image = getZoneImage(zone.slug, tab);
+          return (
           <Link key={tab} href={`/zones/${zone.slug}/${tab}`} className={styles.card}>
             <div className={styles.cardHeader}>{TAB_LABELS[tab]}</div>
-            <div className={`${styles.cardImage} ${styles[`cardImage_${tab}`]}`} aria-hidden />
+            <div
+              className={`${styles.cardImage} ${image ? "" : styles[`cardImage_${tab}`]}`}
+              style={image ? { backgroundImage: `url(${image})` } : undefined}
+              aria-hidden
+            />
             <div className={styles.cardBody}>
               {tab === "approche" && (
                 <ul>
@@ -53,7 +60,8 @@ export default async function ZonePage({ params }: { params: Promise<{ slug: str
               )}
             </div>
           </Link>
-        ))}
+          );
+        })}
       </div>
     </main>
   );

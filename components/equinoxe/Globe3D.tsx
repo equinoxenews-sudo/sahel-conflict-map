@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import * as THREE from "three";
 import { COUNTRY_RISK, RISK_COLORS } from "@/lib/countryRisk";
 import styles from "./Globe3D.module.css";
 
@@ -11,16 +12,30 @@ interface GeoFeature {
   geometry: unknown;
 }
 
-function hexToRgba(hex: string, alpha: number): string {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
+// Some country polygons in the source GeoJSON have complex/concave shapes
+// that three-globe's cap triangulation can mis-wind, which shows up as
+// black flickering patches (unlit backfaces). MeshBasicMaterial (unlit) +
+// DoubleSide avoids that regardless of winding order.
+const materialCache = new Map<string, THREE.Material>();
 
-function colorForFeature(feature: GeoFeature): string {
+function materialForFeature(feature: GeoFeature): THREE.Material {
   const risk = COUNTRY_RISK[feature.id];
-  return risk ? hexToRgba(RISK_COLORS[risk.tier], 0.45) : "rgba(255,255,255,0.06)";
+  const color = risk ? RISK_COLORS[risk.tier] : "#ffffff";
+  const opacity = risk ? 0.45 : 0.05;
+  const key = `${color}-${opacity}`;
+
+  let material = materialCache.get(key);
+  if (!material) {
+    material = new THREE.MeshBasicMaterial({
+      color,
+      transparent: true,
+      opacity,
+      side: THREE.DoubleSide,
+      depthWrite: false,
+    });
+    materialCache.set(key, material);
+  }
+  return material;
 }
 
 export default function Globe3D() {
@@ -46,10 +61,10 @@ export default function Globe3D() {
           .atmosphereColor("#2a4a75")
           .atmosphereAltitude(0.15)
           .polygonsData(geoData.features)
-          .polygonCapColor((f: unknown) => colorForFeature(f as GeoFeature))
+          .polygonCapMaterial((f: unknown) => materialForFeature(f as GeoFeature))
           .polygonSideColor(() => "rgba(0, 0, 0, 0)")
           .polygonStrokeColor(() => "rgba(255,255,255,0.3)")
-          .polygonAltitude(0.015)
+          .polygonAltitude(0.008)
           .polygonsTransitionDuration(0)
           .polygonLabel((f: unknown) => {
             const feat = f as GeoFeature;
