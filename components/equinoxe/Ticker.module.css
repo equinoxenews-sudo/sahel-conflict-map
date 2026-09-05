@@ -1,0 +1,50 @@
+.ticker {
+  display: flex;
+  align-items: center;
+  background: #0a0a0a;
+  border-bottom: 1px solid #222;
+  overflow: hidden;
+  height: 32px;
+}
+
+.badge {
+  flex-shrink: 0;
+  background: #e53935;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 0 12px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.track {
+  display: flex;
+  white-space: nowrap;
+  animation: scroll 45s linear infinite;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  color: #ccc;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  padding: 0 20px;
+}
+
+.dot {
+  color: #e53935;
+  margin-left: 20px;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
