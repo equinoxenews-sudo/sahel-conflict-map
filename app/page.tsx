@@ -1,3 +1,4 @@
+import FeedColumn from "@/components/equinoxe/FeedColumn";
 import Globe3DLoader from "@/components/equinoxe/Globe3DLoader";
 import Header from "@/components/equinoxe/Header";
 import HomeNewsColumn from "@/components/equinoxe/HomeNewsColumn";
@@ -27,6 +28,8 @@ export default function Home() {
             </span>
           </div>
         </div>
+
+        <FeedColumn />
       </div>
 
       <footer className={styles.footer}>
