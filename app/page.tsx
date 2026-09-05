@@ -1,6 +1,6 @@
+import Globe3DLoader from "@/components/equinoxe/Globe3DLoader";
 import Header from "@/components/equinoxe/Header";
 import RiskLegend from "@/components/equinoxe/RiskLegend";
-import WorldMapLoader from "@/components/equinoxe/WorldMapLoader";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
       </p>
 
       <div className={styles.mapArea}>
-        <WorldMapLoader />
+        <Globe3DLoader />
       </div>
 
       <div className={styles.legendBar}>
