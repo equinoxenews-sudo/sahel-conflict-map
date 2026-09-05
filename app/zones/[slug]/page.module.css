@@ -13,9 +13,6 @@
   padding: 40px 16px 12px;
 }
 
-.hex img {
-  filter: brightness(0) invert(1);
-}
 
 .title {
   color: #fff;

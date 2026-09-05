@@ -59,7 +59,6 @@
 .hex img {
   width: 100%;
   height: auto !important;
-  filter: brightness(0) invert(1);
 }
 
 .zoneLabel {
