@@ -8,7 +8,7 @@ type Source = "maritime" | "air";
 const MARINETRAFFIC_URL =
   "https://www.marinetraffic.com/en/ais/embed/zoom:3/centery:15/centerx:10/maptype:0/shownames:false/mmsi:0/shipid:0/fleet:/fleet_id:/vtypes:/showmenu:false/remember:false";
 
-const FLIGHTRADAR_URL = "https://www.flightradar24.com/simple_index.php?lat=15&lon=10&z=3";
+const ADSBEXCHANGE_URL = "https://globe.adsbexchange.com/?lat=20&lon=15&zoom=2";
 
 export default function TrackingView() {
   const [source, setSource] = useState<Source>("maritime");
@@ -39,7 +39,7 @@ export default function TrackingView() {
             className={source === "air" ? styles.activeBtn : styles.btn}
             onClick={() => setSource("air")}
           >
-            Aérien — Flightradar24
+            Aérien — ADS-B Exchange
           </button>
         </div>
         <div className={styles.iframeWrapper}>
@@ -53,8 +53,8 @@ export default function TrackingView() {
           ) : (
             <iframe
               key="air"
-              title="Flightradar24"
-              src={FLIGHTRADAR_URL}
+              title="ADS-B Exchange"
+              src={ADSBEXCHANGE_URL}
               className={styles.iframe}
             />
           )}
