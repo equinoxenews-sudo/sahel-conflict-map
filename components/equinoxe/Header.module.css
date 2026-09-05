@@ -21,8 +21,6 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #999, #111 70%);
-  border: 1px solid #555;
 }
 
 .wordmark {

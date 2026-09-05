@@ -7,7 +7,13 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.logo}>
-        <span className={styles.logoGlobe} aria-hidden />
+        <Image
+          src="/equinoxe/logo-globe.png"
+          alt=""
+          width={34}
+          height={34}
+          className={styles.logoGlobe}
+        />
         <span className={styles.wordmark}>EQUINOXE</span>
       </Link>
 
