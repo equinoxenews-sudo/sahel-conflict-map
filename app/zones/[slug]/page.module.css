@@ -30,15 +30,15 @@
 
 .tabs {
   display: flex;
-  gap: 24px;
+  align-items: flex-start;
+  gap: 48px;
   flex-wrap: wrap;
   justify-content: center;
   padding: 24px;
-  flex: 1;
 }
 
 .card {
-  width: 260px;
+  width: 300px;
   border: 1px solid #fff;
   color: #fff;
   text-decoration: none;
@@ -57,7 +57,7 @@
 .cardBody {
   padding: 16px 20px;
   font-size: 13px;
-  min-height: 120px;
+  min-height: 80px;
 }
 
 .cardBody ul {
