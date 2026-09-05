@@ -60,7 +60,10 @@ async function getAccessToken(): Promise<string> {
   });
 
   if (!res.ok) {
-    throw new Error(`ACLED OAuth token request failed: ${res.status} ${res.statusText}`);
+    const bodyText = await res.text().catch(() => "");
+    throw new Error(
+      `ACLED OAuth token request failed: ${res.status} ${res.statusText} — ${bodyText}`
+    );
   }
 
   const json = (await res.json()) as AcledTokenResponse;
