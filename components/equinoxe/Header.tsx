@@ -37,6 +37,9 @@ export default function Header() {
           <span className={styles.iconGlyph}>?</span>
           <span className={styles.zoneLabel}>A propos</span>
         </button>
+        <button type="button" className={styles.loginBtn}>
+          Log in
+        </button>
         <div className={styles.search}>
           <input type="search" placeholder="Rechercher" disabled />
         </div>
