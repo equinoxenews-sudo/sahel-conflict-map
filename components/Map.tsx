@@ -13,10 +13,14 @@ interface MapProps {
 }
 
 export default function Map({ events }: MapProps) {
+  const bounds: [number, number][] | undefined =
+    events.length > 0 ? events.map((e) => [e.latitude, e.longitude]) : undefined;
+
   return (
     <MapContainer
-      center={SAHEL_CENTER}
-      zoom={5}
+      {...(bounds
+        ? { bounds, boundsOptions: { padding: [60, 60] as [number, number], maxZoom: 6 } }
+        : { center: SAHEL_CENTER, zoom: 5 })}
       scrollWheelZoom
       style={{ height: "100%", width: "100%" }}
     >
