@@ -39,17 +39,18 @@ export default function Globe3D() {
 
         const el = container;
         const globe = new Globe(el)
-          .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-night.jpg")
+          .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-dark.jpg")
           .backgroundImageUrl("https://unpkg.com/three-globe/example/img/night-sky.png")
           .backgroundColor("rgba(0,0,0,0)")
           .showAtmosphere(true)
-          .atmosphereColor("#3a6fb5")
-          .atmosphereAltitude(0.18)
+          .atmosphereColor("#2a4a75")
+          .atmosphereAltitude(0.15)
           .polygonsData(geoData.features)
           .polygonCapColor((f: unknown) => colorForFeature(f as GeoFeature))
           .polygonSideColor(() => "rgba(0, 0, 0, 0)")
-          .polygonStrokeColor(() => "rgba(255,255,255,0.25)")
-          .polygonAltitude(0.006)
+          .polygonStrokeColor(() => "rgba(255,255,255,0.3)")
+          .polygonAltitude(0.015)
+          .polygonsTransitionDuration(0)
           .polygonLabel((f: unknown) => {
             const feat = f as GeoFeature;
             const risk = COUNTRY_RISK[feat.id];
@@ -64,8 +65,7 @@ export default function Globe3D() {
         globe.pointOfView({ lat: 15, lng: 15, altitude: 2.2 });
 
         const controls = globe.controls();
-        controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.4;
+        controls.autoRotate = false;
 
         const resize = () => {
           globe.width(el.clientWidth);

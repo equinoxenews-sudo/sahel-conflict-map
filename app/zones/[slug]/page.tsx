@@ -31,6 +31,7 @@ export default async function ZonePage({ params }: { params: Promise<{ slug: str
         {TABS.map((tab) => (
           <Link key={tab} href={`/zones/${zone.slug}/${tab}`} className={styles.card}>
             <div className={styles.cardHeader}>{TAB_LABELS[tab]}</div>
+            <div className={`${styles.cardImage} ${styles[`cardImage_${tab}`]}`} aria-hidden />
             <div className={styles.cardBody}>
               {tab === "approche" && (
                 <ul>

@@ -31,19 +31,24 @@
 .tabs {
   display: flex;
   align-items: flex-start;
-  gap: 48px;
+  gap: 32px;
   flex-wrap: wrap;
   justify-content: center;
   padding: 24px;
 }
 
 .card {
-  width: 300px;
+  width: 380px;
   border: 1px solid #fff;
   color: #fff;
   text-decoration: none;
   display: flex;
   flex-direction: column;
+  transition: transform 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
 }
 
 .cardHeader {
@@ -52,6 +57,25 @@
   border-bottom: 1px solid #fff;
   font-weight: 700;
   letter-spacing: 1px;
+}
+
+.cardImage {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid #fff;
+}
+
+.cardImage_approche {
+  background-image: linear-gradient(160deg, #1c2b3a 0%, #0a0f14 100%);
+}
+
+.cardImage_actualite {
+  background-image: linear-gradient(160deg, #3a1c1c 0%, #0f0a0a 100%);
+}
+
+.cardImage_analyse {
+  background-image: linear-gradient(160deg, #1c3a2a 0%, #0a140f 100%);
 }
 
 .cardBody {
