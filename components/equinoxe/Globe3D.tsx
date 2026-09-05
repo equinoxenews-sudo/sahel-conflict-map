@@ -11,9 +11,16 @@ interface GeoFeature {
   geometry: unknown;
 }
 
+function hexToRgba(hex: string, alpha: number): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 function colorForFeature(feature: GeoFeature): string {
   const risk = COUNTRY_RISK[feature.id];
-  return risk ? RISK_COLORS[risk.tier] : "rgba(255,255,255,0.06)";
+  return risk ? hexToRgba(RISK_COLORS[risk.tier], 0.45) : "rgba(255,255,255,0.06)";
 }
 
 export default function Globe3D() {
