@@ -3,6 +3,7 @@
 import "leaflet/dist/leaflet.css";
 import { CircleMarker, MapContainer, Popup, TileLayer } from "react-leaflet";
 import { CATEGORY_COLORS, type ConflictEvent, type EventCategory } from "@/types/event";
+import styles from "./Map.module.css";
 
 const SAHEL_CENTER: [number, number] = [15, 5];
 const DEFAULT_COLOR = "#999999";
@@ -20,6 +21,7 @@ export default function Map({ events }: MapProps) {
       style={{ height: "100%", width: "100%" }}
     >
       <TileLayer
+        className={styles.darkTiles}
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />

@@ -18,6 +18,11 @@ export default function MapView({ events }: MapViewProps) {
   const [country, setCountry] = useState("all");
   const [category, setCategory] = useState("all");
 
+  const countries = useMemo(
+    () => Array.from(new Set(events.map((e) => e.country))).sort(),
+    [events]
+  );
+
   const filteredEvents = useMemo(
     () =>
       events.filter((event) => {
@@ -31,6 +36,7 @@ export default function MapView({ events }: MapViewProps) {
   return (
     <div className={styles.container}>
       <Filters
+        countries={countries}
         country={country}
         category={category}
         onCountryChange={setCountry}

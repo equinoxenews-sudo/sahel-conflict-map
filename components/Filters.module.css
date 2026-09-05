@@ -17,7 +17,7 @@
   padding: 6px 8px;
   font-size: 13px;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid #444;
   background: var(--background);
   color: var(--foreground);
 }

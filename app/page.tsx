@@ -1,42 +1,39 @@
-import MapView from "@/components/MapView";
-import { supabase } from "@/lib/supabaseClient";
-import type { ConflictEvent } from "@/types/event";
+import Header from "@/components/equinoxe/Header";
+import RiskLegend from "@/components/equinoxe/RiskLegend";
+import WorldMapLoader from "@/components/equinoxe/WorldMapLoader";
 import styles from "./page.module.css";
 
-export const revalidate = 3600;
-
-async function getEvents(): Promise<ConflictEvent[]> {
-  try {
-    const { data, error } = await supabase
-      .from("conflict_events")
-      .select("*")
-      .order("event_date", { ascending: false })
-      .limit(5000);
-
-    if (error) {
-      console.error("Failed to load conflict_events:", error.message);
-      return [];
-    }
-
-    return data ?? [];
-  } catch (err) {
-    console.error("Failed to reach Supabase:", err);
-    return [];
-  }
-}
-
-export default async function Home() {
-  const events = await getEvents();
-
+export default function Home() {
   return (
     <main className={styles.main}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>Conflits au Sahel — Mali, Burkina Faso, Niger, Tchad</h1>
-        <p className={styles.subtitle}>Données ACLED, 30 derniers jours</p>
-      </header>
+      <Header />
+
+      <p className={styles.tagline}>
+        EQUINOXE News propose une analyse géopolitique indépendante de l&apos;actualité
+        internationale, fondée sur l&apos;OSINT et l&apos;étude des grands enjeux stratégiques
+        mondiaux.
+      </p>
+
       <div className={styles.mapArea}>
-        <MapView events={events} />
+        <WorldMapLoader />
       </div>
+
+      <div className={styles.legendBar}>
+        <RiskLegend />
+        <span className={styles.disclaimer}>
+          Indicateur de tendance illustratif — cliquez sur une zone du menu pour une analyse
+          détaillée
+        </span>
+      </div>
+
+      <footer className={styles.footer}>
+        <a href="#" aria-label="Instagram">
+          IG
+        </a>
+        <a href="#" aria-label="X">
+          X
+        </a>
+      </footer>
     </main>
   );
 }

@@ -13,9 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Carte des conflits au Sahel",
-  description:
-    "Carte interactive des événements de conflit au Mali, Burkina Faso, Niger et Tchad, à partir des données ACLED.",
+  title: "EQUINOXE News",
+  description: "Analyse géopolitique indépendante de l'actualité internationale.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

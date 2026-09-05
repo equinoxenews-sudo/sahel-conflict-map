@@ -1,0 +1,70 @@
+.main {
+  min-height: 100dvh;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px 16px 12px;
+}
+
+.hex img {
+  filter: brightness(0) invert(1);
+}
+
+.title {
+  color: #fff;
+  font-size: 28px;
+  letter-spacing: 4px;
+  margin: 0;
+}
+
+.notice {
+  text-align: center;
+  color: #999;
+  font-size: 13px;
+  margin: 0 16px 8px;
+}
+
+.tabs {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 24px;
+  flex: 1;
+}
+
+.card {
+  width: 260px;
+  border: 1px solid #fff;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid #fff;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.cardBody {
+  padding: 16px 20px;
+  font-size: 13px;
+  min-height: 120px;
+}
+
+.cardBody ul {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.8;
+}

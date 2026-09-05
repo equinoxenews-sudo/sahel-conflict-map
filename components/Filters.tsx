@@ -1,9 +1,10 @@
 "use client";
 
-import { EVENT_CATEGORIES, SAHEL_COUNTRIES } from "@/types/event";
+import { EVENT_CATEGORIES } from "@/types/event";
 import styles from "./Filters.module.css";
 
 interface FiltersProps {
+  countries: string[];
   country: string;
   category: string;
   onCountryChange: (value: string) => void;
@@ -11,6 +12,7 @@ interface FiltersProps {
 }
 
 export default function Filters({
+  countries,
   country,
   category,
   onCountryChange,
@@ -22,7 +24,7 @@ export default function Filters({
         Pays
         <select value={country} onChange={(e) => onCountryChange(e.target.value)}>
           <option value="all">Tous les pays</option>
-          {SAHEL_COUNTRIES.map((c) => (
+          {countries.map((c) => (
             <option key={c} value={c}>
               {c}
             </option>

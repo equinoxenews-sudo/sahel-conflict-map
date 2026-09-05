@@ -1,0 +1,17 @@
+.map {
+  position: absolute;
+  inset: 0;
+  background: #000;
+}
+
+.darkTiles {
+  filter: grayscale(1) brightness(0.35);
+}
+
+.tooltip {
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: 12px;
+  border-radius: 4px;
+}
