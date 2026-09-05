@@ -1,0 +1,20 @@
+À : mertcan.yilmaz@pcr.uu.se
+Objet : UCDP API Access Request
+
+Bonjour,
+
+Je développe Equinoxe News, un site indépendant d'analyse géopolitique
+(cartographie et suivi des conflits, actuellement centré sur le Sahel
+puis l'Afrique). Je souhaiterais obtenir un jeton d'accès à l'API UCDP
+GED pour intégrer vos données d'événements géoréférencés à une carte
+interactive.
+
+Nom complet : [votre nom]
+Affiliation : Equinoxe News (projet indépendant, en cours de création
+d'entreprise)
+Usage prévu : affichage d'événements de violence organisée
+géoréférencés sur une carte interactive publique, mise à jour
+périodique via votre API.
+
+Merci d'avance,
+[votre nom]

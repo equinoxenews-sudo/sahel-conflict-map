@@ -43,8 +43,18 @@ export default function Map({ events }: MapProps) {
               <strong>{event.category}</strong>
               <br />
               {event.country} — {event.event_date}
-              <br />
-              Fatalités : {event.fatalities}
+              {event.notes ? (
+                <>
+                  <br />
+                  {event.notes}
+                </>
+              ) : null}
+              {event.fatalities > 0 ? (
+                <>
+                  <br />
+                  Fatalités : {event.fatalities}
+                </>
+              ) : null}
               {event.source ? (
                 <>
                   <br />
