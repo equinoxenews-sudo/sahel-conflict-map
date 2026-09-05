@@ -8,13 +8,15 @@ export default function Ticker() {
   return (
     <div className={styles.ticker}>
       <span className={styles.badge}>LATEST</span>
-      <div className={styles.track}>
-        {items.map((item, i) => (
-          <span key={`${item.title}-${i}`} className={styles.item}>
-            {item.title}
-            <span className={styles.dot}>•</span>
-          </span>
-        ))}
+      <div className={styles.trackWrapper}>
+        <div className={styles.track}>
+          {items.map((item, i) => (
+            <span key={`${item.title}-${i}`} className={styles.item}>
+              {item.title}
+              <span className={styles.dot}>•</span>
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );
