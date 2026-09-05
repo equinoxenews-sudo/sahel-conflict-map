@@ -10,8 +10,8 @@ export default function Header() {
         <Image
           src="/equinoxe/logo-globe.png"
           alt=""
-          width={34}
-          height={34}
+          width={46}
+          height={46}
           className={styles.logoGlobe}
         />
         <span className={styles.wordmark}>EQUINOXE</span>
