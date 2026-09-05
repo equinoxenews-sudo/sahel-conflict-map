@@ -11,6 +11,7 @@ export const ZONES: Zone[] = [
   { slug: "afrique", name: "Afrique", icon: "/equinoxe/logo-afrique.png", active: true },
   { slug: "indopacifique", name: "Indopacifique", icon: "/equinoxe/logo-indopacifique.png", active: false },
   { slug: "amerique-du-sud", name: "Amérique du Sud", icon: "/equinoxe/logo-amerique-sud.png", active: false },
+  { slug: "tracking", name: "Tracking", icon: "/equinoxe/logo-tracking.png", active: true },
 ];
 
 export const TABS = ["approche", "actualite", "analyse"] as const;

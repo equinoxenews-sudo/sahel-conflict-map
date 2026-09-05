@@ -1,0 +1,18 @@
+.main {
+  min-height: 100dvh;
+  background: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.topBar {
+  padding: 16px 24px;
+  border-bottom: 1px solid #222;
+}
+
+.title {
+  font-size: 16px;
+  letter-spacing: 2px;
+  margin: 0;
+}
