@@ -23,7 +23,16 @@ function FitToEvents({ events }: { events: ConflictEvent[] }) {
   useEffect(() => {
     if (events.length === 0) return;
     const bounds: [number, number][] = events.map((e) => [e.latitude, e.longitude]);
-    map.fitBounds(bounds, { padding: [60, 60], maxZoom: 6 });
+
+    // Force Leaflet to re-measure the container before fitting — if the
+    // flex layout hasn't finished sizing it yet, fitBounds computes the
+    // zoom against a stale (often near-zero) size and the result is wrong.
+    const id = requestAnimationFrame(() => {
+      map.invalidateSize();
+      map.fitBounds(bounds, { padding: [60, 60], maxZoom: 6 });
+    });
+
+    return () => cancelAnimationFrame(id);
   }, [map, events]);
 
   return null;
