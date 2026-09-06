@@ -1,7 +1,8 @@
 "use client";
 
 import "leaflet/dist/leaflet.css";
-import { CircleMarker, MapContainer, Popup, TileLayer } from "react-leaflet";
+import { useEffect } from "react";
+import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from "react-leaflet";
 import { CATEGORY_COLORS, type ConflictEvent, type EventCategory } from "@/types/event";
 import styles from "./Map.module.css";
 
@@ -12,18 +13,31 @@ interface MapProps {
   events: ConflictEvent[];
 }
 
-export default function Map({ events }: MapProps) {
-  const bounds: [number, number][] | undefined =
-    events.length > 0 ? events.map((e) => [e.latitude, e.longitude]) : undefined;
+// react-leaflet's declarative `bounds` prop can compute a bogus view when
+// applied before the container has its final layout size. Fitting bounds
+// imperatively once the map instance is mounted (and already sized) is the
+// reliable pattern.
+function FitToEvents({ events }: { events: ConflictEvent[] }) {
+  const map = useMap();
 
+  useEffect(() => {
+    if (events.length === 0) return;
+    const bounds: [number, number][] = events.map((e) => [e.latitude, e.longitude]);
+    map.fitBounds(bounds, { padding: [60, 60], maxZoom: 6 });
+  }, [map, events]);
+
+  return null;
+}
+
+export default function Map({ events }: MapProps) {
   return (
     <MapContainer
-      {...(bounds
-        ? { bounds, boundsOptions: { padding: [60, 60] as [number, number], maxZoom: 6 } }
-        : { center: SAHEL_CENTER, zoom: 5 })}
+      center={SAHEL_CENTER}
+      zoom={5}
       scrollWheelZoom
       style={{ height: "100%", width: "100%" }}
     >
+      <FitToEvents events={events} />
       <TileLayer
         className={styles.darkTiles}
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
