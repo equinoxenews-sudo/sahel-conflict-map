@@ -1,36 +1,16 @@
 /**
- * Curated list of open, reputable sources to restrict article search to
- * (via GDELT DOC 2.0's `domain:` filter), rather than pulling from
- * GDELT's entire global index indiscriminately.
+ * Curated, per-zone lists of open, reputable domains to restrict article
+ * search to (via GDELT DOC 2.0's `domain:` filter). GDELT DOC rejects
+ * overly long queries ("Your query was too short or too long"), so each
+ * zone gets a short, regionally relevant list rather than one shared list
+ * of every source for every query.
  */
-export const NEWS_SOURCE_DOMAINS = [
-  // Wire services / general international
-  "reuters.com",
-  "apnews.com",
-  "france24.com",
-  "bbc.com",
-  "aljazeera.com",
+const GENERAL_WIRES = ["reuters.com", "apnews.com", "bbc.com", "aljazeera.com", "france24.com"];
 
-  // Conflict / security specialists
-  "longwarjournal.org",
-  "thedefensepost.com",
-  "criticalthreats.org",
-  "understandingwar.org",
-
-  // Africa focus
-  "jeuneafrique.com",
-  "theafricareport.com",
-  "africanews.com",
-  "radiookapi.net",
-
-  // Middle East focus
-  "middleeasteye.net",
-  "al-monitor.com",
-
-  // Latin America focus
-  "insightcrime.org",
-  "riotimesonline.com",
-
-  // Asia-Pacific focus
-  "taipeitimes.com",
-];
+export const ZONE_NEWS_DOMAINS: Record<string, string[]> = {
+  afrique: [...GENERAL_WIRES, "jeuneafrique.com", "africanews.com", "radiookapi.net"],
+  europe: [...GENERAL_WIRES, "understandingwar.org"],
+  "moyen-orient": [...GENERAL_WIRES, "middleeasteye.net", "al-monitor.com"],
+  indopacifique: [...GENERAL_WIRES, "taipeitimes.com"],
+  "amerique-du-sud": [...GENERAL_WIRES, "insightcrime.org", "riotimesonline.com"],
+};

@@ -1,5 +1,3 @@
-import { NEWS_SOURCE_DOMAINS } from "./newsSources";
-
 const DOC_API_URL = "https://api.gdeltproject.org/api/v2/doc/doc";
 
 export interface DocArticle {
@@ -28,13 +26,17 @@ function quoteIfMultiWord(term: string): string {
 
 /**
  * Searches GDELT DOC 2.0 for recent articles matching any of `keywords`,
- * restricted to NEWS_SOURCE_DOMAINS. GDELT asks callers to space requests
- * at least 5s apart — this function makes exactly one request, callers
- * are responsible for pacing across multiple calls.
+ * restricted to `domains`. GDELT DOC rejects overly long queries ("Your
+ * query was too short or too long") — keep `domains` short (a handful of
+ * sources), not a giant shared list.
  */
-export async function searchArticles(keywords: string[], maxRecords = 10): Promise<DocArticle[]> {
+export async function searchArticles(
+  keywords: string[],
+  domains: string[],
+  maxRecords = 10
+): Promise<DocArticle[]> {
   const keywordClause = `(${keywords.map(quoteIfMultiWord).join(" OR ")})`;
-  const domainClause = `(${NEWS_SOURCE_DOMAINS.map((d) => `domain:${d}`).join(" OR ")})`;
+  const domainClause = `(${domains.map((d) => `domain:${d}`).join(" OR ")})`;
   const query = `${keywordClause} ${domainClause}`;
 
   const params = new URLSearchParams({
@@ -69,7 +71,7 @@ export async function searchArticles(keywords: string[], maxRecords = 10): Promi
   try {
     data = text ? JSON.parse(text) : {};
   } catch {
-    throw new Error(`GDELT DOC API returned non-JSON (likely rate-limited): ${text.slice(0, 200)}`);
+    throw new Error(`GDELT DOC API returned a non-JSON response: ${text.slice(0, 200)}`);
   }
 
   return (data.articles ?? []).map((a) => ({

@@ -1,4 +1,5 @@
 import { searchArticles } from "./gdeltDoc";
+import { ZONE_NEWS_DOMAINS } from "./newsSources";
 import { getSupabaseAdmin } from "./supabaseAdmin";
 import { ZONE_KEYWORDS } from "./zoneKeywords";
 
@@ -15,7 +16,8 @@ async function syncZone(
   keywords: string[]
 ): Promise<{ zoneSlug: string; count: number }> {
   const supabase = getSupabaseAdmin();
-  const articles = await searchArticles(keywords, 5);
+  const domains = ZONE_NEWS_DOMAINS[zoneSlug] ?? [];
+  const articles = await searchArticles(keywords, domains, 5);
 
   const rows = articles.map((a) => ({
     zone_slug: zoneSlug,
