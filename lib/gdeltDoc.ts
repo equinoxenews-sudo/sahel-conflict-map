@@ -53,7 +53,7 @@ export async function searchArticles(keywords: string[], maxRecords = 10): Promi
   // timeout, and there's no retry-on-429: a zone that gets rate-limited or
   // times out is just skipped for today's run and picked up tomorrow.
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 8000);
+  const timeoutId = setTimeout(() => controller.abort(), 20000);
   let res: Response;
   try {
     res = await fetch(`${DOC_API_URL}?${params.toString()}`, { signal: controller.signal });
