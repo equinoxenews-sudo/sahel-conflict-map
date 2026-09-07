@@ -46,11 +46,19 @@ export async function searchArticles(keywords: string[], maxRecords = 10): Promi
     timespan: "3days",
   });
 
-  let res = await fetch(`${DOC_API_URL}?${params.toString()}`);
-  if (res.status === 429) {
-    // GDELT asks for >=5s between requests; back off once and retry.
-    await new Promise((r) => setTimeout(r, 8000));
-    res = await fetch(`${DOC_API_URL}?${params.toString()}`);
+  // api.gdeltproject.org (unlike the CDN-backed bulk export host) is a
+  // small server that is sometimes slow or unresponsive. With 5 zones to
+  // query in one ~60s function budget, a single hung/slow request must
+  // not be allowed to eat the whole budget — so this is a hard per-request
+  // timeout, and there's no retry-on-429: a zone that gets rate-limited or
+  // times out is just skipped for today's run and picked up tomorrow.
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+  let res: Response;
+  try {
+    res = await fetch(`${DOC_API_URL}?${params.toString()}`, { signal: controller.signal });
+  } finally {
+    clearTimeout(timeoutId);
   }
   if (!res.ok) {
     throw new Error(`GDELT DOC API error: ${res.status} ${res.statusText}`);
