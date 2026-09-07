@@ -7,11 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "sync:acled": "tsx scripts/fetch-acled.ts"
+    "sync:acled": "tsx scripts/fetch-acled.ts",
+    "sync:gdelt": "tsx scripts/fetch-gdelt.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.115.0",
     "globe.gl": "^2.46.2",
+    "jszip": "^3.10.1",
     "leaflet": "^1.9.4",
     "next": "16.3.4",
     "react": "19.2.8",
