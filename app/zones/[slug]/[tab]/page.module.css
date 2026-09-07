@@ -69,6 +69,10 @@
   margin: 6px 0;
 }
 
+.newsTitle a:hover {
+  text-decoration: underline;
+}
+
 .newsSummary {
   font-size: 13px;
   color: #ccc;

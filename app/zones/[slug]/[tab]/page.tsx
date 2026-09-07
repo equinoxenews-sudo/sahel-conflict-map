@@ -10,6 +10,13 @@ import styles from "./page.module.css";
 
 export const revalidate = 3600;
 
+interface Article {
+  title: string;
+  url: string;
+  domain: string | null;
+  published_at: string | null;
+}
+
 async function getZoneEvents(countries: string[]): Promise<ConflictEvent[]> {
   try {
     const { data, error } = await supabase
@@ -31,6 +38,34 @@ async function getZoneEvents(countries: string[]): Promise<ConflictEvent[]> {
   }
 }
 
+async function getZoneArticles(zoneSlug: string): Promise<Article[]> {
+  try {
+    const { data, error } = await supabase
+      .from("articles")
+      .select("title, url, domain, published_at")
+      .eq("zone_slug", zoneSlug)
+      .order("published_at", { ascending: false })
+      .limit(6);
+
+    if (error) {
+      console.error("Failed to load articles:", error.message);
+      return [];
+    }
+
+    return data ?? [];
+  } catch (err) {
+    console.error("Failed to reach Supabase:", err);
+    return [];
+  }
+}
+
+function formatDate(iso: string | null): string {
+  if (!iso) return "";
+  return new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" }).format(
+    new Date(iso)
+  );
+}
+
 export default async function ZoneTabPage({
   params,
 }: {
@@ -41,6 +76,8 @@ export default async function ZoneTabPage({
   if (!zone || !TABS.includes(tab as Tab)) notFound();
 
   const isLiveActualite = zone.active && tab === "actualite" && zone.countries.length > 0;
+  const articles = isLiveActualite ? await getZoneArticles(zone.slug) : [];
+  const useRealArticles = articles.length > 0;
   const newsItems = ZONE_NEWS[zone.slug] ?? [];
 
   return (
@@ -59,13 +96,25 @@ export default async function ZoneTabPage({
       {isLiveActualite ? (
         <div className={styles.splitLayout}>
           <div className={styles.newsList}>
-            {newsItems.map((item) => (
-              <article key={item.title} className={styles.newsItem}>
-                <span className={styles.newsDate}>{item.date}</span>
-                <h2 className={styles.newsTitle}>{item.title}</h2>
-                <p className={styles.newsSummary}>{item.summary}</p>
-              </article>
-            ))}
+            {useRealArticles
+              ? articles.map((a) => (
+                  <article key={a.url} className={styles.newsItem}>
+                    <span className={styles.newsDate}>{formatDate(a.published_at)}</span>
+                    <h2 className={styles.newsTitle}>
+                      <a href={a.url} target="_blank" rel="noopener noreferrer">
+                        {a.title}
+                      </a>
+                    </h2>
+                    <p className={styles.newsSummary}>Source : {a.domain}</p>
+                  </article>
+                ))
+              : newsItems.map((item) => (
+                  <article key={item.title} className={styles.newsItem}>
+                    <span className={styles.newsDate}>{item.date}</span>
+                    <h2 className={styles.newsTitle}>{item.title}</h2>
+                    <p className={styles.newsSummary}>{item.summary}</p>
+                  </article>
+                ))}
           </div>
           <div className={styles.mapArea}>
             <MapView events={await getZoneEvents(zone.countries)} />
