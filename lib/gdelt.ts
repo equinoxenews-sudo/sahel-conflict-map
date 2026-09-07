@@ -1,6 +1,18 @@
 import JSZip from "jszip";
 
 const LAST_UPDATE_URL = "http://data.gdeltproject.org/gdeltv2/lastupdate.txt";
+const GDELT_BASE_URL = "http://data.gdeltproject.org/gdeltv2";
+
+// GDELT publishes a new 15-minute Event export at :00/:15/:30/:45. On a
+// Vercel Hobby plan the sync cron can only run once a day, so a single
+// 15-minute file per run would cover a negligible sliver of the day.
+// Instead each run walks back this many hours (in 15-min steps) from the
+// latest available file. This still leaves a real daily coverage gap
+// (events outside this window are never ingested) — a Pro plan cron
+// running hourly would close it, but that's a paid-plan tradeoff.
+const LOOKBACK_HOURS = 6;
+const FILES_PER_RUN = LOOKBACK_HOURS * 4;
+const FETCH_CONCURRENCY = 8;
 
 // 0-indexed column positions in the GDELT 2.0 Event export, per the
 // official codebook (http://data.gdeltproject.org/documentation/
@@ -51,6 +63,33 @@ async function getLatestExportUrl(): Promise<string> {
   return url;
 }
 
+/** Extracts the YYYYMMDDHHMMSS timestamp from a GDELT export filename/URL. */
+function extractTimestamp(url: string): string {
+  const match = url.match(/(\d{14})\.export\.CSV\.zip$/);
+  if (!match) {
+    throw new Error(`Could not extract a timestamp from GDELT URL: ${url}`);
+  }
+  return match[1];
+}
+
+function timestampToDate(ts: string): Date {
+  const y = Number(ts.slice(0, 4));
+  const mo = Number(ts.slice(4, 6)) - 1;
+  const d = Number(ts.slice(6, 8));
+  const h = Number(ts.slice(8, 10));
+  const mi = Number(ts.slice(10, 12));
+  const s = Number(ts.slice(12, 14));
+  return new Date(Date.UTC(y, mo, d, h, mi, s));
+}
+
+function dateToTimestamp(date: Date): string {
+  const pad = (n: number, len = 2) => String(n).padStart(len, "0");
+  return (
+    `${date.getUTCFullYear()}${pad(date.getUTCMonth() + 1)}${pad(date.getUTCDate())}` +
+    `${pad(date.getUTCHours())}${pad(date.getUTCMinutes())}${pad(date.getUTCSeconds())}`
+  );
+}
+
 function parseRow(fields: string[]): GdeltEvent | null {
   const lat = Number(fields[COL.ACTION_GEO_LAT]);
   const lon = Number(fields[COL.ACTION_GEO_LONG]);
@@ -70,13 +109,8 @@ function parseRow(fields: string[]): GdeltEvent | null {
   };
 }
 
-/**
- * Downloads and parses the latest GDELT 15-minute Event export (a single
- * file — this is a rolling/incremental feed, not a historical backfill).
- */
-export async function fetchLatestGdeltEvents(): Promise<GdeltEvent[]> {
-  const url = await getLatestExportUrl();
-
+/** Downloads one 15-minute export .zip and parses its events. */
+async function fetchAndParseExport(url: string): Promise<GdeltEvent[]> {
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error(`Failed to download GDELT export (${url}): ${res.status} ${res.statusText}`);
@@ -98,4 +132,53 @@ export async function fetchLatestGdeltEvents(): Promise<GdeltEvent[]> {
     if (event) events.push(event);
   }
   return events;
+}
+
+async function mapWithConcurrency<T, R>(
+  items: T[],
+  limit: number,
+  fn: (item: T) => Promise<R>
+): Promise<R[]> {
+  const results: R[] = new Array(items.length);
+  let next = 0;
+
+  async function worker() {
+    while (next < items.length) {
+      const i = next++;
+      results[i] = await fn(items[i]);
+    }
+  }
+
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
+  return results;
+}
+
+/**
+ * Downloads and parses the last ~LOOKBACK_HOURS of GDELT 15-minute Event
+ * exports. Files that fail to download or parse are skipped (logged, not
+ * fatal) rather than failing the whole sync — GDELT occasionally has gaps
+ * or slow-to-publish files.
+ */
+export async function fetchLatestGdeltEvents(): Promise<GdeltEvent[]> {
+  const latestUrl = await getLatestExportUrl();
+  const latestTimestamp = extractTimestamp(latestUrl);
+  const latestDate = timestampToDate(latestTimestamp);
+
+  const urls: string[] = [];
+  for (let i = 0; i < FILES_PER_RUN; i++) {
+    const d = new Date(latestDate.getTime() - i * 15 * 60 * 1000);
+    const ts = dateToTimestamp(d);
+    urls.push(`${GDELT_BASE_URL}/${ts}.export.CSV.zip`);
+  }
+
+  const batches = await mapWithConcurrency(urls, FETCH_CONCURRENCY, async (url) => {
+    try {
+      return await fetchAndParseExport(url);
+    } catch (err) {
+      console.error(`Skipping GDELT file ${url}:`, err);
+      return [] as GdeltEvent[];
+    }
+  });
+
+  return batches.flat();
 }
