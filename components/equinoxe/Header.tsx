@@ -26,6 +26,14 @@ export default function Header() {
             <span className={styles.zoneLabel}>{zone.name}</span>
           </Link>
         ))}
+        <Link href="/mon-espace" className={styles.zoneLink}>
+          <span className={styles.hex}>
+            <span className={styles.emojiIcon} aria-hidden>
+              🗂️
+            </span>
+          </span>
+          <span className={styles.zoneLabel}>Mon espace</span>
+        </Link>
       </nav>
 
       <div className={styles.actions}>
@@ -37,10 +45,10 @@ export default function Header() {
           <span className={styles.iconGlyph}>?</span>
           <span className={styles.zoneLabel}>A propos</span>
         </button>
-        <button type="button" className={styles.iconBtn} aria-label="Log in">
+        <Link href="/mon-espace" className={styles.iconBtn} aria-label="Log in">
           <span className={styles.iconGlyph}>&#128100;</span>
           <span className={styles.zoneLabel}>Log In</span>
-        </button>
+        </Link>
         <div className={styles.search}>
           <input type="search" placeholder="Rechercher" disabled />
         </div>

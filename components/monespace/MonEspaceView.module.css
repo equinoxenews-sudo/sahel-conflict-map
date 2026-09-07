@@ -1,0 +1,123 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 24px 24px;
+  flex: 1;
+  min-height: 0;
+}
+
+.zoneLabel {
+  color: #888;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.topRow {
+  display: flex;
+  gap: 16px;
+  min-height: 420px;
+  flex: 1;
+}
+
+.mapArea {
+  flex: 2;
+  min-width: 0;
+  border: 1px solid #fff;
+  position: relative;
+}
+
+.middleColumn {
+  flex: 1;
+  min-width: 220px;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.todoArea {
+  flex: 1.4;
+  min-width: 260px;
+}
+
+.bottomRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 1.6fr;
+  gap: 16px;
+}
+
+.articleCard {
+  border: 1px solid #fff;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.articleTag {
+  align-self: flex-start;
+  background: #1e3a5f;
+  color: #9ec5ff;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.articleDate {
+  font-size: 10px;
+  color: #888;
+}
+
+.articleTitle {
+  font-size: 14px;
+  margin: 2px 0 4px;
+  line-height: 1.35;
+}
+
+.articleSummary {
+  font-size: 12px;
+  color: #bbb;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.summaryCard {
+  border: 1px solid #fff;
+  padding: 14px 16px;
+}
+
+.summaryTitle {
+  font-size: 13px;
+  margin: 0 0 8px;
+  letter-spacing: 0.5px;
+}
+
+.summaryText {
+  font-size: 13px;
+  color: #ccc;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 1100px) {
+  .topRow {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .middleColumn {
+    max-width: none;
+  }
+
+  .mapArea {
+    min-height: 320px;
+  }
+
+  .bottomRow {
+    grid-template-columns: 1fr;
+  }
+}

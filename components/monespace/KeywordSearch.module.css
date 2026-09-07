@@ -1,0 +1,45 @@
+.wrapper {
+  border: 1px solid #fff;
+  padding: 14px 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+.input {
+  background: #000;
+  border: 1px solid #555;
+  color: #fff;
+  padding: 8px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #fff;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #ddd;
+  cursor: pointer;
+}
+
+.item input {
+  accent-color: #e53935;
+  width: 14px;
+  height: 14px;
+}

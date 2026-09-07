@@ -1,0 +1,40 @@
+.wrapper {
+  border: 1px solid #fff;
+  padding: 14px 16px;
+}
+
+.heading {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ccc;
+  margin: 0 0 10px;
+  text-align: center;
+}
+
+.bar {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #e53935, #fdd835, #43a047);
+}
+
+.cursor {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #000;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 1px #fff;
+}
+
+.labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #888;
+  margin-top: 8px;
+}

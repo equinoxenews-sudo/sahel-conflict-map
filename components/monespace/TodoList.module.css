@@ -1,0 +1,88 @@
+.wrapper {
+  border: 1px solid #fff;
+  padding: 14px 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.heading {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ccc;
+  margin: 0;
+}
+
+.inputRow {
+  display: flex;
+}
+
+.input {
+  flex: 1;
+  background: #000;
+  border: 1px solid #555;
+  color: #fff;
+  padding: 8px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #fff;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: #ddd;
+}
+
+.itemLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.itemLabel input {
+  accent-color: #43a047;
+  flex-shrink: 0;
+}
+
+.done {
+  text-decoration: line-through;
+  color: #777;
+}
+
+.remove {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.remove:hover {
+  color: #e53935;
+}
+
+.empty {
+  color: #666;
+  font-size: 12px;
+}
