@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { COUNTRY_RISK, RISK_COLORS } from "@/lib/countryRisk";
+import { RISK_COLORS, type CountryRisk } from "@/lib/countryRisk";
 import styles from "./Globe3D.module.css";
 
 interface GeoFeature {
@@ -12,14 +12,18 @@ interface GeoFeature {
   geometry: unknown;
 }
 
+interface Globe3DProps {
+  countryRisk: Record<string, CountryRisk>;
+}
+
 // Some country polygons in the source GeoJSON have complex/concave shapes
 // that three-globe's cap triangulation can mis-wind, which shows up as
 // black flickering patches (unlit backfaces). MeshBasicMaterial (unlit) +
 // DoubleSide avoids that regardless of winding order.
 const materialCache = new Map<string, THREE.Material>();
 
-function materialForFeature(feature: GeoFeature): THREE.Material {
-  const risk = COUNTRY_RISK[feature.id];
+function materialForFeature(feature: GeoFeature, countryRisk: Record<string, CountryRisk>): THREE.Material {
+  const risk = countryRisk[feature.id];
   const color = risk ? RISK_COLORS[risk.tier] : "#ffffff";
   const opacity = risk ? 0.45 : 0.05;
   const key = `${color}-${opacity}`;
@@ -38,7 +42,7 @@ function materialForFeature(feature: GeoFeature): THREE.Material {
   return material;
 }
 
-export default function Globe3D() {
+export default function Globe3D({ countryRisk }: Globe3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -61,14 +65,14 @@ export default function Globe3D() {
           .atmosphereColor("#2a4a75")
           .atmosphereAltitude(0.15)
           .polygonsData(geoData.features)
-          .polygonCapMaterial((f: unknown) => materialForFeature(f as GeoFeature))
+          .polygonCapMaterial((f: unknown) => materialForFeature(f as GeoFeature, countryRisk))
           .polygonSideColor(() => "rgba(0, 0, 0, 0)")
           .polygonStrokeColor(() => "rgba(255,255,255,0.3)")
           .polygonAltitude(0.008)
           .polygonsTransitionDuration(0)
           .polygonLabel((f: unknown) => {
             const feat = f as GeoFeature;
-            const risk = COUNTRY_RISK[feat.id];
+            const risk = countryRisk[feat.id];
             const name = feat.properties?.name ?? feat.id;
             return `<div class="${styles.tooltip}"><strong>${name}</strong>${
               risk ? `<br/>${risk.label}` : ""
@@ -96,7 +100,7 @@ export default function Globe3D() {
       cleanupResize?.();
       container.innerHTML = "";
     };
-  }, []);
+  }, [countryRisk]);
 
   return <div ref={containerRef} className={styles.globeContainer} />;
 }

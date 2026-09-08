@@ -1,0 +1,98 @@
+.container {
+  padding: 12px 16px 14px;
+  border-bottom: 1px solid #333;
+  user-select: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.rangeLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--foreground);
+  letter-spacing: 0.02em;
+}
+
+.resetButton {
+  font-size: 11px;
+  color: #999;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 999px;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+
+.resetButton:hover {
+  color: var(--foreground);
+  border-color: #777;
+}
+
+.track {
+  position: relative;
+  height: 20px;
+}
+
+.trackBg {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  transform: translateY(-50%);
+  background: #333;
+  border-radius: 2px;
+}
+
+.selectedRange {
+  position: absolute;
+  top: 50%;
+  height: 16px;
+  transform: translateY(-50%);
+  cursor: grab;
+  touch-action: none;
+  z-index: 1;
+}
+
+.selectedRange::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  transform: translateY(-50%);
+  background: #e53935;
+  border-radius: 2px;
+}
+
+.selectedRange:active {
+  cursor: grabbing;
+}
+
+.handle {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border: 2px solid #e53935;
+  border-radius: 50%;
+  cursor: ew-resize;
+  touch-action: none;
+  z-index: 2;
+}
+
+.boundsLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 10px;
+  color: #777;
+}
