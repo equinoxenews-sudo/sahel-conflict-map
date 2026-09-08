@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { syncGdeltEvents } from "@/lib/syncGdelt";
 
@@ -14,6 +15,11 @@ export async function GET(request: Request) {
 
   try {
     const summary = await syncGdeltEvents();
+    // The homepage (globe risk colors) and zone pages (map points) are
+    // ISR-cached (revalidate = 3600) — mark them stale so the very next
+    // visit picks up the new events instead of waiting up to an hour.
+    revalidatePath("/");
+    revalidatePath("/zones/[slug]/[tab]", "page");
     return NextResponse.json({ ok: true, ...summary });
   } catch (error) {
     console.error("GDELT sync failed", error);

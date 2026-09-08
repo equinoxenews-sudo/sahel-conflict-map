@@ -1,3 +1,4 @@
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { syncArticles } from "@/lib/syncArticles";
 
@@ -14,6 +15,11 @@ export async function GET(request: Request) {
 
   try {
     const summary = await syncArticles();
+    // The homepage and zone pages are ISR-cached (revalidate = 3600) — mark
+    // them stale so the very next visit picks up the new articles/briefs
+    // instead of waiting up to an hour.
+    revalidatePath("/");
+    revalidatePath("/zones/[slug]/[tab]", "page");
     return NextResponse.json({ ok: true, summary });
   } catch (error) {
     console.error("Article sync failed", error);
