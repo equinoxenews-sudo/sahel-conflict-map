@@ -54,6 +54,21 @@
   margin: 0;
 }
 
+.sources {
+  font-size: 10px;
+  color: #777;
+  margin: 6px 0 0;
+}
+
+.sources a {
+  color: #777;
+}
+
+.sources a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
 @media (max-width: 900px) {
   .column {
     min-width: 0;

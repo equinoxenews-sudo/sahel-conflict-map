@@ -7,9 +7,30 @@ import Ticker from "@/components/equinoxe/Ticker";
 import { computeCountryRiskFromEvents } from "@/lib/computeCountryRisk";
 import { supabase } from "@/lib/supabaseClient";
 import type { Article } from "@/types/article";
+import type { ZoneBrief } from "@/types/brief";
 import styles from "./page.module.css";
 
 export const revalidate = 3600;
+
+async function getHomeBriefs(): Promise<ZoneBrief[]> {
+  try {
+    const { data, error } = await supabase
+      .from("zone_briefs")
+      .select("zone_slug, title, summary, source_urls, source_domains, published_at")
+      .order("published_at", { ascending: false })
+      .limit(8);
+
+    if (error) {
+      console.error("Failed to load home briefs:", error.message);
+      return [];
+    }
+
+    return data ?? [];
+  } catch (err) {
+    console.error("Failed to reach Supabase:", err);
+    return [];
+  }
+}
 
 async function getHomeArticles(): Promise<Article[]> {
   try {
@@ -32,10 +53,11 @@ async function getHomeArticles(): Promise<Article[]> {
 }
 
 export default async function Home() {
-  const [countryRisk, articles] = await Promise.all([
+  const [countryRisk, briefs] = await Promise.all([
     computeCountryRiskFromEvents(),
-    getHomeArticles(),
+    getHomeBriefs(),
   ]);
+  const articles = briefs.length === 0 ? await getHomeArticles() : [];
 
   return (
     <main className={styles.main}>
@@ -43,7 +65,7 @@ export default async function Home() {
       <Ticker />
 
       <div className={styles.body}>
-        <HomeNewsColumn articles={articles} />
+        <HomeNewsColumn briefs={briefs} articles={articles} />
 
         <div className={styles.globeColumn}>
           <div className={styles.mapArea}>

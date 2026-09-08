@@ -81,6 +81,21 @@
   margin: 0;
 }
 
+.newsSources {
+  font-size: 11px;
+  color: #888;
+  margin: 8px 0 0;
+}
+
+.newsSources a {
+  color: #888;
+}
+
+.newsSources a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
 .placeholder {
   flex: 1;
   display: flex;

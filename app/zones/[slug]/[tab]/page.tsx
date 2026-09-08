@@ -7,6 +7,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { ZONE_NEWS } from "@/lib/zoneNews";
 import { getZone, TAB_LABELS, TABS, type Tab } from "@/lib/zones";
 import type { Article } from "@/types/article";
+import type { ZoneBrief } from "@/types/brief";
 import type { ConflictEvent } from "@/types/event";
 import styles from "./page.module.css";
 
@@ -23,6 +24,27 @@ async function getZoneEvents(countries: string[]): Promise<ConflictEvent[]> {
 
     if (error) {
       console.error("Failed to load conflict_events:", error.message);
+      return [];
+    }
+
+    return data ?? [];
+  } catch (err) {
+    console.error("Failed to reach Supabase:", err);
+    return [];
+  }
+}
+
+async function getZoneBriefs(zoneSlug: string): Promise<ZoneBrief[]> {
+  try {
+    const { data, error } = await supabase
+      .from("zone_briefs")
+      .select("zone_slug, title, summary, source_urls, source_domains, published_at")
+      .eq("zone_slug", zoneSlug)
+      .order("published_at", { ascending: false })
+      .limit(6);
+
+    if (error) {
+      console.error("Failed to load zone_briefs:", error.message);
       return [];
     }
 
@@ -64,8 +86,10 @@ export default async function ZoneTabPage({
   if (!zone || !TABS.includes(tab as Tab)) notFound();
 
   const isLiveActualite = zone.active && tab === "actualite" && zone.countries.length > 0;
-  const articles = isLiveActualite ? await getZoneArticles(zone.slug) : [];
-  const useRealArticles = articles.length > 0;
+  const briefs = isLiveActualite ? await getZoneBriefs(zone.slug) : [];
+  const articles = isLiveActualite && briefs.length === 0 ? await getZoneArticles(zone.slug) : [];
+  const useBriefs = briefs.length > 0;
+  const useRealArticles = !useBriefs && articles.length > 0;
   const newsItems = ZONE_NEWS[zone.slug] ?? [];
 
   return (
@@ -84,25 +108,44 @@ export default async function ZoneTabPage({
       {isLiveActualite ? (
         <div className={styles.splitLayout}>
           <div className={styles.newsList}>
-            {useRealArticles
-              ? articles.map((a) => (
-                  <article key={a.url} className={styles.newsItem}>
-                    <span className={styles.newsDate}>{formatDate(a.published_at)}</span>
-                    <h2 className={styles.newsTitle}>
-                      <a href={a.url} target="_blank" rel="noopener noreferrer">
-                        {a.title}
-                      </a>
-                    </h2>
-                    <p className={styles.newsSummary}>Source : {a.domain}</p>
+            {useBriefs
+              ? briefs.map((b) => (
+                  <article key={`${b.title}-${b.published_at}`} className={styles.newsItem}>
+                    <span className={styles.newsDate}>{formatDate(b.published_at)}</span>
+                    <h2 className={styles.newsTitle}>{b.title}</h2>
+                    <p className={styles.newsSummary}>{b.summary}</p>
+                    <p className={styles.newsSources}>
+                      Sources :{" "}
+                      {b.source_urls.map((url, i) => (
+                        <span key={url}>
+                          {i > 0 && ", "}
+                          <a href={url} target="_blank" rel="noopener noreferrer">
+                            {b.source_domains[i] ?? new URL(url).hostname}
+                          </a>
+                        </span>
+                      ))}
+                    </p>
                   </article>
                 ))
-              : newsItems.map((item) => (
-                  <article key={item.title} className={styles.newsItem}>
-                    <span className={styles.newsDate}>{item.date}</span>
-                    <h2 className={styles.newsTitle}>{item.title}</h2>
-                    <p className={styles.newsSummary}>{item.summary}</p>
-                  </article>
-                ))}
+              : useRealArticles
+                ? articles.map((a) => (
+                    <article key={a.url} className={styles.newsItem}>
+                      <span className={styles.newsDate}>{formatDate(a.published_at)}</span>
+                      <h2 className={styles.newsTitle}>
+                        <a href={a.url} target="_blank" rel="noopener noreferrer">
+                          {a.title}
+                        </a>
+                      </h2>
+                      <p className={styles.newsSummary}>Source : {a.domain}</p>
+                    </article>
+                  ))
+                : newsItems.map((item) => (
+                    <article key={item.title} className={styles.newsItem}>
+                      <span className={styles.newsDate}>{item.date}</span>
+                      <h2 className={styles.newsTitle}>{item.title}</h2>
+                      <p className={styles.newsSummary}>{item.summary}</p>
+                    </article>
+                  ))}
           </div>
           <div className={styles.mapArea}>
             <MapView events={await getZoneEvents(zone.countries)} />
