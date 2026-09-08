@@ -28,7 +28,10 @@ function mentionsCount(event: ConflictEvent): number | null {
   return match ? Number(match[1]) : null;
 }
 
-function buildSummary(event: ConflictEvent, mentions: number | null): string {
+// Falls back to a factual one-liner (victims, corroboration count) when
+// there's no real article summary yet — either the sync hasn't run since
+// the summary column was added, or the source article couldn't be fetched.
+function buildFallbackSummary(event: ConflictEvent, mentions: number | null): string {
   const parts: string[] = [];
   if (event.fatalities > 0) {
     parts.push(`${event.fatalities} victime(s) rapportée(s)`);
@@ -147,7 +150,9 @@ export default function Map({ events }: MapProps) {
                   )}
                 </div>
 
-                <p className={styles.popupSummary}>{buildSummary(event, mentions)}</p>
+                <p className={styles.popupSummary}>
+                  {event.summary?.trim() || buildFallbackSummary(event, mentions)}
+                </p>
               </div>
             </Popup>
           </CircleMarker>

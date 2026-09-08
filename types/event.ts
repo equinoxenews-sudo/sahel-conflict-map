@@ -33,4 +33,5 @@ export interface ConflictEvent {
   notes?: string | null;
   num_mentions?: number | null;
   reliability?: number | null;
+  summary?: string | null;
 }

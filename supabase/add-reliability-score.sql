@@ -3,7 +3,8 @@
 
 alter table conflict_events
   add column if not exists num_mentions integer,
-  add column if not exists reliability smallint not null default 3;
+  add column if not exists reliability smallint not null default 3,
+  add column if not exists summary text;
 
 -- Backfill num_mentions for existing GDELT rows by pulling it back out of
 -- the "Score Goldstein : X.X · N mention(s)" text stored in notes.

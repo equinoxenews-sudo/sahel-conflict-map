@@ -134,7 +134,7 @@ async function fetchAndParseExport(url: string): Promise<GdeltEvent[]> {
   return events;
 }
 
-async function mapWithConcurrency<T, R>(
+export async function mapWithConcurrency<T, R>(
   items: T[],
   limit: number,
   fn: (item: T) => Promise<R>
