@@ -5,12 +5,37 @@ import HomeNewsColumn from "@/components/equinoxe/HomeNewsColumn";
 import RiskLegend from "@/components/equinoxe/RiskLegend";
 import Ticker from "@/components/equinoxe/Ticker";
 import { computeCountryRiskFromEvents } from "@/lib/computeCountryRisk";
+import { supabase } from "@/lib/supabaseClient";
+import type { Article } from "@/types/article";
 import styles from "./page.module.css";
 
 export const revalidate = 3600;
 
+async function getHomeArticles(): Promise<Article[]> {
+  try {
+    const { data, error } = await supabase
+      .from("articles")
+      .select("title, url, domain, published_at")
+      .order("published_at", { ascending: false })
+      .limit(8);
+
+    if (error) {
+      console.error("Failed to load home articles:", error.message);
+      return [];
+    }
+
+    return data ?? [];
+  } catch (err) {
+    console.error("Failed to reach Supabase:", err);
+    return [];
+  }
+}
+
 export default async function Home() {
-  const countryRisk = await computeCountryRiskFromEvents();
+  const [countryRisk, articles] = await Promise.all([
+    computeCountryRiskFromEvents(),
+    getHomeArticles(),
+  ]);
 
   return (
     <main className={styles.main}>
@@ -18,7 +43,7 @@ export default async function Home() {
       <Ticker />
 
       <div className={styles.body}>
-        <HomeNewsColumn />
+        <HomeNewsColumn articles={articles} />
 
         <div className={styles.globeColumn}>
           <div className={styles.mapArea}>

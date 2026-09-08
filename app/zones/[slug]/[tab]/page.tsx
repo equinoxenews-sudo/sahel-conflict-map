@@ -2,20 +2,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/equinoxe/Header";
 import MapView from "@/components/MapView";
+import { formatDate } from "@/lib/formatDate";
 import { supabase } from "@/lib/supabaseClient";
 import { ZONE_NEWS } from "@/lib/zoneNews";
 import { getZone, TAB_LABELS, TABS, type Tab } from "@/lib/zones";
+import type { Article } from "@/types/article";
 import type { ConflictEvent } from "@/types/event";
 import styles from "./page.module.css";
 
 export const revalidate = 3600;
-
-interface Article {
-  title: string;
-  url: string;
-  domain: string | null;
-  published_at: string | null;
-}
 
 async function getZoneEvents(countries: string[]): Promise<ConflictEvent[]> {
   try {
@@ -57,13 +52,6 @@ async function getZoneArticles(zoneSlug: string): Promise<Article[]> {
     console.error("Failed to reach Supabase:", err);
     return [];
   }
-}
-
-function formatDate(iso: string | null): string {
-  if (!iso) return "";
-  return new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" }).format(
-    new Date(iso)
-  );
 }
 
 export default async function ZoneTabPage({
