@@ -1,6 +1,7 @@
 import { categoryForRootCode } from "./gdeltCategory";
 import { fetchLatestGdeltEvents } from "./gdelt";
 import { FIPS_TO_COUNTRY } from "./gdeltCountries";
+import { computeReliability } from "./reliability";
 import { getSupabaseAdmin } from "./supabaseAdmin";
 
 function toEventDate(dateAdded: string): string {
@@ -48,6 +49,8 @@ export async function syncGdeltEvents() {
         fatalities: 0,
         source: e.sourceUrl || "GDELT",
         notes: `Score Goldstein : ${e.goldsteinScale.toFixed(1)} · ${e.numMentions} mention(s)`,
+        num_mentions: e.numMentions,
+        reliability: computeReliability(e.numMentions),
       };
     })
     .filter((row): row is NonNullable<typeof row> => row !== null);

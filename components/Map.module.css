@@ -1,3 +1,87 @@
 .darkTiles {
   filter: grayscale(1) brightness(0.4);
 }
+
+/* Leaflet renders popups outside this component's DOM subtree, so its
+   chrome (wrapper/tip/close button) can only be restyled via global
+   selectors. */
+:global(.leaflet-popup-content-wrapper) {
+  background: #4f7fc4;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+:global(.leaflet-popup-tip) {
+  background: #4f7fc4;
+}
+
+:global(.leaflet-popup-content) {
+  margin: 16px 18px;
+  min-width: 220px;
+}
+
+:global(.leaflet-popup-close-button) {
+  color: #fff !important;
+  opacity: 0.8;
+}
+
+:global(.leaflet-popup-close-button:hover) {
+  opacity: 1;
+}
+
+.popupCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.popupTitle {
+  margin: 0 0 4px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.popupRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.popupLabel {
+  opacity: 0.85;
+}
+
+.reliabilityBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 4px;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #1a1a1a;
+}
+
+.popupLink {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.popupLink:hover {
+  opacity: 0.85;
+}
+
+.popupSummary {
+  margin: 4px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 12px;
+  line-height: 1.4;
+  opacity: 0.95;
+}

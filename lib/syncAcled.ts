@@ -35,6 +35,9 @@ export async function syncAcledEvents() {
         fatalities: Number(e.fatalities) || 0,
         source: e.source || null,
         notes: e.notes || null,
+        // ACLED events are human-reviewed (unlike GDELT's automated
+        // extraction), so they get the top reliability score outright.
+        reliability: 5,
       };
     })
     .filter((row): row is NonNullable<typeof row> => row !== null);

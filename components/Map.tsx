@@ -3,11 +3,33 @@
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
 import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from "react-leaflet";
+import { clampReliability, RELIABILITY_COLORS } from "@/lib/reliability";
 import { CATEGORY_COLORS, type ConflictEvent, type EventCategory } from "@/types/event";
 import styles from "./Map.module.css";
 
 const SAHEL_CENTER: [number, number] = [15, 5];
 const DEFAULT_COLOR = "#999999";
+
+function getSourceDomain(source: string): string | null {
+  try {
+    return new URL(source).hostname.replace(/^www\./, "");
+  } catch {
+    return null;
+  }
+}
+
+function buildSummary(event: ConflictEvent): string {
+  const parts: string[] = [];
+  if (event.fatalities > 0) {
+    parts.push(`${event.fatalities} victime(s) rapportée(s)`);
+  }
+  if (event.num_mentions) {
+    parts.push(`rapporté par ${event.num_mentions} source(s) média indépendante(s)`);
+  }
+  return parts.length > 0
+    ? `${parts.join(", ")}.`
+    : "Aucun détail supplémentaire disponible pour cet événement.";
+}
 
 interface MapProps {
   events: ConflictEvent[];
@@ -54,6 +76,9 @@ export default function Map({ events }: MapProps) {
       />
       {events.map((event) => {
         const color = CATEGORY_COLORS[event.category as EventCategory] ?? DEFAULT_COLOR;
+        const reliability = clampReliability(event.reliability);
+        const sourceDomain = event.source ? getSourceDomain(event.source) : null;
+
         return (
           <CircleMarker
             key={event.id}
@@ -67,27 +92,47 @@ export default function Map({ events }: MapProps) {
             }}
           >
             <Popup>
-              <strong>{event.category}</strong>
-              <br />
-              {event.country} — {event.event_date}
-              {event.notes ? (
-                <>
-                  <br />
-                  {event.notes}
-                </>
-              ) : null}
-              {event.fatalities > 0 ? (
-                <>
-                  <br />
-                  Fatalités : {event.fatalities}
-                </>
-              ) : null}
-              {event.source ? (
-                <>
-                  <br />
-                  Source : {event.source}
-                </>
-              ) : null}
+              <div className={styles.popupCard}>
+                <h3 className={styles.popupTitle}>{event.category}</h3>
+
+                <div className={styles.popupRow}>
+                  <span className={styles.popupLabel}>Pays</span>
+                  <span>{event.country}</span>
+                </div>
+
+                <div className={styles.popupRow}>
+                  <span className={styles.popupLabel}>Date</span>
+                  <span>{event.event_date}</span>
+                </div>
+
+                <div className={styles.popupRow}>
+                  <span className={styles.popupLabel}>Score de fiabilité</span>
+                  <span
+                    className={styles.reliabilityBadge}
+                    style={{ backgroundColor: RELIABILITY_COLORS[reliability] }}
+                  >
+                    {reliability}
+                  </span>
+                </div>
+
+                <div className={styles.popupRow}>
+                  <span className={styles.popupLabel}>Source</span>
+                  {sourceDomain ? (
+                    <a
+                      href={event.source ?? undefined}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.popupLink}
+                    >
+                      {sourceDomain}
+                    </a>
+                  ) : (
+                    <span>{event.source ?? "Non renseignée"}</span>
+                  )}
+                </div>
+
+                <p className={styles.popupSummary}>{buildSummary(event)}</p>
+              </div>
             </Popup>
           </CircleMarker>
         );
