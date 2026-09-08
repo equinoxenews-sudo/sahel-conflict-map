@@ -4,26 +4,28 @@
 
 /* Leaflet renders popups outside this component's DOM subtree, so its
    chrome (wrapper/tip/close button) can only be restyled via global
-   selectors. */
+   selectors. Kept neutral/dark to match the site theme — the event's own
+   category color shows up as the inner card's border instead (see
+   .popupCard), not on this shared chrome. */
 :global(.leaflet-popup-content-wrapper) {
-  background: #4f7fc4;
+  background: #111111;
   color: #fff;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 :global(.leaflet-popup-tip) {
-  background: #4f7fc4;
+  background: #111111;
 }
 
 :global(.leaflet-popup-content) {
-  margin: 16px 18px;
+  margin: 0;
   min-width: 220px;
 }
 
 :global(.leaflet-popup-close-button) {
   color: #fff !important;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
 :global(.leaflet-popup-close-button:hover) {
@@ -34,6 +36,9 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid #333;
+  border-radius: 12px;
 }
 
 .popupTitle {

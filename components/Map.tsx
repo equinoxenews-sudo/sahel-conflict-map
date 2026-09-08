@@ -3,7 +3,7 @@
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
 import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from "react-leaflet";
-import { clampReliability, RELIABILITY_COLORS } from "@/lib/reliability";
+import { clampReliability, computeReliability, RELIABILITY_COLORS } from "@/lib/reliability";
 import { CATEGORY_COLORS, type ConflictEvent, type EventCategory } from "@/types/event";
 import styles from "./Map.module.css";
 
@@ -18,13 +18,23 @@ function getSourceDomain(source: string): string | null {
   }
 }
 
-function buildSummary(event: ConflictEvent): string {
+// The `num_mentions` column only exists once the reliability-score
+// migration has run (supabase/add-reliability-score.sql) — until then (or
+// for older rows synced before it), fall back to parsing the same count
+// back out of the "Score Goldstein : X.X · N mention(s)" notes text.
+function mentionsCount(event: ConflictEvent): number | null {
+  if (event.num_mentions) return event.num_mentions;
+  const match = event.notes?.match(/(\d+)\s*mention/);
+  return match ? Number(match[1]) : null;
+}
+
+function buildSummary(event: ConflictEvent, mentions: number | null): string {
   const parts: string[] = [];
   if (event.fatalities > 0) {
     parts.push(`${event.fatalities} victime(s) rapportée(s)`);
   }
-  if (event.num_mentions) {
-    parts.push(`rapporté par ${event.num_mentions} source(s) média indépendante(s)`);
+  if (mentions) {
+    parts.push(`rapporté par ${mentions} source(s) média indépendante(s)`);
   }
   return parts.length > 0
     ? `${parts.join(", ")}.`
@@ -76,7 +86,11 @@ export default function Map({ events }: MapProps) {
       />
       {events.map((event) => {
         const color = CATEGORY_COLORS[event.category as EventCategory] ?? DEFAULT_COLOR;
-        const reliability = clampReliability(event.reliability);
+        const mentions = mentionsCount(event);
+        const reliability =
+          event.reliability != null
+            ? clampReliability(event.reliability)
+            : computeReliability(mentions ?? 0);
         const sourceDomain = event.source ? getSourceDomain(event.source) : null;
 
         return (
@@ -92,8 +106,10 @@ export default function Map({ events }: MapProps) {
             }}
           >
             <Popup>
-              <div className={styles.popupCard}>
-                <h3 className={styles.popupTitle}>{event.category}</h3>
+              <div className={styles.popupCard} style={{ borderColor: color }}>
+                <h3 className={styles.popupTitle} style={{ color }}>
+                  {event.category}
+                </h3>
 
                 <div className={styles.popupRow}>
                   <span className={styles.popupLabel}>Pays</span>
@@ -131,7 +147,7 @@ export default function Map({ events }: MapProps) {
                   )}
                 </div>
 
-                <p className={styles.popupSummary}>{buildSummary(event)}</p>
+                <p className={styles.popupSummary}>{buildSummary(event, mentions)}</p>
               </div>
             </Popup>
           </CircleMarker>
