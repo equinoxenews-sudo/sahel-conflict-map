@@ -1,15 +1,25 @@
 const FETCH_TIMEOUT_MS = 4000;
 const MAX_SUMMARY_LENGTH = 260;
 
-const META_PATTERNS = [
+const DESCRIPTION_PATTERNS = [
   /<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)["']/i,
   /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:description["']/i,
   /<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i,
   /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']description["']/i,
 ];
 
-function extractMetaDescription(html: string): string | null {
-  for (const pattern of META_PATTERNS) {
+const IMAGE_PATTERNS = [
+  /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i,
+  /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i,
+];
+
+export interface ArticleMeta {
+  summary: string | null;
+  imageUrl: string | null;
+}
+
+function extractMeta(html: string, patterns: RegExp[]): string | null {
+  for (const pattern of patterns) {
     const match = html.match(pattern);
     if (match?.[1]) return match[1];
   }
@@ -27,13 +37,13 @@ function decodeHtmlEntities(text: string): string {
 }
 
 /**
- * Fetches an article's og:description / meta description — a short blurb
- * already written by the outlet's own editors — as a real, non-fabricated
- * summary of the source article. Best-effort: returns null on any failure
- * (timeout, non-200, no meta tag found) rather than throwing, since a
- * missing summary shouldn't block the rest of an event sync.
+ * Fetches an article's og:description (a short blurb already written by
+ * the outlet's own editors — a real, non-fabricated summary) and its
+ * og:image (a representative photo). Best-effort: returns nulls on any
+ * failure (timeout, non-200, no meta tag found) rather than throwing,
+ * since a missing summary/image shouldn't block the rest of a sync.
  */
-export async function fetchArticleSummary(url: string): Promise<string | null> {
+export async function fetchArticleMeta(url: string): Promise<ArticleMeta> {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
@@ -42,20 +52,24 @@ export async function fetchArticleSummary(url: string): Promise<string | null> {
       signal: controller.signal,
       headers: { "User-Agent": "Mozilla/5.0 (compatible; EquinoxeNewsBot/1.0)" },
     });
-    if (!res.ok) return null;
+    if (!res.ok) return { summary: null, imageUrl: null };
 
     const html = await res.text();
-    const raw = extractMetaDescription(html);
-    if (!raw) return null;
 
-    const decoded = decodeHtmlEntities(raw).trim();
-    if (!decoded) return null;
+    const rawSummary = extractMeta(html, DESCRIPTION_PATTERNS);
+    const decoded = rawSummary ? decodeHtmlEntities(rawSummary).trim() : null;
+    const summary = decoded
+      ? decoded.length > MAX_SUMMARY_LENGTH
+        ? `${decoded.slice(0, MAX_SUMMARY_LENGTH).trimEnd()}…`
+        : decoded
+      : null;
 
-    return decoded.length > MAX_SUMMARY_LENGTH
-      ? `${decoded.slice(0, MAX_SUMMARY_LENGTH).trimEnd()}…`
-      : decoded;
+    const rawImage = extractMeta(html, IMAGE_PATTERNS);
+    const imageUrl = rawImage ? decodeHtmlEntities(rawImage).trim() || null : null;
+
+    return { summary, imageUrl };
   } catch {
-    return null;
+    return { summary: null, imageUrl: null };
   } finally {
     clearTimeout(timeoutId);
   }

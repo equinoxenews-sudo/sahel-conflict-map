@@ -30,3 +30,16 @@ export function clampReliability(value: number | null | undefined): ReliabilityS
   if (n >= 5) return 5;
   return n as ReliabilityScore;
 }
+
+/**
+ * Derives a 1-5 reliability score for a synthesized brief from how many
+ * distinct outlets it cites — several *independent* sources agreeing is a
+ * much stronger corroboration signal than several articles from the same
+ * outlet (already deduplicated by the caller before counting).
+ */
+export function computeBriefReliability(uniqueSourceCount: number): ReliabilityScore {
+  if (uniqueSourceCount >= 4) return 5;
+  if (uniqueSourceCount === 3) return 4;
+  if (uniqueSourceCount === 2) return 3;
+  return 2;
+}

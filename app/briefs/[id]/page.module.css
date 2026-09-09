@@ -1,0 +1,147 @@
+.main {
+  min-height: 100dvh;
+  background: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.topBar {
+  padding: 16px 24px;
+  border-bottom: 1px solid #222;
+}
+
+.back {
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid #fff;
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-size: 13px;
+}
+
+.article {
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border: 1px solid #333;
+  margin-bottom: 24px;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.date {
+  font-size: 12px;
+  color: #888;
+}
+
+.reliability {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #888;
+}
+
+.reliabilityBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.title {
+  font-size: 28px;
+  line-height: 1.25;
+  margin: 0 0 20px;
+}
+
+.summary {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #ddd;
+  margin: 0 0 40px;
+}
+
+.sources {
+  border-top: 1px solid #222;
+  padding-top: 24px;
+}
+
+.sourcesHeading {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 16px;
+}
+
+.sourcesList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sourceItem {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border: 1px solid #262626;
+  padding: 12px 14px;
+}
+
+.sourceDomain {
+  font-size: 14px;
+  font-weight: 600;
+  flex: 1;
+  min-width: 140px;
+}
+
+.sourceLink {
+  font-size: 13px;
+  color: #aaa;
+  text-decoration: none;
+  border: 1px solid #444;
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+.sourceLink:hover {
+  color: #fff;
+  border-color: #888;
+}
+
+@media (max-width: 600px) {
+  .article {
+    padding: 24px 16px 48px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+}

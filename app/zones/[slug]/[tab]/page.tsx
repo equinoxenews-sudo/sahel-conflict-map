@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/equinoxe/Header";
 import MapView from "@/components/MapView";
 import { formatDate } from "@/lib/formatDate";
+import { computeBriefReliability, RELIABILITY_COLORS } from "@/lib/reliability";
 import { supabase } from "@/lib/supabaseClient";
 import { ZONE_NEWS } from "@/lib/zoneNews";
 import { getZone, TAB_LABELS, TABS, type Tab } from "@/lib/zones";
@@ -38,7 +39,7 @@ async function getZoneBriefs(zoneSlug: string): Promise<ZoneBrief[]> {
   try {
     const { data, error } = await supabase
       .from("zone_briefs")
-      .select("zone_slug, title, summary, source_urls, source_domains, published_at")
+      .select("id, zone_slug, title, summary, source_urls, source_domains, image_url, published_at")
       .eq("zone_slug", zoneSlug)
       .order("published_at", { ascending: false })
       .limit(6);
@@ -109,24 +110,31 @@ export default async function ZoneTabPage({
         <div className={styles.splitLayout}>
           <div className={styles.newsList}>
             {useBriefs
-              ? briefs.map((b) => (
-                  <article key={`${b.title}-${b.published_at}`} className={styles.newsItem}>
-                    <span className={styles.newsDate}>{formatDate(b.published_at)}</span>
-                    <h2 className={styles.newsTitle}>{b.title}</h2>
-                    <p className={styles.newsSummary}>{b.summary}</p>
-                    <p className={styles.newsSources}>
-                      Sources :{" "}
-                      {b.source_urls.map((url, i) => (
-                        <span key={url}>
-                          {i > 0 && ", "}
-                          <a href={url} target="_blank" rel="noopener noreferrer">
-                            {b.source_domains[i] ?? new URL(url).hostname}
-                          </a>
+              ? briefs.map((b) => {
+                  const reliability = computeBriefReliability(new Set(b.source_domains).size);
+                  return (
+                    <Link key={b.id} href={`/briefs/${b.id}`} className={styles.newsItem}>
+                      {b.image_url ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={b.image_url} alt="" className={styles.newsImage} />
+                      ) : null}
+                      <div className={styles.newsHeader}>
+                        <span className={styles.newsDate}>{formatDate(b.published_at)}</span>
+                        <span
+                          className={styles.reliabilityBadge}
+                          style={{ backgroundColor: RELIABILITY_COLORS[reliability] }}
+                        >
+                          {reliability}
                         </span>
-                      ))}
-                    </p>
-                  </article>
-                ))
+                      </div>
+                      <h2 className={styles.newsTitle}>{b.title}</h2>
+                      <p className={styles.newsSummary}>{b.summary}</p>
+                      <p className={styles.newsSources}>
+                        Sources : {[...new Set(b.source_domains)].join(", ")}
+                      </p>
+                    </Link>
+                  );
+                })
               : useRealArticles
                 ? articles.map((a) => (
                     <article key={a.url} className={styles.newsItem}>

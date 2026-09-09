@@ -8,6 +8,7 @@ export interface SourceArticle {
   url: string;
   domain: string;
   summary: string | null;
+  imageUrl: string | null;
 }
 
 export interface SynthesizedBrief {
@@ -15,6 +16,8 @@ export interface SynthesizedBrief {
   summary: string;
   sourceUrls: string[];
   sourceDomains: string[];
+  /** First available image among the cited sources, if any. */
+  imageUrl: string | null;
 }
 
 function buildPrompt(zoneName: string, articles: SourceArticle[]): string {
@@ -81,6 +84,7 @@ function parseResponse(text: string, articles: SourceArticle[]): SynthesizedBrie
       // its URL.
       sourceUrls: sources.map((s) => s.url),
       sourceDomains: sources.map((s) => s.domain),
+      imageUrl: sources.find((s) => s.imageUrl)?.imageUrl ?? null,
     });
   }
   return briefs;

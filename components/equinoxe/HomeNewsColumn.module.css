@@ -23,13 +23,48 @@
 }
 
 .item {
+  display: block;
   border: 1px solid #262626;
   padding: 12px 14px;
+  color: inherit;
+  text-decoration: none;
+}
+
+a.item:hover {
+  border-color: #555;
+}
+
+.image {
+  display: block;
+  width: calc(100% + 28px);
+  height: 100px;
+  object-fit: cover;
+  margin: -12px -14px 10px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .date {
   font-size: 10px;
   color: #888;
+}
+
+.reliabilityBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 11px;
+  color: #1a1a1a;
 }
 
 .title {
@@ -58,15 +93,6 @@
   font-size: 10px;
   color: #777;
   margin: 6px 0 0;
-}
-
-.sources a {
-  color: #777;
-}
-
-.sources a:hover {
-  color: #fff;
-  text-decoration: underline;
 }
 
 @media (max-width: 900px) {

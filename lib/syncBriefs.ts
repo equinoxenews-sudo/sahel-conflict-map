@@ -1,4 +1,4 @@
-import { fetchArticleSummary } from "./articleSummary";
+import { fetchArticleMeta } from "./articleSummary";
 import { mapWithConcurrency } from "./gdelt";
 import { getSupabaseAdmin } from "./supabaseAdmin";
 import { synthesizeBriefs, type SourceArticle } from "./synthesizeBriefs";
@@ -40,12 +40,16 @@ async function briefZone(
   const sourceArticles: SourceArticle[] = await mapWithConcurrency(
     articles,
     SUMMARY_FETCH_CONCURRENCY,
-    async (a) => ({
-      title: a.title,
-      url: a.url,
-      domain: a.domain ?? new URL(a.url).hostname,
-      summary: await fetchArticleSummary(a.url),
-    })
+    async (a) => {
+      const { summary, imageUrl } = await fetchArticleMeta(a.url);
+      return {
+        title: a.title,
+        url: a.url,
+        domain: a.domain ?? new URL(a.url).hostname,
+        summary,
+        imageUrl,
+      };
+    }
   );
 
   const zoneName = getZone(zoneSlug)?.name ?? zoneSlug;
@@ -59,6 +63,7 @@ async function briefZone(
         summary: b.summary,
         source_urls: b.sourceUrls,
         source_domains: b.sourceDomains,
+        image_url: b.imageUrl,
       }))
     );
 
