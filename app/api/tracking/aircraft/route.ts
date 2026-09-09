@@ -37,8 +37,12 @@ export async function GET() {
       { headers: { "Cache-Control": `public, s-maxage=${CACHE_SECONDS}, stale-while-revalidate=60` } }
     );
   } catch (error) {
+    // TEMPORARY: surface the underlying cause (e.g. DNS/connect failure
+    // detail) to diagnose a generic "fetch failed" in production — revert
+    // once resolved.
+    const cause = error instanceof Error && "cause" in error ? String(error.cause) : null;
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Unknown error" },
+      { error: error instanceof Error ? error.message : "Unknown error", cause },
       { status: 500 }
     );
   }
