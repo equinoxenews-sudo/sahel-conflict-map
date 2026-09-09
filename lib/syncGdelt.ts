@@ -4,6 +4,7 @@ import { fetchLatestGdeltEvents, mapWithConcurrency } from "./gdelt";
 import { FIPS_TO_COUNTRY } from "./gdeltCountries";
 import { computeReliability } from "./reliability";
 import { getSupabaseAdmin } from "./supabaseAdmin";
+import { recordSyncStatus } from "./syncStatus";
 
 function toEventDate(dateAdded: string): string {
   // dateAdded is YYYYMMDDHHMMSS
@@ -90,51 +91,64 @@ async function attachSummaries(
  * time rather than being backfilled in one shot.
  */
 export async function syncGdeltEvents() {
-  const events = await fetchLatestGdeltEvents();
-  const supabase = getSupabaseAdmin();
+  try {
+    const events = await fetchLatestGdeltEvents();
+    const supabase = getSupabaseAdmin();
 
-  const rows = events
-    .map((e) => {
-      const country = FIPS_TO_COUNTRY[e.actionGeoCountryCode];
-      if (!country) return null;
+    const rows = events
+      .map((e) => {
+        const country = FIPS_TO_COUNTRY[e.actionGeoCountryCode];
+        if (!country) return null;
 
-      const category = categoryForRootCode(e.eventRootCode);
-      if (!category) return null;
+        const category = categoryForRootCode(e.eventRootCode);
+        if (!category) return null;
 
-      if (e.numMentions < MIN_MENTIONS) return null;
+        if (e.numMentions < MIN_MENTIONS) return null;
 
-      return {
-        external_id: `GDELT-${e.globalEventId}`,
-        event_date: toEventDate(e.dateAdded),
-        country,
-        latitude: e.lat,
-        longitude: e.lon,
-        category,
-        fatalities: 0,
-        source: e.sourceUrl || "GDELT",
-        notes: `Score Goldstein : ${e.goldsteinScale.toFixed(1)} · ${e.numMentions} mention(s)`,
-        num_mentions: e.numMentions,
-        reliability: computeReliability(e.numMentions),
-      };
-    })
-    .filter((row): row is NonNullable<typeof row> => row !== null);
+        return {
+          external_id: `GDELT-${e.globalEventId}`,
+          event_date: toEventDate(e.dateAdded),
+          country,
+          latitude: e.lat,
+          longitude: e.lon,
+          category,
+          fatalities: 0,
+          source: e.sourceUrl || "GDELT",
+          notes: `Score Goldstein : ${e.goldsteinScale.toFixed(1)} · ${e.numMentions} mention(s)`,
+          num_mentions: e.numMentions,
+          reliability: computeReliability(e.numMentions),
+        };
+      })
+      .filter((row): row is NonNullable<typeof row> => row !== null);
 
-  const rowsWithSummary = await attachSummaries(supabase, rows);
+    const rowsWithSummary = await attachSummaries(supabase, rows);
 
-  if (rowsWithSummary.length > 0) {
-    const { error } = await supabase
-      .from("conflict_events")
-      .upsert(rowsWithSummary, { onConflict: "external_id" });
+    if (rowsWithSummary.length > 0) {
+      const { error } = await supabase
+        .from("conflict_events")
+        .upsert(rowsWithSummary, { onConflict: "external_id" });
 
-    if (error) {
-      throw new Error(`Supabase upsert failed: ${error.message}`);
+      if (error) {
+        throw new Error(`Supabase upsert failed: ${error.message}`);
+      }
     }
-  }
 
-  const summary: Record<string, number> = {};
-  for (const row of rows) {
-    summary[row.country] = (summary[row.country] ?? 0) + 1;
-  }
+    const summary: Record<string, number> = {};
+    for (const row of rows) {
+      summary[row.country] = (summary[row.country] ?? 0) + 1;
+    }
 
-  return { totalGdeltEvents: events.length, matched: rows.length, byCountry: summary };
+    // A run that reaches here always "succeeded" even with 0 new rows —
+    // that's the normal case most days (no new matching events in this
+    // 6h window), not a failure. Only a thrown error below counts as one.
+    await recordSyncStatus("gdelt", { ok: true, count: rows.length });
+
+    return { totalGdeltEvents: events.length, matched: rows.length, byCountry: summary };
+  } catch (err) {
+    await recordSyncStatus("gdelt", {
+      ok: false,
+      error: err instanceof Error ? err.message : "Unknown error",
+    });
+    throw err;
+  }
 }

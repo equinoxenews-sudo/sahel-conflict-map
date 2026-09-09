@@ -109,29 +109,55 @@ function parseRow(fields: string[]): GdeltEvent | null {
   };
 }
 
-/** Downloads one 15-minute export .zip and parses its events. */
+const RETRY_DELAYS_MS = [500, 1500];
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Downloads one 15-minute export .zip and parses its events. GDELT's bulk
+ * export is a static-file CDN (unlike its DOC search API), so failures
+ * here are expected to be rare transient blips rather than systemic
+ * unreliability — a couple of quick retries covers that without masking
+ * a genuinely broken URL (which will still fail after retries and get
+ * skipped by the caller, same as before).
+ */
 async function fetchAndParseExport(url: string): Promise<GdeltEvent[]> {
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`Failed to download GDELT export (${url}): ${res.status} ${res.statusText}`);
-  }
-  const buffer = await res.arrayBuffer();
+  let lastError: unknown;
 
-  const zip = await JSZip.loadAsync(buffer);
-  const csvFile = Object.values(zip.files).find((f) => f.name.endsWith(".CSV"));
-  if (!csvFile) {
-    throw new Error("GDELT export zip did not contain a .CSV file");
-  }
-  const csvText = await csvFile.async("text");
+  for (let attempt = 0; attempt <= RETRY_DELAYS_MS.length; attempt++) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`Failed to download GDELT export (${url}): ${res.status} ${res.statusText}`);
+      }
+      const buffer = await res.arrayBuffer();
 
-  const events: GdeltEvent[] = [];
-  for (const line of csvText.split("\n")) {
-    if (!line) continue;
-    const fields = line.split("\t");
-    const event = parseRow(fields);
-    if (event) events.push(event);
+      const zip = await JSZip.loadAsync(buffer);
+      const csvFile = Object.values(zip.files).find((f) => f.name.endsWith(".CSV"));
+      if (!csvFile) {
+        throw new Error("GDELT export zip did not contain a .CSV file");
+      }
+      const csvText = await csvFile.async("text");
+
+      const events: GdeltEvent[] = [];
+      for (const line of csvText.split("\n")) {
+        if (!line) continue;
+        const fields = line.split("\t");
+        const event = parseRow(fields);
+        if (event) events.push(event);
+      }
+      return events;
+    } catch (err) {
+      lastError = err;
+      if (attempt < RETRY_DELAYS_MS.length) {
+        await delay(RETRY_DELAYS_MS[attempt]);
+      }
+    }
   }
-  return events;
+
+  throw lastError;
 }
 
 export async function mapWithConcurrency<T, R>(

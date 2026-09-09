@@ -43,6 +43,11 @@
   font-style: italic;
 }
 
+.staleWarning {
+  font-size: 11px;
+  color: #fb8c00;
+}
+
 .footer {
   display: flex;
   justify-content: center;

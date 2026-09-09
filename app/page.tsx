@@ -34,6 +34,26 @@ async function getHomeBriefs(): Promise<ZoneBrief[]> {
   }
 }
 
+const STALE_AFTER_HOURS = 48;
+
+async function getGdeltStatus(): Promise<{ hoursSinceSuccess: number | null; stale: boolean }> {
+  try {
+    const { data } = await supabase
+      .from("sync_status")
+      .select("last_success_at")
+      .eq("source", "gdelt")
+      .maybeSingle();
+
+    if (!data?.last_success_at) return { hoursSinceSuccess: null, stale: false };
+
+    const hours = (Date.now() - new Date(data.last_success_at).getTime()) / (1000 * 60 * 60);
+    return { hoursSinceSuccess: hours, stale: hours > STALE_AFTER_HOURS };
+  } catch (err) {
+    console.error("Failed to reach Supabase:", err);
+    return { hoursSinceSuccess: null, stale: false };
+  }
+}
+
 async function getHomeArticles(): Promise<Article[]> {
   try {
     const { data, error } = await supabase
@@ -55,9 +75,10 @@ async function getHomeArticles(): Promise<Article[]> {
 }
 
 export default async function Home() {
-  const [countryRisk, briefs] = await Promise.all([
+  const [countryRisk, briefs, gdeltStatus] = await Promise.all([
     computeCountryRiskFromEvents(),
     getHomeBriefs(),
+    getGdeltStatus(),
   ]);
   const articles = briefs.length === 0 ? await getHomeArticles() : [];
 
@@ -80,6 +101,11 @@ export default async function Home() {
               Calculé à partir des événements recensés sur chaque zone (90 derniers jours) —
               cliquez sur une zone du menu pour une analyse détaillée
             </span>
+            {gdeltStatus.stale && gdeltStatus.hoursSinceSuccess != null ? (
+              <span className={styles.staleWarning}>
+                ⚠ Données non rafraîchies depuis {Math.floor(gdeltStatus.hoursSinceSuccess)}h
+              </span>
+            ) : null}
           </div>
         </div>
 
