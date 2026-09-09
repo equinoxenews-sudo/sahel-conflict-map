@@ -15,6 +15,10 @@
     {
       "path": "/api/sync-briefs",
       "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/sync-vessels",
+      "schedule": "0 7 * * *"
     }
   ]
 }
