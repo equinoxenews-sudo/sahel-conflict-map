@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import DocumentGrid from "@/components/DocumentGrid";
 import Header from "@/components/equinoxe/Header";
 import MapView from "@/components/MapView";
 import ZoneNewsList from "@/components/ZoneNewsList";
 import { supabase } from "@/lib/supabaseClient";
+import { listZoneDocuments } from "@/lib/zoneDocuments";
 import { ZONE_NEWS } from "@/lib/zoneNews";
 import { getZone, TAB_LABELS, TABS, type Tab } from "@/lib/zones";
 import type { Article } from "@/types/article";
@@ -86,9 +88,11 @@ export default async function ZoneTabPage({
   if (!zone || !TABS.includes(tab as Tab)) notFound();
 
   const isLiveActualite = zone.active && tab === "actualite" && zone.countries.length > 0;
+  const isApproche = zone.active && tab === "approche";
   const briefs = isLiveActualite ? await getZoneBriefs(zone.slug) : [];
   const articles = isLiveActualite && briefs.length === 0 ? await getZoneArticles(zone.slug) : [];
   const newsItems = ZONE_NEWS[zone.slug] ?? [];
+  const documents = isApproche ? await listZoneDocuments(zone.slug) : [];
 
   return (
     <main className={styles.main}>
@@ -118,6 +122,8 @@ export default async function ZoneTabPage({
             </div>
           </div>
         </div>
+      ) : isApproche ? (
+        <DocumentGrid documents={documents} />
       ) : (
         <div className={styles.placeholder}>
           <p>{zone.active ? "Aperçu à venir" : "Bientôt disponible"}</p>
