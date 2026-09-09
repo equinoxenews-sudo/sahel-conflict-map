@@ -1,4 +1,4 @@
-import { fetchArticleMeta } from "./articleSummary";
+import { fetchArticleContent } from "./articleSummary";
 import { mapWithConcurrency } from "./gdelt";
 import { getSupabaseAdmin } from "./supabaseAdmin";
 import { synthesizeBriefs, type SourceArticle } from "./synthesizeBriefs";
@@ -41,12 +41,13 @@ async function briefZone(
     articles,
     SUMMARY_FETCH_CONCURRENCY,
     async (a) => {
-      const { summary, imageUrl } = await fetchArticleMeta(a.url);
+      const { summary, imageUrl, bodyText } = await fetchArticleContent(a.url);
       return {
         title: a.title,
         url: a.url,
         domain: a.domain ?? new URL(a.url).hostname,
         summary,
+        bodyText,
         imageUrl,
       };
     }
@@ -60,7 +61,8 @@ async function briefZone(
       briefs.map((b) => ({
         zone_slug: zoneSlug,
         title: b.title,
-        summary: b.summary,
+        summary: b.excerpt,
+        sections: b.sections,
         source_urls: b.sourceUrls,
         source_domains: b.sourceDomains,
         image_url: b.imageUrl,
@@ -92,9 +94,12 @@ async function briefZone(
 
 /**
  * Groups a batch of already-stored raw articles (lib/syncArticles.ts) per
- * zone into short AI-written briefs (lib/synthesizeBriefs.ts). Reads only
- * from Supabase and the individual source URLs — no GDELT DOC calls here,
- * so it's unaffected by that service's rate limit or reliability, and can
+ * zone into AI-written briefs (lib/synthesizeBriefs.ts) — each drawing on
+ * the real extracted body text of its sources, not just a one-line
+ * description, so the result can be a genuine short or long-form piece
+ * depending on how much material is actually available. Reads only from
+ * Supabase and the individual source URLs — no GDELT DOC calls here, so
+ * it's unaffected by that service's rate limit or reliability, and can
  * safely run all 5 zones fully concurrently within the 60s function
  * budget.
  */

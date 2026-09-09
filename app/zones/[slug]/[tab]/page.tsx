@@ -111,7 +111,7 @@ export default async function ZoneTabPage({
           <div className={styles.newsList}>
             {useBriefs
               ? briefs.map((b) => {
-                  const reliability = computeBriefReliability(new Set(b.source_domains).size);
+                  const reliability = computeBriefReliability(b.source_domains);
                   return (
                     <Link key={b.id} href={`/briefs/${b.id}`} className={styles.newsItem}>
                       {b.image_url ? (

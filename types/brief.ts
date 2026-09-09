@@ -1,8 +1,15 @@
+export interface BriefSection {
+  heading: string | null;
+  body: string;
+}
+
 export interface ZoneBrief {
   id: number;
   zone_slug: string;
   title: string;
   summary: string;
+  /** Only fetched on the brief detail page — list views only need `summary`. */
+  sections?: BriefSection[] | null;
   source_urls: string[];
   source_domains: string[];
   image_url: string | null;

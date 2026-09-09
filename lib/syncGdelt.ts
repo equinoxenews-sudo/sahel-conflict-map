@@ -1,4 +1,4 @@
-import { fetchArticleMeta } from "./articleSummary";
+import { fetchArticleContent } from "./articleSummary";
 import { categoryForRootCode } from "./gdeltCategory";
 import { fetchLatestGdeltEvents, mapWithConcurrency } from "./gdelt";
 import { FIPS_TO_COUNTRY } from "./gdeltCountries";
@@ -76,7 +76,7 @@ async function attachSummaries(
     }
     fetchesUsed++;
 
-    const { summary } = await fetchArticleMeta(row.source);
+    const { summary } = await fetchArticleContent(row.source);
     return { ...row, summary };
   });
 }

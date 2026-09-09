@@ -31,15 +31,41 @@ export function clampReliability(value: number | null | undefined): ReliabilityS
   return n as ReliabilityScore;
 }
 
+// Baseline trust per outlet — a single BBC/France24-sourced brief is more
+// reliable than one sourced from an unrated site cited three times. All
+// domains here are ones lib/rssFeeds.ts actually pulls from; anything else
+// (shouldn't normally occur) gets the neutral default below.
+const DOMAIN_BASE_RELIABILITY: Record<string, ReliabilityScore> = {
+  "bbc.co.uk": 5,
+  "bbc.com": 5,
+  "france24.com": 5,
+  "reuters.com": 5,
+  "apnews.com": 5,
+  "aljazeera.com": 5,
+  "africanews.com": 4,
+  "jeuneafrique.com": 4,
+  "middleeasteye.net": 4,
+  "insightcrime.org": 4,
+};
+const DEFAULT_DOMAIN_RELIABILITY: ReliabilityScore = 3;
+
 /**
- * Derives a 1-5 reliability score for a synthesized brief from how many
- * distinct outlets it cites — several *independent* sources agreeing is a
- * much stronger corroboration signal than several articles from the same
- * outlet (already deduplicated by the caller before counting).
+ * Derives a 1-5 reliability score for a synthesized brief from the
+ * reputation of the outlets it cites, not just how many there are — one
+ * article from a well-established wire/broadcaster is more trustworthy
+ * than several from an unrated site. Corroboration across *independent*
+ * outlets still nudges the score up, but source quality is the primary
+ * signal (domains array should be pre-deduplicated by the caller only if
+ * it wants that; here it's deduplicated internally either way).
  */
-export function computeBriefReliability(uniqueSourceCount: number): ReliabilityScore {
-  if (uniqueSourceCount >= 4) return 5;
-  if (uniqueSourceCount === 3) return 4;
-  if (uniqueSourceCount === 2) return 3;
-  return 2;
+export function computeBriefReliability(domains: string[]): ReliabilityScore {
+  const unique = [...new Set(domains)];
+  if (unique.length === 0) return DEFAULT_DOMAIN_RELIABILITY;
+
+  const baseline = Math.max(
+    ...unique.map((d) => DOMAIN_BASE_RELIABILITY[d] ?? DEFAULT_DOMAIN_RELIABILITY)
+  );
+  const corroborationBonus = unique.length >= 2 ? 1 : 0;
+
+  return clampReliability(baseline + corroborationBonus);
 }

@@ -17,7 +17,9 @@ async function getBrief(id: string): Promise<ZoneBrief | null> {
   try {
     const { data, error } = await supabase
       .from("zone_briefs")
-      .select("id, zone_slug, title, summary, source_urls, source_domains, image_url, published_at")
+      .select(
+        "id, zone_slug, title, summary, sections, source_urls, source_domains, image_url, published_at"
+      )
       .eq("id", numericId)
       .maybeSingle();
 
@@ -40,7 +42,7 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
 
   const zone = getZone(brief.zone_slug);
   const uniqueDomains = [...new Set(brief.source_domains)];
-  const reliability = computeBriefReliability(uniqueDomains.length);
+  const reliability = computeBriefReliability(brief.source_domains);
 
   // Sources aligned 1:1 with source_urls (see lib/synthesizeBriefs.ts) —
   // group them per domain so each outlet is listed once with all its URLs.
@@ -82,7 +84,21 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
 
         <h1 className={styles.title}>{brief.title}</h1>
 
-        <p className={styles.summary}>{brief.summary}</p>
+        <div className={styles.body}>
+          {brief.sections && brief.sections.length > 0
+            ? brief.sections.map((section, i) => (
+                <section key={i} className={styles.section}>
+                  {section.heading ? <h2 className={styles.sectionHeading}>{section.heading}</h2> : null}
+                  {section.body.split("\n\n").map((paragraph, j) => (
+                    <p key={j} className={styles.paragraph}>
+                      {paragraph}
+                    </p>
+                  ))}
+                </section>
+              ))
+            : // Briefs created before the sections column existed.
+              <p className={styles.paragraph}>{brief.summary}</p>}
+        </div>
 
         <section className={styles.sources}>
           <h2 className={styles.sourcesHeading}>Sources</h2>
