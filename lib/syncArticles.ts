@@ -10,9 +10,12 @@ import { ZONE_KEYWORDS } from "./zoneKeywords";
 const ARTICLES_PER_ZONE = 12;
 const SUMMARY_FETCH_CONCURRENCY = 6;
 // Only the top N articles get a real description fetched (and go into the
-// AI synthesis prompt) — bounds worst-case time per zone so 5 zones
-// running concurrently still fit Vercel's 60s function budget.
-const MAX_SUMMARIES_PER_ZONE = 8;
+// AI synthesis prompt) — bounds worst-case time per zone. Kept small
+// because the 5 zones' GDELT DOC searches are now deliberately staggered
+// ~5.5s apart (see lib/gdeltDoc.ts) to respect its rate limit, which
+// already eats into the 60s Vercel function budget before any zone even
+// starts its own description-fetch + synthesis work.
+const MAX_SUMMARIES_PER_ZONE = 5;
 
 function toIsoDate(seenDate: string): string | null {
   // seenDate is YYYYMMDDTHHMMSSZ

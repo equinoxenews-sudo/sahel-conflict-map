@@ -24,6 +24,29 @@ function quoteIfMultiWord(term: string): string {
   return term.includes(" ") ? `"${term}"` : term;
 }
 
+// GDELT DOC documents a hard "1 request per 5 seconds" limit. syncArticles
+// queries all 5 zones concurrently (so one slow zone doesn't cost the
+// others their share of the function's time budget), which without this
+// queue fired all 5 requests in the same instant — instantly 429'ing 4 out
+// of 5 zones every single run. This module-level queue serializes just the
+// network call, spacing call *starts* at least 5.5s apart regardless of
+// how many callers are queued up, while each caller's own downstream work
+// (fetching descriptions, AI synthesis) still proceeds independently/
+// concurrently once its call returns.
+const MIN_CALL_INTERVAL_MS = 5500;
+let queue: Promise<void> = Promise.resolve();
+let lastCallStart = 0;
+
+function scheduleCall<T>(fn: () => Promise<T>): Promise<T> {
+  const turn = queue.then(async () => {
+    const wait = Math.max(0, lastCallStart + MIN_CALL_INTERVAL_MS - Date.now());
+    if (wait > 0) await new Promise((resolve) => setTimeout(resolve, wait));
+    lastCallStart = Date.now();
+  });
+  queue = turn;
+  return turn.then(fn);
+}
+
 /**
  * Searches GDELT DOC 2.0 for recent articles matching any of `keywords`,
  * restricted to `domains`. GDELT DOC rejects overly long queries ("Your
@@ -49,16 +72,18 @@ export async function searchArticles(
   });
 
   // api.gdeltproject.org (unlike the CDN-backed bulk export host) is a
-  // small server that is sometimes slow or unresponsive. With 5 zones to
-  // query in one ~60s function budget, a single hung/slow request must
-  // not be allowed to eat the whole budget — so this is a hard per-request
-  // timeout, and there's no retry-on-429: a zone that gets rate-limited or
-  // times out is just skipped for today's run and picked up tomorrow.
+  // small server that is sometimes slow or unresponsive. A single hung/
+  // slow request must not be allowed to eat the whole function budget —
+  // so this is a hard per-request timeout, and there's no retry-on-429: a
+  // zone that gets rate-limited or times out is just skipped for today's
+  // run and picked up tomorrow.
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 20000);
+  const timeoutId = setTimeout(() => controller.abort(), 12000);
   let res: Response;
   try {
-    res = await fetch(`${DOC_API_URL}?${params.toString()}`, { signal: controller.signal });
+    res = await scheduleCall(() =>
+      fetch(`${DOC_API_URL}?${params.toString()}`, { signal: controller.signal })
+    );
   } finally {
     clearTimeout(timeoutId);
   }
