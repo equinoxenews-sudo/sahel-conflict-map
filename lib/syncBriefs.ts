@@ -63,6 +63,7 @@ async function briefZone(
         title: b.title,
         summary: b.excerpt,
         sections: b.sections,
+        category: b.category,
         source_urls: b.sourceUrls,
         source_domains: b.sourceDomains,
         image_url: b.imageUrl,

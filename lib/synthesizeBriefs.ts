@@ -17,11 +17,25 @@ export interface BriefSection {
   body: string;
 }
 
+// Same categories already used for map event markers (types/event.ts) —
+// reusing them lets one thematic filter work across both the map and the
+// Actualité article list.
+const CATEGORIES = [
+  "Battles",
+  "Explosions/Remote violence",
+  "Violence against civilians",
+  "Protests",
+  "Riots",
+  "Strategic developments",
+] as const;
+type Category = (typeof CATEGORIES)[number];
+
 export interface SynthesizedBrief {
   title: string;
   /** One-sentence hook for card previews — the detail page shows `sections` in full. */
   excerpt: string;
   sections: BriefSection[];
+  category: Category;
   sourceUrls: string[];
   sourceDomains: string[];
   imageUrl: string | null;
@@ -46,10 +60,16 @@ Regroupe ces articles par sujet/événement (chaque article n'appartient qu'à u
 - Si tu n'as qu'un texte court ou peu de matière sur le sujet : un article COURT, une seule section (heading: null), 100 à 200 mots.
 - Si plusieurs sources fournissent du texte substantiel sur le même sujet : un article PLUS LONG et structuré, 2 à 4 sections avec un titre court chacune (par exemple "Ce que l'on sait", "Contexte", "Réactions", "Ce qui reste incertain"), 400 à 700 mots au total.
 
+Classe aussi chaque article dans EXACTEMENT une de ces catégories : ${CATEGORIES.join(", ")}.
+
 Règles strictes : n'utilise QUE les informations présentes dans les textes ci-dessus. N'invente aucun fait, aucune citation, aucun chiffre, aucune date qui n'y figure pas explicitement. Rédaction neutre, factuelle et journalistique en français.
 
 Réponds UNIQUEMENT avec un tableau JSON valide, sans texte ni markdown autour, au format exact :
-[{"title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
+[{"title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "category": "Battles", "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
+}
+
+function isValidCategory(value: unknown): value is Category {
+  return typeof value === "string" && (CATEGORIES as readonly string[]).includes(value);
 }
 
 function isValidSection(value: unknown): value is BriefSection {
@@ -80,10 +100,11 @@ function parseResponse(text: string, articles: SourceArticle[]): SynthesizedBrie
   const briefs: SynthesizedBrief[] = [];
   for (const item of parsed) {
     if (typeof item !== "object" || item === null) continue;
-    const { title, excerpt, sections, sourceIndexes } = item as {
+    const { title, excerpt, sections, category, sourceIndexes } = item as {
       title?: unknown;
       excerpt?: unknown;
       sections?: unknown;
+      category?: unknown;
       sourceIndexes?: unknown;
     };
 
@@ -107,6 +128,7 @@ function parseResponse(text: string, articles: SourceArticle[]): SynthesizedBrie
       title,
       excerpt,
       sections: sections as BriefSection[],
+      category: isValidCategory(category) ? category : "Strategic developments",
       // Kept 1:1 aligned with sourceUrls (not deduplicated) — the UI
       // indexes into both arrays together to link each domain label to
       // its URL.

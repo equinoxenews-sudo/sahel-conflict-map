@@ -1,0 +1,126 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  min-height: 0;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.filterBtn,
+.filterActive {
+  font: inherit;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid #444;
+  background: transparent;
+  color: #999;
+}
+
+.filterActive {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.newsItem {
+  display: block;
+  border: 1px solid #333;
+  padding: 16px;
+  flex-shrink: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+a.newsItem:hover {
+  border-color: #666;
+}
+
+.newsImage {
+  display: block;
+  width: calc(100% + 32px);
+  height: 120px;
+  object-fit: cover;
+  margin: -16px -16px 12px;
+}
+
+.newsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.newsDate {
+  font-size: 11px;
+  color: #888;
+}
+
+.reliabilityBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 12px;
+  color: #1a1a1a;
+}
+
+.newsTitle {
+  font-size: 15px;
+  margin: 6px 0;
+}
+
+.newsTitle a:hover {
+  text-decoration: underline;
+}
+
+.newsSummary {
+  font-size: 13px;
+  color: #ccc;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.newsSources {
+  font-size: 11px;
+  color: #888;
+  margin: 8px 0 0;
+}
+
+.empty {
+  font-size: 13px;
+  color: #666;
+  padding: 12px 0;
+}
+
+@media (max-width: 900px) {
+  .list {
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  .newsItem {
+    width: 260px;
+  }
+}

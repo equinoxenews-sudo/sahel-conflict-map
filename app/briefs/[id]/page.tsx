@@ -18,7 +18,7 @@ async function getBrief(id: string): Promise<ZoneBrief | null> {
     const { data, error } = await supabase
       .from("zone_briefs")
       .select(
-        "id, zone_slug, title, summary, sections, source_urls, source_domains, image_url, published_at"
+        "id, zone_slug, title, category, summary, sections, source_urls, source_domains, image_url, published_at"
       )
       .eq("id", numericId)
       .maybeSingle();

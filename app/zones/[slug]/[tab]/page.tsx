@@ -2,8 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/equinoxe/Header";
 import MapView from "@/components/MapView";
-import { formatDate } from "@/lib/formatDate";
-import { computeBriefReliability, RELIABILITY_COLORS } from "@/lib/reliability";
+import ZoneNewsList from "@/components/ZoneNewsList";
 import { supabase } from "@/lib/supabaseClient";
 import { ZONE_NEWS } from "@/lib/zoneNews";
 import { getZone, TAB_LABELS, TABS, type Tab } from "@/lib/zones";
@@ -39,10 +38,10 @@ async function getZoneBriefs(zoneSlug: string): Promise<ZoneBrief[]> {
   try {
     const { data, error } = await supabase
       .from("zone_briefs")
-      .select("id, zone_slug, title, summary, source_urls, source_domains, image_url, published_at")
+      .select("id, zone_slug, title, category, summary, source_urls, source_domains, image_url, published_at")
       .eq("zone_slug", zoneSlug)
       .order("published_at", { ascending: false })
-      .limit(6);
+      .limit(12);
 
     if (error) {
       console.error("Failed to load zone_briefs:", error.message);
@@ -89,8 +88,6 @@ export default async function ZoneTabPage({
   const isLiveActualite = zone.active && tab === "actualite" && zone.countries.length > 0;
   const briefs = isLiveActualite ? await getZoneBriefs(zone.slug) : [];
   const articles = isLiveActualite && briefs.length === 0 ? await getZoneArticles(zone.slug) : [];
-  const useBriefs = briefs.length > 0;
-  const useRealArticles = !useBriefs && articles.length > 0;
   const newsItems = ZONE_NEWS[zone.slug] ?? [];
 
   return (
@@ -109,54 +106,16 @@ export default async function ZoneTabPage({
       {isLiveActualite ? (
         <div className={styles.splitLayout}>
           <div className={styles.newsList}>
-            {useBriefs
-              ? briefs.map((b) => {
-                  const reliability = computeBriefReliability(b.source_domains);
-                  return (
-                    <Link key={b.id} href={`/briefs/${b.id}`} className={styles.newsItem}>
-                      {b.image_url ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={b.image_url} alt="" className={styles.newsImage} />
-                      ) : null}
-                      <div className={styles.newsHeader}>
-                        <span className={styles.newsDate}>{formatDate(b.published_at)}</span>
-                        <span
-                          className={styles.reliabilityBadge}
-                          style={{ backgroundColor: RELIABILITY_COLORS[reliability] }}
-                        >
-                          {reliability}
-                        </span>
-                      </div>
-                      <h2 className={styles.newsTitle}>{b.title}</h2>
-                      <p className={styles.newsSummary}>{b.summary}</p>
-                      <p className={styles.newsSources}>
-                        Sources : {[...new Set(b.source_domains)].join(", ")}
-                      </p>
-                    </Link>
-                  );
-                })
-              : useRealArticles
-                ? articles.map((a) => (
-                    <article key={a.url} className={styles.newsItem}>
-                      <span className={styles.newsDate}>{formatDate(a.published_at)}</span>
-                      <h2 className={styles.newsTitle}>
-                        <a href={a.url} target="_blank" rel="noopener noreferrer">
-                          {a.title}
-                        </a>
-                      </h2>
-                      <p className={styles.newsSummary}>Source : {a.domain}</p>
-                    </article>
-                  ))
-                : newsItems.map((item) => (
-                    <article key={item.title} className={styles.newsItem}>
-                      <span className={styles.newsDate}>{item.date}</span>
-                      <h2 className={styles.newsTitle}>{item.title}</h2>
-                      <p className={styles.newsSummary}>{item.summary}</p>
-                    </article>
-                  ))}
+            <ZoneNewsList briefs={briefs} articles={articles} newsItems={newsItems} />
           </div>
           <div className={styles.mapArea}>
             <MapView events={await getZoneEvents(zone.countries)} />
+          </div>
+          <div className={styles.extraColumn}>
+            <h2 className={styles.extraHeading}>À venir</h2>
+            <div className={styles.extraPlaceholder}>
+              <p>Contenu à déterminer</p>
+            </div>
           </div>
         </div>
       ) : (
