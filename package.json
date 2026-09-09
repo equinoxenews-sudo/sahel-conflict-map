@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.115.0",
+    "fast-xml-parser": "^5.11.1",
     "globe.gl": "^2.46.2",
     "jszip": "^3.10.1",
     "leaflet": "^1.9.4",

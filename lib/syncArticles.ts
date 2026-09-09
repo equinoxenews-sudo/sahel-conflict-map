@@ -1,29 +1,33 @@
-import { searchArticles } from "./gdeltDoc";
-import { ZONE_NEWS_DOMAINS } from "./newsSources";
+import { fetchFeed, type FeedItem } from "./rss";
+import { ZONE_RSS_FEEDS } from "./rssFeeds";
 import { getSupabaseAdmin } from "./supabaseAdmin";
 import { ZONE_KEYWORDS } from "./zoneKeywords";
 
-const ARTICLES_PER_ZONE = 12;
-
-function toIsoDate(seenDate: string): string | null {
-  // seenDate is YYYYMMDDTHHMMSSZ
-  const match = seenDate.match(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/);
-  if (!match) return null;
-  const [, y, mo, d, h, mi, s] = match;
-  return `${y}-${mo}-${d}T${h}:${mi}:${s}Z`;
+// A zone's feeds are region-scoped by the outlet's own editorial
+// categorization (e.g. BBC's Africa feed), but still carry off-topic
+// items (sports, business...) and other tracked-region countries. This
+// keeps only items that actually mention one of the zone's countries.
+function isRelevant(item: FeedItem, keywords: string[]): boolean {
+  const title = item.title.toLowerCase();
+  return keywords.some((keyword) => title.includes(keyword.toLowerCase()));
 }
 
-async function syncZone(zoneSlug: string, keywords: string[]): Promise<{ zoneSlug: string; count: number }> {
+async function syncZone(
+  zoneSlug: string,
+  feedUrls: string[],
+  keywords: string[]
+): Promise<{ zoneSlug: string; count: number }> {
   const supabase = getSupabaseAdmin();
-  const domains = ZONE_NEWS_DOMAINS[zoneSlug] ?? [];
-  const articles = await searchArticles(keywords, domains, ARTICLES_PER_ZONE);
 
-  const rows = articles.map((a) => ({
+  const feedResults = await Promise.all(feedUrls.map((url) => fetchFeed(url)));
+  const relevant = feedResults.flat().filter((item) => isRelevant(item, keywords));
+
+  const rows = relevant.map((item) => ({
     zone_slug: zoneSlug,
-    title: a.title,
-    url: a.url,
-    domain: a.domain,
-    published_at: toIsoDate(a.seenDate),
+    title: item.title,
+    url: item.url,
+    domain: item.domain,
+    published_at: item.publishedAt,
   }));
 
   if (rows.length > 0) {
@@ -40,24 +44,23 @@ async function syncZone(zoneSlug: string, keywords: string[]): Promise<{ zoneSlu
 }
 
 /**
- * Pulls a handful of recent real article headlines per zone from GDELT
- * DOC 2.0 (restricted to lib/newsSources.ts's curated domain list) and
- * upserts them into Supabase. Kept deliberately lightweight — just the
- * search + upsert, nothing else — because GDELT DOC's own rate limit
- * (lib/gdeltDoc.ts staggers calls ~5.5s apart) already eats a good chunk
- * of the 60s function budget; the heavier AI-synthesis step (fetching real
- * descriptions, calling Claude) runs separately in lib/syncBriefs.ts,
- * against whatever this run already stored, so a bad GDELT DOC day can't
- * blow the budget for both at once.
+ * Pulls recent real article headlines per zone from a curated list of RSS
+ * feeds (lib/rssFeeds.ts) and upserts them into Supabase. Replaces GDELT
+ * DOC 2.0 as the discovery source — that small research-project API
+ * turned out to be too unreliable in production (rate limits and outright
+ * connection failures most days). RSS feeds have no meaningful rate limit
+ * and every zone's feeds fetch fully concurrently — no staggering needed.
  *
- * Zones run concurrently — a zone whose request errors or times out is
- * simply skipped for today and picked up on tomorrow's run.
+ * A zone (or a single feed within it) that errors or times out is simply
+ * skipped for today and picked up on tomorrow's run.
  */
 export async function syncArticles() {
-  const zoneSlugs = Object.keys(ZONE_KEYWORDS);
+  const zoneSlugs = Object.keys(ZONE_RSS_FEEDS);
 
   const results = await Promise.allSettled(
-    zoneSlugs.map((zoneSlug) => syncZone(zoneSlug, ZONE_KEYWORDS[zoneSlug]))
+    zoneSlugs.map((zoneSlug) =>
+      syncZone(zoneSlug, ZONE_RSS_FEEDS[zoneSlug], ZONE_KEYWORDS[zoneSlug] ?? [])
+    )
   );
 
   const summary: Record<string, number> = {};
