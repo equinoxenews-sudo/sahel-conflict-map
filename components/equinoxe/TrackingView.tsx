@@ -1,14 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import styles from "./TrackingView.module.css";
+
+const LiveAircraftMap = dynamic(() => import("./LiveAircraftMap"), { ssr: false });
 
 type Source = "maritime" | "air";
 
 const MARINETRAFFIC_URL =
   "https://www.marinetraffic.com/en/ais/embed/zoom:3/centery:15/centerx:10/maptype:0/shownames:false/mmsi:0/shipid:0/fleet:/fleet_id:/vtypes:/showmenu:false/remember:false";
-
-const ADSBEXCHANGE_URL = "https://globe.adsbexchange.com/?lat=20&lon=15&zoom=2";
 
 export default function TrackingView() {
   const [source, setSource] = useState<Source>("maritime");
@@ -39,7 +40,7 @@ export default function TrackingView() {
             className={source === "air" ? styles.activeBtn : styles.btn}
             onClick={() => setSource("air")}
           >
-            Aérien — ADS-B Exchange
+            Aérien — en direct (OpenSky)
           </button>
         </div>
         <div className={styles.iframeWrapper}>
@@ -51,12 +52,7 @@ export default function TrackingView() {
               className={styles.iframe}
             />
           ) : (
-            <iframe
-              key="air"
-              title="ADS-B Exchange"
-              src={ADSBEXCHANGE_URL}
-              className={styles.iframe}
-            />
+            <LiveAircraftMap />
           )}
         </div>
       </div>
