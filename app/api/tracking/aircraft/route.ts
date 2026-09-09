@@ -1,28 +1,17 @@
 import { NextResponse } from "next/server";
+import { fetchOpenSkyStates } from "@/lib/opensky";
 
-const OPENSKY_URL = "https://opensky-network.org/api/states/all";
-// OpenSky's anonymous tier is limited (~400 req/day); a short edge cache
-// means every visitor polling this route shares the same upstream call
-// instead of each one spending its own quota.
+// A short edge cache means every visitor polling this route shares the
+// same upstream call instead of each one spending its own quota.
 const CACHE_SECONDS = 30;
 // Rendering thousands of markers in Leaflet gets sluggish fast, and it's
 // wasteful to ship the full ~9k-aircraft worldwide payload to the browser
 // for a demo map — keep a representative but bounded slice.
 const MAX_AIRCRAFT = 3000;
 
-interface OpenSkyResponse {
-  time: number;
-  states: (string | number | boolean | null)[][] | null;
-}
-
 export async function GET() {
   try {
-    const res = await fetch(OPENSKY_URL, { next: { revalidate: CACHE_SECONDS } });
-    if (!res.ok) {
-      return NextResponse.json({ error: `OpenSky error: ${res.status}` }, { status: 502 });
-    }
-
-    const data = (await res.json()) as OpenSkyResponse;
+    const data = await fetchOpenSkyStates();
     const states = data.states ?? [];
 
     // Column order per OpenSky's REST API docs: icao24, callsign,
