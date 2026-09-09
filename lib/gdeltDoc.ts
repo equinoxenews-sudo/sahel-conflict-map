@@ -77,16 +77,22 @@ export async function searchArticles(
   // so this is a hard per-request timeout, and there's no retry-on-429: a
   // zone that gets rate-limited or times out is just skipped for today's
   // run and picked up tomorrow.
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 12000);
-  let res: Response;
-  try {
-    res = await scheduleCall(() =>
-      fetch(`${DOC_API_URL}?${params.toString()}`, { signal: controller.signal })
-    );
-  } finally {
-    clearTimeout(timeoutId);
-  }
+  //
+  // The AbortController/timeout are created *inside* the scheduled
+  // callback, not before it — callers may sit in scheduleCall's queue for
+  // several seconds (multiple zones start at ~the same time), so a timer
+  // started at call-time would often expire before the fetch even begins.
+  // Started here, it only ever counts down against this call's own network
+  // request.
+  const res = await scheduleCall(async () => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 12000);
+    try {
+      return await fetch(`${DOC_API_URL}?${params.toString()}`, { signal: controller.signal });
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  });
   if (!res.ok) {
     throw new Error(`GDELT DOC API error: ${res.status} ${res.statusText}`);
   }
