@@ -1,7 +1,7 @@
 const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
 const MODEL = "claude-haiku-4-5-20251001";
 const MAX_TOKENS = 1200;
-const TIMEOUT_MS = 15000;
+const TIMEOUT_MS = 20000;
 
 export interface SourceArticle {
   title: string;
