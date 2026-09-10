@@ -101,7 +101,7 @@ export default function Map({ events }: MapProps) {
       center={SAHEL_CENTER}
       zoom={5}
       scrollWheelZoom
-      style={{ height: "100%", width: "100%" }}
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
     >
       <MapAutoResize />
       <FitToEvents events={events} />

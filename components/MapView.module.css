@@ -6,11 +6,10 @@
 }
 
 .mapWrapper {
+  position: relative;
   flex: 1;
   /* A real floor, not 0 — on some nested-flex layouts (notably the zone
-     page's mobile stack) the height:100% cascade from .container loses
-     precision against sibling controls (slider/filters/legend/footer)
-     and this would otherwise collapse to 0, hiding the map entirely. */
+     page's mobile stack) this would otherwise collapse to 0. */
   min-height: 300px;
 }
 

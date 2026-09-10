@@ -73,7 +73,7 @@ export default function LiveAircraftMap() {
         zoom={3}
         scrollWheelZoom
         preferCanvas
-        style={{ height: "100%", width: "100%" }}
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
       >
         <MapAutoResize />
         <TileLayer
