@@ -2,8 +2,24 @@
 
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
-import { CircleMarker, MapContainer, Popup, TileLayer } from "react-leaflet";
+import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from "react-leaflet";
 import styles from "./LiveAircraftMap.module.css";
+
+// Leaflet caches its container's measured pixel size and never re-checks
+// it on its own — a ResizeObserver keeps it honest through any layout
+// shift (responsive breakpoints, content loading above it, etc.).
+function MapAutoResize() {
+  const map = useMap();
+
+  useEffect(() => {
+    const container = map.getContainer();
+    const observer = new ResizeObserver(() => map.invalidateSize());
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [map]);
+
+  return null;
+}
 
 interface Aircraft {
   icao24: string;
@@ -59,6 +75,7 @@ export default function LiveAircraftMap() {
         preferCanvas
         style={{ height: "100%", width: "100%" }}
       >
+        <MapAutoResize />
         <TileLayer
           className={styles.darkTiles}
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors — positions : <a href="https://opensky-network.org">OpenSky Network</a>'

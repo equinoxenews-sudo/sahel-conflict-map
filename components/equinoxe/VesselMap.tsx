@@ -1,10 +1,27 @@
 "use client";
 
 import "leaflet/dist/leaflet.css";
-import { MapContainer, Popup, TileLayer, CircleMarker } from "react-leaflet";
+import { useEffect } from "react";
+import { MapContainer, Popup, TileLayer, CircleMarker, useMap } from "react-leaflet";
 import { MARITIME_CHOKEPOINTS } from "@/lib/maritimeChokepoints";
 import type { VesselPosition } from "@/types/vessel";
 import styles from "./VesselMap.module.css";
+
+// Leaflet caches its container's measured pixel size and never re-checks
+// it on its own — a ResizeObserver keeps it honest through any layout
+// shift (responsive breakpoints, content loading above it, etc.).
+function MapAutoResize() {
+  const map = useMap();
+
+  useEffect(() => {
+    const container = map.getContainer();
+    const observer = new ResizeObserver(() => map.invalidateSize());
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [map]);
+
+  return null;
+}
 
 interface VesselMapProps {
   vessels: VesselPosition[];
@@ -37,6 +54,7 @@ export default function VesselMap({ vessels }: VesselMapProps) {
         preferCanvas
         style={{ height: "100%", width: "100%" }}
       >
+        <MapAutoResize />
         <TileLayer
           className={styles.darkTiles}
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors — positions : <a href="https://aisstream.io">AISstream</a>'

@@ -48,6 +48,28 @@ interface MapProps {
   events: ConflictEvent[];
 }
 
+// Leaflet measures its container's pixel size once (at init, or whenever
+// told to via invalidateSize) and caches it — it does NOT react to CSS
+// layout changes on its own. In a responsive layout, anything that shifts
+// the container's actual size *after* that first measurement (images in
+// the news list above it finishing their load, a filter toggling, the
+// window resizing) leaves the map holding a stale — sometimes literally
+// 0×0 — size. A ResizeObserver keeps it honest for the life of the map.
+function MapAutoResize() {
+  const map = useMap();
+
+  useEffect(() => {
+    const container = map.getContainer();
+    const observer = new ResizeObserver(() => {
+      map.invalidateSize();
+    });
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [map]);
+
+  return null;
+}
+
 // react-leaflet's declarative `bounds` prop can compute a bogus view when
 // applied before the container has its final layout size. Fitting bounds
 // imperatively once the map instance is mounted (and already sized) is the
@@ -81,6 +103,7 @@ export default function Map({ events }: MapProps) {
       scrollWheelZoom
       style={{ height: "100%", width: "100%" }}
     >
+      <MapAutoResize />
       <FitToEvents events={events} />
       <TileLayer
         className={styles.darkTiles}
