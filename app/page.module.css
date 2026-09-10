@@ -76,6 +76,17 @@
 }
 
 @media (max-width: 900px) {
+  /* Below this width the body stacks vertically instead of sitting
+     side-by-side, so the page needs to scroll normally again — the
+     height:100dvh + overflow:hidden above exists only to stop the desktop
+     row layout from growing unbounded (see the zone-page fix this mirrors),
+     and traps all stacked content off-screen if left on for mobile. */
+  .main {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
   .body {
     flex-direction: column;
   }

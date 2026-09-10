@@ -146,5 +146,10 @@ a.item:hover {
   .column {
     min-width: 0;
     max-width: none;
+    height: auto;
+  }
+
+  .list {
+    overflow-y: visible;
   }
 }

@@ -107,6 +107,15 @@
 }
 
 @media (max-width: 900px) {
+  /* Same reasoning as the homepage fix: once splitLayout stacks vertically,
+     the page needs to scroll normally — the fixed height + overflow:hidden
+     otherwise traps everything below the news list off-screen. */
+  .main {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+
   .splitLayout {
     flex-direction: column;
   }
