@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.115.0",
+    "cesium": "^1.145.0",
     "fast-xml-parser": "^5.11.1",
     "globe.gl": "^2.46.2",
     "jszip": "^3.10.1",
@@ -20,6 +21,7 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "react-leaflet": "^5.0.0",
+    "satellite.js": "^7.1.0",
     "three": "^0.185.1",
     "ws": "^8.21.3"
   },

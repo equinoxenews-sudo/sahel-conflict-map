@@ -23,6 +23,9 @@
 
 .mapArea {
   position: relative;
+  /* Cesium's InfoBox (country click popup) is a fixed-width absolute
+     panel that would otherwise spill out over the neighbouring column. */
+  overflow: hidden;
   flex: 1;
   min-height: 420px;
   border: 1px solid #222;
