@@ -38,7 +38,14 @@ export interface SynthesizedBrief {
   category: Category;
   sourceUrls: string[];
   sourceDomains: string[];
-  imageUrl: string | null;
+  /**
+   * Every source's image, in citation order, deduplicated — not just the
+   * first. Several outlets (middleeasteye.net, france24.com) reuse one
+   * generic og:image across many unrelated articles, so the caller
+   * (lib/syncBriefs.ts) needs alternatives to fall back to when the first
+   * candidate is already showing on another brief.
+   */
+  imageCandidates: string[];
 }
 
 function buildPrompt(zoneName: string, articles: SourceArticle[]): string {
@@ -134,7 +141,7 @@ function parseResponse(text: string, articles: SourceArticle[]): SynthesizedBrie
       // its URL.
       sourceUrls: sources.map((s) => s.url),
       sourceDomains: sources.map((s) => s.domain),
-      imageUrl: sources.find((s) => s.imageUrl)?.imageUrl ?? null,
+      imageCandidates: [...new Set(sources.map((s) => s.imageUrl).filter((u): u is string => !!u))],
     });
   }
   return briefs;

@@ -15,6 +15,29 @@ interface StoredArticle {
   domain: string | null;
 }
 
+// How far back to look for images already on display — deep enough to
+// cover everything still visible on the homepage and a zone's Actualité
+// list, so a brief never silently duplicates a photo a reader can already see.
+const RECENT_IMAGE_LOOKBACK = 100;
+
+async function recentlyUsedImages(
+  supabase: ReturnType<typeof getSupabaseAdmin>
+): Promise<Set<string>> {
+  const { data, error } = await supabase
+    .from("zone_briefs")
+    .select("image_url")
+    .not("image_url", "is", null)
+    .order("published_at", { ascending: false })
+    .limit(RECENT_IMAGE_LOOKBACK);
+
+  if (error) {
+    console.error("Failed to load recent brief images:", error.message);
+    return new Set();
+  }
+
+  return new Set((data ?? []).map((row) => row.image_url as string));
+}
+
 async function briefZone(
   zoneSlug: string
 ): Promise<{ zoneSlug: string; articleCount: number; briefCount: number }> {
@@ -57,17 +80,22 @@ async function briefZone(
   const briefs = await synthesizeBriefs(zoneName, sourceArticles);
 
   if (briefs.length > 0) {
+    const usedImages = await recentlyUsedImages(supabase);
     const { error: insertError } = await supabase.from("zone_briefs").insert(
-      briefs.map((b) => ({
-        zone_slug: zoneSlug,
-        title: b.title,
-        summary: b.excerpt,
-        sections: b.sections,
-        category: b.category,
-        source_urls: b.sourceUrls,
-        source_domains: b.sourceDomains,
-        image_url: b.imageUrl,
-      }))
+      briefs.map((b) => {
+        const imageUrl = b.imageCandidates.find((url) => !usedImages.has(url)) ?? null;
+        if (imageUrl) usedImages.add(imageUrl);
+        return {
+          zone_slug: zoneSlug,
+          title: b.title,
+          summary: b.excerpt,
+          sections: b.sections,
+          category: b.category,
+          source_urls: b.sourceUrls,
+          source_domains: b.sourceDomains,
+          image_url: imageUrl,
+        };
+      })
     );
 
     if (insertError) {
