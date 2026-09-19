@@ -10,9 +10,10 @@ import type { SatellitePosition } from "@/lib/layers/satellites";
 import { LAYER_DEFAULTS, type LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
 import Globe3DLoader from "./Globe3DLoader";
+import GlobeSearchBox from "./GlobeSearchBox";
 import styles from "./GlobeWithLayers.module.css";
 import LayersPanel from "./LayersPanel";
-import RiskLegend from "./RiskLegend";
+import RiskLevelPanel from "./RiskLevelPanel";
 
 interface GlobeWithLayersProps {
   countryRisk: Record<string, CountryRisk>;
@@ -74,7 +75,6 @@ export default function GlobeWithLayers({
         </div>
 
         <div className={styles.legendBar}>
-          <RiskLegend />
           <span className={styles.disclaimer}>
             Calculé à partir des événements recensés sur chaque zone (90 derniers jours) — cliquez
             sur une zone du menu pour une analyse détaillée
@@ -87,7 +87,11 @@ export default function GlobeWithLayers({
         </div>
       </div>
 
-      <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
+      <div className={styles.rightStack}>
+        <GlobeSearchBox />
+        <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
+        <RiskLevelPanel />
+      </div>
     </>
   );
 }

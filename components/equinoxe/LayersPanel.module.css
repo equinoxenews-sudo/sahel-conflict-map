@@ -1,76 +1,117 @@
-.column {
-  flex: 0 0 280px;
+.panel {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  min-height: 0;
+  gap: 4px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  padding: 16px;
 }
 
 .heading {
-  font-size: 12px;
-  letter-spacing: 1.5px;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+
+.headingIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  background: var(--bg-panel-alt);
+  color: var(--accent-gold-bright);
+  font-size: 14px;
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  overflow-y: auto;
-  border: 1px dashed var(--border-subtle);
-  padding: 8px;
 }
 
 .item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 4px;
-  font-size: 13px;
+  gap: 10px;
+  padding: 9px 2px;
   cursor: pointer;
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.item:last-child {
+  border-bottom: none;
 }
 
 .item:hover {
   background: var(--bg-panel-alt);
 }
 
-.checkbox {
-  accent-color: var(--accent-gold-bright);
-  width: 14px;
-  height: 14px;
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: var(--text-secondary);
   flex-shrink: 0;
+}
+
+.iconRisk {
+  color: var(--status-critical);
 }
 
 .label {
   flex: 1;
+  font-size: 13px;
+  color: var(--text-primary);
 }
 
-.count {
-  color: var(--text-secondary);
-  font-size: 11px;
+/* Real checkbox kept for click/keyboard/a11y, visually hidden — the
+   custom pill below is what's actually shown. */
+.toggleInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
 }
 
-@media (min-width: 901px) {
-  .column {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    bottom: 16px;
-    width: 280px;
-    z-index: 3;
-    background: var(--bg-glass);
-    backdrop-filter: blur(6px);
-    border: 1px solid var(--border-glass);
-    border-radius: 8px;
-    padding: 12px;
-    overflow-y: auto;
-  }
+.toggle {
+  flex-shrink: 0;
+  width: 34px;
+  height: 20px;
+  border-radius: 999px;
+  background: var(--bg-panel-alt);
+  border: 1px solid var(--border-glass);
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  transition: background-color 0.15s ease;
 }
 
-@media (max-width: 900px) {
-  .column {
-    flex-basis: auto;
-  }
+.toggleThumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.toggleOn {
+  background: var(--status-info);
+  border-color: var(--status-info);
+}
+
+.toggleOn .toggleThumb {
+  background: #fff;
+  transform: translateX(14px);
 }

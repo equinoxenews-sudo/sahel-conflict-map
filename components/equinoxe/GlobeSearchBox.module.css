@@ -1,0 +1,39 @@
+.box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.icon {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  display: flex;
+}
+
+.input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 13px;
+}
+
+.input::placeholder {
+  color: var(--text-secondary);
+}
+
+.shortcut {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-glass);
+  border-radius: 5px;
+  padding: 1px 6px;
+}

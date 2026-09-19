@@ -35,6 +35,14 @@
   color: var(--status-danger);
 }
 
+/* Search box + layers panel + risk-level legend, stacked vertically. */
+.rightStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 0 0 300px;
+}
+
 @media (min-width: 901px) {
   .globeColumn {
     position: absolute;
@@ -60,6 +68,16 @@
     border: 1px solid var(--border-glass);
     border-radius: 8px;
     padding: 10px 20px;
+  }
+
+  .rightStack {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    bottom: 16px;
+    width: 300px;
+    z-index: 3;
+    overflow-y: auto;
   }
 }
 
