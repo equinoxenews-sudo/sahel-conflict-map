@@ -177,7 +177,7 @@ export default function Globe3D({
       // rather than Cesium's generic flyHome() default view (which
       // opens over the Americas/Atlantic, unrelated to this site).
       viewer.camera.setView({
-        destination: Cesium.Cartesian3.fromDegrees(15, 15, 3_000_000),
+        destination: Cesium.Cartesian3.fromDegrees(15, 15, 14_000_000),
         orientation: { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 },
       });
 
