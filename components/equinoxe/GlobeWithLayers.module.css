@@ -35,6 +35,34 @@
   color: #fb8c00;
 }
 
+@media (min-width: 901px) {
+  .globeColumn {
+    position: absolute;
+    inset: 0;
+  }
+
+  .mapArea {
+    position: absolute;
+    inset: 0;
+    border: none;
+    min-height: 0;
+  }
+
+  .legendBar {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    max-width: min(90%, 480px);
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(6px);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px 20px;
+  }
+}
+
 @media (max-width: 1100px) {
   .globeColumn {
     flex-basis: auto;

@@ -14,6 +14,20 @@
   padding: 16px;
 }
 
+@media (min-width: 901px) {
+  /* Desktop: the globe fills the whole area behind everything (see
+     GlobeWithLayers.module.css), and the news/layers columns become
+     floating panels on top of it instead of sitting beside it in a row
+     — matching paraxis.app's "dashboard over the map" look. Header and
+     the LATEST ticker stay outside `.body` entirely, so they're
+     unaffected and remain on top. */
+  .body {
+    position: relative;
+    display: block;
+    padding: 0;
+  }
+}
+
 .footer {
   display: flex;
   justify-content: center;
