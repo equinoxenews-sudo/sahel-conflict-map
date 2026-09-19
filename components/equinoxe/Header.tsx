@@ -13,13 +13,13 @@ export default function Header() {
     <header className={styles.header}>
       <Link href="/" className={styles.logo}>
         <Image
-          src="/equinoxe/logo-globe.png"
-          alt=""
-          width={46}
-          height={46}
-          className={styles.logoGlobe}
+          src="/equinoxe/logo-equinoxe-wordmark.png"
+          alt="Équinoxe News"
+          width={2167}
+          height={726}
+          priority
+          className={styles.logoImage}
         />
-        <span className={styles.wordmark}>EQUINOXE</span>
       </Link>
 
       <nav className={styles.zones}>

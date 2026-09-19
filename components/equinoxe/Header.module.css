@@ -17,18 +17,9 @@
   flex-shrink: 0;
 }
 
-.logoGlobe {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-}
-
-.wordmark {
-  color: var(--text-primary);
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 3px;
-  font-family: Arial, Helvetica, sans-serif;
+.logoImage {
+  height: 40px;
+  width: auto;
 }
 
 .zones {
