@@ -1,13 +1,17 @@
-import FeedColumn from "@/components/equinoxe/FeedColumn";
-import Globe3DLoader from "@/components/equinoxe/Globe3DLoader";
+import GlobeWithLayers from "@/components/equinoxe/GlobeWithLayers";
 import Header from "@/components/equinoxe/Header";
 import HomeNewsColumn from "@/components/equinoxe/HomeNewsColumn";
-import RiskLegend from "@/components/equinoxe/RiskLegend";
 import Ticker from "@/components/equinoxe/Ticker";
 import { computeCountryRiskFromEvents } from "@/lib/computeCountryRisk";
+import { fetchMilitaryAircraft } from "@/lib/layers/aircraft";
+import { fetchEarthquakes } from "@/lib/layers/earthquakes";
+import { fetchUpcomingLaunches } from "@/lib/layers/launches";
+import { fetchNaturalEvents } from "@/lib/layers/naturalEvents";
+import { fetchSatellitePositions } from "@/lib/layers/satellites";
 import { supabase } from "@/lib/supabaseClient";
 import type { Article } from "@/types/article";
 import type { ZoneBrief } from "@/types/brief";
+import type { VesselPosition } from "@/types/vessel";
 import styles from "./page.module.css";
 
 export const revalidate = 3600;
@@ -74,12 +78,39 @@ async function getHomeArticles(): Promise<Article[]> {
   }
 }
 
+async function getVesselPositions(): Promise<VesselPosition[]> {
+  try {
+    const { data, error } = await supabase
+      .from("vessel_positions")
+      .select("mmsi, ship_name, latitude, longitude, speed, course, region, updated_at")
+      .order("updated_at", { ascending: false })
+      .limit(500);
+
+    if (error) {
+      console.error("Failed to load vessel_positions:", error.message);
+      return [];
+    }
+
+    return data ?? [];
+  } catch (err) {
+    console.error("Failed to reach Supabase:", err);
+    return [];
+  }
+}
+
 export default async function Home() {
-  const [countryRisk, briefs, gdeltStatus] = await Promise.all([
-    computeCountryRiskFromEvents(),
-    getHomeBriefs(),
-    getGdeltStatus(),
-  ]);
+  const [countryRisk, briefs, gdeltStatus, vessels, aircraft, satellites, earthquakes, naturalEvents, launches] =
+    await Promise.all([
+      computeCountryRiskFromEvents(),
+      getHomeBriefs(),
+      getGdeltStatus(),
+      getVesselPositions(),
+      fetchMilitaryAircraft(),
+      fetchSatellitePositions(),
+      fetchEarthquakes(),
+      fetchNaturalEvents(),
+      fetchUpcomingLaunches(),
+    ]);
   const articles = briefs.length === 0 ? await getHomeArticles() : [];
 
   return (
@@ -90,26 +121,16 @@ export default async function Home() {
       <div className={styles.body}>
         <HomeNewsColumn briefs={briefs} articles={articles} />
 
-        <div className={styles.globeColumn}>
-          <div className={styles.mapArea}>
-            <Globe3DLoader countryRisk={countryRisk} />
-          </div>
-
-          <div className={styles.legendBar}>
-            <RiskLegend />
-            <span className={styles.disclaimer}>
-              Calculé à partir des événements recensés sur chaque zone (90 derniers jours) —
-              cliquez sur une zone du menu pour une analyse détaillée
-            </span>
-            {gdeltStatus.stale && gdeltStatus.hoursSinceSuccess != null ? (
-              <span className={styles.staleWarning}>
-                ⚠ Données non rafraîchies depuis {Math.floor(gdeltStatus.hoursSinceSuccess)}h
-              </span>
-            ) : null}
-          </div>
-        </div>
-
-        <FeedColumn />
+        <GlobeWithLayers
+          countryRisk={countryRisk}
+          aircraft={aircraft}
+          satellites={satellites}
+          vessels={vessels}
+          earthquakes={earthquakes}
+          naturalEvents={naturalEvents}
+          launches={launches}
+          gdeltStatus={gdeltStatus}
+        />
       </div>
 
       <footer className={styles.footer}>

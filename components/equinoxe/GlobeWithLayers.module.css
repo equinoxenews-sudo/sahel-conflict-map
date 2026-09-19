@@ -1,0 +1,49 @@
+.globeColumn {
+  flex: 2 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mapArea {
+  position: relative;
+  /* Cesium's InfoBox (country click popup) is a fixed-width absolute
+     panel that would otherwise spill out over the neighbouring column. */
+  overflow: hidden;
+  flex: 1;
+  min-height: 420px;
+  border: 1px solid #222;
+}
+
+.legendBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 12px 0 0;
+}
+
+.disclaimer {
+  font-size: 11px;
+  color: #777;
+  font-style: italic;
+}
+
+.staleWarning {
+  font-size: 11px;
+  color: #fb8c00;
+}
+
+@media (max-width: 1100px) {
+  .globeColumn {
+    flex-basis: auto;
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .globeColumn {
+    height: auto;
+  }
+}

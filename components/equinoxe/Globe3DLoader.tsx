@@ -2,13 +2,27 @@
 
 import dynamic from "next/dynamic";
 import type { CountryRisk } from "@/lib/countryRisk";
+import type { MilitaryAircraft } from "@/lib/layers/aircraft";
+import type { Earthquake } from "@/lib/layers/earthquakes";
+import type { Launch } from "@/lib/layers/launches";
+import type { NaturalEvent } from "@/lib/layers/naturalEvents";
+import type { SatellitePosition } from "@/lib/layers/satellites";
+import type { LayerKey } from "@/lib/layers/types";
+import type { VesselPosition } from "@/types/vessel";
 
 const Globe3D = dynamic(() => import("./Globe3D"), { ssr: false });
 
 interface Globe3DLoaderProps {
   countryRisk: Record<string, CountryRisk>;
+  enabledLayers: Record<LayerKey, boolean>;
+  aircraft: MilitaryAircraft[];
+  satellites: SatellitePosition[];
+  vessels: VesselPosition[];
+  earthquakes: Earthquake[];
+  naturalEvents: NaturalEvent[];
+  launches: Launch[];
 }
 
-export default function Globe3DLoader({ countryRisk }: Globe3DLoaderProps) {
-  return <Globe3D countryRisk={countryRisk} />;
+export default function Globe3DLoader(props: Globe3DLoaderProps) {
+  return <Globe3D {...props} />;
 }
