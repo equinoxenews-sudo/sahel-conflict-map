@@ -19,6 +19,13 @@ const IMAGERY_URL =
   "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
 const IMAGERY_CREDIT = "Esri, Maxar, Earthstar Geographics";
 
+// A second, transparent Esri layer stacked on top of the imagery above —
+// country/state borders plus city and capital labels. Same free service
+// (no key, no Cesium ion), confirmed by inspecting paraxis.app's own
+// network requests: it layers these same two Esri MapServer tile sets.
+const BOUNDARIES_URL =
+  "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}";
+
 // Cesium is loaded as a plain <script> from a CDN rather than
 // `import("cesium")`. Bundling Cesium's own code through Turbopack's
 // production minifier corrupts it into "Octal escape sequences are not
@@ -156,8 +163,14 @@ export default function Globe3D({
       viewer.imageryLayers.addImageryProvider(
         new Cesium.UrlTemplateImageryProvider({ url: IMAGERY_URL, credit: IMAGERY_CREDIT })
       );
+      // Added second (on top): transparent borders + place/capital labels.
+      viewer.imageryLayers.addImageryProvider(
+        new Cesium.UrlTemplateImageryProvider({ url: BOUNDARIES_URL, credit: IMAGERY_CREDIT })
+      );
 
-      viewer.scene.globe.enableLighting = false;
+      // Day/night shading — the sun-relative lighting that gives the
+      // globe a more dramatic, "real satellite" look (matches paraxis.app).
+      viewer.scene.globe.enableLighting = true;
       viewer.scene.backgroundColor = Cesium.Color.BLACK;
 
       // Cesium's own "look at the whole globe" command — more reliable
