@@ -109,7 +109,7 @@ export default function Globe3D({
   launches,
 }: Globe3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const dataSourcesRef = useRef<Partial<Record<LayerKey, CesiumNS.CustomDataSource>>>({});
+  const dataSourcesRef = useRef<Partial<Record<LayerKey, CesiumNS.DataSource>>>({});
 
   // Heavy one-time setup: the Cesium Viewer itself, the country-risk
   // overlay, and every layer's CustomDataSource. Deliberately does NOT
@@ -173,11 +173,13 @@ export default function Globe3D({
       viewer.scene.globe.enableLighting = true;
       viewer.scene.backgroundColor = Cesium.Color.BLACK;
 
-      // Cesium's own "look at the whole globe" command — more reliable
-      // than manually computed destination+orientation, which measured
-      // as "correct" (right height/lat/lon) yet still left the globe
-      // surface out of view (zero imagery tiles ever requested).
-      viewer.camera.flyHome(0);
+      // Centered on the Sahel/Africa — the site's editorial focus —
+      // rather than Cesium's generic flyHome() default view (which
+      // opens over the Americas/Atlantic, unrelated to this site).
+      viewer.camera.setView({
+        destination: Cesium.Cartesian3.fromDegrees(15, 15, 3_000_000),
+        orientation: { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 },
+      });
 
       // Country risk overlay — GeoJSON + ISO3 lookup. GeoJsonDataSource
       // sets each Entity's id from the feature's top-level `id` when
@@ -253,12 +255,14 @@ export default function Globe3D({
         countryDataSource.entities.remove(entity);
       }
 
-      viewer.dataSources.add(countryDataSource);
-
-      // --- Optional data layers, one CustomDataSource each -----------
+      // --- Optional data layers, one DataSource each ------------------
       // All built up front and added to the viewer immediately (hidden
       // unless already enabled); the second effect just flips `.show`.
-      const layerSources: Partial<Record<LayerKey, CesiumNS.CustomDataSource>> = {};
+      // The country-risk overlay is included here too (key "risk") so it
+      // can be toggled off the same way as every other layer.
+      const layerSources: Partial<Record<LayerKey, CesiumNS.DataSource>> = {
+        risk: countryDataSource,
+      };
 
       const aircraftSource = new Cesium.CustomDataSource("aircraft");
       for (const a of aircraft) {

@@ -7,7 +7,7 @@ import type { Earthquake } from "@/lib/layers/earthquakes";
 import type { Launch } from "@/lib/layers/launches";
 import type { NaturalEvent } from "@/lib/layers/naturalEvents";
 import type { SatellitePosition } from "@/lib/layers/satellites";
-import { LAYER_ORDER, type LayerKey } from "@/lib/layers/types";
+import { LAYER_DEFAULTS, type LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
 import Globe3DLoader from "./Globe3DLoader";
 import styles from "./GlobeWithLayers.module.css";
@@ -25,11 +25,6 @@ interface GlobeWithLayersProps {
   gdeltStatus: { hoursSinceSuccess: number | null; stale: boolean };
 }
 
-const ALL_DISABLED: Record<LayerKey, boolean> = LAYER_ORDER.reduce(
-  (acc, key) => ({ ...acc, [key]: false }),
-  {} as Record<LayerKey, boolean>
-);
-
 export default function GlobeWithLayers({
   countryRisk,
   aircraft,
@@ -40,10 +35,11 @@ export default function GlobeWithLayers({
   launches,
   gdeltStatus,
 }: GlobeWithLayersProps) {
-  const [enabledLayers, setEnabledLayers] = useState<Record<LayerKey, boolean>>(ALL_DISABLED);
+  const [enabledLayers, setEnabledLayers] = useState<Record<LayerKey, boolean>>(LAYER_DEFAULTS);
 
   const counts = useMemo<Record<LayerKey, number>>(
     () => ({
+      risk: Object.keys(countryRisk).length,
       aircraft: aircraft.length,
       satellites: satellites.length,
       vessels: vessels.length,
@@ -54,7 +50,7 @@ export default function GlobeWithLayers({
       floods: naturalEvents.filter((e) => e.category === "floods").length,
       launches: launches.length,
     }),
-    [aircraft, satellites, vessels, earthquakes, naturalEvents, launches]
+    [countryRisk, aircraft, satellites, vessels, earthquakes, naturalEvents, launches]
   );
 
   function toggleLayer(key: LayerKey) {
