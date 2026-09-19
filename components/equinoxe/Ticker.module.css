@@ -1,8 +1,8 @@
 .ticker {
   display: flex;
   align-items: center;
-  background: #0a0a0a;
-  border-bottom: 1px solid #222;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-subtle);
   overflow: hidden;
   height: 32px;
 }
@@ -11,8 +11,8 @@
   position: relative;
   z-index: 2;
   flex-shrink: 0;
-  background: #e53935;
-  color: #fff;
+  background: var(--status-critical);
+  color: var(--text-primary);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -40,14 +40,14 @@
 .item {
   display: inline-flex;
   align-items: center;
-  color: #ccc;
+  color: var(--text-secondary);
   font-size: 11px;
   letter-spacing: 0.3px;
   padding: 0 20px;
 }
 
 .dot {
-  color: #e53935;
+  color: var(--accent-gold);
   margin-left: 20px;
 }
 

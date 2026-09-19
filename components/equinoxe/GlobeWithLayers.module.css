@@ -12,7 +12,7 @@
   overflow: hidden;
   flex: 1;
   min-height: 420px;
-  border: 1px solid #222;
+  border: 1px solid var(--border-subtle);
 }
 
 .legendBar {
@@ -26,13 +26,13 @@
 
 .disclaimer {
   font-size: 11px;
-  color: #777;
+  color: var(--text-secondary);
   font-style: italic;
 }
 
 .staleWarning {
   font-size: 11px;
-  color: #fb8c00;
+  color: var(--status-danger);
 }
 
 @media (min-width: 901px) {
@@ -55,9 +55,9 @@
     transform: translateX(-50%);
     z-index: 3;
     max-width: min(90%, 480px);
-    background: rgba(10, 10, 10, 0.85);
+    background: var(--bg-glass);
     backdrop-filter: blur(6px);
-    border: 1px solid #333;
+    border: 1px solid var(--border-glass);
     border-radius: 8px;
     padding: 10px 20px;
   }

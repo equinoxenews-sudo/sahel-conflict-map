@@ -1,9 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ZONES } from "@/lib/zones";
 import styles from "./Header.module.css";
 
 export default function Header() {
+  const pathname = usePathname();
+
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.logo}>
@@ -18,14 +23,21 @@ export default function Header() {
       </Link>
 
       <nav className={styles.zones}>
-        {ZONES.map((zone) => (
-          <Link key={zone.slug} href={`/zones/${zone.slug}`} className={styles.zoneLink}>
-            <span className={styles.hex}>
-              <Image src={zone.icon} alt={zone.name} width={40} height={49} />
-            </span>
-            <span className={styles.zoneLabel}>{zone.name}</span>
-          </Link>
-        ))}
+        {ZONES.map((zone) => {
+          const isActive = pathname?.startsWith(`/zones/${zone.slug}`);
+          return (
+            <Link
+              key={zone.slug}
+              href={`/zones/${zone.slug}`}
+              className={isActive ? `${styles.zoneLink} ${styles.zoneLinkActive}` : styles.zoneLink}
+            >
+              <span className={styles.hex}>
+                <Image src={zone.icon} alt={zone.name} width={40} height={49} />
+              </span>
+              <span className={styles.zoneLabel}>{zone.name}</span>
+            </Link>
+          );
+        })}
         <Link href="/mon-espace" className={styles.zoneLink}>
           <span className={styles.hex}>
             <span className={styles.emojiIcon} aria-hidden>

@@ -1,12 +1,16 @@
 export type ReliabilityScore = 1 | 2 | 3 | 4 | 5;
 
-/** 1 = peu fiable (rouge) ... 5 = très fiable (vert). */
+/**
+ * 1 = peu fiable (rouge) ... 5 = très fiable (vert). Matches the
+ * functional map palette in app/globals.css (--status-*) — kept as
+ * literal hex since these feed inline styles / Cesium color APIs, not CSS.
+ */
 export const RELIABILITY_COLORS: Record<ReliabilityScore, string> = {
-  1: "#e53935",
-  2: "#fb8c00",
-  3: "#fdd835",
-  4: "#9ccc65",
-  5: "#43a047",
+  1: "#d94a4a",
+  2: "#e87932",
+  3: "#e0b44c",
+  4: "#35b779",
+  5: "#35b779",
 };
 
 /**

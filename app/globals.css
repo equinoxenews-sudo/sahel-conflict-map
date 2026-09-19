@@ -1,6 +1,31 @@
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
+  /* Équinoxe identity — dark, premium, operational. Gold is the signature
+     accent, reserved for selection/emphasis; the rest of the interface
+     stays navy/white/grey so gold doesn't get diluted. */
+  --background: #070d17;
+  --foreground: #f1f4f7;
+
+  --bg-primary: #070d17;
+  --bg-panel: #101c2c;
+  --bg-panel-alt: #162438;
+  /* "Smoked glass" panel treatment used for floating overlays (news list,
+     layers panel, legend bar). */
+  --bg-glass: rgba(12, 23, 38, 0.82);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-subtle: #1c2b3f;
+
+  --text-primary: #f1f4f7;
+  --text-secondary: #8f9baa;
+
+  --accent-gold: #c89b3c;
+  --accent-gold-bright: #e0b44c;
+
+  /* Functional map/status colors. */
+  --status-normal: #35b779;
+  --status-watch: #e0b44c;
+  --status-danger: #e87932;
+  --status-critical: #d94a4a;
+  --status-info: #3d9be9;
 }
 
 html {

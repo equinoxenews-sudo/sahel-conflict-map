@@ -1,6 +1,6 @@
 .main {
   min-height: 100dvh;
-  background: #000;
+  background: var(--bg-primary);
   display: flex;
   flex-direction: column;
 }
@@ -15,7 +15,7 @@
 
 
 .title {
-  color: #fff;
+  color: var(--text-primary);
   font-size: 28px;
   letter-spacing: 4px;
   margin: 0;
@@ -23,7 +23,7 @@
 
 .notice {
   text-align: center;
-  color: #999;
+  color: var(--text-secondary);
   font-size: 13px;
   margin: 0 16px 8px;
 }
@@ -39,22 +39,26 @@
 
 .card {
   width: 380px;
-  border: 1px solid #fff;
-  color: #fff;
+  border: 1px solid var(--border-glass);
+  background: var(--bg-panel);
+  color: var(--text-primary);
   text-decoration: none;
   display: flex;
   flex-direction: column;
-  transition: transform 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .card:hover {
   transform: translateY(-2px);
+  border-color: var(--accent-gold);
 }
 
 .cardHeader {
   text-align: center;
   padding: 10px;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid var(--border-glass);
   font-weight: 700;
   letter-spacing: 1px;
 }
@@ -63,7 +67,7 @@
   height: 200px;
   background-size: cover;
   background-position: center;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid var(--border-glass);
 }
 
 .cardImage_approche {

@@ -19,7 +19,7 @@
 .heading {
   font-size: 12px;
   letter-spacing: 1.5px;
-  color: #888;
+  color: var(--text-secondary);
   text-transform: uppercase;
   margin: 0;
 }
@@ -36,15 +36,15 @@
   padding: 3px 8px;
   border-radius: 999px;
   cursor: pointer;
-  border: 1px solid #444;
+  border: 1px solid var(--border-subtle);
   background: transparent;
-  color: #999;
+  color: var(--text-secondary);
 }
 
 .dateFilterActive {
-  background: #fff;
-  color: #000;
-  border-color: #fff;
+  background: var(--accent-gold-bright);
+  color: var(--bg-primary);
+  border-color: var(--accent-gold-bright);
 }
 
 .list {
@@ -58,14 +58,14 @@
 .item {
   display: flex;
   gap: 10px;
-  border: 1px solid #262626;
+  border: 1px solid var(--border-subtle);
   padding: 8px;
   color: inherit;
   text-decoration: none;
 }
 
 a.item:hover {
-  border-color: #555;
+  border-color: var(--accent-gold);
 }
 
 .image {
@@ -90,7 +90,7 @@ a.item:hover {
 
 .date {
   font-size: 10px;
-  color: #888;
+  color: var(--text-secondary);
 }
 
 .reliabilityBadge {
@@ -127,7 +127,7 @@ a.item:hover {
 
 .summary {
   font-size: 11px;
-  color: #aaa;
+  color: var(--text-secondary);
   line-height: 1.4;
   margin: 0;
   display: -webkit-box;
@@ -138,7 +138,7 @@ a.item:hover {
 
 .empty {
   font-size: 12px;
-  color: #666;
+  color: var(--text-secondary);
   padding: 12px 0;
 }
 
@@ -152,9 +152,9 @@ a.item:hover {
     min-width: 0;
     max-width: none;
     z-index: 3;
-    background: rgba(10, 10, 10, 0.85);
+    background: var(--bg-glass);
     backdrop-filter: blur(6px);
-    border: 1px solid #333;
+    border: 1px solid var(--border-glass);
     border-radius: 8px;
     padding: 12px;
   }

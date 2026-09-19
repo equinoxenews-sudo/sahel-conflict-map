@@ -9,7 +9,7 @@
 .heading {
   font-size: 12px;
   letter-spacing: 1.5px;
-  color: #888;
+  color: var(--text-secondary);
   text-transform: uppercase;
   margin: 0;
 }
@@ -19,7 +19,7 @@
   flex-direction: column;
   gap: 2px;
   overflow-y: auto;
-  border: 1px dashed #333;
+  border: 1px dashed var(--border-subtle);
   padding: 8px;
 }
 
@@ -33,11 +33,11 @@
 }
 
 .item:hover {
-  background: #111;
+  background: var(--bg-panel-alt);
 }
 
 .checkbox {
-  accent-color: #fff;
+  accent-color: var(--accent-gold-bright);
   width: 14px;
   height: 14px;
   flex-shrink: 0;
@@ -48,7 +48,7 @@
 }
 
 .count {
-  color: #666;
+  color: var(--text-secondary);
   font-size: 11px;
 }
 
@@ -60,9 +60,9 @@
     bottom: 16px;
     width: 280px;
     z-index: 3;
-    background: rgba(10, 10, 10, 0.85);
+    background: var(--bg-glass);
     backdrop-filter: blur(6px);
-    border: 1px solid #333;
+    border: 1px solid var(--border-glass);
     border-radius: 8px;
     padding: 12px;
     overflow-y: auto;
