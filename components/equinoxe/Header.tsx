@@ -15,11 +15,15 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.logo}>
+        {/* unoptimized: the source PNG has a real alpha channel (confirmed
+            by sampling it directly), but Next's /_next/image resizer
+            flattens it to opaque black — skip it for this asset. */}
         <Image
           src="/equinoxe/logo-equinoxe-wordmark.png"
           alt="Équinoxe News"
           width={2167}
           height={726}
+          unoptimized
           priority
           className={styles.logoImage}
         />

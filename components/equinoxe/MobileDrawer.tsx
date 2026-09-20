@@ -24,11 +24,14 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
       <button type="button" className={styles.backdrop} aria-label="Fermer" onClick={onClose} />
       <div className={styles.panel}>
         <div className={styles.header}>
+          {/* unoptimized: see Header.tsx — Next's resizer flattens this
+              PNG's alpha channel to opaque black. */}
           <Image
             src="/equinoxe/logo-equinoxe-wordmark.png"
             alt="Équinoxe News"
             width={2167}
             height={726}
+            unoptimized
             className={styles.logo}
           />
           <button type="button" className={styles.closeBtn} aria-label="Fermer" onClick={onClose}>
