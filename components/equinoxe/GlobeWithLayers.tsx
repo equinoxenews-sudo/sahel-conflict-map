@@ -10,6 +10,7 @@ import type { SatellitePosition } from "@/lib/layers/satellites";
 import { LAYER_DEFAULTS, type LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
 import Globe3DLoader from "./Globe3DLoader";
+import GlobeClock from "./GlobeClock";
 import GlobeSearchBox from "./GlobeSearchBox";
 import styles from "./GlobeWithLayers.module.css";
 import LayersPanel from "./LayersPanel";
@@ -82,6 +83,7 @@ export default function GlobeWithLayers({
             naturalEvents={naturalEvents}
             launches={launches}
           />
+          <GlobeClock />
         </div>
 
         <div className={styles.legendBar}>

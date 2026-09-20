@@ -73,6 +73,13 @@ function loadCesium(): Promise<typeof CesiumNS> {
   return cesiumLoadPromise;
 }
 
+// The Sahel/Africa-centered default view (also used to reset the camera
+// via the "recentrer" control button) — see the camera.setView call below
+// for why this beats Cesium's generic flyHome().
+const DEFAULT_LON = 15;
+const DEFAULT_LAT = 15;
+const DEFAULT_HEIGHT = 17_000_000;
+
 const NATURAL_EVENT_COLORS: Record<NaturalEventCategory, string> = {
   wildfires: "#ff6d00",
   severeStorms: "#29b6f6",
@@ -110,6 +117,7 @@ export default function Globe3D({
 }: Globe3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const dataSourcesRef = useRef<Partial<Record<LayerKey, CesiumNS.DataSource>>>({});
+  const viewerRef = useRef<CesiumNS.Viewer | null>(null);
 
   // Heavy one-time setup: the Cesium Viewer itself, the country-risk
   // overlay, and every layer's CustomDataSource. Deliberately does NOT
@@ -146,6 +154,7 @@ export default function Globe3D({
         // not show Cesium's big built-in error panel over the whole globe.
         showRenderLoopErrors: false,
       });
+      viewerRef.current = viewer;
 
       // By default, ANY render-loop error (e.g. one pathological polygon
       // out of ~180 countries throwing during async geometry building —
@@ -189,7 +198,7 @@ export default function Globe3D({
       // rather than Cesium's generic flyHome() default view (which
       // opens over the Americas/Atlantic, unrelated to this site).
       viewer.camera.setView({
-        destination: Cesium.Cartesian3.fromDegrees(15, 15, 17_000_000),
+        destination: Cesium.Cartesian3.fromDegrees(DEFAULT_LON, DEFAULT_LAT, DEFAULT_HEIGHT),
         orientation: { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 },
       });
 
@@ -244,7 +253,7 @@ export default function Globe3D({
         const iso3 = String(entity.id);
         const risk = countryRisk[iso3];
         const color = risk
-          ? Cesium.Color.fromCssColorString(RISK_COLORS[risk.tier]).withAlpha(0.45)
+          ? Cesium.Color.fromCssColorString(RISK_COLORS[risk.tier]).withAlpha(0.28)
           : Cesium.Color.WHITE.withAlpha(0.05);
 
         entity.polygon.material = new Cesium.ColorMaterialProperty(color);
@@ -413,6 +422,7 @@ export default function Globe3D({
       disposed = true;
       resizeObserver?.disconnect();
       viewer?.destroy();
+      viewerRef.current = null;
       dataSourcesRef.current = {};
     };
     // Layer datasets are fetched once server-side and don't change for
@@ -429,5 +439,63 @@ export default function Globe3D({
     }
   }, [enabledLayers]);
 
-  return <div ref={containerRef} className={styles.globeContainer} />;
+  function handleZoomIn() {
+    const viewer = viewerRef.current;
+    if (!viewer) return;
+    viewer.camera.zoomIn(viewer.camera.positionCartographic.height * 0.4);
+  }
+
+  function handleZoomOut() {
+    const viewer = viewerRef.current;
+    if (!viewer) return;
+    viewer.camera.zoomOut(viewer.camera.positionCartographic.height * 0.4);
+  }
+
+  function handleRecenter() {
+    const viewer = viewerRef.current;
+    const Cesium = window.Cesium;
+    if (!viewer || !Cesium) return;
+    viewer.camera.flyTo({
+      destination: Cesium.Cartesian3.fromDegrees(DEFAULT_LON, DEFAULT_LAT, DEFAULT_HEIGHT),
+      orientation: { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 },
+      duration: 1.2,
+    });
+  }
+
+  function handleCompass() {
+    const viewer = viewerRef.current;
+    const Cesium = window.Cesium;
+    if (!viewer || !Cesium) return;
+    // Re-levels to north-up/straight-down without changing position or
+    // zoom — the camera's heading/roll can drift from mouse-drag rotation.
+    viewer.camera.setView({ orientation: { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 } });
+  }
+
+  return (
+    <>
+      <div ref={containerRef} className={styles.globeContainer} />
+      <div className={styles.controls}>
+        <button type="button" className={styles.controlBtn} aria-label="Nord" onClick={handleCompass}>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 5v3M12 5l2.2 4.4L12 8l-2.2 1.4L12 5Z" fill="currentColor" stroke="none" />
+          </svg>
+        </button>
+        <div className={styles.zoomGroup}>
+          <button type="button" className={styles.controlBtn} aria-label="Zoomer" onClick={handleZoomIn}>
+            +
+          </button>
+          <button type="button" className={styles.controlBtn} aria-label="Dézoomer" onClick={handleZoomOut}>
+            −
+          </button>
+        </div>
+        <button type="button" className={styles.controlBtn} aria-label="Recentrer" onClick={handleRecenter}>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
+          </svg>
+        </button>
+      </div>
+    </>
+  );
 }

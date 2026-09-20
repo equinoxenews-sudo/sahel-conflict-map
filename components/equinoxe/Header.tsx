@@ -38,20 +38,12 @@ export default function Header() {
               href={`/zones/${zone.slug}`}
               className={isActive ? `${styles.zoneLink} ${styles.zoneLinkActive}` : styles.zoneLink}
             >
-              <span className={styles.hex}>
-                <Image src={zone.icon} alt={zone.name} width={40} height={49} />
-              </span>
-              <span className={styles.zoneLabel}>{zone.name}</span>
+              {zone.name}
             </Link>
           );
         })}
         <Link href="/mon-espace" className={styles.zoneLink}>
-          <span className={styles.hex}>
-            <span className={styles.emojiIcon} aria-hidden>
-              🗂️
-            </span>
-          </span>
-          <span className={styles.zoneLabel}>Mon espace</span>
+          Mon espace
         </Link>
       </nav>
 

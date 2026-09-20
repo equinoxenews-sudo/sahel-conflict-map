@@ -2,3 +2,64 @@
   position: absolute;
   inset: 0;
 }
+
+/* Compass / zoom / recenter — Cesium ships no on-screen navigation UI
+   here (navigationHelpButton etc. are all disabled), so this is a small
+   custom control cluster instead. Positioned clear of the floating news
+   column on desktop (400px wide + 16px margin, see HomeNewsColumn); on
+   mobile there's no such column, so it just hugs the corner. */
+.controls {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+@media (min-width: 901px) {
+  .controls {
+    left: 432px;
+  }
+}
+
+.controlBtn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-glass);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.controlBtn:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold-bright);
+}
+
+.zoomGroup {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.zoomGroup .controlBtn {
+  border-radius: 0;
+}
+
+.zoomGroup .controlBtn:first-child {
+  border-bottom: none;
+}

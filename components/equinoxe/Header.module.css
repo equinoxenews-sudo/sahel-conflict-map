@@ -24,46 +24,30 @@
 
 .zones {
   display: flex;
-  gap: 12px;
+  align-items: center;
+  gap: 22px;
   flex-wrap: wrap;
 }
 
 .zoneLink {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  width: 88px;
+  color: var(--text-secondary);
   text-decoration: none;
+  font-size: 14px;
+  white-space: nowrap;
   padding-bottom: 4px;
   border-bottom: 2px solid transparent;
-  transition: border-color 0.15s ease;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
 
 .zoneLink:hover {
-  border-bottom-color: var(--accent-gold);
+  color: var(--text-primary);
 }
 
 .zoneLinkActive {
+  color: var(--accent-gold-bright);
   border-bottom-color: var(--accent-gold-bright);
-}
-
-.hex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-}
-
-.hex img {
-  width: 100%;
-  height: auto !important;
-}
-
-.emojiIcon {
-  font-size: 26px;
-  line-height: 1;
 }
 
 .zoneLabel {
@@ -74,14 +58,12 @@
   white-space: nowrap;
 }
 
-.zoneLinkActive .zoneLabel {
-  color: var(--accent-gold-bright);
-}
-
 .actions {
   display: flex;
   align-items: center;
   gap: 12px;
+  padding-left: 16px;
+  border-left: 1px solid var(--border-glass);
 }
 
 .iconBtn {
@@ -156,6 +138,8 @@
   .actions {
     gap: 8px;
     margin-left: auto;
+    padding-left: 0;
+    border-left: none;
   }
 
   .mobileMenuBtn,
