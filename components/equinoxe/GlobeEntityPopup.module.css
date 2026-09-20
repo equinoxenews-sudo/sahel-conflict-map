@@ -1,0 +1,90 @@
+.popup {
+  position: absolute;
+  z-index: 20;
+  transform: translate(-50%, calc(-100% - 14px));
+  width: 240px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 12px;
+  pointer-events: auto;
+}
+
+.popup::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  transform: translateX(-50%);
+  width: 12px;
+  height: 12px;
+  background: var(--bg-glass);
+  border-right: 1px solid var(--border-glass);
+  border-bottom: 1px solid var(--border-glass);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--accent-gold-bright);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px;
+  line-height: 1;
+}
+
+.closeBtn:hover {
+  color: var(--text-primary);
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px;
+  line-height: 1.35;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+}
+
+.field {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.fieldLabel {
+  font-size: 10px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.fieldValue {
+  margin: 0;
+  font-size: 11.5px;
+  color: var(--text-primary);
+  text-align: right;
+}

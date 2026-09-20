@@ -8,7 +8,7 @@ import type { Earthquake } from "@/lib/layers/earthquakes";
 import type { Launch } from "@/lib/layers/launches";
 import type { NaturalEvent, NaturalEventCategory } from "@/lib/layers/naturalEvents";
 import type { SatellitePosition } from "@/lib/layers/satellites";
-import type { LayerKey } from "@/lib/layers/types";
+import type { EntityPopupData, LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
 import styles from "./Globe3D.module.css";
 
@@ -80,6 +80,19 @@ const DEFAULT_LON = 15;
 const DEFAULT_LAT = 15;
 const DEFAULT_HEIGHT = 17_000_000;
 
+function formatDateTime(value: string | number): string {
+  return new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(
+    new Date(value)
+  );
+}
+
+const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
+  wildfires: "FEU DE FORÊT",
+  severeStorms: "TEMPÊTE",
+  volcanoes: "VOLCAN",
+  floods: "INONDATION",
+};
+
 const NATURAL_EVENT_COLORS: Record<NaturalEventCategory, string> = {
   wildfires: "#ff6d00",
   severeStorms: "#29b6f6",
@@ -103,6 +116,7 @@ interface Globe3DProps {
   earthquakes: Earthquake[];
   naturalEvents: NaturalEvent[];
   launches: Launch[];
+  onEntitySelect: (data: EntityPopupData | null, screen: { x: number; y: number } | null) => void;
 }
 
 export default function Globe3D({
@@ -114,10 +128,18 @@ export default function Globe3D({
   earthquakes,
   naturalEvents,
   launches,
+  onEntitySelect,
 }: Globe3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const dataSourcesRef = useRef<Partial<Record<LayerKey, CesiumNS.DataSource>>>({});
   const viewerRef = useRef<CesiumNS.Viewer | null>(null);
+  // Kept in a ref (not the effect's deps) so a new callback identity from
+  // the parent never tears down and rebuilds the whole viewer — see the
+  // comment on the effect below for why that must stay stable.
+  const onEntitySelectRef = useRef(onEntitySelect);
+  useEffect(() => {
+    onEntitySelectRef.current = onEntitySelect;
+  }, [onEntitySelect]);
 
   // Heavy one-time setup: the Cesium Viewer itself, the country-risk
   // overlay, and every layer's CustomDataSource. Deliberately does NOT
@@ -133,6 +155,7 @@ export default function Globe3D({
     let disposed = false;
     let viewer: CesiumNS.Viewer | null = null;
     let resizeObserver: ResizeObserver | null = null;
+    let clickHandler: CesiumNS.ScreenSpaceEventHandler | null = null;
 
     loadCesium().then(async (Cesium) => {
       if (disposed) return;
@@ -150,6 +173,12 @@ export default function Globe3D({
         sceneModePicker: false,
         navigationHelpButton: false,
         fullscreenButton: false,
+        // Both replaced by a custom click-to-popup below (GlobeEntityPopup,
+        // wired through onEntitySelect) — Cesium's defaults are a large
+        // sidebar panel and a green corner-bracket highlight, neither
+        // matching the small floating "bulle" this site wants.
+        infoBox: false,
+        selectionIndicator: false,
         // A single bad geometry (see the renderError handler below) must
         // not show Cesium's big built-in error panel over the whole globe.
         showRenderLoopErrors: false,
@@ -168,6 +197,40 @@ export default function Globe3D({
         console.error("Cesium render error (recovered, rendering resumed):", error);
         if (viewer) viewer.useDefaultRenderLoop = true;
       });
+
+      // Click-to-popup: every layer's entities carry their info as a
+      // JSON string on `properties.popup` (see the layer-building code
+      // below) rather than Cesium's HTML `description`, since we're
+      // rendering our own React bubble (GlobeEntityPopup) instead of the
+      // disabled default InfoBox. Screen coordinates come from the
+      // entity's world position so the bubble opens right next to the
+      // point clicked. Closes on the next click that doesn't hit an
+      // entity (handled by the `else` branch below) — not on camera
+      // movement, since a plain click can itself trigger a few pixels of
+      // Cesium camera "settle" motion and would otherwise close the
+      // bubble it just opened.
+      clickHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+      clickHandler.setInputAction((click: CesiumNS.ScreenSpaceEventHandler.PositionedEvent) => {
+        const currentViewer = viewer;
+        if (!currentViewer) return;
+        const picked = currentViewer.scene.pick(click.position);
+        const entity = Cesium.defined(picked) && picked.id instanceof Cesium.Entity ? picked.id : null;
+        const raw = entity?.properties?.popup?.getValue();
+        if (entity && typeof raw === "string") {
+          try {
+            const data = JSON.parse(raw) as EntityPopupData;
+            const position = entity.position?.getValue(currentViewer.clock.currentTime);
+            const screen = position
+              ? Cesium.SceneTransforms.worldToWindowCoordinates(currentViewer.scene, position)
+              : undefined;
+            onEntitySelectRef.current(data, screen ? { x: screen.x, y: screen.y } : null);
+            return;
+          } catch (err) {
+            console.error("Malformed entity popup payload:", err);
+          }
+        }
+        onEntitySelectRef.current(null, null);
+      }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
       viewer.imageryLayers.addImageryProvider(
         new Cesium.UrlTemplateImageryProvider({ url: IMAGERY_URL, credit: IMAGERY_CREDIT })
@@ -259,15 +322,17 @@ export default function Globe3D({
         entity.polygon.material = new Cesium.ColorMaterialProperty(color);
         entity.polygon.outline = new Cesium.ConstantProperty(false);
 
-        // Cesium's InfoBox renders `description` inside a sandboxed
-        // iframe — CSS module classes never reach it, so this needs
-        // inline styles rather than a styles.* class.
-        const name = entity.properties?.name?.getValue() ?? iso3;
-        entity.description = new Cesium.ConstantProperty(
-          `<div style="font-family:inherit;"><strong>${name}</strong>${
-            risk ? `<br/>${risk.label}` : ""
-          }</div>`
-        );
+        const name = String(entity.properties?.name?.getValue() ?? iso3);
+        const popup: EntityPopupData = {
+          layerKey: "risk",
+          badge: "PAYS EN CRISE",
+          title: name,
+          fields: risk ? [{ label: "Niveau", value: risk.label }] : [{ label: "Niveau", value: "Normal" }],
+        };
+        // Overwrites the PropertyBag the GeoJSON loader already built for
+        // this entity (feature properties like `name`) — fine here since
+        // nothing else reads those beyond the `name` lookup just above.
+        entity.properties = new Cesium.PropertyBag({ popup: JSON.stringify(popup) });
       }
 
       // Fully remove (not just hide) — leaving the default filled
@@ -287,20 +352,39 @@ export default function Globe3D({
 
       const aircraftSource = new Cesium.CustomDataSource("aircraft");
       for (const a of aircraft) {
+        const popup: EntityPopupData = {
+          layerKey: "aircraft",
+          badge: "AVION MILITAIRE",
+          title: a.callsign ?? a.hex,
+          fields: [
+            { label: "Type", value: a.type ?? "Inconnu" },
+            { label: "Immatriculation", value: a.registration ?? "Inconnue" },
+            { label: "Altitude", value: a.altitude != null ? `${Math.round(a.altitude)} m` : "Inconnue" },
+            { label: "ICAO hex", value: a.hex },
+          ],
+        };
         aircraftSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(a.lon, a.lat, a.altitude ?? 0),
           point: { pixelSize: 6, color: Cesium.Color.LIME, outlineColor: Cesium.Color.BLACK, outlineWidth: 1 },
-          description: `<div><strong>${a.callsign ?? a.hex}</strong><br/>${a.type ?? "Type inconnu"}${
-            a.registration ? ` · ${a.registration}` : ""
-          }${a.altitude != null ? `<br/>Altitude : ${Math.round(a.altitude)} m` : ""}</div>`,
+          properties: { popup: JSON.stringify(popup) },
         });
       }
       layerSources.aircraft = aircraftSource;
 
       const vesselSource = new Cesium.CustomDataSource("vessels");
       for (const v of vessels) {
-        const vesselName = v.ship_name ?? `MMSI ${v.mmsi}`;
-        const speedLine = v.speed != null ? `<br/>Vitesse : ${v.speed.toFixed(1)} nds` : "";
+        const popup: EntityPopupData = {
+          layerKey: "vessels",
+          badge: "NAVIRE",
+          title: v.ship_name ?? `MMSI ${v.mmsi}`,
+          fields: [
+            { label: "MMSI", value: v.mmsi },
+            { label: "Vitesse", value: v.speed != null ? `${v.speed.toFixed(1)} nds` : "Inconnue" },
+            { label: "Cap", value: v.course != null ? `${Math.round(v.course)}°` : "Inconnu" },
+            { label: "Région", value: v.region },
+            { label: "Mise à jour", value: formatDateTime(v.updated_at) },
+          ],
+        };
         vesselSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(v.longitude, v.latitude, 0),
           point: {
@@ -309,13 +393,24 @@ export default function Globe3D({
             outlineColor: Cesium.Color.BLACK,
             outlineWidth: 1,
           },
-          description: `<div><strong>${vesselName}</strong>${speedLine}</div>`,
+          properties: { popup: JSON.stringify(popup) },
         });
       }
       layerSources.vessels = vesselSource;
 
       const earthquakeSource = new Cesium.CustomDataSource("earthquakes");
       for (const eq of earthquakes) {
+        const popup: EntityPopupData = {
+          layerKey: "earthquakes",
+          badge: "SÉISME",
+          title: `M${eq.magnitude.toFixed(1)} — ${eq.place ?? "Lieu inconnu"}`,
+          fields: [
+            { label: "Magnitude", value: `M${eq.magnitude.toFixed(1)}` },
+            { label: "Profondeur", value: eq.depthKm != null ? `${eq.depthKm.toFixed(1)} km` : "Inconnue" },
+            { label: "Heure", value: formatDateTime(eq.time) },
+            { label: "Coordonnées", value: `${eq.lat.toFixed(2)}, ${eq.lon.toFixed(2)}` },
+          ],
+        };
         earthquakeSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(eq.lon, eq.lat, 0),
           point: {
@@ -324,7 +419,7 @@ export default function Globe3D({
             outlineColor: Cesium.Color.BLACK,
             outlineWidth: 1,
           },
-          description: `<div><strong>M${eq.magnitude.toFixed(1)}</strong> — ${eq.place ?? "Lieu inconnu"}</div>`,
+          properties: { popup: JSON.stringify(popup) },
         });
       }
       layerSources.earthquakes = earthquakeSource;
@@ -337,6 +432,12 @@ export default function Globe3D({
       } as Record<LayerKey, CesiumNS.CustomDataSource>;
       for (const evt of naturalEvents) {
         const layerKey = NATURAL_EVENT_LAYER[evt.category];
+        const popup: EntityPopupData = {
+          layerKey,
+          badge: NATURAL_EVENT_LABELS[evt.category],
+          title: evt.title,
+          fields: evt.date ? [{ label: "Date", value: formatDateTime(evt.date) }] : [],
+        };
         naturalEventSources[layerKey].entities.add({
           position: Cesium.Cartesian3.fromDegrees(evt.lon, evt.lat, 0),
           point: {
@@ -345,7 +446,7 @@ export default function Globe3D({
             outlineColor: Cesium.Color.BLACK,
             outlineWidth: 1,
           },
-          description: `<div><strong>${evt.title}</strong></div>`,
+          properties: { popup: JSON.stringify(popup) },
         });
       }
       layerSources.wildfires = naturalEventSources.wildfires;
@@ -355,8 +456,16 @@ export default function Globe3D({
 
       const launchSource = new Cesium.CustomDataSource("launches");
       for (const l of launches) {
-        const padLine = l.padName ? `<br/>${l.padName}` : "";
-        const dateLine = l.net ? `<br/>${new Date(l.net).toLocaleString("fr-FR")}` : "";
+        const popup: EntityPopupData = {
+          layerKey: "launches",
+          badge: "LANCEMENT",
+          title: l.name,
+          fields: [
+            { label: "Statut", value: l.statusName ?? "Inconnu" },
+            { label: "Pas de tir", value: l.padName ?? "Inconnu" },
+            { label: "Date prévue", value: l.net ? formatDateTime(l.net) : "Inconnue" },
+          ],
+        };
         launchSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(l.lon, l.lat, 0),
           point: {
@@ -365,7 +474,7 @@ export default function Globe3D({
             outlineColor: Cesium.Color.fromCssColorString("#ff6d00"),
             outlineWidth: 2,
           },
-          description: `<div><strong>${l.name}</strong>${padLine}${dateLine}</div>`,
+          properties: { popup: JSON.stringify(popup) },
         });
       }
       layerSources.launches = launchSource;
@@ -377,6 +486,12 @@ export default function Globe3D({
       // gets corrupted by the client minifier into a runtime syntax error).
       const satelliteSource = new Cesium.CustomDataSource("satellites");
       for (const sat of satellites) {
+        const popup: EntityPopupData = {
+          layerKey: "satellites",
+          badge: "SATELLITE",
+          title: sat.name,
+          fields: [{ label: "Altitude", value: `${Math.round(sat.altitudeMeters / 1000)} km` }],
+        };
         satelliteSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(sat.lon, sat.lat, sat.altitudeMeters),
           point: {
@@ -385,7 +500,7 @@ export default function Globe3D({
             outlineColor: Cesium.Color.BLACK,
             outlineWidth: 1,
           },
-          description: `<div><strong>${sat.name}</strong></div>`,
+          properties: { popup: JSON.stringify(popup) },
         });
       }
       layerSources.satellites = satelliteSource;
@@ -421,6 +536,7 @@ export default function Globe3D({
     return () => {
       disposed = true;
       resizeObserver?.disconnect();
+      clickHandler?.destroy();
       viewer?.destroy();
       viewerRef.current = null;
       dataSourcesRef.current = {};

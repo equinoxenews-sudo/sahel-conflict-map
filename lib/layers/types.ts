@@ -51,3 +51,20 @@ export const LAYER_DEFAULTS: Record<LayerKey, boolean> = {
   floods: false,
   launches: false,
 };
+
+// The click-to-info-bubble payload attached to every globe entity (see
+// Globe3D.tsx) — stored as a JSON string on the Cesium entity's
+// `properties` bag and parsed back out on click, since PropertyBag
+// values are meant to be simple/serializable, not arbitrary nested
+// objects.
+export interface EntityPopupField {
+  label: string;
+  value: string;
+}
+
+export interface EntityPopupData {
+  layerKey: LayerKey;
+  badge: string;
+  title: string;
+  fields: EntityPopupField[];
+}

@@ -7,10 +7,11 @@ import type { Earthquake } from "@/lib/layers/earthquakes";
 import type { Launch } from "@/lib/layers/launches";
 import type { NaturalEvent } from "@/lib/layers/naturalEvents";
 import type { SatellitePosition } from "@/lib/layers/satellites";
-import { LAYER_DEFAULTS, type LayerKey } from "@/lib/layers/types";
+import { LAYER_DEFAULTS, type EntityPopupData, type LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
 import Globe3DLoader from "./Globe3DLoader";
 import GlobeClock from "./GlobeClock";
+import GlobeEntityPopup from "./GlobeEntityPopup";
 import GlobeSearchBox from "./GlobeSearchBox";
 import styles from "./GlobeWithLayers.module.css";
 import LayersPanel from "./LayersPanel";
@@ -40,6 +41,15 @@ export default function GlobeWithLayers({
 }: GlobeWithLayersProps) {
   const [enabledLayers, setEnabledLayers] = useState<Record<LayerKey, boolean>>(LAYER_DEFAULTS);
   const [mobileSheet, setMobileSheet] = useState<null | "layers" | "risk">(null);
+  const [selectedEntity, setSelectedEntity] = useState<{
+    data: EntityPopupData;
+    x: number;
+    y: number;
+  } | null>(null);
+
+  function handleEntitySelect(data: EntityPopupData | null, screen: { x: number; y: number } | null) {
+    setSelectedEntity(data && screen ? { data, x: screen.x, y: screen.y } : null);
+  }
 
   const counts = useMemo<Record<LayerKey, number>>(
     () => ({
@@ -82,8 +92,17 @@ export default function GlobeWithLayers({
             earthquakes={earthquakes}
             naturalEvents={naturalEvents}
             launches={launches}
+            onEntitySelect={handleEntitySelect}
           />
           <GlobeClock />
+          {selectedEntity ? (
+            <GlobeEntityPopup
+              data={selectedEntity.data}
+              x={selectedEntity.x}
+              y={selectedEntity.y}
+              onClose={() => setSelectedEntity(null)}
+            />
+          ) : null}
         </div>
 
         <div className={styles.legendBar}>
