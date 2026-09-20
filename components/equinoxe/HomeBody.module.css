@@ -1,0 +1,66 @@
+.body {
+  display: flex;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+  padding: 16px;
+}
+
+.newsSection,
+.globeSection,
+.zonesSection {
+  display: contents;
+}
+
+@media (min-width: 901px) {
+  /* Desktop: the globe fills the whole area behind everything (see
+     GlobeWithLayers.module.css), and the news/layers columns become
+     floating panels on top of it instead of sitting beside it in a row
+     — matching paraxis.app's "dashboard over the map" look. Header and
+     the LATEST ticker stay outside `.body` entirely, so they're
+     unaffected and remain on top. */
+  .body {
+    position: relative;
+    display: block;
+    padding: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  /* Mobile: only one of the three sections is visible at a time,
+     switched via the bottom nav (data-tab, set from the URL's ?tab=).
+     The globe section additionally escapes into a fixed, full-viewport
+     box while active — small screens can't fit a floating dashboard,
+     so each "screen" gets the whole viewport instead. */
+  .body {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .globeSection {
+    display: none;
+  }
+
+  .body[data-tab="accueil"] .newsSection,
+  .body[data-tab="accueil"] .zonesSection {
+    display: none;
+  }
+
+  .body[data-tab="accueil"] .globeSection {
+    display: block;
+    position: fixed;
+    top: var(--mobile-header-h);
+    left: 0;
+    right: 0;
+    bottom: var(--mobile-nav-h);
+    z-index: 1;
+  }
+
+  .body[data-tab="actualites"] .zonesSection {
+    display: none;
+  }
+
+  .body[data-tab="zones"] .newsSection {
+    display: none;
+  }
+}

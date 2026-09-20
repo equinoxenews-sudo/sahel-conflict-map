@@ -6,28 +6,6 @@
   background: var(--bg-primary);
 }
 
-.body {
-  display: flex;
-  gap: 16px;
-  flex: 1;
-  min-height: 0;
-  padding: 16px;
-}
-
-@media (min-width: 901px) {
-  /* Desktop: the globe fills the whole area behind everything (see
-     GlobeWithLayers.module.css), and the news/layers columns become
-     floating panels on top of it instead of sitting beside it in a row
-     — matching paraxis.app's "dashboard over the map" look. Header and
-     the LATEST ticker stay outside `.body` entirely, so they're
-     unaffected and remain on top. */
-  .body {
-    position: relative;
-    display: block;
-    padding: 0;
-  }
-}
-
 .footer {
   display: flex;
   justify-content: center;
@@ -65,7 +43,11 @@
     overflow: visible;
   }
 
-  .body {
-    flex-direction: column;
+  /* The bottom nav (global, in the layout) covers this area anyway, and
+     when the "Accueil" tab's globe is pinned as position:fixed the
+     footer would sit statically at the same spot and slide out from
+     under it on scroll. Simpler to just not show it on mobile. */
+  .footer {
+    display: none;
   }
 }

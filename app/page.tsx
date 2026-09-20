@@ -1,7 +1,9 @@
 import GlobeWithLayers from "@/components/equinoxe/GlobeWithLayers";
 import Header from "@/components/equinoxe/Header";
+import HomeBody from "@/components/equinoxe/HomeBody";
 import HomeNewsColumn from "@/components/equinoxe/HomeNewsColumn";
 import Ticker from "@/components/equinoxe/Ticker";
+import ZonesGrid from "@/components/equinoxe/ZonesGrid";
 import { computeCountryRiskFromEvents } from "@/lib/computeCountryRisk";
 import { fetchMilitaryAircraft } from "@/lib/layers/aircraft";
 import { fetchEarthquakes } from "@/lib/layers/earthquakes";
@@ -113,25 +115,41 @@ export default async function Home() {
     ]);
   const articles = briefs.length === 0 ? await getHomeArticles() : [];
 
+  const latestBrief = briefs[0];
+  const latestArticle = articles[0];
+  const latest = latestBrief
+    ? {
+        title: latestBrief.title,
+        date: latestBrief.published_at,
+        href: `/briefs/${latestBrief.id}`,
+        imageUrl: latestBrief.image_url,
+      }
+    : latestArticle
+      ? { title: latestArticle.title, date: latestArticle.published_at, href: latestArticle.url }
+      : null;
+
   return (
     <main className={styles.main}>
       <Header />
       <Ticker />
 
-      <div className={styles.body}>
-        <HomeNewsColumn briefs={briefs} articles={articles} />
-
-        <GlobeWithLayers
-          countryRisk={countryRisk}
-          aircraft={aircraft}
-          satellites={satellites}
-          vessels={vessels}
-          earthquakes={earthquakes}
-          naturalEvents={naturalEvents}
-          launches={launches}
-          gdeltStatus={gdeltStatus}
-        />
-      </div>
+      <HomeBody
+        newsSlot={<HomeNewsColumn briefs={briefs} articles={articles} />}
+        zonesSlot={<ZonesGrid />}
+        latest={latest}
+        globeSlot={
+          <GlobeWithLayers
+            countryRisk={countryRisk}
+            aircraft={aircraft}
+            satellites={satellites}
+            vessels={vessels}
+            earthquakes={earthquakes}
+            naturalEvents={naturalEvents}
+            launches={launches}
+            gdeltStatus={gdeltStatus}
+          />
+        }
+      />
 
       <footer className={styles.footer}>
         <a href="#" aria-label="Instagram">

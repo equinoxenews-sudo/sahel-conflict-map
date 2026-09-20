@@ -88,8 +88,85 @@
   }
 }
 
+.mobileFabs {
+  display: none;
+}
+
+.eventCount {
+  display: none;
+}
+
 @media (max-width: 900px) {
+  /* Mobile: the globe fills its container edge-to-edge (the container
+     itself — HomeBody's `.globeSection` — becomes position:fixed,
+     covering the viewport between the header and the bottom nav, only
+     while the "Accueil" tab is active). The layers/risk panel stack is
+     replaced by two floating round buttons that open a full-screen
+     sheet instead (small-screen real estate can't fit a 300px column). */
   .globeColumn {
+    position: absolute;
+    inset: 0;
     height: auto;
+  }
+
+  .mapArea {
+    position: absolute;
+    inset: 0;
+    border: none;
+    min-height: 0;
+  }
+
+  .legendBar {
+    display: none;
+  }
+
+  .rightStack {
+    display: none;
+  }
+
+  .mobileFabs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: fixed;
+    right: 12px;
+    bottom: calc(var(--mobile-nav-h) + 88px);
+    z-index: 10;
+  }
+
+  .fab {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--bg-glass);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--border-glass);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .eventCount {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 16px;
+    padding: 16px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 12px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .eventCount strong {
+    font-size: 28px;
+    color: var(--text-primary);
+  }
+
+  .eventCountLabel {
+    font-size: 11px;
   }
 }

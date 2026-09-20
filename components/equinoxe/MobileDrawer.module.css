@@ -1,0 +1,86 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2500;
+  display: flex;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  border: none;
+  padding: 0;
+}
+
+.panel {
+  position: relative;
+  z-index: 1;
+  width: min(78vw, 300px);
+  height: 100%;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border-glass);
+  display: flex;
+  flex-direction: column;
+  padding: 18px;
+  overflow-y: auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.logo {
+  height: 34px;
+  width: auto;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.link {
+  padding: 10px 4px;
+  color: var(--text-primary);
+  font-size: 14px;
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.sublink {
+  padding: 8px 4px 8px 16px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.linkDisabled {
+  padding: 10px 4px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border-glass);
+  margin: 16px 0;
+}
+
+@media (min-width: 901px) {
+  .overlay {
+    display: none;
+  }
+}

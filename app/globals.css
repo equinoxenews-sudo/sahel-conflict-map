@@ -26,6 +26,12 @@
   --status-danger: #e87932;
   --status-critical: #d94a4a;
   --status-info: #3d9be9;
+
+  /* Fixed mobile chrome heights — shared by the compact header, the
+     bottom nav, and anything that needs to size itself against them
+     (the fixed-fullscreen globe, the floating LATEST card). */
+  --mobile-header-h: 54px;
+  --mobile-nav-h: 60px;
 }
 
 html {
@@ -59,4 +65,13 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  /* The bottom nav (components/equinoxe/MobileNav.tsx) is fixed and
+     global (rendered from the root layout) — every page needs its last
+     bit of content clear of it. */
+  body {
+    padding-bottom: var(--mobile-nav-h);
+  }
 }

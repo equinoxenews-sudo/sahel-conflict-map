@@ -1,0 +1,53 @@
+.grid {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 20px 16px;
+  }
+}
+
+.zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px 8px;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  color: var(--text-primary);
+}
+
+.hex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+}
+
+.hex img {
+  width: 100%;
+  height: auto !important;
+}
+
+.hexTracking {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--bg-panel-alt);
+  color: var(--accent-gold-bright);
+}
+
+.name {
+  font-size: 13px;
+  text-align: center;
+}

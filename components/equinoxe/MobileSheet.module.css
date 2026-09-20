@@ -1,0 +1,54 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.title {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.spacer {
+  width: 46px;
+}
+
+.content {
+  flex: 1;
+  padding: 16px;
+}
+
+@media (min-width: 901px) {
+  .overlay {
+    display: none;
+  }
+}

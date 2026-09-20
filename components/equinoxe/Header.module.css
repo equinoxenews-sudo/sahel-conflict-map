@@ -126,3 +126,45 @@
 .search input::placeholder {
   color: var(--text-secondary);
 }
+
+.mobileMenuBtn,
+.mobileSearchBtn {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 1200;
+    padding: 10px 16px;
+    flex-wrap: nowrap;
+  }
+
+  .logoImage {
+    height: 30px;
+  }
+
+  .zones {
+    display: none;
+  }
+
+  .desktopOnly {
+    display: none;
+  }
+
+  .actions {
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .mobileMenuBtn,
+  .mobileSearchBtn {
+    display: flex;
+  }
+
+  .mobileMenuBtn .zoneLabel,
+  .mobileSearchBtn .zoneLabel {
+    display: none;
+  }
+}

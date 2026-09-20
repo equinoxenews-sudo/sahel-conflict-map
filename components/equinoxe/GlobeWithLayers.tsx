@@ -13,6 +13,7 @@ import Globe3DLoader from "./Globe3DLoader";
 import GlobeSearchBox from "./GlobeSearchBox";
 import styles from "./GlobeWithLayers.module.css";
 import LayersPanel from "./LayersPanel";
+import MobileSheet from "./MobileSheet";
 import RiskLevelPanel from "./RiskLevelPanel";
 
 interface GlobeWithLayersProps {
@@ -37,6 +38,7 @@ export default function GlobeWithLayers({
   gdeltStatus,
 }: GlobeWithLayersProps) {
   const [enabledLayers, setEnabledLayers] = useState<Record<LayerKey, boolean>>(LAYER_DEFAULTS);
+  const [mobileSheet, setMobileSheet] = useState<null | "layers" | "risk">(null);
 
   const counts = useMemo<Record<LayerKey, number>>(
     () => ({
@@ -57,6 +59,14 @@ export default function GlobeWithLayers({
   function toggleLayer(key: LayerKey) {
     setEnabledLayers((prev) => ({ ...prev, [key]: !prev[key] }));
   }
+
+  const totalEvents =
+    aircraft.length +
+    satellites.length +
+    vessels.length +
+    earthquakes.length +
+    naturalEvents.length +
+    launches.length;
 
   return (
     <>
@@ -92,6 +102,49 @@ export default function GlobeWithLayers({
         <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
         <RiskLevelPanel />
       </div>
+
+      <div className={styles.mobileFabs}>
+        <button
+          type="button"
+          className={styles.fab}
+          aria-label="Couches"
+          onClick={() => setMobileSheet("layers")}
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="M12 3 3 8l9 5 9-5-9-5Z" />
+            <path d="M3 12l9 5 9-5" />
+            <path d="M3 16l9 5 9-5" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          className={styles.fab}
+          aria-label="Niveau de risque"
+          onClick={() => setMobileSheet("risk")}
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <circle cx="12" cy="12" r="8.5" />
+            <circle cx="12" cy="12" r="3" fill="currentColor" stroke="none" />
+          </svg>
+        </button>
+      </div>
+
+      {mobileSheet === "layers" ? (
+        <MobileSheet title="Couches" onBack={() => setMobileSheet(null)}>
+          <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
+        </MobileSheet>
+      ) : null}
+
+      {mobileSheet === "risk" ? (
+        <MobileSheet title="Niveau de risque" onBack={() => setMobileSheet(null)}>
+          <RiskLevelPanel />
+          <div className={styles.eventCount}>
+            <span>Événements en temps réel</span>
+            <strong>{totalEvents}</strong>
+            <span className={styles.eventCountLabel}>événements actifs dans le monde</span>
+          </div>
+        </MobileSheet>
+      ) : null}
     </>
   );
 }

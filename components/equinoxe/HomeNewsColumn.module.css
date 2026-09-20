@@ -165,6 +165,7 @@ a.item:hover {
     min-width: 0;
     max-width: none;
     height: auto;
+    flex: 1;
   }
 
   .list {

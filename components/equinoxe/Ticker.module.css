@@ -61,3 +61,13 @@
     transform: translateX(-50%);
   }
 }
+
+@media (max-width: 900px) {
+  /* Mobile replaces the ticker with the floating LATEST card (see
+     LatestCard.tsx) — keeping both would duplicate the same info and
+     the header's fixed height (used to size the fullscreen mobile
+     globe) would need to account for the ticker's height too. */
+  .ticker {
+    display: none;
+  }
+}
