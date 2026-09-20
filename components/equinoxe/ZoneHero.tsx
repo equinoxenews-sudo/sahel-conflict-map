@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getZoneHeroImage } from "@/lib/zoneHeroImages";
 import type { ZoneHubContent } from "@/lib/zoneHubContent";
 import type { Zone } from "@/lib/zones";
 import styles from "./ZoneHero.module.css";
@@ -15,10 +16,14 @@ export default function ZoneHero({ zone, content }: ZoneHeroProps) {
     (zone.active
       ? "Contexte régional, actualité et analyses géopolitiques."
       : "Contenu en cours de constitution pour cette zone — revenez bientôt.");
+  const heroImage = getZoneHeroImage(zone.slug);
 
   return (
     <section className={styles.hero}>
-      <Image src={zone.icon} alt="" fill className={styles.watermark} aria-hidden priority={false} />
+      {heroImage ? (
+        <Image src={heroImage} alt="" fill className={styles.bgImage} priority sizes="100vw" />
+      ) : null}
+      <div className={styles.overlay} aria-hidden />
       <div className={styles.inner}>
         <div className={styles.left}>
           <nav className={styles.breadcrumb} aria-label="Fil d'ariane">

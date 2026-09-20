@@ -5,17 +5,31 @@
   border-bottom: 1px solid var(--border-glass);
 }
 
-.watermark {
-  object-fit: contain;
-  object-position: right center;
-  opacity: 0.05;
-  transform: scale(2.4) translateX(6%);
-  pointer-events: none;
+.bgImage {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Dark on the left (title/breadcrumb/stats need full contrast), fading in
+   the middle so the photo actually shows, dark again on the right (the
+   quote block needs the same contrast). */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(4, 12, 22, 0.98) 0%,
+    rgba(4, 12, 22, 0.82) 35%,
+    rgba(4, 12, 22, 0.3) 65%,
+    rgba(4, 12, 22, 0.8) 100%
+  );
 }
 
 .inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
