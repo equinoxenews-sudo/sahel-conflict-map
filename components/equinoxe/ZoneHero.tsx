@@ -21,7 +21,9 @@ export default function ZoneHero({ zone, content }: ZoneHeroProps) {
   return (
     <section className={styles.hero}>
       {heroImage ? (
-        <Image src={heroImage} alt="" fill className={styles.bgImage} priority sizes="100vw" />
+        <div className={styles.imageWrap}>
+          <Image src={heroImage} alt="" fill className={styles.bgImage} priority sizes="60vw" />
+        </div>
       ) : null}
       <div className={styles.overlay} aria-hidden />
       <div className={styles.inner}>

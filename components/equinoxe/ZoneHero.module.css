@@ -1,19 +1,31 @@
 .hero {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-panel) 100%);
+  background: var(--bg-primary);
   border-bottom: 1px solid var(--border-glass);
 }
 
-.bgImage {
+/* The photo only occupies the center-right of the hero — the left ~38%
+   (where the title/breadcrumb/stats live) stays plain dark background,
+   not a darkened edge of the image. */
+.imageWrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 38%;
   z-index: 0;
+  overflow: hidden;
+}
+
+.bgImage {
   object-fit: cover;
   object-position: center;
 }
 
-/* Dark on the left (title/breadcrumb/stats need full contrast), fading in
-   the middle so the photo actually shows, dark again on the right (the
-   quote block needs the same contrast). */
+/* Fades the image in from nothing at its own left edge, then dims it
+   again toward the right so the quote block stays legible. The 0-36%
+   stop matters little since there's no image there anyway. */
 .overlay {
   position: absolute;
   inset: 0;
@@ -21,9 +33,10 @@
   background: linear-gradient(
     90deg,
     rgba(4, 12, 22, 0.98) 0%,
-    rgba(4, 12, 22, 0.82) 35%,
-    rgba(4, 12, 22, 0.3) 65%,
-    rgba(4, 12, 22, 0.8) 100%
+    rgba(4, 12, 22, 0.98) 36%,
+    rgba(4, 12, 22, 0.3) 55%,
+    rgba(4, 12, 22, 0.3) 70%,
+    rgba(4, 12, 22, 0.85) 100%
   );
 }
 
