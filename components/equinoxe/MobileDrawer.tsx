@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { useHasMounted } from "@/lib/useHasMounted";
 import { ZONES } from "@/lib/zones";
 import styles from "./MobileDrawer.module.css";
 
@@ -16,8 +16,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
   // Portalled to <body> — Header is `position: sticky` with its own
   // z-index, which caps how high anything nested inside it (this drawer)
   // can ever rank against siblings outside Header, like the bottom nav.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useHasMounted();
   if (!open || !mounted) return null;
 
   return createPortal(

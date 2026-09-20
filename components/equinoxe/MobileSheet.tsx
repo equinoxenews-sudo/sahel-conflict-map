@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { createPortal } from "react-dom";
+import { useHasMounted } from "@/lib/useHasMounted";
 import styles from "./MobileSheet.module.css";
 
 interface MobileSheetProps {
@@ -17,8 +17,7 @@ export default function MobileSheet({ title, onBack, children }: MobileSheetProp
   // GlobeWithLayers.module.css) and therefore its own stacking context: no
   // z-index set here would ever be able to out-rank the header/bottom nav,
   // since it'd only be compared against siblings *inside* that context.
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useHasMounted();
   if (!mounted) return null;
 
   return createPortal(

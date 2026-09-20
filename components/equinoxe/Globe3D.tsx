@@ -173,6 +173,18 @@ export default function Globe3D({
       viewer.scene.globe.enableLighting = true;
       viewer.scene.backgroundColor = Cesium.Color.BLACK;
 
+      // Cesium's default (2) is tuned for a camera looking roughly
+      // straight down at moderate altitude — fine for whatever's directly
+      // under the camera, but at this globe's wide default framing
+      // (~14,000km up), land near the edge of the visible disc is both
+      // much farther from the camera and seen at a grazing angle, so the
+      // same threshold settles for a visibly blurrier/lower tile there
+      // than at the center (reported: Middle East looked washed out next
+      // to sharp Sahel/Africa in the same frame). Tightening it makes
+      // Cesium request higher-detail tiles everywhere, including toward
+      // the limb, closing that gap — at the cost of more tile requests.
+      viewer.scene.globe.maximumScreenSpaceError = 1;
+
       // Centered on the Sahel/Africa — the site's editorial focus —
       // rather than Cesium's generic flyHome() default view (which
       // opens over the Americas/Atlantic, unrelated to this site).
