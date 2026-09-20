@@ -1,0 +1,223 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--bg-primary) 0%, var(--bg-panel) 100%);
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.watermark {
+  object-fit: contain;
+  object-position: right center;
+  opacity: 0.05;
+  transform: scale(2.4) translateX(6%);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 22px 32px;
+  min-height: 176px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.breadcrumb a {
+  color: var(--text-secondary);
+}
+
+.breadcrumb a:hover {
+  color: var(--accent-gold);
+}
+
+.breadcrumb span:last-child {
+  color: var(--text-primary);
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mobileBack {
+  display: none;
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.iconWrap img {
+  width: 100%;
+  height: auto !important;
+}
+
+.title {
+  font-size: 32px;
+  letter-spacing: 3px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.description {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  max-width: 520px;
+  margin: 0;
+}
+
+.stats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.statIcon {
+  font-size: 16px;
+  color: var(--accent-gold-bright);
+}
+
+.statText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.statText strong {
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.statText span {
+  font-size: 10px;
+  color: var(--text-secondary);
+  max-width: 150px;
+}
+
+.quote {
+  flex: 0 0 320px;
+  text-align: right;
+}
+
+.quoteText {
+  font-size: 16px;
+  font-style: italic;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin: 0 0 10px;
+}
+
+.quoteBar {
+  display: inline-block;
+  width: 40px;
+  height: 2px;
+  background: var(--accent-gold);
+  margin-bottom: 10px;
+}
+
+.quoteBody {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0;
+}
+
+@media (max-width: 1100px) {
+  .inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    min-height: 0;
+  }
+
+  .quote {
+    flex: none;
+    text-align: left;
+    max-width: 520px;
+  }
+
+  .quoteBar {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .inner {
+    padding: 14px 16px;
+  }
+
+  .breadcrumb,
+  .stats,
+  .quote {
+    display: none;
+  }
+
+  .mobileBack {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    font-size: 20px;
+    color: var(--text-primary);
+    flex-shrink: 0;
+  }
+
+  .iconWrap {
+    width: 34px;
+    height: 42px;
+  }
+
+  .title {
+    font-size: 20px;
+    letter-spacing: 1.5px;
+    margin: 0 0 2px;
+  }
+
+  .description {
+    font-size: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

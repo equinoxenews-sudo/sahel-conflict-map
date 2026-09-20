@@ -5,91 +5,44 @@
   flex-direction: column;
 }
 
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 40px 16px 12px;
+.grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.15fr 0.95fr;
+  gap: 14px;
+  padding: 14px 24px 18px;
+  align-items: start;
 }
 
+@media (max-width: 1100px) and (min-width: 769px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
 
-.title {
-  color: var(--text-primary);
-  font-size: 28px;
-  letter-spacing: 4px;
-  margin: 0;
+  /* Approche, Actualités on the top row; Analyses spans full width below. */
+  .grid > :last-child {
+    grid-column: 1 / -1;
+  }
 }
 
-.notice {
-  text-align: center;
-  color: var(--text-secondary);
-  font-size: 13px;
-  margin: 0 16px 8px;
-}
+@media (max-width: 768px) {
+  .grid {
+    display: flex;
+    flex-direction: column;
+    padding: 14px 16px 28px;
+  }
 
-.tabs {
-  display: flex;
-  align-items: flex-start;
-  gap: 32px;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 24px;
-}
+  /* Actualités, Approche, Analyses — see ZoneNewsPanel/ZoneKnowledgePanel/
+     ZoneAnalysisPanel, each already caps its own list length; reordering
+     here is purely visual (DOM order stays Approche/Actualités/Analyses). */
+  .grid > :nth-child(1) {
+    order: 2;
+  }
 
-.card {
-  width: 380px;
-  border: 1px solid var(--border-glass);
-  background: var(--bg-panel);
-  color: var(--text-primary);
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  transition:
-    transform 0.15s ease,
-    border-color 0.15s ease;
-}
+  .grid > :nth-child(2) {
+    order: 1;
+  }
 
-.card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent-gold);
-}
-
-.cardHeader {
-  text-align: center;
-  padding: 10px;
-  border-bottom: 1px solid var(--border-glass);
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-
-.cardImage {
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  border-bottom: 1px solid var(--border-glass);
-}
-
-.cardImage_approche {
-  background-image: linear-gradient(160deg, #1c2b3a 0%, #0a0f14 100%);
-}
-
-.cardImage_actualite {
-  background-image: linear-gradient(160deg, #3a1c1c 0%, #0f0a0a 100%);
-}
-
-.cardImage_analyse {
-  background-image: linear-gradient(160deg, #1c3a2a 0%, #0a140f 100%);
-}
-
-.cardBody {
-  padding: 16px 20px;
-  font-size: 13px;
-  min-height: 80px;
-}
-
-.cardBody ul {
-  margin: 0;
-  padding-left: 18px;
-  line-height: 1.8;
+  .grid > :nth-child(3) {
+    order: 3;
+  }
 }

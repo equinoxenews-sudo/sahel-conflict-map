@@ -1,0 +1,46 @@
+.nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px 32px;
+  border-bottom: 1px solid var(--border-glass);
+  overflow-x: auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  white-space: nowrap;
+  background: transparent;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background-color 150ms ease;
+}
+
+.item:hover {
+  color: var(--text-primary);
+}
+
+.icon {
+  display: flex;
+}
+
+.itemActive {
+  color: var(--accent-gold-bright);
+  background: rgba(213, 166, 64, 0.08);
+  border-color: var(--accent-gold);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 10px 16px;
+    flex-wrap: nowrap;
+  }
+}

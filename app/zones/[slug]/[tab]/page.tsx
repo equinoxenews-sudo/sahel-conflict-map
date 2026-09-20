@@ -5,11 +5,10 @@ import Header from "@/components/equinoxe/Header";
 import MapView from "@/components/MapView";
 import ZoneNewsList from "@/components/ZoneNewsList";
 import { supabase } from "@/lib/supabaseClient";
+import { getZoneArticles, getZoneBriefs } from "@/lib/zoneBriefs";
 import { listZoneDocuments } from "@/lib/zoneDocuments";
 import { ZONE_NEWS } from "@/lib/zoneNews";
 import { getZone, TAB_LABELS, TABS, type Tab } from "@/lib/zones";
-import type { Article } from "@/types/article";
-import type { ZoneBrief } from "@/types/brief";
 import type { ConflictEvent } from "@/types/event";
 import styles from "./page.module.css";
 
@@ -26,48 +25,6 @@ async function getZoneEvents(countries: string[]): Promise<ConflictEvent[]> {
 
     if (error) {
       console.error("Failed to load conflict_events:", error.message);
-      return [];
-    }
-
-    return data ?? [];
-  } catch (err) {
-    console.error("Failed to reach Supabase:", err);
-    return [];
-  }
-}
-
-async function getZoneBriefs(zoneSlug: string): Promise<ZoneBrief[]> {
-  try {
-    const { data, error } = await supabase
-      .from("zone_briefs")
-      .select("id, zone_slug, title, category, summary, source_urls, source_domains, image_url, published_at")
-      .eq("zone_slug", zoneSlug)
-      .order("published_at", { ascending: false })
-      .limit(12);
-
-    if (error) {
-      console.error("Failed to load zone_briefs:", error.message);
-      return [];
-    }
-
-    return data ?? [];
-  } catch (err) {
-    console.error("Failed to reach Supabase:", err);
-    return [];
-  }
-}
-
-async function getZoneArticles(zoneSlug: string): Promise<Article[]> {
-  try {
-    const { data, error } = await supabase
-      .from("articles")
-      .select("title, url, domain, published_at")
-      .eq("zone_slug", zoneSlug)
-      .order("published_at", { ascending: false })
-      .limit(6);
-
-    if (error) {
-      console.error("Failed to load articles:", error.message);
       return [];
     }
 
