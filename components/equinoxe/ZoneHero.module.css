@@ -21,6 +21,8 @@
 .bgImage {
   object-fit: cover;
   object-position: center;
+  transform: scale(0.88);
+  transform-origin: center;
 }
 
 /* Fades the image in from nothing at its own left edge, then dims it
