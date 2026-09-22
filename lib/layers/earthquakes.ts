@@ -1,3 +1,5 @@
+import { LAYER_FETCH_HEADERS } from "./fetchHeaders";
+
 const EARTHQUAKES_URL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson";
 const FETCH_TIMEOUT_MS = 8000;
 
@@ -33,9 +35,12 @@ export async function fetchEarthquakes(): Promise<Earthquake[]> {
     // even after every fetch has resolved.
     const res = await fetch(EARTHQUAKES_URL, {
       signal: controller.signal,
-      headers: { Connection: "close" },
+      headers: LAYER_FETCH_HEADERS,
     });
-    if (!res.ok) return [];
+    if (!res.ok) {
+      console.error(`USGS earthquakes feed responded ${res.status} ${res.statusText}`);
+      return [];
+    }
 
     const data = (await res.json()) as { features?: UsgsFeature[] };
     return (data.features ?? [])

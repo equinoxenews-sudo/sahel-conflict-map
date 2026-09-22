@@ -1,3 +1,5 @@
+import { LAYER_FETCH_HEADERS } from "./fetchHeaders";
+
 const LAUNCHES_URL = "https://ll.thespacedevs.com/2.3.0/launches/upcoming/?limit=30";
 const FETCH_TIMEOUT_MS = 8000;
 
@@ -34,9 +36,12 @@ export async function fetchUpcomingLaunches(): Promise<Launch[]> {
     // even after every fetch has resolved.
     const res = await fetch(LAUNCHES_URL, {
       signal: controller.signal,
-      headers: { Connection: "close" },
+      headers: LAYER_FETCH_HEADERS,
     });
-    if (!res.ok) return [];
+    if (!res.ok) {
+      console.error(`Launch Library responded ${res.status} ${res.statusText}`);
+      return [];
+    }
 
     const data = (await res.json()) as { results?: LaunchLibraryResult[] };
     return (data.results ?? [])

@@ -1,3 +1,5 @@
+import { LAYER_FETCH_HEADERS } from "./fetchHeaders";
+
 const EONET_URL = "https://eonet.gsfc.nasa.gov/api/v3/events";
 const FETCH_TIMEOUT_MS = 8000;
 
@@ -46,8 +48,11 @@ export async function fetchNaturalEvents(): Promise<NaturalEvent[]> {
     // Connection: close — without it, Node/undici's keep-alive socket can
     // leave the build-time static-generation step hanging indefinitely
     // even after every fetch has resolved.
-    const res = await fetch(url, { signal: controller.signal, headers: { Connection: "close" } });
-    if (!res.ok) return [];
+    const res = await fetch(url, { signal: controller.signal, headers: LAYER_FETCH_HEADERS });
+    if (!res.ok) {
+      console.error(`EONET responded ${res.status} ${res.statusText}`);
+      return [];
+    }
 
     const data = (await res.json()) as { events?: EonetEvent[] };
     const events: NaturalEvent[] = [];

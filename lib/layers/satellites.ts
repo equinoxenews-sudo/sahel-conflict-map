@@ -1,7 +1,12 @@
 import * as satellite from "satellite.js";
+import { LAYER_FETCH_HEADERS } from "./fetchHeaders";
 
 const CELESTRAK_URL = "https://celestrak.org/NORAD/elements/gp.php";
-const FETCH_TIMEOUT_MS = 8000;
+// CelesTrak is noticeably less reliable than this project's other free
+// data sources (observed directly: connections regularly fail outright
+// rather than just responding slowly) — a longer timeout gives a
+// borderline-slow response a chance without helping a hard failure.
+const FETCH_TIMEOUT_MS = 12000;
 
 // A handful of curated, meaningful groups instead of "active" (~10,000
 // objects) — keeps this list genuinely varied (crewed stations, GPS
@@ -47,9 +52,12 @@ async function fetchGroup(group: string): Promise<Tle[]> {
     // even after every fetch has resolved.
     const res = await fetch(`${CELESTRAK_URL}?GROUP=${group}&FORMAT=tle`, {
       signal: controller.signal,
-      headers: { Connection: "close" },
+      headers: LAYER_FETCH_HEADERS,
     });
-    if (!res.ok) return [];
+    if (!res.ok) {
+      console.error(`CelesTrak group "${group}" responded ${res.status} ${res.statusText}`);
+      return [];
+    }
     return parseTle(await res.text());
   } catch (err) {
     console.error(`Failed to fetch CelesTrak group "${group}":`, err);

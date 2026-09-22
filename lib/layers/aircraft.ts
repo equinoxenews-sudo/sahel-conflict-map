@@ -1,3 +1,5 @@
+import { LAYER_FETCH_HEADERS } from "./fetchHeaders";
+
 const MIL_AIRCRAFT_URL = "https://api.adsb.lol/v2/mil";
 const FETCH_TIMEOUT_MS = 8000;
 
@@ -39,9 +41,12 @@ export async function fetchMilitaryAircraft(): Promise<MilitaryAircraft[]> {
     // Node script doing these same fetches never exited on its own).
     const res = await fetch(MIL_AIRCRAFT_URL, {
       signal: controller.signal,
-      headers: { Connection: "close" },
+      headers: LAYER_FETCH_HEADERS,
     });
-    if (!res.ok) return [];
+    if (!res.ok) {
+      console.error(`adsb.lol responded ${res.status} ${res.statusText}`);
+      return [];
+    }
 
     const data = (await res.json()) as { ac?: AdsbLolAircraft[] };
     return (data.ac ?? [])
