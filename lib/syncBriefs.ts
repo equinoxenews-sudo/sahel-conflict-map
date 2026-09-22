@@ -7,6 +7,13 @@ import { ZONE_KEYWORDS } from "./zoneKeywords";
 
 const ARTICLES_PER_ZONE = 8;
 const SUMMARY_FETCH_CONCURRENCY = 6;
+// How many extra (not-yet-fetched) articles to try, purely for their
+// photo, when a brief still has no image after both the brief's own
+// cited sources AND the rest of the zone's batch come up empty — rare
+// (needs the whole 8-article batch to lack an image), so a handful of
+// extra fetches here is cheap insurance against a brief shipping with no
+// illustration at all.
+const FALLBACK_IMAGE_CANDIDATES = 5;
 
 interface StoredArticle {
   id: number;
@@ -36,6 +43,39 @@ async function recentlyUsedImages(
   }
 
   return new Set((data ?? []).map((row) => row.image_url as string));
+}
+
+/**
+ * Last-resort image source for a brief that still has none after trying
+ * its own cited sources and the rest of the zone's already-fetched batch
+ * (see briefZone) — fetches a handful of OTHER articles from the same
+ * zone, not otherwise involved in this run, purely to read their
+ * og:image/twitter:image. `excludeIds` keeps it from re-fetching
+ * articles already tried in this batch.
+ */
+async function findFallbackImage(
+  supabase: ReturnType<typeof getSupabaseAdmin>,
+  zoneSlug: string,
+  excludeIds: number[],
+  usedImages: Set<string>
+): Promise<string | null> {
+  let query = supabase
+    .from("articles")
+    .select("url")
+    .eq("zone_slug", zoneSlug)
+    .order("published_at", { ascending: false })
+    .limit(FALLBACK_IMAGE_CANDIDATES);
+  if (excludeIds.length > 0) {
+    query = query.not("id", "in", `(${excludeIds.join(",")})`);
+  }
+  const { data, error } = await query;
+  if (error || !data || data.length === 0) return null;
+
+  for (const row of data as { url: string }[]) {
+    const { imageUrl } = await fetchArticleContent(row.url);
+    if (imageUrl && !usedImages.has(imageUrl)) return imageUrl;
+  }
+  return null;
 }
 
 async function briefZone(
@@ -81,22 +121,41 @@ async function briefZone(
 
   if (briefs.length > 0) {
     const usedImages = await recentlyUsedImages(supabase);
-    const { error: insertError } = await supabase.from("zone_briefs").insert(
-      briefs.map((b) => {
-        const imageUrl = b.imageCandidates.find((url) => !usedImages.has(url)) ?? null;
-        if (imageUrl) usedImages.add(imageUrl);
-        return {
-          zone_slug: zoneSlug,
-          title: b.title,
-          summary: b.excerpt,
-          sections: b.sections,
-          category: b.category,
-          source_urls: b.sourceUrls,
-          source_domains: b.sourceDomains,
-          image_url: imageUrl,
-        };
-      })
-    );
+    // Pooled across the WHOLE zone batch, not just each brief's own
+    // cited sources — a brief on a topic whose sources happened to have
+    // no photo can still borrow one from another article fetched in the
+    // same run (still on-topic: same zone, same batch) rather than
+    // shipping with no illustration at all.
+    const zoneImagePool = sourceArticles.map((a) => a.imageUrl).filter((u): u is string => !!u);
+
+    const rows = [];
+    for (const b of briefs) {
+      let imageUrl =
+        b.imageCandidates.find((url) => !usedImages.has(url)) ??
+        zoneImagePool.find((url) => !usedImages.has(url)) ??
+        null;
+      if (!imageUrl) {
+        imageUrl = await findFallbackImage(
+          supabase,
+          zoneSlug,
+          articles.map((a) => a.id),
+          usedImages
+        );
+      }
+      if (imageUrl) usedImages.add(imageUrl);
+      rows.push({
+        zone_slug: zoneSlug,
+        title: b.title,
+        summary: b.excerpt,
+        sections: b.sections,
+        category: b.category,
+        source_urls: b.sourceUrls,
+        source_domains: b.sourceDomains,
+        image_url: imageUrl,
+      });
+    }
+
+    const { error: insertError } = await supabase.from("zone_briefs").insert(rows);
 
     if (insertError) {
       throw new Error(`Failed to insert briefs for ${zoneSlug}: ${insertError.message}`);

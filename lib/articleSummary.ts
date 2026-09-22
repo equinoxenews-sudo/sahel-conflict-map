@@ -13,9 +13,17 @@ const DESCRIPTION_PATTERNS = [
   /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']description["']/i,
 ];
 
+// og:image first (most reliable/highest-res on news sites), then the
+// secure-url variant some CMSes emit instead of/alongside og:image, then
+// Twitter Card's own image tag as a last resort — a handful of sites
+// only set one of these, not og:image specifically.
 const IMAGE_PATTERNS = [
   /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i,
   /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["']/i,
+  /<meta[^>]+property=["']og:image:secure_url["'][^>]+content=["']([^"']+)["']/i,
+  /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image:secure_url["']/i,
+  /<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i,
+  /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image["']/i,
 ];
 
 export interface ArticleContent {
