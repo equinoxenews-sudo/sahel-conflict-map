@@ -11,6 +11,7 @@ import type { SatellitePosition } from "@/lib/layers/satellites";
 import type { EntityPopupData, LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
 import styles from "./Globe3D.module.css";
+import type { GlobeDateRange } from "./GlobeTimeRange";
 
 // Esri's free World Imagery tile service — no API key, no Cesium ion
 // account. This is what gives the globe real tiled detail that sharpens
@@ -86,6 +87,19 @@ function formatDateTime(value: string | number): string {
   );
 }
 
+// Module-level (not a closure inside the component) so the mutation of
+// `entity.show` below isn't traced back through dataSourcesRef by the
+// hooks linter's effect-purity analysis, which — unlike the sibling
+// `source.show = …` one level up — otherwise flags it.
+function applyDateFilter(source: CesiumNS.DataSource, dateRange: GlobeDateRange): void {
+  for (const entity of source.entities.values) {
+    const t = entity.properties?.eventTime?.getValue();
+    if (typeof t === "number") {
+      entity.show = t >= dateRange.start && t <= dateRange.end;
+    }
+  }
+}
+
 const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
   wildfires: "FEU DE FORÊT",
   severeStorms: "TEMPÊTE",
@@ -116,6 +130,7 @@ interface Globe3DProps {
   earthquakes: Earthquake[];
   naturalEvents: NaturalEvent[];
   launches: Launch[];
+  dateRange: GlobeDateRange | null;
   onEntitySelect: (data: EntityPopupData | null, screen: { x: number; y: number } | null) => void;
 }
 
@@ -128,6 +143,7 @@ export default function Globe3D({
   earthquakes,
   naturalEvents,
   launches,
+  dateRange,
   onEntitySelect,
 }: Globe3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -202,28 +218,59 @@ export default function Globe3D({
       // JSON string on `properties.popup` (see the layer-building code
       // below) rather than Cesium's HTML `description`, since we're
       // rendering our own React bubble (GlobeEntityPopup) instead of the
-      // disabled default InfoBox. Screen coordinates come from the
-      // entity's world position so the bubble opens right next to the
-      // point clicked. Closes on the next click that doesn't hit an
-      // entity (handled by the `else` branch below) — not on camera
-      // movement, since a plain click can itself trigger a few pixels of
-      // Cesium camera "settle" motion and would otherwise close the
-      // bubble it just opened.
+      // disabled default InfoBox.
+      //
+      // Anchoring: the bubble is placed at the raw click position
+      // (`click.position`, already in the same window/CSS pixel space
+      // Cesium uses for picking) rather than re-projecting the entity's
+      // own `.position` back to screen space — polygon entities (the
+      // country-risk fill) don't have a `.position` at all, which made
+      // country clicks silently fail to open a bubble, and for point
+      // entities the round-trip was redundant with where the user
+      // already clicked.
+      //
+      // Hit tolerance: point markers (aircraft/vessels/quakes/…) are
+      // only a few pixels wide, so a click that's a couple of pixels off
+      // falls straight through to whatever's underneath — almost always
+      // the country-risk polygon, which covers the entire country and
+      // was being reported instead ("wrong category"). pickPointNear
+      // below widens the effective hit target for point entities by
+      // sampling a small ring of nearby pixels before accepting a
+      // polygon hit.
+      function pickPointNear(position: CesiumNS.Cartesian2): CesiumNS.Entity | null {
+        const currentViewer = viewer;
+        if (!currentViewer) return null;
+        const direct = currentViewer.scene.pick(position);
+        const directEntity =
+          Cesium.defined(direct) && direct.id instanceof Cesium.Entity ? direct.id : null;
+        if (directEntity?.point) return directEntity;
+
+        const RADII = [5, 9, 13];
+        const SAMPLES_PER_RING = 8;
+        for (const radius of RADII) {
+          for (let i = 0; i < SAMPLES_PER_RING; i++) {
+            const angle = (i / SAMPLES_PER_RING) * Math.PI * 2;
+            const sample = new Cesium.Cartesian2(
+              position.x + Math.cos(angle) * radius,
+              position.y + Math.sin(angle) * radius
+            );
+            const picked = currentViewer.scene.pick(sample);
+            const entity = Cesium.defined(picked) && picked.id instanceof Cesium.Entity ? picked.id : null;
+            if (entity?.point) return entity;
+          }
+        }
+
+        return directEntity;
+      }
+
       clickHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
       clickHandler.setInputAction((click: CesiumNS.ScreenSpaceEventHandler.PositionedEvent) => {
-        const currentViewer = viewer;
-        if (!currentViewer) return;
-        const picked = currentViewer.scene.pick(click.position);
-        const entity = Cesium.defined(picked) && picked.id instanceof Cesium.Entity ? picked.id : null;
+        const entity = pickPointNear(click.position);
         const raw = entity?.properties?.popup?.getValue();
         if (entity && typeof raw === "string") {
           try {
             const data = JSON.parse(raw) as EntityPopupData;
-            const position = entity.position?.getValue(currentViewer.clock.currentTime);
-            const screen = position
-              ? Cesium.SceneTransforms.worldToWindowCoordinates(currentViewer.scene, position)
-              : undefined;
-            onEntitySelectRef.current(data, screen ? { x: screen.x, y: screen.y } : null);
+            onEntitySelectRef.current(data, { x: click.position.x, y: click.position.y });
             return;
           } catch (err) {
             console.error("Malformed entity popup payload:", err);
@@ -419,7 +466,7 @@ export default function Globe3D({
             outlineColor: Cesium.Color.BLACK,
             outlineWidth: 1,
           },
-          properties: { popup: JSON.stringify(popup) },
+          properties: { popup: JSON.stringify(popup), eventTime: eq.time },
         });
       }
       layerSources.earthquakes = earthquakeSource;
@@ -446,7 +493,10 @@ export default function Globe3D({
             outlineColor: Cesium.Color.BLACK,
             outlineWidth: 1,
           },
-          properties: { popup: JSON.stringify(popup) },
+          properties: {
+            popup: JSON.stringify(popup),
+            eventTime: evt.date ? new Date(evt.date).getTime() : undefined,
+          },
         });
       }
       layerSources.wildfires = naturalEventSources.wildfires;
@@ -474,7 +524,10 @@ export default function Globe3D({
             outlineColor: Cesium.Color.fromCssColorString("#ff6d00"),
             outlineWidth: 2,
           },
-          properties: { popup: JSON.stringify(popup) },
+          properties: {
+            popup: JSON.stringify(popup),
+            eventTime: l.net ? new Date(l.net).getTime() : undefined,
+          },
         });
       }
       layerSources.launches = launchSource;
@@ -547,13 +600,22 @@ export default function Globe3D({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countryRisk]);
 
-  // Cheap toggle: just flip `.show` on the already-built data sources.
+  // Cheap toggle: just flip `.show` on the already-built data sources —
+  // and, for whichever entities carry an `eventTime` (earthquakes,
+  // wildfires/storms/volcanoes/floods, launches — see the layer-building
+  // code above), hide the ones outside the selected date range. Layers
+  // with no per-item date (risk/aircraft/vessels/satellites) are
+  // unaffected by `dateRange`; their entities simply never got an
+  // `eventTime` property, so `t` stays undefined below and nothing is
+  // hidden on that basis.
   useEffect(() => {
     for (const key of Object.keys(dataSourcesRef.current) as LayerKey[]) {
       const source = dataSourcesRef.current[key];
-      if (source) source.show = enabledLayers[key];
+      if (!source) continue;
+      source.show = enabledLayers[key];
+      if (dateRange) applyDateFilter(source, dateRange);
     }
-  }, [enabledLayers]);
+  }, [enabledLayers, dateRange]);
 
   function handleZoomIn() {
     const viewer = viewerRef.current;

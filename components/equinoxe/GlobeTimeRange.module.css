@@ -1,0 +1,144 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  padding: 14px 16px;
+  user-select: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.headingIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--bg-panel-alt);
+  color: var(--accent-gold-bright);
+}
+
+.resetBtn {
+  font-size: 10px;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid var(--border-glass);
+  border-radius: 999px;
+  padding: 3px 9px;
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.resetBtn:hover {
+  color: var(--accent-gold-bright);
+  border-color: var(--accent-gold);
+}
+
+.rangeLabel {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.track {
+  position: relative;
+  height: 18px;
+  margin-top: 2px;
+}
+
+.trackBg {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  transform: translateY(-50%);
+  background: var(--bg-panel-alt);
+  border-radius: 2px;
+}
+
+.nowMark {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border-glass);
+}
+
+.selectedRange {
+  position: absolute;
+  top: 50%;
+  height: 14px;
+  transform: translateY(-50%);
+  cursor: grab;
+  touch-action: none;
+  z-index: 1;
+}
+
+.selectedRange::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  transform: translateY(-50%);
+  background: var(--accent-gold-bright);
+  border-radius: 2px;
+}
+
+.selectedRange:active {
+  cursor: grabbing;
+}
+
+.handle {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  background: var(--text-primary);
+  border: 2px solid var(--accent-gold-bright);
+  border-radius: 50%;
+  cursor: ew-resize;
+  touch-action: none;
+  z-index: 2;
+}
+
+.boundsLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.scope {
+  margin: 2px 0 0;
+  font-size: 10px;
+  color: var(--text-secondary);
+  border-top: 1px solid rgba(110, 150, 190, 0.1);
+  padding-top: 6px;
+}

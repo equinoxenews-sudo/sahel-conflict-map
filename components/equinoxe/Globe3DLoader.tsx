@@ -9,6 +9,7 @@ import type { NaturalEvent } from "@/lib/layers/naturalEvents";
 import type { SatellitePosition } from "@/lib/layers/satellites";
 import type { EntityPopupData, LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
+import type { GlobeDateRange } from "./GlobeTimeRange";
 
 const Globe3D = dynamic(() => import("./Globe3D"), { ssr: false });
 
@@ -21,6 +22,7 @@ interface Globe3DLoaderProps {
   earthquakes: Earthquake[];
   naturalEvents: NaturalEvent[];
   launches: Launch[];
+  dateRange: GlobeDateRange | null;
   onEntitySelect: (data: EntityPopupData | null, screen: { x: number; y: number } | null) => void;
 }
 

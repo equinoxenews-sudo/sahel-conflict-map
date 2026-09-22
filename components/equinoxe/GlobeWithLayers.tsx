@@ -13,6 +13,8 @@ import Globe3DLoader from "./Globe3DLoader";
 import GlobeClock from "./GlobeClock";
 import GlobeEntityPopup from "./GlobeEntityPopup";
 import GlobeSearchBox from "./GlobeSearchBox";
+import type { GlobeDateRange } from "./GlobeTimeRange";
+import GlobeTimeRange from "./GlobeTimeRange";
 import styles from "./GlobeWithLayers.module.css";
 import LayersPanel from "./LayersPanel";
 import MobileSheet from "./MobileSheet";
@@ -46,6 +48,9 @@ export default function GlobeWithLayers({
     x: number;
     y: number;
   } | null>(null);
+  // null until GlobeTimeRange's own effect reports its default (full)
+  // bounds on mount — Globe3D treats null as "no date filtering yet".
+  const [dateRange, setDateRange] = useState<GlobeDateRange | null>(null);
 
   function handleEntitySelect(data: EntityPopupData | null, screen: { x: number; y: number } | null) {
     setSelectedEntity(data && screen ? { data, x: screen.x, y: screen.y } : null);
@@ -92,6 +97,7 @@ export default function GlobeWithLayers({
             earthquakes={earthquakes}
             naturalEvents={naturalEvents}
             launches={launches}
+            dateRange={dateRange}
             onEntitySelect={handleEntitySelect}
           />
           <GlobeClock />
@@ -121,6 +127,7 @@ export default function GlobeWithLayers({
       <div className={styles.rightStack}>
         <GlobeSearchBox />
         <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
+        <GlobeTimeRange onChange={setDateRange} />
         <RiskLevelPanel />
       </div>
 
@@ -153,6 +160,9 @@ export default function GlobeWithLayers({
       {mobileSheet === "layers" ? (
         <MobileSheet title="Couches" onBack={() => setMobileSheet(null)}>
           <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
+          <div className={styles.mobileTimeRange}>
+            <GlobeTimeRange onChange={setDateRange} />
+          </div>
         </MobileSheet>
       ) : null}
 

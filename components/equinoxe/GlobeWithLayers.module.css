@@ -7,9 +7,9 @@
 
 .mapArea {
   position: relative;
-  /* Cesium's InfoBox (country click popup) is a fixed-width absolute
-     panel that would otherwise spill out over the neighbouring column. */
-  overflow: hidden;
+  /* Cesium's default InfoBox/SelectionIndicator are disabled (see
+     Globe3D.tsx) in favour of GlobeEntityPopup, which needs to be able
+     to render near the edges of this area without getting clipped. */
   flex: 1;
   min-height: 420px;
   border: 1px solid var(--border-subtle);
@@ -94,6 +94,10 @@
 
 .eventCount {
   display: none;
+}
+
+.mobileTimeRange {
+  margin-top: 16px;
 }
 
 @media (max-width: 900px) {

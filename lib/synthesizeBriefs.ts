@@ -1,6 +1,6 @@
 const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
 const MODEL = "claude-haiku-4-5-20251001";
-const MAX_TOKENS = 4000;
+const MAX_TOKENS = 6000;
 const TIMEOUT_MS = 30000;
 
 export interface SourceArticle {
@@ -62,14 +62,17 @@ Voici plusieurs articles récents sur la zone "${zoneName}" :
 
 ${listing}
 
-Regroupe ces articles par sujet/événement (chaque article n'appartient qu'à un seul groupe ; ignore ceux qui ne concernent pas un sujet géopolitique ou sécuritaire clair). Pour chaque groupe distinct, rédige un article dont la longueur s'adapte à la matière réellement disponible :
+Regroupe ces articles par sujet/événement (chaque article n'appartient qu'à un seul groupe ; ignore ceux qui ne concernent pas un sujet géopolitique ou sécuritaire clair). Pour chaque groupe distinct, rédige un article dont la longueur s'adapte à la matière réellement disponible — mais exploite TOUJOURS le texte source à fond avant de conclure qu'il n'y a pas assez de matière : la plupart des dépêches contiennent, même en quelques phrases, plusieurs éléments exploitables (acteurs impliqués, lieu précis, chiffres, déclarations, chronologie, réactions, contexte antérieur). Un article qui se contente de reformuler le titre en une phrase est un échec, même pour un sujet mineur.
 
-- Si tu n'as qu'un texte court ou peu de matière sur le sujet : un article COURT, une seule section (heading: null), 100 à 200 mots.
-- Si plusieurs sources fournissent du texte substantiel sur le même sujet : un article PLUS LONG et structuré, 2 à 4 sections avec un titre court chacune (par exemple "Ce que l'on sait", "Contexte", "Réactions", "Ce qui reste incertain"), 400 à 700 mots au total.
+- Si tu n'as qu'un texte court sur le sujet : un article COURT mais complet, une seule section (heading: null), 180 à 280 mots — assez pour couvrir le fait, le contexte immédiat (qui, où, depuis quand) et sa portée, pas juste l'énoncé brut.
+- Si la matière est modérée (une source moyennement détaillée, ou deux sources courtes) : un article de 280 à 450 mots, une ou deux sections.
+- Si plusieurs sources fournissent du texte substantiel sur le même sujet : un article LONG et structuré, 3 à 5 sections avec un titre court chacune (par exemple "Ce que l'on sait", "Contexte", "Réactions", "Ce qui reste incertain", "Prochaines étapes"), 500 à 800 mots au total.
+
+Dans tous les cas, va au-delà du simple constat factuel quand la source le permet : situe l'événement dans son contexte (acteurs, antécédents, enjeux) plutôt que de te limiter à la première phrase de la dépêche.
 
 Classe aussi chaque article dans EXACTEMENT une de ces catégories : ${CATEGORIES.join(", ")}.
 
-Règles strictes : n'utilise QUE les informations présentes dans les textes ci-dessus. N'invente aucun fait, aucune citation, aucun chiffre, aucune date qui n'y figure pas explicitement. Rédaction neutre, factuelle et journalistique en français.
+Règles strictes : n'utilise QUE les informations présentes dans les textes ci-dessus. N'invente aucun fait, aucune citation, aucun chiffre, aucune date qui n'y figure pas explicitement — étoffer veut dire mieux exploiter le texte source fourni, jamais ajouter une information qui n'y figure pas. Rédaction neutre, factuelle et journalistique en français.
 
 Réponds UNIQUEMENT avec un tableau JSON valide, sans texte ni markdown autour, au format exact :
 [{"title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "category": "Battles", "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
