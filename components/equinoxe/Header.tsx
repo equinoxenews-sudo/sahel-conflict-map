@@ -45,6 +45,12 @@ export default function Header() {
         <Link href="/mon-espace" className={styles.zoneLink}>
           Mon espace
         </Link>
+        <Link
+          href="/investigation"
+          className={pathname?.startsWith("/investigation") ? `${styles.zoneLink} ${styles.zoneLinkActive}` : styles.zoneLink}
+        >
+          Investigation
+        </Link>
       </nav>
 
       <div className={styles.actions}>

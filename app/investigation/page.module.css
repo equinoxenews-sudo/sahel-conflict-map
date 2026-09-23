@@ -1,0 +1,131 @@
+.hero {
+  max-width: 720px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.searchWrap {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.section {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.sectionTitle {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-secondary);
+}
+
+.sectionLink {
+  font-size: 13px;
+  color: var(--accent-gold-bright);
+}
+
+.dossierGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.dossierCard {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 0.15s ease;
+}
+
+.dossierCard:hover {
+  border-color: var(--accent-gold);
+}
+
+.dossierName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.dossierMeta {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.emptyState {
+  background: var(--bg-panel);
+  border: 1px dashed var(--border-glass);
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.emptyState a {
+  color: var(--accent-gold-bright);
+}
+
+.spacesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.spaceCard {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.15s ease;
+}
+
+.spaceCard:hover {
+  border-color: var(--accent-gold);
+}
+
+.spaceIcon {
+  color: var(--accent-gold-bright);
+}
+
+.spaceLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.spaceDesc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}

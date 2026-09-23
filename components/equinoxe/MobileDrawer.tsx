@@ -60,6 +60,9 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
           <Link href="/mon-espace" onClick={onClose} className={styles.link}>
             Mon espace
           </Link>
+          <Link href="/investigation" onClick={onClose} className={styles.link}>
+            Investigation
+          </Link>
         </nav>
 
         <div className={styles.divider} />
