@@ -1,0 +1,104 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mapBox {
+  position: relative;
+  background: #0a1420;
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  /* The real South America outline (tall/narrow — Tierra del Fuego included)
+     is taller than the 6-card category grid it sits beside; capping the
+     panel's height keeps the two columns visually balanced like the mockup. */
+  max-height: 480px;
+}
+
+.svg {
+  display: block;
+  width: auto;
+  height: 480px;
+  max-width: 100%;
+}
+
+.country {
+  fill: rgba(16, 28, 44, 0.9);
+  stroke: var(--border-subtle);
+  stroke-width: 1;
+  cursor: pointer;
+  transition:
+    fill 150ms ease,
+    stroke 150ms ease;
+}
+
+.country:hover {
+  fill: rgba(30, 48, 72, 0.95);
+  stroke: var(--text-secondary);
+}
+
+.countrySelected {
+  fill: rgba(184, 134, 46, 0.22);
+  stroke: var(--accent-gold);
+  stroke-width: 1.6;
+}
+
+.countrySelected:hover {
+  fill: rgba(184, 134, 46, 0.3);
+}
+
+.label {
+  fill: var(--text-secondary);
+  font-size: 9px;
+  letter-spacing: 0.4px;
+  text-anchor: middle;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+.labelSelected {
+  fill: var(--accent-gold-bright);
+  font-weight: 700;
+  font-size: 10.5px;
+}
+
+.oceanLabel {
+  fill: #4a6482;
+  font-size: 9.5px;
+  letter-spacing: 1.5px;
+  text-anchor: middle;
+  pointer-events: none;
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+.countryButtons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.countryBtn {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border-glass);
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.countryBtn:hover {
+  border-color: var(--text-secondary);
+}
+
+.countryBtnActive {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold-bright);
+}

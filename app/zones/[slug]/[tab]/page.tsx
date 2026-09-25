@@ -4,7 +4,9 @@ import DocumentGrid from "@/components/DocumentGrid";
 import Header from "@/components/equinoxe/Header";
 import MapView from "@/components/MapView";
 import ZoneNewsList from "@/components/ZoneNewsList";
+import ZoneApprochePage from "@/components/zone-approche/ZoneApprochePage";
 import { supabase } from "@/lib/supabaseClient";
+import { getZoneApprocheContent } from "@/lib/zoneApprocheContent";
 import { getZoneArticles, getZoneBriefs } from "@/lib/zoneBriefs";
 import { listZoneDocuments } from "@/lib/zoneDocuments";
 import { ZONE_NEWS } from "@/lib/zoneNews";
@@ -46,10 +48,11 @@ export default async function ZoneTabPage({
 
   const isLiveActualite = zone.active && tab === "actualite" && zone.countries.length > 0;
   const isApproche = zone.active && tab === "approche";
+  const approcheContent = isApproche ? getZoneApprocheContent(zone.slug) : undefined;
   const briefs = isLiveActualite ? await getZoneBriefs(zone.slug) : [];
   const articles = isLiveActualite && briefs.length === 0 ? await getZoneArticles(zone.slug) : [];
   const newsItems = ZONE_NEWS[zone.slug] ?? [];
-  const documents = isApproche ? await listZoneDocuments(zone.slug) : [];
+  const documents = isApproche && !approcheContent ? await listZoneDocuments(zone.slug) : [];
 
   return (
     <main className={styles.main}>
@@ -73,6 +76,8 @@ export default async function ZoneTabPage({
             <MapView events={await getZoneEvents(zone.countries)} />
           </div>
         </div>
+      ) : isApproche && approcheContent ? (
+        <ZoneApprochePage content={approcheContent} />
       ) : isApproche ? (
         <DocumentGrid documents={documents} />
       ) : (

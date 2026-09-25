@@ -1,0 +1,289 @@
+.wrap {
+  /* .main (app/zones/[slug]/[tab]/page.module.css) is a fixed-height,
+     overflow:hidden flex column shared with the Actualités split-layout,
+     which needs that to keep its own map/news-list panes on screen. This
+     page is a flex sibling of that layout, so it needs the same
+     flex:1 + min-height:0 + its own overflow-y to scroll internally
+     instead of being clipped by the shared parent. */
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 28px 32px 48px;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ---- Intro ---- */
+
+.intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.introTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+
+.introSubtitle {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 320px;
+  flex: 0 1 420px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-glass);
+  border-radius: 999px;
+  padding: 12px 20px;
+  color: var(--text-secondary);
+}
+
+.searchBox input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-size: 13.5px;
+}
+
+.searchBox input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* ---- Main grid: map card (~43%) + category cards (~57%) ---- */
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 0.75fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.panelHeading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.panelIcon {
+  display: flex;
+  color: var(--accent-gold-bright);
+}
+
+.seeAll {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition: color 150ms ease;
+}
+
+.seeAll:hover {
+  color: var(--accent-gold);
+}
+
+/* ---- Category cards grid ---- */
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.categoryCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  padding: 18px;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.categoryCard:hover {
+  background: var(--bg-panel-alt);
+  border-color: var(--text-secondary);
+}
+
+.categoryCard:hover .categoryArrow {
+  transform: translateX(3px);
+}
+
+.categoryIcon {
+  display: flex;
+  color: var(--accent-gold-bright);
+}
+
+.categoryTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.categoryDescription {
+  font-size: 12.5px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  flex: 1;
+}
+
+.categoryArrow {
+  align-self: flex-end;
+  color: var(--accent-gold);
+  font-size: 15px;
+  transition: transform 150ms ease;
+}
+
+/* ---- Dossiers transversaux ---- */
+
+.dossiersSection {
+  margin-top: 20px;
+}
+
+.dossiersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.dossierCard {
+  display: flex;
+  gap: 14px;
+  align-items: stretch;
+  text-align: left;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 150ms ease;
+}
+
+.dossierCard:hover {
+  border-color: var(--text-secondary);
+}
+
+.dossierCard:hover .categoryArrow {
+  transform: translateX(3px);
+}
+
+.dossierImage {
+  width: 96px;
+  flex-shrink: 0;
+}
+
+.dossierBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 14px 14px 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.dossierTitle {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.dossierDescription {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* ---- Footer ---- */
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-glass);
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1100px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dossiersGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .wrap {
+    padding: 20px 16px 32px;
+  }
+
+  .intro {
+    align-items: flex-start;
+  }
+
+  .searchBox {
+    min-width: 0;
+    width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .categoryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dossierCard {
+    flex-direction: column;
+  }
+
+  .dossierImage {
+    width: 100%;
+    height: 120px;
+  }
+
+  .dossierBody {
+    padding: 12px 14px 14px;
+  }
+}
