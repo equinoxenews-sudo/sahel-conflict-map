@@ -20,7 +20,9 @@ export async function GET(request: Request) {
     // waiting up to an hour.
     revalidatePath("/");
     revalidatePath("/zones/[slug]/[tab]", "page");
-    return NextResponse.json({ ok: true, summary });
+    revalidatePath("/briefs/[id]", "page");
+    const failed = Object.values(summary).some((value) => value === -1);
+    return NextResponse.json({ ok: !failed, summary }, { status: failed ? 502 : 200 });
   } catch (error) {
     console.error("Brief sync failed", error);
     return NextResponse.json(

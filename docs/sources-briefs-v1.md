@@ -5,7 +5,7 @@ Base : branche codex/actualites-carte-v1, commit cdb8ad0. Patch indépendant des
 ## Installation et contrôle avant activation
 
 1. Appliquer le patch sur une branche de prévisualisation.
-2. Exécuter supabase/add-brief-revisions.sql AVANT de déployer le nouveau code. Aucun accès administrateur Supabase n'a été utilisé pour préparer ce patch. La migration et le trigger doivent être vérifiés dans une base de test.
+2. Le précontrôle vérifie updated_at et brief_revisions avant tout appel IA et renvoie une erreur explicite en cas de schéma indisponible. Il ne vérifie pas le trigger : exécuter la migration complète. Exécuter supabase/add-brief-revisions.sql AVANT de déployer le nouveau code. Aucun accès administrateur Supabase n'a été utilisé pour préparer ce patch. La migration et le trigger doivent être vérifiés dans une base de test.
 3. Lancer npm run lint, npx tsc --noEmit et node --import tsx --test tests/brief-quality.test.ts.
 4. Contrôler les flux via node --import tsx scripts/check-rss.ts.
 5. Sur un lot témoin en base de test, lancer la synthèse avec la clé IA configurée côté serveur, contrôler les rapprochements (même fait, lieu et période), les citations et l'historique avant activation du cron en production.
@@ -21,9 +21,9 @@ Le contrôle valide la réponse et la lecture XML à cet instant, pas une garant
 - Jusqu'à huit nouveaux articles par zone ; comparaison avec les vingt dernières brèves publiées au cours des sept derniers jours.
 - Regroupement demandé pour un même événement concret, jamais simplement un thème commun. Une reprise certaine peut mettre à jour l'ID existant avec union des références.
 - Toute référence à une brève hors du contexte fourni est rejetée. Une source ne peut appartenir à deux groupes dans la même réponse.
-- Une nouvelle source n'est marquée traitée qu'après écriture réussie. Une source déjà citée dans une brève récente est acquittée sans nouvelle génération.
+- Les sources citées sont acquittées après écriture réussie. Après une réponse IA entièrement valide et la persistance du lot, les sources soumises mais écartées sont aussi marquées traitées pour éviter une facturation répétée. Les échecs API/JSON lèvent une erreur ; les sources sans texte disponible ne sont pas envoyées. Une source déjà citée dans une brève récente est acquittée sans nouvelle génération.
 - Les versions précédentes sont archivées automatiquement par un trigger SQL ; leur lecture est réservée à l'administrateur/backend.
-- Une photo provient uniquement d'une source citée. Une ancienne photo peut être conservée lors d'une mise à jour sans nouvelle image.
+- Illustration systématique : photo citée non utilisée parmi les 100 dernières brèves, sinon image régionale locale avec mention explicite sur la fiche. Aucun emprunt de photo à un événement sans rapport.
 - Pas de longueur minimale imposée ; les textes sources ne peuvent pas donner d'instructions au modèle.
 - Dates : première synthèse et dernière mise à jour explicites. La date de publication de la source est transmise au modèle ; une date d'événement inconnue ne doit pas être inventée.
 
@@ -42,3 +42,5 @@ Compte utilisateur / client : nécessite une autorisation et une session protég
 Ne pas promettre une collecte exhaustive ni un hébergement perpétuel gratuit. Prévoir un catalogue explicite de canaux, les identifiants canal/message pour la déduplication, date originale, lien et statut non corroboré, ainsi qu'un traitement des modifications/suppressions. Vérifier les droits et les conditions propres au contenu avant republication. Les conditions Telegram limitent fortement l'utilisation pour l'IA : https://telegram.org/tos/content-licensing. Aucun contenu Telegram n'est envoyé à l'IA par ce patch.
 
 Prochaine donnée nécessaire : 3 à 5 liens de canaux publics souhaités et indication des canaux contrôlés par l'utilisateur.
+
+Correctif après revue Claude : images garanties par ressources locales, distinction entre lot ignoré et échec, contrôle de migration avant dépense IA et HTTP 502 si une zone échoue. Les 8 tests ne remplacent pas le contrôle SQL et le test de rapprochement sur un lot réel.

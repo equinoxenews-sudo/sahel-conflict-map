@@ -82,6 +82,7 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
           </span>
         </div>
 
+        {brief.image_url?.startsWith("/equinoxe/hero-") ? <p>Illustration de la zone — ne représente pas l’événement.</p> : null}
         <h1 className={styles.title}>{brief.title}</h1>
         <p>Synthèse générée par IA à partir des sources ci-dessous. L’indice mesure le nombre de domaines cités, pas la véracité des faits ni l’indépendance des sources. La date affichée est celle de la synthèse.</p>
 

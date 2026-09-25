@@ -29,3 +29,32 @@ test("Le nombre de domaines ne simule pas une vérité certaine", () => {
  assert.equal(computeBriefReliability(["bbc.com", "www.bbc.co.uk"]), 2);
  assert.equal(computeBriefReliability(["a.test", "b.test", "c.test", "d.test"]), 4);
 });
+
+import { synthesizeBriefs } from "../lib/synthesizeBriefs";
+import { chooseBriefImage } from "../lib/briefImages";
+import { existsSync } from "node:fs";
+import { ZONE_HERO_IMAGES } from "../lib/zoneHeroImages";
+test("Une illustration existe pour chaque zone et évite les photos déjà utilisées", () => {
+ for (const [zone, path] of Object.entries(ZONE_HERO_IMAGES)) {
+   assert.ok(existsSync(`public${path}`));
+   assert.equal(chooseBriefImage([], new Set(), zone), path);
+ }
+ assert.equal(chooseBriefImage(["a", "b"], new Set(["a"]), "afrique"), "b");
+ assert.equal(chooseBriefImage(["a"], new Set(["a"]), "afrique"), ZONE_HERO_IMAGES.afrique);
+});
+test("Distingue omission volontaire et réponse invalide", () => {
+ assert.deepEqual(parseResponse("[]", sources, [], true), []);
+ assert.throws(() => parseResponse("invalide", sources, [], true));
+ assert.throws(() => parseResponse(JSON.stringify([{ ...item, sourceIndexes: [99] }]), sources, [], true));
+});
+test("Les échecs API ne sont pas des lots traités vides", async (t) => {
+ const oldKey = process.env.ANTHROPIC_API_KEY;
+ process.env.ANTHROPIC_API_KEY = "test-only";
+ t.after(() => { if (oldKey === undefined) delete process.env.ANTHROPIC_API_KEY; else process.env.ANTHROPIC_API_KEY = oldKey; });
+ const mock = t.mock.method(globalThis, "fetch", async () => new Response("{}", { status: 503 }));
+ await assert.rejects(synthesizeBriefs("Afrique", sources));
+ mock.mock.mockImplementation(async () => new Response(JSON.stringify({ content: [{ type: "text", text: "[]" }] }), { status: 200 }));
+ assert.deepEqual(await synthesizeBriefs("Afrique", sources), []);
+ mock.mock.mockImplementation(async () => new Response(JSON.stringify({ content: [{ type: "text", text: "invalide" }] }), { status: 200 }));
+ await assert.rejects(synthesizeBriefs("Afrique", sources));
+});

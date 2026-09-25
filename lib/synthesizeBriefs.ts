@@ -101,7 +101,7 @@ function isValidSection(value: unknown): value is BriefSection {
   );
 }
 
-export function parseResponse(text: string, articles: SourceArticle[], previous: PreviousBrief[] = []): SynthesizedBrief[] {
+export function parseResponse(text: string, articles: SourceArticle[], previous: PreviousBrief[] = [], strict = false): SynthesizedBrief[] {
   const cleaned = text
     .trim()
     .replace(/^```(?:json)?/i, "")
@@ -112,9 +112,13 @@ export function parseResponse(text: string, articles: SourceArticle[], previous:
   try {
     parsed = JSON.parse(cleaned);
   } catch {
+    if (strict) throw new Error("Invalid synthesis JSON");
     return [];
   }
-  if (!Array.isArray(parsed)) return [];
+  if (!Array.isArray(parsed)) {
+    if (strict) throw new Error("Synthesis must be an array");
+    return [];
+  }
 
   const briefs: SynthesizedBrief[] = [];
   const usedIndexes = new Set<number>();
@@ -168,6 +172,7 @@ export function parseResponse(text: string, articles: SourceArticle[], previous:
       imageCandidates: [...new Set(sources.map((s) => s.imageUrl).filter((u): u is string => !!u))],
     });
   }
+  if (strict && briefs.length !== parsed.length) throw new Error("Invalid synthesis groups or source references");
   return briefs;
 }
 
@@ -177,9 +182,8 @@ export function parseResponse(text: string, articles: SourceArticle[], previous:
  * how much real body text is actually available per topic (see
  * buildPrompt) rather than a fixed target — short factual items stay
  * short instead of being padded with invented detail. Requires
- * ANTHROPIC_API_KEY — returns an empty array without making any request
- * if it isn't configured (this feature is opt-in), and on any API
- * failure, so a flaky/unset key never blocks the rest of a sync run.
+ * ANTHROPIC_API_KEY is required. Failures throw; a validated empty array
+ * means the model processed but deliberately omitted the entire batch.
  */
 export async function synthesizeBriefs(
   zoneName: string,
@@ -187,7 +191,8 @@ export async function synthesizeBriefs(
   previous: PreviousBrief[] = []
 ): Promise<SynthesizedBrief[]> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey || articles.length === 0) return [];
+  if (articles.length === 0) return [];
+  if (!apiKey) throw new Error("ANTHROPIC_API_KEY absent : aucun article acquitté");
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
@@ -209,16 +214,15 @@ export async function synthesizeBriefs(
     });
 
     if (!res.ok) {
-      console.error("Anthropic API error:", res.status, await res.text());
-      return [];
+      throw new Error(`Anthropic API error: ${res.status}`);
     }
 
     const data = (await res.json()) as { content?: { type: string; text?: string }[] };
     const text = data.content?.find((block) => block.type === "text")?.text ?? "";
-    return parseResponse(text, articles, previous);
+    return parseResponse(text, articles, previous, true);
   } catch (err) {
     console.error("Failed to synthesize briefs:", err);
-    return [];
+    throw err;
   } finally {
     clearTimeout(timeoutId);
   }

@@ -1,3 +1,4 @@
+import { chooseBriefImage } from "./briefImages";
 import { fetchArticleContent } from "./articleSummary";
 import { mapWithConcurrency } from "./gdelt";
 import { getSupabaseAdmin } from "./supabaseAdmin";
@@ -69,9 +70,15 @@ async function briefZone(
     const { error: retryError } = await supabase.from("articles").update({ used_in_brief: true }).in("id", acknowledgedIds);
     if (retryError) throw new Error(`Failed to acknowledge existing citations: ${retryError.message}`);
   }
-  const pendingSources = sourceArticles.filter((article) => !alreadyCited.has(article.url));
+  const pendingSources = sourceArticles.filter((article) => !alreadyCited.has(article.url)
+    && !!(article.bodyText?.trim() || article.summary?.trim()));
   const zoneName = getZone(zoneSlug)?.name ?? zoneSlug;
   const briefs = await synthesizeBriefs(zoneName, pendingSources, previous);
+
+  const { data: recentImages, error: imageError } = await supabase.from("zone_briefs")
+    .select("image_url").order("published_at", { ascending: false }).limit(100);
+  if (imageError) throw new Error(`Cannot load recent images: ${imageError.message}`);
+  const usedImages = new Set<string>((recentImages ?? []).map((row) => row.image_url).filter(Boolean));
 
   // Only acknowledge sources after their corresponding brief was persisted.
   // A missing API key, malformed JSON or failed API request must not consume them.
@@ -81,7 +88,7 @@ async function briefZone(
       sections: brief.sections, category: brief.category,
       source_urls: brief.sourceUrls, source_domains: brief.sourceDomains,
       updated_at: new Date().toISOString(),
-      ...(brief.imageCandidates[0] ? { image_url: brief.imageCandidates[0] } : {}),
+      image_url: chooseBriefImage(brief.imageCandidates, usedImages, zoneSlug),
     };
     const result = brief.existingBriefId == null
       ? await supabase.from("zone_briefs").insert(row).select("id").single()
@@ -94,6 +101,15 @@ async function briefZone(
     if (acknowledgeError) throw new Error(`Failed to acknowledge sources: ${acknowledgeError.message}`);
   }
 
+  // A valid response (including []) means the entire submitted batch was
+  // processed. Omitted articles must not be billed again each day. Exceptions
+  // above preserve pending state; unavailable source text was never submitted.
+  const submittedUrls = new Set(pendingSources.map((article) => article.url));
+  const submittedIds = articles.filter((article) => submittedUrls.has(article.url)).map((article) => article.id);
+  if (submittedIds.length) {
+    const { error: processedError } = await supabase.from("articles").update({ used_in_brief: true }).in("id", submittedIds);
+    if (processedError) throw new Error(`Failed to acknowledge processed batch: ${processedError.message}`);
+  }
   return { zoneSlug, articleCount: articles.length, briefCount: briefs.length };
 }
 
@@ -108,6 +124,13 @@ async function briefZone(
  * all zones run concurrently, but upstream latency can exceed the budget.
  */
 export async function syncBriefs() {
+  // Before source downloads or paid AI calls: explicit, actionable migration gate.
+  const admin = getSupabaseAdmin();
+  const { error: columnError } = await admin.from("zone_briefs").select("updated_at").limit(1);
+  const { error: archiveError } = await admin.from("brief_revisions").select("id").limit(1);
+  if (columnError || archiveError) throw new Error(
+    "Schéma des synthèses indisponible. Vérifier Supabase et appliquer supabase/add-brief-revisions.sql avant ce déploiement."
+  );
   const zoneSlugs = Object.keys(ZONE_KEYWORDS);
 
   const results = await Promise.allSettled(zoneSlugs.map((zoneSlug) => briefZone(zoneSlug)));
