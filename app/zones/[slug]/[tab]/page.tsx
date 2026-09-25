@@ -79,7 +79,7 @@ export default async function ZoneTabPage({
           </div>
         </div>
       ) : isApproche && approcheContent && approcheMap ? (
-        <ZoneApprochePage content={approcheContent} map={approcheMap} />
+        <ZoneApprochePage zoneSlug={zone.slug} content={approcheContent} map={approcheMap} />
       ) : isApproche ? (
         <DocumentGrid documents={documents} />
       ) : (

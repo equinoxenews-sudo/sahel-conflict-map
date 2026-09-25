@@ -1,15 +1,31 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { getCountrySlugByIso3 } from "@/lib/countries";
 import type { ZoneMapData } from "@/lib/zoneMaps";
 import styles from "./ZoneCountryMap.module.css";
 
 interface ZoneCountryMapProps {
+  zoneSlug: string;
   data: ZoneMapData;
 }
 
-export default function ZoneCountryMap({ data }: ZoneCountryMapProps) {
+export default function ZoneCountryMap({ zoneSlug, data }: ZoneCountryMapProps) {
   const [selected, setSelected] = useState(data.featured[0] ?? data.countries[0]?.id ?? "");
+  const router = useRouter();
+
+  // A country with a real profile page (currently just Syria) navigates
+  // straight there on click instead of just highlighting — every other
+  // country keeps the plain select-to-highlight behavior unchanged.
+  function handleSelect(id: string) {
+    const profileSlug = getCountrySlugByIso3(id);
+    if (profileSlug) {
+      router.push(`/zones/${zoneSlug}/approche/pays/${profileSlug}`);
+      return;
+    }
+    setSelected(id);
+  }
 
   return (
     <div className={styles.wrap}>
@@ -20,7 +36,7 @@ export default function ZoneCountryMap({ data }: ZoneCountryMapProps) {
               key={country.id}
               d={country.path}
               className={country.id === selected ? `${styles.country} ${styles.countrySelected}` : styles.country}
-              onClick={() => setSelected(country.id)}
+              onClick={() => handleSelect(country.id)}
             >
               <title>{country.name}</title>
             </path>
@@ -56,7 +72,7 @@ export default function ZoneCountryMap({ data }: ZoneCountryMapProps) {
               key={id}
               type="button"
               className={id === selected ? `${styles.countryBtn} ${styles.countryBtnActive}` : styles.countryBtn}
-              onClick={() => setSelected(id)}
+              onClick={() => handleSelect(id)}
             >
               {country.name}
             </button>

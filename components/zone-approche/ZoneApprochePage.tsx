@@ -5,6 +5,7 @@ import ZoneCountryMap from "./ZoneCountryMap";
 import styles from "./ZoneApprochePage.module.css";
 
 interface ZoneApprochePageProps {
+  zoneSlug: string;
   content: ZoneApprocheContent;
   map: ZoneMapData;
 }
@@ -36,7 +37,7 @@ function SearchIcon() {
   );
 }
 
-export default function ZoneApprochePage({ content, map }: ZoneApprochePageProps) {
+export default function ZoneApprochePage({ zoneSlug, content, map }: ZoneApprochePageProps) {
   return (
     <div className={styles.wrap}>
       <div className={styles.intro}>
@@ -61,7 +62,7 @@ export default function ZoneApprochePage({ content, map }: ZoneApprochePageProps
             </h3>
             <span className={styles.seeAll}>Voir tout →</span>
           </div>
-          <ZoneCountryMap data={map} />
+          <ZoneCountryMap zoneSlug={zoneSlug} data={map} />
         </div>
 
         <div className={styles.categoryGrid}>

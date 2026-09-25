@@ -1,0 +1,62 @@
+.mapBox {
+  position: relative;
+  background: #0a1420;
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.svg {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 460px;
+}
+
+.neighbor {
+  fill: rgba(16, 28, 44, 0.6);
+  stroke: var(--border-subtle);
+  stroke-width: 1;
+}
+
+.neighborLabel {
+  fill: var(--text-secondary);
+  font-size: 9px;
+  letter-spacing: 0.4px;
+  text-anchor: middle;
+  pointer-events: none;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.main {
+  fill: rgba(184, 134, 46, 0.22);
+  stroke: var(--accent-gold);
+  stroke-width: 1.8;
+}
+
+.mainLabel {
+  fill: var(--accent-gold-bright);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  text-anchor: middle;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+.city {
+  fill: var(--text-primary);
+  stroke: var(--accent-gold-bright);
+  stroke-width: 1;
+}
+
+.cityLabel {
+  fill: var(--text-primary);
+  font-size: 9.5px;
+  text-anchor: start;
+  pointer-events: none;
+}
