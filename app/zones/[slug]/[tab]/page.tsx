@@ -72,12 +72,6 @@ export default async function ZoneTabPage({
           <div className={styles.mapArea}>
             <MapView events={await getZoneEvents(zone.countries)} />
           </div>
-          <div className={styles.extraColumn}>
-            <h2 className={styles.extraHeading}>À venir</h2>
-            <div className={styles.extraPlaceholder}>
-              <p>Contenu à déterminer</p>
-            </div>
-          </div>
         </div>
       ) : isApproche ? (
         <DocumentGrid documents={documents} />

@@ -130,6 +130,7 @@
   }
 
   .mapArea {
-    min-height: 400px;
+    height: 760px;
+    min-height: 760px;
   }
 }

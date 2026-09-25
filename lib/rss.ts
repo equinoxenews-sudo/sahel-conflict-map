@@ -63,7 +63,10 @@ export async function fetchFeed(url: string): Promise<FeedItem[]> {
       signal: controller.signal,
       headers: { "User-Agent": "Mozilla/5.0 (compatible; EquinoxeNewsBot/1.0)" },
     });
-    if (!res.ok) return [];
+    if (!res.ok) {
+      console.error(`RSS ${url}: HTTP ${res.status}`);
+      return [];
+    }
 
     const xml = await res.text();
     const data = parser.parse(xml) as {
@@ -71,6 +74,10 @@ export async function fetchFeed(url: string): Promise<FeedItem[]> {
       feed?: { entry?: unknown };
     };
 
+    if (!data.rss?.channel && !data.feed) {
+      console.error(`RSS ${url}: document non RSS/Atom`);
+      return [];
+    }
     const raw = data.rss?.channel?.item ?? data.feed?.entry ?? [];
     const items = Array.isArray(raw) ? raw : [raw];
 

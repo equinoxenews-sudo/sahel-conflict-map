@@ -18,7 +18,7 @@ async function getBrief(id: string): Promise<ZoneBrief | null> {
     const { data, error } = await supabase
       .from("zone_briefs")
       .select(
-        "id, zone_slug, title, category, summary, sections, source_urls, source_domains, image_url, published_at"
+        "id, zone_slug, title, category, summary, sections, source_urls, source_domains, image_url, published_at, updated_at"
       )
       .eq("id", numericId)
       .maybeSingle();
@@ -69,7 +69,7 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
         ) : null}
 
         <div className={styles.meta}>
-          <span className={styles.date}>{formatDate(brief.published_at)}</span>
+          <span className={styles.date}>Première synthèse : {formatDate(brief.published_at)}{brief.updated_at ? ` · Mise à jour : ${formatDate(brief.updated_at)}` : ""}</span>
           <span className={styles.reliability}>
             <span
               className={styles.reliabilityBadge}
@@ -77,12 +77,14 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
             >
               {reliability}
             </span>
-            Score de fiabilité — {uniqueDomains.length} source{uniqueDomains.length > 1 ? "s" : ""}{" "}
-            indépendante{uniqueDomains.length > 1 ? "s" : ""}
+            Couverture documentaire — {uniqueDomains.length} source{uniqueDomains.length > 1 ? "s" : ""}{" "}
+            citée{uniqueDomains.length > 1 ? "s" : ""}
           </span>
         </div>
 
+        {brief.image_url?.startsWith("/equinoxe/hero-") ? <p>Illustration de la zone — ne représente pas l’événement.</p> : null}
         <h1 className={styles.title}>{brief.title}</h1>
+        <p>Synthèse générée par IA à partir des sources ci-dessous. L’indice mesure le nombre de domaines cités, pas la véracité des faits ni l’indépendance des sources. La date affichée est celle de la synthèse.</p>
 
         <div className={styles.body}>
           {brief.sections && brief.sections.length > 0
