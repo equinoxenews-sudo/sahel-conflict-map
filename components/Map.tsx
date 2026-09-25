@@ -1,8 +1,9 @@
 "use client";
 
 import "leaflet/dist/leaflet.css";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from "react-leaflet";
+import type { CircleMarker as LeafletCircleMarker } from "leaflet";
 import { clampReliability, computeReliability, RELIABILITY_COLORS } from "@/lib/reliability";
 import { CATEGORY_COLORS, type ConflictEvent, type EventCategory } from "@/types/event";
 import styles from "./Map.module.css";
@@ -46,6 +47,22 @@ function buildFallbackSummary(event: ConflictEvent, mentions: number | null): st
 
 interface MapProps {
   events: ConflictEvent[];
+  selectedEventId?: number | null;
+  onSelectEvent?: (id: number) => void;
+}
+
+function FocusSelectedEvent({ event, markerRefs }: {
+  event?: ConflictEvent;
+  markerRefs: React.RefObject<globalThis.Map<number, LeafletCircleMarker>>;
+}) {
+  const map = useMap();
+  useEffect(() => {
+    const marker = event ? markerRefs.current.get(event.id) : undefined;
+    if (!event || !marker) return;
+    map.flyTo([event.latitude, event.longitude], Math.max(map.getZoom(), 8));
+    marker.openPopup();
+  }, [event, map, markerRefs]);
+  return null;
 }
 
 // Leaflet measures its container's pixel size once (at init, or whenever
@@ -95,7 +112,9 @@ function FitToEvents({ events }: { events: ConflictEvent[] }) {
   return null;
 }
 
-export default function Map({ events }: MapProps) {
+export default function Map({ events, selectedEventId, onSelectEvent }: MapProps) {
+  const markerRefs = useRef(new globalThis.Map<number, LeafletCircleMarker>());
+  const selectedEvent = events.find((event) => event.id === selectedEventId);
   return (
     <MapContainer
       center={SAHEL_CENTER}
@@ -105,6 +124,7 @@ export default function Map({ events }: MapProps) {
     >
       <MapAutoResize />
       <FitToEvents events={events} />
+      <FocusSelectedEvent event={selectedEvent} markerRefs={markerRefs} />
       <TileLayer
         className={styles.darkTiles}
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -122,6 +142,11 @@ export default function Map({ events }: MapProps) {
         return (
           <CircleMarker
             key={event.id}
+            ref={(marker) => {
+              if (marker) markerRefs.current.set(event.id, marker);
+              else markerRefs.current.delete(event.id);
+            }}
+            eventHandlers={{ click: () => onSelectEvent?.(event.id) }}
             center={[event.latitude, event.longitude]}
             radius={5 + Math.min(event.fatalities, 20) / 4}
             pathOptions={{
