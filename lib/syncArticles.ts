@@ -20,7 +20,9 @@ async function syncZone(
   const supabase = getSupabaseAdmin();
 
   const feedResults = await Promise.all(feedUrls.map((url) => fetchFeed(url)));
-  const relevant = feedResults.flat().filter((item) => isRelevant(item, keywords));
+  const relevant = [...new Map(feedResults.flat()
+    .filter((item) => isRelevant(item, keywords))
+    .map((item) => [item.url, item])).values()];
 
   const rows = relevant.map((item) => ({
     zone_slug: zoneSlug,
@@ -48,8 +50,7 @@ async function syncZone(
  * feeds (lib/rssFeeds.ts) and upserts them into Supabase. Replaces GDELT
  * DOC 2.0 as the discovery source — that small research-project API
  * turned out to be too unreliable in production (rate limits and outright
- * connection failures most days). RSS feeds have no meaningful rate limit
- * and every zone's feeds fetch fully concurrently — no staggering needed.
+ * connection failures most days). Feed endpoints can rate-limit or fail; all feeds currently fetch concurrently.
  *
  * A zone (or a single feed within it) that errors or times out is simply
  * skipped for today and picked up on tomorrow's run.

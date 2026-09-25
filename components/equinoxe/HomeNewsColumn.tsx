@@ -80,6 +80,8 @@ export default function HomeNewsColumn({ briefs, articles }: HomeNewsColumnProps
                       <span className={styles.date}>{formatDate(b.published_at)}</span>
                       <span
                         className={styles.reliabilityBadge}
+                        title="Couverture documentaire : nombre de domaines cités, indépendance non vérifiée"
+                        aria-label={`Couverture documentaire : ${reliability}/5`}
                         style={{ backgroundColor: RELIABILITY_COLORS[reliability] }}
                       >
                         {reliability}

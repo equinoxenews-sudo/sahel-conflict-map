@@ -15,4 +15,5 @@ export interface ZoneBrief {
   source_domains: string[];
   image_url: string | null;
   published_at: string | null;
+  updated_at?: string | null;
 }
