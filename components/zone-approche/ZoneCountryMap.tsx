@@ -1,19 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { SOUTH_AMERICA_COUNTRIES, SOUTH_AMERICA_VIEWBOX } from "@/lib/southAmericaMap";
-import styles from "./SouthAmericaMap.module.css";
+import type { ZoneMapData } from "@/lib/zoneMaps";
+import styles from "./ZoneCountryMap.module.css";
 
-const FEATURED_COUNTRY_IDS = ["BRA", "COL", "VEN", "GUY"];
+interface ZoneCountryMapProps {
+  data: ZoneMapData;
+}
 
-export default function SouthAmericaMap() {
-  const [selected, setSelected] = useState("BRA");
+export default function ZoneCountryMap({ data }: ZoneCountryMapProps) {
+  const [selected, setSelected] = useState(data.featured[0] ?? data.countries[0]?.id ?? "");
 
   return (
     <div className={styles.wrap}>
       <div className={styles.mapBox}>
-        <svg viewBox={SOUTH_AMERICA_VIEWBOX} className={styles.svg} role="img" aria-label="Carte de l'Amérique du Sud">
-          {SOUTH_AMERICA_COUNTRIES.map((country) => (
+        <svg viewBox={data.viewBox} className={styles.svg} role="img" aria-label="Carte de la zone">
+          {data.countries.map((country) => (
             <path
               key={country.id}
               d={country.path}
@@ -23,7 +25,7 @@ export default function SouthAmericaMap() {
               <title>{country.name}</title>
             </path>
           ))}
-          {SOUTH_AMERICA_COUNTRIES.map((country) => (
+          {data.countries.map((country) => (
             <text
               key={`label-${country.id}`}
               x={country.label[0]}
@@ -33,28 +35,21 @@ export default function SouthAmericaMap() {
               {country.name}
             </text>
           ))}
-          <text x={40} y={505} className={styles.oceanLabel}>
-            <tspan x={40} dy={0}>
-              Océan
-            </tspan>
-            <tspan x={40} dy={13}>
-              Pacifique
-            </tspan>
-          </text>
-          <text x={555} y={505} className={styles.oceanLabel}>
-            <tspan x={555} dy={0}>
-              Océan
-            </tspan>
-            <tspan x={555} dy={13}>
-              Atlantique
-            </tspan>
-          </text>
+          {data.oceanLabels?.map((ocean, i) => (
+            <text key={`ocean-${i}`} x={ocean.x} y={ocean.y} className={styles.oceanLabel}>
+              {ocean.lines.map((line, j) => (
+                <tspan key={line} x={ocean.x} dy={j === 0 ? 0 : 13}>
+                  {line}
+                </tspan>
+              ))}
+            </text>
+          ))}
         </svg>
       </div>
 
       <div className={styles.countryButtons}>
-        {FEATURED_COUNTRY_IDS.map((id) => {
-          const country = SOUTH_AMERICA_COUNTRIES.find((c) => c.id === id);
+        {data.featured.map((id) => {
+          const country = data.countries.find((c) => c.id === id);
           if (!country) return null;
           return (
             <button

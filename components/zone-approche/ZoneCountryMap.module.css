@@ -12,17 +12,22 @@
   overflow: hidden;
   display: flex;
   justify-content: center;
-  /* The real South America outline (tall/narrow — Tierra del Fuego included)
-     is taller than the 6-card category grid it sits beside; capping the
-     panel's height keeps the two columns visually balanced like the mockup. */
+  /* Some regions' true outlines (South America's Tierra del Fuego tail,
+     Africa's north-south span) are taller than the 6-card category grid
+     beside them; capping the panel's height keeps the two columns
+     visually balanced regardless of the region's natural aspect ratio. */
   max-height: 480px;
 }
 
 .svg {
+  /* width/height auto + both max- constraints = "contain" sizing that
+     adapts to each region's own aspect ratio (wide Europe vs. tall South
+     America) instead of a fixed height that badly letterboxes wide ones. */
   display: block;
   width: auto;
-  height: 480px;
+  height: auto;
   max-width: 100%;
+  max-height: 480px;
 }
 
 .country {

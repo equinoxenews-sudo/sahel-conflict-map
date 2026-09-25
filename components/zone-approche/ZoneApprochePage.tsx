@@ -1,10 +1,12 @@
 import type { ZoneApprocheContent } from "@/lib/zoneApprocheContent";
+import type { ZoneMapData } from "@/lib/zoneMaps";
 import ApprocheCategoryIcon from "./ApprocheCategoryIcon";
-import SouthAmericaMap from "./SouthAmericaMap";
+import ZoneCountryMap from "./ZoneCountryMap";
 import styles from "./ZoneApprochePage.module.css";
 
 interface ZoneApprochePageProps {
   content: ZoneApprocheContent;
+  map: ZoneMapData;
 }
 
 function MapPanelIcon() {
@@ -34,7 +36,7 @@ function SearchIcon() {
   );
 }
 
-export default function ZoneApprochePage({ content }: ZoneApprochePageProps) {
+export default function ZoneApprochePage({ content, map }: ZoneApprochePageProps) {
   return (
     <div className={styles.wrap}>
       <div className={styles.intro}>
@@ -59,7 +61,7 @@ export default function ZoneApprochePage({ content }: ZoneApprochePageProps) {
             </h3>
             <span className={styles.seeAll}>Voir tout →</span>
           </div>
-          <SouthAmericaMap />
+          <ZoneCountryMap data={map} />
         </div>
 
         <div className={styles.categoryGrid}>
