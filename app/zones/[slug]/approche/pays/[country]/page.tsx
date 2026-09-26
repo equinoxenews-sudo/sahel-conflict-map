@@ -29,7 +29,13 @@ export default async function CountryPage({
   return (
     <CountryProfilePage
       country={country}
-      map={{ main: mainFeature, neighbors: neighborFeatures, cities: geoConfig.cities }}
+      map={{
+        main: mainFeature,
+        mainName: country.name,
+        neighbors: neighborFeatures,
+        neighborNames: geoConfig.neighbors,
+        cities: geoConfig.cities,
+      }}
     />
   );
 }

@@ -10,7 +10,12 @@ import styles from "./CountryLeafletMap.module.css";
 
 export interface CountryMapData {
   main: WorldGeoFeature;
+  mainName: string;
   neighbors: WorldGeoFeature[];
+  // ISO3 (or other feature id) -> French display name, from
+  // CountryGeoConfig.neighbors — the raw GeoJSON's properties.name is
+  // English, so labels must come from this map instead.
+  neighborNames: Record<string, string>;
   cities: CountryGeoCity[];
 }
 
@@ -28,8 +33,7 @@ const NEIGHBOR_STYLE: PathOptions = {
   fillOpacity: 0.35,
 };
 
-function labelFeature(feature: WorldGeoFeature, layer: Layer, className: string) {
-  const name = feature.properties?.name;
+function labelFeature(name: string | undefined, layer: Layer, className: string) {
   if (name) {
     layer.bindTooltip(name, { permanent: true, direction: "center", className });
   }
@@ -86,13 +90,15 @@ export default function CountryLeafletMap({ data }: { data: CountryMapData }) {
           key={feature.id}
           data={feature}
           style={NEIGHBOR_STYLE}
-          onEachFeature={(_geoJsonFeature, layer) => labelFeature(feature, layer, styles.neighborLabel)}
+          onEachFeature={(_geoJsonFeature, layer) =>
+            labelFeature(data.neighborNames[feature.id] ?? feature.properties?.name, layer, styles.neighborLabel)
+          }
         />
       ))}
       <GeoJSON
         data={data.main}
         style={MAIN_STYLE}
-        onEachFeature={(_geoJsonFeature, layer) => labelFeature(data.main, layer, styles.mainLabel)}
+        onEachFeature={(_geoJsonFeature, layer) => labelFeature(data.mainName, layer, styles.mainLabel)}
       />
 
       {data.cities.map((city) => (
