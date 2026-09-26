@@ -1,0 +1,41 @@
+.darkTiles {
+  filter: grayscale(0.3) brightness(0.55) saturate(1.1);
+}
+
+/* Leaflet's default tooltip chrome (white bubble + arrow) doesn't fit —
+   these are meant to read as plain floating map labels, not tooltips. */
+:global(.leaflet-tooltip) {
+  background: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  white-space: nowrap;
+}
+
+:global(.leaflet-tooltip-right)::before,
+:global(.leaflet-tooltip-left)::before {
+  display: none;
+}
+
+.mainLabel {
+  color: #e0b44c;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.neighborLabel {
+  color: #9fb4c8;
+  font-size: 10px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.cityLabel {
+  color: #f1f4f7;
+  font-size: 10.5px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}

@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import CountryProfilePage from "@/components/country-profile/CountryProfilePage";
 import { getCountryProfile } from "@/lib/countries";
-import { COUNTRY_MAPS } from "@/lib/countryMaps";
+import { getCountryGeoConfig } from "@/lib/countryGeoConfig";
+import { getWorldCountryFeature } from "@/lib/worldGeo";
 import { getZone } from "@/lib/zones";
 
 export const revalidate = 3600;
@@ -14,9 +15,21 @@ export default async function CountryPage({
   const { slug, country: countrySlug } = await params;
   const zone = getZone(slug);
   const country = getCountryProfile(countrySlug);
-  const map = COUNTRY_MAPS[countrySlug];
+  const geoConfig = getCountryGeoConfig(countrySlug);
 
-  if (!zone || !country || !map || country.zoneSlug !== slug) notFound();
+  if (!zone || !country || !geoConfig || country.zoneSlug !== slug) notFound();
 
-  return <CountryProfilePage country={country} map={map} />;
+  const mainFeature = getWorldCountryFeature(geoConfig.mainIso3);
+  if (!mainFeature) notFound();
+
+  const neighborFeatures = Object.keys(geoConfig.neighbors)
+    .map((iso3) => getWorldCountryFeature(iso3))
+    .filter((f): f is NonNullable<typeof f> => f !== undefined);
+
+  return (
+    <CountryProfilePage
+      country={country}
+      map={{ main: mainFeature, neighbors: neighborFeatures, cities: geoConfig.cities }}
+    />
+  );
 }

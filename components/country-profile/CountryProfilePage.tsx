@@ -1,11 +1,10 @@
 import Link from "next/link";
 import Header from "@/components/equinoxe/Header";
-import type { CountryMapData } from "@/lib/countryMaps";
 import { getZone } from "@/lib/zones";
 import type { CountryProfile } from "@/types/country";
 import CountryEventCard from "./CountryEventCard";
 import CountryFlag from "./CountryFlag";
-import CountryMap from "./CountryMap";
+import CountryMap, { type CountryMapData } from "./CountryMap";
 import CountrySection from "./CountrySection";
 import CountrySourcesList from "./CountrySourcesList";
 import EntityCard from "./EntityCard";
