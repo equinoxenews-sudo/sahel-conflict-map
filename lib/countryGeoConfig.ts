@@ -187,6 +187,21 @@ export const COUNTRY_GEO_CONFIG: Record<string, CountryGeoConfig> = {
   philippines: { mainIso3: "PHL", neighbors: { CHN: "Chine", IDN: "Indonésie", MYS: "Malaisie" }, cities: [] },
   brunei: { mainIso3: "BRN", neighbors: { IDN: "Indonésie", MYS: "Malaisie" }, cities: [] },
   "timor-oriental": { mainIso3: "TLS", neighbors: { IDN: "Indonésie" }, cities: [] },
+
+  // --- Amérique du Sud (generated batch, same discipline as above) ---
+  argentine: { mainIso3: "ARG", neighbors: { BOL: "Bolivie", BRA: "Brésil", CHL: "Chili", FLK: "Îles Malouines", PRY: "Paraguay", URY: "Uruguay" }, cities: [] },
+  bolivie: { mainIso3: "BOL", neighbors: { ARG: "Argentine", BRA: "Brésil", CHL: "Chili", PER: "Pérou", PRY: "Paraguay" }, cities: [] },
+  bresil: { mainIso3: "BRA", neighbors: { ARG: "Argentine", BOL: "Bolivie", CHL: "Chili", COL: "Colombie", ECU: "Équateur", GUF: "Guyane française", GUY: "Guyana", PAN: "Panama", PER: "Pérou", PRY: "Paraguay", SUR: "Suriname", URY: "Uruguay", VEN: "Venezuela" }, cities: [] },
+  chili: { mainIso3: "CHL", neighbors: { ARG: "Argentine", BOL: "Bolivie", BRA: "Brésil", PER: "Pérou" }, cities: [] },
+  colombie: { mainIso3: "COL", neighbors: { BRA: "Brésil", ECU: "Équateur", PAN: "Panama", PER: "Pérou", VEN: "Venezuela" }, cities: [] },
+  equateur: { mainIso3: "ECU", neighbors: { COL: "Colombie", PER: "Pérou" }, cities: [] },
+  "guyane-francaise": { mainIso3: "GUF", neighbors: { BRA: "Brésil", SUR: "Suriname" }, cities: [] },
+  guyana: { mainIso3: "GUY", neighbors: { BRA: "Brésil", SUR: "Suriname", VEN: "Venezuela" }, cities: [] },
+  perou: { mainIso3: "PER", neighbors: { BOL: "Bolivie", BRA: "Brésil", CHL: "Chili", COL: "Colombie", ECU: "Équateur", VEN: "Venezuela" }, cities: [] },
+  paraguay: { mainIso3: "PRY", neighbors: { ARG: "Argentine", BOL: "Bolivie", BRA: "Brésil" }, cities: [] },
+  suriname: { mainIso3: "SUR", neighbors: { BRA: "Brésil", GUF: "Guyane française", GUY: "Guyana" }, cities: [] },
+  uruguay: { mainIso3: "URY", neighbors: { ARG: "Argentine", BRA: "Brésil" }, cities: [] },
+  venezuela: { mainIso3: "VEN", neighbors: { BRA: "Brésil", COL: "Colombie", GUY: "Guyana", PER: "Pérou", TTO: "Trinité-et-Tobago" }, cities: [] },
 };
 
 export function getCountryGeoConfig(slug: string): CountryGeoConfig | undefined {
