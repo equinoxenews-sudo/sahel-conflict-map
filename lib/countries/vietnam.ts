@@ -20,14 +20,14 @@ export const VIETNAM: CountryProfile = {
 
   overview: {
     summary: "Le Vietnam est une économie manufacturière en forte croissance d'Asie du Sud-Est. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["China","Cambodia","Laos","Thailand"],
+    neighbors: ["Chine","Cambodge","Laos","Thaïlande"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "République socialiste à parti unique",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["China","Cambodia","Laos","Thailand"],
+    foreignRelations: ["Chine","Cambodge","Laos","Thaïlande"],
   },
 
   security: {

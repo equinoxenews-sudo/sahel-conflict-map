@@ -20,14 +20,14 @@ export const MYANMAR: CountryProfile = {
 
   overview: {
     summary: "Le Myanmar est un pays en guerre civile depuis le coup d'État militaire de 2021. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["Bangladesh","Bhutan","China","India","Cambodia","Laos","Thailand","Vietnam"],
+    neighbors: ["Bangladesh","Bhoutan","Chine","Inde","Cambodge","Laos","Thaïlande","Vietnam"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "Régime militaire (junte depuis 2021)",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["Bangladesh","Bhutan","China","India","Cambodia"],
+    foreignRelations: ["Bangladesh","Bhoutan","Chine","Inde","Cambodge"],
   },
 
   security: {

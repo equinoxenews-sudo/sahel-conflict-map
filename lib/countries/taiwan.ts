@@ -20,14 +20,14 @@ export const TAIWAN: CountryProfile = {
 
   overview: {
     summary: "Taïwan est une économie technologique de premier plan, au centre d'un contentieux de souveraineté avec Pékin. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["China"],
+    neighbors: ["Chine"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "République semi-présidentielle — statut contesté par la Chine",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["China"],
+    foreignRelations: ["Chine"],
   },
 
   security: {

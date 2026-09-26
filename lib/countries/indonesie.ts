@@ -20,14 +20,14 @@ export const INDONESIE: CountryProfile = {
 
   overview: {
     summary: "L'Indonésie est le plus vaste archipel du monde et la première économie d'Asie du Sud-Est. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["Australia","Brunei","India","Malaysia","Philippines","Papua New Guinea","Thailand","East Timor"],
+    neighbors: ["Australie","Brunei","Inde","Malaisie","Philippines","Papouasie-Nouvelle-Guinée","Thaïlande","Timor oriental"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "République présidentielle",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["Australia","Brunei","India","Malaysia","Philippines"],
+    foreignRelations: ["Australie","Brunei","Inde","Malaisie","Philippines"],
   },
 
   security: {

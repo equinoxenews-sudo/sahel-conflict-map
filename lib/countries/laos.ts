@@ -20,14 +20,14 @@ export const LAOS: CountryProfile = {
 
   overview: {
     summary: "Le Laos est un État enclavé d'Asie du Sud-Est, fortement dépendant des investissements chinois. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["China","Cambodia","Myanmar","Thailand","Vietnam"],
+    neighbors: ["Chine","Cambodge","Myanmar","Thaïlande","Vietnam"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "République socialiste à parti unique",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["China","Cambodia","Myanmar","Thailand","Vietnam"],
+    foreignRelations: ["Chine","Cambodge","Myanmar","Thaïlande","Vietnam"],
   },
 
   security: {

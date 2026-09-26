@@ -20,14 +20,14 @@ export const BRUNEI: CountryProfile = {
 
   overview: {
     summary: "Brunei est un petit sultanat pétrolier de Bornéo. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["Indonesia","Malaysia"],
+    neighbors: ["Indonésie","Malaisie"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "Monarchie absolue (sultanat)",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["Indonesia","Malaysia"],
+    foreignRelations: ["Indonésie","Malaisie"],
   },
 
   security: {

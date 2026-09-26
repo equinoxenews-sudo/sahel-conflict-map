@@ -20,14 +20,14 @@ export const PHILIPPINES: CountryProfile = {
 
   overview: {
     summary: "Les Philippines sont un archipel exposé aux tensions en mer de Chine méridionale et aux catastrophes naturelles. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["China","Indonesia","Malaysia"],
+    neighbors: ["Chine","Indonésie","Malaisie"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "République présidentielle",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["China","Indonesia","Malaysia"],
+    foreignRelations: ["Chine","Indonésie","Malaisie"],
   },
 
   security: {

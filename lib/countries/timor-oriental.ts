@@ -20,14 +20,14 @@ export const TIMOR_ORIENTAL: CountryProfile = {
 
   overview: {
     summary: "Le Timor oriental est un jeune État d'Asie du Sud-Est, indépendant depuis 2002. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["Indonesia"],
+    neighbors: ["Indonésie"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "République semi-présidentielle",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["Indonesia"],
+    foreignRelations: ["Indonésie"],
   },
 
   security: {

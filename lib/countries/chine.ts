@@ -20,14 +20,14 @@ export const CHINE: CountryProfile = {
 
   overview: {
     summary: "La Chine est une grande puissance industrielle, démographique et militaire d'Asie de l'Est. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["Afghanistan","Bangladesh","Bhutan","India","Japan","Kazakhstan","Kyrgyzstan","Cambodia","South Korea","Laos","Myanmar","Mongolia","Nepal","Pakistan","Philippines","North Korea","Russia","Thailand","Tajikistan","Taiwan","Uzbekistan","Vietnam"],
+    neighbors: ["Afghanistan","Bangladesh","Bhoutan","Inde","Japon","Kazakhstan","Kirghizistan","Cambodge","Corée du Sud","Laos","Myanmar","Mongolie","Népal","Pakistan","Philippines","Corée du Nord","Russie","Thaïlande","Tadjikistan","Taïwan","Ouzbékistan","Vietnam"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "République socialiste à parti unique",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["Afghanistan","Bangladesh","Bhutan","India","Japan"],
+    foreignRelations: ["Afghanistan","Bangladesh","Bhoutan","Inde","Japon"],
   },
 
   security: {

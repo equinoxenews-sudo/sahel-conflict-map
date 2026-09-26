@@ -20,14 +20,14 @@ export const THAILANDE: CountryProfile = {
 
   overview: {
     summary: "La Thaïlande est une économie touristique et industrielle majeure d'Asie du Sud-Est. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["China","Indonesia","India","Cambodia","Laos","Myanmar","Malaysia","Vietnam"],
+    neighbors: ["Chine","Indonésie","Inde","Cambodge","Laos","Myanmar","Malaisie","Vietnam"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "Monarchie constitutionnelle",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["China","Indonesia","India","Cambodia","Laos"],
+    foreignRelations: ["Chine","Indonésie","Inde","Cambodge","Laos"],
   },
 
   security: {

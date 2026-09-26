@@ -20,14 +20,14 @@ export const MONGOLIE: CountryProfile = {
 
   overview: {
     summary: "La Mongolie est un vaste État enclavé entre la Chine et la Russie, à faible densité de population. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["China","Kazakhstan","Russia"],
+    neighbors: ["Chine","Kazakhstan","Russie"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "République semi-présidentielle",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["China","Kazakhstan","Russia"],
+    foreignRelations: ["Chine","Kazakhstan","Russie"],
   },
 
   security: {

@@ -20,14 +20,14 @@ export const MALAISIE: CountryProfile = {
 
   overview: {
     summary: "La Malaisie est une économie diversifiée d'Asie du Sud-Est, à la société multiethnique. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["Brunei","Indonesia","Philippines","Thailand"],
+    neighbors: ["Brunei","Indonésie","Philippines","Thaïlande"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "Monarchie constitutionnelle fédérale élective",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["Brunei","Indonesia","Philippines","Thailand"],
+    foreignRelations: ["Brunei","Indonésie","Philippines","Thaïlande"],
   },
 
   security: {

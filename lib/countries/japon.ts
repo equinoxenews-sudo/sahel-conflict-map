@@ -20,14 +20,14 @@ export const JAPON: CountryProfile = {
 
   overview: {
     summary: "Le Japon est une puissance économique et technologique majeure d'Asie de l'Est. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["China","South Korea","North Korea","Russia"],
+    neighbors: ["Chine","Corée du Sud","Corée du Nord","Russie"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "Monarchie constitutionnelle parlementaire",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["China","South Korea","North Korea","Russia"],
+    foreignRelations: ["Chine","Corée du Sud","Corée du Nord","Russie"],
   },
 
   security: {

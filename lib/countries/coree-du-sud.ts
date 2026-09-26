@@ -20,14 +20,14 @@ export const COREE_DU_SUD: CountryProfile = {
 
   overview: {
     summary: "La Corée du Sud est une économie industrielle avancée, en tension permanente avec son voisin du Nord. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["China","Japan","North Korea"],
+    neighbors: ["Chine","Japon","Corée du Nord"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "République présidentielle",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["China","Japan","North Korea"],
+    foreignRelations: ["Chine","Japon","Corée du Nord"],
   },
 
   security: {

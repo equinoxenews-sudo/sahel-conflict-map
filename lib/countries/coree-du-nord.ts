@@ -20,14 +20,14 @@ export const COREE_DU_NORD: CountryProfile = {
 
   overview: {
     summary: "La Corée du Nord est un État isolé au programme nucléaire militaire, au cœur des tensions régionales. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["China","Japan","South Korea","Russia"],
+    neighbors: ["Chine","Japon","Corée du Sud","Russie"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "République à parti unique (régime autoritaire)",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["China","Japan","South Korea","Russia"],
+    foreignRelations: ["Chine","Japon","Corée du Sud","Russie"],
   },
 
   security: {

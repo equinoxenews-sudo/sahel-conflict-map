@@ -20,14 +20,14 @@ export const CAMBODGE: CountryProfile = {
 
   overview: {
     summary: "Le Cambodge est une économie en développement d'Asie du Sud-Est, marquée par une gouvernance dominée par un parti unique de fait. Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée.",
-    neighbors: ["Laos","Thailand","Vietnam"],
+    neighbors: ["Laos","Thaïlande","Vietnam"],
     context: ["Contenu de démonstration — à remplacer par une analyse vérifiée et sourcée."],
   },
 
   politics: {
     system: "Monarchie constitutionnelle",
     actors: [{ name: "Gouvernement", type: "Government", role: "Exécutif" }],
-    foreignRelations: ["Laos","Thailand","Vietnam"],
+    foreignRelations: ["Laos","Thaïlande","Vietnam"],
   },
 
   security: {
