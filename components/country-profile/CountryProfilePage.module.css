@@ -68,6 +68,34 @@
   margin-bottom: 20px;
 }
 
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Pointy-top/bottom hexagon, same badge language as the site's zone
+   icons — a thin gold "frame" hexagon behind a slightly inset, fully
+   clipped flag image. */
+.flagHex {
+  position: relative;
+  width: 68px;
+  height: 80px;
+  flex-shrink: 0;
+  background: var(--accent-gold);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flagHexImage {
+  width: 62px;
+  height: 74px;
+  object-fit: cover;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
 .title {
   font-size: 32px;
   font-weight: 700;
@@ -155,7 +183,10 @@
   display: grid;
   grid-template-columns: 0.85fr 1fr;
   gap: 20px;
-  align-items: start;
+  /* Stretch (the default) instead of start — the map's height varies a
+     lot by country aspect ratio, and the brief panel should reach the
+     same bottom edge instead of stopping short. */
+  align-items: stretch;
 }
 
 .briefPanel {

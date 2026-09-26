@@ -1,10 +1,20 @@
 .mapBox {
   position: relative;
-  background: #0a1420;
+  /* A stylized "cartographic" backdrop (faint graticule + warm land /
+     cool water glows) instead of flat navy — decorative, not a real
+     geo-registered basemap, so it never needs to align with the SVG
+     shapes drawn on top of it. */
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0px, rgba(255, 255, 255, 0.035) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.035) 0px, rgba(255, 255, 255, 0.035) 1px, transparent 1px, transparent 40px),
+    radial-gradient(ellipse at 32% 68%, rgba(168, 128, 56, 0.32) 0%, transparent 58%),
+    radial-gradient(ellipse at 72% 28%, rgba(48, 110, 120, 0.32) 0%, transparent 58%),
+    linear-gradient(160deg, #0f2436 0%, #0a1420 55%, #0a1420 100%);
   border: 1px solid var(--border-glass);
   border-radius: 8px;
   overflow: hidden;
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 

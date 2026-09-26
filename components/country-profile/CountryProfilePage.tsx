@@ -4,6 +4,7 @@ import type { CountryMapData } from "@/lib/countryMaps";
 import { getZone } from "@/lib/zones";
 import type { CountryProfile } from "@/types/country";
 import CountryEventCard from "./CountryEventCard";
+import CountryFlag from "./CountryFlag";
 import CountryMap from "./CountryMap";
 import CountrySection from "./CountrySection";
 import CountrySourcesList from "./CountrySourcesList";
@@ -67,9 +68,12 @@ export default function CountryProfilePage({ country, map }: CountryProfilePageP
         </div>
 
         <div className={styles.headerRow}>
-          <div>
-            <h2 className={styles.title}>{country.name.toUpperCase()}</h2>
-            {country.officialName && <p className={styles.officialName}>{country.officialName}</p>}
+          <div className={styles.titleGroup}>
+            <CountryFlag iso2={country.iso2} name={country.name} />
+            <div>
+              <h2 className={styles.title}>{country.name.toUpperCase()}</h2>
+              {country.officialName && <p className={styles.officialName}>{country.officialName}</p>}
+            </div>
           </div>
           <div className={styles.statusBlock}>
             <div className={styles.statusCard}>
