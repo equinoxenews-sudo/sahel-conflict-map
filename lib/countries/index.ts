@@ -1,18 +1,34 @@
 import type { CountryProfile } from "@/types/country";
 import { ARABIE_SAOUDITE } from "./arabie-saoudite";
+import { BRUNEI } from "./brunei";
+import { CAMBODGE } from "./cambodge";
+import { CHINE } from "./chine";
+import { COREE_DU_NORD } from "./coree-du-nord";
+import { COREE_DU_SUD } from "./coree-du-sud";
 import { EGYPTE } from "./egypte";
 import { EMIRATS_ARABES_UNIS } from "./emirats-arabes-unis";
+import { INDONESIE } from "./indonesie";
 import { IRAK } from "./irak";
 import { IRAN } from "./iran";
 import { ISRAEL } from "./israel";
+import { JAPON } from "./japon";
 import { JORDANIE } from "./jordanie";
 import { KOWEIT } from "./koweit";
+import { LAOS } from "./laos";
 import { LIBAN } from "./liban";
+import { MALAISIE } from "./malaisie";
+import { MONGOLIE } from "./mongolie";
+import { MYANMAR } from "./myanmar";
 import { OMAN } from "./oman";
 import { PALESTINE } from "./palestine";
+import { PHILIPPINES } from "./philippines";
 import { QATAR } from "./qatar";
 import { SYRIA } from "./syria";
+import { TAIWAN } from "./taiwan";
+import { THAILANDE } from "./thailande";
+import { TIMOR_ORIENTAL } from "./timor-oriental";
 import { TURQUIE } from "./turquie";
+import { VIETNAM } from "./vietnam";
 import { YEMEN } from "./yemen";
 
 // Registry keyed by route slug (app/zones/[slug]/approche/pays/[country]).
@@ -34,6 +50,22 @@ const COUNTRY_PROFILES: Record<string, CountryProfile> = {
   oman: OMAN,
   turquie: TURQUIE,
   egypte: EGYPTE,
+  chine: CHINE,
+  japon: JAPON,
+  "coree-du-sud": COREE_DU_SUD,
+  "coree-du-nord": COREE_DU_NORD,
+  taiwan: TAIWAN,
+  mongolie: MONGOLIE,
+  myanmar: MYANMAR,
+  thailande: THAILANDE,
+  vietnam: VIETNAM,
+  laos: LAOS,
+  cambodge: CAMBODGE,
+  malaisie: MALAISIE,
+  indonesie: INDONESIE,
+  philippines: PHILIPPINES,
+  brunei: BRUNEI,
+  "timor-oriental": TIMOR_ORIENTAL,
 };
 
 export function getCountryProfile(slug: string): CountryProfile | undefined {

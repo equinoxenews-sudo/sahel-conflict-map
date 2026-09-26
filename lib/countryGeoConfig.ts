@@ -167,6 +167,26 @@ export const COUNTRY_GEO_CONFIG: Record<string, CountryGeoConfig> = {
       { name: "Assouan", lat: 24.09, lon: 32.9 },
     ],
   },
+
+  // --- Indopacifique (generated batch — see lib/countries/*.ts header
+  // comments; neighbors auto-detected from bounding-box proximity against
+  // the world GeoJSON, no hardcoded city markers at this scale) ---
+  chine: { mainIso3: "CHN", neighbors: { AFG: "Afghanistan", BGD: "Bangladesh", BTN: "Bhutan", IND: "Inde", JPN: "Japon", KAZ: "Kazakhstan", KGZ: "Kirghizistan", KHM: "Cambodge", KOR: "Corée du Sud", LAO: "Laos", MMR: "Myanmar", MNG: "Mongolie", NPL: "Népal", PAK: "Pakistan", PHL: "Philippines", PRK: "Corée du Nord", RUS: "Russie", THA: "Thaïlande", TJK: "Tadjikistan", TWN: "Taïwan", UZB: "Ouzbékistan", VNM: "Vietnam" }, cities: [] },
+  japon: { mainIso3: "JPN", neighbors: { CHN: "Chine", KOR: "Corée du Sud", PRK: "Corée du Nord", RUS: "Russie" }, cities: [] },
+  "coree-du-sud": { mainIso3: "KOR", neighbors: { CHN: "Chine", JPN: "Japon", PRK: "Corée du Nord" }, cities: [] },
+  "coree-du-nord": { mainIso3: "PRK", neighbors: { CHN: "Chine", JPN: "Japon", KOR: "Corée du Sud", RUS: "Russie" }, cities: [] },
+  taiwan: { mainIso3: "TWN", neighbors: { CHN: "Chine" }, cities: [] },
+  mongolie: { mainIso3: "MNG", neighbors: { CHN: "Chine", KAZ: "Kazakhstan", RUS: "Russie" }, cities: [] },
+  myanmar: { mainIso3: "MMR", neighbors: { BGD: "Bangladesh", BTN: "Bhoutan", CHN: "Chine", IND: "Inde", KHM: "Cambodge", LAO: "Laos", THA: "Thaïlande", VNM: "Vietnam" }, cities: [] },
+  thailande: { mainIso3: "THA", neighbors: { CHN: "Chine", IDN: "Indonésie", IND: "Inde", KHM: "Cambodge", LAO: "Laos", MMR: "Myanmar", MYS: "Malaisie", VNM: "Vietnam" }, cities: [] },
+  vietnam: { mainIso3: "VNM", neighbors: { CHN: "Chine", KHM: "Cambodge", LAO: "Laos", THA: "Thaïlande" }, cities: [] },
+  laos: { mainIso3: "LAO", neighbors: { CHN: "Chine", KHM: "Cambodge", MMR: "Myanmar", THA: "Thaïlande", VNM: "Vietnam" }, cities: [] },
+  cambodge: { mainIso3: "KHM", neighbors: { LAO: "Laos", THA: "Thaïlande", VNM: "Vietnam" }, cities: [] },
+  malaisie: { mainIso3: "MYS", neighbors: { BRN: "Brunei", IDN: "Indonésie", PHL: "Philippines", THA: "Thaïlande" }, cities: [] },
+  indonesie: { mainIso3: "IDN", neighbors: { AUS: "Australie", BRN: "Brunei", IND: "Inde", MYS: "Malaisie", PHL: "Philippines", PNG: "Papouasie-Nouvelle-Guinée", THA: "Thaïlande", TLS: "Timor oriental" }, cities: [] },
+  philippines: { mainIso3: "PHL", neighbors: { CHN: "Chine", IDN: "Indonésie", MYS: "Malaisie" }, cities: [] },
+  brunei: { mainIso3: "BRN", neighbors: { IDN: "Indonésie", MYS: "Malaisie" }, cities: [] },
+  "timor-oriental": { mainIso3: "TLS", neighbors: { IDN: "Indonésie" }, cities: [] },
 };
 
 export function getCountryGeoConfig(slug: string): CountryGeoConfig | undefined {
