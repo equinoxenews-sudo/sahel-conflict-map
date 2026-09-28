@@ -11,6 +11,7 @@ export const TANZANIE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Tanzanie",
   iso3: "TZA",
+  iso2: "TZ",
   capital: "Dodoma (capitale officielle) / Dar es Salaam (centre économique)",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

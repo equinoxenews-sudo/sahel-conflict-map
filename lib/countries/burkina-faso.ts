@@ -11,6 +11,7 @@ export const BURKINA_FASO: CountryProfile = {
   zoneSlug: "afrique",
   name: "Burkina Faso",
   iso3: "BFA",
+  iso2: "BF",
   capital: "Ouagadougou",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

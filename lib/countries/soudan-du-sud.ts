@@ -11,6 +11,7 @@ export const SOUDAN_DU_SUD: CountryProfile = {
   zoneSlug: "afrique",
   name: "Soudan du Sud",
   iso3: "SSD",
+  iso2: "SS",
   capital: "Djouba",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

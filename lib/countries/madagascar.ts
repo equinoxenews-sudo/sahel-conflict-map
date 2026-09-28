@@ -11,6 +11,7 @@ export const MADAGASCAR: CountryProfile = {
   zoneSlug: "afrique",
   name: "Madagascar",
   iso3: "MDG",
+  iso2: "MG",
   capital: "Antananarivo",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

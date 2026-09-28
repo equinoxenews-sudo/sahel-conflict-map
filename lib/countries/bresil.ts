@@ -11,6 +11,7 @@ export const BRESIL: CountryProfile = {
   zoneSlug: "amerique-du-sud",
   name: "Brésil",
   iso3: "BRA",
+  iso2: "BR",
   capital: "Brasília",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

@@ -11,6 +11,7 @@ export const DJIBOUTI: CountryProfile = {
   zoneSlug: "afrique",
   name: "Djibouti",
   iso3: "DJI",
+  iso2: "DJ",
   capital: "Djibouti",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

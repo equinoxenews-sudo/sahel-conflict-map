@@ -11,6 +11,7 @@ export const MYANMAR: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Myanmar",
   iso3: "MMR",
+  iso2: "MM",
   capital: "Naypyidaw",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

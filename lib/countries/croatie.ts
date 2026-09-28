@@ -11,6 +11,7 @@ export const CROATIE: CountryProfile = {
   zoneSlug: "europe",
   name: "Croatie",
   iso3: "HRV",
+  iso2: "HR",
   capital: "Zagreb",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

@@ -11,6 +11,7 @@ export const ETHIOPIE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Éthiopie",
   iso3: "ETH",
+  iso2: "ET",
   capital: "Addis-Abeba",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

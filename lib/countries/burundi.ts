@@ -11,6 +11,7 @@ export const BURUNDI: CountryProfile = {
   zoneSlug: "afrique",
   name: "Burundi",
   iso3: "BDI",
+  iso2: "BI",
   capital: "Gitega",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

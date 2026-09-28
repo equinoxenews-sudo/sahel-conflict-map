@@ -11,6 +11,7 @@ export const TCHAD: CountryProfile = {
   zoneSlug: "afrique",
   name: "Tchad",
   iso3: "TCD",
+  iso2: "TD",
   capital: "N'Djamena",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

@@ -11,6 +11,7 @@ export const MOLDAVIE: CountryProfile = {
   zoneSlug: "europe",
   name: "Moldavie",
   iso3: "MDA",
+  iso2: "MD",
   capital: "Chisinau",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

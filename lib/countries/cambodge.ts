@@ -11,6 +11,7 @@ export const CAMBODGE: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Cambodge",
   iso3: "KHM",
+  iso2: "KH",
   capital: "Phnom Penh",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

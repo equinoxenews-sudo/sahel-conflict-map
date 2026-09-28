@@ -11,6 +11,7 @@ export const PARAGUAY: CountryProfile = {
   zoneSlug: "amerique-du-sud",
   name: "Paraguay",
   iso3: "PRY",
+  iso2: "PY",
   capital: "Asunción",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

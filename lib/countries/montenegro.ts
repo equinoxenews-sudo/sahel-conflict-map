@@ -11,6 +11,7 @@ export const MONTENEGRO: CountryProfile = {
   zoneSlug: "europe",
   name: "Monténégro",
   iso3: "MNE",
+  iso2: "ME",
   capital: "Podgorica",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

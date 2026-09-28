@@ -11,6 +11,7 @@ export const ITALIE: CountryProfile = {
   zoneSlug: "europe",
   name: "Italie",
   iso3: "ITA",
+  iso2: "IT",
   capital: "Rome",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

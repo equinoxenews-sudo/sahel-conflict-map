@@ -11,6 +11,7 @@ export const MACEDOINE_DU_NORD: CountryProfile = {
   zoneSlug: "europe",
   name: "Macédoine du Nord",
   iso3: "MKD",
+  iso2: "MK",
   capital: "Skopje",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

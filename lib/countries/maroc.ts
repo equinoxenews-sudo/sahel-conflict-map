@@ -11,6 +11,7 @@ export const MAROC: CountryProfile = {
   zoneSlug: "afrique",
   name: "Maroc",
   iso3: "MAR",
+  iso2: "MA",
   capital: "Rabat",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

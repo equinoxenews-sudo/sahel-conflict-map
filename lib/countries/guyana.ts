@@ -11,6 +11,7 @@ export const GUYANA: CountryProfile = {
   zoneSlug: "amerique-du-sud",
   name: "Guyana",
   iso3: "GUY",
+  iso2: "GY",
   capital: "Georgetown",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

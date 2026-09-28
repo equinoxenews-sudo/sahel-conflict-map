@@ -11,6 +11,7 @@ export const RWANDA: CountryProfile = {
   zoneSlug: "afrique",
   name: "Rwanda",
   iso3: "RWA",
+  iso2: "RW",
   capital: "Kigali",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

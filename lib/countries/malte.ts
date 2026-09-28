@@ -11,6 +11,7 @@ export const MALTE: CountryProfile = {
   zoneSlug: "europe",
   name: "Malte",
   iso3: "MLT",
+  iso2: "MT",
   capital: "La Valette",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

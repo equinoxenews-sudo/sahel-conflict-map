@@ -11,6 +11,7 @@ export const LIBYE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Libye",
   iso3: "LBY",
+  iso2: "LY",
   capital: "Tripoli",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

@@ -11,6 +11,7 @@ export const SAHARA_OCCIDENTAL: CountryProfile = {
   zoneSlug: "afrique",
   name: "Sahara occidental",
   iso3: "ESH",
+  iso2: "EH",
   capital: "Laâyoune (administrée par le Maroc)",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

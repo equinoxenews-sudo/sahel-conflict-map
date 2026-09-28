@@ -11,6 +11,7 @@ export const GUYANE_FRANCAISE: CountryProfile = {
   zoneSlug: "amerique-du-sud",
   name: "Guyane française",
   iso3: "GUF",
+  iso2: "GF",
   capital: "Cayenne",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

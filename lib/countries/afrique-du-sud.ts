@@ -11,6 +11,7 @@ export const AFRIQUE_DU_SUD: CountryProfile = {
   zoneSlug: "afrique",
   name: "Afrique du Sud",
   iso3: "ZAF",
+  iso2: "ZA",
   capital: "Pretoria (exécutif) / Le Cap (législatif) / Bloemfontein (judiciaire)",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

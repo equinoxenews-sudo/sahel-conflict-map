@@ -11,6 +11,7 @@ export const BRUNEI: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Brunei",
   iso3: "BRN",
+  iso2: "BN",
   capital: "Bandar Seri Begawan",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

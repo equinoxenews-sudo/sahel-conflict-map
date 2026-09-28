@@ -11,6 +11,7 @@ export const GAMBIE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Gambie",
   iso3: "GMB",
+  iso2: "GM",
   capital: "Banjul",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

@@ -11,6 +11,7 @@ export const CHILI: CountryProfile = {
   zoneSlug: "amerique-du-sud",
   name: "Chili",
   iso3: "CHL",
+  iso2: "CL",
   capital: "Santiago",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

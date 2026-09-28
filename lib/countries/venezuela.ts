@@ -11,6 +11,7 @@ export const VENEZUELA: CountryProfile = {
   zoneSlug: "amerique-du-sud",
   name: "Venezuela",
   iso3: "VEN",
+  iso2: "VE",
   capital: "Caracas",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

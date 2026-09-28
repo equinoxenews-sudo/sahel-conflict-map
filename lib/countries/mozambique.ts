@@ -11,6 +11,7 @@ export const MOZAMBIQUE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Mozambique",
   iso3: "MOZ",
+  iso2: "MZ",
   capital: "Maputo",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

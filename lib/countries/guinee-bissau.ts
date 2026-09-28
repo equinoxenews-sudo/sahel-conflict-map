@@ -11,6 +11,7 @@ export const GUINEE_BISSAU: CountryProfile = {
   zoneSlug: "afrique",
   name: "Guinée-Bissau",
   iso3: "GNB",
+  iso2: "GW",
   capital: "Bissau",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

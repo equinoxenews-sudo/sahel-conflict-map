@@ -11,6 +11,7 @@ export const CHINE: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Chine",
   iso3: "CHN",
+  iso2: "CN",
   capital: "Pékin",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

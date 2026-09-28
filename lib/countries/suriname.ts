@@ -11,6 +11,7 @@ export const SURINAME: CountryProfile = {
   zoneSlug: "amerique-du-sud",
   name: "Suriname",
   iso3: "SUR",
+  iso2: "SR",
   capital: "Paramaribo",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

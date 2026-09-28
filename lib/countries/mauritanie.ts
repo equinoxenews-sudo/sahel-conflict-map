@@ -11,6 +11,7 @@ export const MAURITANIE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Mauritanie",
   iso3: "MRT",
+  iso2: "MR",
   capital: "Nouakchott",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

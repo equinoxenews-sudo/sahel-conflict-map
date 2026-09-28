@@ -11,6 +11,7 @@ export const LIBERIA: CountryProfile = {
   zoneSlug: "afrique",
   name: "Liberia",
   iso3: "LBR",
+  iso2: "LR",
   capital: "Monrovia",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

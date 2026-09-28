@@ -11,6 +11,7 @@ export const KENYA: CountryProfile = {
   zoneSlug: "afrique",
   name: "Kenya",
   iso3: "KEN",
+  iso2: "KE",
   capital: "Nairobi",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

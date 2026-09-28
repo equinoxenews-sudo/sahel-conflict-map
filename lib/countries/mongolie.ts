@@ -11,6 +11,7 @@ export const MONGOLIE: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Mongolie",
   iso3: "MNG",
+  iso2: "MN",
   capital: "Oulan-Bator",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

@@ -11,6 +11,7 @@ export const GABON: CountryProfile = {
   zoneSlug: "afrique",
   name: "Gabon",
   iso3: "GAB",
+  iso2: "GA",
   capital: "Libreville",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

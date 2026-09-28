@@ -11,6 +11,7 @@ export const BOSNIE_HERZEGOVINE: CountryProfile = {
   zoneSlug: "europe",
   name: "Bosnie-Herzégovine",
   iso3: "BIH",
+  iso2: "BA",
   capital: "Sarajevo",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

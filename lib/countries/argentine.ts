@@ -11,6 +11,7 @@ export const ARGENTINE: CountryProfile = {
   zoneSlug: "amerique-du-sud",
   name: "Argentine",
   iso3: "ARG",
+  iso2: "AR",
   capital: "Buenos Aires",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

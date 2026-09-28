@@ -11,6 +11,7 @@ export const SLOVAQUIE: CountryProfile = {
   zoneSlug: "europe",
   name: "Slovaquie",
   iso3: "SVK",
+  iso2: "SK",
   capital: "Bratislava",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

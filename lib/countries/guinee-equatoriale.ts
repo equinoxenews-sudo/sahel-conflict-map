@@ -11,6 +11,7 @@ export const GUINEE_EQUATORIALE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Guinée équatoriale",
   iso3: "GNQ",
+  iso2: "GQ",
   capital: "Malabo",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

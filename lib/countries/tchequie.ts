@@ -11,6 +11,7 @@ export const TCHEQUIE: CountryProfile = {
   zoneSlug: "europe",
   name: "Tchéquie",
   iso3: "CZE",
+  iso2: "CZ",
   capital: "Prague",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

@@ -11,6 +11,7 @@ export const GUINEE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Guinée",
   iso3: "GIN",
+  iso2: "GN",
   capital: "Conakry",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

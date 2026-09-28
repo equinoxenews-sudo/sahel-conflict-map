@@ -11,6 +11,7 @@ export const SLOVENIE: CountryProfile = {
   zoneSlug: "europe",
   name: "Slovénie",
   iso3: "SVN",
+  iso2: "SI",
   capital: "Ljubljana",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

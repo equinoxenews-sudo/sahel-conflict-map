@@ -11,6 +11,7 @@ export const NAMIBIE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Namibie",
   iso3: "NAM",
+  iso2: "NA",
   capital: "Windhoek",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

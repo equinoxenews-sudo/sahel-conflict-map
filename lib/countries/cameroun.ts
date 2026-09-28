@@ -11,6 +11,7 @@ export const CAMEROUN: CountryProfile = {
   zoneSlug: "afrique",
   name: "Cameroun",
   iso3: "CMR",
+  iso2: "CM",
   capital: "Yaoundé",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

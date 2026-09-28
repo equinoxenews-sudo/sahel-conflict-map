@@ -11,6 +11,7 @@ export const AZERBAIDJAN: CountryProfile = {
   zoneSlug: "europe",
   name: "Azerbaïdjan",
   iso3: "AZE",
+  iso2: "AZ",
   capital: "Bakou",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

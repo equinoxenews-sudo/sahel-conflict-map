@@ -11,6 +11,7 @@ export const BOLIVIE: CountryProfile = {
   zoneSlug: "amerique-du-sud",
   name: "Bolivie",
   iso3: "BOL",
+  iso2: "BO",
   capital: "Sucre (capitale constitutionnelle) / La Paz (siège du gouvernement)",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

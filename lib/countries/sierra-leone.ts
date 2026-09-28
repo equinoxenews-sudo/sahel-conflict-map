@@ -11,6 +11,7 @@ export const SIERRA_LEONE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Sierra Leone",
   iso3: "SLE",
+  iso2: "SL",
   capital: "Freetown",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

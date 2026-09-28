@@ -11,6 +11,7 @@ export const ESTONIE: CountryProfile = {
   zoneSlug: "europe",
   name: "Estonie",
   iso3: "EST",
+  iso2: "EE",
   capital: "Tallinn",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

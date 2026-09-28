@@ -11,6 +11,7 @@ export const TOGO: CountryProfile = {
   zoneSlug: "afrique",
   name: "Togo",
   iso3: "TGO",
+  iso2: "TG",
   capital: "Lomé",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

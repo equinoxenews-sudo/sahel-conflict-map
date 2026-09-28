@@ -11,6 +11,7 @@ export const BIELORUSSIE: CountryProfile = {
   zoneSlug: "europe",
   name: "Biélorussie",
   iso3: "BLR",
+  iso2: "BY",
   capital: "Minsk",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

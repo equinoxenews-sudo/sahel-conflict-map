@@ -11,6 +11,7 @@ export const LETTONIE: CountryProfile = {
   zoneSlug: "europe",
   name: "Lettonie",
   iso3: "LVA",
+  iso2: "LV",
   capital: "Riga",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

@@ -11,6 +11,7 @@ export const SENEGAL: CountryProfile = {
   zoneSlug: "afrique",
   name: "Sénégal",
   iso3: "SEN",
+  iso2: "SN",
   capital: "Dakar",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

@@ -11,6 +11,7 @@ export const EQUATEUR: CountryProfile = {
   zoneSlug: "amerique-du-sud",
   name: "Équateur",
   iso3: "ECU",
+  iso2: "EC",
   capital: "Quito",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

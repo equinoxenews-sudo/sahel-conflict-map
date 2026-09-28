@@ -11,6 +11,7 @@ export const BENIN: CountryProfile = {
   zoneSlug: "afrique",
   name: "Bénin",
   iso3: "BEN",
+  iso2: "BJ",
   capital: "Porto-Novo (capitale officielle) / Cotonou (siège du gouvernement)",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

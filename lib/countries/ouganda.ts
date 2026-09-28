@@ -11,6 +11,7 @@ export const OUGANDA: CountryProfile = {
   zoneSlug: "afrique",
   name: "Ouganda",
   iso3: "UGA",
+  iso2: "UG",
   capital: "Kampala",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

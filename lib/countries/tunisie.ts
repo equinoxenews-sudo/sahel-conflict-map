@@ -11,6 +11,7 @@ export const TUNISIE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Tunisie",
   iso3: "TUN",
+  iso2: "TN",
   capital: "Tunis",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

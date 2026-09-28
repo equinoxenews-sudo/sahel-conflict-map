@@ -11,6 +11,7 @@ export const ROYAUME_UNI: CountryProfile = {
   zoneSlug: "europe",
   name: "Royaume-Uni",
   iso3: "GBR",
+  iso2: "GB",
   capital: "Londres",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

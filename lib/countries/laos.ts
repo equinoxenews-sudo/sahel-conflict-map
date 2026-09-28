@@ -11,6 +11,7 @@ export const LAOS: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Laos",
   iso3: "LAO",
+  iso2: "LA",
   capital: "Vientiane",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

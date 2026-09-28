@@ -11,6 +11,7 @@ export const DANEMARK: CountryProfile = {
   zoneSlug: "europe",
   name: "Danemark",
   iso3: "DNK",
+  iso2: "DK",
   capital: "Copenhague",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

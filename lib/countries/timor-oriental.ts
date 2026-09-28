@@ -11,6 +11,7 @@ export const TIMOR_ORIENTAL: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Timor oriental",
   iso3: "TLS",
+  iso2: "TL",
   capital: "Dili",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

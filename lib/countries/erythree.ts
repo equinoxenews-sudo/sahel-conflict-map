@@ -11,6 +11,7 @@ export const ERYTHREE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Érythrée",
   iso3: "ERI",
+  iso2: "ER",
   capital: "Asmara",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

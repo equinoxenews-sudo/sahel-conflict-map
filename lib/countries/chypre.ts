@@ -11,6 +11,7 @@ export const CHYPRE: CountryProfile = {
   zoneSlug: "europe",
   name: "Chypre",
   iso3: "CYP",
+  iso2: "CY",
   capital: "Nicosie",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

@@ -11,6 +11,7 @@ export const PAYS_BAS: CountryProfile = {
   zoneSlug: "europe",
   name: "Pays-Bas",
   iso3: "NLD",
+  iso2: "NL",
   capital: "Amsterdam",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

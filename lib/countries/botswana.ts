@@ -11,6 +11,7 @@ export const BOTSWANA: CountryProfile = {
   zoneSlug: "afrique",
   name: "Botswana",
   iso3: "BWA",
+  iso2: "BW",
   capital: "Gaborone",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

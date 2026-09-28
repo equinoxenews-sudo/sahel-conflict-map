@@ -11,6 +11,7 @@ export const LESOTHO: CountryProfile = {
   zoneSlug: "afrique",
   name: "Lesotho",
   iso3: "LSO",
+  iso2: "LS",
   capital: "Maseru",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

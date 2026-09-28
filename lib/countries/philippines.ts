@@ -11,6 +11,7 @@ export const PHILIPPINES: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Philippines",
   iso3: "PHL",
+  iso2: "PH",
   capital: "Manille",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

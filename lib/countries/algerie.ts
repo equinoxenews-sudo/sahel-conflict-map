@@ -11,6 +11,7 @@ export const ALGERIE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Algérie",
   iso3: "DZA",
+  iso2: "DZ",
   capital: "Alger",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

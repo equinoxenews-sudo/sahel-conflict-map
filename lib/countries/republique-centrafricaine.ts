@@ -11,6 +11,7 @@ export const REPUBLIQUE_CENTRAFRICAINE: CountryProfile = {
   zoneSlug: "afrique",
   name: "République centrafricaine",
   iso3: "CAF",
+  iso2: "CF",
   capital: "Bangui",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

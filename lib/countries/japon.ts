@@ -11,6 +11,7 @@ export const JAPON: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Japon",
   iso3: "JPN",
+  iso2: "JP",
   capital: "Tokyo",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

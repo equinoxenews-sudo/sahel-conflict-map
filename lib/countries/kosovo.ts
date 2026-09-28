@@ -11,6 +11,7 @@ export const KOSOVO: CountryProfile = {
   zoneSlug: "europe",
   name: "Kosovo",
   iso3: "CS-KM",
+  iso2: "XK",
   capital: "Pristina",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

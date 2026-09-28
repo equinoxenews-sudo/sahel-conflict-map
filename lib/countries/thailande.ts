@@ -11,6 +11,7 @@ export const THAILANDE: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Thaïlande",
   iso3: "THA",
+  iso2: "TH",
   capital: "Bangkok",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

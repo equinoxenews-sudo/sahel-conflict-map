@@ -11,6 +11,7 @@ export const GRECE: CountryProfile = {
   zoneSlug: "europe",
   name: "Grèce",
   iso3: "GRC",
+  iso2: "GR",
   capital: "Athènes",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

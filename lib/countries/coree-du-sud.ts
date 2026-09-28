@@ -11,6 +11,7 @@ export const COREE_DU_SUD: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Corée du Sud",
   iso3: "KOR",
+  iso2: "KR",
   capital: "Séoul",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

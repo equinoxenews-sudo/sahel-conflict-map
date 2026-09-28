@@ -11,6 +11,7 @@ export const VIETNAM: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Vietnam",
   iso3: "VNM",
+  iso2: "VN",
   capital: "Hanoï",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

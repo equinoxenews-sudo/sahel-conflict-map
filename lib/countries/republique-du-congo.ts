@@ -11,6 +11,7 @@ export const REPUBLIQUE_DU_CONGO: CountryProfile = {
   zoneSlug: "afrique",
   name: "République du Congo",
   iso3: "COG",
+  iso2: "CG",
   capital: "Brazzaville",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

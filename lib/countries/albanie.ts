@@ -11,6 +11,7 @@ export const ALBANIE: CountryProfile = {
   zoneSlug: "europe",
   name: "Albanie",
   iso3: "ALB",
+  iso2: "AL",
   capital: "Tirana",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

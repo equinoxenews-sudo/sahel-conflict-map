@@ -11,6 +11,7 @@ export const MALAISIE: CountryProfile = {
   zoneSlug: "indopacifique",
   name: "Malaisie",
   iso3: "MYS",
+  iso2: "MY",
   capital: "Kuala Lumpur",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

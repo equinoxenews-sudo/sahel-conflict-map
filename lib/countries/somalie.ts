@@ -11,6 +11,7 @@ export const SOMALIE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Somalie",
   iso3: "SOM",
+  iso2: "SO",
   capital: "Mogadiscio",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

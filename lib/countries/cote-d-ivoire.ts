@@ -11,6 +11,7 @@ export const COTE_D_IVOIRE: CountryProfile = {
   zoneSlug: "afrique",
   name: "Côte d'Ivoire",
   iso3: "CIV",
+  iso2: "CI",
   capital: "Yamoussoukro (capitale officielle) / Abidjan (centre économique)",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

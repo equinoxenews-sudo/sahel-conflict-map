@@ -11,6 +11,7 @@ export const MALI: CountryProfile = {
   zoneSlug: "afrique",
   name: "Mali",
   iso3: "MLI",
+  iso2: "ML",
   capital: "Bamako",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

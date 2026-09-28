@@ -11,6 +11,7 @@ export const GHANA: CountryProfile = {
   zoneSlug: "afrique",
   name: "Ghana",
   iso3: "GHA",
+  iso2: "GH",
   capital: "Accra",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

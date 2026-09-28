@@ -11,6 +11,7 @@ export const MALAWI: CountryProfile = {
   zoneSlug: "afrique",
   name: "Malawi",
   iso3: "MWI",
+  iso2: "MW",
   capital: "Lilongwe",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

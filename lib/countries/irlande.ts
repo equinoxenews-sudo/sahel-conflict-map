@@ -11,6 +11,7 @@ export const IRLANDE: CountryProfile = {
   zoneSlug: "europe",
   name: "Irlande",
   iso3: "IRL",
+  iso2: "IE",
   capital: "Dublin",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

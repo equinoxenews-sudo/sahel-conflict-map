@@ -11,6 +11,7 @@ export const PEROU: CountryProfile = {
   zoneSlug: "amerique-du-sud",
   name: "Pérou",
   iso3: "PER",
+  iso2: "PE",
   capital: "Lima",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",

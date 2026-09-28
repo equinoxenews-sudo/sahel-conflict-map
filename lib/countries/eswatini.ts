@@ -11,6 +11,7 @@ export const ESWATINI: CountryProfile = {
   zoneSlug: "afrique",
   name: "Eswatini",
   iso3: "SWZ",
+  iso2: "SZ",
   capital: "Mbabane (siège du gouvernement) / Lobamba (siège législatif et royal)",
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",
