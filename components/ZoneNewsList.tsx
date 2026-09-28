@@ -44,24 +44,23 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
   return (
     <div className={styles.container}>
       {useBriefs && presentCategories.length > 1 ? (
-        <div className={styles.filters}>
-          <button
-            type="button"
-            className={category === "all" ? styles.filterActive : styles.filterBtn}
-            onClick={() => setCategory("all")}
+        <div className={styles.filterRow}>
+          <label className={styles.filterLabel} htmlFor="zone-news-category">
+            Catégorie
+          </label>
+          <select
+            id="zone-news-category"
+            className={styles.filterSelect}
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
           >
-            Tout
-          </button>
-          {presentCategories.map((c) => (
-            <button
-              key={c}
-              type="button"
-              className={category === c ? styles.filterActive : styles.filterBtn}
-              onClick={() => setCategory(c)}
-            >
-              {c}
-            </button>
-          ))}
+            <option value="all">Tout</option>
+            {presentCategories.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
+          </select>
         </div>
       ) : null}
 
@@ -75,40 +74,45 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={b.image_url} alt="" className={styles.newsImage} />
                   ) : null}
-                  <div className={styles.newsHeader}>
-                    <span className={styles.newsDate}>{formatDate(b.published_at)}</span>
-                    <span
-                      className={styles.reliabilityBadge}
+                  <div className={styles.newsItemBody}>
+                    <div className={styles.newsHeader}>
+                      <span className={styles.newsDate}>{formatDate(b.published_at)}</span>
+                      <span
+                        className={styles.reliabilityBadge}
                         title="Couverture documentaire : nombre de domaines cités, indépendance non vérifiée"
                         aria-label={`Couverture documentaire : ${reliability}/5`}
-                      style={{ backgroundColor: RELIABILITY_COLORS[reliability] }}
-                    >
-                      {reliability}
-                    </span>
+                        style={{ backgroundColor: RELIABILITY_COLORS[reliability] }}
+                      >
+                        {reliability}
+                      </span>
+                    </div>
+                    <h2 className={styles.newsTitle}>{b.title}</h2>
+                    <p className={styles.newsSummary}>{b.summary}</p>
                   </div>
-                  <h2 className={styles.newsTitle}>{b.title}</h2>
-                  <p className={styles.newsSummary}>{b.summary}</p>
-                  <p className={styles.newsSources}>Sources : {[...new Set(b.source_domains)].join(", ")}</p>
                 </Link>
               );
             })
           : useRealArticles
             ? articles.map((a) => (
                 <article key={a.url} className={styles.newsItem}>
-                  <span className={styles.newsDate}>{formatDate(a.published_at)}</span>
-                  <h2 className={styles.newsTitle}>
-                    <a href={a.url} target="_blank" rel="noopener noreferrer">
-                      {a.title}
-                    </a>
-                  </h2>
-                  <p className={styles.newsSummary}>Source : {a.domain}</p>
+                  <div className={styles.newsItemBody}>
+                    <span className={styles.newsDate}>{formatDate(a.published_at)}</span>
+                    <h2 className={styles.newsTitle}>
+                      <a href={a.url} target="_blank" rel="noopener noreferrer">
+                        {a.title}
+                      </a>
+                    </h2>
+                    <p className={styles.newsSummary}>Source : {a.domain}</p>
+                  </div>
                 </article>
               ))
             : newsItems.map((item) => (
                 <article key={item.title} className={styles.newsItem}>
-                  <span className={styles.newsDate}>{item.date}</span>
-                  <h2 className={styles.newsTitle}>{item.title}</h2>
-                  <p className={styles.newsSummary}>{item.summary}</p>
+                  <div className={styles.newsItemBody}>
+                    <span className={styles.newsDate}>{item.date}</span>
+                    <h2 className={styles.newsTitle}>{item.title}</h2>
+                    <p className={styles.newsSummary}>{item.summary}</p>
+                  </div>
                 </article>
               ))}
         {useBriefs && filteredBriefs.length === 0 ? (
