@@ -19,6 +19,7 @@ export const SOURCE_RELIABILITY: Record<string, FiabilityGrade> = {
   "africanews.com": "B",
   "jeuneafrique.com": "B",
   "insightcrime.org": "B",
+  "rfi.fr": "C",
 };
 
 export const FIABILITY_LABELS: Record<FiabilityGrade, string> = {
