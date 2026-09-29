@@ -35,7 +35,7 @@ export function clampReliability(value: number | null | undefined): ReliabilityS
   return n as ReliabilityScore;
 }
 
-function normalizeDomain(domain: string): string {
+export function normalizeDomain(domain: string): string {
   return domain.trim().toLowerCase().replace(/^www\./, "").replace(/^bbc\.co\.uk$/, "bbc.com");
 }
 

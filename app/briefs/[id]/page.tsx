@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/equinoxe/Header";
 import { formatDate } from "@/lib/formatDate";
 import { computeCoverageScore, coverageColor } from "@/lib/reliability";
+import { computeBriefFiability, FIABILITY_COLORS, FIABILITY_LABELS } from "@/lib/sourceReliability";
 import { supabase } from "@/lib/supabaseClient";
 import { getZone } from "@/lib/zones";
 import type { ZoneBrief } from "@/types/brief";
@@ -43,6 +44,7 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
   const zone = getZone(brief.zone_slug);
   const uniqueDomains = [...new Set(brief.source_domains)];
   const coverage = computeCoverageScore(brief.source_domains);
+  const fiability = computeBriefFiability(brief.source_domains);
 
   // Sources aligned 1:1 with source_urls (see lib/synthesizeBriefs.ts) —
   // group them per domain so each outlet is listed once with all its URLs.
@@ -73,6 +75,16 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
           <span className={styles.reliability}>
             <span
               className={styles.reliabilityBadge}
+              title={fiability ? `Fiabilité de la source : ${FIABILITY_LABELS[fiability]}` : "Fiabilité de la source non évaluée"}
+              style={{ backgroundColor: fiability ? FIABILITY_COLORS[fiability] : "#8b96a5" }}
+            >
+              {fiability ?? "?"}
+            </span>
+            Fiabilité de la source{fiability ? ` — ${FIABILITY_LABELS[fiability]}` : " — non évaluée"}
+          </span>
+          <span className={styles.reliability}>
+            <span
+              className={styles.reliabilityBadge}
               style={{ backgroundColor: coverageColor(coverage) }}
             >
               {coverage}
@@ -84,7 +96,7 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
 
         {brief.image_url?.startsWith("/equinoxe/hero-") ? <p>Illustration de la zone — ne représente pas l’événement.</p> : null}
         <h1 className={styles.title}>{brief.title}</h1>
-        <p>Synthèse générée par IA à partir des sources ci-dessous. L’indice mesure le nombre de domaines cités, pas la véracité des faits ni l’indépendance des sources. La date affichée est celle de la synthèse.</p>
+        <p>Synthèse générée par IA à partir des sources ci-dessous. La fiabilité (A-E) note le média cité, pas l’exactitude de cette information précise ; la couverture documentaire compte les domaines cités, sans en vérifier l’indépendance. La date affichée est celle de la synthèse.</p>
 
         <div className={styles.body}>
           {brief.sections && brief.sections.length > 0

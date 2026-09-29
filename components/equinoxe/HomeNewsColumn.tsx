@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { formatDate } from "@/lib/formatDate";
 import { HOME_NEWS } from "@/lib/homeNews";
 import { computeCoverageScore, coverageColor } from "@/lib/reliability";
+import { computeBriefFiability, FIABILITY_COLORS, FIABILITY_LABELS } from "@/lib/sourceReliability";
 import type { Article } from "@/types/article";
 import type { ZoneBrief } from "@/types/brief";
 import styles from "./HomeNewsColumn.module.css";
@@ -69,6 +70,7 @@ export default function HomeNewsColumn({ briefs, articles }: HomeNewsColumnProps
         {useBriefs
           ? filteredBriefs.map((b) => {
               const coverage = computeCoverageScore(b.source_domains);
+              const fiability = computeBriefFiability(b.source_domains);
               return (
                 <Link key={b.id} href={`/briefs/${b.id}`} className={styles.item}>
                   {b.image_url ? (
@@ -78,13 +80,23 @@ export default function HomeNewsColumn({ briefs, articles }: HomeNewsColumnProps
                   <div className={styles.itemBody}>
                     <div className={styles.header}>
                       <span className={styles.date}>{formatDate(b.published_at)}</span>
-                      <span
-                        className={styles.reliabilityBadge}
-                        title={`Couverture documentaire : ${coverage} source${coverage > 1 ? "s" : ""} citée${coverage > 1 ? "s" : ""}, indépendance non vérifiée`}
-                        aria-label={`Couverture documentaire : ${coverage} source${coverage > 1 ? "s" : ""}`}
-                        style={{ backgroundColor: coverageColor(coverage) }}
-                      >
-                        {coverage}
+                      <span className={styles.badgeGroup}>
+                        <span
+                          className={styles.fiabilityBadge}
+                          title={fiability ? `Fiabilité de la source : ${FIABILITY_LABELS[fiability]}` : "Fiabilité de la source non évaluée"}
+                          aria-label={fiability ? `Fiabilité : ${fiability}` : "Fiabilité non évaluée"}
+                          style={{ backgroundColor: fiability ? FIABILITY_COLORS[fiability] : "#8b96a5" }}
+                        >
+                          {fiability ?? "?"}
+                        </span>
+                        <span
+                          className={styles.reliabilityBadge}
+                          title={`Couverture documentaire : ${coverage} source${coverage > 1 ? "s" : ""} citée${coverage > 1 ? "s" : ""}, indépendance non vérifiée`}
+                          aria-label={`Couverture documentaire : ${coverage} source${coverage > 1 ? "s" : ""}`}
+                          style={{ backgroundColor: coverageColor(coverage) }}
+                        >
+                          {coverage}
+                        </span>
                       </span>
                     </div>
                     <h3 className={styles.title}>{b.title}</h3>

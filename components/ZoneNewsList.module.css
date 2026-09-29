@@ -79,7 +79,14 @@ a.newsItem:hover {
   color: var(--text-secondary);
 }
 
-.reliabilityBadge {
+.badgeGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.reliabilityBadge,
+.fiabilityBadge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
