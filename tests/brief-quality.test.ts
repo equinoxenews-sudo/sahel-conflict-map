@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { parseResponse, type SourceArticle, type PreviousBrief } from "../lib/synthesizeBriefs";
-import { computeBriefReliability } from "../lib/reliability";
+import { computeCoverageScore } from "../lib/reliability";
 const sources: SourceArticle[] = [0, 1].map((id) => ({ title: `source ${id}`, url: `https://source${id}.test/article`, domain: `source${id}.test`, summary: "Texte", bodyText: "Texte", imageUrl: null }));
 const previous: PreviousBrief[] = [{ id: 12, title: "Avant", summary: "Avant", sections: [], source_urls: ["https://old.test/article"], source_domains: ["old.test"], published_at: null }];
 const item = { title: "Synthèse", excerpt: "Résumé", sections: [{ heading: null, body: "Faits attribués" }], category: "Battles", sourceIndexes: [0, 1], existingBriefId: null as number | null };
@@ -25,9 +25,10 @@ test("Une sortie invalide ne produit aucune synthèse à acquitter", () => {
  assert.deepEqual(parseResponse(JSON.stringify([{ ...item, sourceIndexes: [] }]), sources), []);
 });
 test("Le nombre de domaines ne simule pas une vérité certaine", () => {
- assert.equal(computeBriefReliability([]), 1);
- assert.equal(computeBriefReliability(["bbc.com", "www.bbc.co.uk"]), 2);
- assert.equal(computeBriefReliability(["a.test", "b.test", "c.test", "d.test"]), 4);
+ assert.equal(computeCoverageScore([]), 1);
+ assert.equal(computeCoverageScore(["bbc.com", "www.bbc.co.uk"]), 1);
+ assert.equal(computeCoverageScore(["a.test", "b.test", "c.test", "d.test"]), 4);
+ assert.equal(computeCoverageScore(["a.test", "b.test", "c.test", "d.test", "e.test", "f.test", "g.test", "h.test"]), 8);
 });
 
 import { synthesizeBriefs } from "../lib/synthesizeBriefs";

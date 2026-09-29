@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/equinoxe/Header";
 import { formatDate } from "@/lib/formatDate";
-import { computeBriefReliability, RELIABILITY_COLORS } from "@/lib/reliability";
+import { computeCoverageScore, coverageColor } from "@/lib/reliability";
 import { supabase } from "@/lib/supabaseClient";
 import { getZone } from "@/lib/zones";
 import type { ZoneBrief } from "@/types/brief";
@@ -42,7 +42,7 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
 
   const zone = getZone(brief.zone_slug);
   const uniqueDomains = [...new Set(brief.source_domains)];
-  const reliability = computeBriefReliability(brief.source_domains);
+  const coverage = computeCoverageScore(brief.source_domains);
 
   // Sources aligned 1:1 with source_urls (see lib/synthesizeBriefs.ts) —
   // group them per domain so each outlet is listed once with all its URLs.
@@ -73,9 +73,9 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
           <span className={styles.reliability}>
             <span
               className={styles.reliabilityBadge}
-              style={{ backgroundColor: RELIABILITY_COLORS[reliability] }}
+              style={{ backgroundColor: coverageColor(coverage) }}
             >
-              {reliability}
+              {coverage}
             </span>
             Couverture documentaire — {uniqueDomains.length} source{uniqueDomains.length > 1 ? "s" : ""}{" "}
             citée{uniqueDomains.length > 1 ? "s" : ""}

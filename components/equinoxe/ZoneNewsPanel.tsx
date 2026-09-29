@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { NewsItem } from "@/lib/africaNews";
 import { formatDate } from "@/lib/formatDate";
-import { computeBriefReliability, RELIABILITY_COLORS } from "@/lib/reliability";
+import { computeCoverageScore, coverageColor } from "@/lib/reliability";
 import { EVENT_CATEGORIES } from "@/types/event";
 import type { Article } from "@/types/article";
 import type { ZoneBrief } from "@/types/brief";
@@ -76,12 +76,12 @@ export default function ZoneNewsPanel({ zoneSlug, zoneName, briefs, articles, ne
       <div className={styles.list}>
         {useBriefs
           ? filteredBriefs.map((b) => {
-              const reliability = computeBriefReliability(b.source_domains);
+              const coverage = computeCoverageScore(b.source_domains);
               return (
                 <Link key={b.id} href={`/briefs/${b.id}`} className={styles.item}>
                   <span
                     className={styles.dot}
-                    style={{ backgroundColor: RELIABILITY_COLORS[reliability] }}
+                    style={{ backgroundColor: coverageColor(coverage) }}
                     aria-hidden
                   />
                   <div className={styles.itemBody}>

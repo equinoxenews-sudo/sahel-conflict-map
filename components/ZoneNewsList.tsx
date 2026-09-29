@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { formatDate } from "@/lib/formatDate";
-import { computeBriefReliability, RELIABILITY_COLORS } from "@/lib/reliability";
+import { computeCoverageScore, coverageColor } from "@/lib/reliability";
 import type { NewsItem } from "@/lib/africaNews";
 import type { Article } from "@/types/article";
 import type { ZoneBrief } from "@/types/brief";
@@ -67,7 +67,7 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
       <div className={styles.list}>
         {useBriefs
           ? filteredBriefs.map((b) => {
-              const reliability = computeBriefReliability(b.source_domains);
+              const coverage = computeCoverageScore(b.source_domains);
               return (
                 <Link key={b.id} href={`/briefs/${b.id}`} className={styles.newsItem}>
                   {b.image_url ? (
@@ -79,11 +79,11 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
                       <span className={styles.newsDate}>{formatDate(b.published_at)}</span>
                       <span
                         className={styles.reliabilityBadge}
-                        title="Couverture documentaire : nombre de domaines cités, indépendance non vérifiée"
-                        aria-label={`Couverture documentaire : ${reliability}/5`}
-                        style={{ backgroundColor: RELIABILITY_COLORS[reliability] }}
+                        title={`Couverture documentaire : ${coverage} source${coverage > 1 ? "s" : ""} citée${coverage > 1 ? "s" : ""}, indépendance non vérifiée`}
+                        aria-label={`Couverture documentaire : ${coverage} source${coverage > 1 ? "s" : ""}`}
+                        style={{ backgroundColor: coverageColor(coverage) }}
                       >
-                        {reliability}
+                        {coverage}
                       </span>
                     </div>
                     <h2 className={styles.newsTitle}>{b.title}</h2>
