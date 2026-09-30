@@ -2,9 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/equinoxe/Header";
 import { formatDate } from "@/lib/formatDate";
-import { computeCoverageScore, coverageColor } from "@/lib/reliability";
-import { computeBriefFiability, FIABILITY_COLORS, FIABILITY_LABELS } from "@/lib/sourceReliability";
 import { supabase } from "@/lib/supabaseClient";
+import { isValidVeracity, VERACITY_COLORS } from "@/lib/veracity";
 import { getZone } from "@/lib/zones";
 import type { ZoneBrief } from "@/types/brief";
 import styles from "./page.module.css";
@@ -19,7 +18,7 @@ async function getBrief(id: string): Promise<ZoneBrief | null> {
     const { data, error } = await supabase
       .from("zone_briefs")
       .select(
-        "id, zone_slug, title, category, summary, sections, source_urls, source_domains, image_url, published_at, updated_at"
+        "id, zone_slug, title, category, veracity, summary, sections, source_urls, source_domains, image_url, published_at, updated_at"
       )
       .eq("id", numericId)
       .maybeSingle();
@@ -42,9 +41,7 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
   if (!brief) notFound();
 
   const zone = getZone(brief.zone_slug);
-  const uniqueDomains = [...new Set(brief.source_domains)];
-  const coverage = computeCoverageScore(brief.source_domains);
-  const fiability = computeBriefFiability(brief.source_domains);
+  const veracity = isValidVeracity(brief.veracity) ? brief.veracity : null;
 
   // Sources aligned 1:1 with source_urls (see lib/synthesizeBriefs.ts) —
   // group them per domain so each outlet is listed once with all its URLs.
@@ -72,31 +69,17 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
 
         <div className={styles.meta}>
           <span className={styles.date}>Première synthèse : {formatDate(brief.published_at)}{brief.updated_at ? ` · Mise à jour : ${formatDate(brief.updated_at)}` : ""}</span>
-          <span className={styles.reliability}>
-            <span
-              className={styles.reliabilityBadge}
-              title={fiability ? `Fiabilité de la source : ${FIABILITY_LABELS[fiability]}` : "Fiabilité de la source non évaluée"}
-              style={{ backgroundColor: fiability ? FIABILITY_COLORS[fiability] : "#8b96a5" }}
-            >
-              {fiability ?? "?"}
-            </span>
-            Fiabilité de la source{fiability ? ` — ${FIABILITY_LABELS[fiability]}` : " — non évaluée"}
-          </span>
-          <span className={styles.reliability}>
-            <span
-              className={styles.reliabilityBadge}
-              style={{ backgroundColor: coverageColor(coverage) }}
-            >
-              {coverage}
-            </span>
-            Couverture documentaire — {uniqueDomains.length} source{uniqueDomains.length > 1 ? "s" : ""}{" "}
-            citée{uniqueDomains.length > 1 ? "s" : ""}
+          <span
+            className={styles.veracityBadge}
+            style={{ backgroundColor: veracity ? VERACITY_COLORS[veracity] : "#8b96a5" }}
+          >
+            {veracity ?? "Non évalué"}
           </span>
         </div>
 
         {brief.image_url?.startsWith("/equinoxe/hero-") ? <p>Illustration de la zone — ne représente pas l’événement.</p> : null}
         <h1 className={styles.title}>{brief.title}</h1>
-        <p>Synthèse générée par IA à partir des sources ci-dessous. La fiabilité (A-E) note le média cité, pas l’exactitude de cette information précise ; la couverture documentaire compte les domaines cités, sans en vérifier l’indépendance. La date affichée est celle de la synthèse.</p>
+        <p>Synthèse générée par IA à partir des sources ci-dessous. Le statut de véracité est une appréciation éditoriale à la date de rédaction, pas une certification. La date affichée est celle de la synthèse.</p>
 
         <div className={styles.body}>
           {brief.sections && brief.sections.length > 0

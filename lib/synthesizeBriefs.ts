@@ -1,3 +1,5 @@
+import { isValidVeracity, type Veracity } from "./veracity";
+
 const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
 const MODEL = "claude-haiku-4-5-20251001";
 const MAX_TOKENS = 6000;
@@ -44,6 +46,7 @@ export interface SynthesizedBrief {
   excerpt: string;
   sections: BriefSection[];
   category: Category;
+  veracity: Veracity;
   sourceUrls: string[];
   sourceDomains: string[];
   /**
@@ -81,10 +84,12 @@ Adapte strictement la longueur à la matière disponible, sans longueur minimale
 
 Classe aussi chaque article dans EXACTEMENT une de ces catégories : ${CATEGORIES.join(", ")}.
 
+Évalue aussi la véracité de l'information rapportée, dans EXACTEMENT une de ces catégories : Confirmé (fait établi par une source officielle ou indépendante, sans contestation) ; Très probable (fortement étayé par les sources mais sans confirmation officielle formelle) ; Revendiqué (annoncé par une partie prenante — acteur, gouvernement, groupe armé — sans confirmation indépendante) ; Possible (plausible mais fragmentaire, ni confirmé ni revendiqué formellement) ; Peu probable (contesté, démenti par une partie ou reposant sur des éléments faibles) ; Non confirmé (aucune source indépendante ou officielle ne l'a confirmé à ce stade). En cas de doute entre deux catégories, choisis la plus prudente.
+
 Règles strictes : n'utilise QUE les informations présentes dans les textes ci-dessus. N'invente aucun fait, aucune citation, aucun chiffre, aucune date qui n'y figure pas explicitement — étoffer veut dire mieux exploiter le texte source fourni, jamais ajouter une information qui n'y figure pas. Rédaction neutre, factuelle et journalistique en français.
 
 Réponds UNIQUEMENT avec un tableau JSON valide, sans texte ni markdown autour, au format exact :
-[{"existingBriefId": null, "title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "category": "Battles", "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
+[{"existingBriefId": null, "title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "category": "Battles", "veracity": "Confirmé", "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
 }
 
 function isValidCategory(value: unknown): value is Category {
@@ -125,12 +130,13 @@ export function parseResponse(text: string, articles: SourceArticle[], previous:
   const usedPreviousIds = new Set<number>();
   for (const item of parsed) {
     if (typeof item !== "object" || item === null) continue;
-    const { title, excerpt, sections, category, sourceIndexes, existingBriefId } = item as {
+    const { title, excerpt, sections, category, veracity, sourceIndexes, existingBriefId } = item as {
       existingBriefId?: unknown;
       title?: unknown;
       excerpt?: unknown;
       sections?: unknown;
       category?: unknown;
+      veracity?: unknown;
       sourceIndexes?: unknown;
     };
 
@@ -164,6 +170,9 @@ export function parseResponse(text: string, articles: SourceArticle[], previous:
       excerpt,
       sections: sections as BriefSection[],
       category: isValidCategory(category) ? category : "Strategic developments",
+      // Falls back to the most cautious level rather than guessing upward
+      // when the model's output is missing or malformed.
+      veracity: isValidVeracity(veracity) ? veracity : "Non confirmé",
       // Kept 1:1 aligned with sourceUrls (not deduplicated) — the UI
       // indexes into both arrays together to link each domain label to
       // its URL.

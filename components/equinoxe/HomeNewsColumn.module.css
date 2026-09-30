@@ -93,24 +93,18 @@ a.item:hover {
   color: var(--text-secondary);
 }
 
-.badgeGroup {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.reliabilityBadge,
-.fiabilityBadge {
+.veracityBadge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 16px;
   height: 16px;
-  padding: 0 3px;
-  border-radius: 4px;
+  padding: 0 6px;
+  border-radius: 999px;
   font-weight: 700;
-  font-size: 10px;
+  font-size: 9px;
   color: #1a1a1a;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .title {

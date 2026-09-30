@@ -23,7 +23,7 @@ async function getHomeBriefs(): Promise<ZoneBrief[]> {
     const { data, error } = await supabase
       .from("zone_briefs")
       .select(
-        "id, zone_slug, title, category, summary, source_urls, source_domains, image_url, published_at"
+        "id, zone_slug, title, category, veracity, summary, source_urls, source_domains, image_url, published_at"
       )
       .order("published_at", { ascending: false })
       .limit(8);

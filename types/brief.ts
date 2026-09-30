@@ -8,6 +8,7 @@ export interface ZoneBrief {
   zone_slug: string;
   title: string;
   category: string | null;
+  veracity: string | null;
   summary: string;
   /** Only fetched on the brief detail page — list views only need `summary`. */
   sections?: BriefSection[] | null;

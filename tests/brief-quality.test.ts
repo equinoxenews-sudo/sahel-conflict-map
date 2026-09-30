@@ -1,8 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { parseResponse, type SourceArticle, type PreviousBrief } from "../lib/synthesizeBriefs";
-import { computeCoverageScore } from "../lib/reliability";
-import { computeBriefFiability } from "../lib/sourceReliability";
+import { isValidVeracity } from "../lib/veracity";
 const sources: SourceArticle[] = [0, 1].map((id) => ({ title: `source ${id}`, url: `https://source${id}.test/article`, domain: `source${id}.test`, summary: "Texte", bodyText: "Texte", imageUrl: null }));
 const previous: PreviousBrief[] = [{ id: 12, title: "Avant", summary: "Avant", sections: [], source_urls: ["https://old.test/article"], source_domains: ["old.test"], published_at: null }];
 const item = { title: "Synthèse", excerpt: "Résumé", sections: [{ heading: null, body: "Faits attribués" }], category: "Battles", sourceIndexes: [0, 1], existingBriefId: null as number | null };
@@ -25,17 +24,15 @@ test("Une sortie invalide ne produit aucune synthèse à acquitter", () => {
  assert.deepEqual(parseResponse("pas du JSON", sources), []);
  assert.deepEqual(parseResponse(JSON.stringify([{ ...item, sourceIndexes: [] }]), sources), []);
 });
-test("Le nombre de domaines ne simule pas une vérité certaine", () => {
- assert.equal(computeCoverageScore([]), 1);
- assert.equal(computeCoverageScore(["bbc.com", "www.bbc.co.uk"]), 1);
- assert.equal(computeCoverageScore(["a.test", "b.test", "c.test", "d.test"]), 4);
- assert.equal(computeCoverageScore(["a.test", "b.test", "c.test", "d.test", "e.test", "f.test", "g.test", "h.test"]), 8);
-});
-test("La fiabilité retient la meilleure source notée et reste null si aucune ne l'est", () => {
- assert.equal(computeBriefFiability(["unknown.test"]), null);
- assert.equal(computeBriefFiability(["aljazeera.com", "bbc.com"]), "A");
- assert.equal(computeBriefFiability(["www.bbc.co.uk"]), "A");
- assert.equal(computeBriefFiability(["jeuneafrique.com", "unknown.test"]), "B");
+test("Une synthèse sans véracité valide retombe sur le niveau le plus prudent", () => {
+ const [ok] = parseResponse(JSON.stringify([{ ...item, veracity: "Confirmé" }]), sources);
+ assert.equal(ok.veracity, "Confirmé");
+ const [missing] = parseResponse(JSON.stringify([{ ...item }]), sources);
+ assert.equal(missing.veracity, "Non confirmé");
+ const [invalid] = parseResponse(JSON.stringify([{ ...item, veracity: "Certain à 100%" }]), sources);
+ assert.equal(invalid.veracity, "Non confirmé");
+ assert.equal(isValidVeracity("Très probable"), true);
+ assert.equal(isValidVeracity("Vrai"), false);
 });
 
 import { synthesizeBriefs } from "../lib/synthesizeBriefs";

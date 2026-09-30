@@ -85,7 +85,7 @@ async function briefZone(
   for (const brief of briefs) {
     const row = {
       zone_slug: zoneSlug, title: brief.title, summary: brief.excerpt,
-      sections: brief.sections, category: brief.category,
+      sections: brief.sections, category: brief.category, veracity: brief.veracity,
       source_urls: brief.sourceUrls, source_domains: brief.sourceDomains,
       updated_at: new Date().toISOString(),
       image_url: chooseBriefImage(brief.imageCandidates, usedImages, zoneSlug),

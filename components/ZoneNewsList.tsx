@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { formatDate } from "@/lib/formatDate";
-import { computeCoverageScore, coverageColor } from "@/lib/reliability";
-import { computeBriefFiability, FIABILITY_COLORS, FIABILITY_LABELS } from "@/lib/sourceReliability";
+import { isValidVeracity, VERACITY_COLORS } from "@/lib/veracity";
 import type { NewsItem } from "@/lib/africaNews";
 import type { Article } from "@/types/article";
 import type { ZoneBrief } from "@/types/brief";
@@ -68,34 +67,29 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
       <div className={styles.list}>
         {useBriefs
           ? filteredBriefs.map((b) => {
-              const coverage = computeCoverageScore(b.source_domains);
-              const fiability = computeBriefFiability(b.source_domains);
+              const veracity = isValidVeracity(b.veracity) ? b.veracity : null;
+              const isGenericImage = b.image_url?.startsWith("/equinoxe/hero-") ?? false;
               return (
                 <Link key={b.id} href={`/briefs/${b.id}`} className={styles.newsItem}>
                   {b.image_url ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={b.image_url} alt="" className={styles.newsImage} />
+                    <span className={styles.newsImageWrap}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={b.image_url} alt="" className={styles.newsImage} />
+                      {isGenericImage ? (
+                        <span className={styles.genericTag} title="Illustration générique de la zone — ne représente pas cet événement précis">
+                          Illustration
+                        </span>
+                      ) : null}
+                    </span>
                   ) : null}
                   <div className={styles.newsItemBody}>
                     <div className={styles.newsHeader}>
                       <span className={styles.newsDate}>{formatDate(b.published_at)}</span>
-                      <span className={styles.badgeGroup}>
-                        <span
-                          className={styles.fiabilityBadge}
-                          title={fiability ? `Fiabilité de la source : ${FIABILITY_LABELS[fiability]}` : "Fiabilité de la source non évaluée"}
-                          aria-label={fiability ? `Fiabilité : ${fiability}` : "Fiabilité non évaluée"}
-                          style={{ backgroundColor: fiability ? FIABILITY_COLORS[fiability] : "#8b96a5" }}
-                        >
-                          {fiability ?? "?"}
-                        </span>
-                        <span
-                          className={styles.reliabilityBadge}
-                          title={`Couverture documentaire : ${coverage} source${coverage > 1 ? "s" : ""} citée${coverage > 1 ? "s" : ""}, indépendance non vérifiée`}
-                          aria-label={`Couverture documentaire : ${coverage} source${coverage > 1 ? "s" : ""}`}
-                          style={{ backgroundColor: coverageColor(coverage) }}
-                        >
-                          {coverage}
-                        </span>
+                      <span
+                        className={styles.veracityBadge}
+                        style={{ backgroundColor: veracity ? VERACITY_COLORS[veracity] : "#8b96a5" }}
+                      >
+                        {veracity ?? "Non évalué"}
                       </span>
                     </div>
                     <h2 className={styles.newsTitle}>{b.title}</h2>

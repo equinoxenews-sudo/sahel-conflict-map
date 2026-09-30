@@ -55,25 +55,17 @@
   color: var(--text-secondary);
 }
 
-.reliability {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-
-.reliabilityBadge {
+.veracityBadge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 24px;
   height: 24px;
-  padding: 0 6px;
-  border-radius: 6px;
+  padding: 0 10px;
+  border-radius: 999px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 12px;
   color: #1a1a1a;
+  white-space: nowrap;
 }
 
 .title {

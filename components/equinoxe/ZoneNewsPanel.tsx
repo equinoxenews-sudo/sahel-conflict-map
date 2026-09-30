@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { NewsItem } from "@/lib/africaNews";
 import { formatDate } from "@/lib/formatDate";
-import { computeCoverageScore, coverageColor } from "@/lib/reliability";
+import { isValidVeracity, VERACITY_COLORS } from "@/lib/veracity";
 import { EVENT_CATEGORIES } from "@/types/event";
 import type { Article } from "@/types/article";
 import type { ZoneBrief } from "@/types/brief";
@@ -76,12 +76,13 @@ export default function ZoneNewsPanel({ zoneSlug, zoneName, briefs, articles, ne
       <div className={styles.list}>
         {useBriefs
           ? filteredBriefs.map((b) => {
-              const coverage = computeCoverageScore(b.source_domains);
+              const veracity = isValidVeracity(b.veracity) ? b.veracity : null;
               return (
                 <Link key={b.id} href={`/briefs/${b.id}`} className={styles.item}>
                   <span
                     className={styles.dot}
-                    style={{ backgroundColor: coverageColor(coverage) }}
+                    title={veracity ?? "Non évalué"}
+                    style={{ backgroundColor: veracity ? VERACITY_COLORS[veracity] : "#8b96a5" }}
                     aria-hidden
                   />
                   <div className={styles.itemBody}>
