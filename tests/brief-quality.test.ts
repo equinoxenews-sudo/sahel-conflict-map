@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { parseResponse, type SourceArticle, type PreviousBrief } from "../lib/synthesizeBriefs";
 import { isValidVeracity } from "../lib/veracity";
+import { resolveEventType, resolveTheme } from "../lib/themes";
 const sources: SourceArticle[] = [0, 1].map((id) => ({ title: `source ${id}`, url: `https://source${id}.test/article`, domain: `source${id}.test`, summary: "Texte", bodyText: "Texte", imageUrl: null }));
 const previous: PreviousBrief[] = [{ id: 12, title: "Avant", summary: "Avant", sections: [], source_urls: ["https://old.test/article"], source_domains: ["old.test"], published_at: null }];
 const item = { title: "Synthèse", excerpt: "Résumé", sections: [{ heading: null, body: "Faits attribués" }], category: "Battles", sourceIndexes: [0, 1], existingBriefId: null as number | null };
@@ -33,6 +34,26 @@ test("Une synthèse sans véracité valide retombe sur le niveau le plus prudent
  assert.equal(invalid.veracity, "Non confirmé");
  assert.equal(isValidVeracity("Très probable"), true);
  assert.equal(isValidVeracity("Vrai"), false);
+});
+
+test("La taxonomie est validée : thèmes invalides écartés, secondaires dédoublonnés et plafonnés", () => {
+ const full = { ...item, primaryTheme: "conflicts", secondaryThemes: ["conflicts", "energy_resources", "energy_resources", "bidon", "defense_security", "economy", "cyber_technology"], eventType: "drone_strike", importance: "high" };
+ const [ok] = parseResponse(JSON.stringify([full]), sources);
+ assert.equal(ok.primaryTheme, "conflicts");
+ assert.deepEqual(ok.secondaryThemes, ["energy_resources", "defense_security", "economy"]);
+ assert.equal(ok.eventType, "drone_strike");
+ assert.equal(ok.importance, "high");
+ const [bad] = parseResponse(JSON.stringify([{ ...item, primaryTheme: "nimporte", eventType: "x", importance: "?" }]), sources);
+ assert.equal(bad.primaryTheme, null);
+ assert.equal(bad.eventType, null);
+ assert.equal(bad.importance, "medium");
+ assert.deepEqual(bad.secondaryThemes, []);
+});
+test("Les anciennes catégories ACLED sont converties en thématique et type d'événement", () => {
+ assert.equal(resolveTheme({ category: "Protests" }), "civil_unrest");
+ assert.equal(resolveEventType({ category: "Explosions/Remote violence" }), "explosion");
+ assert.equal(resolveTheme({ category: "Strategic developments", primary_theme: "diplomacy" }), "diplomacy");
+ assert.equal(resolveTheme({ category: null, primary_theme: null }), null);
 });
 
 import { synthesizeBriefs } from "../lib/synthesizeBriefs";

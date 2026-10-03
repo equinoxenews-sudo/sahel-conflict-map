@@ -23,10 +23,11 @@ async function getHomeBriefs(): Promise<ZoneBrief[]> {
     const { data, error } = await supabase
       .from("zone_briefs")
       .select(
-        "id, zone_slug, title, category, veracity, summary, source_urls, source_domains, image_url, published_at"
+        "id, zone_slug, title, category, primary_theme, secondary_themes, event_type, importance, veracity, summary, source_urls, source_domains, image_url, published_at"
       )
+      .gte("published_at", new Date(Date.now() - 90 * 86400000).toISOString())
       .order("published_at", { ascending: false })
-      .limit(8);
+      .limit(60);
 
     if (error) {
       console.error("Failed to load home briefs:", error.message);

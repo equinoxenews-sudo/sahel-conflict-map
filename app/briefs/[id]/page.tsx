@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/equinoxe/Header";
 import { formatDate } from "@/lib/formatDate";
 import { supabase } from "@/lib/supabaseClient";
+import { eventTypeLabel, importanceLabel, resolveEventType, resolveTheme, themeLabel } from "@/lib/themes";
 import { isValidVeracity, VERACITY_COLORS } from "@/lib/veracity";
 import { getZone } from "@/lib/zones";
 import type { ZoneBrief } from "@/types/brief";
@@ -18,7 +19,7 @@ async function getBrief(id: string): Promise<ZoneBrief | null> {
     const { data, error } = await supabase
       .from("zone_briefs")
       .select(
-        "id, zone_slug, title, category, veracity, summary, sections, source_urls, source_domains, image_url, published_at, updated_at"
+        "id, zone_slug, title, category, primary_theme, secondary_themes, event_type, importance, veracity, summary, sections, source_urls, source_domains, image_url, published_at, updated_at"
       )
       .eq("id", numericId)
       .maybeSingle();
@@ -42,6 +43,12 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
 
   const zone = getZone(brief.zone_slug);
   const veracity = isValidVeracity(brief.veracity) ? brief.veracity : null;
+  const primaryTheme = resolveTheme(brief);
+  const eventType = resolveEventType(brief);
+  const tags = [
+    ...(primaryTheme ? [{ key: primaryTheme, label: themeLabel(primaryTheme), primary: true }] : []),
+    ...(brief.secondary_themes ?? []).map((t) => ({ key: t, label: themeLabel(t), primary: false })),
+  ];
 
   // Sources aligned 1:1 with source_urls (see lib/synthesizeBriefs.ts) —
   // group them per domain so each outlet is listed once with all its URLs.
@@ -76,6 +83,18 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
             {veracity ?? "Non évalué"}
           </span>
         </div>
+
+        {tags.length > 0 || eventType || brief.importance ? (
+          <div className={styles.tags}>
+            {tags.map((tag) => (
+              <span key={tag.key} className={tag.primary ? styles.tagPrimary : styles.tag}>
+                {tag.label}
+              </span>
+            ))}
+            {eventType ? <span className={styles.tag}>{eventTypeLabel(eventType)}</span> : null}
+            {brief.importance ? <span className={styles.tag}>Importance {importanceLabel(brief.importance)}</span> : null}
+          </div>
+        ) : null}
 
         {brief.image_url?.startsWith("/equinoxe/hero-") ? <p>Illustration de la zone — ne représente pas l’événement.</p> : null}
         <h1 className={styles.title}>{brief.title}</h1>

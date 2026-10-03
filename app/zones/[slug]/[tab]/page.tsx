@@ -51,7 +51,7 @@ export default async function ZoneTabPage({
   const isApproche = zone.active && tab === "approche";
   const approcheContent = isApproche ? getZoneApprocheContent(zone.slug) : undefined;
   const approcheMap = isApproche ? getZoneMapData(zone.slug) : undefined;
-  const briefs = isLiveActualite ? await getZoneBriefs(zone.slug) : [];
+  const briefs = isLiveActualite ? await getZoneBriefs(zone.slug, 400) : [];
   const articles = isLiveActualite && briefs.length === 0 ? await getZoneArticles(zone.slug) : [];
   const newsItems = ZONE_NEWS[zone.slug] ?? [];
   const documents = isApproche && !(approcheContent && approcheMap) ? await listZoneDocuments(zone.slug) : [];

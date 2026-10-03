@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import type { NewsItem } from "@/lib/africaNews";
 import { formatDate } from "@/lib/formatDate";
 import { isValidVeracity, VERACITY_COLORS } from "@/lib/veracity";
-import { EVENT_CATEGORIES } from "@/types/event";
+import { resolveTheme, THEMES, themeShortLabel } from "@/lib/themes";
 import type { Article } from "@/types/article";
 import type { ZoneBrief } from "@/types/brief";
 import styles from "./ZoneNewsPanel.module.css";
@@ -26,13 +26,13 @@ export default function ZoneNewsPanel({ zoneSlug, zoneName, briefs, articles, ne
   const useRealArticles = !useBriefs && articles.length > 0;
   const useCuratedNews = !useBriefs && !useRealArticles && newsItems.length > 0;
 
-  const presentCategories = useMemo(
-    () => EVENT_CATEGORIES.filter((c) => briefs.some((b) => b.category === c)),
+  const presentThemes = useMemo(
+    () => THEMES.filter((t) => briefs.some((b) => resolveTheme(b) === t.key)),
     [briefs]
   );
 
   const filteredBriefs = useMemo(
-    () => (category === "all" ? briefs : briefs.filter((b) => b.category === category)).slice(0, MAX_ITEMS),
+    () => (category === "all" ? briefs : briefs.filter((b) => resolveTheme(b) === category)).slice(0, MAX_ITEMS),
     [briefs, category]
   );
 
@@ -51,7 +51,7 @@ export default function ZoneNewsPanel({ zoneSlug, zoneName, briefs, articles, ne
       </div>
       <p className={styles.subtitle}>Les derniers événements sur le continent</p>
 
-      {useBriefs && presentCategories.length > 1 ? (
+      {useBriefs && presentThemes.length > 1 ? (
         <div className={styles.filters}>
           <button
             type="button"
@@ -60,14 +60,14 @@ export default function ZoneNewsPanel({ zoneSlug, zoneName, briefs, articles, ne
           >
             Toutes
           </button>
-          {presentCategories.map((c) => (
+          {presentThemes.map((t) => (
             <button
-              key={c}
+              key={t.key}
               type="button"
-              className={category === c ? styles.filterActive : styles.filterBtn}
-              onClick={() => setCategory(c)}
+              className={category === t.key ? styles.filterActive : styles.filterBtn}
+              onClick={() => setCategory(t.key)}
             >
-              {c}
+              {t.short}
             </button>
           ))}
         </div>
@@ -88,7 +88,7 @@ export default function ZoneNewsPanel({ zoneSlug, zoneName, briefs, articles, ne
                   <div className={styles.itemBody}>
                     <span className={styles.date}>{formatDate(b.published_at)}</span>
                     <h3 className={styles.title}>{b.title}</h3>
-                    {b.category ? <span className={styles.tag}>#{b.category}</span> : null}
+                    {resolveTheme(b) ? <span className={styles.tag}>#{themeShortLabel(resolveTheme(b) as string)}</span> : null}
                   </div>
                   {b.image_url ? (
                     // eslint-disable-next-line @next/next/no-img-element

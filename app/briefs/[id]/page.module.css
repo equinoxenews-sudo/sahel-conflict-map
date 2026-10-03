@@ -168,3 +168,25 @@
     font-size: 22px;
   }
 }
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.tag,
+.tagPrimary {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.tagPrimary {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold-bright);
+  font-weight: 700;
+}
