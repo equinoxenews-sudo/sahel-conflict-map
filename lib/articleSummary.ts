@@ -3,7 +3,7 @@ const MAX_SUMMARY_LENGTH = 260;
 // Keeps the prompt sent to the AI bounded even when several articles all
 // have substantial body text — long enough for a real analytical piece,
 // short enough that 8 articles' worth still fits comfortably in context.
-const MAX_BODY_LENGTH = 4000;
+const MAX_BODY_LENGTH = 2500;
 const MIN_PARAGRAPH_LENGTH = 40;
 
 const DESCRIPTION_PATTERNS = [

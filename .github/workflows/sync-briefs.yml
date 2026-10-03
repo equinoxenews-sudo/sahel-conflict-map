@@ -36,10 +36,19 @@ jobs:
         run: |
           failed=0
           for zone in afrique europe moyen-orient indopacifique amerique-du-sud; do
-            echo "== $zone"
-            curl -sS --max-time 90 --fail-with-body \
-              -H "Authorization: Bearer $CRON_SECRET" \
-              "$SITE_URL/api/sync-briefs?zone=$zone" || failed=1
-            echo
+            ok=0
+            # Une zone qui échoue garde ses articles non traités : on réessaie une fois.
+            for attempt in 1 2; do
+              echo "== $zone (essai $attempt)"
+              if curl -sS --max-time 90 --fail-with-body \
+                -H "Authorization: Bearer $CRON_SECRET" \
+                "$SITE_URL/api/sync-briefs?zone=$zone"; then
+                ok=1
+                echo
+                break
+              fi
+              echo
+            done
+            [ "$ok" = 1 ] || failed=1
           done
           exit $failed
