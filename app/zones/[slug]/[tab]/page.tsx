@@ -4,6 +4,7 @@ import DocumentGrid from "@/components/DocumentGrid";
 import Header from "@/components/equinoxe/Header";
 import MapView from "@/components/MapView";
 import ZoneNewsList from "@/components/ZoneNewsList";
+import ZoneSynthesisPanel from "@/components/ZoneSynthesisPanel";
 import ZoneApprochePage from "@/components/zone-approche/ZoneApprochePage";
 import { supabase } from "@/lib/supabaseClient";
 import { getZoneApprocheContent } from "@/lib/zoneApprocheContent";
@@ -74,8 +75,13 @@ export default async function ZoneTabPage({
           <div className={styles.newsList}>
             <ZoneNewsList briefs={briefs} articles={articles} newsItems={newsItems} />
           </div>
-          <div className={styles.mapArea}>
-            <MapView events={await getZoneEvents(zone.countries)} />
+          <div className={styles.rightColumn}>
+            <div className={styles.synthesis}>
+              <ZoneSynthesisPanel zoneName={zone.name} />
+            </div>
+            <div className={styles.mapArea}>
+              <MapView events={await getZoneEvents(zone.countries)} />
+            </div>
           </div>
         </div>
       ) : isApproche && approcheContent && approcheMap ? (

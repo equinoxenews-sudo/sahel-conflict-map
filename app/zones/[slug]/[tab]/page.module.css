@@ -46,15 +46,36 @@
 .newsList {
   display: flex;
   flex-direction: column;
-  width: 420px;
+  width: clamp(440px, 34vw, 700px);
   flex-shrink: 0;
   min-height: 0;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.synthesis {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  min-height: 130px;
+  max-height: 28%;
+}
+
+.synthesis > * {
+  flex: 1;
 }
 
 .mapArea {
   flex: 1;
   min-width: 0;
-  min-height: 400px;
+  min-height: 0;
   border: 1px solid var(--border-subtle);
 }
 
@@ -129,7 +150,16 @@
     width: auto;
   }
 
+  .rightColumn {
+    flex: none;
+  }
+
+  .synthesis {
+    max-height: none;
+  }
+
   .mapArea {
+    flex: none;
     height: 760px;
     min-height: 760px;
   }
