@@ -3,7 +3,7 @@ import { isValidVeracity, type Veracity } from "./veracity";
 const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
 const MODEL = "claude-haiku-4-5-20251001";
 const MAX_TOKENS = 6000;
-const TIMEOUT_MS = 45000;
+const TIMEOUT_MS = 50000;
 
 export interface SourceArticle {
   title: string;

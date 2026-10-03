@@ -14,7 +14,8 @@ export async function GET(request: Request) {
   }
 
   try {
-    const { summary, errors } = await syncBriefs();
+    const zone = new URL(request.url).searchParams.get("zone") ?? undefined;
+    const { summary, errors } = await syncBriefs(zone);
     // The homepage and zone pages are ISR-cached (revalidate = 3600) — mark
     // them stale so the very next visit picks up the new briefs instead of
     // waiting up to an hour.

@@ -126,7 +126,7 @@ async function briefZone(
  * it does not depend on GDELT DOC. Monitor execution time and API cost:
  * all zones run concurrently, but upstream latency can exceed the budget.
  */
-export async function syncBriefs() {
+export async function syncBriefs(onlyZone?: string) {
   // Before source downloads or paid AI calls: explicit, actionable migration gate.
   const admin = getSupabaseAdmin();
   const { error: columnError } = await admin.from("zone_briefs").select("updated_at").limit(1);
@@ -134,9 +134,19 @@ export async function syncBriefs() {
   if (columnError || archiveError) throw new Error(
     "Schéma des synthèses indisponible. Vérifier Supabase et appliquer supabase/add-brief-revisions.sql avant ce déploiement."
   );
-  const zoneSlugs = Object.keys(ZONE_KEYWORDS);
+  const allZoneSlugs = Object.keys(ZONE_KEYWORDS);
+  if (onlyZone && !allZoneSlugs.includes(onlyZone)) throw new Error(`Zone inconnue : ${onlyZone}`);
+  const zoneSlugs = onlyZone ? [onlyZone] : allZoneSlugs;
 
-  const results = await Promise.allSettled(zoneSlugs.map((zoneSlug) => briefZone(zoneSlug)));
+  const results = await Promise.allSettled(zoneSlugs.map(async (zoneSlug) => {
+    const startedAt = Date.now();
+    try {
+      return await briefZone(zoneSlug);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      throw new Error(`${message} (après ${Math.round((Date.now() - startedAt) / 1000)} s)`);
+    }
+  }));
 
   const summary: Record<string, { articles: number; briefs: number } | -1> = {};
   const errors: Record<string, string> = {};
