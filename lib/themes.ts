@@ -106,14 +106,15 @@ export function eventTypeLabel(key: string): string {
   return EVENT_TYPES.find((t) => t.key === key)?.label ?? key;
 }
 
-/** Anciennes catégories ACLED-like des synthèses déjà enregistrées. */
+/** Anciennes catégories ACLED-like des synthèses déjà enregistrées.
+ * "Strategic developments" est volontairement absente : c'était la valeur
+ * par défaut de l'ancien classement, donc sans signification fiable. */
 const LEGACY_THEME: Record<string, ThemeKey> = {
   "Battles": "conflicts",
   "Explosions/Remote violence": "conflicts",
   "Violence against civilians": "terrorism",
   "Protests": "civil_unrest",
   "Riots": "civil_unrest",
-  "Strategic developments": "strategic_development",
 };
 
 const LEGACY_EVENT_TYPE: Record<string, EventTypeKey> = {

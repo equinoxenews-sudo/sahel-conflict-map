@@ -53,6 +53,7 @@ test("Les anciennes catégories ACLED sont converties en thématique et type d'�
  assert.equal(resolveTheme({ category: "Protests" }), "civil_unrest");
  assert.equal(resolveEventType({ category: "Explosions/Remote violence" }), "explosion");
  assert.equal(resolveTheme({ category: "Strategic developments", primary_theme: "diplomacy" }), "diplomacy");
+ assert.equal(resolveTheme({ category: "Strategic developments" }), null);
  assert.equal(resolveTheme({ category: null, primary_theme: null }), null);
 });
 
