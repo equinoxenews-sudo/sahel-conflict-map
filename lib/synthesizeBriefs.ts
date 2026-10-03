@@ -117,11 +117,11 @@ export function parseResponse(text: string, articles: SourceArticle[], previous:
   try {
     parsed = JSON.parse(cleaned);
   } catch {
-    if (strict) throw new Error("Invalid synthesis JSON");
+    if (strict) throw new SynthesisFormatError("Invalid synthesis JSON");
     return [];
   }
   if (!Array.isArray(parsed)) {
-    if (strict) throw new Error("Synthesis must be an array");
+    if (strict) throw new SynthesisFormatError("Synthesis must be an array");
     return [];
   }
 
@@ -181,9 +181,17 @@ export function parseResponse(text: string, articles: SourceArticle[], previous:
       imageCandidates: [...new Set(sources.map((s) => s.imageUrl).filter((u): u is string => !!u))],
     });
   }
-  if (strict && briefs.length !== parsed.length) throw new Error("Invalid synthesis groups or source references");
+  if (strict && briefs.length !== parsed.length) {
+    throw new SynthesisFormatError(`Invalid synthesis groups or source references (${briefs.length}/${parsed.length} valides)`);
+  }
   return briefs;
 }
+
+// Distinguishes a malformed-but-complete model answer (worth one retry,
+// the model is non-deterministic) from API/network failures (not retried).
+class SynthesisFormatError extends Error {}
+
+const MIN_RETRY_BUDGET_MS = 15000;
 
 /**
  * Groups a batch of real OSINT articles into a handful of AI-written
@@ -203,36 +211,42 @@ export async function synthesizeBriefs(
   if (articles.length === 0) return [];
   if (!apiKey) throw new Error("ANTHROPIC_API_KEY absent : aucun article acquitté");
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  const deadline = Date.now() + TIMEOUT_MS;
 
-  try {
-    const res = await fetch(ANTHROPIC_API_URL, {
-      method: "POST",
-      headers: {
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        max_tokens: MAX_TOKENS,
-        messages: [{ role: "user", content: buildPrompt(zoneName, articles, previous) }],
-      }),
-      signal: controller.signal,
-    });
+  for (let attempt = 1; ; attempt++) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), Math.max(deadline - Date.now(), 1000));
 
-    if (!res.ok) {
-      throw new Error(`Anthropic API error: ${res.status}`);
+    try {
+      const res = await fetch(ANTHROPIC_API_URL, {
+        method: "POST",
+        headers: {
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          model: MODEL,
+          max_tokens: MAX_TOKENS,
+          messages: [{ role: "user", content: buildPrompt(zoneName, articles, previous) }],
+        }),
+        signal: controller.signal,
+      });
+
+      if (!res.ok) {
+        throw new Error(`Anthropic API error: ${res.status}`);
+      }
+
+      const data = (await res.json()) as { content?: { type: string; text?: string }[] };
+      const text = data.content?.find((block) => block.type === "text")?.text ?? "";
+      return parseResponse(text, articles, previous, true);
+    } catch (err) {
+      const canRetry =
+        err instanceof SynthesisFormatError && attempt === 1 && deadline - Date.now() >= MIN_RETRY_BUDGET_MS;
+      console.error(`Failed to synthesize briefs (attempt ${attempt}):`, err);
+      if (!canRetry) throw err;
+    } finally {
+      clearTimeout(timeoutId);
     }
-
-    const data = (await res.json()) as { content?: { type: string; text?: string }[] };
-    const text = data.content?.find((block) => block.type === "text")?.text ?? "";
-    return parseResponse(text, articles, previous, true);
-  } catch (err) {
-    console.error("Failed to synthesize briefs:", err);
-    throw err;
-  } finally {
-    clearTimeout(timeoutId);
   }
 }
