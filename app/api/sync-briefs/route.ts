@@ -14,7 +14,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const summary = await syncBriefs();
+    const { summary, errors } = await syncBriefs();
     // The homepage and zone pages are ISR-cached (revalidate = 3600) — mark
     // them stale so the very next visit picks up the new briefs instead of
     // waiting up to an hour.
@@ -22,7 +22,7 @@ export async function GET(request: Request) {
     revalidatePath("/zones/[slug]/[tab]", "page");
     revalidatePath("/briefs/[id]", "page");
     const failed = Object.values(summary).some((value) => value === -1);
-    return NextResponse.json({ ok: !failed, summary }, { status: failed ? 502 : 200 });
+    return NextResponse.json({ ok: !failed, summary, errors }, { status: failed ? 502 : 200 });
   } catch (error) {
     console.error("Brief sync failed", error);
     return NextResponse.json(

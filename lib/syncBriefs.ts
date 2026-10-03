@@ -136,6 +136,7 @@ export async function syncBriefs() {
   const results = await Promise.allSettled(zoneSlugs.map((zoneSlug) => briefZone(zoneSlug)));
 
   const summary: Record<string, { articles: number; briefs: number } | -1> = {};
+  const errors: Record<string, string> = {};
   results.forEach((result, i) => {
     const zoneSlug = zoneSlugs[i];
     if (result.status === "fulfilled") {
@@ -143,8 +144,9 @@ export async function syncBriefs() {
     } else {
       console.error(`Brief sync failed for ${zoneSlug}:`, result.reason);
       summary[zoneSlug] = -1;
+      errors[zoneSlug] = result.reason instanceof Error ? result.reason.message : String(result.reason);
     }
   });
 
-  return summary;
+  return { summary, errors };
 }
