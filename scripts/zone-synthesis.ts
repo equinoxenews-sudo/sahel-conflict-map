@@ -9,6 +9,13 @@ import path from "node:path";
 
 config({ path: path.resolve(process.cwd(), ".env.local") });
 
+// Un secret collé avec un espace, un retour à la ligne ou des guillemets
+// ferait échouer chaque requête : on nettoie les valeurs avant usage.
+for (const name of ["ANTHROPIC_API_KEY", "SUPABASE_SERVICE_ROLE_KEY", "NEXT_PUBLIC_SUPABASE_URL"]) {
+  const value = process.env[name];
+  if (value) process.env[name] = value.trim().replace(/^["']|["']$/g, "");
+}
+
 import { getSupabaseAdmin } from "../lib/supabaseAdmin";
 import {
   AnthropicRequestError,
@@ -94,6 +101,16 @@ async function synthesizeZone(zoneSlug: string, apiKey: string): Promise<"créé
   return "créée";
 }
 
+// Dans GitHub Actions, une annotation d'erreur est lisible sur la page de
+// l'exécution (et via l'API) sans ouvrir les journaux.
+function reportFailure(label: string, message: string) {
+  console.error(`  ${label} : ÉCHEC — ${message}`);
+  if (process.env.GITHUB_ACTIONS) {
+    const safe = message.slice(0, 400).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
+    console.log(`::error title=Synthèse ${label}::${safe}`);
+  }
+}
+
 async function main() {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error("ANTHROPIC_API_KEY absent.");
@@ -109,7 +126,7 @@ async function main() {
       await synthesizeZone(zoneSlug, apiKey);
     } catch (err) {
       failed++;
-      console.error(`  ${zoneSlug} : ÉCHEC — ${err instanceof Error ? err.message : String(err)}`);
+      reportFailure(zoneSlug, err instanceof Error ? err.message : String(err));
     }
   }
   if (failed > 0) process.exit(1);
