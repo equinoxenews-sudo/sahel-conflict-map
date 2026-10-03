@@ -43,12 +43,14 @@ export default function ZoneSynthesisPanel({ zoneName, synthesis }: ZoneSynthesi
         <span className={styles.meta}>Mise à jour le {updatedAtFormat.format(new Date(synthesis.generated_at))}</span>
       </div>
       <p className={styles.headline}>{stripMarkup(synthesis.headline)}</p>
-      {synthesis.sections.map((section) => (
-        <div key={section.heading} className={styles.section}>
-          <h3 className={styles.sectionHeading}>{section.heading}</h3>
-          <p className={styles.text}>{stripMarkup(section.body)}</p>
-        </div>
-      ))}
+      <div className={styles.sections}>
+        {synthesis.sections.map((section) => (
+          <div key={section.heading} className={styles.section}>
+            <h3 className={styles.sectionHeading}>{section.heading}</h3>
+            <p className={styles.sectionText}>{stripMarkup(section.body)}</p>
+          </div>
+        ))}
+      </div>
       {synthesis.sources.length > 0 ? (
         <details className={styles.sources}>
           <summary>Sources ({synthesis.sources.length})</summary>

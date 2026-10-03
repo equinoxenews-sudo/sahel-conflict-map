@@ -1,21 +1,13 @@
 .filters {
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  padding: 12px 16px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 12px;
-  color: var(--foreground);
+  gap: 8px;
+  padding: 6px 0;
 }
 
 .field select {
-  padding: 6px 8px;
-  font-size: 13px;
+  padding: 4px 8px;
+  font-size: 12px;
+  max-width: 190px;
   border-radius: 6px;
   border: 1px solid #444;
   background: var(--background);

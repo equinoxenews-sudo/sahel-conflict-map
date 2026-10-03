@@ -47,7 +47,7 @@
 
 .headline {
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   line-height: 1.4;
 }
@@ -96,4 +96,19 @@
   font-size: 10px;
   color: var(--text-secondary);
   opacity: 0.8;
+}
+
+/* Sections côte à côte : le panneau est large et peu haut, un seul bloc de
+   texte serait illisible. */
+.sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 10px 20px;
+}
+
+.sectionText {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text-secondary);
 }

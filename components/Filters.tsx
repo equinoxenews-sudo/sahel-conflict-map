@@ -21,8 +21,7 @@ export default function Filters({
   return (
     <div className={styles.filters}>
       <label className={styles.field}>
-        Pays
-        <select value={country} onChange={(e) => onCountryChange(e.target.value)}>
+        <select aria-label="Pays" value={country} onChange={(e) => onCountryChange(e.target.value)}>
           <option value="all">Tous les pays</option>
           {countries.map((c) => (
             <option key={c} value={c}>
@@ -33,8 +32,7 @@ export default function Filters({
       </label>
 
       <label className={styles.field}>
-        Catégorie
-        <select value={category} onChange={(e) => onCategoryChange(e.target.value)}>
+        <select aria-label="Catégorie" value={category} onChange={(e) => onCategoryChange(e.target.value)}>
           <option value="all">Toutes les catégories</option>
           {EVENT_CATEGORIES.map((c) => (
             <option key={c} value={c}>

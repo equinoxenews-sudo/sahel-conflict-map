@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { mixBriefsAcrossZones } from "@/lib/briefOrdering";
 import { formatDate } from "@/lib/formatDate";
 import { HOME_NEWS } from "@/lib/homeNews";
 import { isValidVeracity, VERACITY_COLORS } from "@/lib/veracity";
+import { getZone } from "@/lib/zones";
 import type { Article } from "@/types/article";
 import type { ZoneBrief } from "@/types/brief";
 import styles from "./HomeNewsColumn.module.css";
@@ -41,9 +43,10 @@ export default function HomeNewsColumn({ briefs, articles }: HomeNewsColumnProps
 
   const filteredBriefs = useMemo(() => {
     const windowMs = FILTER_WINDOW_MS[dateFilter];
-    if (windowMs === null) return briefs;
-    const cutoff = now - windowMs;
-    return briefs.filter((b) => (b.published_at ? new Date(b.published_at).getTime() >= cutoff : true));
+    const cutoff = windowMs === null ? null : now - windowMs;
+    const inWindow =
+      cutoff === null ? briefs : briefs.filter((b) => (b.published_at ? new Date(b.published_at).getTime() >= cutoff : true));
+    return mixBriefsAcrossZones(inWindow);
   }, [briefs, dateFilter, now]);
 
   return (
@@ -77,7 +80,10 @@ export default function HomeNewsColumn({ briefs, articles }: HomeNewsColumnProps
                   ) : null}
                   <div className={styles.itemBody}>
                     <div className={styles.header}>
-                      <span className={styles.date}>{formatDate(b.published_at)}</span>
+                      <span className={styles.meta}>
+                        <span className={styles.date}>{formatDate(b.published_at)}</span>
+                        <span className={styles.zoneTag}>{getZone(b.zone_slug)?.name ?? b.zone_slug}</span>
+                      </span>
                       <span
                         className={styles.veracityBadge}
                         style={{ backgroundColor: veracity ? VERACITY_COLORS[veracity] : "#8b96a5" }}

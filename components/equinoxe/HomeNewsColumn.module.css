@@ -173,3 +173,18 @@ a.item:hover {
     overflow-y: visible;
   }
 }
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.zoneTag {
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--accent-gold-bright);
+  white-space: nowrap;
+}

@@ -5,10 +5,14 @@
   min-height: 0;
 }
 
-.explorer {
+.toolbar {
   display: flex;
-  flex: 1;
-  min-height: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  flex-shrink: 0;
+  padding: 0 4px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .mapWrapper {
@@ -20,67 +24,29 @@
   min-height: 300px;
 }
 
-.eventList {
-  display: flex;
-  flex-direction: column;
-  width: 260px;
-  overflow-y: auto;
-  border-left: 1px solid var(--border-subtle);
-}
-
-.eventListTitle {
-  margin: 0;
-  padding: 14px 12px 4px;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-}
-
-.eventListHint {
-  margin: 0;
-  padding: 6px 12px 12px;
-  color: var(--text-secondary);
-  font-size: 11px;
-  line-height: 1.4;
-}
-
-.eventItem, .eventSelected {
+.overlay {
+  position: absolute;
+  left: 10px;
+  bottom: 22px;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 100%;
-  padding: 12px;
-  border: 0;
-  border-bottom: 1px solid var(--border-subtle);
-  background: transparent;
-  color: var(--text-primary);
-  text-align: left;
-  cursor: pointer;
-  font-size: 12px;
-  line-height: 1.35;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(10, 16, 24, 0.8);
+  pointer-events: none;
 }
 
-.eventItem:hover, .eventSelected {
-  background: rgba(184, 134, 46, 0.16);
+.count {
+  font-size: 10px;
+  color: #aab4c0;
 }
 
-.eventSelected {
-  border-left: 3px solid var(--accent-gold);
-}
-
-.eventDate {
-  color: var(--text-secondary);
-  font-size: 11px;
-}
-
-@media (max-width: 750px) {
-  .explorer { flex-direction: column; }
-  .mapWrapper { flex: none; height: 380px; }
-  .eventList { width: auto; max-height: 300px; border-left: 0; border-top: 1px solid var(--border-subtle); }
-}
-
-.footer {
-  padding: 6px 16px;
-  font-size: 12px;
-  color: #999;
-  border-top: 1px solid #333;
+/* Desktop: la carte remplit exactement la hauteur restante pour que son bas
+   s'aligne sur celui de la colonne d'articles. */
+@media (min-width: 901px) {
+  .mapWrapper {
+    min-height: 0;
+  }
 }

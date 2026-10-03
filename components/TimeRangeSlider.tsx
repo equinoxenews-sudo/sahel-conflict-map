@@ -120,16 +120,9 @@ export default function TimeRangeSlider({ onChange }: TimeRangeSliderProps) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <span className={styles.rangeLabel}>
-          {formatDate(selStart)} — {formatDate(selEnd)}
-        </span>
-        {!isFullRange && (
-          <button type="button" className={styles.resetButton} onClick={resetFull}>
-            Réinitialiser (3 mois)
-          </button>
-        )}
-      </div>
+      <span className={styles.rangeLabel}>
+        {formatDate(selStart)} — {formatDate(selEnd)}
+      </span>
 
       <div className={styles.track} ref={trackRef}>
         <div className={styles.trackBg} />
@@ -153,10 +146,11 @@ export default function TimeRangeSlider({ onChange }: TimeRangeSliderProps) {
         />
       </div>
 
-      <div className={styles.boundsLabels}>
-        <span>{formatDate(bounds.start)}</span>
-        <span>{formatDate(bounds.end)}</span>
-      </div>
+      {!isFullRange && (
+        <button type="button" className={styles.resetButton} onClick={resetFull} title="Revenir aux 3 mois complets">
+          3 mois
+        </button>
+      )}
     </div>
   );
 }
