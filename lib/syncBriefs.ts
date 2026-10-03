@@ -6,7 +6,10 @@ import { synthesizeBriefs, type PreviousBrief, type SourceArticle } from "./synt
 import { getZone } from "./zones";
 import { ZONE_KEYWORDS } from "./zoneKeywords";
 
-const ARTICLES_PER_ZONE = 8;
+// Kept small so one Claude call finishes inside the route's 60 s budget
+// (all zones run concurrently); leftovers stay unacknowledged and are
+// picked up on the next run.
+const ARTICLES_PER_ZONE = 5;
 const SUMMARY_FETCH_CONCURRENCY = 6;
 interface StoredArticle {
   id: number;
