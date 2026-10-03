@@ -26,10 +26,12 @@ import {
   buildSynthesisPrompt,
   callSynthesisModel,
   fingerprintOf,
+  inaccessibleDomainsFrom,
   parseSynthesis,
   SYNTHESIS_MODEL,
   type InputBrief,
 } from "../lib/zoneSynthesis";
+import { SYNTHESIS_ALLOWED_DOMAINS } from "../lib/synthesisSources";
 import { ZONES, getZone } from "../lib/zones";
 
 const WINDOW_HOURS = 72;
@@ -77,9 +79,25 @@ async function synthesizeZone(zoneSlug: string, apiKey: string): Promise<"créé
   }
 
   const today = new Intl.DateTimeFormat("fr-FR", { dateStyle: "full", timeZone: "Europe/Paris" }).format(new Date());
+  const webPrompt = buildSynthesisPrompt(zoneName, briefs, today, true);
   let result;
   try {
-    result = await callSynthesisModel(apiKey, buildSynthesisPrompt(zoneName, briefs, today, true), true);
+    try {
+      result = await callSynthesisModel(apiKey, webPrompt, true);
+    } catch (err) {
+      // Un domaine de la liste blanche bloque le robot d'Anthropic : l'API
+      // refuse toute la requête et nomme les domaines fautifs. On les retire
+      // et on réessaie une fois.
+      const blocked = err instanceof AnthropicRequestError ? inaccessibleDomainsFrom(err.body) : [];
+      if (blocked.length === 0) throw err;
+      console.warn(`  ${zoneName} : domaines inaccessibles retirés de la recherche : ${blocked.join(", ")}`);
+      result = await callSynthesisModel(
+        apiKey,
+        webPrompt,
+        true,
+        SYNTHESIS_ALLOWED_DOMAINS.filter((domain) => !blocked.includes(domain))
+      );
+    }
   } catch (err) {
     if (!isWebSearchUnavailable(err)) throw err;
     console.warn(`  ${zoneName} : recherche web indisponible sur ce compte, synthèse sans web.`);

@@ -177,13 +177,22 @@ export function extractFromBlocks(blocks: Block[]): { text: string; sources: Syn
   };
 }
 
+/** Domaines que l'API refuse ("not accessible to our user agent") d'après le
+ * message d'erreur ; vide si l'erreur est d'une autre nature. */
+export function inaccessibleDomainsFrom(errorBody: string): string[] {
+  const match = errorBody.match(/domains are not accessible[^\[]*\[([^\]]*)\]/);
+  if (!match) return [];
+  return [...match[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
+}
+
 export async function callSynthesisModel(
   apiKey: string,
   prompt: string,
-  useWebSearch: boolean
+  useWebSearch: boolean,
+  allowedDomains: readonly string[] = SYNTHESIS_ALLOWED_DOMAINS
 ): Promise<{ text: string; sources: SynthesisSource[]; usedWebSearch: boolean }> {
   const tools = useWebSearch
-    ? [{ type: "web_search_20250305", name: "web_search", max_uses: MAX_WEB_SEARCHES, allowed_domains: [...SYNTHESIS_ALLOWED_DOMAINS] }]
+    ? [{ type: "web_search_20250305", name: "web_search", max_uses: MAX_WEB_SEARCHES, allowed_domains: [...allowedDomains] }]
     : undefined;
 
   const blocks: Block[] = [];

@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildSynthesisPrompt, extractFromBlocks, fingerprintOf, parseSynthesis, type InputBrief } from "../lib/zoneSynthesis";
+import { buildSynthesisPrompt, extractFromBlocks, fingerprintOf, inaccessibleDomainsFrom, parseSynthesis, type InputBrief } from "../lib/zoneSynthesis";
+import { SYNTHESIS_ALLOWED_DOMAINS } from "../lib/synthesisSources";
 
 const valid = { headline: "Situation tendue.", sections: [{ heading: "Sécurité", body: "Selon la BBC, des combats ont eu lieu." }] };
 
@@ -61,4 +62,14 @@ test("Le prompt reprend le statut de véracité et signale l'absence de web", ()
  assert.match(withoutWeb, /\[#7\] \[Revendiqué · Conflits & opérations militaires · importance high\]/);
  assert.match(withoutWeb, /Aucun accès au web/);
  assert.doesNotMatch(buildSynthesisPrompt("Afrique", [brief], "lundi", true), /Aucun accès au web/);
+});
+
+test("Les domaines bloquant le robot d'Anthropic sont extraits du message d'erreur", () => {
+ const body = JSON.stringify({ type: "error", error: { type: "invalid_request_error", message: "The following domains are not accessible to our user agent: ['bbc.co.uk', 'bbc.com', 'dw.com', 'rfi.fr']. Read more: https://example.test" } });
+ assert.deepEqual(inaccessibleDomainsFrom(body), ["bbc.co.uk", "bbc.com", "dw.com", "rfi.fr"]);
+ assert.deepEqual(inaccessibleDomainsFrom('{"error":{"message":"model: String should have at least 1 character"}}'), []);
+});
+
+test("La liste blanche ne contient plus les domaines connus pour bloquer le robot", () => {
+ for (const blocked of ["bbc.co.uk", "bbc.com", "dw.com", "rfi.fr"]) assert.ok(!(SYNTHESIS_ALLOWED_DOMAINS as readonly string[]).includes(blocked));
 });
