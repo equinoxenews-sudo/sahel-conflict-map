@@ -1,0 +1,44 @@
+name: Synthèses 12 h / 18 h
+
+# Remplace le cron Vercel de sync-briefs (le plan Hobby n'autorise qu'une
+# exécution par jour et à l'heure près). GitHub planifie en UTC : 10 h et
+# 16 h UTC = 12 h et 18 h à Paris en heure d'été (11 h et 17 h en hiver).
+on:
+  schedule:
+    - cron: "0 10 * * *"
+    - cron: "0 16 * * *"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SITE_URL: https://sahel-conflict-map.vercel.app
+      CRON_SECRET: ${{ secrets.CRON_SECRET }}
+    steps:
+      - name: Vérifier le secret
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "Secret CRON_SECRET absent : Settings > Secrets and variables > Actions"
+            exit 1
+          fi
+
+      - name: Récupérer les nouveaux articles
+        run: |
+          curl -sS --max-time 90 --fail-with-body \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            "$SITE_URL/api/sync-articles"
+          echo
+
+      - name: Rédiger les synthèses, une zone à la fois
+        run: |
+          failed=0
+          for zone in afrique europe moyen-orient indopacifique amerique-du-sud; do
+            echo "== $zone"
+            curl -sS --max-time 90 --fail-with-body \
+              -H "Authorization: Bearer $CRON_SECRET" \
+              "$SITE_URL/api/sync-briefs?zone=$zone" || failed=1
+            echo
+          done
+          exit $failed
