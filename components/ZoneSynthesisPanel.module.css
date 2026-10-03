@@ -38,3 +38,62 @@
   line-height: 1.5;
   color: var(--text-secondary);
 }
+
+.meta {
+  font-size: 10px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.headline {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sectionHeading {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent-gold-bright);
+}
+
+.sources {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.sources summary {
+  cursor: pointer;
+}
+
+.sources ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sources a {
+  color: var(--text-primary);
+}
+
+.domain {
+  opacity: 0.7;
+}
+
+.disclaimer {
+  margin: 0;
+  font-size: 10px;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}

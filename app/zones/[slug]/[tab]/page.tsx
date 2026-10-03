@@ -10,6 +10,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { getZoneApprocheContent } from "@/lib/zoneApprocheContent";
 import { getZoneArticles, getZoneBriefs } from "@/lib/zoneBriefs";
 import { listZoneDocuments } from "@/lib/zoneDocuments";
+import { getLatestZoneSynthesis } from "@/lib/zoneSynthesisData";
 import { getZoneMapData } from "@/lib/zoneMaps";
 import { ZONE_NEWS } from "@/lib/zoneNews";
 import { getZone, TAB_LABELS, TABS, type Tab } from "@/lib/zones";
@@ -54,6 +55,7 @@ export default async function ZoneTabPage({
   const approcheMap = isApproche ? getZoneMapData(zone.slug) : undefined;
   const briefs = isLiveActualite ? await getZoneBriefs(zone.slug, 400) : [];
   const articles = isLiveActualite && briefs.length === 0 ? await getZoneArticles(zone.slug) : [];
+  const synthesis = isLiveActualite ? await getLatestZoneSynthesis(zone.slug) : null;
   const newsItems = ZONE_NEWS[zone.slug] ?? [];
   const documents = isApproche && !(approcheContent && approcheMap) ? await listZoneDocuments(zone.slug) : [];
 
@@ -77,7 +79,7 @@ export default async function ZoneTabPage({
           </div>
           <div className={styles.rightColumn}>
             <div className={styles.synthesis}>
-              <ZoneSynthesisPanel zoneName={zone.name} />
+              <ZoneSynthesisPanel zoneName={zone.name} synthesis={synthesis} />
             </div>
             <div className={styles.mapArea}>
               <MapView events={await getZoneEvents(zone.countries)} />
