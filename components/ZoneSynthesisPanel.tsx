@@ -1,3 +1,4 @@
+import { stripMarkup } from "@/lib/citationTags";
 import type { ZoneSynthesis } from "@/lib/zoneSynthesis";
 import styles from "./ZoneSynthesisPanel.module.css";
 
@@ -41,11 +42,11 @@ export default function ZoneSynthesisPanel({ zoneName, synthesis }: ZoneSynthesi
         <h2 className={styles.title}>Synthèse — {zoneName}</h2>
         <span className={styles.meta}>Mise à jour le {updatedAtFormat.format(new Date(synthesis.generated_at))}</span>
       </div>
-      <p className={styles.headline}>{synthesis.headline}</p>
+      <p className={styles.headline}>{stripMarkup(synthesis.headline)}</p>
       {synthesis.sections.map((section) => (
         <div key={section.heading} className={styles.section}>
           <h3 className={styles.sectionHeading}>{section.heading}</h3>
-          <p className={styles.text}>{section.body}</p>
+          <p className={styles.text}>{stripMarkup(section.body)}</p>
         </div>
       ))}
       {synthesis.sources.length > 0 ? (

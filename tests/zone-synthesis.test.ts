@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { buildSynthesisPrompt, extractFromBlocks, fingerprintOf, inaccessibleDomainsFrom, parseSynthesis, type InputBrief } from "../lib/zoneSynthesis";
+import { stripMarkup } from "../lib/citationTags";
 import { SYNTHESIS_ALLOWED_DOMAINS } from "../lib/synthesisSources";
 
 const valid = { headline: "Situation tendue.", sections: [{ heading: "Sécurité", body: "Selon la BBC, des combats ont eu lieu." }] };
@@ -72,4 +73,10 @@ test("Les domaines bloquant le robot d'Anthropic sont extraits du message d'erre
 
 test("La liste blanche ne contient plus les domaines connus pour bloquer le robot", () => {
  for (const blocked of ["bbc.co.uk", "bbc.com", "dw.com", "rfi.fr"]) assert.ok(!(SYNTHESIS_ALLOWED_DOMAINS as readonly string[]).includes(blocked));
+});
+
+test("Les balises de citation de la recherche web sont retirées du texte", () => {
+ const withCite = { headline: 'Crise <cite index="1-1">éthiopienne</cite>.', sections: [{ heading: "Sécurité", body: 'Des <cite index="4-7,4-8">centaines</cite> de morts, selon la <b>BBC</b>.' }] };
+ assert.deepEqual(parseSynthesis(JSON.stringify(withCite)), { headline: "Crise éthiopienne.", sections: [{ heading: "Sécurité", body: "Des centaines de morts, selon la BBC." }] });
+ assert.equal(stripMarkup("a < b et c > d"), "a < b et c > d");
 });
