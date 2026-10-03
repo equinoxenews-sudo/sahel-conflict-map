@@ -4,7 +4,9 @@ import { resolveTheme, themeLabel } from "./themes";
 
 const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
 // Changeable sans redéploiement via la variable SYNTHESIS_MODEL.
-export const SYNTHESIS_MODEL = process.env.SYNTHESIS_MODEL ?? "claude-haiku-4-5-20251001";
+// GitHub Actions passe une variable absente comme chaîne vide : `||` (et non
+// `??`) pour retomber sur le modèle par défaut dans ce cas aussi.
+export const SYNTHESIS_MODEL = process.env.SYNTHESIS_MODEL?.trim() || "claude-haiku-4-5-20251001";
 const MAX_TOKENS = 4000;
 const REQUEST_TIMEOUT_MS = 180_000;
 const MAX_CONTINUATIONS = 4;
