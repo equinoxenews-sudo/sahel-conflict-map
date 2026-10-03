@@ -15,6 +15,10 @@ for (const name of ["ANTHROPIC_API_KEY", "SUPABASE_SERVICE_ROLE_KEY", "NEXT_PUBL
   const value = process.env[name];
   if (value) process.env[name] = value.trim().replace(/^["']|["']$/g, "");
 }
+// Adresse du projet collée depuis la page "Data API" avec son suffixe REST.
+if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
+  process.env.NEXT_PUBLIC_SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL.replace(/\/rest\/v1\/?$/, "").replace(/\/+$/, "");
+}
 
 import { getSupabaseAdmin } from "../lib/supabaseAdmin";
 import {
