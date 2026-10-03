@@ -1,12 +1,13 @@
-name: Synthèses 12 h / 18 h
+name: Synthèses 8 h / 14 h
 
 # Remplace le cron Vercel de sync-briefs (le plan Hobby n'autorise qu'une
-# exécution par jour et à l'heure près). GitHub planifie en UTC : 10 h et
-# 16 h UTC = 12 h et 18 h à Paris en heure d'été (11 h et 17 h en hiver).
+# exécution par jour et à l'heure près). GitHub planifie en UTC : 6 h 05 et
+# 12 h 05 UTC = 8 h 05 et 14 h 05 à Paris en heure d'été (7 h 05 et 13 h 05
+# en hiver). Les 5 minutes évitent le pic de charge de GitHub à l'heure pile.
 on:
   schedule:
-    - cron: "0 10 * * *"
-    - cron: "0 16 * * *"
+    - cron: "5 6 * * *"
+    - cron: "5 12 * * *"
   workflow_dispatch:
 
 jobs:
