@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from "react-leaflet";
 import type { CircleMarker as LeafletCircleMarker } from "leaflet";
 import { clampReliability, computeReliability, RELIABILITY_COLORS } from "@/lib/reliability";
+import type { ZoneMapView } from "@/lib/zoneMapViews";
 import { CATEGORY_COLORS, type ConflictEvent, type EventCategory } from "@/types/event";
 import styles from "./Map.module.css";
 
@@ -48,6 +49,9 @@ function buildFallbackSummary(event: ConflictEvent, mentions: number | null): st
 
 interface MapProps {
   events: ConflictEvent[];
+  /** Cadrage fixe de la zone ; sans lui (ou avec followEvents), la carte se cadre sur les événements. */
+  defaultView?: ZoneMapView;
+  followEvents?: boolean;
   selectedEventId?: number | null;
   onSelectEvent?: (id: number) => void;
 }
@@ -92,11 +96,11 @@ function MapAutoResize() {
 // applied before the container has its final layout size. Fitting bounds
 // imperatively once the map instance is mounted (and already sized) is the
 // reliable pattern.
-function FitToEvents({ events }: { events: ConflictEvent[] }) {
+function FitToEvents({ events, active }: { events: ConflictEvent[]; active: boolean }) {
   const map = useMap();
 
   useEffect(() => {
-    if (events.length === 0) return;
+    if (!active || events.length === 0) return;
     const bounds: [number, number][] = events.map((e) => [e.latitude, e.longitude]);
 
     // Force Leaflet to re-measure the container before fitting — if the
@@ -108,12 +112,31 @@ function FitToEvents({ events }: { events: ConflictEvent[] }) {
     });
 
     return () => cancelAnimationFrame(id);
-  }, [map, events]);
+  }, [map, events, active]);
 
   return null;
 }
 
-export default function Map({ events, selectedEventId, onSelectEvent }: MapProps) {
+// Cadrage fixe de la zone, posé une fois le conteneur mesuré. Sur un
+// conteneur étroit on dézoome d'un cran pour garder la même étendue.
+function ApplyDefaultView({ view, active }: { view?: ZoneMapView; active: boolean }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!active || !view) return;
+    const id = requestAnimationFrame(() => {
+      map.invalidateSize();
+      const narrow = map.getContainer().clientWidth < 900;
+      map.setView(view.center, narrow ? view.zoom - 1 : view.zoom, { animate: false });
+    });
+    return () => cancelAnimationFrame(id);
+  }, [map, view, active]);
+
+  return null;
+}
+
+export default function Map({ events, defaultView, followEvents = false, selectedEventId, onSelectEvent }: MapProps) {
+  const fixedView = defaultView !== undefined && !followEvents;
   const markerRefs = useRef(new globalThis.Map<number, LeafletCircleMarker>());
   const selectedEvent = events.find((event) => event.id === selectedEventId);
   return (
@@ -124,7 +147,8 @@ export default function Map({ events, selectedEventId, onSelectEvent }: MapProps
       style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
     >
       <MapAutoResize />
-      <FitToEvents events={events} />
+      <FitToEvents events={events} active={!fixedView} />
+      <ApplyDefaultView view={defaultView} active={fixedView} />
       <FocusSelectedEvent event={selectedEvent} markerRefs={markerRefs} />
       {/* Même fond que le globe de l'accueil (components/equinoxe/Globe3D.tsx) :
           imagerie satellite Esri + frontières et noms de lieux par-dessus. */}

@@ -82,7 +82,7 @@ export default async function ZoneTabPage({
               <ZoneSynthesisPanel zoneName={zone.name} synthesis={synthesis} />
             </div>
             <div className={styles.mapArea}>
-              <MapView events={await getZoneEvents(zone.countries)} />
+              <MapView events={await getZoneEvents(zone.countries)} zoneSlug={zone.slug} />
             </div>
           </div>
         </div>
