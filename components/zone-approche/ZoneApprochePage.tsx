@@ -1,7 +1,10 @@
 import type { ZoneApprocheContent } from "@/lib/zoneApprocheContent";
+import { getCountryProfile, getCountrySlugByIso3 } from "@/lib/countries";
 import type { ZoneMapData } from "@/lib/zoneMaps";
+import { getWorldCountryFeature } from "@/lib/worldGeo";
 import ApprocheCategoryIcon from "./ApprocheCategoryIcon";
 import ZoneCountryMap from "./ZoneCountryMap";
+import type { ApprocheCountry } from "./ZoneCountryLeafletMap";
 import styles from "./ZoneApprochePage.module.css";
 
 interface ZoneApprochePageProps {
@@ -38,6 +41,18 @@ function SearchIcon() {
 }
 
 export default function ZoneApprochePage({ zoneSlug, content, map }: ZoneApprochePageProps) {
+  // Contours réels lus côté serveur : la carte est une vraie carte satellite,
+  // plus un dessin SVG projeté.
+  const countries = map.countries.flatMap((country): ApprocheCountry[] => {
+    const feature = getWorldCountryFeature(country.id);
+    if (!feature) return [];
+    // Les noms des anciennes données de carte n'ont pas d'accents : la fiche
+    // pays, quand elle existe, fait référence.
+    const slug = getCountrySlugByIso3(country.id);
+    const name = (slug ? getCountryProfile(slug)?.name : undefined) ?? country.name;
+    return [{ id: country.id, name, feature }];
+  });
+
   return (
     <div className={styles.wrap}>
       <div className={styles.intro}>
@@ -62,7 +77,7 @@ export default function ZoneApprochePage({ zoneSlug, content, map }: ZoneApproch
             </h3>
             <span className={styles.seeAll}>Voir tout →</span>
           </div>
-          <ZoneCountryMap zoneSlug={zoneSlug} data={map} />
+          <ZoneCountryMap zoneSlug={zoneSlug} countries={countries} featured={map.featured} />
         </div>
 
         <div className={styles.categoryGrid}>

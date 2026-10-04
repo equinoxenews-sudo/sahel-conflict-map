@@ -1,23 +1,30 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getCountrySlugByIso3 } from "@/lib/countries";
-import type { ZoneMapData } from "@/lib/zoneMaps";
+import { ZONE_APPROCHE_BOUNDS } from "@/lib/zoneMapViews";
+import type { ApprocheCountry } from "./ZoneCountryLeafletMap";
 import styles from "./ZoneCountryMap.module.css";
+
+// Leaflet touches `window`, so the map must never be server-rendered.
+const ZoneCountryLeafletMap = dynamic(() => import("./ZoneCountryLeafletMap"), { ssr: false });
 
 interface ZoneCountryMapProps {
   zoneSlug: string;
-  data: ZoneMapData;
+  countries: ApprocheCountry[];
+  featured: string[];
 }
 
-export default function ZoneCountryMap({ zoneSlug, data }: ZoneCountryMapProps) {
-  const [selected, setSelected] = useState(data.featured[0] ?? data.countries[0]?.id ?? "");
+export default function ZoneCountryMap({ zoneSlug, countries, featured }: ZoneCountryMapProps) {
+  // Aucun pays n'est présélectionné : la carte s'ouvre sans surbrillance.
+  const [selected, setSelected] = useState("");
   const router = useRouter();
+  const bounds = ZONE_APPROCHE_BOUNDS[zoneSlug];
 
-  // A country with a real profile page (currently just Syria) navigates
-  // straight there on click instead of just highlighting — every other
-  // country keeps the plain select-to-highlight behavior unchanged.
+  // Un pays qui a une fiche ouvre directement cette fiche ; sinon on met
+  // simplement le pays en surbrillance.
   function handleSelect(id: string) {
     const profileSlug = getCountrySlugByIso3(id);
     if (profileSlug) {
@@ -30,42 +37,14 @@ export default function ZoneCountryMap({ zoneSlug, data }: ZoneCountryMapProps) 
   return (
     <div className={styles.wrap}>
       <div className={styles.mapBox}>
-        <svg viewBox={data.viewBox} className={styles.svg} role="img" aria-label="Carte de la zone">
-          {data.countries.map((country) => (
-            <path
-              key={country.id}
-              d={country.path}
-              className={country.id === selected ? `${styles.country} ${styles.countrySelected}` : styles.country}
-              onClick={() => handleSelect(country.id)}
-            >
-              <title>{country.name}</title>
-            </path>
-          ))}
-          {data.countries.map((country) => (
-            <text
-              key={`label-${country.id}`}
-              x={country.label[0]}
-              y={country.label[1]}
-              className={country.id === selected ? `${styles.label} ${styles.labelSelected}` : styles.label}
-            >
-              {country.name}
-            </text>
-          ))}
-          {data.oceanLabels?.map((ocean, i) => (
-            <text key={`ocean-${i}`} x={ocean.x} y={ocean.y} className={styles.oceanLabel}>
-              {ocean.lines.map((line, j) => (
-                <tspan key={line} x={ocean.x} dy={j === 0 ? 0 : 13}>
-                  {line}
-                </tspan>
-              ))}
-            </text>
-          ))}
-        </svg>
+        {bounds ? (
+          <ZoneCountryLeafletMap countries={countries} bounds={bounds} selected={selected} onSelect={handleSelect} />
+        ) : null}
       </div>
 
       <div className={styles.countryButtons}>
-        {data.featured.map((id) => {
-          const country = data.countries.find((c) => c.id === id);
+        {featured.map((id) => {
+          const country = countries.find((c) => c.id === id);
           if (!country) return null;
           return (
             <button
