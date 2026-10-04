@@ -101,10 +101,11 @@ Règles strictes :
 - Concentre-toi sur le politique et la sécurité (conflits, terrorisme, troubles, gouvernance, diplomatie, défense). Ignore le sport, le people et les faits divers sans portée.
 - Ne généralise jamais à un collectif non nommé. Écris « certains analystes », « selon certains observateurs », « des responsables locaux », jamais « les analystes avertissent » ni « les experts estiment ». Nomme la source dès que les textes la donnent (« selon l'ONU », « d'après Crisis Group »). Pour toute analyse ou prévision, utilise un verbe attributif prudent (« estime », « avertit », « selon ») plutôt qu'une affirmation au présent de vérité.
 - La section « À surveiller » ne contient que des échéances ou évolutions connues, formulées avec prudence, jamais de prédiction non étayée.
-- Longueur : un titre d'une phrase (200 caractères maximum), puis 3 à 5 sections de 110 mots maximum chacune, parmi : « Situation générale », « Sécurité », « Politique & diplomatie », « À surveiller ». Omets une section s'il n'y a pas de matière.
+- Titre : 2 à 4 intitulés très courts (3 à 7 mots chacun), un par grand sujet de la période, séparés par « / », sans phrase ni point final, par exemple « Crise entre l'Éthiopie et l'Érythrée / Épidémie d'Ebola en RDC / Violences armées en Afrique du Sud ». Écris-le en casse normale, les majuscules sont appliquées à l'affichage.
+- Longueur : un titre (200 caractères maximum), puis 3 à 5 sections de 110 mots maximum chacune, parmi : « Situation générale », « Sécurité », « Politique & diplomatie », « À surveiller ». Omets une section s'il n'y a pas de matière.
 
 Ta réponse finale (après tes éventuelles recherches) doit être UNIQUEMENT un objet JSON valide, sans markdown ni texte autour, au format exact :
-{"headline": "Phrase de situation.", "sections": [{"heading": "Situation générale", "body": "Texte."}]}`;
+{"headline": "Sujet un / Sujet deux / Sujet trois", "sections": [{"heading": "Situation générale", "body": "Texte."}]}`;
 }
 
 export function parseSynthesis(text: string): ZoneSynthesisContent {

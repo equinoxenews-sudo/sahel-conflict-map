@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { buildSynthesisPrompt, extractFromBlocks, fingerprintOf, inaccessibleDomainsFrom, parseSynthesis, type InputBrief } from "../lib/zoneSynthesis";
 import { stripMarkup } from "../lib/citationTags";
+import { formatHeadline } from "../lib/headline";
 import { SYNTHESIS_ALLOWED_DOMAINS } from "../lib/synthesisSources";
 
 const valid = { headline: "Situation tendue.", sections: [{ heading: "Sécurité", body: "Selon la BBC, des combats ont eu lieu." }] };
@@ -85,4 +86,11 @@ test("Le prompt interdit de généraliser à un collectif non nommé", () => {
  const prompt = buildSynthesisPrompt("Afrique", [], "lundi", true);
  assert.match(prompt, /certains analystes/);
  assert.match(prompt, /jamais « les analystes avertissent »/);
+});
+
+test("Le titre est formaté en sujets séparés par « / », sans point final", () => {
+ assert.equal(formatHeadline("Brésil : premier tour ; Argentine : Milei à Paris ; Haïti : violence des gangs."), "Brésil : premier tour / Argentine : Milei à Paris / Haïti : violence des gangs");
+ assert.equal(formatHeadline("Crise éthiopienne / Ebola en RDC"), "Crise éthiopienne / Ebola en RDC");
+ assert.equal(formatHeadline(String.fromCharCode(60) + 'cite index="2-6">Tension' + String.fromCharCode(60) + "/cite>."), "Tension");
+ assert.ok(buildSynthesisPrompt("Afrique", [], "lundi", true).includes("séparés par « / »"));
 });

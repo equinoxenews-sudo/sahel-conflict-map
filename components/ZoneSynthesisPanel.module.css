@@ -50,6 +50,8 @@
   font-size: 13px;
   font-weight: 700;
   line-height: 1.4;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
 }
 
 .section {
