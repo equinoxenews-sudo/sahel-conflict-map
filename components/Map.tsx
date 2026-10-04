@@ -10,6 +10,7 @@ import styles from "./Map.module.css";
 
 const SAHEL_CENTER: [number, number] = [15, 5];
 const DEFAULT_COLOR = "#999999";
+const IMAGERY_CREDIT = "Esri, Maxar, Earthstar Geographics";
 
 function getSourceDomain(source: string): string | null {
   try {
@@ -125,10 +126,16 @@ export default function Map({ events, selectedEventId, onSelectEvent }: MapProps
       <MapAutoResize />
       <FitToEvents events={events} />
       <FocusSelectedEvent event={selectedEvent} markerRefs={markerRefs} />
+      {/* Même fond que le globe de l'accueil (components/equinoxe/Globe3D.tsx) :
+          imagerie satellite Esri + frontières et noms de lieux par-dessus. */}
       <TileLayer
-        className={styles.darkTiles}
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution={IMAGERY_CREDIT}
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+        maxNativeZoom={17}
+      />
+      <TileLayer
+        url="https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}"
+        maxNativeZoom={13}
       />
       {events.map((event) => {
         const color = CATEGORY_COLORS[event.category as EventCategory] ?? DEFAULT_COLOR;
@@ -150,10 +157,10 @@ export default function Map({ events, selectedEventId, onSelectEvent }: MapProps
             center={[event.latitude, event.longitude]}
             radius={5 + Math.min(event.fatalities, 20) / 4}
             pathOptions={{
-              color,
+              color: "#ffffff",
               fillColor: color,
-              fillOpacity: 0.7,
-              weight: 1,
+              fillOpacity: 0.85,
+              weight: 1.5,
             }}
           >
             <Popup>

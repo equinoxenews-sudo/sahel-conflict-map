@@ -1,7 +1,3 @@
-.darkTiles {
-  filter: grayscale(1) brightness(0.4);
-}
-
 /* Leaflet renders popups outside this component's DOM subtree, so its
    chrome (wrapper/tip/close button) can only be restyled via global
    selectors. Kept neutral/dark to match the site theme — the event's own
