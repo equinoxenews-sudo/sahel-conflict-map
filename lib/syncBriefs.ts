@@ -63,7 +63,7 @@ async function briefZone(
     .select("id, title, summary, sections, source_urls, source_domains, published_at")
     .eq("zone_slug", zoneSlug)
     .gte("published_at", new Date(Date.now() - 7 * 86400000).toISOString())
-    .order("published_at", { ascending: false }).limit(20);
+    .order("published_at", { ascending: false }).limit(10);
   // Fail closed: without the previous briefs, a retry could create duplicates.
   if (previousError) throw new Error(`Cannot load previous briefs: ${previousError.message}`);
   const previous = (previousData ?? []) as PreviousBrief[];

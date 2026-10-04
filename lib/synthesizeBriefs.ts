@@ -70,7 +70,7 @@ ${listing}
 Regroupe uniquement les articles décrivant le MÊME événement concret (lieu, période et faits compatibles), pas simplement un thème ou un pays commun. En cas de doute, garde des groupes distincts. Une évolution nouvelle d'une crise n'est pas nécessairement le même événement. Chaque nouvelle source ne peut appartenir qu'à un seul groupe.
 
 Brèves précédentes (contexte pour détecter les reprises, pas des sources indépendantes) :
-${JSON.stringify(previous.map((brief) => ({ ...brief, sections: brief.sections?.map((section) => ({ ...section, body: section.body.slice(0, 1500) })).slice(0, 3) })))}
+${JSON.stringify(previous.map((brief) => ({ ...brief, sections: brief.sections?.map((section) => ({ ...section, body: section.body.slice(0, 600) })).slice(0, 2) })))}
 
 Pour une reprise certaine d'un événement déjà décrit ci-dessus, renseigne existingBriefId avec son identifiant et réécris une synthèse complète intégrant les nouveaux éléments et les éléments antérieurs toujours pertinents. Sinon, existingBriefId vaut null. Ne fusionne jamais deux brèves antérieures. Ne présente pas une répétition médiatique comme un événement nouveau. Attribue les affirmations contradictoires à leurs sources au lieu de les départager sans preuve. Les dates de publication ne sont pas les dates des événements.
 
