@@ -67,7 +67,7 @@ Voici plusieurs articles récents sur la zone "${zoneName}" :
 
 ${listing}
 
-Regroupe uniquement les articles décrivant le MÊME événement concret (lieu, période et faits compatibles), pas simplement un thème ou un pays commun. En cas de doute, garde des groupes distincts. Une évolution nouvelle d'une crise n'est pas nécessairement le même événement. Chaque nouvelle source ne peut appartenir qu'à un seul groupe.
+Regroupe uniquement les articles décrivant le MÊME événement concret (lieu, période et faits compatibles), pas simplement un thème ou un pays commun. En cas de doute, garde des groupes distincts. Une évolution nouvelle d'une crise n'est pas nécessairement le même événement. Chaque nouvelle source ne peut appartenir qu'à un seul groupe, et un même existingBriefId ne peut servir qu'une seule fois.
 
 Brèves précédentes (contexte pour détecter les reprises, pas des sources indépendantes) :
 ${JSON.stringify(previous.map((brief) => ({ ...brief, sections: brief.sections?.map((section) => ({ ...section, body: section.body.slice(0, 600) })).slice(0, 2) })))}
@@ -183,7 +183,9 @@ export function parseResponse(text: string, articles: SourceArticle[], previous:
       imageCandidates: [...new Set(sources.map((s) => s.imageUrl).filter((u): u is string => !!u))],
     });
   }
-  if (strict && briefs.length !== parsed.length) {
+  // Un groupe en doublon (même article ou même brève citée deux fois) est
+  // écarté seul : on ne jette toute la réponse que si aucun groupe n'est valide.
+  if (strict && briefs.length === 0 && parsed.length > 0) {
     throw new SynthesisFormatError(`Invalid synthesis groups or source references (${briefs.length}/${parsed.length} valides)`);
   }
   return briefs;
