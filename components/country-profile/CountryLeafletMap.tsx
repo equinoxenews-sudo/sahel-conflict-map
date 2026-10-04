@@ -19,18 +19,25 @@ export interface CountryMapData {
   cities: CountryGeoCity[];
 }
 
+// Fond satellite Esri (le même que les cartes d'Actualité et d'Approche),
+// sans sa couche de noms anglais : les noms viennent de nos propres données,
+// en français.
+const IMAGERY_URL =
+  "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
+const IMAGERY_CREDIT = "Esri, Maxar, Earthstar Geographics";
+
 const MAIN_STYLE: PathOptions = {
-  color: "#c89b3c",
-  weight: 2,
+  color: "#e0b44c",
+  weight: 2.5,
   fillColor: "#c89b3c",
   fillOpacity: 0.22,
 };
 
 const NEIGHBOR_STYLE: PathOptions = {
-  color: "#6e96be",
+  color: "#ffffff",
   weight: 1,
-  fillColor: "#16283a",
-  fillOpacity: 0.35,
+  opacity: 0.55,
+  fillOpacity: 0,
 };
 
 function labelFeature(name: string | undefined, layer: Layer, className: string) {
@@ -79,11 +86,7 @@ export default function CountryLeafletMap({ data }: { data: CountryMapData }) {
     >
       <MapAutoResize />
       <FitToCountry feature={data.main} />
-      <TileLayer
-        className={styles.darkTiles}
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      <TileLayer attribution={IMAGERY_CREDIT} url={IMAGERY_URL} maxNativeZoom={17} />
 
       {data.neighbors.map((feature) => (
         <GeoJSON
