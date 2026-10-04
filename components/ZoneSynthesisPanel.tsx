@@ -37,7 +37,7 @@ export default function ZoneSynthesisPanel({ zoneName, synthesis }: ZoneSynthesi
   }
 
   return (
-    <section className={styles.panel} aria-label={`Synthèse ${zoneName}`}>
+    <section className={styles.panel} lang="fr" aria-label={`Synthèse ${zoneName}`}>
       <div className={styles.header}>
         <h2 className={styles.title}>Synthèse — {zoneName}</h2>
         <span className={styles.meta}>Mise à jour le {updatedAtFormat.format(new Date(synthesis.generated_at))}</span>

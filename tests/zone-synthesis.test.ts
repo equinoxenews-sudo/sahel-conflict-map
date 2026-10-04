@@ -80,3 +80,9 @@ test("Les balises de citation de la recherche web sont retirées du texte", () =
  assert.deepEqual(parseSynthesis(JSON.stringify(withCite)), { headline: "Crise éthiopienne.", sections: [{ heading: "Sécurité", body: "Des centaines de morts, selon la BBC." }] });
  assert.equal(stripMarkup("a < b et c > d"), "a < b et c > d");
 });
+
+test("Le prompt interdit de généraliser à un collectif non nommé", () => {
+ const prompt = buildSynthesisPrompt("Afrique", [], "lundi", true);
+ assert.match(prompt, /certains analystes/);
+ assert.match(prompt, /jamais « les analystes avertissent »/);
+});
