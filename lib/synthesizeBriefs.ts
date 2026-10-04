@@ -209,7 +209,9 @@ export async function synthesizeBriefs(
   articles: SourceArticle[],
   previous: PreviousBrief[] = []
 ): Promise<SynthesizedBrief[]> {
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  // Une clé collée dans un tableau de bord avec un espace, un retour à la
+  // ligne ou des guillemets est refusée (401) : on la nettoie.
+  const apiKey = process.env.ANTHROPIC_API_KEY?.trim().replace(/^["']|["']$/g, "");
   if (articles.length === 0) return [];
   if (!apiKey) throw new Error("ANTHROPIC_API_KEY absent : aucun article acquitté");
 
