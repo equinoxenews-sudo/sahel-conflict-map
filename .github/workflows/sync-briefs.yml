@@ -40,14 +40,16 @@ jobs:
             # Une zone qui échoue garde ses articles non traités : on réessaie une fois.
             for attempt in 1 2; do
               echo "== $zone (essai $attempt)"
-              if curl -sS --max-time 90 --fail-with-body \
+              if body=$(curl -sS --max-time 90 --fail-with-body \
                 -H "Authorization: Bearer $CRON_SECRET" \
-                "$SITE_URL/api/sync-briefs?zone=$zone"; then
+                "$SITE_URL/api/sync-briefs?zone=$zone" 2>&1); then
+                echo "$body"
                 ok=1
-                echo
                 break
               fi
-              echo
+              echo "$body"
+              # Annotation lisible sur la page de l'exécution, sans ouvrir les journaux.
+              echo "::error title=Synthèses $zone (essai $attempt)::$(echo "$body" | tr -d '[:cntrl:]' | head -c 400)"
             done
             [ "$ok" = 1 ] || failed=1
           done
