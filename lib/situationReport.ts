@@ -1,4 +1,5 @@
 import { stripMarkup } from "./citationTags";
+import { isSportsText, isSportsTitle } from "./sportsFilter";
 import { isThemeKey, resolveTheme, themeLabel, themePromptList, THEMES, type ThemeKey } from "./themes";
 import { ZONE_APPROCHE_BOUNDS } from "./zoneMapViews";
 
@@ -259,6 +260,8 @@ export function parseSituationReport(text: string, briefs: SituationInputBrief[]
     const item = (raw ?? {}) as Record<string, unknown>;
     const brief = typeof item.briefId === "number" ? byId.get(item.briefId) : undefined;
     if (!brief || typeof item.text !== "string" || !item.text.trim()) continue;
+    // Filet de sécurité : le sport n'a pas sa place ici, même si le modèle l'a retenu.
+    if (isSportsTitle(brief.title) || isSportsText(item.text)) continue;
 
     const briefTheme = resolveTheme(brief);
     const { lat, lon } = cleanCoordinates(item.lat, item.lon);

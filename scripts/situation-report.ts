@@ -27,6 +27,7 @@ import {
   SituationParseError,
   type SituationInputBrief,
 } from "../lib/situationReport";
+import { isSportsTitle } from "../lib/sportsFilter";
 import { callSynthesisModel, SYNTHESIS_MODEL } from "../lib/zoneSynthesis";
 import { ZONES, getZone } from "../lib/zones";
 
@@ -78,7 +79,8 @@ async function draftZone(zoneSlug: string, apiKey: string): Promise<"créé" | "
     .limit(MAX_BRIEFS);
   if (error) throw new Error(`Lecture des synthèses impossible : ${error.message}`);
 
-  const briefs = (data ?? []) as SituationInputBrief[];
+  // Les synthèses de sport ne sont jamais proposées au modèle.
+  const briefs = ((data ?? []) as SituationInputBrief[]).filter((b) => !isSportsTitle(b.title));
   if (briefs.length < MIN_BRIEFS) {
     console.log(`  ${zoneName} : ${briefs.length} synthèse(s) sur la période, pas assez pour un rapport.`);
     return "ignoré";

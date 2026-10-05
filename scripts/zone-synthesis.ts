@@ -31,6 +31,7 @@ import {
   SYNTHESIS_MODEL,
   type InputBrief,
 } from "../lib/zoneSynthesis";
+import { isSportsTitle } from "../lib/sportsFilter";
 import { SYNTHESIS_ALLOWED_DOMAINS } from "../lib/synthesisSources";
 import { ZONES, getZone } from "../lib/zones";
 
@@ -59,7 +60,7 @@ async function synthesizeZone(zoneSlug: string, apiKey: string): Promise<"créé
     .limit(MAX_BRIEFS);
   if (error) throw new Error(`Lecture des synthèses impossible : ${error.message}`);
 
-  const briefs = (data ?? []) as InputBrief[];
+  const briefs = ((data ?? []) as InputBrief[]).filter((b) => !isSportsTitle(b.title));
   if (briefs.length === 0) {
     console.log(`  ${zoneName} : aucune synthèse Équinoxe récente, rien à faire.`);
     return "ignorée";

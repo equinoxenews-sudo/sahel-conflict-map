@@ -1,3 +1,4 @@
+import { isSportsTitle } from "./sportsFilter";
 import { supabase } from "./supabaseClient";
 import type { Article } from "@/types/article";
 import type { ZoneBrief } from "@/types/brief";
@@ -25,7 +26,8 @@ export async function getZoneBriefs(zoneSlug: string, limit = 12, days = BRIEF_H
       return [];
     }
 
-    return data ?? [];
+    // Synthèses de sport créées avant le filtre : masquées à l'affichage.
+    return (data ?? []).filter((brief) => !isSportsTitle(brief.title));
   } catch (err) {
     console.error("Failed to reach Supabase:", err);
     return [];

@@ -11,6 +11,7 @@ import { fetchUpcomingLaunches } from "@/lib/layers/launches";
 import { fetchNaturalEvents } from "@/lib/layers/naturalEvents";
 import { fetchSatellitePositions } from "@/lib/layers/satellites";
 import { supabase } from "@/lib/supabaseClient";
+import { isSportsTitle } from "@/lib/sportsFilter";
 import type { Article } from "@/types/article";
 import type { ZoneBrief } from "@/types/brief";
 import type { VesselPosition } from "@/types/vessel";
@@ -34,7 +35,8 @@ async function getHomeBriefs(): Promise<ZoneBrief[]> {
       return [];
     }
 
-    return data ?? [];
+    // Synthèses de sport créées avant le filtre : masquées à l'affichage.
+    return (data ?? []).filter((brief) => !isSportsTitle(brief.title));
   } catch (err) {
     console.error("Failed to reach Supabase:", err);
     return [];

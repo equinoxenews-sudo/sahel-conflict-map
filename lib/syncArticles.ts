@@ -1,27 +1,8 @@
 import { fetchFeed, type FeedItem } from "./rss";
 import { ZONE_RSS_FEEDS } from "./rssFeeds";
+import { isSportsTitle } from "./sportsFilter";
 import { getSupabaseAdmin } from "./supabaseAdmin";
 import { ZONE_KEYWORDS } from "./zoneKeywords";
-
-// Country-name keyword matching alone lets sports coverage through (e.g.
-// "L'Irlande bat Israël 3-0" matches the moyen-orient keyword "Israël").
-// A scoreline pattern or a named sport/competition is a strong signal an
-// article is off-topic for a security/geopolitics feed regardless of
-// which country it mentions.
-const SPORTS_SCORELINE = /\b\d{1,2}\s*-\s*\d{1,2}\b/;
-const SPORTS_KEYWORDS = [
-  "football", "soccer", "rugby", "tennis", "basketball", "handball", "volley-ball",
-  "athlétisme", "cyclisme", "natation", "jeux olympiques", " jo ", "coupe du monde",
-  "ligue des champions", "ligue 1", "ligue 2", "premier league", "bundesliga", "serie a",
-  "buteur", "gardien de but", "carton rouge", "carton jaune", "penalty", "mi-temps",
-  "sélectionneur", "fifa", "uefa", "ballon d'or", "match nul", "s'impose face à",
-  "l'emporte face à",
-];
-
-function isSports(title: string): boolean {
-  const lower = title.toLowerCase();
-  return SPORTS_KEYWORDS.some((keyword) => lower.includes(keyword)) || SPORTS_SCORELINE.test(lower);
-}
 
 // A zone's feeds are region-scoped by the outlet's own editorial
 // categorization (e.g. BBC's Africa feed), but still carry off-topic
@@ -29,7 +10,9 @@ function isSports(title: string): boolean {
 // keeps only items that actually mention one of the zone's countries.
 function isRelevant(item: FeedItem, keywords: string[]): boolean {
   const title = item.title.toLowerCase();
-  if (isSports(title)) return false;
+  // Country-name matching alone lets sports through ("L'Irlande bat Israël
+  // 3-0" contains "Israël") : see lib/sportsFilter.ts.
+  if (isSportsTitle(title)) return false;
   return keywords.some((keyword) => title.includes(keyword.toLowerCase()));
 }
 

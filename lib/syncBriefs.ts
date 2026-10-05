@@ -1,6 +1,7 @@
 import { chooseBriefImage } from "./briefImages";
 import { fetchArticleContent } from "./articleSummary";
 import { mapWithConcurrency } from "./gdelt";
+import { isSportsTitle } from "./sportsFilter";
 import { getSupabaseAdmin } from "./supabaseAdmin";
 import { synthesizeBriefs, type PreviousBrief, type SourceArticle } from "./synthesizeBriefs";
 import { getZone } from "./zones";
@@ -36,7 +37,15 @@ async function briefZone(
     throw new Error(`Failed to load unbriefed articles for ${zoneSlug}: ${error.message}`);
   }
 
-  const articles = (data ?? []) as StoredArticle[];
+  // Articles de sport déjà en base (collectés avant le filtre) : écartés et
+  // acquittés pour ne plus jamais être proposés à l'IA.
+  const stored = (data ?? []) as StoredArticle[];
+  const sportsIds = stored.filter((article) => isSportsTitle(article.title)).map((article) => article.id);
+  if (sportsIds.length) {
+    const { error: sportsError } = await supabase.from("articles").update({ used_in_brief: true }).in("id", sportsIds);
+    if (sportsError) throw new Error(`Failed to set aside sports articles: ${sportsError.message}`);
+  }
+  const articles = stored.filter((article) => !sportsIds.includes(article.id));
   if (articles.length === 0) {
     return { zoneSlug, articleCount: 0, briefCount: 0 };
   }
