@@ -9,6 +9,7 @@ import {
   Source,
   emptyInvestigationData,
 } from "./types";
+import { blobToDataUrl, dataUrlToBlob, deleteImage, getImage, putImage } from "./imageStore";
 
 const STORAGE_KEY = "equinoxe-investigation-v1";
 
@@ -60,9 +61,21 @@ export interface InvestigationStorage {
   addCanvasLink(input: Omit<CanvasLink, "id">): CanvasLink;
   deleteCanvasLink(id: string): void;
 
-  exportDossier(dossierId: string): string;
+  /** JSON du dossier ; les images importées y sont incluses (en data URL) pour qu'un export les emporte. */
+  exportDossier(dossierId: string): Promise<string>;
   /** Returns the imported dossier's new id (ids are regenerated to avoid collisions). */
-  importDossier(json: string): string;
+  importDossier(json: string): Promise<string>;
+}
+
+/** Fichier d'export : le dossier plus ses images importées, par identifiant. */
+interface ExportBundle extends InvestigationData {
+  images?: Record<string, string>;
+}
+
+// Le stockage des images est asynchrone et indépendant de localStorage : une
+// erreur de suppression ne doit jamais bloquer la mise à jour des données.
+function discardImages(ids: (string | undefined)[]): void {
+  for (const id of ids) if (id) void deleteImage(id).catch(() => undefined);
 }
 
 type Listener = () => void;
@@ -155,6 +168,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
     },
 
     deleteDossier(id) {
+      discardImages(cached.entities.filter((e) => e.dossierId === id).map((e) => e.imageId));
       mutate((data) => {
         data.dossiers = data.dossiers.filter((d) => d.id !== id);
         data.sources = data.sources.filter((s) => s.dossierId !== id);
@@ -192,11 +206,15 @@ export function createLocalStorageEngine(): InvestigationStorage {
       return entity;
     },
     updateEntity(id, patch) {
+      // Une image importée remplacée ou retirée est supprimée d'IndexedDB.
+      const previous = cached.entities.find((e) => e.id === id);
+      if (previous?.imageId && "imageId" in patch && patch.imageId !== previous.imageId) discardImages([previous.imageId]);
       mutate((data) => {
         data.entities = data.entities.map((e) => (e.id === id ? { ...e, ...patch } : e));
       });
     },
     deleteEntity(id) {
+      discardImages([cached.entities.find((e) => e.id === id)?.imageId]);
       mutate((data) => {
         data.entities = data.entities.filter((e) => e.id !== id);
         data.relations = data.relations.filter((r) => r.sourceEntityId !== id && r.targetEntityId !== id);
@@ -271,13 +289,21 @@ export function createLocalStorageEngine(): InvestigationStorage {
       });
     },
 
-    exportDossier(dossierId) {
+    async exportDossier(dossierId) {
       const data = cached;
-      const bundle: InvestigationData = {
+      const entities = data.entities.filter((e) => e.dossierId === dossierId);
+      const images: Record<string, string> = {};
+      for (const entity of entities) {
+        if (!entity.imageId) continue;
+        const blob = await getImage(entity.imageId).catch(() => null);
+        if (blob) images[entity.imageId] = await blobToDataUrl(blob);
+      }
+      const bundle: ExportBundle = {
         version: 1,
+        images,
         dossiers: data.dossiers.filter((d) => d.id === dossierId),
         sources: data.sources.filter((s) => s.dossierId === dossierId),
-        entities: data.entities.filter((e) => e.dossierId === dossierId),
+        entities,
         relations: data.relations.filter((r) => r.dossierId === dossierId),
         notes: data.notes.filter((n) => n.dossierId === dossierId),
         canvasCards: data.canvasCards.filter((c) => c.dossierId === dossierId),
@@ -286,8 +312,17 @@ export function createLocalStorageEngine(): InvestigationStorage {
       return JSON.stringify(bundle, null, 2);
     },
 
-    importDossier(json) {
-      const parsed = JSON.parse(json) as InvestigationData;
+    async importDossier(json) {
+      const parsed = JSON.parse(json) as ExportBundle;
+      // Chaque image du fichier reçoit un nouvel identifiant, comme le reste.
+      const imageIdMap = new Map<string, string>();
+      for (const [oldId, dataUrl] of Object.entries(parsed.images ?? {})) {
+        try {
+          imageIdMap.set(oldId, await putImage(await dataUrlToBlob(dataUrl)));
+        } catch {
+          // image illisible : la fiche s'importe sans elle
+        }
+      }
       const newDossierId = newId();
       const entityIdMap = new Map<string, string>();
       const sourceIdMap = new Map<string, string>();
@@ -310,7 +345,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
       const newEntities: InvestigationEntity[] = (parsed.entities ?? []).map((e) => {
         const id = newId();
         entityIdMap.set(e.id, id);
-        return { ...e, id, dossierId: newDossierId };
+        return { ...e, id, dossierId: newDossierId, imageId: e.imageId ? imageIdMap.get(e.imageId) : undefined };
       });
       const newRelations: Relation[] = (parsed.relations ?? [])
         .map((r) => {

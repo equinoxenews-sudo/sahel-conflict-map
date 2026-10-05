@@ -4,11 +4,11 @@ import {
   Background,
   Controls,
   MiniMap,
+  Panel,
   ReactFlow,
   useEdgesState,
   useNodesState,
   type Edge,
-  type Node,
   type NodeMouseHandler,
   type EdgeMouseHandler,
   type OnNodeDrag,
@@ -18,41 +18,30 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import {
   ENTITY_TYPE_LABELS,
   RELATION_STATUS_LABELS,
-  type EntityType,
   type InvestigationEntity,
   type Relation,
   type RelationStatus,
 } from "@/lib/investigation/types";
 import { useEntities, useInvestigationStorage, useRelations, useSources } from "@/lib/investigation/InvestigationContext";
+import EntityForm, { type EntityFormValues } from "./EntityForm";
+import EntityNode, { countryOf, type EntityFlowNode } from "./EntityNode";
+import HexFlag from "./HexFlag";
+import { useEntityImage } from "./useEntityImage";
 import styles from "./EntityGraphPanel.module.css";
 
 interface EntityGraphPanelProps {
   dossierId: string;
 }
 
-const ENTITY_TYPE_COLOR: Record<EntityType, string> = {
-  person: "var(--status-info)",
-  organization: "var(--status-watch)",
-  location: "var(--status-normal)",
-  event: "var(--status-danger)",
-  document: "var(--text-secondary)",
-  account: "var(--status-critical)",
-};
+// Défini hors du composant : React Flow exige une référence stable.
+const NODE_TYPES = { entityCard: EntityNode };
 
-function entitiesToNodes(entities: InvestigationEntity[]): Node[] {
-  return entities.map((e) => ({
-    id: e.id,
-    position: e.position,
-    data: { label: `${e.name}\n(${ENTITY_TYPE_LABELS[e.type]})` },
-    style: {
-      background: "var(--bg-panel-alt)",
-      border: `2px solid ${ENTITY_TYPE_COLOR[e.type]}`,
-      borderRadius: 8,
-      color: "var(--text-primary)",
-      fontSize: 12,
-      whiteSpace: "pre-line" as const,
-      padding: 8,
-    },
+function entitiesToNodes(entities: InvestigationEntity[]): EntityFlowNode[] {
+  return entities.map((entity) => ({
+    id: entity.id,
+    type: "entityCard" as const,
+    position: entity.position,
+    data: { entity },
   }));
 }
 
@@ -62,16 +51,84 @@ function relationsToEdges(relations: Relation[]): Edge[] {
     source: r.sourceEntityId,
     target: r.targetEntityId,
     label: r.label,
+    type: "straight",
+    // Pointillés animés = lien supposé (hypothèse) ; trait plein = lien documenté.
     animated: r.status === "hypothesis",
-    style: { stroke: r.status === "hypothesis" ? "var(--accent-gold)" : "var(--status-info)" },
-    labelStyle: { fill: "var(--text-primary)", fontSize: 11 },
+    style: { stroke: "var(--accent-gold)", strokeWidth: 1.6 },
+    labelStyle: { fill: "var(--text-primary)", fontSize: 12, fontStyle: "italic" },
+    labelBgStyle: { fill: "var(--bg-primary)", fillOpacity: 0.9 },
+    labelBgPadding: [6, 3] as [number, number],
+    labelBgBorderRadius: 4,
   }));
 }
 
-function randomPosition(index: number): { x: number; y: number } {
-  const col = index % 4;
-  const row = Math.floor(index / 4);
-  return { x: 60 + col * 180, y: 60 + row * 140 };
+// Première case libre d'une grille assez large pour les cartes : une nouvelle
+// fiche ne se pose jamais sur une fiche existante.
+function freePosition(existing: { x: number; y: number }[]): { x: number; y: number } {
+  for (let index = 0; index < 400; index++) {
+    const candidate = { x: 60 + (index % 3) * 400, y: 60 + Math.floor(index / 3) * 170 };
+    const taken = existing.some((p) => Math.abs(p.x - candidate.x) < 330 && Math.abs(p.y - candidate.y) < 130);
+    if (!taken) return candidate;
+  }
+  return { x: 60, y: 60 };
+}
+
+function EntityDetails({
+  entity,
+  onEdit,
+  onDelete,
+}: {
+  entity: InvestigationEntity;
+  onEdit: () => void;
+  onDelete: () => void;
+}) {
+  const image = useEntityImage(entity.imageId, entity.imageUrl);
+  const country = countryOf(entity);
+  return (
+    <>
+      {image ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={image} alt="" className={styles.detailImage} referrerPolicy="no-referrer" />
+      ) : null}
+      <span className={styles.detailTitle}>{entity.name}</span>
+      <div className={styles.detailRow}>
+        <span className={styles.detailLabel}>Type</span>
+        <span className={styles.detailValue}>{ENTITY_TYPE_LABELS[entity.type]}</span>
+      </div>
+      {entity.role ? (
+        <div className={styles.detailRow}>
+          <span className={styles.detailLabel}>Rôle</span>
+          <span className={styles.detailValue}>{entity.role}</span>
+        </div>
+      ) : null}
+      {country ? (
+        <div className={styles.detailRow}>
+          <span className={styles.detailLabel}>Pays</span>
+          <span className={styles.detailValue}>
+            {country.label} <HexFlag iso2={country.iso2} name={country.name} />
+          </span>
+        </div>
+      ) : null}
+      {entity.aliases.length > 0 && (
+        <div className={styles.detailRow}>
+          <span className={styles.detailLabel}>Alias</span>
+          <span className={styles.detailValue}>{entity.aliases.join(", ")}</span>
+        </div>
+      )}
+      {entity.notes && (
+        <div className={styles.detailRow}>
+          <span className={styles.detailLabel}>Notes</span>
+          <span className={styles.detailValue}>{entity.notes}</span>
+        </div>
+      )}
+      <button type="button" className={styles.editBtn} onClick={onEdit}>
+        Modifier la fiche
+      </button>
+      <button type="button" className={styles.deleteBtn} onClick={onDelete}>
+        Supprimer l&apos;entité
+      </button>
+    </>
+  );
 }
 
 export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
@@ -112,7 +169,7 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
   const selectedEntity = selected?.kind === "entity" ? entities.find((e) => e.id === selected.id) : null;
   const selectedRelation = selected?.kind === "relation" ? relations.find((r) => r.id === selected.id) : null;
 
-  const [entityForm, setEntityForm] = useState({ name: "", type: "person" as EntityType, aliases: "", notes: "" });
+  const [editingEntityId, setEditingEntityId] = useState<string | null>(null);
   const [relationForm, setRelationForm] = useState({
     sourceEntityId: "",
     targetEntityId: "",
@@ -122,22 +179,36 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
     justifyingSourceId: "",
   });
 
-  function handleAddEntity(e: FormEvent) {
-    e.preventDefault();
-    if (!entityForm.name.trim()) return;
+  function handleAddEntity(values: EntityFormValues) {
     storage.addEntity({
       dossierId,
-      type: entityForm.type,
-      name: entityForm.name.trim(),
-      aliases: entityForm.aliases
-        .split(",")
-        .map((a) => a.trim())
-        .filter(Boolean),
-      notes: entityForm.notes.trim(),
-      position: randomPosition(entities.length),
+      type: values.type,
+      name: values.name,
+      aliases: values.aliases,
+      notes: values.notes,
+      role: values.role || undefined,
+      countryIso2: values.countryIso2 || undefined,
+      countryLabel: values.countryLabel || undefined,
+      imageId: values.imageId,
+      imageUrl: values.imageUrl,
+      position: freePosition(entities.map((entity) => entity.position)),
     });
-    setEntityForm({ name: "", type: "person", aliases: "", notes: "" });
     setShowEntityForm(false);
+  }
+
+  function handleUpdateEntity(id: string, values: EntityFormValues) {
+    storage.updateEntity(id, {
+      type: values.type,
+      name: values.name,
+      aliases: values.aliases,
+      notes: values.notes,
+      role: values.role || undefined,
+      countryIso2: values.countryIso2 || undefined,
+      countryLabel: values.countryLabel || undefined,
+      imageId: values.imageId,
+      imageUrl: values.imageUrl,
+    });
+    setEditingEntityId(null);
   }
 
   function handleAddRelation(e: FormEvent) {
@@ -181,50 +252,9 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
       </div>
 
       {showEntityForm && (
-        <form className={styles.formCard} onSubmit={handleAddEntity}>
-          <div className={styles.field}>
-            <label className={styles.label}>Nom</label>
-            <input
-              className={styles.input}
-              value={entityForm.name}
-              onChange={(e) => setEntityForm({ ...entityForm, name: e.target.value })}
-              required
-            />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Type</label>
-            <select
-              className={styles.select}
-              value={entityForm.type}
-              onChange={(e) => setEntityForm({ ...entityForm, type: e.target.value as EntityType })}
-            >
-              {(Object.keys(ENTITY_TYPE_LABELS) as EntityType[]).map((t) => (
-                <option key={t} value={t}>
-                  {ENTITY_TYPE_LABELS[t]}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Alias (séparés par virgule)</label>
-            <input
-              className={styles.input}
-              value={entityForm.aliases}
-              onChange={(e) => setEntityForm({ ...entityForm, aliases: e.target.value })}
-            />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Notes</label>
-            <input
-              className={styles.input}
-              value={entityForm.notes}
-              onChange={(e) => setEntityForm({ ...entityForm, notes: e.target.value })}
-            />
-          </div>
-          <button type="submit" className={styles.submitBtn}>
-            Ajouter
-          </button>
-        </form>
+        <div className={styles.formCard}>
+          <EntityForm submitLabel="Ajouter" onSubmit={handleAddEntity} onCancel={() => setShowEntityForm(false)} />
+        </div>
       )}
 
       {showRelationForm && (
@@ -333,44 +363,52 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
               onNodeClick={handleNodeClick}
               onEdgeClick={handleEdgeClick}
               onPaneClick={() => setSelected(null)}
+              nodeTypes={NODE_TYPES}
               fitView
               colorMode="dark"
+              minZoom={0.2}
+              nodesConnectable={false}
             >
               <Background />
               <Controls />
               <MiniMap pannable zoomable />
+              <Panel position="bottom-center" className={styles.legend}>
+                <span className={styles.legendItem}>
+                  <svg width="30" height="8" aria-hidden>
+                    <line x1="0" y1="4" x2="30" y2="4" stroke="#c89b3c" strokeWidth="2" />
+                  </svg>
+                  Lien documenté
+                </span>
+                <span className={styles.legendItem}>
+                  <svg width="30" height="8" aria-hidden>
+                    <line x1="0" y1="4" x2="30" y2="4" stroke="#c89b3c" strokeWidth="2" strokeDasharray="5 4" />
+                  </svg>
+                  Lien supposé
+                </span>
+              </Panel>
             </ReactFlow>
           </div>
 
           {selectedEntity && (
             <div className={styles.detailPanel}>
-              <span className={styles.detailTitle}>{selectedEntity.name}</span>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Type</span>
-                <span className={styles.detailValue}>{ENTITY_TYPE_LABELS[selectedEntity.type]}</span>
-              </div>
-              {selectedEntity.aliases.length > 0 && (
-                <div className={styles.detailRow}>
-                  <span className={styles.detailLabel}>Alias</span>
-                  <span className={styles.detailValue}>{selectedEntity.aliases.join(", ")}</span>
-                </div>
+              {editingEntityId === selectedEntity.id ? (
+                <EntityForm
+                  key={selectedEntity.id}
+                  initial={selectedEntity}
+                  submitLabel="Enregistrer"
+                  onSubmit={(values) => handleUpdateEntity(selectedEntity.id, values)}
+                  onCancel={() => setEditingEntityId(null)}
+                />
+              ) : (
+                <EntityDetails
+                  entity={selectedEntity}
+                  onEdit={() => setEditingEntityId(selectedEntity.id)}
+                  onDelete={() => {
+                    storage.deleteEntity(selectedEntity.id);
+                    setSelected(null);
+                  }}
+                />
               )}
-              {selectedEntity.notes && (
-                <div className={styles.detailRow}>
-                  <span className={styles.detailLabel}>Notes</span>
-                  <span className={styles.detailValue}>{selectedEntity.notes}</span>
-                </div>
-              )}
-              <button
-                type="button"
-                className={styles.deleteBtn}
-                onClick={() => {
-                  storage.deleteEntity(selectedEntity.id);
-                  setSelected(null);
-                }}
-              >
-                Supprimer l&apos;entité
-              </button>
             </div>
           )}
 

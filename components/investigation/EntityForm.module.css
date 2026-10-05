@@ -1,0 +1,80 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.grow {
+  flex: 1;
+}
+
+.label {
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.control {
+  padding: 7px 10px;
+  border: 1px solid var(--border-glass);
+  border-radius: 6px;
+  background: var(--bg-panel);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 13px;
+  color-scheme: dark;
+}
+
+.control:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+}
+
+.control:disabled {
+  opacity: 0.5;
+}
+
+textarea.control {
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.primary,
+.secondary {
+  padding: 7px 16px;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.primary {
+  border: 1px solid var(--accent-gold);
+  background: var(--accent-gold);
+  color: #10161f;
+  font-weight: 700;
+}
+
+.secondary {
+  border: 1px solid var(--border-glass);
+  background: var(--bg-panel-alt);
+  color: var(--text-primary);
+}

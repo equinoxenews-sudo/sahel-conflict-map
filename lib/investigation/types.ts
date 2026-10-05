@@ -2,12 +2,22 @@
 // see storage.ts). Every id is a client-generated string (crypto.randomUUID)
 // since there is no server assigning ids in this version.
 
-export type EntityType = "person" | "organization" | "location" | "event" | "document" | "account";
+export type EntityType =
+  | "person"
+  | "organization"
+  | "location"
+  | "building"
+  | "equipment"
+  | "event"
+  | "document"
+  | "account";
 
 export const ENTITY_TYPE_LABELS: Record<EntityType, string> = {
   person: "Personne",
   organization: "Organisation",
   location: "Lieu",
+  building: "Édifice",
+  equipment: "Matériel",
   event: "Événement",
   document: "Document",
   account: "Compte public",
@@ -69,6 +79,16 @@ export interface InvestigationEntity {
   notes: string;
   position: EntityPosition;
   createdAt: string;
+  /** Ligne sous le nom sur la carte : fonction (« Parc Manager »), nature (« ONG »)… */
+  role?: string;
+  /** Code ISO 2 du pays (drapeau hexagonal sur la carte), voir lib/countryFlagIndex.ts. */
+  countryIso2?: string;
+  /** Libellé affiché à côté du drapeau (« Béninois ») ; à défaut, le nom du pays. */
+  countryLabel?: string;
+  /** Image importée depuis l'ordinateur : clé dans IndexedDB (lib/investigation/imageStore.ts). */
+  imageId?: string;
+  /** Image désignée par une adresse web ; l'image importée est prioritaire. */
+  imageUrl?: string;
 }
 
 export interface Relation {

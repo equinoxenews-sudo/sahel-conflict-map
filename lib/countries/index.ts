@@ -343,3 +343,6 @@ const FLAG_BY_LABEL: Map<string, { iso2: string; name: string }> = (() => {
 export function findCountryByLabel(label: string): { iso2: string; name: string } | null {
   return FLAG_BY_LABEL.get(normalizeCountryLabel(label)) ?? null;
 }
+
+/** Toutes les fiches du registre (pour les scripts et les tests ; ne pas importer côté navigateur). */
+export const COUNTRY_PROFILES_LIST: readonly CountryProfile[] = Object.values(COUNTRY_PROFILES);

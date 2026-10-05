@@ -14,8 +14,8 @@ interface DossierExportImportProps {
 export default function DossierExportImport({ dossierId, dossierName, className }: DossierExportImportProps) {
   const storage = useInvestigationStorage();
 
-  function handleExport() {
-    const json = storage.exportDossier(dossierId);
+  async function handleExport() {
+    const json = await storage.exportDossier(dossierId);
     const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

@@ -36,7 +36,7 @@ export default function DossiersPage() {
     if (!file) return;
     try {
       const text = await file.text();
-      storage.importDossier(text);
+      await storage.importDossier(text);
     } catch {
       window.alert("Fichier JSON invalide — import impossible.");
     }
