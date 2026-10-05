@@ -1,0 +1,5730 @@
+{
+  "package": "EQUINOXE_APPROCHE_EUROPE_V1",
+  "createdAt": "2026-10-05",
+  "scope": "ÉQUINOXE > ZONES > APPROCHE > FICHES PAYS > EUROPE",
+  "countryCount": 44,
+  "purpose": "Lot d’intégration initiale Europe. Les contenus structurels et les baselines stratégiques sont fournis ; les indicateurs chiffrés volatils et titulaires politiques doivent être synchronisés par sources déterministes plutôt que générés par IA.",
+  "integrationInstructions": "INSTRUCTIONS D'INTÉGRATION POUR CLAUDE / GPT\n\n1. Ce fichier concerne exclusivement ÉQUINOXE > ZONES > APPROCHE > FICHES PAYS > EUROPE.\n2. Utiliser les données présentes telles quelles ; ne pas réécrire les textes pour le style.\n3. Adapter uniquement le schéma si types/country.ts l’exige.\n4. Ne jamais remplacer une valeur null par une invention.\n5. Les champs population, area, GDP, growth, inflation et titulaires politiques sont volontairement séparés :\n   - population/PIB/croissance/inflation : récupération déterministe via World Bank / Eurostat ;\n   - titulaires politiques : source officielle ou institutionnelle lors du contrôle dynamique.\n6. Conserver les champs lastCheckedAt et lastUpdatedAt. Si le type actuel n’expose que updatedAt, ajouter la nouvelle structure proprement sans casser l’existant.\n7. Pour les textes sécurité/contexte : considérer ce fichier comme BASELINE. Ne pas les régénérer tous les 15 jours.\n8. À chaque cycle, ne modifier un texte stratégique que si un changement significatif et sourcé a été détecté.\n9. Europe : contrôle tous les 15 jours. Les autres zones sont décalées de +1 jour selon le planning Équinoxe.\n10. Vérifier TypeScript et npm build après injection.\n11. Signaler tout conflit de schéma au lieu de supprimer de l’information.",
+  "updateCadence": {
+    "europe": "J puis tous les 15 jours",
+    "moyen-orient": "J+1 puis tous les 15 jours",
+    "afrique": "J+2 puis tous les 15 jours",
+    "indopacifique": "J+3 puis tous les 15 jours",
+    "amerique-du-sud": "J+4 puis tous les 15 jours"
+  },
+  "sourceCatalog": {
+    "world_bank": {
+      "title": "World Bank Open Data / Indicators API",
+      "publisher": "World Bank",
+      "url": "https://api.worldbank.org/v2/",
+      "type": "database",
+      "useFor": [
+        "population",
+        "PIB",
+        "croissance",
+        "inflation",
+        "urbanisation"
+      ]
+    },
+    "eurostat": {
+      "title": "Eurostat",
+      "publisher": "European Commission",
+      "url": "https://ec.europa.eu/eurostat/",
+      "type": "institutional",
+      "useFor": [
+        "démographie",
+        "économie",
+        "inflation",
+        "commerce",
+        "énergie pour pays couverts"
+      ]
+    },
+    "eu": {
+      "title": "European Union",
+      "publisher": "European Union",
+      "url": "https://european-union.europa.eu/",
+      "type": "institutional",
+      "useFor": [
+        "institutions",
+        "adhésion UE",
+        "politiques européennes"
+      ]
+    },
+    "nato": {
+      "title": "NATO",
+      "publisher": "North Atlantic Treaty Organization",
+      "url": "https://www.nato.int/",
+      "type": "institutional",
+      "useFor": [
+        "adhésion OTAN",
+        "posture alliée",
+        "présences et missions publiquement documentées"
+      ]
+    },
+    "un": {
+      "title": "United Nations",
+      "publisher": "United Nations",
+      "url": "https://www.un.org/",
+      "type": "institutional",
+      "useFor": [
+        "statut international",
+        "missions ONU",
+        "contexte institutionnel"
+      ]
+    },
+    "unhcr": {
+      "title": "UNHCR",
+      "publisher": "United Nations High Commissioner for Refugees",
+      "url": "https://www.unhcr.org/",
+      "type": "institutional",
+      "useFor": [
+        "déplacements forcés",
+        "réfugiés"
+      ]
+    }
+  },
+  "countries": [
+    {
+      "id": "albanie",
+      "slug": "albanie",
+      "zoneSlug": "europe",
+      "name": "Albanie",
+      "officialName": "République d’Albanie",
+      "iso2": "AL",
+      "iso3": "ALB",
+      "capital": "Tirana",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Albanais"
+      ],
+      "currency": "Lek albanais",
+      "government": "République parlementaire",
+      "timezone": "Europe/Tirane",
+      "overview": {
+        "summary": "État des Balkans occidentaux, membre de l’OTAN et candidat à l’Union européenne. Sa position sur l’Adriatique et ses liens avec le Kosovo structurent une partie de son environnement stratégique.",
+        "majorCities": [
+          "Tirana",
+          "Durrës",
+          "Vlorë",
+          "Shkodër"
+        ],
+        "neighbors": [
+          "Monténégro",
+          "Kosovo",
+          "Macédoine du Nord",
+          "Grèce"
+        ],
+        "coastline": "Mer Adriatique et mer Ionienne",
+        "territorialOrganization": null,
+        "context": [
+          "État des Balkans occidentaux, membre de l’OTAN et candidat à l’Union européenne. Sa position sur l’Adriatique et ses liens avec le Kosovo structurent une partie de son environnement stratégique."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Environnement intérieur globalement stable ; les enjeux portent surtout sur la criminalité organisée transnationale, la sécurité des frontières et la stabilité régionale des Balkans occidentaux.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Construction",
+          "Agriculture",
+          "Énergie",
+          "Tourisme"
+        ],
+        "resources": [
+          "Hydroélectricité",
+          "Chrome",
+          "Cuivre"
+        ],
+        "constraints": [
+          "Émigration",
+          "Informalité économique",
+          "Dépendance aux importations énergétiques saisonnières"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Albanais"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "armenie",
+      "slug": "armenie",
+      "zoneSlug": "europe",
+      "name": "Arménie",
+      "officialName": "République d’Arménie",
+      "iso2": "AM",
+      "iso3": "ARM",
+      "capital": "Erevan",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Arménien"
+      ],
+      "currency": "Dram arménien",
+      "government": "République parlementaire",
+      "timezone": "Asia/Yerevan",
+      "overview": {
+        "summary": "État du Caucase du Sud enclavé entre la Turquie, la Géorgie, l’Azerbaïdjan et l’Iran. Sa posture stratégique reste fortement marquée par les conséquences du conflit du Haut-Karabakh et la redéfinition de ses partenariats extérieurs.",
+        "majorCities": [
+          "Erevan",
+          "Gyumri",
+          "Vanadzor"
+        ],
+        "neighbors": [
+          "Géorgie",
+          "Azerbaïdjan",
+          "Iran",
+          "Turquie"
+        ],
+        "coastline": "Pays enclavé",
+        "territorialOrganization": null,
+        "context": [
+          "État du Caucase du Sud enclavé entre la Turquie, la Géorgie, l’Azerbaïdjan et l’Iran. Sa posture stratégique reste fortement marquée par les conséquences du conflit du Haut-Karabakh et la redéfinition de ses partenariats extérieurs."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "La sécurité nationale reste dominée par les tensions avec l’Azerbaïdjan, la délimitation frontalière et la recomposition des garanties de sécurité régionales.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Industrie",
+          "Technologies de l’information",
+          "Mines",
+          "Agriculture"
+        ],
+        "resources": [
+          "Cuivre",
+          "Molybdène",
+          "Or"
+        ],
+        "constraints": [
+          "Enclavement",
+          "Vulnérabilité géopolitique",
+          "Dépendance aux corridors extérieurs"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Arménien"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "autriche",
+      "slug": "autriche",
+      "zoneSlug": "europe",
+      "name": "Autriche",
+      "officialName": "République d’Autriche",
+      "iso2": "AT",
+      "iso3": "AUT",
+      "capital": "Vienne",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Allemand"
+      ],
+      "currency": "Euro",
+      "government": "République fédérale parlementaire",
+      "timezone": "Europe/Vienna",
+      "overview": {
+        "summary": "État fédéral d’Europe centrale, membre de l’Union européenne mais non membre de l’OTAN. Vienne accueille de nombreuses organisations internationales et constitue un pôle diplomatique majeur.",
+        "majorCities": [
+          "Vienne",
+          "Graz",
+          "Linz",
+          "Salzbourg",
+          "Innsbruck"
+        ],
+        "neighbors": [
+          "Allemagne",
+          "Tchéquie",
+          "Slovaquie",
+          "Hongrie",
+          "Slovénie",
+          "Italie",
+          "Suisse",
+          "Liechtenstein"
+        ],
+        "coastline": "Pays enclavé",
+        "territorialOrganization": null,
+        "context": [
+          "État fédéral d’Europe centrale, membre de l’Union européenne mais non membre de l’OTAN. Vienne accueille de nombreuses organisations internationales et constitue un pôle diplomatique majeur."
+        ]
+      },
+      "politics": {
+        "system": "République fédérale parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les priorités portent sur la protection des infrastructures, le renseignement, la lutte contre l’extrémisme violent, la cyberdéfense et la résilience civile.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Industrie manufacturière",
+          "Machines",
+          "Chimie",
+          "Tourisme"
+        ],
+        "resources": [
+          "Bois",
+          "Hydroélectricité",
+          "Magnésite"
+        ],
+        "constraints": [
+          "Vieillissement démographique",
+          "Dépendances énergétiques externes",
+          "Exposition au ralentissement industriel européen"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Allemand"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "azerbaidjan",
+      "slug": "azerbaidjan",
+      "zoneSlug": "europe",
+      "name": "Azerbaïdjan",
+      "officialName": "République d’Azerbaïdjan",
+      "iso2": "AZ",
+      "iso3": "AZE",
+      "capital": "Bakou",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Azéri"
+      ],
+      "currency": "Manat azerbaïdjanais",
+      "government": "République présidentielle",
+      "timezone": "Asia/Baku",
+      "overview": {
+        "summary": "État du Caucase du Sud et producteur majeur d’hydrocarbures de la Caspienne. Sa position stratégique repose sur ses ressources énergétiques, ses corridors de transport et ses relations avec la Turquie, la Russie, l’Iran et l’Arménie.",
+        "majorCities": [
+          "Bakou",
+          "Gandja",
+          "Sumqayıt"
+        ],
+        "neighbors": [
+          "Russie",
+          "Géorgie",
+          "Arménie",
+          "Iran",
+          "Turquie (Nakhitchevan)"
+        ],
+        "coastline": "Mer Caspienne",
+        "territorialOrganization": null,
+        "context": [
+          "État du Caucase du Sud et producteur majeur d’hydrocarbures de la Caspienne. Sa position stratégique repose sur ses ressources énergétiques, ses corridors de transport et ses relations avec la Turquie, la Russie, l’Iran et l’Arménie."
+        ]
+      },
+      "politics": {
+        "system": "République présidentielle",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "La sécurité reste fortement structurée par l’après-conflit du Haut-Karabakh, la relation avec l’Arménie et la protection des infrastructures énergétiques et de transport.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Hydrocarbures",
+          "Pétrochimie",
+          "Construction",
+          "Transport",
+          "Agriculture"
+        ],
+        "resources": [
+          "Pétrole",
+          "Gaz naturel"
+        ],
+        "constraints": [
+          "Dépendance aux hydrocarbures",
+          "Diversification économique limitée",
+          "Risque géopolitique régional"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Azéri"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "belgique",
+      "slug": "belgique",
+      "zoneSlug": "europe",
+      "name": "Belgique",
+      "officialName": "Royaume de Belgique",
+      "iso2": "BE",
+      "iso3": "BEL",
+      "capital": "Bruxelles",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Néerlandais",
+        "Français",
+        "Allemand"
+      ],
+      "currency": "Euro",
+      "government": "Monarchie constitutionnelle fédérale parlementaire",
+      "timezone": "Europe/Brussels",
+      "overview": {
+        "summary": "État fédéral d’Europe occidentale accueillant les principales institutions de l’Union européenne ainsi que le siège politique de l’OTAN. Anvers constitue également un nœud portuaire et logistique majeur.",
+        "majorCities": [
+          "Bruxelles",
+          "Anvers",
+          "Gand",
+          "Charleroi",
+          "Liège"
+        ],
+        "neighbors": [
+          "France",
+          "Luxembourg",
+          "Allemagne",
+          "Pays-Bas"
+        ],
+        "coastline": "Mer du Nord",
+        "territorialOrganization": null,
+        "context": [
+          "État fédéral d’Europe occidentale accueillant les principales institutions de l’Union européenne ainsi que le siège politique de l’OTAN. Anvers constitue également un nœud portuaire et logistique majeur."
+        ]
+      },
+      "politics": {
+        "system": "Monarchie constitutionnelle fédérale parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les enjeux incluent la protection des institutions européennes et atlantiques, la lutte antiterroriste, le contre-espionnage, les trafics liés aux ports et la cybersécurité.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Logistique",
+          "Chimie",
+          "Pharmacie",
+          "Agroalimentaire"
+        ],
+        "resources": [
+          "Infrastructure portuaire",
+          "Industrie chimique"
+        ],
+        "constraints": [
+          "Fragmentation institutionnelle",
+          "Dépendance commerciale extérieure",
+          "Criminalité organisée autour des flux portuaires"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Néerlandais",
+          "Français",
+          "Allemand"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "bielorussie",
+      "slug": "bielorussie",
+      "zoneSlug": "europe",
+      "name": "Biélorussie",
+      "officialName": "République de Biélorussie",
+      "iso2": "BY",
+      "iso3": "BLR",
+      "capital": "Minsk",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Biélorusse",
+        "Russe"
+      ],
+      "currency": "Rouble biélorusse",
+      "government": "République présidentielle autoritaire",
+      "timezone": "Europe/Minsk",
+      "overview": {
+        "summary": "État d’Europe orientale étroitement intégré à la Russie sur les plans politique, économique et sécuritaire. Sa position entre Russie, Ukraine, Pologne et États baltes lui confère une forte importance stratégique.",
+        "majorCities": [
+          "Minsk",
+          "Gomel",
+          "Moguilev",
+          "Vitebsk",
+          "Grodno"
+        ],
+        "neighbors": [
+          "Lettonie",
+          "Lituanie",
+          "Pologne",
+          "Ukraine",
+          "Russie"
+        ],
+        "coastline": "Pays enclavé",
+        "territorialOrganization": null,
+        "context": [
+          "État d’Europe orientale étroitement intégré à la Russie sur les plans politique, économique et sécuritaire. Sa position entre Russie, Ukraine, Pologne et États baltes lui confère une forte importance stratégique."
+        ]
+      },
+      "politics": {
+        "system": "République présidentielle autoritaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Le territoire biélorusse est un espace majeur de coopération militaire avec la Russie. Les tensions avec les voisins de l’OTAN, la frontière ukrainienne et la sécurité du régime dominent l’environnement sécuritaire.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Industrie manufacturière",
+          "Machines",
+          "Engrais",
+          "Agroalimentaire",
+          "Services"
+        ],
+        "resources": [
+          "Potasse",
+          "Bois",
+          "Tourbe"
+        ],
+        "constraints": [
+          "Sanctions internationales",
+          "Dépendance à la Russie",
+          "Accès limité aux marchés occidentaux"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Biélorusse",
+          "Russe"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "bosnie-herzegovine",
+      "slug": "bosnie-herzegovine",
+      "zoneSlug": "europe",
+      "name": "Bosnie-Herzégovine",
+      "officialName": "Bosnie-Herzégovine",
+      "iso2": "BA",
+      "iso3": "BIH",
+      "capital": "Sarajevo",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Bosnien",
+        "Croate",
+        "Serbe"
+      ],
+      "currency": "Mark convertible",
+      "government": "République parlementaire fédérale complexe",
+      "timezone": "Europe/Sarajevo",
+      "overview": {
+        "summary": "État des Balkans occidentaux organisé selon les accords de Dayton autour de deux entités principales et d’institutions communes. Sa stabilité dépend fortement de l’équilibre institutionnel interne et de l’environnement régional.",
+        "majorCities": [
+          "Sarajevo",
+          "Banja Luka",
+          "Mostar",
+          "Tuzla"
+        ],
+        "neighbors": [
+          "Croatie",
+          "Serbie",
+          "Monténégro"
+        ],
+        "coastline": "Courte façade sur l’Adriatique à Neum",
+        "territorialOrganization": null,
+        "context": [
+          "État des Balkans occidentaux organisé selon les accords de Dayton autour de deux entités principales et d’institutions communes. Sa stabilité dépend fortement de l’équilibre institutionnel interne et de l’environnement régional."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire fédérale complexe",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les risques sont principalement politiques et institutionnels : tensions intercommunautaires, blocages institutionnels et contestation des compétences de l’État central.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Industrie",
+          "Métallurgie",
+          "Énergie",
+          "Bois"
+        ],
+        "resources": [
+          "Charbon",
+          "Bauxite",
+          "Hydroélectricité",
+          "Bois"
+        ],
+        "constraints": [
+          "Fragmentation institutionnelle",
+          "Émigration",
+          "Chômage structurel"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Bosnien",
+          "Croate",
+          "Serbe"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "bulgarie",
+      "slug": "bulgarie",
+      "zoneSlug": "europe",
+      "name": "Bulgarie",
+      "officialName": "République de Bulgarie",
+      "iso2": "BG",
+      "iso3": "BGR",
+      "capital": "Sofia",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Bulgare"
+      ],
+      "currency": "Lev bulgare",
+      "government": "République parlementaire",
+      "timezone": "Europe/Sofia",
+      "overview": {
+        "summary": "État membre de l’Union européenne et de l’OTAN situé sur la mer Noire et à proximité directe de la Turquie. Sa position en fait un corridor entre Europe centrale, Balkans, mer Noire et Méditerranée orientale.",
+        "majorCities": [
+          "Sofia",
+          "Plovdiv",
+          "Varna",
+          "Bourgas"
+        ],
+        "neighbors": [
+          "Roumanie",
+          "Serbie",
+          "Macédoine du Nord",
+          "Grèce",
+          "Turquie"
+        ],
+        "coastline": "Mer Noire",
+        "territorialOrganization": null,
+        "context": [
+          "État membre de l’Union européenne et de l’OTAN situé sur la mer Noire et à proximité directe de la Turquie. Sa position en fait un corridor entre Europe centrale, Balkans, mer Noire et Méditerranée orientale."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les enjeux comprennent la sécurité en mer Noire, la surveillance des frontières extérieures de l’UE, la cyberdéfense et la protection des infrastructures énergétiques.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Industrie",
+          "Technologies de l’information",
+          "Agriculture",
+          "Énergie"
+        ],
+        "resources": [
+          "Cuivre",
+          "Lignite",
+          "Zinc",
+          "Plomb"
+        ],
+        "constraints": [
+          "Déclin démographique",
+          "Instabilité politique récurrente",
+          "Dépendances énergétiques"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Bulgare"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "chypre",
+      "slug": "chypre",
+      "zoneSlug": "europe",
+      "name": "Chypre",
+      "officialName": "République de Chypre",
+      "iso2": "CY",
+      "iso3": "CYP",
+      "capital": "Nicosie",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Grec",
+        "Turc"
+      ],
+      "currency": "Euro",
+      "government": "République présidentielle",
+      "timezone": "Asia/Nicosia",
+      "overview": {
+        "summary": "État insulaire de Méditerranée orientale membre de l’Union européenne. L’île demeure divisée de facto entre la République de Chypre au sud et la partie nord reconnue uniquement par la Turquie.",
+        "majorCities": [
+          "Nicosie",
+          "Limassol",
+          "Larnaca",
+          "Paphos"
+        ],
+        "neighbors": [],
+        "coastline": "Méditerranée orientale",
+        "territorialOrganization": null,
+        "context": [
+          "État insulaire de Méditerranée orientale membre de l’Union européenne. L’île demeure divisée de facto entre la République de Chypre au sud et la partie nord reconnue uniquement par la Turquie."
+        ]
+      },
+      "politics": {
+        "system": "République présidentielle",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "La division de l’île, la présence de forces étrangères, les bases souveraines britanniques et les enjeux énergétiques de Méditerranée orientale structurent la sécurité.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Finance",
+          "Tourisme",
+          "Transport maritime",
+          "Immobilier"
+        ],
+        "resources": [
+          "Potentiel gazier offshore"
+        ],
+        "constraints": [
+          "Division territoriale",
+          "Exposition régionale",
+          "Dépendance au tourisme et aux services"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Grec",
+          "Turc"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "croatie",
+      "slug": "croatie",
+      "zoneSlug": "europe",
+      "name": "Croatie",
+      "officialName": "République de Croatie",
+      "iso2": "HR",
+      "iso3": "HRV",
+      "capital": "Zagreb",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Croate"
+      ],
+      "currency": "Euro",
+      "government": "République parlementaire",
+      "timezone": "Europe/Zagreb",
+      "overview": {
+        "summary": "État de l’Adriatique membre de l’Union européenne et de l’OTAN. Sa longue façade maritime, ses ports et sa proximité avec les Balkans occidentaux lui confèrent un rôle logistique régional.",
+        "majorCities": [
+          "Zagreb",
+          "Split",
+          "Rijeka",
+          "Osijek"
+        ],
+        "neighbors": [
+          "Slovénie",
+          "Hongrie",
+          "Serbie",
+          "Bosnie-Herzégovine",
+          "Monténégro"
+        ],
+        "coastline": "Mer Adriatique",
+        "territorialOrganization": null,
+        "context": [
+          "État de l’Adriatique membre de l’Union européenne et de l’OTAN. Sa longue façade maritime, ses ports et sa proximité avec les Balkans occidentaux lui confèrent un rôle logistique régional."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Environnement globalement stable ; surveillance des Balkans occidentaux, sécurité maritime, protection des infrastructures et résilience cyber figurent parmi les priorités.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Tourisme",
+          "Services",
+          "Industrie",
+          "Construction navale",
+          "Agroalimentaire"
+        ],
+        "resources": [
+          "Hydroélectricité",
+          "Bois",
+          "Gaz naturel limité"
+        ],
+        "constraints": [
+          "Dépendance au tourisme",
+          "Vieillissement démographique",
+          "Disparités régionales"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Croate"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "danemark",
+      "slug": "danemark",
+      "zoneSlug": "europe",
+      "name": "Danemark",
+      "officialName": "Royaume de Danemark",
+      "iso2": "DK",
+      "iso3": "DNK",
+      "capital": "Copenhague",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Danois"
+      ],
+      "currency": "Couronne danoise",
+      "government": "Monarchie constitutionnelle parlementaire",
+      "timezone": "Europe/Copenhagen",
+      "overview": {
+        "summary": "État nordique membre de l’Union européenne et de l’OTAN. Le royaume comprend également le Groenland et les îles Féroé, ce qui lui donne une dimension arctique stratégique.",
+        "majorCities": [
+          "Copenhague",
+          "Aarhus",
+          "Odense",
+          "Aalborg"
+        ],
+        "neighbors": [
+          "Allemagne"
+        ],
+        "coastline": "Mers du Nord et Baltique",
+        "territorialOrganization": null,
+        "context": [
+          "État nordique membre de l’Union européenne et de l’OTAN. Le royaume comprend également le Groenland et les îles Féroé, ce qui lui donne une dimension arctique stratégique."
+        ]
+      },
+      "politics": {
+        "system": "Monarchie constitutionnelle parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les priorités couvrent la Baltique, l’Arctique, les infrastructures sous-marines, la cyberdéfense et la sécurité énergétique.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Industrie",
+          "Pharmacie",
+          "Transport maritime",
+          "Énergies renouvelables"
+        ],
+        "resources": [
+          "Éolien",
+          "Hydrocarbures de mer du Nord en déclin"
+        ],
+        "constraints": [
+          "Exposition au commerce mondial",
+          "Sécurité des infrastructures maritimes",
+          "Transition énergétique"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Danois"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "estonie",
+      "slug": "estonie",
+      "zoneSlug": "europe",
+      "name": "Estonie",
+      "officialName": "République d’Estonie",
+      "iso2": "EE",
+      "iso3": "EST",
+      "capital": "Tallinn",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Estonien"
+      ],
+      "currency": "Euro",
+      "government": "République parlementaire",
+      "timezone": "Europe/Tallinn",
+      "overview": {
+        "summary": "État balte membre de l’Union européenne et de l’OTAN, frontalier de la Russie. L’Estonie est fortement numérisée et accueille le Centre d’excellence OTAN pour la cyberdéfense coopérative.",
+        "majorCities": [
+          "Tallinn",
+          "Tartu",
+          "Narva",
+          "Pärnu"
+        ],
+        "neighbors": [
+          "Lettonie",
+          "Russie"
+        ],
+        "coastline": "Mer Baltique et golfe de Finlande",
+        "territorialOrganization": null,
+        "context": [
+          "État balte membre de l’Union européenne et de l’OTAN, frontalier de la Russie. L’Estonie est fortement numérisée et accueille le Centre d’excellence OTAN pour la cyberdéfense coopérative."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les principaux enjeux sont la dissuasion sur le flanc oriental de l’OTAN, la cyberdéfense, la protection de la frontière russe et la résilience informationnelle.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services numériques",
+          "Technologies",
+          "Bois",
+          "Industrie",
+          "Logistique"
+        ],
+        "resources": [
+          "Schistes bitumineux",
+          "Bois"
+        ],
+        "constraints": [
+          "Petite taille du marché",
+          "Dépendance aux échanges régionaux",
+          "Pression sécuritaire liée à la Russie"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Estonien"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "finlande",
+      "slug": "finlande",
+      "zoneSlug": "europe",
+      "name": "Finlande",
+      "officialName": "République de Finlande",
+      "iso2": "FI",
+      "iso3": "FIN",
+      "capital": "Helsinki",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Finnois",
+        "Suédois"
+      ],
+      "currency": "Euro",
+      "government": "République parlementaire",
+      "timezone": "Europe/Helsinki",
+      "overview": {
+        "summary": "État nordique membre de l’Union européenne et de l’OTAN, partageant une longue frontière terrestre avec la Russie. Il dispose d’une forte culture de défense territoriale et de résilience nationale.",
+        "majorCities": [
+          "Helsinki",
+          "Espoo",
+          "Tampere",
+          "Turku",
+          "Oulu"
+        ],
+        "neighbors": [
+          "Suède",
+          "Norvège",
+          "Russie"
+        ],
+        "coastline": "Mer Baltique",
+        "territorialOrganization": null,
+        "context": [
+          "État nordique membre de l’Union européenne et de l’OTAN, partageant une longue frontière terrestre avec la Russie. Il dispose d’une forte culture de défense territoriale et de résilience nationale."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "La frontière russe, la Baltique, la préparation de la défense territoriale, les infrastructures critiques et la sécurité hybride constituent les principaux enjeux.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Technologies",
+          "Machines",
+          "Bois-papier",
+          "Métallurgie"
+        ],
+        "resources": [
+          "Bois",
+          "Nickel",
+          "Cuivre",
+          "Cobalt"
+        ],
+        "constraints": [
+          "Vieillissement",
+          "Exposition au commerce européen",
+          "Coûts élevés de la transition industrielle"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Finnois",
+          "Suédois"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "france",
+      "slug": "france",
+      "zoneSlug": "europe",
+      "name": "France",
+      "officialName": "République française",
+      "iso2": "FR",
+      "iso3": "FRA",
+      "capital": "Paris",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Français"
+      ],
+      "currency": "Euro",
+      "government": "République semi-présidentielle",
+      "timezone": "Europe/Paris",
+      "overview": {
+        "summary": "Puissance européenne dotée de l’arme nucléaire et membre permanent du Conseil de sécurité de l’ONU. La France combine une base industrielle et technologique de défense importante, des territoires ultramarins et une capacité de projection extérieure.",
+        "majorCities": [
+          "Paris",
+          "Marseille",
+          "Lyon",
+          "Toulouse",
+          "Lille",
+          "Bordeaux"
+        ],
+        "neighbors": [
+          "Belgique",
+          "Luxembourg",
+          "Allemagne",
+          "Suisse",
+          "Italie",
+          "Monaco",
+          "Espagne",
+          "Andorre"
+        ],
+        "coastline": "Atlantique, Manche et Méditerranée ; vastes espaces maritimes ultramarins",
+        "territorialOrganization": null,
+        "context": [
+          "Puissance européenne dotée de l’arme nucléaire et membre permanent du Conseil de sécurité de l’ONU. La France combine une base industrielle et technologique de défense importante, des territoires ultramarins et une capacité de projection extérieure."
+        ]
+      },
+      "politics": {
+        "system": "République semi-présidentielle",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les priorités incluent la dissuasion nucléaire, la protection du territoire, la lutte antiterroriste, la cyberdéfense, la sécurité maritime et la participation aux dispositifs OTAN et européens.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Aéronautique",
+          "Défense",
+          "Automobile",
+          "Pharmacie",
+          "Agroalimentaire",
+          "Énergie"
+        ],
+        "resources": [
+          "Électricité nucléaire",
+          "Agriculture",
+          "Hydroélectricité"
+        ],
+        "constraints": [
+          "Dette publique",
+          "Dépendance à certaines importations stratégiques",
+          "Tensions industrielles et énergétiques"
+        ]
+      },
+      "infrastructures": [
+        {
+          "name": "Port de Marseille-Fos",
+          "type": "Port",
+          "location": "Marseille/Fos-sur-Mer",
+          "importance": "Stratégique",
+          "status": "Actif"
+        },
+        {
+          "name": "Port du Havre",
+          "type": "Port",
+          "location": "Le Havre",
+          "importance": "Stratégique",
+          "status": "Actif"
+        },
+        {
+          "name": "Base navale de Toulon",
+          "type": "Base",
+          "location": "Toulon",
+          "importance": "Stratégique",
+          "status": "Actif"
+        },
+        {
+          "name": "Centre spatial guyanais",
+          "type": "Base",
+          "location": "Kourou, Guyane française",
+          "importance": "Stratégique",
+          "status": "Actif"
+        }
+      ],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Français"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "allemagne",
+      "slug": "allemagne",
+      "zoneSlug": "europe",
+      "name": "Allemagne",
+      "officialName": "République fédérale d’Allemagne",
+      "iso2": "DE",
+      "iso3": "DEU",
+      "capital": "Berlin",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Allemand"
+      ],
+      "currency": "Euro",
+      "government": "République fédérale parlementaire",
+      "timezone": "Europe/Berlin",
+      "overview": {
+        "summary": "Première économie de l’Union européenne et puissance industrielle centrale du continent. L’Allemagne joue un rôle majeur dans les politiques européennes, l’OTAN, l’industrie et les chaînes logistiques continentales.",
+        "majorCities": [
+          "Berlin",
+          "Hambourg",
+          "Munich",
+          "Cologne",
+          "Francfort"
+        ],
+        "neighbors": [
+          "Danemark",
+          "Pologne",
+          "Tchéquie",
+          "Autriche",
+          "Suisse",
+          "France",
+          "Luxembourg",
+          "Belgique",
+          "Pays-Bas"
+        ],
+        "coastline": "Mer du Nord et mer Baltique",
+        "territorialOrganization": null,
+        "context": [
+          "Première économie de l’Union européenne et puissance industrielle centrale du continent. L’Allemagne joue un rôle majeur dans les politiques européennes, l’OTAN, l’industrie et les chaînes logistiques continentales."
+        ]
+      },
+      "politics": {
+        "system": "République fédérale parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Le réarmement, la protection du flanc oriental de l’OTAN, la défense aérienne, la cybersécurité et la protection des infrastructures critiques sont des priorités croissantes.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Automobile",
+          "Machines",
+          "Chimie",
+          "Électronique",
+          "Services"
+        ],
+        "resources": [
+          "Lignite",
+          "Potasse",
+          "Capacités industrielles"
+        ],
+        "constraints": [
+          "Vieillissement",
+          "Coût de l’énergie",
+          "Dépendance aux exportations industrielles"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Allemand"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "georgie",
+      "slug": "georgie",
+      "zoneSlug": "europe",
+      "name": "Géorgie",
+      "officialName": "Géorgie",
+      "iso2": "GE",
+      "iso3": "GEO",
+      "capital": "Tbilissi",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Géorgien"
+      ],
+      "currency": "Lari géorgien",
+      "government": "République parlementaire",
+      "timezone": "Asia/Tbilisi",
+      "overview": {
+        "summary": "État du Caucase du Sud situé sur les corridors reliant mer Noire, Caucase et Caspienne. Les territoires séparatistes d’Abkhazie et d’Ossétie du Sud restent au cœur de son environnement sécuritaire.",
+        "majorCities": [
+          "Tbilissi",
+          "Batoumi",
+          "Koutaïssi",
+          "Roustaï"
+        ],
+        "neighbors": [
+          "Russie",
+          "Azerbaïdjan",
+          "Arménie",
+          "Turquie"
+        ],
+        "coastline": "Mer Noire",
+        "territorialOrganization": null,
+        "context": [
+          "État du Caucase du Sud situé sur les corridors reliant mer Noire, Caucase et Caspienne. Les territoires séparatistes d’Abkhazie et d’Ossétie du Sud restent au cœur de son environnement sécuritaire."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "La présence militaire russe en Abkhazie et en Ossétie du Sud, les tensions politiques internes et la sécurité des corridors de transport constituent les principaux enjeux.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Transport",
+          "Tourisme",
+          "Agriculture",
+          "Énergie"
+        ],
+        "resources": [
+          "Hydroélectricité",
+          "Manganèse"
+        ],
+        "constraints": [
+          "Territoires séparatistes",
+          "Polarisation politique",
+          "Dépendance aux corridors régionaux"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Géorgien"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "grece",
+      "slug": "grece",
+      "zoneSlug": "europe",
+      "name": "Grèce",
+      "officialName": "République hellénique",
+      "iso2": "GR",
+      "iso3": "GRC",
+      "capital": "Athènes",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Grec"
+      ],
+      "currency": "Euro",
+      "government": "République parlementaire",
+      "timezone": "Europe/Athens",
+      "overview": {
+        "summary": "État de Méditerranée orientale membre de l’Union européenne et de l’OTAN. Sa géographie insulaire et maritime lui donne une forte importance pour les routes maritimes, l’énergie et la sécurité régionale.",
+        "majorCities": [
+          "Athènes",
+          "Thessalonique",
+          "Patras",
+          "Héraklion"
+        ],
+        "neighbors": [
+          "Albanie",
+          "Macédoine du Nord",
+          "Bulgarie",
+          "Turquie"
+        ],
+        "coastline": "Mer Égée, mer Ionienne et Méditerranée",
+        "territorialOrganization": null,
+        "context": [
+          "État de Méditerranée orientale membre de l’Union européenne et de l’OTAN. Sa géographie insulaire et maritime lui donne une forte importance pour les routes maritimes, l’énergie et la sécurité régionale."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les relations avec la Turquie, la surveillance maritime, les migrations, la Méditerranée orientale et la protection des infrastructures portuaires et énergétiques sont centrales.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Tourisme",
+          "Transport maritime",
+          "Agroalimentaire",
+          "Énergie"
+        ],
+        "resources": [
+          "Bauxite",
+          "Lignite",
+          "Potentiel gazier offshore"
+        ],
+        "constraints": [
+          "Dette publique élevée",
+          "Dépendance au tourisme",
+          "Risques naturels"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Grec"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "hongrie",
+      "slug": "hongrie",
+      "zoneSlug": "europe",
+      "name": "Hongrie",
+      "officialName": "Hongrie",
+      "iso2": "HU",
+      "iso3": "HUN",
+      "capital": "Budapest",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Hongrois"
+      ],
+      "currency": "Forint hongrois",
+      "government": "République parlementaire",
+      "timezone": "Europe/Budapest",
+      "overview": {
+        "summary": "État d’Europe centrale membre de l’Union européenne et de l’OTAN. Sa position sur le Danube et au contact des Balkans et de l’Ukraine lui confère une importance logistique régionale.",
+        "majorCities": [
+          "Budapest",
+          "Debrecen",
+          "Szeged",
+          "Miskolc"
+        ],
+        "neighbors": [
+          "Autriche",
+          "Slovaquie",
+          "Ukraine",
+          "Roumanie",
+          "Serbie",
+          "Croatie",
+          "Slovénie"
+        ],
+        "coastline": "Pays enclavé",
+        "territorialOrganization": null,
+        "context": [
+          "État d’Europe centrale membre de l’Union européenne et de l’OTAN. Sa position sur le Danube et au contact des Balkans et de l’Ukraine lui confère une importance logistique régionale."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les enjeux portent sur les frontières, l’énergie, la cyberdéfense et les effets régionaux de la guerre en Ukraine.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Automobile",
+          "Électronique",
+          "Pharmacie",
+          "Services",
+          "Agroalimentaire"
+        ],
+        "resources": [
+          "Bauxite",
+          "Lignite",
+          "Agriculture"
+        ],
+        "constraints": [
+          "Dépendance énergétique",
+          "Inflation et financement",
+          "Dépendance aux investissements industriels étrangers"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Hongrois"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "irlande",
+      "slug": "irlande",
+      "zoneSlug": "europe",
+      "name": "Irlande",
+      "officialName": "Irlande",
+      "iso2": "IE",
+      "iso3": "IRL",
+      "capital": "Dublin",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Irlandais",
+        "Anglais"
+      ],
+      "currency": "Euro",
+      "government": "République parlementaire",
+      "timezone": "Europe/Dublin",
+      "overview": {
+        "summary": "État de l’Union européenne caractérisé par une économie très ouverte, une forte présence des multinationales technologiques et pharmaceutiques et une politique traditionnelle de neutralité militaire.",
+        "majorCities": [
+          "Dublin",
+          "Cork",
+          "Limerick",
+          "Galway"
+        ],
+        "neighbors": [
+          "Royaume-Uni"
+        ],
+        "coastline": "Océan Atlantique et mer d’Irlande",
+        "territorialOrganization": null,
+        "context": [
+          "État de l’Union européenne caractérisé par une économie très ouverte, une forte présence des multinationales technologiques et pharmaceutiques et une politique traditionnelle de neutralité militaire."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les enjeux principaux concernent la cybersécurité, les infrastructures numériques et sous-marines, la sûreté maritime et la résilience économique.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Technologies",
+          "Pharmacie",
+          "Services financiers",
+          "Agroalimentaire",
+          "Services"
+        ],
+        "resources": [
+          "Agriculture",
+          "Éolien",
+          "Ressources marines"
+        ],
+        "constraints": [
+          "Dépendance aux multinationales",
+          "Crise du logement",
+          "Vulnérabilité des infrastructures sous-marines"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Irlandais",
+          "Anglais"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "islande",
+      "slug": "islande",
+      "zoneSlug": "europe",
+      "name": "Islande",
+      "officialName": "République d’Islande",
+      "iso2": "IS",
+      "iso3": "ISL",
+      "capital": "Reykjavik",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Islandais"
+      ],
+      "currency": "Couronne islandaise",
+      "government": "République parlementaire",
+      "timezone": "Atlantic/Reykjavik",
+      "overview": {
+        "summary": "État insulaire nord-atlantique membre de l’OTAN mais dépourvu d’armée permanente. Sa position entre Amérique du Nord et Europe lui donne une importance stratégique pour les voies aériennes, maritimes et sous-marines.",
+        "majorCities": [
+          "Reykjavik",
+          "Kópavogur",
+          "Hafnarfjörður",
+          "Akureyri"
+        ],
+        "neighbors": [],
+        "coastline": "Atlantique Nord",
+        "territorialOrganization": null,
+        "context": [
+          "État insulaire nord-atlantique membre de l’OTAN mais dépourvu d’armée permanente. Sa position entre Amérique du Nord et Europe lui donne une importance stratégique pour les voies aériennes, maritimes et sous-marines."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "La surveillance de l’Atlantique Nord, les infrastructures sous-marines, les activités aéronavales et les risques naturels sont les principaux enjeux.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Pêche",
+          "Tourisme",
+          "Aluminium",
+          "Services",
+          "Énergie"
+        ],
+        "resources": [
+          "Géothermie",
+          "Hydroélectricité",
+          "Ressources halieutiques"
+        ],
+        "constraints": [
+          "Petite économie",
+          "Volcanisme",
+          "Dépendance aux importations"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Islandais"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "italie",
+      "slug": "italie",
+      "zoneSlug": "europe",
+      "name": "Italie",
+      "officialName": "République italienne",
+      "iso2": "IT",
+      "iso3": "ITA",
+      "capital": "Rome",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Italien"
+      ],
+      "currency": "Euro",
+      "government": "République parlementaire",
+      "timezone": "Europe/Rome",
+      "overview": {
+        "summary": "Puissance industrielle et méditerranéenne membre de l’Union européenne, du G7 et de l’OTAN. Sa position centrale en Méditerranée en fait un acteur majeur des enjeux migratoires, énergétiques et maritimes.",
+        "majorCities": [
+          "Rome",
+          "Milan",
+          "Naples",
+          "Turin",
+          "Palerme"
+        ],
+        "neighbors": [
+          "France",
+          "Suisse",
+          "Autriche",
+          "Slovénie",
+          "Saint-Marin",
+          "Vatican"
+        ],
+        "coastline": "Méditerranée, Adriatique, Tyrrhénienne et Ionienne",
+        "territorialOrganization": null,
+        "context": [
+          "Puissance industrielle et méditerranéenne membre de l’Union européenne, du G7 et de l’OTAN. Sa position centrale en Méditerranée en fait un acteur majeur des enjeux migratoires, énergétiques et maritimes."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les priorités couvrent la Méditerranée, la sécurité énergétique, les migrations, la cyberdéfense, la lutte antiterroriste et les engagements OTAN.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Industrie",
+          "Machines",
+          "Automobile",
+          "Mode",
+          "Agroalimentaire",
+          "Services"
+        ],
+        "resources": [
+          "Gaz limité",
+          "Marbre",
+          "Agriculture"
+        ],
+        "constraints": [
+          "Dette publique",
+          "Vieillissement",
+          "Dépendance énergétique"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Italien"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "kosovo",
+      "slug": "kosovo",
+      "zoneSlug": "europe",
+      "name": "Kosovo",
+      "officialName": "République du Kosovo",
+      "iso2": "XK",
+      "iso3": "XKX",
+      "capital": "Pristina",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Albanais",
+        "Serbe"
+      ],
+      "currency": "Euro",
+      "government": "République parlementaire",
+      "timezone": "Europe/Belgrade",
+      "overview": {
+        "summary": "Territoire ayant déclaré son indépendance de la Serbie en 2008, reconnu par une partie importante de la communauté internationale mais pas universellement. Le dialogue avec Belgrade reste le principal dossier stratégique.",
+        "majorCities": [
+          "Pristina",
+          "Prizren",
+          "Peć",
+          "Mitrovica"
+        ],
+        "neighbors": [
+          "Serbie",
+          "Monténégro",
+          "Albanie",
+          "Macédoine du Nord"
+        ],
+        "coastline": "Pays enclavé",
+        "territorialOrganization": null,
+        "context": [
+          "Territoire ayant déclaré son indépendance de la Serbie en 2008, reconnu par une partie importante de la communauté internationale mais pas universellement. Le dialogue avec Belgrade reste le principal dossier stratégique."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les tensions dans le nord à majorité serbe, les relations avec la Serbie et la présence de la KFOR structurent l’environnement sécuritaire.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Construction",
+          "Commerce",
+          "Mines",
+          "Agriculture"
+        ],
+        "resources": [
+          "Lignite",
+          "Plomb",
+          "Zinc",
+          "Nickel"
+        ],
+        "constraints": [
+          "Reconnaissance internationale incomplète",
+          "Chômage",
+          "Dépendance aux importations et remises"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Albanais",
+          "Serbe"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "lettonie",
+      "slug": "lettonie",
+      "zoneSlug": "europe",
+      "name": "Lettonie",
+      "officialName": "République de Lettonie",
+      "iso2": "LV",
+      "iso3": "LVA",
+      "capital": "Riga",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Letton"
+      ],
+      "currency": "Euro",
+      "government": "République parlementaire",
+      "timezone": "Europe/Riga",
+      "overview": {
+        "summary": "État balte membre de l’Union européenne et de l’OTAN, frontalier de la Russie et de la Biélorussie. Riga est un nœud politique, portuaire et logistique régional.",
+        "majorCities": [
+          "Riga",
+          "Daugavpils",
+          "Liepāja",
+          "Jelgava"
+        ],
+        "neighbors": [
+          "Estonie",
+          "Russie",
+          "Biélorussie",
+          "Lituanie"
+        ],
+        "coastline": "Mer Baltique",
+        "territorialOrganization": null,
+        "context": [
+          "État balte membre de l’Union européenne et de l’OTAN, frontalier de la Russie et de la Biélorussie. Riga est un nœud politique, portuaire et logistique régional."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "La défense du flanc oriental de l’OTAN, la sécurité de la frontière, la lutte contre les menaces hybrides et la résilience informationnelle sont prioritaires.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Logistique",
+          "Bois",
+          "Industrie légère",
+          "Technologies"
+        ],
+        "resources": [
+          "Bois",
+          "Tourbe"
+        ],
+        "constraints": [
+          "Déclin démographique",
+          "Pression sécuritaire régionale",
+          "Dépendance au commerce extérieur"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Letton"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "lituanie",
+      "slug": "lituanie",
+      "zoneSlug": "europe",
+      "name": "Lituanie",
+      "officialName": "République de Lituanie",
+      "iso2": "LT",
+      "iso3": "LTU",
+      "capital": "Vilnius",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Lituanien"
+      ],
+      "currency": "Euro",
+      "government": "République semi-présidentielle",
+      "timezone": "Europe/Vilnius",
+      "overview": {
+        "summary": "État balte de l’Union européenne et de l’OTAN situé entre la Biélorussie, la Pologne et l’enclave russe de Kaliningrad. Le corridor de Suwałki est un enjeu majeur de défense régionale.",
+        "majorCities": [
+          "Vilnius",
+          "Kaunas",
+          "Klaipėda",
+          "Šiauliai"
+        ],
+        "neighbors": [
+          "Lettonie",
+          "Biélorussie",
+          "Pologne",
+          "Russie (Kaliningrad)"
+        ],
+        "coastline": "Mer Baltique",
+        "territorialOrganization": null,
+        "context": [
+          "État balte de l’Union européenne et de l’OTAN situé entre la Biélorussie, la Pologne et l’enclave russe de Kaliningrad. Le corridor de Suwałki est un enjeu majeur de défense régionale."
+        ]
+      },
+      "politics": {
+        "system": "République semi-présidentielle",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "La dissuasion face à la Russie et la Biélorussie, la protection du corridor de Suwałki, la cyberdéfense et les infrastructures critiques dominent les priorités.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Technologies",
+          "Industrie",
+          "Logistique",
+          "Agroalimentaire"
+        ],
+        "resources": [
+          "Bois",
+          "Tourbe"
+        ],
+        "constraints": [
+          "Petite taille démographique",
+          "Exposition géopolitique",
+          "Dépendance commerciale"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Lituanien"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "luxembourg",
+      "slug": "luxembourg",
+      "zoneSlug": "europe",
+      "name": "Luxembourg",
+      "officialName": "Grand-Duché de Luxembourg",
+      "iso2": "LU",
+      "iso3": "LUX",
+      "capital": "Luxembourg",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Luxembourgeois",
+        "Français",
+        "Allemand"
+      ],
+      "currency": "Euro",
+      "government": "Monarchie constitutionnelle parlementaire",
+      "timezone": "Europe/Luxembourg",
+      "overview": {
+        "summary": "Petit État fondateur de l’Union européenne, siège de plusieurs institutions européennes et important centre financier international.",
+        "majorCities": [
+          "Luxembourg",
+          "Esch-sur-Alzette",
+          "Differdange"
+        ],
+        "neighbors": [
+          "Belgique",
+          "France",
+          "Allemagne"
+        ],
+        "coastline": "Pays enclavé",
+        "territorialOrganization": null,
+        "context": [
+          "Petit État fondateur de l’Union européenne, siège de plusieurs institutions européennes et important centre financier international."
+        ]
+      },
+      "politics": {
+        "system": "Monarchie constitutionnelle parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les priorités concernent la cybersécurité, la protection des institutions et des systèmes financiers, ainsi que la contribution aux dispositifs européens et atlantiques.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Finance",
+          "Services",
+          "Technologies",
+          "Logistique",
+          "Industrie spécialisée"
+        ],
+        "resources": [
+          "Capacités financières",
+          "Sidérurgie historique"
+        ],
+        "constraints": [
+          "Dépendance aux flux transfrontaliers",
+          "Coût du logement",
+          "Forte ouverture économique"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Luxembourgeois",
+          "Français",
+          "Allemand"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "macedoine-du-nord",
+      "slug": "macedoine-du-nord",
+      "zoneSlug": "europe",
+      "name": "Macédoine du Nord",
+      "officialName": "République de Macédoine du Nord",
+      "iso2": "MK",
+      "iso3": "MKD",
+      "capital": "Skopje",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Macédonien",
+        "Albanais"
+      ],
+      "currency": "Denar macédonien",
+      "government": "République parlementaire",
+      "timezone": "Europe/Skopje",
+      "overview": {
+        "summary": "État des Balkans occidentaux membre de l’OTAN et candidat à l’Union européenne. Sa stabilité intérieure repose notamment sur l’équilibre intercommunautaire et l’intégration régionale.",
+        "majorCities": [
+          "Skopje",
+          "Bitola",
+          "Kumanovo",
+          "Tetovo"
+        ],
+        "neighbors": [
+          "Kosovo",
+          "Serbie",
+          "Bulgarie",
+          "Grèce",
+          "Albanie"
+        ],
+        "coastline": "Pays enclavé",
+        "territorialOrganization": null,
+        "context": [
+          "État des Balkans occidentaux membre de l’OTAN et candidat à l’Union européenne. Sa stabilité intérieure repose notamment sur l’équilibre intercommunautaire et l’intégration régionale."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les enjeux sont principalement la stabilité politique, les tensions intercommunautaires, la criminalité organisée et la sécurité des frontières.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Industrie légère",
+          "Automobile",
+          "Agriculture",
+          "Textile"
+        ],
+        "resources": [
+          "Lignite",
+          "Chrome",
+          "Plomb",
+          "Zinc"
+        ],
+        "constraints": [
+          "Émigration",
+          "Petite taille du marché",
+          "Dépendance aux investissements étrangers"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Macédonien",
+          "Albanais"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "malte",
+      "slug": "malte",
+      "zoneSlug": "europe",
+      "name": "Malte",
+      "officialName": "République de Malte",
+      "iso2": "MT",
+      "iso3": "MLT",
+      "capital": "La Valette",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Maltais",
+        "Anglais"
+      ],
+      "currency": "Euro",
+      "government": "République parlementaire",
+      "timezone": "Europe/Malta",
+      "overview": {
+        "summary": "Petit État insulaire de l’Union européenne situé au centre de la Méditerranée. Son économie repose largement sur les services, la logistique, le tourisme et les activités maritimes.",
+        "majorCities": [
+          "La Valette",
+          "Birkirkara",
+          "Sliema"
+        ],
+        "neighbors": [],
+        "coastline": "Méditerranée centrale",
+        "territorialOrganization": null,
+        "context": [
+          "Petit État insulaire de l’Union européenne situé au centre de la Méditerranée. Son économie repose largement sur les services, la logistique, le tourisme et les activités maritimes."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les enjeux concernent la sécurité maritime, les migrations, les flux financiers, la cybersécurité et la protection des infrastructures portuaires.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Tourisme",
+          "Jeux en ligne",
+          "Finance",
+          "Transport maritime"
+        ],
+        "resources": [
+          "Position maritime stratégique"
+        ],
+        "constraints": [
+          "Dépendance aux importations",
+          "Pression démographique",
+          "Ressources naturelles limitées"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Maltais",
+          "Anglais"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "moldavie",
+      "slug": "moldavie",
+      "zoneSlug": "europe",
+      "name": "Moldavie",
+      "officialName": "République de Moldavie",
+      "iso2": "MD",
+      "iso3": "MDA",
+      "capital": "Chișinău",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Roumain"
+      ],
+      "currency": "Leu moldave",
+      "government": "République parlementaire",
+      "timezone": "Europe/Chisinau",
+      "overview": {
+        "summary": "État d’Europe orientale entre la Roumanie et l’Ukraine, candidat à l’Union européenne. La région séparatiste de Transnistrie et les pressions hybrides extérieures pèsent fortement sur son environnement stratégique.",
+        "majorCities": [
+          "Chișinău",
+          "Bălți",
+          "Tiraspol"
+        ],
+        "neighbors": [
+          "Roumanie",
+          "Ukraine"
+        ],
+        "coastline": "Pays enclavé",
+        "territorialOrganization": null,
+        "context": [
+          "État d’Europe orientale entre la Roumanie et l’Ukraine, candidat à l’Union européenne. La région séparatiste de Transnistrie et les pressions hybrides extérieures pèsent fortement sur son environnement stratégique."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les principaux risques sont liés à la Transnistrie, aux influences hybrides, à la sécurité énergétique et aux effets de la guerre en Ukraine.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Agriculture",
+          "Agroalimentaire",
+          "Services",
+          "Industrie légère",
+          "Technologies"
+        ],
+        "resources": [
+          "Terres agricoles",
+          "Viticulture"
+        ],
+        "constraints": [
+          "Dépendance énergétique",
+          "Émigration",
+          "Vulnérabilité aux pressions extérieures"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Roumain"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "montenegro",
+      "slug": "montenegro",
+      "zoneSlug": "europe",
+      "name": "Monténégro",
+      "officialName": "Monténégro",
+      "iso2": "ME",
+      "iso3": "MNE",
+      "capital": "Podgorica",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Monténégrin"
+      ],
+      "currency": "Euro",
+      "government": "République parlementaire",
+      "timezone": "Europe/Podgorica",
+      "overview": {
+        "summary": "Petit État des Balkans occidentaux membre de l’OTAN et candidat à l’Union européenne. Son littoral adriatique et le port de Bar constituent ses principaux atouts stratégiques.",
+        "majorCities": [
+          "Podgorica",
+          "Nikšić",
+          "Bar",
+          "Budva"
+        ],
+        "neighbors": [
+          "Croatie",
+          "Bosnie-Herzégovine",
+          "Serbie",
+          "Kosovo",
+          "Albanie"
+        ],
+        "coastline": "Mer Adriatique",
+        "territorialOrganization": null,
+        "context": [
+          "Petit État des Balkans occidentaux membre de l’OTAN et candidat à l’Union européenne. Son littoral adriatique et le port de Bar constituent ses principaux atouts stratégiques."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Environnement stable dans l’ensemble ; enjeux de criminalité organisée, d’influences étrangères, de cybersécurité et de stabilité politique.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Tourisme",
+          "Services",
+          "Énergie",
+          "Construction",
+          "Transport"
+        ],
+        "resources": [
+          "Bauxite",
+          "Hydroélectricité"
+        ],
+        "constraints": [
+          "Dépendance au tourisme",
+          "Dette",
+          "Petite taille du marché"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Monténégrin"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "pays-bas",
+      "slug": "pays-bas",
+      "zoneSlug": "europe",
+      "name": "Pays-Bas",
+      "officialName": "Royaume des Pays-Bas",
+      "iso2": "NL",
+      "iso3": "NLD",
+      "capital": "Amsterdam",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Néerlandais"
+      ],
+      "currency": "Euro",
+      "government": "Monarchie constitutionnelle parlementaire",
+      "timezone": "Europe/Amsterdam",
+      "overview": {
+        "summary": "État de l’Union européenne et de l’OTAN doté d’une économie fortement ouverte. Rotterdam est l’un des principaux ports européens et La Haye accueille de nombreuses institutions internationales.",
+        "majorCities": [
+          "Amsterdam",
+          "Rotterdam",
+          "La Haye",
+          "Utrecht",
+          "Eindhoven"
+        ],
+        "neighbors": [
+          "Belgique",
+          "Allemagne"
+        ],
+        "coastline": "Mer du Nord",
+        "territorialOrganization": null,
+        "context": [
+          "État de l’Union européenne et de l’OTAN doté d’une économie fortement ouverte. Rotterdam est l’un des principaux ports européens et La Haye accueille de nombreuses institutions internationales."
+        ]
+      },
+      "politics": {
+        "system": "Monarchie constitutionnelle parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Protection des infrastructures portuaires, énergétiques et numériques, cyberdéfense, contre-espionnage et sécurité de la mer du Nord sont prioritaires.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Logistique",
+          "Agriculture intensive",
+          "Chimie",
+          "Technologies",
+          "Services financiers"
+        ],
+        "resources": [
+          "Gaz naturel en déclin",
+          "Agriculture à haute productivité"
+        ],
+        "constraints": [
+          "Pressions sur le logement",
+          "Transition énergétique",
+          "Vulnérabilité des infrastructures de mer du Nord"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Néerlandais"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "norvege",
+      "slug": "norvege",
+      "zoneSlug": "europe",
+      "name": "Norvège",
+      "officialName": "Royaume de Norvège",
+      "iso2": "NO",
+      "iso3": "NOR",
+      "capital": "Oslo",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Norvégien"
+      ],
+      "currency": "Couronne norvégienne",
+      "government": "Monarchie constitutionnelle parlementaire",
+      "timezone": "Europe/Oslo",
+      "overview": {
+        "summary": "État nordique membre de l’OTAN mais non de l’Union européenne. Grand producteur d’hydrocarbures et acteur arctique, la Norvège possède une importance énergétique et maritime majeure.",
+        "majorCities": [
+          "Oslo",
+          "Bergen",
+          "Trondheim",
+          "Stavanger",
+          "Tromsø"
+        ],
+        "neighbors": [
+          "Suède",
+          "Finlande",
+          "Russie"
+        ],
+        "coastline": "Atlantique Nord, mer de Norvège et mer de Barents",
+        "territorialOrganization": null,
+        "context": [
+          "État nordique membre de l’OTAN mais non de l’Union européenne. Grand producteur d’hydrocarbures et acteur arctique, la Norvège possède une importance énergétique et maritime majeure."
+        ]
+      },
+      "politics": {
+        "system": "Monarchie constitutionnelle parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Arctique, frontière russe, infrastructures pétro-gazières offshore, câbles sous-marins et surveillance maritime structurent les priorités.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Hydrocarbures",
+          "Services",
+          "Transport maritime",
+          "Pêche",
+          "Technologies"
+        ],
+        "resources": [
+          "Pétrole",
+          "Gaz naturel",
+          "Hydroélectricité",
+          "Poissons"
+        ],
+        "constraints": [
+          "Dépendance partielle aux hydrocarbures",
+          "Exposition arctique",
+          "Vulnérabilité des infrastructures offshore"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Norvégien"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "pologne",
+      "slug": "pologne",
+      "zoneSlug": "europe",
+      "name": "Pologne",
+      "officialName": "République de Pologne",
+      "iso2": "PL",
+      "iso3": "POL",
+      "capital": "Varsovie",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Polonais"
+      ],
+      "currency": "Zloty polonais",
+      "government": "République parlementaire",
+      "timezone": "Europe/Warsaw",
+      "overview": {
+        "summary": "Grande puissance d’Europe centrale, membre de l’Union européenne et de l’OTAN, située au cœur du flanc oriental européen. La guerre en Ukraine a renforcé son importance militaire et logistique.",
+        "majorCities": [
+          "Varsovie",
+          "Cracovie",
+          "Łódź",
+          "Wrocław",
+          "Gdańsk"
+        ],
+        "neighbors": [
+          "Allemagne",
+          "Tchéquie",
+          "Slovaquie",
+          "Ukraine",
+          "Biélorussie",
+          "Lituanie",
+          "Russie (Kaliningrad)"
+        ],
+        "coastline": "Mer Baltique",
+        "territorialOrganization": null,
+        "context": [
+          "Grande puissance d’Europe centrale, membre de l’Union européenne et de l’OTAN, située au cœur du flanc oriental européen. La guerre en Ukraine a renforcé son importance militaire et logistique."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "La dissuasion face à la Russie et la Biélorussie, la défense aérienne, les frontières orientales et les corridors logistiques vers l’Ukraine sont centraux.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Industrie",
+          "Automobile",
+          "Services",
+          "Électronique",
+          "Agroalimentaire"
+        ],
+        "resources": [
+          "Charbon",
+          "Cuivre",
+          "Argent"
+        ],
+        "constraints": [
+          "Transition énergétique",
+          "Pression sécuritaire",
+          "Démographie"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Polonais"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "portugal",
+      "slug": "portugal",
+      "zoneSlug": "europe",
+      "name": "Portugal",
+      "officialName": "République portugaise",
+      "iso2": "PT",
+      "iso3": "PRT",
+      "capital": "Lisbonne",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Portugais"
+      ],
+      "currency": "Euro",
+      "government": "République semi-présidentielle",
+      "timezone": "Europe/Lisbon",
+      "overview": {
+        "summary": "État atlantique de l’Union européenne et de l’OTAN, disposant des archipels des Açores et de Madère. Les Açores renforcent son importance stratégique dans l’Atlantique Nord.",
+        "majorCities": [
+          "Lisbonne",
+          "Porto",
+          "Braga",
+          "Coimbra"
+        ],
+        "neighbors": [
+          "Espagne"
+        ],
+        "coastline": "Océan Atlantique",
+        "territorialOrganization": null,
+        "context": [
+          "État atlantique de l’Union européenne et de l’OTAN, disposant des archipels des Açores et de Madère. Les Açores renforcent son importance stratégique dans l’Atlantique Nord."
+        ]
+      },
+      "politics": {
+        "system": "République semi-présidentielle",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les enjeux portent sur l’Atlantique, la surveillance maritime, les infrastructures sous-marines, les feux de forêt et la cyberdéfense.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Tourisme",
+          "Textile",
+          "Automobile",
+          "Agroalimentaire",
+          "Énergies renouvelables"
+        ],
+        "resources": [
+          "Lithium",
+          "Liège",
+          "Éolien",
+          "Solaire"
+        ],
+        "constraints": [
+          "Vieillissement",
+          "Dépendance énergétique extérieure",
+          "Exposition aux sécheresses et incendies"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Portugais"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "roumanie",
+      "slug": "roumanie",
+      "zoneSlug": "europe",
+      "name": "Roumanie",
+      "officialName": "Roumanie",
+      "iso2": "RO",
+      "iso3": "ROU",
+      "capital": "Bucarest",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Roumain"
+      ],
+      "currency": "Leu roumain",
+      "government": "République semi-présidentielle",
+      "timezone": "Europe/Bucharest",
+      "overview": {
+        "summary": "État de l’Union européenne et de l’OTAN situé sur la mer Noire, frontalier de l’Ukraine et de la Moldavie. Sa position renforce son importance militaire, énergétique et logistique.",
+        "majorCities": [
+          "Bucarest",
+          "Cluj-Napoca",
+          "Timișoara",
+          "Iași",
+          "Constanța"
+        ],
+        "neighbors": [
+          "Ukraine",
+          "Moldavie",
+          "Bulgarie",
+          "Serbie",
+          "Hongrie"
+        ],
+        "coastline": "Mer Noire",
+        "territorialOrganization": null,
+        "context": [
+          "État de l’Union européenne et de l’OTAN situé sur la mer Noire, frontalier de l’Ukraine et de la Moldavie. Sa position renforce son importance militaire, énergétique et logistique."
+        ]
+      },
+      "politics": {
+        "system": "République semi-présidentielle",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Mer Noire, frontière ukrainienne, défense aérienne, présence OTAN et protection des infrastructures énergétiques sont les principaux enjeux.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Industrie",
+          "Automobile",
+          "Technologies",
+          "Agriculture",
+          "Énergie"
+        ],
+        "resources": [
+          "Gaz naturel",
+          "Pétrole",
+          "Bois",
+          "Agriculture"
+        ],
+        "constraints": [
+          "Infrastructures inégales",
+          "Démographie",
+          "Risque régional lié à la guerre en Ukraine"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Roumain"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "royaume-uni",
+      "slug": "royaume-uni",
+      "zoneSlug": "europe",
+      "name": "Royaume-Uni",
+      "officialName": "Royaume-Uni de Grande-Bretagne et d’Irlande du Nord",
+      "iso2": "GB",
+      "iso3": "GBR",
+      "capital": "Londres",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Anglais"
+      ],
+      "currency": "Livre sterling",
+      "government": "Monarchie constitutionnelle parlementaire",
+      "timezone": "Europe/London",
+      "overview": {
+        "summary": "Puissance nucléaire, membre permanent du Conseil de sécurité de l’ONU, membre du G7 et de l’OTAN. Le Royaume-Uni dispose d’importantes capacités militaires, financières, de renseignement et de projection.",
+        "majorCities": [
+          "Londres",
+          "Birmingham",
+          "Manchester",
+          "Glasgow",
+          "Liverpool"
+        ],
+        "neighbors": [
+          "Irlande"
+        ],
+        "coastline": "Atlantique Nord, mer du Nord, Manche et mer d’Irlande",
+        "territorialOrganization": null,
+        "context": [
+          "Puissance nucléaire, membre permanent du Conseil de sécurité de l’ONU, membre du G7 et de l’OTAN. Le Royaume-Uni dispose d’importantes capacités militaires, financières, de renseignement et de projection."
+        ]
+      },
+      "politics": {
+        "system": "Monarchie constitutionnelle parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Dissuasion nucléaire, Atlantique Nord, cyberdéfense, renseignement, infrastructures sous-marines et soutien au flanc oriental de l’OTAN sont prioritaires.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services financiers",
+          "Technologies",
+          "Aéronautique",
+          "Défense",
+          "Pharmacie",
+          "Énergie"
+        ],
+        "resources": [
+          "Pétrole et gaz de mer du Nord",
+          "Éolien offshore"
+        ],
+        "constraints": [
+          "Productivité",
+          "Dépendance commerciale",
+          "Transition énergétique"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Anglais"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "russie",
+      "slug": "russie",
+      "zoneSlug": "europe",
+      "name": "Russie",
+      "officialName": "Fédération de Russie",
+      "iso2": "RU",
+      "iso3": "RUS",
+      "capital": "Moscou",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Russe"
+      ],
+      "currency": "Rouble russe",
+      "government": "Fédération à régime présidentiel fortement centralisé",
+      "timezone": "Europe/Moscow",
+      "overview": {
+        "summary": "Puissance nucléaire et membre permanent du Conseil de sécurité de l’ONU, disposant d’un vaste territoire eurasiatique et d’importantes ressources énergétiques. La guerre contre l’Ukraine structure profondément sa posture militaire, diplomatique et économique.",
+        "majorCities": [
+          "Moscou",
+          "Saint-Pétersbourg",
+          "Novossibirsk",
+          "Iekaterinbourg",
+          "Kazan"
+        ],
+        "neighbors": [
+          "Norvège",
+          "Finlande",
+          "Estonie",
+          "Lettonie",
+          "Lituanie",
+          "Pologne",
+          "Biélorussie",
+          "Ukraine",
+          "Géorgie",
+          "Azerbaïdjan",
+          "Kazakhstan",
+          "Chine",
+          "Mongolie",
+          "Corée du Nord"
+        ],
+        "coastline": "Arctique, Pacifique, Baltique, mer Noire et Caspienne",
+        "territorialOrganization": null,
+        "context": [
+          "Puissance nucléaire et membre permanent du Conseil de sécurité de l’ONU, disposant d’un vaste territoire eurasiatique et d’importantes ressources énergétiques. La guerre contre l’Ukraine structure profondément sa posture militaire, diplomatique et économique."
+        ]
+      },
+      "politics": {
+        "system": "Fédération à régime présidentiel fortement centralisé",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "La guerre en Ukraine demeure le principal facteur sécuritaire. La posture stratégique comprend la dissuasion nucléaire, le renforcement de l’appareil militaire, la protection du territoire, les opérations informationnelles et cyber ainsi que la présence sur plusieurs théâtres extérieurs.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Hydrocarbures",
+          "Mines",
+          "Défense",
+          "Métallurgie",
+          "Agriculture",
+          "Services"
+        ],
+        "resources": [
+          "Pétrole",
+          "Gaz naturel",
+          "Charbon",
+          "Nickel",
+          "Palladium",
+          "Or",
+          "Uranium"
+        ],
+        "constraints": [
+          "Sanctions internationales",
+          "Dépendance aux hydrocarbures",
+          "Pression budgétaire liée à la guerre",
+          "Accès technologique restreint"
+        ]
+      },
+      "infrastructures": [
+        {
+          "name": "Port de Novorossiïsk",
+          "type": "Port",
+          "location": "Mer Noire",
+          "importance": "Stratégique",
+          "status": "Actif"
+        },
+        {
+          "name": "Base navale de Sébastopol",
+          "type": "Base",
+          "location": "Crimée — territoire internationalement reconnu comme ukrainien et occupé/annexé par la Russie",
+          "importance": "Stratégique",
+          "status": "Actif"
+        },
+        {
+          "name": "Cosmodrome de Plessetsk",
+          "type": "Base",
+          "location": "Oblast d’Arkhangelsk",
+          "importance": "Stratégique",
+          "status": "Actif"
+        },
+        {
+          "name": "Complexe portuaire de Saint-Pétersbourg",
+          "type": "Port",
+          "location": "Golfe de Finlande",
+          "importance": "Stratégique",
+          "status": "Actif"
+        }
+      ],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Russe"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "serbie",
+      "slug": "serbie",
+      "zoneSlug": "europe",
+      "name": "Serbie",
+      "officialName": "République de Serbie",
+      "iso2": "RS",
+      "iso3": "SRB",
+      "capital": "Belgrade",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Serbe"
+      ],
+      "currency": "Dinar serbe",
+      "government": "République parlementaire",
+      "timezone": "Europe/Belgrade",
+      "overview": {
+        "summary": "État central des Balkans occidentaux, candidat à l’Union européenne, maintenant également des liens étroits avec la Russie et la Chine. La question du Kosovo reste centrale.",
+        "majorCities": [
+          "Belgrade",
+          "Novi Sad",
+          "Niš",
+          "Kragujevac"
+        ],
+        "neighbors": [
+          "Hongrie",
+          "Roumanie",
+          "Bulgarie",
+          "Macédoine du Nord",
+          "Kosovo",
+          "Monténégro",
+          "Bosnie-Herzégovine",
+          "Croatie"
+        ],
+        "coastline": "Pays enclavé",
+        "territorialOrganization": null,
+        "context": [
+          "État central des Balkans occidentaux, candidat à l’Union européenne, maintenant également des liens étroits avec la Russie et la Chine. La question du Kosovo reste centrale."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les relations avec le Kosovo, les tensions régionales, la criminalité organisée et les influences extérieures constituent les principaux enjeux.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Industrie",
+          "Automobile",
+          "Agriculture",
+          "Technologies",
+          "Énergie"
+        ],
+        "resources": [
+          "Cuivre",
+          "Lignite",
+          "Agriculture"
+        ],
+        "constraints": [
+          "Question du Kosovo",
+          "Dépendance énergétique",
+          "Équilibre diplomatique complexe"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Serbe"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "slovaquie",
+      "slug": "slovaquie",
+      "zoneSlug": "europe",
+      "name": "Slovaquie",
+      "officialName": "République slovaque",
+      "iso2": "SK",
+      "iso3": "SVK",
+      "capital": "Bratislava",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Slovaque"
+      ],
+      "currency": "Euro",
+      "government": "République parlementaire",
+      "timezone": "Europe/Bratislava",
+      "overview": {
+        "summary": "État d’Europe centrale membre de l’Union européenne et de l’OTAN, fortement intégré aux chaînes industrielles européennes, notamment automobiles.",
+        "majorCities": [
+          "Bratislava",
+          "Košice",
+          "Prešov",
+          "Žilina"
+        ],
+        "neighbors": [
+          "Tchéquie",
+          "Autriche",
+          "Hongrie",
+          "Ukraine",
+          "Pologne"
+        ],
+        "coastline": "Pays enclavé",
+        "territorialOrganization": null,
+        "context": [
+          "État d’Europe centrale membre de l’Union européenne et de l’OTAN, fortement intégré aux chaînes industrielles européennes, notamment automobiles."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les enjeux sont liés à la proximité de l’Ukraine, à la cyberdéfense, à la sécurité énergétique et à la protection des infrastructures critiques.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Automobile",
+          "Machines",
+          "Électronique",
+          "Métallurgie",
+          "Services"
+        ],
+        "resources": [
+          "Lignite limité",
+          "Magnésite"
+        ],
+        "constraints": [
+          "Forte dépendance automobile",
+          "Démographie",
+          "Dépendance énergétique"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Slovaque"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "slovenie",
+      "slug": "slovenie",
+      "zoneSlug": "europe",
+      "name": "Slovénie",
+      "officialName": "République de Slovénie",
+      "iso2": "SI",
+      "iso3": "SVN",
+      "capital": "Ljubljana",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Slovène"
+      ],
+      "currency": "Euro",
+      "government": "République parlementaire",
+      "timezone": "Europe/Ljubljana",
+      "overview": {
+        "summary": "État d’Europe centrale membre de l’Union européenne et de l’OTAN, situé au débouché nord de l’Adriatique. Le port de Koper constitue un nœud logistique important vers l’Europe centrale.",
+        "majorCities": [
+          "Ljubljana",
+          "Maribor",
+          "Koper",
+          "Celje"
+        ],
+        "neighbors": [
+          "Italie",
+          "Autriche",
+          "Hongrie",
+          "Croatie"
+        ],
+        "coastline": "Courte façade sur l’Adriatique",
+        "territorialOrganization": null,
+        "context": [
+          "État d’Europe centrale membre de l’Union européenne et de l’OTAN, situé au débouché nord de l’Adriatique. Le port de Koper constitue un nœud logistique important vers l’Europe centrale."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Environnement stable ; sécurité des infrastructures, cyberdéfense, gestion des catastrophes et stabilité des Balkans occidentaux sont les principaux sujets.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Industrie",
+          "Pharmacie",
+          "Automobile",
+          "Services",
+          "Logistique"
+        ],
+        "resources": [
+          "Bois",
+          "Hydroélectricité"
+        ],
+        "constraints": [
+          "Petite taille du marché",
+          "Dépendance aux exportations européennes",
+          "Risques naturels"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Slovène"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "suede",
+      "slug": "suede",
+      "zoneSlug": "europe",
+      "name": "Suède",
+      "officialName": "Royaume de Suède",
+      "iso2": "SE",
+      "iso3": "SWE",
+      "capital": "Stockholm",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Suédois"
+      ],
+      "currency": "Couronne suédoise",
+      "government": "Monarchie constitutionnelle parlementaire",
+      "timezone": "Europe/Stockholm",
+      "overview": {
+        "summary": "État nordique membre de l’Union européenne et de l’OTAN, doté d’une industrie de défense avancée et d’une forte capacité technologique.",
+        "majorCities": [
+          "Stockholm",
+          "Göteborg",
+          "Malmö",
+          "Uppsala"
+        ],
+        "neighbors": [
+          "Norvège",
+          "Finlande"
+        ],
+        "coastline": "Mer Baltique, golfe de Botnie et Kattegat",
+        "territorialOrganization": null,
+        "context": [
+          "État nordique membre de l’Union européenne et de l’OTAN, doté d’une industrie de défense avancée et d’une forte capacité technologique."
+        ]
+      },
+      "politics": {
+        "system": "Monarchie constitutionnelle parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "La Baltique, l’île de Gotland, la défense aérienne et navale, la cyberdéfense et la protection des infrastructures critiques sont centrales.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Technologies",
+          "Industrie",
+          "Automobile",
+          "Défense",
+          "Services"
+        ],
+        "resources": [
+          "Fer",
+          "Bois",
+          "Hydroélectricité"
+        ],
+        "constraints": [
+          "Exposition commerciale",
+          "Sécurité baltique",
+          "Transition industrielle"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Suédois"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "suisse",
+      "slug": "suisse",
+      "zoneSlug": "europe",
+      "name": "Suisse",
+      "officialName": "Confédération suisse",
+      "iso2": "CH",
+      "iso3": "CHE",
+      "capital": "Berne",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Allemand",
+        "Français",
+        "Italien",
+        "Romanche"
+      ],
+      "currency": "Franc suisse",
+      "government": "République fédérale directoriale",
+      "timezone": "Europe/Zurich",
+      "overview": {
+        "summary": "État fédéral neutre au cœur de l’Europe, important centre financier, diplomatique et industriel. Genève accueille de nombreuses organisations internationales.",
+        "majorCities": [
+          "Zurich",
+          "Genève",
+          "Bâle",
+          "Lausanne",
+          "Berne"
+        ],
+        "neighbors": [
+          "France",
+          "Allemagne",
+          "Autriche",
+          "Liechtenstein",
+          "Italie"
+        ],
+        "coastline": "Pays enclavé",
+        "territorialOrganization": null,
+        "context": [
+          "État fédéral neutre au cœur de l’Europe, important centre financier, diplomatique et industriel. Genève accueille de nombreuses organisations internationales."
+        ]
+      },
+      "politics": {
+        "system": "République fédérale directoriale",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Les enjeux portent sur la cyberdéfense, la protection des infrastructures critiques, le renseignement, la résilience civile et la sécurité économique.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Finance",
+          "Pharmacie",
+          "Machines",
+          "Horlogerie",
+          "Services"
+        ],
+        "resources": [
+          "Hydroélectricité",
+          "Capacités financières et technologiques"
+        ],
+        "constraints": [
+          "Forte dépendance au commerce extérieur",
+          "Coût élevé",
+          "Pressions sur les relations avec l’UE"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Allemand",
+          "Français",
+          "Italien",
+          "Romanche"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "tchequie",
+      "slug": "tchequie",
+      "zoneSlug": "europe",
+      "name": "Tchéquie",
+      "officialName": "République tchèque",
+      "iso2": "CZ",
+      "iso3": "CZE",
+      "capital": "Prague",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Tchèque"
+      ],
+      "currency": "Couronne tchèque",
+      "government": "République parlementaire",
+      "timezone": "Europe/Prague",
+      "overview": {
+        "summary": "État industriel d’Europe centrale membre de l’Union européenne et de l’OTAN. Son économie est étroitement intégrée aux chaînes industrielles allemandes et européennes.",
+        "majorCities": [
+          "Prague",
+          "Brno",
+          "Ostrava",
+          "Plzeň"
+        ],
+        "neighbors": [
+          "Allemagne",
+          "Pologne",
+          "Slovaquie",
+          "Autriche"
+        ],
+        "coastline": "Pays enclavé",
+        "territorialOrganization": null,
+        "context": [
+          "État industriel d’Europe centrale membre de l’Union européenne et de l’OTAN. Son économie est étroitement intégrée aux chaînes industrielles allemandes et européennes."
+        ]
+      },
+      "politics": {
+        "system": "République parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Cyberdéfense, contre-ingérence, sécurité énergétique et soutien au flanc oriental de l’OTAN figurent parmi les priorités.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Automobile",
+          "Machines",
+          "Électronique",
+          "Industrie",
+          "Services"
+        ],
+        "resources": [
+          "Charbon",
+          "Kaolin",
+          "Uranium historique"
+        ],
+        "constraints": [
+          "Dépendance automobile",
+          "Vieillissement",
+          "Coût énergétique"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Tchèque"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "ukraine",
+      "slug": "ukraine",
+      "zoneSlug": "europe",
+      "name": "Ukraine",
+      "officialName": "Ukraine",
+      "iso2": "UA",
+      "iso3": "UKR",
+      "capital": "Kyiv",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Ukrainien"
+      ],
+      "currency": "Hryvnia",
+      "government": "République semi-présidentielle",
+      "timezone": "Europe/Kyiv",
+      "overview": {
+        "summary": "État d’Europe orientale engagé dans une guerre de grande intensité contre la Russie depuis l’invasion à grande échelle de 2022. Son intégrité territoriale, sa défense, ses infrastructures critiques et son intégration européenne sont les principaux axes stratégiques.",
+        "majorCities": [
+          "Kyiv",
+          "Kharkiv",
+          "Odesa",
+          "Dnipro",
+          "Lviv"
+        ],
+        "neighbors": [
+          "Pologne",
+          "Slovaquie",
+          "Hongrie",
+          "Roumanie",
+          "Moldavie",
+          "Biélorussie",
+          "Russie"
+        ],
+        "coastline": "Mer Noire et mer d’Azov ; accès maritime fortement affecté par la guerre",
+        "territorialOrganization": null,
+        "context": [
+          "État d’Europe orientale engagé dans une guerre de grande intensité contre la Russie depuis l’invasion à grande échelle de 2022. Son intégrité territoriale, sa défense, ses infrastructures critiques et son intégration européenne sont les principaux axes stratégiques."
+        ]
+      },
+      "politics": {
+        "system": "République semi-présidentielle",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Le pays reste en situation de guerre active. Les lignes de front, les frappes à longue portée, la défense aérienne, la mobilisation, la protection des infrastructures énergétiques et les flux d’aide militaire extérieure structurent la situation.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Agriculture",
+          "Métallurgie",
+          "Technologies",
+          "Énergie",
+          "Défense"
+        ],
+        "resources": [
+          "Terres agricoles",
+          "Fer",
+          "Manganèse",
+          "Titane",
+          "Uranium"
+        ],
+        "constraints": [
+          "Guerre",
+          "Destructions d’infrastructures",
+          "Déplacements de population",
+          "Pression budgétaire et démographique"
+        ]
+      },
+      "infrastructures": [
+        {
+          "name": "Port d’Odesa",
+          "type": "Port",
+          "location": "Odesa",
+          "importance": "Stratégique",
+          "status": "Actif"
+        },
+        {
+          "name": "Réseau électrique national",
+          "type": "Énergie",
+          "location": "National",
+          "importance": "Stratégique",
+          "status": "Endommagé"
+        },
+        {
+          "name": "Centrale nucléaire de Zaporijjia",
+          "type": "Énergie",
+          "location": "Enerhodar, oblast de Zaporijjia",
+          "importance": "Stratégique",
+          "status": "Inconnu"
+        },
+        {
+          "name": "Axe ferroviaire vers la Pologne",
+          "type": "Chemin de fer",
+          "location": "Ouest de l’Ukraine",
+          "importance": "Stratégique",
+          "status": "Actif"
+        }
+      ],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Ukrainien"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    },
+    {
+      "id": "espagne",
+      "slug": "espagne",
+      "zoneSlug": "europe",
+      "name": "Espagne",
+      "officialName": "Royaume d’Espagne",
+      "iso2": "ES",
+      "iso3": "ESP",
+      "capital": "Madrid",
+      "population": null,
+      "area": null,
+      "languages": [
+        "Espagnol"
+      ],
+      "currency": "Euro",
+      "government": "Monarchie constitutionnelle parlementaire",
+      "timezone": "Europe/Madrid",
+      "overview": {
+        "summary": "Grande économie de l’Union européenne et membre de l’OTAN, disposant d’une position stratégique entre Atlantique, Méditerranée, Europe et Afrique du Nord.",
+        "majorCities": [
+          "Madrid",
+          "Barcelone",
+          "Valence",
+          "Séville",
+          "Bilbao"
+        ],
+        "neighbors": [
+          "Portugal",
+          "France",
+          "Andorre"
+        ],
+        "coastline": "Atlantique, Méditerranée et mer Cantabrique",
+        "territorialOrganization": null,
+        "context": [
+          "Grande économie de l’Union européenne et membre de l’OTAN, disposant d’une position stratégique entre Atlantique, Méditerranée, Europe et Afrique du Nord."
+        ]
+      },
+      "politics": {
+        "system": "Monarchie constitutionnelle parlementaire",
+        "headOfState": null,
+        "headOfGovernment": null,
+        "parliament": null,
+        "constitution": null,
+        "actors": [],
+        "foreignRelations": []
+      },
+      "security": {
+        "overview": "Sécurité maritime, détroit de Gibraltar, migration, terrorisme, cyberdéfense et protection des infrastructures énergétiques figurent parmi les principaux enjeux.",
+        "conflicts": [],
+        "armedActors": [],
+        "foreignPresence": [],
+        "hotspots": []
+      },
+      "economy": {
+        "gdp": null,
+        "growth": null,
+        "inflation": null,
+        "mainSectors": [
+          "Services",
+          "Tourisme",
+          "Automobile",
+          "Agroalimentaire",
+          "Énergies renouvelables"
+        ],
+        "resources": [
+          "Solaire",
+          "Éolien",
+          "Cuivre",
+          "Agriculture"
+        ],
+        "constraints": [
+          "Stress hydrique",
+          "Dépendance au tourisme",
+          "Chômage structurel dans certaines régions"
+        ]
+      },
+      "infrastructures": [],
+      "society": {
+        "overview": null,
+        "urbanization": null,
+        "displacement": null,
+        "languages": [
+          "Espagnol"
+        ],
+        "religions": [],
+        "communities": []
+      },
+      "environment": {
+        "overview": null,
+        "risks": []
+      },
+      "keyActors": [],
+      "relatedEvents": [],
+      "sources": [
+        {
+          "id": "world-bank",
+          "title": "World Bank Open Data / Indicators API",
+          "publisher": "World Bank",
+          "url": "https://api.worldbank.org/v2/",
+          "type": "database",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À utiliser pour les indicateurs quantitatifs ; importer la dernière valeur non nulle et conserver l'année de référence."
+        },
+        {
+          "id": "eurostat",
+          "title": "Eurostat",
+          "publisher": "European Commission",
+          "url": "https://ec.europa.eu/eurostat/",
+          "type": "institutional",
+          "accessedAt": "2026-10-05",
+          "reliability": 5,
+          "notes": "À privilégier pour les pays couverts par Eurostat."
+        }
+      ],
+      "lastCheckedAt": "2026-10-05",
+      "lastUpdatedAt": "2026-10-05",
+      "verification": {
+        "baseline": "prepared",
+        "staticFields": "ready_for_integration",
+        "dynamicNumericFields": "sync_required",
+        "politicalOfficeHolders": "sync_required",
+        "strategicNarrative": "baseline_requires_periodic_review",
+        "notes": "Les champs null ne doivent pas être inventés lors de l’intégration. Ils seront alimentés par les sources déterministes ou lors du cycle de contrôle."
+      }
+    }
+  ]
+}

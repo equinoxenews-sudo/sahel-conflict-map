@@ -219,7 +219,7 @@ export default function SituationReportEditor({ report: initial, zoneName, image
         <input className={styles.input} value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="https://…" />
         {imageUrl.trim() ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={imageUrl.trim()} alt="" className={styles.thumb} />
+          <img src={imageUrl.trim()} referrerPolicy="no-referrer" alt="" className={styles.thumb} />
         ) : null}
       </label>
 

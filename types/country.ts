@@ -107,5 +107,21 @@ export interface CountryProfile {
   keyActors?: EntityRef[];
   relatedEvents?: ConflictEvent[];
   sources: CountrySource[];
+  /** Dernière modification de contenu (reste égale à `lastUpdatedAt` pour une fiche intégrée). */
   updatedAt: string;
+  /** Dernier contrôle de la fiche, même sans aucun changement (AAAA-MM-JJ). */
+  lastCheckedAt?: string;
+  /** Dernier changement réel d'une donnée de la fiche (AAAA-MM-JJ) : un simple contrôle ne la modifie pas. */
+  lastUpdatedAt?: string;
+  /** Suivi de la provenance : ce qui est prêt, ce qui reste à synchroniser ou à revoir. */
+  verification?: CountryVerification;
+}
+
+export interface CountryVerification {
+  baseline?: string;
+  staticFields?: string;
+  dynamicNumericFields?: string;
+  politicalOfficeHolders?: string;
+  strategicNarrative?: string;
+  notes?: string;
 }

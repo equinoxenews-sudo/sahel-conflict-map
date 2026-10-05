@@ -29,6 +29,14 @@ const NAV_ITEMS = [
   { id: "sources", label: "Sources" },
 ];
 
+const longDate = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+
+/** « 2026-10-05 » → « 5 octobre 2026 » (une date de contrôle n'a pas de fuseau). */
+function formatLongDate(day: string): string {
+  const date = new Date(`${day}T00:00:00Z`);
+  return Number.isNaN(date.getTime()) ? day : longDate.format(date);
+}
+
 // The single generic template every country profile renders through —
 // per the brief, adding a country later means adding a CountryProfile
 // data object (lib/countries/<slug>.ts) + a CountryMapData entry, never a
@@ -75,10 +83,23 @@ export default function CountryProfilePage({ country, map }: CountryProfilePageP
             </div>
           </div>
           <div className={styles.statusBlock}>
-            <div className={styles.statusCard}>
-              <span className={styles.statusLabel}>Dernière mise à jour</span>
-              <span className={styles.statusValue}>{country.updatedAt}</span>
-            </div>
+            {country.lastCheckedAt ? (
+              <>
+                <div className={styles.statusCard}>
+                  <span className={styles.statusLabel}>Dernière vérification</span>
+                  <span className={styles.statusValue}>{formatLongDate(country.lastCheckedAt)}</span>
+                </div>
+                <div className={styles.statusCard}>
+                  <span className={styles.statusLabel}>Dernière modification</span>
+                  <span className={styles.statusValue}>{formatLongDate(country.lastUpdatedAt ?? country.updatedAt)}</span>
+                </div>
+              </>
+            ) : (
+              <div className={styles.statusCard}>
+                <span className={styles.statusLabel}>Dernière mise à jour</span>
+                <span className={styles.statusValue}>{country.updatedAt}</span>
+              </div>
+            )}
             <div className={styles.statusCard}>
               <span className={styles.statusLabel}>Sources</span>
               <span className={styles.statusValue}>{country.sources.length}</span>
@@ -100,7 +121,7 @@ export default function CountryProfilePage({ country, map }: CountryProfilePageP
         <div className={styles.synthesisGrid}>
           <CountryMap data={map} />
           <div className={styles.briefPanel}>
-            <span className={styles.demoTag}>Contenu de démonstration</span>
+            {country.lastCheckedAt ? null : <span className={styles.demoTag}>Contenu de démonstration</span>}
             <h3 className={styles.briefTitle}>En bref</h3>
             {country.overview?.summary && <p className={styles.briefText}>{country.overview.summary}</p>}
             <div className={styles.kpiGrid}>

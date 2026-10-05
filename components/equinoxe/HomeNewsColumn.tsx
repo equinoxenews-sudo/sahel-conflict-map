@@ -76,7 +76,7 @@ export default function HomeNewsColumn({ briefs, articles }: HomeNewsColumnProps
                 <Link key={b.id} href={`/briefs/${b.id}`} className={styles.item}>
                   {b.image_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={b.image_url} alt="" className={styles.image} />
+                    <img src={b.image_url} referrerPolicy="no-referrer" alt="" className={styles.image} />
                   ) : null}
                   <div className={styles.itemBody}>
                     <div className={styles.header}>

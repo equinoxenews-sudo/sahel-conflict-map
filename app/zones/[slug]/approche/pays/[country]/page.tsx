@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import CountryProfilePage from "@/components/country-profile/CountryProfilePage";
-import { getCountryProfile } from "@/lib/countries";
+import { getResolvedCountryProfile } from "@/lib/countryOverlays";
 import { getCountryGeoConfig } from "@/lib/countryGeoConfig";
 import { getWorldCountryFeature } from "@/lib/worldGeo";
 import { getZone } from "@/lib/zones";
@@ -14,7 +14,7 @@ export default async function CountryPage({
 }) {
   const { slug, country: countrySlug } = await params;
   const zone = getZone(slug);
-  const country = getCountryProfile(countrySlug);
+  const country = getResolvedCountryProfile(countrySlug);
   const geoConfig = getCountryGeoConfig(countrySlug);
 
   if (!zone || !country || !geoConfig || country.zoneSlug !== slug) notFound();

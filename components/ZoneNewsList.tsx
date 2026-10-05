@@ -203,7 +203,7 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
                   {b.image_url ? (
                     <span className={styles.newsImageWrap}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={b.image_url} alt="" className={styles.newsImage} />
+                      <img src={b.image_url} referrerPolicy="no-referrer" alt="" className={styles.newsImage} />
                       {isGenericImage ? (
                         <span className={styles.genericTag} title="Illustration générique de la zone — ne représente pas cet événement précis">
                           Illustration

@@ -92,7 +92,7 @@ export default function ZoneNewsPanel({ zoneSlug, zoneName, briefs, articles, ne
                   </div>
                   {b.image_url ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={b.image_url} alt="" className={styles.image} />
+                    <img src={b.image_url} referrerPolicy="no-referrer" alt="" className={styles.image} />
                   ) : null}
                 </Link>
               );

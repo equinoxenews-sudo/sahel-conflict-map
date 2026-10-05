@@ -127,7 +127,7 @@ export default function PsitList({ zoneSlug, reports }: PsitListProps) {
               <span className={styles.imageWrap}>
                 {report.image_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={report.image_url} alt="" className={styles.image} />
+                  <img src={report.image_url} referrerPolicy="no-referrer" alt="" className={styles.image} />
                 ) : null}
               </span>
               <span className={styles.cardBody}>
