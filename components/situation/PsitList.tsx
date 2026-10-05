@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { parisDay, psitLabel, reportThemes, type SituationReport } from "@/lib/situationReport";
 import { themeShortLabel } from "@/lib/themes";
+import ThemeIcon from "./ThemeIcon";
 import styles from "./PsitList.module.css";
 
 interface PsitListProps {
@@ -133,8 +134,9 @@ export default function PsitList({ zoneSlug, reports }: PsitListProps) {
                 <span className={styles.cardLabel}>{label.full}</span>
                 <span className={styles.cardTitle}>{report.title}</span>
                 <span className={styles.tags}>
-                  {themes.map((theme, index) => (
-                    <span key={theme} className={index === 0 ? `${styles.tag} ${styles.tagMain}` : styles.tag}>
+                  {themes.map((theme) => (
+                    <span key={theme} className={`${styles.tag} ${styles.tagMain}`}>
+                      <ThemeIcon theme={theme} size={14} />
                       {themeShortLabel(theme)}
                     </span>
                   ))}

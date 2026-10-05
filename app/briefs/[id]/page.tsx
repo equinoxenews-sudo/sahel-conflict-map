@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import BackLink from "@/components/BackLink";
 import Header from "@/components/equinoxe/Header";
 import { formatDate } from "@/lib/formatDate";
 import { supabase } from "@/lib/supabaseClient";
@@ -63,9 +63,9 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
       <Header />
 
       <div className={styles.topBar}>
-        <Link href={zone ? `/zones/${zone.slug}/actualite` : "/"} className={styles.back}>
-          &lsaquo; Retour {zone ? `— ${zone.name}` : ""}
-        </Link>
+        <BackLink fallbackHref={zone ? `/zones/${zone.slug}/actualite` : "/"} className={styles.back}>
+          &lsaquo; Retour
+        </BackLink>
       </div>
 
       <article className={styles.article}>

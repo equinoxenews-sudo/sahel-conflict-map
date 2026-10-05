@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import SituationReportEditor from "@/components/situation/SituationReportEditor";
 import { isAdmin } from "@/lib/adminAuth";
 import { getReportAdmin } from "@/lib/situationReportAdmin";
+import { getBriefImages } from "@/lib/situationReportData";
 import { getZone } from "@/lib/zones";
 import styles from "@/components/situation/Admin.module.css";
 
@@ -17,6 +18,8 @@ export default async function AdminSituationEditPage({ params }: { params: Promi
   const report = await getReportAdmin(id);
   if (!report) notFound();
 
+  const images = await getBriefImages(report.items.flatMap((item) => (item.brief_id !== null ? [item.brief_id] : [])));
+
   return (
     <main className={styles.page}>
       <div className={styles.wrap}>
@@ -25,7 +28,7 @@ export default async function AdminSituationEditPage({ params }: { params: Promi
             ‹ Tous les rapports
           </Link>
         </div>
-        <SituationReportEditor report={report} zoneName={getZone(report.zone_slug)?.name ?? report.zone_slug} />
+        <SituationReportEditor report={report} zoneName={getZone(report.zone_slug)?.name ?? report.zone_slug} images={images} />
       </div>
     </main>
   );

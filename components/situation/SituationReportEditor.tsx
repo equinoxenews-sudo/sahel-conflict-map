@@ -23,6 +23,8 @@ interface EditItem {
 interface SituationReportEditorProps {
   report: SituationReport;
   zoneName: string;
+  /** Images des synthèses sources, pour l'aperçu du rendu public. */
+  images?: Record<number, string>;
 }
 
 function toEditItem(item: SituationItem, uid: number): EditItem {
@@ -63,7 +65,7 @@ function parsedItem(item: EditItem) {
 
 const fullDate = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeStyle: "short", timeZone: "Europe/Paris" });
 
-export default function SituationReportEditor({ report: initial, zoneName }: SituationReportEditorProps) {
+export default function SituationReportEditor({ report: initial, zoneName, images }: SituationReportEditorProps) {
   const router = useRouter();
   const nextUid = useRef(initial.items.length);
   const [status, setStatus] = useState(initial.status);
@@ -365,7 +367,7 @@ export default function SituationReportEditor({ report: initial, zoneName }: Sit
 
       {showPreview ? (
         <div className={styles.preview}>
-          <SituationReportView zoneSlug={initial.zone_slug} title={title} items={numbered} conclusion={conclusion} openLinksInNewTab />
+          <SituationReportView zoneSlug={initial.zone_slug} title={title} items={numbered} conclusion={conclusion} images={images} openLinksInNewTab />
         </div>
       ) : null}
     </div>

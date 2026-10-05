@@ -1,4 +1,5 @@
 .report {
+  --outline: rgba(200, 155, 60, 0.6);
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -7,7 +8,7 @@
 .headline {
   margin: 0;
   padding: 18px 24px;
-  border: 1px solid var(--border-subtle);
+  border: 2px solid var(--outline);
   background: var(--bg-panel);
   text-align: center;
   text-transform: uppercase;
@@ -28,8 +29,65 @@
 .mapBox {
   position: relative;
   min-width: 0;
-  border: 1px solid var(--border-subtle);
+  border: 2px solid var(--outline);
   overflow: hidden;
+}
+
+.mapImage {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 900;
+  width: min(230px, 46%);
+  margin: 0;
+  border: 2px solid #ffffff;
+  background: var(--bg-primary);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+}
+
+.mapImageImg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.mapImageCaption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+.mapImageNumber {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--status-critical);
+  font: 700 10px/1 system-ui, sans-serif;
+}
+
+.mapImageClose {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(7, 13, 23, 0.75);
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
 }
 
 .mapNote {
@@ -51,7 +109,7 @@
   gap: 16px;
   min-width: 0;
   padding: 16px 18px;
-  border: 1px solid var(--border-subtle);
+  border: 2px solid var(--outline);
   background: var(--bg-panel);
   overflow-y: auto;
 }
@@ -63,19 +121,18 @@
 }
 
 .pill {
+  display: inline-flex;
+  align-items: center;
   align-self: flex-start;
+  gap: 8px;
   margin: 0;
-  padding: 3px 12px;
+  padding: 6px 16px 6px 12px;
   border-radius: 999px;
-  border: 1px solid var(--border-glass);
-  color: var(--text-secondary);
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.pillMain {
-  border-color: var(--accent-gold);
+  border: 1.5px solid var(--accent-gold);
   color: var(--accent-gold-bright);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .itemList {
@@ -93,6 +150,7 @@
   gap: 10px;
   padding: 4px 6px;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .itemSelected {
@@ -153,7 +211,7 @@
 
 .conclusion {
   padding: 16px 24px;
-  border: 1px solid var(--border-subtle);
+  border: 2px solid var(--outline);
   background: var(--bg-panel);
 }
 
