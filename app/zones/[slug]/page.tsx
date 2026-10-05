@@ -7,6 +7,7 @@ import ZoneKnowledgePanel from "@/components/equinoxe/ZoneKnowledgePanel";
 import ZoneNewsPanel from "@/components/equinoxe/ZoneNewsPanel";
 import ZoneSubNav from "@/components/equinoxe/ZoneSubNav";
 import { getZoneArticles, getZoneBriefs } from "@/lib/zoneBriefs";
+import { getPublishedReports } from "@/lib/situationReportData";
 import { getZoneHubContent } from "@/lib/zoneHubContent";
 import { ZONE_NEWS } from "@/lib/zoneNews";
 import { getZone } from "@/lib/zones";
@@ -22,6 +23,7 @@ export default async function ZonePage({ params }: { params: Promise<{ slug: str
   const isLive = zone.active && zone.countries.length > 0;
   const briefs = isLive ? await getZoneBriefs(zone.slug, 5) : [];
   const articles = isLive && briefs.length === 0 ? await getZoneArticles(zone.slug, 5) : [];
+  const reports = isLive ? await getPublishedReports(zone.slug, 3) : [];
   const newsItems = ZONE_NEWS[zone.slug] ?? [];
   const content = getZoneHubContent(zone.slug);
 
@@ -42,7 +44,7 @@ export default async function ZonePage({ params }: { params: Promise<{ slug: str
           articles={articles}
           newsItems={newsItems}
         />
-        <ZoneAnalysisPanel zoneSlug={zone.slug} />
+        <ZoneAnalysisPanel zoneSlug={zone.slug} reports={reports} />
       </div>
     </main>
   );

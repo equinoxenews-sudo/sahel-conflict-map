@@ -1,0 +1,32 @@
+.map {
+  background: var(--bg-primary);
+}
+
+.placing {
+  cursor: crosshair;
+}
+
+.placing :global(.leaflet-grab),
+.placing :global(.leaflet-interactive) {
+  cursor: crosshair;
+}
+
+.pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--status-critical);
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  font: 700 12px/1 system-ui, sans-serif;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.6);
+}
+
+.pinSelected {
+  background: var(--accent-gold);
+  border-color: #ffffff;
+  transform: scale(1.25);
+}

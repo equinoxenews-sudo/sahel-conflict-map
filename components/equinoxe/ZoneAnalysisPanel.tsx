@@ -1,17 +1,18 @@
 import Link from "next/link";
+import { psitLabel, type SituationReport } from "@/lib/situationReport";
 import styles from "./ZoneAnalysisPanel.module.css";
-import WeeklySituationCard from "./WeeklySituationCard";
 
 interface ZoneAnalysisPanelProps {
   zoneSlug: string;
+  /** Derniers points de situation publiés, du plus récent au plus ancien. */
+  reports: SituationReport[];
 }
 
-// No dedicated "analysis" content model exists in the project yet — the
-// only synthesized articles (zone_briefs) already power ZoneNewsPanel.
-// Rather than duplicate that feed or invent fake analyses, this shows an
-// honest empty state until a real analysis source is wired up.
-export default function ZoneAnalysisPanel({ zoneSlug }: ZoneAnalysisPanelProps) {
+const dayFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", timeZone: "Europe/Paris" });
+
+export default function ZoneAnalysisPanel({ zoneSlug, reports }: ZoneAnalysisPanelProps) {
   const analyseHref = `/zones/${zoneSlug}/analyse`;
+  const listHref = `${analyseHref}/point-de-situation`;
 
   return (
     <div className={styles.panel}>
@@ -26,11 +27,31 @@ export default function ZoneAnalysisPanel({ zoneSlug }: ZoneAnalysisPanelProps) 
           Voir tout →
         </Link>
       </div>
-      <p className={styles.subtitle}>Décryptages et points de situation</p>
+      <p className={styles.subtitle}>Points de situation, deux fois par semaine</p>
 
-      <p className={styles.empty}>Aucune analyse disponible actuellement.</p>
+      {reports.length === 0 ? (
+        <p className={styles.empty}>Aucun point de situation publié pour le moment.</p>
+      ) : (
+        <ul className={styles.list}>
+          {reports.map((report) => {
+            const label = psitLabel(report.period_end);
+            return (
+              <li key={report.id}>
+                <Link href={`${listHref}/${report.id}`} className={styles.item}>
+                  <span className={styles.itemLabel}>
+                    {label.full} · {dayFormat.format(new Date(report.period_end))}
+                  </span>
+                  <span className={styles.itemTitle}>{report.title}</span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      )}
 
-      <WeeklySituationCard href={analyseHref} />
+      <Link href={listHref} className={styles.more}>
+        Tous les points de situation →
+      </Link>
     </div>
   );
 }
