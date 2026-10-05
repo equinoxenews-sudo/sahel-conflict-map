@@ -11,5 +11,8 @@ export async function GET(request: Request) {
   }
 
   revalidatePath("/zones/[slug]/[tab]", "page");
+  revalidatePath("/zones/[slug]", "page");
+  revalidatePath("/briefs/[id]", "page");
+  revalidatePath("/");
   return NextResponse.json({ ok: true });
 }

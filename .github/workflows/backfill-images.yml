@@ -1,0 +1,55 @@
+name: Rattrapage des images
+
+# À lancer à la main (Actions > Rattrapage des images > Run workflow) : retrouve
+# la vraie image des synthèses qui n'ont que l'illustration générique de leur
+# zone, à partir de leurs articles sources. Sans danger à relancer : une
+# synthèse qui a déjà une vraie image n'est pas touchée.
+on:
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Nombre de jours d'historique à traiter"
+        default: "90"
+      dry_run:
+        description: "Simulation : affiche les images trouvées sans rien modifier"
+        type: boolean
+        default: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SITE_URL: https://sahel-conflict-map.vercel.app
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      CRON_SECRET: ${{ secrets.CRON_SECRET }}
+    steps:
+      - name: Vérifier les secrets
+        run: |
+          for name in SUPABASE_SERVICE_ROLE_KEY NEXT_PUBLIC_SUPABASE_URL CRON_SECRET; do
+            if [ -z "${!name}" ]; then
+              echo "Secret $name absent : Settings > Secrets and variables > Actions"
+              exit 1
+            fi
+          done
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Retrouver les images
+        run: npx tsx scripts/backfill-brief-images.ts --days=${{ inputs.days }} ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      - name: Rafraîchir les pages du site
+        if: ${{ !inputs.dry_run }}
+        run: |
+          curl -sS --max-time 60 --fail-with-body \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            "$SITE_URL/api/revalidate"
+          echo

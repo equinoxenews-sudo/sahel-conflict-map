@@ -18,6 +18,8 @@ interface StoredArticle {
   url: string;
   domain: string | null;
   published_at: string | null;
+  /** Image fournie par le flux RSS ; absente si la migration n'a pas été exécutée. */
+  image_url?: string | null;
 }
 
 async function briefZone(
@@ -25,13 +27,19 @@ async function briefZone(
 ): Promise<{ zoneSlug: string; articleCount: number; briefCount: number }> {
   const supabase = getSupabaseAdmin();
 
-  const { data, error } = await supabase
-    .from("articles")
-    .select("id, title, url, domain, published_at")
-    .eq("zone_slug", zoneSlug)
-    .eq("used_in_brief", false)
-    .order("published_at", { ascending: false })
-    .limit(ARTICLES_PER_ZONE);
+  const loadUnbriefed = (columns: string) =>
+    supabase
+      .from("articles")
+      .select(columns)
+      .eq("zone_slug", zoneSlug)
+      .eq("used_in_brief", false)
+      .order("published_at", { ascending: false })
+      .limit(ARTICLES_PER_ZONE);
+  // La colonne image_url (supabase/add-article-images.sql) peut ne pas exister encore.
+  let { data, error } = await loadUnbriefed("id, title, url, domain, published_at, image_url");
+  if (error && /image_url/.test(error.message)) {
+    ({ data, error } = await loadUnbriefed("id, title, url, domain, published_at"));
+  }
 
   if (error) {
     throw new Error(`Failed to load unbriefed articles for ${zoneSlug}: ${error.message}`);
@@ -39,7 +47,7 @@ async function briefZone(
 
   // Articles de sport déjà en base (collectés avant le filtre) : écartés et
   // acquittés pour ne plus jamais être proposés à l'IA.
-  const stored = (data ?? []) as StoredArticle[];
+  const stored = (data ?? []) as unknown as StoredArticle[];
   const sportsIds = stored.filter((article) => isSportsTitle(article.title)).map((article) => article.id);
   if (sportsIds.length) {
     const { error: sportsError } = await supabase.from("articles").update({ used_in_brief: true }).in("id", sportsIds);
@@ -61,7 +69,9 @@ async function briefZone(
         domain: a.domain ?? new URL(a.url).hostname,
         summary,
         bodyText,
-        imageUrl,
+        // Photo de la page de l'article (souvent la plus grande), à défaut
+        // celle du flux RSS, qui ne dépend pas du téléchargement de la page.
+        imageUrl: imageUrl ?? a.image_url ?? null,
         publishedAt: a.published_at,
       };
     }

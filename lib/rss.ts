@@ -1,10 +1,13 @@
 import { XMLParser } from "fast-xml-parser";
+import { normalizeImageUrl } from "./imageUrls";
 
 export interface FeedItem {
   title: string;
   url: string;
   domain: string;
   publishedAt: string | null;
+  /** Image fournie par le flux lui-même (media:content, enclosure, <img> du résumé). */
+  imageUrl: string | null;
 }
 
 const FETCH_TIMEOUT_MS = 8000;
@@ -49,6 +52,61 @@ function linkOf(value: unknown): string {
   return "";
 }
 
+const IMAGE_EXT = /\.(jpe?g|png|webp|avif)(\?|#|$)/i;
+
+interface ImageCandidate {
+  url: string;
+  width: number;
+}
+
+/**
+ * Image d'un article d'après son entrée de flux. Les flux en fournissent
+ * presque toujours une (media:content, media:thumbnail, enclosure) et elle ne
+ * dépend pas du téléchargement de la page, que certains sites refusent aux
+ * serveurs. À défaut, première <img> du résumé HTML.
+ */
+export function imageOfFeedItem(record: Record<string, unknown>, baseUrl: string): string | null {
+  const candidates: ImageCandidate[] = [];
+  const collect = (node: unknown, trustUntyped: boolean) => {
+    for (const entry of Array.isArray(node) ? node : [node]) {
+      if (!entry || typeof entry !== "object") continue;
+      const attrs = entry as Record<string, unknown>;
+      const url = typeof attrs["@_url"] === "string" ? attrs["@_url"] : null;
+      if (!url) continue;
+      const type = String(attrs["@_type"] ?? "");
+      const medium = String(attrs["@_medium"] ?? "");
+      if (type && !type.startsWith("image/")) continue;
+      if (medium && medium !== "image") continue;
+      if (!type && !medium && !trustUntyped && !IMAGE_EXT.test(url)) continue;
+      candidates.push({ url, width: Number(attrs["@_width"]) || 0 });
+    }
+  };
+
+  collect(record["media:content"], false);
+  collect(record["media:thumbnail"], true);
+  collect(record.enclosure, false);
+  const group = record["media:group"];
+  if (group && typeof group === "object") {
+    collect((group as Record<string, unknown>)["media:content"], false);
+    collect((group as Record<string, unknown>)["media:thumbnail"], true);
+  }
+
+  // La plus large d'abord : une miniature de 144 px est floue dans une carte.
+  for (const candidate of candidates.sort((a, b) => b.width - a.width)) {
+    const url = normalizeImageUrl(candidate.url, baseUrl);
+    if (url) return url;
+  }
+
+  for (const key of ["content:encoded", "content", "description", "summary"]) {
+    const html = textOf(record[key]);
+    for (const match of html.matchAll(/<img[^>]+src=["']([^"']+)["']/gi)) {
+      const url = normalizeImageUrl(match[1], baseUrl);
+      if (url) return url;
+    }
+  }
+  return null;
+}
+
 /**
  * Fetches and parses one RSS 2.0 or Atom feed. Best-effort: returns an
  * empty list on any failure (network, timeout, malformed XML) rather than
@@ -87,7 +145,7 @@ export async function fetchFeed(url: string): Promise<FeedItem[]> {
         const title = textOf(record.title).trim();
         const link = linkOf(record.link).trim();
         const publishedAt = parseDate(record.pubDate ?? record.published ?? record.updated);
-        return { title, url: link, domain: getDomain(link), publishedAt };
+        return { title, url: link, domain: getDomain(link), publishedAt, imageUrl: imageOfFeedItem(record, link) };
       })
       .filter((item) => item.title && item.url);
   } catch (err) {

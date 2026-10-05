@@ -1,3 +1,5 @@
+import { normalizeImageUrl } from "./imageUrls";
+
 const FETCH_TIMEOUT_MS = 6000;
 const MAX_SUMMARY_LENGTH = 260;
 // Keeps the prompt sent to the AI bounded even when several articles all
@@ -25,6 +27,40 @@ const IMAGE_PATTERNS = [
   /<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["']/i,
   /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image["']/i,
 ];
+
+// Dernier recours : <link rel="image_src"> puis l'image des données
+// structurées JSON-LD (NewsArticle), que certains sites renseignent sans og:image.
+const LINK_IMAGE_PATTERNS = [
+  /<link[^>]+rel=["']image_src["'][^>]+href=["']([^"']+)["']/i,
+  /<link[^>]+href=["']([^"']+)["'][^>]+rel=["']image_src["']/i,
+];
+const JSON_LD_IMAGE_PATTERNS = [
+  /"image"\s*:\s*\[\s*"([^"]+)"/,
+  /"image"\s*:\s*"([^"]+)"/,
+  /"image"\s*:\s*\{[^}]*?"url"\s*:\s*"([^"]+)"/,
+  /"image"\s*:\s*\[\s*\{[^}]*?"url"\s*:\s*"([^"]+)"/,
+];
+
+/** Image principale d'une page : meta og:/twitter:, puis link image_src, puis
+ * JSON-LD. L'adresse est rendue absolue (beaucoup de sites donnent un chemin
+ * relatif) et les logos et icônes sont écartés. Exporté pour les tests. */
+export function extractImageUrl(html: string, pageUrl: string): string | null {
+  const jsonLd = [...html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)]
+    .map((m) => m[1])
+    .join("\n");
+  const rawCandidates = [
+    ...IMAGE_PATTERNS.map((pattern) => html.match(pattern)?.[1]),
+    ...LINK_IMAGE_PATTERNS.map((pattern) => html.match(pattern)?.[1]),
+    ...JSON_LD_IMAGE_PATTERNS.map((pattern) => jsonLd.match(pattern)?.[1]),
+  ];
+  for (const raw of rawCandidates) {
+    if (!raw) continue;
+    // Les adresses JSON-LD peuvent contenir des \/ échappés.
+    const url = normalizeImageUrl(decodeHtmlEntities(raw).replace(/\\\//g, "/"), pageUrl);
+    if (url) return url;
+  }
+  return null;
+}
 
 export interface ArticleContent {
   summary: string | null;
@@ -100,8 +136,7 @@ export async function fetchArticleContent(url: string): Promise<ArticleContent> 
         : decoded
       : null;
 
-    const rawImage = extractMeta(html, IMAGE_PATTERNS);
-    const imageUrl = rawImage ? decodeHtmlEntities(rawImage).trim() || null : null;
+    const imageUrl = extractImageUrl(html, res.url || url);
 
     const bodyText = extractBodyText(html);
 

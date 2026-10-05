@@ -35,6 +35,9 @@ async function syncZone(
     domain: item.domain,
     published_at: item.publishedAt,
   }));
+  const withImage = relevant
+    .filter((item) => item.imageUrl)
+    .map((item) => ({ zone_slug: zoneSlug, url: item.url, title: item.title, domain: item.domain, published_at: item.publishedAt, image_url: item.imageUrl }));
 
   if (rows.length > 0) {
     const { error } = await supabase
@@ -43,6 +46,16 @@ async function syncZone(
 
     if (error) {
       throw new Error(`Supabase upsert failed for ${zoneSlug}: ${error.message}`);
+    }
+  }
+
+  // Image du flux, en second passage : une entrée sans image n'écrase jamais
+  // celle déjà enregistrée. Sans la colonne (supabase/add-article-images.sql
+  // pas encore exécuté), on continue sans image plutôt que d'échouer.
+  if (withImage.length > 0) {
+    const { error } = await supabase.from("articles").upsert(withImage, { onConflict: "zone_slug,url" });
+    if (error && !/image_url/.test(error.message)) {
+      throw new Error(`Supabase image upsert failed for ${zoneSlug}: ${error.message}`);
     }
   }
 
