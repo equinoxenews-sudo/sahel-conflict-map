@@ -67,6 +67,8 @@ export interface ArticleContent {
   imageUrl: string | null;
   /** Extracted <p> text — real body content for the AI to draw on, not a fabricated summary. */
   bodyText: string | null;
+  /** Code HTTP de la page ; null si le téléchargement a échoué (délai dépassé, réseau). Sert au diagnostic. */
+  httpStatus?: number | null;
 }
 
 function extractMeta(html: string, patterns: RegExp[]): string | null {
@@ -124,7 +126,7 @@ export async function fetchArticleContent(url: string): Promise<ArticleContent> 
       signal: controller.signal,
       headers: { "User-Agent": "Mozilla/5.0 (compatible; EquinoxeNewsBot/1.0)" },
     });
-    if (!res.ok) return { summary: null, imageUrl: null, bodyText: null };
+    if (!res.ok) return { summary: null, imageUrl: null, bodyText: null, httpStatus: res.status };
 
     const html = await res.text();
 
@@ -140,9 +142,9 @@ export async function fetchArticleContent(url: string): Promise<ArticleContent> 
 
     const bodyText = extractBodyText(html);
 
-    return { summary, imageUrl, bodyText };
+    return { summary, imageUrl, bodyText, httpStatus: res.status };
   } catch {
-    return { summary: null, imageUrl: null, bodyText: null };
+    return { summary: null, imageUrl: null, bodyText: null, httpStatus: null };
   } finally {
     clearTimeout(timeoutId);
   }

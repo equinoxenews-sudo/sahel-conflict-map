@@ -71,16 +71,43 @@ async function main() {
     }
   }
 
+  // Diagnostic par site : pourquoi une synthèse reste sans image (page refusée,
+  // page lisible sans image, image déjà prise par une autre synthèse).
+  const stats = new Map<string, { pages: number; refused: number; failed: number; noImage: number; withImage: number; feed: number }>();
+  const statOf = (url: string) => {
+    let domain = url;
+    try {
+      domain = new URL(url).hostname.replace(/^www\./, "");
+    } catch {
+      // adresse invalide : on garde la valeur brute
+    }
+    if (!stats.has(domain)) stats.set(domain, { pages: 0, refused: 0, failed: 0, noImage: 0, withImage: 0, feed: 0 });
+    return stats.get(domain)!;
+  };
+  let duplicates = 0;
+
   const results = await mapWithConcurrency(todo, CONCURRENCY, async (brief) => {
     const candidates: string[] = [];
     for (const url of brief.source_urls) {
-      const page = (await fetchArticleContent(url)).imageUrl;
-      if (page) candidates.push(page);
+      const stat = statOf(url);
+      const content = await fetchArticleContent(url);
+      stat.pages++;
+      if (content.httpStatus == null) stat.failed++;
+      else if (content.httpStatus >= 400) stat.refused++;
+      else if (content.imageUrl) stat.withImage++;
+      else stat.noImage++;
+      if (content.imageUrl) candidates.push(content.imageUrl);
       const feed = feedImages.get(url);
-      if (feed) candidates.push(feed);
+      if (feed) {
+        stat.feed++;
+        candidates.push(feed);
+      }
     }
     const chosen = candidates.find((url) => !used.has(url));
-    if (!chosen) return false;
+    if (!chosen) {
+      if (candidates.length > 0) duplicates++;
+      return false;
+    }
     used.add(chosen);
     if (!dryRun) {
       const { error: updateError } = await supabase.from("zone_briefs").update({ image_url: chosen }).eq("id", brief.id);
@@ -91,7 +118,17 @@ async function main() {
   });
   const updated = results.filter(Boolean).length;
   console.log(`${dryRun ? "(simulation) " : ""}${updated} synthèse(s) mise(s) à jour sur ${todo.length}.`);
-  if (process.env.GITHUB_ACTIONS) console.log(`::notice title=Images::${updated} synthèse(s) sur ${todo.length} ont retrouvé une vraie image.`);
+  if (process.env.GITHUB_ACTIONS) {
+    console.log(`::notice title=Images::${updated} synthèse(s) sur ${todo.length} ont retrouvé une vraie image.`);
+    // Détail par site, lisible sur la page de l'exécution : pages = articles lus,
+    // refus = HTTP 4xx/5xx, échec = délai ou réseau, sans image = page lue mais
+    // aucune image trouvée, flux = images venant du RSS.
+    const lines = [...stats.entries()]
+      .sort((a, b) => b[1].pages - a[1].pages)
+      .map(([domain, s]) => `${domain}: ${s.pages} pages, ${s.withImage} avec image, ${s.noImage} sans image, ${s.refused} refus, ${s.failed} échec, ${s.feed} flux`);
+    lines.push(`${duplicates} synthèse(s) dont l'image trouvée était déjà utilisée ailleurs`);
+    console.log(`::notice title=Détail par site::${lines.join("%0A")}`);
+  }
 }
 
 main().catch((err) => {
