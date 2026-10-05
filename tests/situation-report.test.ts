@@ -6,10 +6,12 @@ import {
   psitLabel,
   reportThemes,
   shortItemDate,
+  splitPlace,
   sortAndNumber,
   validateReportEdit,
   type SituationInputBrief,
 } from "../lib/situationReport";
+import { flagsForItems } from "../lib/placeFlags";
 
 function brief(id: number, overrides: Partial<SituationInputBrief> = {}): SituationInputBrief {
   return {
@@ -165,4 +167,26 @@ test("Dates courtes et thématiques dominantes", () => {
     reportThemes([{ theme: "politics" }, { theme: "conflicts" }, { theme: "conflicts" }, { theme: null }]),
     ["conflicts", "politics"]
   );
+});
+
+test("Le lieu est séparé en ville et pays", () => {
+  assert.deepEqual(splitPlace("Belgrade (Serbie)"), { before: "Belgrade", country: "Serbie", parenthesized: true });
+  assert.deepEqual(splitPlace("Mali"), { before: "", country: "Mali", parenthesized: false });
+  assert.deepEqual(splitPlace("Pama (Burkina Faso)").country, "Burkina Faso");
+});
+
+test("Un drapeau est trouvé pour le pays cité, accents et alias compris", () => {
+  const flags = flagsForItems([
+    { place: "Belgrade (Serbie)" },
+    { place: "Abidjan (Cote d'Ivoire)" },
+    { place: "Kinshasa (RDC)" },
+    { place: "Mali" },
+    { place: "Lieu inconnu (Nulle-part)" },
+    { place: null },
+  ]);
+  assert.equal(flags["Belgrade (Serbie)"].iso2, "RS");
+  assert.equal(flags["Abidjan (Cote d'Ivoire)"].iso2, "CI");
+  assert.equal(flags["Kinshasa (RDC)"].iso2, "CD");
+  assert.equal(flags["Mali"].iso2, "ML");
+  assert.equal(flags["Lieu inconnu (Nulle-part)"], undefined);
 });

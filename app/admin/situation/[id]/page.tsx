@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import SituationReportEditor from "@/components/situation/SituationReportEditor";
 import { isAdmin } from "@/lib/adminAuth";
+import { flagsForItems } from "@/lib/placeFlags";
 import { getReportAdmin } from "@/lib/situationReportAdmin";
 import { getBriefImages } from "@/lib/situationReportData";
 import { getZone } from "@/lib/zones";
@@ -28,7 +29,7 @@ export default async function AdminSituationEditPage({ params }: { params: Promi
             ‹ Tous les rapports
           </Link>
         </div>
-        <SituationReportEditor report={report} zoneName={getZone(report.zone_slug)?.name ?? report.zone_slug} images={images} />
+        <SituationReportEditor report={report} zoneName={getZone(report.zone_slug)?.name ?? report.zone_slug} images={images} flags={flagsForItems(report.items)} />
       </div>
     </main>
   );

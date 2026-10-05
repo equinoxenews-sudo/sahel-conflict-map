@@ -197,6 +197,22 @@ export function shortItemDate(day: string): string {
   return y && m && d ? `${d}/${m}/${y.slice(2)}` : day;
 }
 
+export interface PlaceParts {
+  /** Texte avant la parenthèse (« Banfora »), vide si le lieu est un simple pays. */
+  before: string;
+  /** Pays cité : entre parenthèses (« Banfora (Burkina Faso) ») ou lieu entier (« Mali »). */
+  country: string;
+  parenthesized: boolean;
+}
+
+/** Sépare « Belgrade (Serbie) » en ville et pays ; sans parenthèses, le lieu
+ * entier est pris pour un pays candidat. */
+export function splitPlace(place: string): PlaceParts {
+  const match = place.match(/^(.*?)\s*\(([^()]+)\)\s*$/);
+  if (match) return { before: match[1], country: match[2].trim(), parenthesized: true };
+  return { before: "", country: place.trim(), parenthesized: false };
+}
+
 /** Thématiques présentes dans un rapport, la plus fréquente d'abord. */
 export function reportThemes(items: Pick<SituationItem, "theme">[]): ThemeKey[] {
   const counts = new Map<ThemeKey, number>();

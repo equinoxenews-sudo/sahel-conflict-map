@@ -296,3 +296,50 @@ const SLUG_BY_ISO3: Record<string, string> = Object.fromEntries(
 export function getCountrySlugByIso3(iso3: string): string | undefined {
   return SLUG_BY_ISO3[iso3];
 }
+
+function normalizeCountryLabel(label: string): string {
+  return label
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[’`]/g, "'")
+    .toLowerCase()
+    .replace(/[-\s]+/g, " ")
+    .trim();
+}
+
+// Appellations courantes qui diffèrent du nom du profil.
+const COUNTRY_ALIASES: Record<string, string> = {
+  rdc: "République démocratique du Congo",
+  "congo kinshasa": "République démocratique du Congo",
+  "rd congo": "République démocratique du Congo",
+  "congo brazzaville": "République du Congo",
+  birmanie: "Myanmar",
+  swaziland: "Eswatini",
+  "republique tcheque": "Tchéquie",
+  "macedoine": "Macédoine du Nord",
+  "territoires palestiniens": "Palestine",
+  "bande de gaza": "Palestine",
+  "cisjordanie": "Palestine",
+  turkiye: "Turquie",
+  "emirats arabes unis": "Émirats arabes unis",
+  "royaume uni": "Royaume-Uni",
+  "timor leste": "Timor oriental",
+};
+
+const FLAG_BY_LABEL: Map<string, { iso2: string; name: string }> = (() => {
+  const byName = new Map<string, { iso2: string; name: string }>();
+  for (const profile of Object.values(COUNTRY_PROFILES)) {
+    if (profile.iso2) byName.set(normalizeCountryLabel(profile.name), { iso2: profile.iso2, name: profile.name });
+  }
+  for (const [alias, name] of Object.entries(COUNTRY_ALIASES)) {
+    const target = byName.get(normalizeCountryLabel(name));
+    if (target) byName.set(normalizeCountryLabel(alias), target);
+  }
+  return byName;
+})();
+
+/** Pays (nom français courant) correspondant à un libellé, avec son code ISO 2
+ * pour le drapeau ; null si le pays n'a pas de profil. */
+export function findCountryByLabel(label: string): { iso2: string; name: string } | null {
+  return FLAG_BY_LABEL.get(normalizeCountryLabel(label)) ?? null;
+}

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
+import type { PlaceFlag } from "@/lib/placeFlags";
 import { parisDay, psitLabel, sortAndNumber, type SituationItem, type SituationReport } from "@/lib/situationReport";
 import { THEMES } from "@/lib/themes";
 import SituationMap from "./SituationMapLoader";
@@ -25,6 +26,8 @@ interface SituationReportEditorProps {
   zoneName: string;
   /** Images des synthèses sources, pour l'aperçu du rendu public. */
   images?: Record<number, string>;
+  /** Drapeaux des pays cités dans les lieux, pour l'aperçu. */
+  flags?: Record<string, PlaceFlag>;
 }
 
 function toEditItem(item: SituationItem, uid: number): EditItem {
@@ -65,7 +68,7 @@ function parsedItem(item: EditItem) {
 
 const fullDate = new Intl.DateTimeFormat("fr-FR", { dateStyle: "long", timeStyle: "short", timeZone: "Europe/Paris" });
 
-export default function SituationReportEditor({ report: initial, zoneName, images }: SituationReportEditorProps) {
+export default function SituationReportEditor({ report: initial, zoneName, images, flags }: SituationReportEditorProps) {
   const router = useRouter();
   const nextUid = useRef(initial.items.length);
   const [status, setStatus] = useState(initial.status);
@@ -367,7 +370,7 @@ export default function SituationReportEditor({ report: initial, zoneName, image
 
       {showPreview ? (
         <div className={styles.preview}>
-          <SituationReportView zoneSlug={initial.zone_slug} title={title} items={numbered} conclusion={conclusion} images={images} openLinksInNewTab />
+          <SituationReportView zoneSlug={initial.zone_slug} title={title} items={numbered} conclusion={conclusion} images={images} flags={flags} openLinksInNewTab />
         </div>
       ) : null}
     </div>

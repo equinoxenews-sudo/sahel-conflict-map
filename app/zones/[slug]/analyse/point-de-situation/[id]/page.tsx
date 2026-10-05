@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import AnalyseFrame from "@/components/situation/AnalyseFrame";
 import SituationReportView from "@/components/situation/SituationReportView";
+import { flagsForItems } from "@/lib/placeFlags";
 import { psitLabel } from "@/lib/situationReport";
 import { getBriefImages, getPublishedReport } from "@/lib/situationReportData";
 import { getZone } from "@/lib/zones";
@@ -33,6 +34,7 @@ export default async function PointDeSituationPage({ params }: { params: Promise
         items={report.items}
         conclusion={report.conclusion}
         images={images}
+        flags={flagsForItems(report.items)}
       />
       <p className={styles.disclaimer}>
         Point de situation rédigé avec l&apos;aide d&apos;une IA à partir des articles Équinoxe, puis relu avant publication.

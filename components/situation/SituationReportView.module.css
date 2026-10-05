@@ -249,3 +249,31 @@
     overflow-y: visible;
   }
 }
+
+/* Drapeau hexagonal des fiches pays, réduit à la taille du texte : cadre doré
+   fin derrière un drapeau légèrement rentré (cf. CountryProfilePage.module.css). */
+.flagHex {
+  display: inline-block;
+  position: relative;
+  width: 1.05em;
+  height: 1.2em;
+  margin: 0 0.1em;
+  vertical-align: -0.24em;
+  background: var(--accent-gold);
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.flagHexImage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.95em;
+  height: 1.1em;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.noBreak {
+  white-space: nowrap;
+}

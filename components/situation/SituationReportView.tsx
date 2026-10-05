@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { shortItemDate, type SituationItem } from "@/lib/situationReport";
+import type { PlaceFlag } from "@/lib/placeFlags";
+import { shortItemDate, splitPlace, type SituationItem } from "@/lib/situationReport";
 import { themeLabel } from "@/lib/themes";
 import SituationMap from "./SituationMapLoader";
 import ThemeIcon from "./ThemeIcon";
@@ -16,6 +17,8 @@ interface SituationReportViewProps {
   conclusion: string;
   /** Image de la synthèse source de chaque événement (clé : brief_id), affichée sur la carte à la sélection. */
   images?: Record<number, string>;
+  /** Drapeau du pays cité dans un lieu (clé : le texte du lieu, voir lib/placeFlags.ts). */
+  flags?: Record<string, PlaceFlag>;
   /** En aperçu de relecture, les liens vers les synthèses restent actifs mais s'ouvrent ailleurs. */
   openLinksInNewTab?: boolean;
 }
@@ -35,12 +38,34 @@ function groupByTheme(items: SituationItem[]): Group[] {
   return groups;
 }
 
+// Lieu avec le drapeau hexagonal du pays, comme sur les fiches pays (Approche) :
+// « Belgrade (⬢ Serbie) ». Sans drapeau connu, le lieu s'affiche tel quel.
+function PlaceLabel({ place, flag }: { place: string; flag?: PlaceFlag }) {
+  if (!flag) return <>{place}</>;
+  const { before, country, parenthesized } = splitPlace(place);
+  const flagNode = (
+    <span className={styles.flagHex} title={flag.name}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={`/flags/${flag.iso2.toLowerCase()}.svg`} alt="" className={styles.flagHexImage} />
+    </span>
+  );
+  // Drapeau et pays restent d'un bloc : jamais un drapeau seul en fin de ligne.
+  if (!parenthesized) return <span className={styles.noBreak}>{flagNode} {country}</span>;
+  return (
+    <>
+      {before ? `${before} ` : ""}
+      <span className={styles.noBreak}>({flagNode} {country})</span>
+    </>
+  );
+}
+
 export default function SituationReportView({
   zoneSlug,
   title,
   items,
   conclusion,
   images = {},
+  flags = {},
   openLinksInNewTab = false,
 }: SituationReportViewProps) {
   const [selected, setSelected] = useState<number | null>(null);
@@ -105,7 +130,12 @@ export default function SituationReportView({
                       </button>
                       <p className={styles.itemText}>
                         <span className={styles.itemDate}>{shortItemDate(item.date)}</span> : {item.text}
-                        {item.place ? <span className={styles.place}> — {item.place}</span> : null}
+                        {item.place ? (
+                          <span className={styles.place}>
+                            {" — "}
+                            <PlaceLabel place={item.place} flag={flags[item.place]} />
+                          </span>
+                        ) : null}
                         {item.brief_id !== null ? (
                           <>
                             {" "}
