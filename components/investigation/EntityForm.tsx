@@ -3,7 +3,14 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { FLAG_COUNTRIES } from "@/lib/countryFlagIndex";
 import { deleteImage } from "@/lib/investigation/imageStore";
-import { ENTITY_TYPE_LABELS, type EntityType, type InvestigationEntity } from "@/lib/investigation/types";
+import {
+  ENTITY_TYPE_LABELS,
+  type EntityAttribute,
+  type EntityType,
+  type InvestigationEntity,
+  type Source,
+} from "@/lib/investigation/types";
+import AttributesEditor from "./AttributesEditor";
 import ImagePicker, { type PickedImage } from "./ImagePicker";
 import styles from "./EntityForm.module.css";
 
@@ -17,12 +24,15 @@ export interface EntityFormValues {
   notes: string;
   imageId?: string;
   imageUrl?: string;
+  attributes: EntityAttribute[];
 }
 
 interface EntityFormProps {
   /** Fiche à modifier ; absente pour une création. */
   initial?: InvestigationEntity;
   submitLabel: string;
+  /** Sources du dossier, proposées pour justifier une coordonnée. */
+  sources?: Source[];
   onSubmit: (values: EntityFormValues) => void;
   onCancel: () => void;
 }
@@ -38,7 +48,7 @@ const ROLE_PLACEHOLDER: Record<EntityType, string> = {
   account: "Plateforme",
 };
 
-export default function EntityForm({ initial, submitLabel, onSubmit, onCancel }: EntityFormProps) {
+export default function EntityForm({ initial, submitLabel, sources = [], onSubmit, onCancel }: EntityFormProps) {
   const [type, setType] = useState<EntityType>(initial?.type ?? "person");
   const [name, setName] = useState(initial?.name ?? "");
   const [role, setRole] = useState(initial?.role ?? "");
@@ -46,6 +56,7 @@ export default function EntityForm({ initial, submitLabel, onSubmit, onCancel }:
   const [countryLabel, setCountryLabel] = useState(initial?.countryLabel ?? "");
   const [aliases, setAliases] = useState(initial?.aliases.join(", ") ?? "");
   const [notes, setNotes] = useState(initial?.notes ?? "");
+  const [attributes, setAttributes] = useState<EntityAttribute[]>(initial?.attributes ?? []);
   const [image, setImage] = useState<PickedImage>({ imageId: initial?.imageId, imageUrl: initial?.imageUrl });
 
   // Images importées pendant la saisie : celles qu'on n'enregistre finalement
@@ -80,6 +91,10 @@ export default function EntityForm({ initial, submitLabel, onSubmit, onCancel }:
       notes: notes.trim(),
       imageId: image.imageId,
       imageUrl: image.imageUrl,
+      // Une ligne sans valeur n'est pas une coordonnée : elle n'est pas enregistrée.
+      attributes: attributes
+        .filter((attribute) => attribute.value.trim() !== "")
+        .map((attribute) => ({ ...attribute, value: attribute.value.trim() })),
     });
   }
 
@@ -134,6 +149,11 @@ export default function EntityForm({ initial, submitLabel, onSubmit, onCancel }:
       <div className={styles.field}>
         <span className={styles.label}>Image</span>
         <ImagePicker value={image} onChange={setImage} onCreated={(id) => createdImages.current.push(id)} />
+      </div>
+
+      <div className={styles.field}>
+        <span className={styles.label}>Coordonnées</span>
+        <AttributesEditor value={attributes} onChange={setAttributes} sources={sources} />
       </div>
 
       <label className={styles.field}>

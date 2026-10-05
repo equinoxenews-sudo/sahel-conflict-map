@@ -89,6 +89,57 @@ export interface InvestigationEntity {
   imageId?: string;
   /** Image désignée par une adresse web ; l'image importée est prioritaire. */
   imageUrl?: string;
+  /** Coordonnées rattachées à la fiche (e-mail, téléphone, comptes, lieux…). */
+  attributes?: EntityAttribute[];
+}
+
+export type AttributeKind = "email" | "phone" | "social" | "website" | "location" | "identifier";
+
+export const ATTRIBUTE_KIND_LABELS: Record<AttributeKind, string> = {
+  email: "E-mail",
+  phone: "Téléphone",
+  social: "Réseau social",
+  website: "Site web",
+  location: "Localisation",
+  identifier: "Identifiant",
+};
+
+export type SocialPlatform =
+  | "facebook"
+  | "instagram"
+  | "linkedin"
+  | "x"
+  | "tiktok"
+  | "vk"
+  | "ok"
+  | "telegram"
+  | "youtube"
+  | "whatsapp"
+  | "bluesky"
+  | "reddit"
+  | "github"
+  | "signal"
+  | "other";
+
+/** Une coordonnée d'une fiche, avec son statut (documentée ou supposée) et sa source. */
+export interface EntityAttribute {
+  id: string;
+  kind: AttributeKind;
+  /** Réseau social, quand kind === "social". */
+  platform?: SocialPlatform;
+  /** Nom de l'identifiant, quand kind === "identifier" (« Immatriculation », « N° de série »…). */
+  label?: string;
+  /** L'adresse e-mail, le numéro, le pseudo, le lieu, l'identifiant ou l'adresse du site. */
+  value: string;
+  /** Réseau social : identifiant numérique du compte. */
+  secondary?: string;
+  /** Réseau social ou site web : adresse du profil ou de la page. */
+  url?: string;
+  /** Lieu : code ISO 2 du pays (drapeau hexagonal). */
+  countryIso2?: string;
+  /** Pointillé sur le graphe quand la coordonnée est seulement supposée. */
+  status: RelationStatus;
+  sourceId?: string;
 }
 
 export interface Relation {

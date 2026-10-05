@@ -345,7 +345,18 @@ export function createLocalStorageEngine(): InvestigationStorage {
       const newEntities: InvestigationEntity[] = (parsed.entities ?? []).map((e) => {
         const id = newId();
         entityIdMap.set(e.id, id);
-        return { ...e, id, dossierId: newDossierId, imageId: e.imageId ? imageIdMap.get(e.imageId) : undefined };
+        return {
+          ...e,
+          id,
+          dossierId: newDossierId,
+          imageId: e.imageId ? imageIdMap.get(e.imageId) : undefined,
+          // Les sources reçoivent de nouveaux identifiants : les coordonnées qui s'y réfèrent suivent.
+          attributes: e.attributes?.map((attribute) => ({
+            ...attribute,
+            id: newId(),
+            sourceId: attribute.sourceId ? sourceIdMap.get(attribute.sourceId) : undefined,
+          })),
+        };
       });
       const newRelations: Relation[] = (parsed.relations ?? [])
         .map((r) => {

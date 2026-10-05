@@ -23,6 +23,15 @@ import {
   type RelationStatus,
 } from "@/lib/investigation/types";
 import { useEntities, useInvestigationStorage, useRelations, useSources } from "@/lib/investigation/InvestigationContext";
+import {
+  attributeLink,
+  findSharedValues,
+  groupAttributes,
+  pivotKey,
+  sharedValueLabel,
+  type SharedValue,
+} from "@/lib/investigation/attributes";
+import AttributeIcon from "./AttributeIcon";
 import EntityForm, { type EntityFormValues } from "./EntityForm";
 import EntityNode, { countryOf, type EntityFlowNode } from "./EntityNode";
 import HexFlag from "./HexFlag";
@@ -36,13 +45,59 @@ interface EntityGraphPanelProps {
 // Défini hors du composant : React Flow exige une référence stable.
 const NODE_TYPES = { entityCard: EntityNode };
 
-function entitiesToNodes(entities: InvestigationEntity[]): EntityFlowNode[] {
+/** Pour chaque coordonnée partagée : les noms des autres fiches qui portent la même valeur. */
+function sharedWithByAttribute(entities: InvestigationEntity[], shared: SharedValue[]): Map<string, Record<string, string[]>> {
+  const byEntity = new Map<string, Record<string, string[]>>();
+  const names = new Map(entities.map((entity) => [entity.id, entity.name]));
+  const sharedByKey = new Map(shared.map((value) => [value.key, value]));
+  for (const entity of entities) {
+    const perAttribute: Record<string, string[]> = {};
+    for (const attribute of entity.attributes ?? []) {
+      const key = pivotKey(attribute);
+      const value = key ? sharedByKey.get(key) : undefined;
+      if (!value) continue;
+      perAttribute[attribute.id] = value.entityIds.filter((id) => id !== entity.id).map((id) => names.get(id) ?? id);
+    }
+    byEntity.set(entity.id, perAttribute);
+  }
+  return byEntity;
+}
+
+function entitiesToNodes(entities: InvestigationEntity[], shared: SharedValue[]): EntityFlowNode[] {
+  const sharedWith = sharedWithByAttribute(entities, shared);
   return entities.map((entity) => ({
     id: entity.id,
     type: "entityCard" as const,
     position: entity.position,
-    data: { entity },
+    data: { entity, sharedWith: sharedWith.get(entity.id) ?? {} },
   }));
+}
+
+/** Traits gris entre deux fiches qui portent la même valeur (même e-mail, même téléphone, même compte). */
+function pivotEdges(shared: SharedValue[]): Edge[] {
+  const edges: Edge[] = [];
+  for (const value of shared) {
+    const ids = value.entityIds.slice(0, 6);
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = i + 1; j < ids.length; j++) {
+        edges.push({
+          id: `pivot:${value.key}:${ids[i]}:${ids[j]}`,
+          source: ids[i],
+          target: ids[j],
+          // Courbe : le trait ne se superpose pas à un lien direct entre les mêmes fiches.
+          type: "default",
+          label: sharedValueLabel(value),
+          style: { stroke: "#8f9baa", strokeWidth: 1.4, strokeDasharray: "2 5" },
+          labelStyle: { fill: "#8f9baa", fontSize: 11, fontStyle: "italic" },
+          labelBgStyle: { fill: "var(--bg-primary)", fillOpacity: 0.9 },
+          labelBgPadding: [6, 3] as [number, number],
+          labelBgBorderRadius: 4,
+          selectable: false,
+        });
+      }
+    }
+  }
+  return edges;
 }
 
 function relationsToEdges(relations: Relation[]): Edge[] {
@@ -75,10 +130,16 @@ function freePosition(existing: { x: number; y: number }[]): { x: number; y: num
 
 function EntityDetails({
   entity,
+  entities,
+  sources,
+  sharedValues,
   onEdit,
   onDelete,
 }: {
   entity: InvestigationEntity;
+  entities: InvestigationEntity[];
+  sources: { id: string; title: string }[];
+  sharedValues: SharedValue[];
   onEdit: () => void;
   onDelete: () => void;
 }) {
@@ -109,6 +170,41 @@ function EntityDetails({
           </span>
         </div>
       ) : null}
+      {groupAttributes(entity.attributes ?? []).map((group) => (
+        <div key={group.key} className={styles.attrGroup}>
+          <div className={styles.attrGroupTitle}>
+            <AttributeIcon kind={group.kind} platform={group.platform} />
+            {group.title}
+          </div>
+          {group.items.map((attribute) => {
+            const link = attributeLink(attribute);
+            const key = pivotKey(attribute);
+            const shared = key ? sharedValues.find((value) => value.key === key) : undefined;
+            const others = shared ? shared.entityIds.filter((id) => id !== entity.id).map((id) => entities.find((e) => e.id === id)?.name ?? id) : [];
+            const source = sources.find((s) => s.id === attribute.sourceId);
+            return (
+              <div key={attribute.id} className={styles.attrItem}>
+                {link ? (
+                  <a href={link} {...(link.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
+                    {attribute.value}
+                  </a>
+                ) : (
+                  <span>{attribute.value}</span>
+                )}
+                {attribute.secondary ? <span className={styles.attrMeta}> · ID {attribute.secondary}</span> : null}
+                <span className={styles.attrMeta}>
+                  {" · "}
+                  {attribute.status === "hypothesis" ? "supposée" : "documentée"}
+                  {source ? ` · ${source.title}` : ""}
+                </span>
+                {others.length > 0 ? (
+                  <span className={styles.attrShared}>⛓ Même valeur sur : {others.join(", ")}</span>
+                ) : null}
+              </div>
+            );
+          })}
+        </div>
+      ))}
       {entity.aliases.length > 0 && (
         <div className={styles.detailRow}>
           <span className={styles.detailLabel}>Alias</span>
@@ -141,8 +237,13 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
   const [showRelationForm, setShowRelationForm] = useState(false);
   const [selected, setSelected] = useState<{ kind: "entity" | "relation"; id: string } | null>(null);
 
-  const initialNodes = useMemo(() => entitiesToNodes(entities), [entities]);
-  const initialEdges = useMemo(() => relationsToEdges(relations), [relations]);
+  const [showPivots, setShowPivots] = useState(true);
+  const sharedValues = useMemo(() => findSharedValues(entities), [entities]);
+  const initialNodes = useMemo(() => entitiesToNodes(entities, sharedValues), [entities, sharedValues]);
+  const initialEdges = useMemo(
+    () => [...relationsToEdges(relations), ...(showPivots ? pivotEdges(sharedValues) : [])],
+    [relations, sharedValues, showPivots]
+  );
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
@@ -163,6 +264,7 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
   };
 
   const handleEdgeClick: EdgeMouseHandler = (_evt, edge) => {
+    if (edge.id.startsWith("pivot:")) return;
     setSelected({ kind: "relation", id: edge.id });
   };
 
@@ -191,6 +293,7 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
       countryLabel: values.countryLabel || undefined,
       imageId: values.imageId,
       imageUrl: values.imageUrl,
+      attributes: values.attributes.length > 0 ? values.attributes : undefined,
       position: freePosition(entities.map((entity) => entity.position)),
     });
     setShowEntityForm(false);
@@ -207,6 +310,7 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
       countryLabel: values.countryLabel || undefined,
       imageId: values.imageId,
       imageUrl: values.imageUrl,
+      attributes: values.attributes.length > 0 ? values.attributes : undefined,
     });
     setEditingEntityId(null);
   }
@@ -249,11 +353,21 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
         >
           + Ajouter une relation
         </button>
+        {sharedValues.length > 0 ? (
+          <button
+            type="button"
+            className={styles.toolbarBtn}
+            onClick={() => setShowPivots((value) => !value)}
+            title="Fiches qui portent la même coordonnée (e-mail, téléphone, compte…)"
+          >
+            {showPivots ? "Masquer" : "Afficher"} les valeurs communes ({sharedValues.length})
+          </button>
+        ) : null}
       </div>
 
       {showEntityForm && (
         <div className={styles.formCard}>
-          <EntityForm submitLabel="Ajouter" onSubmit={handleAddEntity} onCancel={() => setShowEntityForm(false)} />
+          <EntityForm submitLabel="Ajouter" sources={sources} onSubmit={handleAddEntity} onCancel={() => setShowEntityForm(false)} />
         </div>
       )}
 
@@ -396,12 +510,16 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
                   key={selectedEntity.id}
                   initial={selectedEntity}
                   submitLabel="Enregistrer"
+                  sources={sources}
                   onSubmit={(values) => handleUpdateEntity(selectedEntity.id, values)}
                   onCancel={() => setEditingEntityId(null)}
                 />
               ) : (
                 <EntityDetails
                   entity={selectedEntity}
+                  sources={sources}
+                  sharedValues={sharedValues}
+                  entities={entities}
                   onEdit={() => setEditingEntityId(selectedEntity.id)}
                   onDelete={() => {
                     storage.deleteEntity(selectedEntity.id);

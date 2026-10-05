@@ -1,0 +1,31 @@
+.badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.25);
+}
+
+.plain {
+  background: #ffffff;
+  color: #111111;
+  box-shadow: none;
+}
+
+.glyph {
+  font-family: system-ui, sans-serif;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.plainGlyph {
+  font-family: system-ui, sans-serif;
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1;
+}
