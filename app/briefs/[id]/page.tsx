@@ -98,7 +98,6 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
 
         {brief.image_url?.startsWith("/equinoxe/hero-") ? <p>Illustration de la zone — ne représente pas l’événement.</p> : null}
         <h1 className={styles.title}>{brief.title}</h1>
-        <p>Synthèse générée par IA à partir des sources ci-dessous. Le statut de véracité est une appréciation éditoriale à la date de rédaction, pas une certification. La date affichée est celle de la synthèse.</p>
 
         <div className={styles.body}>
           {brief.sections && brief.sections.length > 0
