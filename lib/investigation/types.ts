@@ -163,6 +163,8 @@ export interface Note {
   claimType: ClaimType;
   linkedSourceIds: string[];
   linkedEntityIds: string[];
+  /** Fiche texte d'une entité du graphe : une entité a au plus une note. Absent pour une note libre. */
+  entityId?: string;
   createdAt: string;
   updatedAt: string;
 }

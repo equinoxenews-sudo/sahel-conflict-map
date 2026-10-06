@@ -68,3 +68,8 @@
   color: var(--text-secondary);
   padding: 40px 0;
 }
+
+/* Onglet Notes : plus large pour loger le texte et le graphe côte à côte. */
+.wrapWide {
+  max-width: 1760px;
+}

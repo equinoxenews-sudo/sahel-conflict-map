@@ -216,6 +216,8 @@ export function createLocalStorageEngine(): InvestigationStorage {
     deleteEntity(id) {
       discardImages([cached.entities.find((e) => e.id === id)?.imageId]);
       mutate((data) => {
+        // La fiche texte d'une entité supprimée est conservée : elle devient une note libre.
+        data.notes = data.notes.map((n) => (n.entityId === id ? { ...n, entityId: undefined } : n));
         data.entities = data.entities.filter((e) => e.id !== id);
         data.relations = data.relations.filter((r) => r.sourceEntityId !== id && r.targetEntityId !== id);
       });
@@ -380,6 +382,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
         dossierId: newDossierId,
         linkedSourceIds: n.linkedSourceIds.map((id) => sourceIdMap.get(id)).filter((id): id is string => !!id),
         linkedEntityIds: n.linkedEntityIds.map((id) => entityIdMap.get(id)).filter((id): id is string => !!id),
+        entityId: n.entityId ? entityIdMap.get(n.entityId) : undefined,
       }));
       const newCanvasCards: CanvasCard[] = (parsed.canvasCards ?? []).map((c) => {
         const id = newId();

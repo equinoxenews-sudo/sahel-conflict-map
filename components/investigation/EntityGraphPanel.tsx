@@ -12,6 +12,7 @@ import {
   type NodeMouseHandler,
   type EdgeMouseHandler,
   type OnNodeDrag,
+  type ReactFlowInstance,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
@@ -22,7 +23,13 @@ import {
   type Relation,
   type RelationStatus,
 } from "@/lib/investigation/types";
-import { useEntities, useInvestigationStorage, useRelations, useSources } from "@/lib/investigation/InvestigationContext";
+import {
+  useEntities,
+  useInvestigationStorage,
+  useNotes,
+  useRelations,
+  useSources,
+} from "@/lib/investigation/InvestigationContext";
 import {
   attributeLink,
   findSharedValues,
@@ -32,6 +39,8 @@ import {
   type SharedValue,
 } from "@/lib/investigation/attributes";
 import AttributeIcon from "./AttributeIcon";
+import { freePosition } from "@/lib/investigation/layout";
+import { renameNote } from "@/lib/investigation/fiches";
 import EntityForm, { type EntityFormValues } from "./EntityForm";
 import EntityNode, { countryOf, type EntityFlowNode } from "./EntityNode";
 import HexFlag from "./HexFlag";
@@ -40,6 +49,12 @@ import styles from "./EntityGraphPanel.module.css";
 
 interface EntityGraphPanelProps {
   dossierId: string;
+  /** Ouvre (ou crée) la fiche texte d'une entité ; absent = pas de bouton. */
+  onOpenFiche?: (entityId: string) => void;
+  /** Demande de centrer le graphe sur une fiche : un nouveau `nonce` relance le centrage. */
+  focusRequest?: { entityId: string; nonce: number } | null;
+  /** Graphe affiché à côté du texte : il remplit la hauteur disponible. */
+  compact?: boolean;
 }
 
 // Défini hors du composant : React Flow exige une référence stable.
@@ -117,25 +132,18 @@ function relationsToEdges(relations: Relation[]): Edge[] {
   }));
 }
 
-// Première case libre d'une grille assez large pour les cartes : une nouvelle
-// fiche ne se pose jamais sur une fiche existante.
-function freePosition(existing: { x: number; y: number }[]): { x: number; y: number } {
-  for (let index = 0; index < 400; index++) {
-    const candidate = { x: 60 + (index % 3) * 400, y: 60 + Math.floor(index / 3) * 170 };
-    const taken = existing.some((p) => Math.abs(p.x - candidate.x) < 330 && Math.abs(p.y - candidate.y) < 130);
-    if (!taken) return candidate;
-  }
-  return { x: 60, y: 60 };
-}
-
 function EntityDetails({
   entity,
   entities,
   sources,
   sharedValues,
+  hasFiche,
+  onOpenFiche,
   onEdit,
   onDelete,
 }: {
+  hasFiche: boolean;
+  onOpenFiche?: () => void;
   entity: InvestigationEntity;
   entities: InvestigationEntity[];
   sources: { id: string; title: string }[];
@@ -217,8 +225,13 @@ function EntityDetails({
           <span className={styles.detailValue}>{entity.notes}</span>
         </div>
       )}
+      {onOpenFiche ? (
+        <button type="button" className={styles.ficheBtn} onClick={onOpenFiche}>
+          {hasFiche ? "Ouvrir la fiche" : "Créer la fiche"}
+        </button>
+      ) : null}
       <button type="button" className={styles.editBtn} onClick={onEdit}>
-        Modifier la fiche
+        Modifier les infos
       </button>
       <button type="button" className={styles.deleteBtn} onClick={onDelete}>
         Supprimer l&apos;entité
@@ -227,11 +240,15 @@ function EntityDetails({
   );
 }
 
-export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
+export default function EntityGraphPanel({ dossierId, onOpenFiche, focusRequest = null, compact = false }: EntityGraphPanelProps) {
   const entities = useEntities(dossierId);
   const relations = useRelations(dossierId);
   const sources = useSources(dossierId);
+  const notes = useNotes(dossierId);
   const storage = useInvestigationStorage();
+  const ficheEntityIds = useMemo(() => new Set(notes.flatMap((note) => (note.entityId ? [note.entityId] : []))), [notes]);
+  const [flow, setFlow] = useState<ReactFlowInstance<EntityFlowNode> | null>(null);
+  const [appliedFocus, setAppliedFocus] = useState(0);
 
   const [showEntityForm, setShowEntityForm] = useState(false);
   const [showRelationForm, setShowRelationForm] = useState(false);
@@ -268,6 +285,20 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
     setSelected({ kind: "relation", id: edge.id });
   };
 
+  // Une demande de l'éditeur de notes (« Voir dans le graphe ») sélectionne la fiche.
+  if (focusRequest && focusRequest.nonce !== appliedFocus) {
+    setAppliedFocus(focusRequest.nonce);
+    setSelected({ kind: "entity", id: focusRequest.entityId });
+  }
+
+  const focusedId = focusRequest?.entityId;
+  const focusNonce = focusRequest?.nonce;
+  useEffect(() => {
+    if (!flow || !focusedId) return;
+    const id = window.setTimeout(() => void flow.fitView({ nodes: [{ id: focusedId }], duration: 450, maxZoom: 1, padding: 0.6 }), 60);
+    return () => window.clearTimeout(id);
+  }, [flow, focusedId, focusNonce]);
+
   const selectedEntity = selected?.kind === "entity" ? entities.find((e) => e.id === selected.id) : null;
   const selectedRelation = selected?.kind === "relation" ? relations.find((r) => r.id === selected.id) : null;
 
@@ -300,6 +331,9 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
   }
 
   function handleUpdateEntity(id: string, values: EntityFormValues) {
+    // La fiche texte porte le nom de l'entité : un renommage les suit toutes les deux.
+    const fiche = notes.find((note) => note.entityId === id);
+    if (fiche && fiche.title !== values.name) renameNote(storage, notes, fiche, values.name);
     storage.updateEntity(id, {
       type: values.type,
       name: values.name,
@@ -339,7 +373,7 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
   }
 
   return (
-    <div className={styles.wrap}>
+    <div className={compact ? `${styles.wrap} ${styles.wrapCompact}` : styles.wrap}>
       <div className={styles.toolbar}>
         <button type="button" className={styles.toolbarBtn} onClick={() => setShowEntityForm((v) => !v)}>
           + Ajouter une entité
@@ -466,8 +500,8 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
           Aucune entité — ajoutez-en pour commencer à construire le graphe relationnel.
         </div>
       ) : (
-        <div className={styles.body}>
-          <div className={styles.canvasWrap}>
+        <div className={compact ? `${styles.body} ${styles.bodyCompact}` : styles.body}>
+          <div className={compact ? `${styles.canvasWrap} ${styles.canvasCompact}` : styles.canvasWrap}>
             <ReactFlow
               nodes={nodes}
               edges={edges}
@@ -478,6 +512,7 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
               onEdgeClick={handleEdgeClick}
               onPaneClick={() => setSelected(null)}
               nodeTypes={NODE_TYPES}
+              onInit={setFlow}
               fitView
               colorMode="dark"
               minZoom={0.2}
@@ -520,6 +555,8 @@ export default function EntityGraphPanel({ dossierId }: EntityGraphPanelProps) {
                   sources={sources}
                   sharedValues={sharedValues}
                   entities={entities}
+                  hasFiche={ficheEntityIds.has(selectedEntity.id)}
+                  onOpenFiche={onOpenFiche ? () => onOpenFiche(selectedEntity.id) : undefined}
                   onEdit={() => setEditingEntityId(selectedEntity.id)}
                   onDelete={() => {
                     storage.deleteEntity(selectedEntity.id);

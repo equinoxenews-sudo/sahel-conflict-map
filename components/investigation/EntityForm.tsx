@@ -27,6 +27,22 @@ export interface EntityFormValues {
   attributes: EntityAttribute[];
 }
 
+/** Champs d'une entité à enregistrer d'après le formulaire (vide = champ retiré). */
+export function entityPatchFromValues(values: EntityFormValues) {
+  return {
+    type: values.type,
+    name: values.name,
+    aliases: values.aliases,
+    notes: values.notes,
+    role: values.role || undefined,
+    countryIso2: values.countryIso2 || undefined,
+    countryLabel: values.countryLabel || undefined,
+    imageId: values.imageId,
+    imageUrl: values.imageUrl,
+    attributes: values.attributes.length > 0 ? values.attributes : undefined,
+  };
+}
+
 interface EntityFormProps {
   /** Fiche à modifier ; absente pour une création. */
   initial?: InvestigationEntity;
