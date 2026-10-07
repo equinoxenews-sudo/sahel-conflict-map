@@ -15,7 +15,7 @@ import {
   type ReactFlowInstance,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ENTITY_TYPE_LABELS,
   RELATION_STATUS_LABELS,
@@ -53,6 +53,8 @@ import {
   isDuplicateRelation,
 } from "@/lib/investigation/relationTypes";
 import DuplicatesPanel from "./DuplicatesPanel";
+import ExportPanel from "./ExportPanel";
+import RelationEdge from "./RelationEdge";
 import MergeDialog from "./MergeDialog";
 import EntityForm, { type EntityFormValues } from "./EntityForm";
 import RelationForm, { type RelationFormValues } from "./RelationForm";
@@ -75,6 +77,7 @@ interface EntityGraphPanelProps {
 
 // Défini hors du composant : React Flow exige une référence stable.
 const NODE_TYPES = { entityCard: EntityNode };
+const EDGE_TYPES = { relation: RelationEdge };
 
 /** Pour chaque coordonnée partagée : les noms des autres fiches qui portent la même valeur. */
 function sharedWithByAttribute(entities: InvestigationEntity[], shared: SharedValue[]): Map<string, Record<string, string[]>> {
@@ -139,11 +142,17 @@ function relationsToEdges(relations: Relation[]): Edge[] {
       source: r.sourceEntityId,
       target: r.targetEntityId,
       label: edgeLabel(r),
-      type: duplicate ? "default" : "straight",
+      type: "relation",
+      data: { curved: duplicate },
       // Pointillés animés = lien supposé (hypothèse) ; trait plein = lien documenté.
       animated: r.status === "hypothesis",
       // Un doublon possible est orange : à examiner, jamais fusionné automatiquement.
-      style: { stroke: duplicate ? "var(--status-danger)" : "var(--accent-gold)", strokeWidth: 1.6, ...(duplicate ? { strokeDasharray: "6 4" } : {}) },
+      // Pointillés écrits explicitement (en plus de l'animation) : ils survivent à l'export en image.
+      style: {
+        stroke: duplicate ? "var(--status-danger)" : "var(--accent-gold)",
+        strokeWidth: 1.6,
+        ...(duplicate || r.status === "hypothesis" ? { strokeDasharray: "6 4" } : {}),
+      },
       labelStyle: { fill: duplicate ? "var(--status-danger)" : "var(--text-primary)", fontSize: 12, fontStyle: "italic" },
       labelBgStyle: { fill: "var(--bg-primary)", fillOpacity: 0.9 },
       labelBgPadding: [6, 3] as [number, number],
@@ -309,6 +318,8 @@ export default function EntityGraphPanel({
     [entities, relations, dossier?.dismissedDuplicates]
   );
   const [showDuplicates, setShowDuplicates] = useState(false);
+  const [showExport, setShowExport] = useState(false);
+  const canvasRef = useRef<HTMLDivElement>(null);
   const [layoutDirection, setLayoutDirection] = useState<"TB" | "LR">("TB");
   const [layoutUndo, setLayoutUndo] = useState<Positions | null>(null);
   const [merging, setMerging] = useState<{ primaryId: string; secondaryId: string } | null>(null);
@@ -541,12 +552,25 @@ export default function EntityGraphPanel({
             </select>
           </>
         ) : null}
+        {entities.length > 0 ? (
+          <button type="button" className={styles.toolbarBtn} onClick={() => setShowExport((value) => !value)}>
+            Exporter en image
+          </button>
+        ) : null}
         {duplicates.length > 0 ? (
           <button type="button" className={styles.toolbarBtn} onClick={() => setShowDuplicates((value) => !value)}>
             Doublons possibles ({duplicates.length})
           </button>
         ) : null}
       </div>
+
+      {showExport ? (
+        <ExportPanel
+          getContainer={() => canvasRef.current?.querySelector<HTMLElement>(".react-flow") ?? null}
+          dossierName={dossier?.name ?? "Graphe"}
+          onClose={() => setShowExport(false)}
+        />
+      ) : null}
 
       {layoutUndo ? (
         <div className={styles.notice} role="status">
@@ -627,7 +651,7 @@ export default function EntityGraphPanel({
         </div>
       ) : (
         <div className={compact ? `${styles.body} ${styles.bodyCompact}` : styles.body}>
-          <div className={compact ? `${styles.canvasWrap} ${styles.canvasCompact}` : styles.canvasWrap}>
+          <div ref={canvasRef} className={compact ? `${styles.canvasWrap} ${styles.canvasCompact}` : styles.canvasWrap}>
             <OpenAttributeContext.Provider value={onOpenAttribute}>
             <ReactFlow
               nodes={nodes}
@@ -639,6 +663,7 @@ export default function EntityGraphPanel({
               onEdgeClick={handleEdgeClick}
               onPaneClick={() => setSelected(null)}
               nodeTypes={NODE_TYPES}
+              edgeTypes={EDGE_TYPES}
               onInit={setFlow}
               fitView
               colorMode="dark"

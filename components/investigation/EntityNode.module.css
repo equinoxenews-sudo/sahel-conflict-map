@@ -97,6 +97,11 @@
   line-height: 1.3;
 }
 
+/* Export en image avec coordonnées masquées (lib/investigation/exportImage.ts). */
+:global(.eq-export-mask) .attrs {
+  display: none;
+}
+
 /* Coordonnées : le trait vertical part du bas de la pastille (x = 36 px). */
 .attrs {
   margin-left: 36px;
