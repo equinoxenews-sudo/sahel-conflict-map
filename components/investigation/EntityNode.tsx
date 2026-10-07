@@ -121,7 +121,15 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
         </div>
 
         <div className={styles.card}>
-          <span className={styles.type}>{ENTITY_TYPE_LABELS[entity.type].toUpperCase()}</span>
+          <span className={styles.type}>
+            {ENTITY_TYPE_LABELS[entity.type].toUpperCase()}
+            {entity.pinned ? (
+              <span className={styles.pin} title="Position épinglée : la mise en page automatique ne la déplace pas">
+                {" "}
+                📌
+              </span>
+            ) : null}
+          </span>
           <span className={styles.name}>{entity.name}</span>
           {entity.role ? <span className={styles.role}>{entity.role}</span> : null}
           {country ? (

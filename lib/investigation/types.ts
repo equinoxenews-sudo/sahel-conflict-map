@@ -91,6 +91,8 @@ export interface InvestigationEntity {
   imageId?: string;
   /** Image désignée par une adresse web ; l'image importée est prioritaire. */
   imageUrl?: string;
+  /** Position épinglée : la mise en page automatique ne la déplace pas. */
+  pinned?: boolean;
   /** Coordonnées rattachées à la fiche (e-mail, téléphone, comptes, lieux…). */
   attributes?: EntityAttribute[];
 }

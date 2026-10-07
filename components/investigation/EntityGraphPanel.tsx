@@ -42,9 +42,16 @@ import AttributeIcon from "./AttributeIcon";
 import { freePosition } from "@/lib/investigation/layout";
 import type { InvestigationData } from "@/lib/investigation/types";
 import { renameNote } from "@/lib/investigation/fiches";
+import { computeTreeLayout, type Positions } from "@/lib/investigation/autoLayout";
 import { findDuplicateCandidates } from "@/lib/investigation/duplicates";
 import { planEntityMerge, type MergeChoices } from "@/lib/investigation/merge";
-import { DUPLICATE_RELATION_KEY, edgeLabel, getRelationType, isDuplicateRelation } from "@/lib/investigation/relationTypes";
+import {
+  DUPLICATE_RELATION_KEY,
+  edgeLabel,
+  getRelationType,
+  hierarchyOf,
+  isDuplicateRelation,
+} from "@/lib/investigation/relationTypes";
 import DuplicatesPanel from "./DuplicatesPanel";
 import MergeDialog from "./MergeDialog";
 import EntityForm, { type EntityFormValues } from "./EntityForm";
@@ -151,6 +158,7 @@ function EntityDetails({
   sources,
   sharedValues,
   hasFiche,
+  onTogglePin,
   mergeCandidates,
   onMergeWith,
   onOpenFiche,
@@ -159,6 +167,7 @@ function EntityDetails({
   onDelete,
 }: {
   hasFiche: boolean;
+  onTogglePin: () => void;
   mergeCandidates: InvestigationEntity[];
   onMergeWith: (otherId: string) => void;
   onOpenAttribute?: (attributeId: string) => void;
@@ -257,6 +266,9 @@ function EntityDetails({
       <button type="button" className={styles.editBtn} onClick={onEdit}>
         Modifier les infos
       </button>
+      <button type="button" className={styles.editBtn} onClick={onTogglePin}>
+        {entity.pinned ? "Désépingler la position" : "Épingler la position"}
+      </button>
       {mergeCandidates.length > 0 ? (
         <select
           className={styles.mergeSelect}
@@ -297,6 +309,8 @@ export default function EntityGraphPanel({
     [entities, relations, dossier?.dismissedDuplicates]
   );
   const [showDuplicates, setShowDuplicates] = useState(false);
+  const [layoutDirection, setLayoutDirection] = useState<"TB" | "LR">("TB");
+  const [layoutUndo, setLayoutUndo] = useState<Positions | null>(null);
   const [merging, setMerging] = useState<{ primaryId: string; secondaryId: string } | null>(null);
   const [lastMerge, setLastMerge] = useState<{ before: InvestigationData; after: InvestigationData; text: string; failed?: boolean } | null>(null);
   const ficheEntityIds = useMemo(() => new Set(notes.flatMap((note) => (note.entityId ? [note.entityId] : []))), [notes]);
@@ -395,6 +409,40 @@ export default function EntityGraphPanel({
     setEditingEntityId(null);
   }
 
+  // Range le graphe en arbre selon les relations hiérarchiques. Les positions d'avant sont
+  // gardées pour « Annuler la mise en page » : le placement manuel a de la valeur.
+  function organize() {
+    if (!flow || entities.length === 0) return;
+    const measured = new Map(flow.getNodes().map((n) => [n.id, n.measured]));
+    const nodes = entities.map((entity) => ({
+      id: entity.id,
+      x: entity.position.x,
+      y: entity.position.y,
+      width: measured.get(entity.id)?.width ?? 340,
+      height: measured.get(entity.id)?.height ?? 120,
+      pinned: entity.pinned,
+    }));
+    const hierarchy = relations.flatMap((relation) => {
+      if (isDuplicateRelation(relation)) return [];
+      const link = hierarchyOf(relation);
+      return link ? [link] : [];
+    });
+    const lateral = relations
+      .filter((relation) => !isDuplicateRelation(relation) && !hierarchyOf(relation))
+      .map((relation) => ({ a: relation.sourceEntityId, b: relation.targetEntityId }));
+    const positions = computeTreeLayout(nodes, hierarchy, lateral, { direction: layoutDirection });
+    setLayoutUndo(Object.fromEntries(entities.map((entity) => [entity.id, entity.position])));
+    storage.setEntityPositions(positions);
+    window.setTimeout(() => void flow.fitView({ duration: 500, padding: 0.15 }), 80);
+  }
+
+  function undoLayout() {
+    if (!layoutUndo) return;
+    storage.setEntityPositions(layoutUndo);
+    setLayoutUndo(null);
+    window.setTimeout(() => void flow?.fitView({ duration: 400, padding: 0.15 }), 80);
+  }
+
   // Marque deux fiches comme « possible doublon » : un trait orange, sans rien fusionner.
   function markDuplicate(aId: string, bId: string) {
     storage.addRelation({
@@ -477,12 +525,40 @@ export default function EntityGraphPanel({
             {showPivots ? "Masquer" : "Afficher"} les valeurs communes ({sharedValues.length})
           </button>
         ) : null}
+        {entities.length > 1 ? (
+          <>
+            <button type="button" className={styles.toolbarBtn} onClick={organize} title="Range les fiches en arbre selon les relations hiérarchiques ; les fiches épinglées ne bougent pas">
+              Organiser
+            </button>
+            <select
+              className={styles.layoutSelect}
+              value={layoutDirection}
+              onChange={(e) => setLayoutDirection(e.target.value as "TB" | "LR")}
+              aria-label="Sens de la mise en page"
+            >
+              <option value="TB">de haut en bas</option>
+              <option value="LR">de gauche à droite</option>
+            </select>
+          </>
+        ) : null}
         {duplicates.length > 0 ? (
           <button type="button" className={styles.toolbarBtn} onClick={() => setShowDuplicates((value) => !value)}>
             Doublons possibles ({duplicates.length})
           </button>
         ) : null}
       </div>
+
+      {layoutUndo ? (
+        <div className={styles.notice} role="status">
+          <span>Mise en page appliquée.</span>
+          <button type="button" className={styles.noticeBtn} onClick={undoLayout}>
+            Annuler la mise en page
+          </button>
+          <button type="button" className={styles.noticeBtn} onClick={() => setLayoutUndo(null)} aria-label="Fermer">
+            ×
+          </button>
+        </div>
+      ) : null}
 
       {lastMerge ? (
         <div className={styles.notice} role="status">
@@ -608,6 +684,7 @@ export default function EntityGraphPanel({
                   sharedValues={sharedValues}
                   entities={entities}
                   hasFiche={ficheEntityIds.has(selectedEntity.id)}
+                  onTogglePin={() => storage.updateEntity(selectedEntity.id, { pinned: !selectedEntity.pinned })}
                   mergeCandidates={entities.filter((e) => e.id !== selectedEntity.id)}
                   onMergeWith={(otherId) => setMerging({ primaryId: selectedEntity.id, secondaryId: otherId })}
                   onOpenAttribute={onOpenAttribute ? (attributeId) => onOpenAttribute(selectedEntity.id, attributeId) : undefined}

@@ -50,6 +50,8 @@ export interface InvestigationStorage {
   addEntity(input: Omit<InvestigationEntity, "id" | "createdAt">): InvestigationEntity;
   updateEntity(id: string, patch: Partial<Omit<InvestigationEntity, "id" | "dossierId" | "createdAt">>): void;
   deleteEntity(id: string): void;
+  /** Déplace plusieurs fiches d'un seul coup (mise en page automatique) : une seule écriture. */
+  setEntityPositions(positions: Record<string, { x: number; y: number }>): void;
 
   addRelation(input: Omit<Relation, "id" | "createdAt">): Relation;
   updateRelation(id: string, patch: Partial<Omit<Relation, "id" | "dossierId" | "createdAt">>): void;
@@ -270,6 +272,11 @@ export function createLocalStorageEngine(): InvestigationStorage {
         if (removed.length > 0) {
           data.notes = data.notes.map((n) => (n.attributeRef && removed.includes(n.attributeRef.attributeId) ? { ...n, attributeRef: undefined } : n));
         }
+      });
+    },
+    setEntityPositions(positions) {
+      mutate((data) => {
+        data.entities = data.entities.map((e) => (positions[e.id] ? { ...e, position: positions[e.id] } : e));
       });
     },
     deleteEntity(id) {

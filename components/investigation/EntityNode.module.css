@@ -228,3 +228,8 @@
   border-color: var(--accent-gold);
   background: rgba(200, 155, 60, 0.14);
 }
+
+.pin {
+  font-size: 11px;
+  letter-spacing: 0;
+}
