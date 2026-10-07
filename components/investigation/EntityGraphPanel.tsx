@@ -23,6 +23,7 @@ import {
   type Relation,
 } from "@/lib/investigation/types";
 import {
+  useDossier,
   useEntities,
   useInvestigationStorage,
   useNotes,
@@ -39,8 +40,13 @@ import {
 } from "@/lib/investigation/attributes";
 import AttributeIcon from "./AttributeIcon";
 import { freePosition } from "@/lib/investigation/layout";
+import type { InvestigationData } from "@/lib/investigation/types";
 import { renameNote } from "@/lib/investigation/fiches";
-import { edgeLabel, getRelationType, isDuplicateRelation } from "@/lib/investigation/relationTypes";
+import { findDuplicateCandidates } from "@/lib/investigation/duplicates";
+import { planEntityMerge, type MergeChoices } from "@/lib/investigation/merge";
+import { DUPLICATE_RELATION_KEY, edgeLabel, getRelationType, isDuplicateRelation } from "@/lib/investigation/relationTypes";
+import DuplicatesPanel from "./DuplicatesPanel";
+import MergeDialog from "./MergeDialog";
 import EntityForm, { type EntityFormValues } from "./EntityForm";
 import RelationForm, { type RelationFormValues } from "./RelationForm";
 import EntityNode, { countryOf, OpenAttributeContext, type EntityFlowNode } from "./EntityNode";
@@ -145,12 +151,16 @@ function EntityDetails({
   sources,
   sharedValues,
   hasFiche,
+  mergeCandidates,
+  onMergeWith,
   onOpenFiche,
   onOpenAttribute,
   onEdit,
   onDelete,
 }: {
   hasFiche: boolean;
+  mergeCandidates: InvestigationEntity[];
+  onMergeWith: (otherId: string) => void;
   onOpenAttribute?: (attributeId: string) => void;
   onOpenFiche?: () => void;
   entity: InvestigationEntity;
@@ -247,6 +257,21 @@ function EntityDetails({
       <button type="button" className={styles.editBtn} onClick={onEdit}>
         Modifier les infos
       </button>
+      {mergeCandidates.length > 0 ? (
+        <select
+          className={styles.mergeSelect}
+          value=""
+          onChange={(e) => e.target.value && onMergeWith(e.target.value)}
+          aria-label="Fusionner avec une autre fiche"
+        >
+          <option value="">Fusionner avec une autre fiche…</option>
+          {mergeCandidates.map((candidate) => (
+            <option key={candidate.id} value={candidate.id}>
+              {candidate.name}
+            </option>
+          ))}
+        </select>
+      ) : null}
       <button type="button" className={styles.deleteBtn} onClick={onDelete}>
         Supprimer l&apos;entité
       </button>
@@ -265,7 +290,15 @@ export default function EntityGraphPanel({
   const relations = useRelations(dossierId);
   const sources = useSources(dossierId);
   const notes = useNotes(dossierId);
+  const dossier = useDossier(dossierId);
   const storage = useInvestigationStorage();
+  const duplicates = useMemo(
+    () => findDuplicateCandidates(entities, relations, dossier?.dismissedDuplicates),
+    [entities, relations, dossier?.dismissedDuplicates]
+  );
+  const [showDuplicates, setShowDuplicates] = useState(false);
+  const [merging, setMerging] = useState<{ primaryId: string; secondaryId: string } | null>(null);
+  const [lastMerge, setLastMerge] = useState<{ before: InvestigationData; after: InvestigationData; text: string; failed?: boolean } | null>(null);
   const ficheEntityIds = useMemo(() => new Set(notes.flatMap((note) => (note.entityId ? [note.entityId] : []))), [notes]);
   const [flow, setFlow] = useState<ReactFlowInstance<EntityFlowNode> | null>(null);
   const [appliedFocus, setAppliedFocus] = useState(0);
@@ -362,6 +395,40 @@ export default function EntityGraphPanel({
     setEditingEntityId(null);
   }
 
+  // Marque deux fiches comme « possible doublon » : un trait orange, sans rien fusionner.
+  function markDuplicate(aId: string, bId: string) {
+    storage.addRelation({
+      dossierId,
+      sourceEntityId: aId,
+      targetEntityId: bId,
+      typeKey: DUPLICATE_RELATION_KEY,
+      label: getRelationType(DUPLICATE_RELATION_KEY)?.label ?? "",
+      status: "hypothesis",
+      confidence: 50,
+      justifyingSourceId: null,
+    });
+  }
+
+  function confirmMerge(choices: MergeChoices) {
+    if (!merging) return;
+    const primary = entities.find((e) => e.id === merging.primaryId);
+    const secondary = entities.find((e) => e.id === merging.secondaryId);
+    if (!primary || !secondary) return;
+    const plan = planEntityMerge(primary, secondary, choices);
+    const result = storage.mergeEntities(primary.id, secondary.id, plan);
+    setMerging(null);
+    if (!result) return;
+    setLastMerge({ ...result, text: `« ${secondary.name} » a été fusionnée dans « ${plan.patch.name} ».` });
+    setSelected({ kind: "entity", id: primary.id });
+    setShowDuplicates(false);
+  }
+
+  function undoMerge() {
+    if (!lastMerge) return;
+    if (storage.restoreSnapshot(lastMerge.before, lastMerge.after)) setLastMerge(null);
+    else setLastMerge({ ...lastMerge, failed: true });
+  }
+
   function relationFields(values: RelationFormValues) {
     return {
       sourceEntityId: values.sourceEntityId,
@@ -410,7 +477,62 @@ export default function EntityGraphPanel({
             {showPivots ? "Masquer" : "Afficher"} les valeurs communes ({sharedValues.length})
           </button>
         ) : null}
+        {duplicates.length > 0 ? (
+          <button type="button" className={styles.toolbarBtn} onClick={() => setShowDuplicates((value) => !value)}>
+            Doublons possibles ({duplicates.length})
+          </button>
+        ) : null}
       </div>
+
+      {lastMerge ? (
+        <div className={styles.notice} role="status">
+          <span>
+            {lastMerge.failed ? "Impossible d'annuler : des modifications ont eu lieu depuis la fusion." : lastMerge.text}
+          </span>
+          {lastMerge.failed ? null : (
+            <button type="button" className={styles.noticeBtn} onClick={undoMerge}>
+              Annuler la fusion
+            </button>
+          )}
+          <button type="button" className={styles.noticeBtn} onClick={() => setLastMerge(null)} aria-label="Fermer">
+            ×
+          </button>
+        </div>
+      ) : null}
+
+      {showDuplicates ? (
+        <DuplicatesPanel
+          candidates={duplicates}
+          entities={entities}
+          onFocus={(entityId) => setSelected({ kind: "entity", id: entityId })}
+          onDismiss={(key) => storage.dismissDuplicate(dossierId, key)}
+          onMark={markDuplicate}
+          onMerge={(aId, bId) => setMerging({ primaryId: aId, secondaryId: bId })}
+        />
+      ) : null}
+
+      {merging && entities.find((e) => e.id === merging.primaryId) && entities.find((e) => e.id === merging.secondaryId) ? (
+        <MergeDialog
+          key={`${merging.primaryId}|${merging.secondaryId}`}
+          primary={entities.find((e) => e.id === merging.primaryId)!}
+          secondary={entities.find((e) => e.id === merging.secondaryId)!}
+          movedRelations={
+            relations.filter(
+              (r) =>
+                (r.sourceEntityId === merging.secondaryId || r.targetEntityId === merging.secondaryId) &&
+                r.sourceEntityId !== merging.primaryId &&
+                r.targetEntityId !== merging.primaryId
+            ).length
+          }
+          bothHaveText={
+            notes.some((n) => n.entityId === merging.primaryId && n.body.trim() !== "") &&
+            notes.some((n) => n.entityId === merging.secondaryId && n.body.trim() !== "")
+          }
+          onSwap={() => setMerging({ primaryId: merging.secondaryId, secondaryId: merging.primaryId })}
+          onCancel={() => setMerging(null)}
+          onConfirm={confirmMerge}
+        />
+      ) : null}
 
       {showEntityForm && (
         <div className={styles.formCard}>
@@ -486,6 +608,8 @@ export default function EntityGraphPanel({
                   sharedValues={sharedValues}
                   entities={entities}
                   hasFiche={ficheEntityIds.has(selectedEntity.id)}
+                  mergeCandidates={entities.filter((e) => e.id !== selectedEntity.id)}
+                  onMergeWith={(otherId) => setMerging({ primaryId: selectedEntity.id, secondaryId: otherId })}
                   onOpenAttribute={onOpenAttribute ? (attributeId) => onOpenAttribute(selectedEntity.id, attributeId) : undefined}
                   onOpenFiche={onOpenFiche ? () => onOpenFiche(selectedEntity.id) : undefined}
                   onEdit={() => setEditingEntityId(selectedEntity.id)}

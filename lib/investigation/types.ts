@@ -43,6 +43,8 @@ export const CLAIM_TYPE_LABELS: Record<ClaimType, string> = {
 
 export interface Dossier {
   id: string;
+  /** Paires de fiches « ignorées » dans les suggestions de doublons (clés `idA|idB`, voir duplicates.ts). */
+  dismissedDuplicates?: string[];
   name: string;
   description: string;
   createdAt: string;

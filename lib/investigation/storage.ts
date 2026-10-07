@@ -10,6 +10,8 @@ import {
   emptyInvestigationData,
 } from "./types";
 import { extractImageIds, replaceImageIds } from "./imageRefs";
+import type { MergePlan } from "./merge";
+import { applyEntityMerge } from "./mergeData";
 import { blobToDataUrl, dataUrlToBlob, deleteImage, getImage, putImage } from "./imageStore";
 
 const STORAGE_KEY = "equinoxe-investigation-v1";
@@ -38,6 +40,8 @@ export interface InvestigationStorage {
   createDossier(name: string, description: string): Dossier;
   renameDossier(id: string, name: string, description: string): void;
   deleteDossier(id: string): void;
+  /** « Ignorer » une paire de doublons possibles : elle n'est plus suggérée. */
+  dismissDuplicate(dossierId: string, pairKey: string): void;
 
   addSource(input: Omit<Source, "id" | "createdAt">): Source;
   updateSource(id: string, patch: Partial<Omit<Source, "id" | "dossierId" | "createdAt">>): void;
@@ -62,6 +66,11 @@ export interface InvestigationStorage {
   addCanvasLink(input: Omit<CanvasLink, "id">): CanvasLink;
   deleteCanvasLink(id: string): void;
 
+  /** Fusionne la seconde fiche dans la principale, d'un seul bloc. Renvoie les données avant et après
+   * (pour « Annuler la fusion »), ou null si la fusion est impossible. */
+  mergeEntities(primaryId: string, secondaryId: string, plan: MergePlan): { before: InvestigationData; after: InvestigationData } | null;
+  /** Annule une fusion : rétablit `before` si rien n'a changé depuis `after`. Renvoie false sinon. */
+  restoreSnapshot(before: InvestigationData, after: InvestigationData): boolean;
   /** JSON du dossier ; les images importées y sont incluses (en data URL) pour qu'un export les emporte. */
   exportDossier(dossierId: string): Promise<string>;
   /** Returns the imported dossier's new id (ids are regenerated to avoid collisions). */
@@ -193,6 +202,35 @@ export function createLocalStorageEngine(): InvestigationStorage {
         data.canvasCards = data.canvasCards.filter((c) => c.dossierId !== id);
         data.canvasLinks = data.canvasLinks.filter((l) => l.dossierId !== id);
       });
+    },
+
+    dismissDuplicate(dossierId, pairKey) {
+      mutate((data) => {
+        data.dossiers = data.dossiers.map((d) =>
+          d.id === dossierId ? { ...d, dismissedDuplicates: [...new Set([...(d.dismissedDuplicates ?? []), pairKey])] } : d
+        );
+      });
+    },
+
+    mergeEntities(primaryId, secondaryId, plan) {
+      const merged = applyEntityMerge(cached, primaryId, secondaryId, plan);
+      if (!merged) return null;
+      const before = cached;
+      mutate((data) => {
+        data.entities = merged.entities;
+        data.relations = merged.relations;
+        data.notes = merged.notes;
+      });
+      return { before, after: cached };
+    },
+
+    restoreSnapshot(before, after) {
+      // Refusé si autre chose a été modifié depuis : on n'écrase jamais un travail plus récent.
+      if (cached !== after) return false;
+      writeRaw(before);
+      cached = before;
+      emit();
+      return true;
     },
 
     addSource(input) {

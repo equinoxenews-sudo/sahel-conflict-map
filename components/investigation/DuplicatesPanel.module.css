@@ -1,0 +1,112 @@
+.panel {
+  padding: 12px 14px;
+  border: 1px solid var(--status-danger);
+  border-radius: 10px;
+  background: var(--bg-panel);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.lead {
+  margin: 0 0 10px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px;
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  background: var(--bg-panel-alt);
+}
+
+.names {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.name {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.name:hover {
+  color: var(--accent-gold-bright);
+}
+
+.vs {
+  color: var(--status-danger);
+}
+
+.type {
+  margin-left: auto;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.reasons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.reason {
+  padding: 1px 9px;
+  border: 1px solid var(--status-danger);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--status-danger);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.merge,
+.ghost {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.merge {
+  border: 1px solid var(--accent-gold);
+  background: var(--accent-gold);
+  color: #10161f;
+  font-weight: 700;
+}
+
+.ghost {
+  border: 1px solid var(--border-glass);
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.ghost:hover {
+  border-color: var(--accent-gold);
+}
