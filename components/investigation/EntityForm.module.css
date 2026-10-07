@@ -78,3 +78,16 @@ textarea.control {
   background: var(--bg-panel-alt);
   color: var(--text-primary);
 }
+
+.preview {
+  margin: 0;
+  padding: 8px 10px;
+  border-left: 3px solid var(--accent-gold);
+  background: var(--bg-panel);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.previewSecond {
+  color: var(--text-secondary);
+}

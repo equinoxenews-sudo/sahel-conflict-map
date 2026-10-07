@@ -150,6 +150,10 @@ export interface Relation {
   label: string;
   status: RelationStatus;
   justifyingSourceId: string | null;
+  /** Type du catalogue (lib/investigation/relationTypes.ts) ; absent = libellé libre. */
+  typeKey?: string;
+  /** Période de validité en texte libre (« depuis 2021 », « jusqu'en mars 2025 »). */
+  period?: string;
   /** 0-100 — a manual confidence estimate, not a computed score. */
   confidence: number;
   createdAt: string;

@@ -990,3 +990,76 @@ button.attrChip:hover {
 .thumbRemove:hover {
   background: var(--status-critical);
 }
+
+/* ——— Relations d'une fiche ——— */
+.relations {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-glass);
+}
+
+.relationsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.relationList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.relationRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding: 8px 10px;
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  background: var(--bg-panel-alt);
+  font-size: 13.5px;
+}
+
+.relationPhrase em {
+  color: var(--accent-gold-bright);
+}
+
+.relationFrom {
+  margin-right: 4px;
+  color: var(--text-secondary);
+}
+
+.relationMeta {
+  flex: 1 1 100%;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.relationActions {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.linkBtn {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.linkBtn:hover {
+  color: var(--accent-gold-bright);
+}

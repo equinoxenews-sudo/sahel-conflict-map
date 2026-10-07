@@ -6,6 +6,7 @@ import {
   useEntities,
   useInvestigationStorage,
   useNotes,
+  useRelations,
   useSources,
 } from "@/lib/investigation/InvestigationContext";
 import { ENTITY_TYPE_LABELS, type EntityType, type InvestigationEntity } from "@/lib/investigation/types";
@@ -56,6 +57,7 @@ export default function NotesWorkspace({
   const notes = useNotes(dossierId);
   const entities = useEntities(dossierId);
   const sources = useSources(dossierId);
+  const relations = useRelations(dossierId);
 
   const [query, setQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -298,6 +300,7 @@ export default function NotesWorkspace({
                 notes={notes}
                 entities={entities}
                 sources={sources}
+                relations={relations}
                 onOpenNote={(id) => onActiveNoteChange(id)}
                 onLinkClick={openLink}
                 onShowInGraph={onShowInGraph}

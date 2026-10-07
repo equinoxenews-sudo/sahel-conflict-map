@@ -15,13 +15,12 @@ import {
   type ReactFlowInstance,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ENTITY_TYPE_LABELS,
   RELATION_STATUS_LABELS,
   type InvestigationEntity,
   type Relation,
-  type RelationStatus,
 } from "@/lib/investigation/types";
 import {
   useEntities,
@@ -41,7 +40,9 @@ import {
 import AttributeIcon from "./AttributeIcon";
 import { freePosition } from "@/lib/investigation/layout";
 import { renameNote } from "@/lib/investigation/fiches";
+import { edgeLabel, getRelationType, isDuplicateRelation } from "@/lib/investigation/relationTypes";
 import EntityForm, { type EntityFormValues } from "./EntityForm";
+import RelationForm, { type RelationFormValues } from "./RelationForm";
 import EntityNode, { countryOf, OpenAttributeContext, type EntityFlowNode } from "./EntityNode";
 import HexFlag from "./HexFlag";
 import { useEntityImage } from "./useEntityImage";
@@ -118,20 +119,24 @@ function pivotEdges(shared: SharedValue[]): Edge[] {
 }
 
 function relationsToEdges(relations: Relation[]): Edge[] {
-  return relations.map((r) => ({
-    id: r.id,
-    source: r.sourceEntityId,
-    target: r.targetEntityId,
-    label: r.label,
-    type: "straight",
-    // Pointillés animés = lien supposé (hypothèse) ; trait plein = lien documenté.
-    animated: r.status === "hypothesis",
-    style: { stroke: "var(--accent-gold)", strokeWidth: 1.6 },
-    labelStyle: { fill: "var(--text-primary)", fontSize: 12, fontStyle: "italic" },
-    labelBgStyle: { fill: "var(--bg-primary)", fillOpacity: 0.9 },
-    labelBgPadding: [6, 3] as [number, number],
-    labelBgBorderRadius: 4,
-  }));
+  return relations.map((r) => {
+    const duplicate = isDuplicateRelation(r);
+    return {
+      id: r.id,
+      source: r.sourceEntityId,
+      target: r.targetEntityId,
+      label: edgeLabel(r),
+      type: duplicate ? "default" : "straight",
+      // Pointillés animés = lien supposé (hypothèse) ; trait plein = lien documenté.
+      animated: r.status === "hypothesis",
+      // Un doublon possible est orange : à examiner, jamais fusionné automatiquement.
+      style: { stroke: duplicate ? "var(--status-danger)" : "var(--accent-gold)", strokeWidth: 1.6, ...(duplicate ? { strokeDasharray: "6 4" } : {}) },
+      labelStyle: { fill: duplicate ? "var(--status-danger)" : "var(--text-primary)", fontSize: 12, fontStyle: "italic" },
+      labelBgStyle: { fill: "var(--bg-primary)", fillOpacity: 0.9 },
+      labelBgPadding: [6, 3] as [number, number],
+      labelBgBorderRadius: 4,
+    };
+  });
 }
 
 function EntityDetails({
@@ -318,14 +323,7 @@ export default function EntityGraphPanel({
   const selectedRelation = selected?.kind === "relation" ? relations.find((r) => r.id === selected.id) : null;
 
   const [editingEntityId, setEditingEntityId] = useState<string | null>(null);
-  const [relationForm, setRelationForm] = useState({
-    sourceEntityId: "",
-    targetEntityId: "",
-    label: "",
-    status: "hypothesis" as RelationStatus,
-    confidence: "50",
-    justifyingSourceId: "",
-  });
+  const [editingRelationId, setEditingRelationId] = useState<string | null>(null);
 
   function handleAddEntity(values: EntityFormValues) {
     storage.addEntity({
@@ -364,29 +362,29 @@ export default function EntityGraphPanel({
     setEditingEntityId(null);
   }
 
-  function handleAddRelation(e: FormEvent) {
-    e.preventDefault();
-    if (!relationForm.sourceEntityId || !relationForm.targetEntityId || !relationForm.label.trim()) return;
-    storage.addRelation({
-      dossierId,
-      sourceEntityId: relationForm.sourceEntityId,
-      targetEntityId: relationForm.targetEntityId,
-      label: relationForm.label.trim(),
-      status: relationForm.status,
-      confidence: Number(relationForm.confidence),
-      justifyingSourceId: relationForm.justifyingSourceId || null,
-    });
-    setRelationForm({
-      sourceEntityId: "",
-      targetEntityId: "",
-      label: "",
-      status: "hypothesis",
-      confidence: "50",
-      justifyingSourceId: "",
-    });
+  function relationFields(values: RelationFormValues) {
+    return {
+      sourceEntityId: values.sourceEntityId,
+      targetEntityId: values.targetEntityId,
+      // Le libellé suit le type du catalogue ; « Autre » garde le texte libre.
+      typeKey: values.typeKey === "custom" ? undefined : values.typeKey,
+      label: values.label,
+      status: values.status,
+      confidence: values.confidence,
+      justifyingSourceId: values.justifyingSourceId,
+      period: values.period || undefined,
+    };
+  }
+
+  function handleAddRelation(values: RelationFormValues) {
+    storage.addRelation({ dossierId, ...relationFields(values) });
     setShowRelationForm(false);
   }
 
+  function handleUpdateRelation(id: string, values: RelationFormValues) {
+    storage.updateRelation(id, relationFields(values));
+    setEditingRelationId(null);
+  }
   return (
     <div className={compact ? `${styles.wrap} ${styles.wrapCompact}` : styles.wrap}>
       <div className={styles.toolbar}>
@@ -421,95 +419,10 @@ export default function EntityGraphPanel({
       )}
 
       {showRelationForm && (
-        <form className={styles.formCard} onSubmit={handleAddRelation}>
-          <div className={styles.field}>
-            <label className={styles.label}>Entité source</label>
-            <select
-              className={styles.select}
-              value={relationForm.sourceEntityId}
-              onChange={(e) => setRelationForm({ ...relationForm, sourceEntityId: e.target.value })}
-              required
-            >
-              <option value="">—</option>
-              {entities.map((en) => (
-                <option key={en.id} value={en.id}>
-                  {en.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Entité cible</label>
-            <select
-              className={styles.select}
-              value={relationForm.targetEntityId}
-              onChange={(e) => setRelationForm({ ...relationForm, targetEntityId: e.target.value })}
-              required
-            >
-              <option value="">—</option>
-              {entities.map((en) => (
-                <option key={en.id} value={en.id}>
-                  {en.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Libellé</label>
-            <input
-              className={styles.input}
-              value={relationForm.label}
-              onChange={(e) => setRelationForm({ ...relationForm, label: e.target.value })}
-              placeholder="ex: dirige, finance, membre de..."
-              required
-            />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Statut</label>
-            <select
-              className={styles.select}
-              value={relationForm.status}
-              onChange={(e) => setRelationForm({ ...relationForm, status: e.target.value as RelationStatus })}
-            >
-              {(Object.keys(RELATION_STATUS_LABELS) as RelationStatus[]).map((s) => (
-                <option key={s} value={s}>
-                  {RELATION_STATUS_LABELS[s]}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Confiance ({relationForm.confidence}%)</label>
-            <input
-              className={styles.input}
-              type="range"
-              min={0}
-              max={100}
-              value={relationForm.confidence}
-              onChange={(e) => setRelationForm({ ...relationForm, confidence: e.target.value })}
-            />
-          </div>
-          <div className={styles.field}>
-            <label className={styles.label}>Source justificative</label>
-            <select
-              className={styles.select}
-              value={relationForm.justifyingSourceId}
-              onChange={(e) => setRelationForm({ ...relationForm, justifyingSourceId: e.target.value })}
-            >
-              <option value="">Aucune</option>
-              {sources.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.title}
-                </option>
-              ))}
-            </select>
-          </div>
-          <button type="submit" className={styles.submitBtn}>
-            Ajouter
-          </button>
-        </form>
+        <div className={styles.formCard}>
+          <RelationForm entities={entities} sources={sources} submitLabel="Ajouter" onSubmit={handleAddRelation} onCancel={() => setShowRelationForm(false)} />
+        </div>
       )}
-
       {entities.length === 0 ? (
         <div className={styles.emptyState}>
           Aucune entité — ajoutez-en pour commencer à construire le graphe relationnel.
@@ -587,31 +500,69 @@ export default function EntityGraphPanel({
 
           {selectedRelation && (
             <div className={styles.detailPanel}>
-              <span className={styles.detailTitle}>{selectedRelation.label}</span>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Statut</span>
-                <span className={styles.detailValue}>{RELATION_STATUS_LABELS[selectedRelation.status]}</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Confiance</span>
-                <span className={styles.detailValue}>{selectedRelation.confidence}%</span>
-              </div>
-              <div className={styles.detailRow}>
-                <span className={styles.detailLabel}>Source justificative</span>
-                <span className={styles.detailValue}>
-                  {sources.find((s) => s.id === selectedRelation.justifyingSourceId)?.title ?? "Aucune"}
-                </span>
-              </div>
-              <button
-                type="button"
-                className={styles.deleteBtn}
-                onClick={() => {
-                  storage.deleteRelation(selectedRelation.id);
-                  setSelected(null);
-                }}
-              >
-                Supprimer la relation
-              </button>
+              {editingRelationId === selectedRelation.id ? (
+                <RelationForm
+                  key={selectedRelation.id}
+                  entities={entities}
+                  sources={sources}
+                  initial={selectedRelation}
+                  submitLabel="Enregistrer"
+                  onSubmit={(values) => handleUpdateRelation(selectedRelation.id, values)}
+                  onCancel={() => setEditingRelationId(null)}
+                />
+              ) : (
+                <>
+                  <span className={styles.detailTitle}>
+                    {entities.find((e) => e.id === selectedRelation.sourceEntityId)?.name} {edgeLabel(selectedRelation)}{" "}
+                    {entities.find((e) => e.id === selectedRelation.targetEntityId)?.name}
+                  </span>
+                  {(() => {
+                    const type = getRelationType(selectedRelation.typeKey);
+                    return type && !type.symmetric ? (
+                      <div className={styles.detailRow}>
+                        <span className={styles.detailLabel}>Dans l&apos;autre sens</span>
+                        <span className={styles.detailValue}>
+                          {entities.find((e) => e.id === selectedRelation.targetEntityId)?.name} {type.inverse}{" "}
+                          {entities.find((e) => e.id === selectedRelation.sourceEntityId)?.name}
+                        </span>
+                      </div>
+                    ) : null;
+                  })()}
+                  <div className={styles.detailRow}>
+                    <span className={styles.detailLabel}>Statut</span>
+                    <span className={styles.detailValue}>{RELATION_STATUS_LABELS[selectedRelation.status]}</span>
+                  </div>
+                  {selectedRelation.period ? (
+                    <div className={styles.detailRow}>
+                      <span className={styles.detailLabel}>Période</span>
+                      <span className={styles.detailValue}>{selectedRelation.period}</span>
+                    </div>
+                  ) : null}
+                  <div className={styles.detailRow}>
+                    <span className={styles.detailLabel}>Confiance</span>
+                    <span className={styles.detailValue}>{selectedRelation.confidence}%</span>
+                  </div>
+                  <div className={styles.detailRow}>
+                    <span className={styles.detailLabel}>Source justificative</span>
+                    <span className={styles.detailValue}>
+                      {sources.find((s) => s.id === selectedRelation.justifyingSourceId)?.title ?? "Aucune"}
+                    </span>
+                  </div>
+                  <button type="button" className={styles.editBtn} onClick={() => setEditingRelationId(selectedRelation.id)}>
+                    Modifier la relation
+                  </button>
+                  <button
+                    type="button"
+                    className={styles.deleteBtn}
+                    onClick={() => {
+                      storage.deleteRelation(selectedRelation.id);
+                      setSelected(null);
+                    }}
+                  >
+                    Supprimer la relation
+                  </button>
+                </>
+              )}
             </div>
           )}
         </div>

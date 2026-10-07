@@ -14,6 +14,7 @@ import {
   type EntityAttribute,
   type InvestigationEntity,
   type Note,
+  type Relation,
   type Source,
 } from "@/lib/investigation/types";
 import { findBacklinks, normalizeKey, resolveWikiLink } from "@/lib/investigation/wikilinks";
@@ -23,6 +24,7 @@ import EntityForm, { entityPatchFromValues } from "./EntityForm";
 import EntityTypeIcon from "./EntityTypeIcon";
 import HexFlag from "./HexFlag";
 import NoteRenderer from "./NoteRenderer";
+import RelationsSection from "./RelationsSection";
 import { useEntityImage } from "./useEntityImage";
 import styles from "./NotesWorkspace.module.css";
 
@@ -31,6 +33,7 @@ interface NoteEditorProps {
   notes: Note[];
   entities: InvestigationEntity[];
   sources: Source[];
+  relations: Relation[];
   onOpenNote: (noteId: string) => void;
   onLinkClick: (target: string) => void;
   onShowInGraph: (entityId: string) => void;
@@ -203,6 +206,7 @@ export default function NoteEditor({
   notes,
   entities,
   sources,
+  relations,
   onOpenNote,
   onLinkClick,
   onShowInGraph,
@@ -499,6 +503,17 @@ export default function NoteEditor({
           <NoteRenderer body={body} resolve={resolve} onLink={onLinkClick} />
         )}
       </div>
+
+      {entity ? (
+        <RelationsSection
+          entity={entity}
+          relations={relations}
+          entities={entities}
+          sources={sources}
+          onOpenEntityFiche={onOpenEntityFiche}
+          onShowInGraph={onShowInGraph}
+        />
+      ) : null}
 
       {extractImageIds(body).length > 0 ? (
         <div className={styles.gallery}>
