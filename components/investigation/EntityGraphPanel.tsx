@@ -42,7 +42,7 @@ import AttributeIcon from "./AttributeIcon";
 import { freePosition } from "@/lib/investigation/layout";
 import { renameNote } from "@/lib/investigation/fiches";
 import EntityForm, { type EntityFormValues } from "./EntityForm";
-import EntityNode, { countryOf, type EntityFlowNode } from "./EntityNode";
+import EntityNode, { countryOf, OpenAttributeContext, type EntityFlowNode } from "./EntityNode";
 import HexFlag from "./HexFlag";
 import { useEntityImage } from "./useEntityImage";
 import styles from "./EntityGraphPanel.module.css";
@@ -51,6 +51,8 @@ interface EntityGraphPanelProps {
   dossierId: string;
   /** Ouvre (ou crée) la fiche texte d'une entité ; absent = pas de bouton. */
   onOpenFiche?: (entityId: string) => void;
+  /** Ouvre la page d'une coordonnée (téléphone, compte, e-mail…). */
+  onOpenAttribute?: (entityId: string, attributeId: string) => void;
   /** Demande de centrer le graphe sur une fiche : un nouveau `nonce` relance le centrage. */
   focusRequest?: { entityId: string; nonce: number } | null;
   /** Graphe affiché à côté du texte : il remplit la hauteur disponible. */
@@ -139,10 +141,12 @@ function EntityDetails({
   sharedValues,
   hasFiche,
   onOpenFiche,
+  onOpenAttribute,
   onEdit,
   onDelete,
 }: {
   hasFiche: boolean;
+  onOpenAttribute?: (attributeId: string) => void;
   onOpenFiche?: () => void;
   entity: InvestigationEntity;
   entities: InvestigationEntity[];
@@ -200,6 +204,11 @@ function EntityDetails({
                   <span>{attribute.value}</span>
                 )}
                 {attribute.secondary ? <span className={styles.attrMeta}> · ID {attribute.secondary}</span> : null}
+                {onOpenAttribute ? (
+                  <button type="button" className={styles.pageLink} onClick={() => onOpenAttribute(attribute.id)}>
+                    Ouvrir la page ↗
+                  </button>
+                ) : null}
                 <span className={styles.attrMeta}>
                   {" · "}
                   {attribute.status === "hypothesis" ? "supposée" : "documentée"}
@@ -240,7 +249,13 @@ function EntityDetails({
   );
 }
 
-export default function EntityGraphPanel({ dossierId, onOpenFiche, focusRequest = null, compact = false }: EntityGraphPanelProps) {
+export default function EntityGraphPanel({
+  dossierId,
+  onOpenFiche,
+  onOpenAttribute,
+  focusRequest = null,
+  compact = false,
+}: EntityGraphPanelProps) {
   const entities = useEntities(dossierId);
   const relations = useRelations(dossierId);
   const sources = useSources(dossierId);
@@ -502,6 +517,7 @@ export default function EntityGraphPanel({ dossierId, onOpenFiche, focusRequest 
       ) : (
         <div className={compact ? `${styles.body} ${styles.bodyCompact}` : styles.body}>
           <div className={compact ? `${styles.canvasWrap} ${styles.canvasCompact}` : styles.canvasWrap}>
+            <OpenAttributeContext.Provider value={onOpenAttribute}>
             <ReactFlow
               nodes={nodes}
               edges={edges}
@@ -536,6 +552,7 @@ export default function EntityGraphPanel({ dossierId, onOpenFiche, focusRequest 
                 </span>
               </Panel>
             </ReactFlow>
+            </OpenAttributeContext.Provider>
           </div>
 
           {selectedEntity && (
@@ -556,6 +573,7 @@ export default function EntityGraphPanel({ dossierId, onOpenFiche, focusRequest 
                   sharedValues={sharedValues}
                   entities={entities}
                   hasFiche={ficheEntityIds.has(selectedEntity.id)}
+                  onOpenAttribute={onOpenAttribute ? (attributeId) => onOpenAttribute(selectedEntity.id, attributeId) : undefined}
                   onOpenFiche={onOpenFiche ? () => onOpenFiche(selectedEntity.id) : undefined}
                   onEdit={() => setEditingEntityId(selectedEntity.id)}
                   onDelete={() => {

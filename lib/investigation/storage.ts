@@ -9,6 +9,7 @@ import {
   Source,
   emptyInvestigationData,
 } from "./types";
+import { extractImageIds, replaceImageIds } from "./imageRefs";
 import { blobToDataUrl, dataUrlToBlob, deleteImage, getImage, putImage } from "./imageStore";
 
 const STORAGE_KEY = "equinoxe-investigation-v1";
@@ -79,6 +80,17 @@ function discardImages(ids: (string | undefined)[]): void {
 }
 
 type Listener = () => void;
+
+function remapAttributeRef(
+  ref: Note["attributeRef"],
+  entityIdMap: Map<string, string>,
+  attributeIdMap: Map<string, string>
+): Note["attributeRef"] {
+  if (!ref) return undefined;
+  const entityId = entityIdMap.get(ref.entityId);
+  const attributeId = attributeIdMap.get(ref.attributeId);
+  return entityId && attributeId ? { entityId, attributeId } : undefined;
+}
 
 function readRaw(): InvestigationData {
   try {
@@ -168,7 +180,10 @@ export function createLocalStorageEngine(): InvestigationStorage {
     },
 
     deleteDossier(id) {
-      discardImages(cached.entities.filter((e) => e.dossierId === id).map((e) => e.imageId));
+      discardImages([
+        ...cached.entities.filter((e) => e.dossierId === id).map((e) => e.imageId),
+        ...cached.notes.filter((n) => n.dossierId === id).flatMap((n) => extractImageIds(n.body)),
+      ]);
       mutate((data) => {
         data.dossiers = data.dossiers.filter((d) => d.id !== id);
         data.sources = data.sources.filter((s) => s.dossierId !== id);
@@ -209,15 +224,25 @@ export function createLocalStorageEngine(): InvestigationStorage {
       // Une image importée remplacée ou retirée est supprimée d'IndexedDB.
       const previous = cached.entities.find((e) => e.id === id);
       if (previous?.imageId && "imageId" in patch && patch.imageId !== previous.imageId) discardImages([previous.imageId]);
+      // Une coordonnée supprimée : sa page est conservée, elle devient une note libre.
+      const kept = new Set((patch.attributes ?? previous?.attributes ?? []).map((a) => a.id));
+      const removed = "attributes" in patch ? (previous?.attributes ?? []).filter((a) => !kept.has(a.id)).map((a) => a.id) : [];
       mutate((data) => {
         data.entities = data.entities.map((e) => (e.id === id ? { ...e, ...patch } : e));
+        if (removed.length > 0) {
+          data.notes = data.notes.map((n) => (n.attributeRef && removed.includes(n.attributeRef.attributeId) ? { ...n, attributeRef: undefined } : n));
+        }
       });
     },
     deleteEntity(id) {
       discardImages([cached.entities.find((e) => e.id === id)?.imageId]);
       mutate((data) => {
         // La fiche texte d'une entité supprimée est conservée : elle devient une note libre.
-        data.notes = data.notes.map((n) => (n.entityId === id ? { ...n, entityId: undefined } : n));
+        data.notes = data.notes.map((n) => ({
+          ...n,
+          entityId: n.entityId === id ? undefined : n.entityId,
+          attributeRef: n.attributeRef?.entityId === id ? undefined : n.attributeRef,
+        }));
         data.entities = data.entities.filter((e) => e.id !== id);
         data.relations = data.relations.filter((r) => r.sourceEntityId !== id && r.targetEntityId !== id);
       });
@@ -254,6 +279,8 @@ export function createLocalStorageEngine(): InvestigationStorage {
       });
     },
     deleteNote(id) {
+      const note = cached.notes.find((n) => n.id === id);
+      if (note) discardImages(extractImageIds(note.body));
       mutate((data) => {
         data.notes = data.notes.filter((n) => n.id !== id);
       });
@@ -295,10 +322,11 @@ export function createLocalStorageEngine(): InvestigationStorage {
       const data = cached;
       const entities = data.entities.filter((e) => e.dossierId === dossierId);
       const images: Record<string, string> = {};
-      for (const entity of entities) {
-        if (!entity.imageId) continue;
-        const blob = await getImage(entity.imageId).catch(() => null);
-        if (blob) images[entity.imageId] = await blobToDataUrl(blob);
+      const notes = data.notes.filter((n) => n.dossierId === dossierId);
+      const imageIds = [...entities.flatMap((e) => (e.imageId ? [e.imageId] : [])), ...notes.flatMap((n) => extractImageIds(n.body))];
+      for (const imageId of new Set(imageIds)) {
+        const blob = await getImage(imageId).catch(() => null);
+        if (blob) images[imageId] = await blobToDataUrl(blob);
       }
       const bundle: ExportBundle = {
         version: 1,
@@ -307,7 +335,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
         sources: data.sources.filter((s) => s.dossierId === dossierId),
         entities,
         relations: data.relations.filter((r) => r.dossierId === dossierId),
-        notes: data.notes.filter((n) => n.dossierId === dossierId),
+        notes,
         canvasCards: data.canvasCards.filter((c) => c.dossierId === dossierId),
         canvasLinks: data.canvasLinks.filter((l) => l.dossierId === dossierId),
       };
@@ -327,6 +355,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
       }
       const newDossierId = newId();
       const entityIdMap = new Map<string, string>();
+      const attributeIdMap = new Map<string, string>();
       const sourceIdMap = new Map<string, string>();
       const cardIdMap = new Map<string, string>();
 
@@ -353,11 +382,15 @@ export function createLocalStorageEngine(): InvestigationStorage {
           dossierId: newDossierId,
           imageId: e.imageId ? imageIdMap.get(e.imageId) : undefined,
           // Les sources reçoivent de nouveaux identifiants : les coordonnées qui s'y réfèrent suivent.
-          attributes: e.attributes?.map((attribute) => ({
-            ...attribute,
-            id: newId(),
-            sourceId: attribute.sourceId ? sourceIdMap.get(attribute.sourceId) : undefined,
-          })),
+          attributes: e.attributes?.map((attribute) => {
+            const attributeId = newId();
+            attributeIdMap.set(attribute.id, attributeId);
+            return {
+              ...attribute,
+              id: attributeId,
+              sourceId: attribute.sourceId ? sourceIdMap.get(attribute.sourceId) : undefined,
+            };
+          }),
         };
       });
       const newRelations: Relation[] = (parsed.relations ?? [])
@@ -383,6 +416,8 @@ export function createLocalStorageEngine(): InvestigationStorage {
         linkedSourceIds: n.linkedSourceIds.map((id) => sourceIdMap.get(id)).filter((id): id is string => !!id),
         linkedEntityIds: n.linkedEntityIds.map((id) => entityIdMap.get(id)).filter((id): id is string => !!id),
         entityId: n.entityId ? entityIdMap.get(n.entityId) : undefined,
+        attributeRef: remapAttributeRef(n.attributeRef, entityIdMap, attributeIdMap),
+        body: replaceImageIds(n.body, imageIdMap),
       }));
       const newCanvasCards: CanvasCard[] = (parsed.canvasCards ?? []).map((c) => {
         const id = newId();

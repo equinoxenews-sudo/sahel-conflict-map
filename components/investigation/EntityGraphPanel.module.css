@@ -279,3 +279,18 @@
   overflow-y: auto;
   flex-shrink: 0;
 }
+
+.pageLink {
+  align-self: flex-start;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--accent-gold-bright);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.pageLink:hover {
+  text-decoration: underline;
+}

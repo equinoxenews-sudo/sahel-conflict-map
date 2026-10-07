@@ -88,9 +88,14 @@ export type InlineToken =
   | { type: "bold"; text: string }
   | { type: "italic"; text: string }
   | { type: "code"; text: string }
+  | { type: "image"; id: string; alt: string }
+  | { type: "link"; label: string; url: string }
   | { type: "url"; url: string };
 
-const INLINE = /\[\[([^\]|\n]+)(?:\|([^\]\n]+))?\]\]|\*\*([^*\n]+)\*\*|\*([^*\n]+)\*|`([^`\n]+)`|(https?:\/\/[^\s<>\])]+)/g;
+// Ordre des groupes : 1-2 lien [[…]] ; 3-4 image ![légende](img:ID) ; 5-6 lien [texte](adresse) ;
+// 7 gras ; 8 italique ; 9 code ; 10 adresse nue.
+const INLINE =
+  /\[\[([^\]|\n]+)(?:\|([^\]\n]+))?\]\]|!\[([^\]\n]*)\]\(img:([\w-]+)\)|\[([^\]\n]+)\]\((https?:\/\/[^)\s]+)\)|\*\*([^*\n]+)\*\*|\*([^*\n]+)\*|`([^`\n]+)`|(https?:\/\/[^\s<>\])]+)/g;
 
 export function parseInline(text: string): InlineToken[] {
   const tokens: InlineToken[] = [];
@@ -99,10 +104,12 @@ export function parseInline(text: string): InlineToken[] {
     const index = match.index ?? 0;
     if (index > last) tokens.push({ type: "text", text: text.slice(last, index) });
     if (match[1] !== undefined) tokens.push({ type: "wiki", target: match[1].trim(), display: (match[2] ?? match[1]).trim() });
-    else if (match[3] !== undefined) tokens.push({ type: "bold", text: match[3] });
-    else if (match[4] !== undefined) tokens.push({ type: "italic", text: match[4] });
-    else if (match[5] !== undefined) tokens.push({ type: "code", text: match[5] });
-    else tokens.push({ type: "url", url: match[6] });
+    else if (match[4] !== undefined) tokens.push({ type: "image", id: match[4], alt: (match[3] ?? "").trim() });
+    else if (match[6] !== undefined) tokens.push({ type: "link", label: match[5], url: match[6] });
+    else if (match[7] !== undefined) tokens.push({ type: "bold", text: match[7] });
+    else if (match[8] !== undefined) tokens.push({ type: "italic", text: match[8] });
+    else if (match[9] !== undefined) tokens.push({ type: "code", text: match[9] });
+    else tokens.push({ type: "url", url: match[10] });
     last = index + match[0].length;
   }
   if (last < text.length) tokens.push({ type: "text", text: text.slice(last) });
@@ -167,3 +174,4 @@ export function parseBlocks(body: string): Block[] {
   flush();
   return blocks;
 }
+

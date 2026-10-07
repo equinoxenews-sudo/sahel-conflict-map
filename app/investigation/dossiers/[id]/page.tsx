@@ -7,7 +7,7 @@ import DossierExportImport from "@/components/investigation/DossierExportImport"
 import EntityGraphPanel from "@/components/investigation/EntityGraphPanel";
 import NotesWorkspace from "@/components/investigation/NotesWorkspace";
 import SourcesPanel from "@/components/investigation/SourcesPanel";
-import { ensureFiche } from "@/lib/investigation/fiches";
+import { ensureAttributePage, ensureFiche } from "@/lib/investigation/fiches";
 import {
   useDossier,
   useEntities,
@@ -45,6 +45,16 @@ export default function DossierWorkspacePage() {
     const entity = entities.find((e) => e.id === entityId);
     if (!entity) return;
     setActiveNoteId(ensureFiche(storage, notes, entity).id);
+    setShowGraph(true);
+    setTab("notes");
+  }
+
+  // Clic sur une coordonnée (téléphone, compte, e-mail…) : sa page s'ouvre, créée au premier clic.
+  function openAttribute(entityId: string, attributeId: string) {
+    const entity = entities.find((e) => e.id === entityId);
+    const attribute = entity?.attributes?.find((a) => a.id === attributeId);
+    if (!entity || !attribute) return;
+    setActiveNoteId(ensureAttributePage(storage, notes, entity, attribute).id);
     setShowGraph(true);
     setTab("notes");
   }
@@ -93,7 +103,7 @@ export default function DossierWorkspacePage() {
       </div>
 
       {tab === "sources" && <SourcesPanel dossierId={dossier.id} />}
-      {tab === "graphe" && <EntityGraphPanel dossierId={dossier.id} onOpenFiche={openFiche} />}
+      {tab === "graphe" && <EntityGraphPanel dossierId={dossier.id} onOpenFiche={openFiche} onOpenAttribute={openAttribute} />}
       {tab === "notes" && (
         <NotesWorkspace
           dossierId={dossier.id}
@@ -104,6 +114,7 @@ export default function DossierWorkspacePage() {
           focusRequest={focus}
           onShowInGraph={showInGraph}
           onOpenFiche={openFiche}
+          onOpenAttribute={openAttribute}
         />
       )}
     </div>

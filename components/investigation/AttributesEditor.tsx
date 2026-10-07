@@ -17,6 +17,8 @@ interface AttributesEditorProps {
   value: EntityAttribute[];
   onChange: (next: EntityAttribute[]) => void;
   sources: Source[];
+  /** Une seule coordonnée, sans ajout ni suppression (page d'une coordonnée). */
+  single?: boolean;
 }
 
 const VALUE_PLACEHOLDER: Record<AttributeKind, string> = {
@@ -35,7 +37,7 @@ function newAttribute(): EntityAttribute {
 // Une ligne par coordonnée : e-mail, téléphone, compte de réseau social, site,
 // lieu ou identifiant. Chacune a son statut (documentée ou supposée, qui devient
 // un pointillé sur le graphe) et, si on le souhaite, la source qui l'établit.
-export default function AttributesEditor({ value, onChange, sources }: AttributesEditorProps) {
+export default function AttributesEditor({ value, onChange, sources, single = false }: AttributesEditorProps) {
   function patch(id: string, change: Partial<EntityAttribute>) {
     onChange(value.map((attribute) => (attribute.id === id ? { ...attribute, ...change } : attribute)));
   }
@@ -95,15 +97,17 @@ export default function AttributesEditor({ value, onChange, sources }: Attribute
                 </option>
               ))}
             </select>
-            <button
-              type="button"
-              className={styles.remove}
-              onClick={() => onChange(value.filter((item) => item.id !== attribute.id))}
-              aria-label="Supprimer cette coordonnée"
-              title="Supprimer cette coordonnée"
-            >
-              ×
-            </button>
+            {single ? null : (
+              <button
+                type="button"
+                className={styles.remove}
+                onClick={() => onChange(value.filter((item) => item.id !== attribute.id))}
+                aria-label="Supprimer cette coordonnée"
+                title="Supprimer cette coordonnée"
+              >
+                ×
+              </button>
+            )}
           </div>
 
           {attribute.kind === "identifier" ? (
@@ -177,9 +181,11 @@ export default function AttributesEditor({ value, onChange, sources }: Attribute
           ) : null}
         </div>
       ))}
-      <button type="button" className={styles.add} onClick={() => onChange([...value, newAttribute()])}>
-        + Ajouter une coordonnée (e-mail, téléphone, réseau social, lieu…)
-      </button>
+      {single ? null : (
+        <button type="button" className={styles.add} onClick={() => onChange([...value, newAttribute()])}>
+          + Ajouter une coordonnée (e-mail, téléphone, réseau social, lieu…)
+        </button>
+      )}
     </div>
   );
 }

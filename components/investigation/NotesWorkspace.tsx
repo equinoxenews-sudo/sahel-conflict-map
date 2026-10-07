@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
-import { createFiche, ensureFiche } from "@/lib/investigation/fiches";
+import { attributeLabel, createFiche, ensureFiche } from "@/lib/investigation/fiches";
 import {
   useEntities,
   useInvestigationStorage,
@@ -24,6 +24,7 @@ interface NotesWorkspaceProps {
   focusRequest: { entityId: string; nonce: number } | null;
   onShowInGraph: (entityId: string) => void;
   onOpenFiche: (entityId: string) => void;
+  onOpenAttribute: (entityId: string, attributeId: string) => void;
 }
 
 const FICHE_TYPES: EntityType[] = ["person", "organization", "location", "building", "equipment", "event", "document", "account"];
@@ -49,6 +50,7 @@ export default function NotesWorkspace({
   focusRequest,
   onShowInGraph,
   onOpenFiche,
+  onOpenAttribute,
 }: NotesWorkspaceProps) {
   const storage = useInvestigationStorage();
   const notes = useNotes(dossierId);
@@ -65,7 +67,7 @@ export default function NotesWorkspace({
 
   const activeNote = notes.find((note) => note.id === activeNoteId) ?? null;
 
-  const { fiches, free } = useMemo(() => {
+  const { fiches, free, childrenOf, loosePages } = useMemo(() => {
     const words = normalizeKey(query).split(" ").filter(Boolean);
     const matches = (title: string, body: string) => {
       const haystack = normalizeKey(`${title} ${body}`);
@@ -73,7 +75,23 @@ export default function NotesWorkspace({
     };
     const byTitle = (a: { title: string }, b: { title: string }) => a.title.localeCompare(b.title, "fr");
     const visible = notes.filter((note) => matches(note.title, note.body)).sort(byTitle);
-    return { fiches: visible.filter((note) => note.entityId), free: visible.filter((note) => !note.entityId) };
+    const pages = visible.filter((note) => note.attributeRef);
+    const ficheEntityIds = new Set(notes.flatMap((note) => (note.entityId ? [note.entityId] : [])));
+    const children = new Map<string, typeof notes>();
+    for (const page of pages) {
+      const owner = page.attributeRef?.entityId;
+      if (owner && ficheEntityIds.has(owner)) children.set(owner, [...(children.get(owner) ?? []), page]);
+    }
+    // Une fiche reste visible si l'une de ses pages de coordonnées correspond à la recherche.
+    const ficheNotes = notes
+      .filter((note) => note.entityId && (visible.includes(note) || children.has(note.entityId)))
+      .sort(byTitle);
+    return {
+      fiches: ficheNotes,
+      free: visible.filter((note) => !note.entityId && !note.attributeRef),
+      childrenOf: children,
+      loosePages: pages.filter((page) => !ficheEntityIds.has(page.attributeRef?.entityId ?? "")),
+    };
   }, [notes, query]);
 
   function createFreeNote(title = "Sans titre") {
@@ -120,6 +138,25 @@ export default function NotesWorkspace({
     window.addEventListener("pointerup", stop);
   }
 
+  function renderPage(page: (typeof notes)[number]) {
+    const owner = entities.find((e) => e.id === page.attributeRef?.entityId);
+    const attribute = owner?.attributes?.find((a) => a.id === page.attributeRef?.attributeId);
+    const label = attribute ? `${attributeLabel(attribute)} · ${attribute.value}` : page.title;
+    return (
+      <li key={page.id} className={styles.child}>
+        <button
+          type="button"
+          className={page.id === activeNoteId ? `${styles.item} ${styles.itemOn}` : styles.item}
+          onClick={() => onActiveNoteChange(page.id)}
+          title={page.title}
+        >
+          <span className={styles.itemIcon}>↳</span>
+          <span className={styles.itemTitle}>{label}</span>
+        </button>
+      </li>
+    );
+  }
+
   function renderItem(note: (typeof notes)[number]) {
     const entity = note.entityId ? entities.find((e) => e.id === note.entityId) : undefined;
     return (
@@ -132,6 +169,7 @@ export default function NotesWorkspace({
           <span className={styles.itemIcon}>{entity ? <EntityTypeIcon type={entity.type} size={18} /> : <DocumentIcon />}</span>
           <span className={styles.itemTitle}>{note.title}</span>
         </button>
+        {entity && childrenOf.get(entity.id) ? <ul className={styles.children}>{childrenOf.get(entity.id)?.map(renderPage)}</ul> : null}
       </li>
     );
   }
@@ -235,6 +273,12 @@ export default function NotesWorkspace({
                   <ul>{fiches.map(renderItem)}</ul>
                 </>
               ) : null}
+              {loosePages.length > 0 ? (
+                <>
+                  <span className={styles.groupTitle}>Coordonnées ({loosePages.length})</span>
+                  <ul>{loosePages.map(renderPage)}</ul>
+                </>
+              ) : null}
               {free.length > 0 ? (
                 <>
                   <span className={styles.groupTitle}>Notes ({free.length})</span>
@@ -242,7 +286,7 @@ export default function NotesWorkspace({
                 </>
               ) : null}
               {notes.length === 0 ? <p className={styles.hint}>Aucune note. Clique sur + pour écrire une note libre ou créer une fiche.</p> : null}
-              {notes.length > 0 && fiches.length + free.length === 0 ? <p className={styles.hint}>Aucun résultat.</p> : null}
+              {notes.length > 0 && fiches.length + free.length + loosePages.length === 0 ? <p className={styles.hint}>Aucun résultat.</p> : null}
             </div>
           </aside>
 
@@ -257,6 +301,11 @@ export default function NotesWorkspace({
                 onOpenNote={(id) => onActiveNoteChange(id)}
                 onLinkClick={openLink}
                 onShowInGraph={onShowInGraph}
+                onOpenAttribute={onOpenAttribute}
+                onOpenEntityFiche={(entityId) => {
+                  const target = entities.find((e) => e.id === entityId);
+                  if (target) onActiveNoteChange(ensureFiche(storage, notes, target).id);
+                }}
                 onDeleted={() => onActiveNoteChange(null)}
               />
             ) : (
@@ -272,7 +321,7 @@ export default function NotesWorkspace({
           <>
             <div className={styles.divider} onPointerDown={startResize} role="separator" aria-orientation="vertical" title="Glisser pour redimensionner" />
             <div className={styles.right}>
-              <EntityGraphPanel dossierId={dossierId} compact onOpenFiche={onOpenFiche} focusRequest={focusRequest} />
+              <EntityGraphPanel dossierId={dossierId} compact onOpenFiche={onOpenFiche} onOpenAttribute={onOpenAttribute} focusRequest={focusRequest} />
             </div>
           </>
         ) : null}

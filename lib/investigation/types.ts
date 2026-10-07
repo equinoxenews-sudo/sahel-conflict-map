@@ -165,6 +165,8 @@ export interface Note {
   linkedEntityIds: string[];
   /** Fiche texte d'une entité du graphe : une entité a au plus une note. Absent pour une note libre. */
   entityId?: string;
+  /** Page d'une coordonnée (téléphone, compte, e-mail…) d'une entité : une page par coordonnée. */
+  attributeRef?: { entityId: string; attributeId: string };
   createdAt: string;
   updatedAt: string;
 }

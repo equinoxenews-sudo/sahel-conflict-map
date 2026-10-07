@@ -1,6 +1,7 @@
+import { SOCIAL_PLATFORMS } from "./attributes";
 import { freePosition } from "./layout";
 import type { InvestigationStorage } from "./storage";
-import type { EntityType, InvestigationEntity, Note } from "./types";
+import { ATTRIBUTE_KIND_LABELS, type EntityAttribute, type EntityType, type InvestigationEntity, type Note } from "./types";
 import { replaceLinkTarget, uniqueTitle } from "./wikilinks";
 
 // Une fiche est la note texte d'une entité du graphe : même nom, une seule par
@@ -56,4 +57,32 @@ export function renameNote(storage: InvestigationStorage, notes: Note[], note: N
   storage.updateNote(note.id, { title });
   if (note.entityId) storage.updateEntity(note.entityId, { name: title });
   return title;
+}
+
+/** Nom court d'une coordonnée : « TikTok », « Téléphone », « Immatriculation »… */
+export function attributeLabel(attribute: EntityAttribute): string {
+  if (attribute.kind === "social") return SOCIAL_PLATFORMS[attribute.platform ?? "other"].label;
+  if (attribute.kind === "identifier" && attribute.label?.trim()) return attribute.label.trim();
+  return ATTRIBUTE_KIND_LABELS[attribute.kind];
+}
+
+/** La page d'une coordonnée : une note libre où consigner ce qu'on sait de ce téléphone,
+ * de ce compte ou de cette adresse (texte, liens, captures d'écran). Créée au premier clic. */
+export function ensureAttributePage(
+  storage: InvestigationStorage,
+  notes: Note[],
+  entity: InvestigationEntity,
+  attribute: EntityAttribute
+): Note {
+  const existing = notes.find((note) => note.attributeRef?.entityId === entity.id && note.attributeRef.attributeId === attribute.id);
+  if (existing) return existing;
+  return storage.addNote({
+    dossierId: entity.dossierId,
+    title: uniqueTitle(`${entity.name} — ${attributeLabel(attribute)} ${attribute.value.trim()}`, notes),
+    body: "",
+    claimType: attribute.status === "hypothesis" ? "hypothesis" : "observed",
+    linkedSourceIds: attribute.sourceId ? [attribute.sourceId] : [],
+    linkedEntityIds: [entity.id],
+    attributeRef: { entityId: entity.id, attributeId: attribute.id },
+  });
 }

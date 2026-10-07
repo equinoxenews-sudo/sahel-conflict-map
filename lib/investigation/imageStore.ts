@@ -5,6 +5,8 @@
 const DB_NAME = "equinoxe-investigation-images";
 const STORE = "images";
 const MAX_SIDE_PX = 512;
+/** Captures d'écran et documents : assez grands pour rester lisibles (texte, détails). */
+export const NOTE_IMAGE_MAX_SIDE = 1600;
 const MAX_INPUT_BYTES = 15 * 1024 * 1024;
 const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/webp", "image/gif"];
 
@@ -69,7 +71,7 @@ export function revokeImageUrl(id: string): void {
 export class ImageFileError extends Error {}
 
 /** Réduit une image importée (côté navigateur) avant de la stocker. */
-export async function prepareImage(file: Blob): Promise<Blob> {
+export async function prepareImage(file: Blob, maxSide: number = MAX_SIDE_PX): Promise<Blob> {
   if (!ACCEPTED_TYPES.includes(file.type)) {
     throw new ImageFileError("Format non pris en charge : utilise une image PNG, JPEG, WebP ou GIF.");
   }
@@ -78,7 +80,7 @@ export async function prepareImage(file: Blob): Promise<Blob> {
   const bitmap = await createImageBitmap(file).catch(() => {
     throw new ImageFileError("Impossible de lire cette image.");
   });
-  const scale = Math.min(1, MAX_SIDE_PX / Math.max(bitmap.width, bitmap.height));
+  const scale = Math.min(1, maxSide / Math.max(bitmap.width, bitmap.height));
   const canvas = document.createElement("canvas");
   canvas.width = Math.max(1, Math.round(bitmap.width * scale));
   canvas.height = Math.max(1, Math.round(bitmap.height * scale));

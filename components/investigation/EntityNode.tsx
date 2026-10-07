@@ -1,6 +1,7 @@
 "use client";
 
 import { Handle, Position, type Node, type NodeProps } from "@xyflow/react";
+import { createContext, useContext } from "react";
 import { FLAG_COUNTRIES } from "@/lib/countryFlagIndex";
 import { attributeLink, groupAttributes } from "@/lib/investigation/attributes";
 import { ENTITY_TYPE_LABELS, type EntityAttribute, type InvestigationEntity } from "@/lib/investigation/types";
@@ -15,6 +16,10 @@ export type EntityNodeData = {
   /** Noms des autres fiches qui portent la même valeur, par identifiant de coordonnée. */
   sharedWith: Record<string, string[]>;
 } & Record<string, unknown>;
+
+/** Ouvre la page d'une coordonnée ; absent = pas de bouton « ↗ » sur les cartes. Passé par un
+ * contexte plutôt que par les données des cartes, pour ne pas les reconstruire à chaque rendu. */
+export const OpenAttributeContext = createContext<((entityId: string, attributeId: string) => void) | undefined>(undefined);
 export type EntityFlowNode = Node<EntityNodeData, "entityCard">;
 
 /** Pays d'une fiche : son nom français et le libellé à afficher à côté du drapeau. */
@@ -25,7 +30,15 @@ export function countryOf(entity: Pick<InvestigationEntity, "countryIso2" | "cou
   return { iso2: country.iso2, name: country.name, label: entity.countryLabel?.trim() || country.name };
 }
 
-function AttributeValue({ attribute, sharedWith }: { attribute: EntityAttribute; sharedWith?: string[] }) {
+function AttributeValue({
+  attribute,
+  sharedWith,
+  onOpen,
+}: {
+  attribute: EntityAttribute;
+  sharedWith?: string[];
+  onOpen?: () => void;
+}) {
   const link = attributeLink(attribute);
   const country = FLAG_COUNTRIES.find((c) => c.iso2 === attribute.countryIso2);
   const text =
@@ -57,6 +70,19 @@ function AttributeValue({ attribute, sharedWith }: { attribute: EntityAttribute;
           ?
         </span>
       ) : null}
+      {onOpen ? (
+        <button
+          type="button"
+          className={`${styles.pageBtn} nodrag`}
+          title="Ouvrir la page de cette coordonnée (notes, liens, captures d'écran)"
+          onClick={(event) => {
+            event.stopPropagation();
+            onOpen();
+          }}
+        >
+          ↗
+        </button>
+      ) : null}
       {sharedWith && sharedWith.length > 0 ? (
         <span className={styles.shared} title={`Même valeur sur : ${sharedWith.join(", ")}`}>
           ⛓ {sharedWith.length}
@@ -74,6 +100,7 @@ function AttributeValue({ attribute, sharedWith }: { attribute: EntityAttribute;
 // pastille : dessinée au-dessus des traits, elle masque leur extrémité.
 export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>) {
   const { entity, sharedWith } = data;
+  const onOpenAttribute = useContext(OpenAttributeContext);
   const image = useEntityImage(entity.imageId, entity.imageUrl);
   const country = countryOf(entity);
   const groups = groupAttributes(entity.attributes ?? []);
@@ -117,7 +144,12 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
                   <div className={styles.attrText}>
                     <span className={styles.attrTitle}>{group.title.toUpperCase()}</span>
                     {group.items.map((attribute) => (
-                      <AttributeValue key={attribute.id} attribute={attribute} sharedWith={sharedWith[attribute.id]} />
+                      <AttributeValue
+                        key={attribute.id}
+                        attribute={attribute}
+                        sharedWith={sharedWith[attribute.id]}
+                        onOpen={onOpenAttribute ? () => onOpenAttribute(entity.id, attribute.id) : undefined}
+                      />
                     ))}
                   </div>
                 </div>
