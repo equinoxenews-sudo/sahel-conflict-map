@@ -1,0 +1,222 @@
+.bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px clamp(16px, 4vw, 48px);
+  background: linear-gradient(180deg, rgba(3, 6, 12, 0.85), rgba(3, 6, 12, 0));
+  animation: barIn 1.2s ease 0.4s both;
+}
+
+@keyframes barIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.brand {
+  display: block;
+  flex: none;
+  line-height: 0;
+}
+
+.brand img {
+  width: auto;
+  height: 54px;
+}
+
+.zones {
+  display: flex;
+  align-items: center;
+  gap: clamp(4px, 1.6vw, 28px);
+}
+
+.zone {
+  position: relative;
+}
+
+.zoneButton {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 6px;
+  border: 0;
+  background: none;
+  color: rgba(241, 244, 247, 0.82);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.zoneButton:hover,
+.zone[data-open="true"] .zoneButton,
+.zone:focus-within .zoneButton {
+  color: #8fd8ff;
+}
+
+.caret {
+  width: 5px;
+  height: 5px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-1px);
+  opacity: 0.7;
+}
+
+.sections {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  min-width: 170px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  border: 1px solid rgba(143, 216, 255, 0.16);
+  border-radius: 10px;
+  background: rgba(7, 13, 23, 0.94);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 6px);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+}
+
+.zone:hover .sections,
+.zone:focus-within .sections,
+.zone[data-open="true"] .sections {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.sectionLink {
+  display: block;
+  padding: 9px 12px;
+  border-radius: 6px;
+  color: rgba(241, 244, 247, 0.85);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.sectionLink:hover,
+.sectionLink:focus-visible {
+  background: rgba(143, 216, 255, 0.1);
+  color: #8fd8ff;
+  outline: none;
+}
+
+.burger {
+  display: none;
+}
+
+/* Mobile : les zones passent dans un menu déroulant. */
+@media (max-width: 820px) {
+  .brand img {
+    height: 42px;
+  }
+
+  .burger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 4px;
+    border: 0;
+    background: none;
+    color: rgba(241, 244, 247, 0.88);
+    font: inherit;
+    font-size: 12px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .burgerIcon {
+    width: 18px;
+    height: 10px;
+    border-top: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    position: relative;
+  }
+
+  .burgerIcon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    border-top: 1.5px solid currentColor;
+    transform: translateY(-50%);
+  }
+
+  .zones {
+    position: absolute;
+    top: 100%;
+    left: 12px;
+    right: 12px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 14px;
+    border: 1px solid rgba(143, 216, 255, 0.16);
+    border-radius: 12px;
+    background: rgba(7, 13, 23, 0.96);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+  }
+
+  .zonesOpen {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .zoneButton {
+    width: 100%;
+    justify-content: space-between;
+    padding: 13px 0;
+    font-size: 13px;
+  }
+
+  .sections {
+    position: static;
+    display: none;
+    min-width: 0;
+    padding: 0 0 8px 12px;
+    border: 0;
+    background: none;
+    backdrop-filter: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .zone[data-open="true"] .sections {
+    display: block;
+    transform: none;
+  }
+
+  /* Pas de survol sur mobile : seul le clic ouvre une zone. */
+  .zone:hover .sections,
+  .zone:focus-within .sections {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    animation: none;
+  }
+}

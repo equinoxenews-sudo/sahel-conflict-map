@@ -1,0 +1,282 @@
+/* Plein écran, au-dessus du reste de l'application (dont la barre mobile du layout racine). */
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 100%, #0b1a30 0%, #050a14 55%, #02050a 100%);
+  color: #f1f4f7;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* Image fixe : affichée tout de suite, et seule visible si WebGL est indisponible. */
+.poster {
+  position: absolute;
+  inset: 0;
+  background: url("/cinematic/poster.jpg") center bottom / cover no-repeat;
+}
+
+.canvasLayer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+.canvasLayer[data-ready="true"] {
+  opacity: 1;
+}
+
+/* Assombrit les bords et le haut pour garder le texte et le bandeau lisibles. */
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 85%, transparent 35%, rgba(2, 5, 10, 0.4) 100%),
+    linear-gradient(180deg, rgba(2, 5, 10, 0.55) 0%, transparent 32%);
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(104px, 17vh, 190px) 20px 0;
+  text-align: center;
+  pointer-events: none;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.stage[data-exploring="true"] .copy {
+  opacity: 0;
+  transform: translateY(-14px);
+  pointer-events: none;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(26px, 4.6vw, 62px);
+  font-weight: 300;
+  line-height: 1.16;
+  letter-spacing: 0.01em;
+}
+
+.line {
+  display: block;
+  opacity: 0;
+}
+
+.lineSecond {
+  color: #bfe6ff;
+}
+
+.subtitle {
+  margin: clamp(16px, 2.6vh, 28px) 0 0;
+  font-size: clamp(11px, 1.15vw, 15px);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(191, 230, 255, 0.78);
+  opacity: 0;
+}
+
+.cta {
+  margin-top: clamp(22px, 4vh, 42px);
+  padding: 13px 34px;
+  border: 1px solid rgba(143, 216, 255, 0.55);
+  border-radius: 999px;
+  background: rgba(8, 20, 36, 0.45);
+  backdrop-filter: blur(6px);
+  color: #e8f6ff;
+  font: inherit;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  pointer-events: auto;
+  opacity: 0;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cta:hover,
+.cta:focus-visible {
+  background: rgba(40, 110, 170, 0.35);
+  border-color: #8fd8ff;
+  box-shadow: 0 0 28px rgba(110, 200, 255, 0.28);
+  outline: none;
+}
+
+/* --- Séquence : le texte arrive pendant que la caméra descend vers l'horizon --- */
+.stage[data-stage="playing"] .line {
+  animation: rise 2s cubic-bezier(0.2, 0.7, 0.2, 1) 3.4s both;
+}
+
+.stage[data-stage="playing"] .lineSecond {
+  animation-delay: 4.6s;
+}
+
+.stage[data-stage="playing"] .subtitle {
+  animation: fade 1.8s ease 6.2s both;
+}
+
+.stage[data-stage="playing"] .cta {
+  animation: fade 1.6s ease 7.4s both;
+}
+
+/* Introduction passée, 3D absente ou mouvement réduit : tout est là immédiatement. */
+.stage[data-stage="instant"] .line,
+.stage[data-stage="instant"] .subtitle,
+.stage[data-stage="instant"] .cta {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(8px);
+    letter-spacing: 0.07em;
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+    letter-spacing: 0.01em;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.skip {
+  position: absolute;
+  right: clamp(16px, 4vw, 48px);
+  bottom: clamp(18px, 4vh, 40px);
+  z-index: 6;
+  padding: 9px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(8, 20, 36, 0.4);
+  color: rgba(241, 244, 247, 0.8);
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  animation: fade 1s ease 1.2s both;
+}
+
+.skip:hover,
+.skip:focus-visible {
+  color: #fff;
+  border-color: rgba(143, 216, 255, 0.6);
+  outline: none;
+}
+
+/* --- Après « Explorer le monde » --- */
+.choices {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(36px, 9vh, 90px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity 0.9s ease 0.5s, transform 0.9s ease 0.5s;
+}
+
+.stage[data-exploring="true"] .choices {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.choicesHint {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(191, 230, 255, 0.7);
+}
+
+.choiceList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.choice {
+  display: block;
+  padding: 11px 22px;
+  border: 1px solid rgba(143, 216, 255, 0.35);
+  border-radius: 999px;
+  background: rgba(8, 20, 36, 0.55);
+  backdrop-filter: blur(6px);
+  color: #e8f6ff;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.choice:hover,
+.choice:focus-visible {
+  background: rgba(40, 110, 170, 0.4);
+  border-color: #8fd8ff;
+  outline: none;
+}
+
+.tag {
+  position: absolute;
+  left: clamp(16px, 4vw, 48px);
+  bottom: clamp(18px, 4vh, 40px);
+  margin: 0;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(143, 155, 170, 0.6);
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .tag {
+    display: none;
+  }
+
+  .cta {
+    padding: 12px 26px;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canvasLayer,
+  .copy,
+  .choices {
+    transition-duration: 0.01s;
+    transition-delay: 0s;
+  }
+}
