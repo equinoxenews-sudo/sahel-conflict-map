@@ -1,0 +1,970 @@
+{
+  "source": "World Bank Open Data — https://api.worldbank.org/v2/ (valeur la plus récente de chaque indicateur)",
+  "fetchedAt": "2026-10-08",
+  "countries": {
+    "albanie": {
+      "population": {
+        "value": 2349580,
+        "year": 2025
+      },
+      "area": {
+        "value": 28750,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 30540188271.3421,
+        "year": 2025
+      },
+      "growth": {
+        "value": 3.78893836241024,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 2.14618551167388,
+        "year": 2025
+      }
+    },
+    "armenie": {
+      "population": {
+        "value": 3086700,
+        "year": 2025
+      },
+      "area": {
+        "value": 29740,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 29243452882.3545,
+        "year": 2025
+      },
+      "growth": {
+        "value": 7.2,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.30693341072904,
+        "year": 2025
+      }
+    },
+    "autriche": {
+      "population": {
+        "value": 9208163,
+        "year": 2025
+      },
+      "area": {
+        "value": 83879,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 579470021095.418,
+        "year": 2025
+      },
+      "growth": {
+        "value": 0.615747280959056,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.52719439956928,
+        "year": 2025
+      }
+    },
+    "azerbaidjan": {
+      "population": {
+        "value": 10246996,
+        "year": 2025
+      },
+      "area": {
+        "value": 86600,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 75937647058.8235,
+        "year": 2025
+      },
+      "growth": {
+        "value": 1.44985591122698,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 5.62208788068338,
+        "year": 2025
+      }
+    },
+    "belgique": {
+      "population": {
+        "value": 11941781,
+        "year": 2025
+      },
+      "area": {
+        "value": 30689,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 725466462859.646,
+        "year": 2025
+      },
+      "growth": {
+        "value": 0.983117967125935,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 2.46705543774613,
+        "year": 2025
+      }
+    },
+    "bielorussie": {
+      "population": {
+        "value": 9085991,
+        "year": 2025
+      },
+      "area": {
+        "value": 207629,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 93397215864.198,
+        "year": 2025
+      },
+      "growth": {
+        "value": 1.29999999999998,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 6.59877945951182,
+        "year": 2025
+      }
+    },
+    "bosnie-herzegovine": {
+      "population": {
+        "value": 3140095,
+        "year": 2025
+      },
+      "area": {
+        "value": 51210,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 32599982936.3931,
+        "year": 2025
+      },
+      "growth": {
+        "value": 2.12861913138053,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 6.1059011284828,
+        "year": 2023
+      }
+    },
+    "bulgarie": {
+      "population": {
+        "value": 6433302,
+        "year": 2025
+      },
+      "area": {
+        "value": 110996.758,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 130777235529.606,
+        "year": 2025
+      },
+      "growth": {
+        "value": 3.0963663917961,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 4.58084355235697,
+        "year": 2025
+      }
+    },
+    "chypre": {
+      "population": {
+        "value": 1370754,
+        "year": 2025
+      },
+      "area": {
+        "value": 9250,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 41225787247.3309,
+        "year": 2025
+      },
+      "growth": {
+        "value": 3.77325347982725,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 0.126528851920189,
+        "year": 2025
+      }
+    },
+    "croatie": {
+      "population": {
+        "value": 3876200,
+        "year": 2025
+      },
+      "area": {
+        "value": 88070,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 105060182186.274,
+        "year": 2025
+      },
+      "growth": {
+        "value": 3.40307537181749,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.69153459605729,
+        "year": 2025
+      }
+    },
+    "danemark": {
+      "population": {
+        "value": 6009169,
+        "year": 2025
+      },
+      "area": {
+        "value": 42920,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 462526660468.393,
+        "year": 2025
+      },
+      "growth": {
+        "value": 2.92843280014236,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 1.89367372703044,
+        "year": 2025
+      }
+    },
+    "estonie": {
+      "population": {
+        "value": 1366475,
+        "year": 2025
+      },
+      "area": {
+        "value": 45340,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 47030833798.5866,
+        "year": 2025
+      },
+      "growth": {
+        "value": 0.584308464789387,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 4.82920753628342,
+        "year": 2025
+      }
+    },
+    "finlande": {
+      "population": {
+        "value": 5646436,
+        "year": 2025
+      },
+      "area": {
+        "value": 338480,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 317039368819.607,
+        "year": 2025
+      },
+      "growth": {
+        "value": 0.173444509584499,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 0.337874659400574,
+        "year": 2025
+      }
+    },
+    "france": {
+      "population": {
+        "value": 68720337,
+        "year": 2025
+      },
+      "area": {
+        "value": 606410,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 3366315927447.33,
+        "year": 2025
+      },
+      "growth": {
+        "value": 0.840949955479587,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 0.943770212469976,
+        "year": 2025
+      }
+    },
+    "allemagne": {
+      "population": {
+        "value": 83491249,
+        "year": 2025
+      },
+      "area": {
+        "value": 357680,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 5050922925047.05,
+        "year": 2025
+      },
+      "growth": {
+        "value": 0.239578342117881,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 2.17178770949721,
+        "year": 2025
+      }
+    },
+    "georgie": {
+      "population": {
+        "value": 3935766,
+        "year": 2025
+      },
+      "area": {
+        "value": 69700,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 38143612855.1367,
+        "year": 2025
+      },
+      "growth": {
+        "value": 7.46161504152039,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.8692132193969,
+        "year": 2025
+      }
+    },
+    "grece": {
+      "population": {
+        "value": 10413962,
+        "year": 2025
+      },
+      "area": {
+        "value": 131960,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 280635521324.441,
+        "year": 2025
+      },
+      "growth": {
+        "value": 2.07306882481713,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 2.48209745378857,
+        "year": 2025
+      }
+    },
+    "hongrie": {
+      "population": {
+        "value": 9514251,
+        "year": 2025
+      },
+      "area": {
+        "value": 93030,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 246490213513.054,
+        "year": 2025
+      },
+      "growth": {
+        "value": 0.509542309726868,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 4.41198445905562,
+        "year": 2025
+      }
+    },
+    "irlande": {
+      "population": {
+        "value": 5484367,
+        "year": 2025
+      },
+      "area": {
+        "value": 70280,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 721701359046.313,
+        "year": 2025
+      },
+      "growth": {
+        "value": 12.3375990291434,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 2.21044788475857,
+        "year": 2025
+      }
+    },
+    "islande": {
+      "population": {
+        "value": 392404,
+        "year": 2025
+      },
+      "area": {
+        "value": 103000,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 38582528789.0033,
+        "year": 2025
+      },
+      "growth": {
+        "value": 1.27946207863934,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 4.09085056006515,
+        "year": 2025
+      }
+    },
+    "italie": {
+      "population": {
+        "value": 58915656,
+        "year": 2025
+      },
+      "area": {
+        "value": 302070,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 2551556954100.35,
+        "year": 2025
+      },
+      "growth": {
+        "value": 0.539583636778445,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 1.5316682765282,
+        "year": 2025
+      }
+    },
+    "kosovo": {
+      "population": {
+        "value": 1576876,
+        "year": 2025
+      },
+      "gdp": {
+        "value": 12456403306.8191,
+        "year": 2025
+      },
+      "growth": {
+        "value": 3.59217142544483,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.85953869869506,
+        "year": 2025
+      }
+    },
+    "lettonie": {
+      "population": {
+        "value": 1847785,
+        "year": 2025
+      },
+      "area": {
+        "value": 64590,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 48618869160.3254,
+        "year": 2025
+      },
+      "growth": {
+        "value": 2.13786855731288,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.74577316751945,
+        "year": 2025
+      }
+    },
+    "lituanie": {
+      "population": {
+        "value": 2888774,
+        "year": 2025
+      },
+      "area": {
+        "value": 65290,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 95210150818.3512,
+        "year": 2025
+      },
+      "growth": {
+        "value": 2.92007656461696,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.79170510860467,
+        "year": 2025
+      }
+    },
+    "luxembourg": {
+      "population": {
+        "value": 686970,
+        "year": 2025
+      },
+      "area": {
+        "value": 2590,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 101157829491.107,
+        "year": 2025
+      },
+      "growth": {
+        "value": 0.63787818818335,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 2.25723817871726,
+        "year": 2025
+      }
+    },
+    "macedoine-du-nord": {
+      "population": {
+        "value": 1820909,
+        "year": 2025
+      },
+      "area": {
+        "value": 25710,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 19101199817.0174,
+        "year": 2025
+      },
+      "growth": {
+        "value": 3.48706619829503,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 4.07249176848348,
+        "year": 2025
+      }
+    },
+    "malte": {
+      "population": {
+        "value": 579704,
+        "year": 2025
+      },
+      "area": {
+        "value": 320,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 27771821560.9411,
+        "year": 2025
+      },
+      "growth": {
+        "value": 3.96156139018959,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 2.36351752252186,
+        "year": 2025
+      }
+    },
+    "moldavie": {
+      "population": {
+        "value": 2360527,
+        "year": 2025
+      },
+      "area": {
+        "value": 33850,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 20351796275.2943,
+        "year": 2025
+      },
+      "growth": {
+        "value": 2.41649734575068,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 7.75904124001159,
+        "year": 2025
+      }
+    },
+    "montenegro": {
+      "population": {
+        "value": 623129,
+        "year": 2025
+      },
+      "area": {
+        "value": 13888,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 9232801464.79257,
+        "year": 2025
+      },
+      "growth": {
+        "value": 2.74455354258522,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.89960910704956,
+        "year": 2025
+      }
+    },
+    "pays-bas": {
+      "population": {
+        "value": 18087633,
+        "year": 2025
+      },
+      "area": {
+        "value": 41540,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 1332767651100.39,
+        "year": 2025
+      },
+      "growth": {
+        "value": 1.78463214703797,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.2595766451366,
+        "year": 2025
+      }
+    },
+    "norvege": {
+      "population": {
+        "value": 5610870,
+        "year": 2025
+      },
+      "area": {
+        "value": 624500,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 530755719438.879,
+        "year": 2025
+      },
+      "growth": {
+        "value": 1.08528185031417,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.05562484410077,
+        "year": 2025
+      }
+    },
+    "pologne": {
+      "population": {
+        "value": 36435861,
+        "year": 2025
+      },
+      "area": {
+        "value": 313930,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 1035491784197.44,
+        "year": 2025
+      },
+      "growth": {
+        "value": 3.5727250346774,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.81419531520146,
+        "year": 2025
+      }
+    },
+    "portugal": {
+      "population": {
+        "value": 10804871,
+        "year": 2025
+      },
+      "area": {
+        "value": 92230,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 346639825141.821,
+        "year": 2025
+      },
+      "growth": {
+        "value": 1.86448007464475,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 2.33601620316701,
+        "year": 2025
+      }
+    },
+    "roumanie": {
+      "population": {
+        "value": 19020271,
+        "year": 2025
+      },
+      "area": {
+        "value": 238400,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 428677977854.826,
+        "year": 2025
+      },
+      "growth": {
+        "value": 0.677829835052762,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 7.18903362292063,
+        "year": 2025
+      }
+    },
+    "royaume-uni": {
+      "population": {
+        "value": 69487000,
+        "year": 2025
+      },
+      "area": {
+        "value": 243610,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 4002587541846.01,
+        "year": 2025
+      },
+      "growth": {
+        "value": 1.38844207858726,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.88306881626,
+        "year": 2025
+      }
+    },
+    "russie": {
+      "population": {
+        "value": 143513328,
+        "year": 2025
+      },
+      "area": {
+        "value": 17125190,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 2561310169358.74,
+        "year": 2025
+      },
+      "growth": {
+        "value": 1.00117656925738,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 8.71986939402666,
+        "year": 2025
+      }
+    },
+    "serbie": {
+      "population": {
+        "value": 6549143,
+        "year": 2025
+      },
+      "area": {
+        "value": 84990,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 99953324472.9042,
+        "year": 2025
+      },
+      "growth": {
+        "value": 2.03039196235113,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 3.8903678606001,
+        "year": 2025
+      }
+    },
+    "slovaquie": {
+      "population": {
+        "value": 5413813,
+        "year": 2025
+      },
+      "area": {
+        "value": 49030,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 154530066506.895,
+        "year": 2025
+      },
+      "growth": {
+        "value": 0.807418690144758,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 4.00042823495829,
+        "year": 2025
+      }
+    },
+    "slovenie": {
+      "population": {
+        "value": 2130986,
+        "year": 2025
+      },
+      "area": {
+        "value": 20480,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 79648204979.3618,
+        "year": 2025
+      },
+      "growth": {
+        "value": 1.05992996255246,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 2.37284807226549,
+        "year": 2025
+      }
+    },
+    "suede": {
+      "population": {
+        "value": 10596620,
+        "year": 2025
+      },
+      "area": {
+        "value": 528660,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 668998664082.081,
+        "year": 2025
+      },
+      "growth": {
+        "value": 1.54316373266217,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 0.679869285243995,
+        "year": 2025
+      }
+    },
+    "suisse": {
+      "population": {
+        "value": 9092436,
+        "year": 2025
+      },
+      "area": {
+        "value": 41290.7,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 1043529899250.92,
+        "year": 2025
+      },
+      "growth": {
+        "value": 1.30007790958307,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 0.154376978290185,
+        "year": 2025
+      }
+    },
+    "tchequie": {
+      "population": {
+        "value": 10886878,
+        "year": 2025
+      },
+      "area": {
+        "value": 78871.43,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 391026962800.475,
+        "year": 2025
+      },
+      "growth": {
+        "value": 2.58046673293437,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 2.45996367838865,
+        "year": 2025
+      }
+    },
+    "ukraine": {
+      "population": {
+        "value": 38980376,
+        "year": 2025
+      },
+      "area": {
+        "value": 603550,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 214233312784.397,
+        "year": 2025
+      },
+      "growth": {
+        "value": 1.82152376756284,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 12.7303341026903,
+        "year": 2025
+      }
+    },
+    "espagne": {
+      "population": {
+        "value": 49355143,
+        "year": 2025
+      },
+      "area": {
+        "value": 505975.98,
+        "year": 2023
+      },
+      "gdp": {
+        "value": 1906453309985.88,
+        "year": 2025
+      },
+      "growth": {
+        "value": 2.82495400578509,
+        "year": 2025
+      },
+      "inflation": {
+        "value": 2.699932857627,
+        "year": 2025
+      }
+    }
+  }
+}

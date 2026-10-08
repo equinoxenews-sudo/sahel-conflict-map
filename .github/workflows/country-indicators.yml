@@ -1,0 +1,45 @@
+name: Indicateurs des fiches pays
+
+# Met à jour population, superficie, PIB, croissance et inflation des fiches pays
+# (Banque mondiale, API publique sans clé). Ces données sont annuelles : un passage
+# par mois suffit. Le fichier data/country-profiles/indicators.json n'est modifié
+# et validé que si une valeur a changé ; le site se redéploie alors tout seul.
+on:
+  schedule:
+    - cron: "0 5 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Récupérer les indicateurs
+        run: npx tsx scripts/sync-country-indicators.ts
+
+      - name: Enregistrer s'il y a du nouveau
+        run: |
+          # La date de récupération seule ne justifie pas un nouveau déploiement.
+          if git diff --quiet -I'"fetchedAt"' -- data/country-profiles/indicators.json; then
+            echo "::notice::Aucun indicateur n'a changé."
+            git checkout -- data/country-profiles/indicators.json
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/country-profiles/indicators.json
+          git commit -m "Fiches pays : indicateurs de la Banque mondiale mis à jour"
+          git push
+          echo "::notice::Indicateurs mis à jour."
