@@ -2,6 +2,7 @@
 // Code impératif isolé du reste du site ; `three` est fourni par l'appelant
 // (import dynamique) pour ne rien ajouter au chargement des autres pages.
 import type * as T from "three";
+import { paintZoneMaps, zoneAt, ZONE_CODE_STEP, ZONE_FOCUS, ZONE_ORDER, type ZoneMaps, type ZoneSlug } from "./zoneMap";
 
 type Three = typeof T;
 
@@ -12,6 +13,10 @@ export interface SceneControl {
   explore: boolean;
   /** Pas de mouvement : une seule image fixe, sans boucle d'animation. */
   reducedMotion: boolean;
+  /** Zone mise au centre du globe (null : vue d'ensemble). */
+  focusZone: ZoneSlug | null;
+  /** Les zones réagissent au pointeur (survol, clic). */
+  interactive: boolean;
 }
 
 export interface SceneHandlers {
@@ -19,6 +24,10 @@ export interface SceneHandlers {
   onReady: () => void;
   /** WebGL indisponible ou contexte perdu : l'appelant affiche l'alternative statique. */
   onFail: () => void;
+  /** Zone sous le pointeur (null : aucune), avec la position du pointeur dans la page. */
+  onHover: (zone: ZoneSlug | null, x: number, y: number) => void;
+  /** Clic sur une zone du globe. */
+  onPick: (zone: ZoneSlug) => void;
 }
 
 const TEXTURES = {
@@ -52,6 +61,12 @@ const EARTH_FRAGMENT = /* glsl */ `
   uniform sampler2D dayMap;
   uniform sampler2D nightMap;
   uniform vec3 sunDir;
+  uniform sampler2D zoneMap;
+  uniform sampler2D borderMap;
+  uniform float zoneReady;
+  uniform float hoverZone;
+  uniform float selectedZone;
+  uniform float zoneStep;
   varying vec2 vUv;
   varying vec3 vWorldNormal;
   varying vec3 vViewDir;
@@ -79,6 +94,19 @@ const EARTH_FRAGMENT = /* glsl */ `
     float fres = pow(1.0 - max(dot(n, v), 0.0), 3.0);
     float lit = 0.18 + 0.82 * smoothstep(-0.30, 0.35, ndl);
     color += vec3(0.20, 0.52, 1.0) * fres * lit * 0.55;
+
+    // Zones : frontières discrètes, aplat léger au survol, plus marqué sur la zone choisie.
+    float zf = texture2D(zoneMap, vUv).r * 255.0 / zoneStep;
+    float zi = floor(zf + 0.5);
+    zi = abs(zf - zi) < 0.12 ? zi : 0.0;
+    float isHover = step(0.5, zi) * step(abs(zi - hoverZone), 0.1);
+    float isSelected = step(0.5, zi) * step(abs(zi - selectedZone), 0.1);
+    float border = texture2D(borderMap, vUv).a;
+    float fill = (isHover * 0.14 + isSelected * 0.17) * zoneReady;
+    float line = border * zoneReady * (0.16 + isHover * 0.30 + isSelected * 0.55);
+    vec3 zoneColor = vec3(0.38, 0.84, 1.0);
+    color = mix(color, zoneColor, fill * (0.55 + 0.45 * lit));
+    color += zoneColor * line * (0.55 + 0.45 * lit);
 
     gl_FragColor = vec4(color, 1.0);
   }
@@ -159,6 +187,12 @@ export function createEarthScene(
       dayMap: { value: null },
       nightMap: { value: null },
       sunDir: { value: sunDir },
+      zoneMap: { value: null },
+      borderMap: { value: null },
+      zoneReady: { value: 0 },
+      hoverZone: { value: 0 },
+      selectedZone: { value: 0 },
+      zoneStep: { value: ZONE_CODE_STEP },
     },
   });
   const earth = new THREE.Mesh(sphere, earthMaterial);
@@ -236,15 +270,71 @@ export function createEarthScene(
   let disposed = false;
   let started = false;
 
+  // Mise au point sur une zone : les valeurs « f… » rejoignent leur cible en douceur,
+  // `focusBlend` fait passer de la vue d'ensemble (horizon) à la vue centrée sur la zone.
+  let focusBlend = 0;
+  let fSpin = END_SPIN;
+  let fLat = 0;
+  let fDistance = 2.5;
+  let focusedOn: ZoneSlug | null = null;
+  let hoverIndex = 0;
+
+  /** Rotation (radians) qui amène la longitude `lon` face à la caméra. */
+  const spinForLon = (lon: number) => -Math.PI / 2 - THREE.MathUtils.degToRad(lon);
+  /** Même angle que `target`, à un tour près de `reference` : évite de tourner le globe dans le mauvais sens. */
+  const nearestAngle = (target: number, reference: number) =>
+    reference + Math.atan2(Math.sin(target - reference), Math.cos(target - reference));
+  const damp = (current: number, target: number, rate: number, dt: number) =>
+    current + (target - current) * (1 - Math.exp(-rate * dt));
+
+  function stepFocus(dt: number, zone: ZoneSlug | null) {
+    const baseSpin = END_SPIN + elapsed * DRIFT_PER_SECOND;
+    const baseDistance = zEnd * (1 - 0.1 * smootherstep(explore));
+    if (zone && zone !== focusedOn) {
+      if (focusBlend < 0.02) {
+        // Premier focus : on part de la vue actuelle pour ne pas sauter.
+        fSpin = baseSpin;
+        fLat = 0;
+        fDistance = baseDistance;
+      }
+      focusedOn = zone;
+    }
+    if (!zone) focusedOn = null;
+    if (focusedOn) {
+      const target = ZONE_FOCUS[focusedOn];
+      fSpin = damp(fSpin, nearestAngle(spinForLon(target.lon), fSpin), 2.6, dt);
+      fLat = damp(fLat, THREE.MathUtils.degToRad(target.lat), 2.6, dt);
+      // Écran étroit (téléphone) : la caméra recule pour que la zone ne déborde pas de partout.
+      const narrow = camera.aspect < 1.2 ? Math.min(2.3, Math.pow(1.2 / camera.aspect, 0.6)) : 1;
+      fDistance = damp(fDistance, target.distance * narrow, 2.6, dt);
+    }
+    focusBlend = damp(focusBlend, focusedOn ? 1 : 0, 3.2, dt);
+    if (!focusedOn && focusBlend < 0.001) focusBlend = 0;
+  }
+
   function applyPose() {
     const eased = smootherstep(progress);
     const exploreEase = smootherstep(explore);
     const zoom = 1 - 0.1 * exploreEase;
-    const z = lerp(zEnd * 3.4, zEnd, eased) * zoom;
-    camera.position.set(Math.sin(elapsed * 0.05) * 0.04 * eased, 0.02 * (1 - eased), z);
+    const baseZ = lerp(zEnd * 3.4, zEnd, eased) * zoom;
+    const baseY = -yEnd * eased * (1 + 0.04 * exploreEase);
+    const baseSpin = END_SPIN - (1 - eased) * 0.9 + elapsed * DRIFT_PER_SECOND;
+
+    const blend = smootherstep(focusBlend);
+    const z = lerp(baseZ, fDistance, blend);
+    camera.position.set(Math.sin(elapsed * 0.05) * 0.04 * eased * (1 - blend), 0.02 * (1 - eased), z);
     camera.lookAt(0, 0, 0);
-    group.position.y = -yEnd * eased * (1 + 0.04 * exploreEase);
-    earth.rotation.y = END_SPIN - (1 - eased) * 0.9 + elapsed * DRIFT_PER_SECOND;
+
+    // Le globe se décale pour laisser la place à la fiche de zone (à gauche sur ordinateur, en bas sur mobile).
+    const halfFov = THREE.MathUtils.degToRad(camera.fov / 2);
+    const visibleHeight = 2 * Math.tan(halfFov) * z;
+    const portrait = camera.aspect < 1;
+    group.position.x = portrait ? 0 : 0.17 * visibleHeight * camera.aspect * blend;
+    group.position.y = lerp(baseY, portrait ? 0.16 * visibleHeight : 0, blend);
+
+    group.rotation.x = fLat * blend;
+    group.rotation.z = 0.12 * (1 - blend);
+    earth.rotation.y = lerp(baseSpin, nearestAngle(fSpin, baseSpin), blend);
     atmosphere.rotation.y = earth.rotation.y;
     stars.rotation.y = elapsed * 0.0006;
   }
@@ -260,20 +350,31 @@ export function createEarthScene(
     if (compact && now - last < 32) return;
     const dt = last ? Math.min((now - last) / 1000, 0.1) : 0;
     last = now;
-    elapsed += dt;
     const control = getControl();
+    // Mouvement réduit : rien ne bouge seul ; la mise au point sur une zone est immédiate.
+    if (!reducedMotion) elapsed += dt;
     if (control.skip && skipRate === 0 && progress < 1) {
       skipRate = (1 - progress) / SKIP_SECONDS;
     }
     if (progress < 1) {
       progress = Math.min(1, progress + (skipRate > 0 ? skipRate * dt : dt / INTRO_SECONDS));
     }
-    explore = control.explore ? Math.min(1, explore + dt / 1.6) : Math.max(0, explore - dt / 1.6);
+    const exploreStep = (reducedMotion ? 10 : dt) / 1.6;
+    explore = control.explore ? Math.min(1, explore + exploreStep) : Math.max(0, explore - exploreStep);
+    const state = () => `${focusBlend}|${fSpin}|${fLat}|${fDistance}|${hoverIndex}|${explore}|${zoneFade}`;
+    const before = state();
+    stepFocus(reducedMotion ? 10 : dt, control.focusZone);
+    earthMaterial.uniforms.selectedZone.value = focusedOn ? ZONE_ORDER.indexOf(focusedOn) + 1 : 0;
+    earthMaterial.uniforms.hoverZone.value = hoverIndex;
+    if (zoneMaps && zoneFade < 1) zoneFade = Math.min(1, zoneFade + (reducedMotion ? 1 : dt * 1.2));
+    earthMaterial.uniforms.zoneReady.value = zoneFade;
+    if (lastPointer && control.interactive && zoneMaps) refreshHover(lastPointer.x, lastPointer.y);
+    if (reducedMotion && before === state()) return;
     renderFrame();
   }
 
   function start() {
-    if (running || disposed || reducedMotion) return;
+    if (running || disposed) return;
     running = true;
     last = 0;
     raf = requestAnimationFrame(tick);
@@ -307,6 +408,94 @@ export function createEarthScene(
   };
   canvas.addEventListener("webglcontextlost", onContextLost);
 
+  // --- Zones cliquables ------------------------------------------------------------------
+  let zoneMaps: ZoneMaps | null = null;
+  let zoneFade = 0;
+  const raycaster = new THREE.Raycaster();
+  const ndc = new THREE.Vector2();
+  const inverse = new THREE.Matrix4();
+  const rayOrigin = new THREE.Vector3();
+  const rayDirection = new THREE.Vector3();
+
+  /** Zone sous le pointeur : le rayon est ramené dans le repère du globe, puis converti en point de l'image des zones. */
+  function zoneUnderPointer(clientX: number, clientY: number): ZoneSlug | null {
+    if (!zoneMaps) return null;
+    const rect = canvas.getBoundingClientRect();
+    ndc.set(((clientX - rect.left) / rect.width) * 2 - 1, -((clientY - rect.top) / rect.height) * 2 + 1);
+    raycaster.setFromCamera(ndc, camera);
+    earth.updateMatrixWorld();
+    inverse.copy(earth.matrixWorld).invert();
+    rayOrigin.copy(raycaster.ray.origin).applyMatrix4(inverse);
+    rayDirection.copy(raycaster.ray.direction).transformDirection(inverse);
+    const b = rayOrigin.dot(rayDirection);
+    const discriminant = b * b - (rayOrigin.dot(rayOrigin) - 1);
+    if (discriminant < 0) return null;
+    const t = -b - Math.sqrt(discriminant);
+    if (t < 0) return null;
+    rayOrigin.addScaledVector(rayDirection, t);
+    const u = Math.atan2(rayOrigin.z, -rayOrigin.x) / (2 * Math.PI);
+    const v = 1 - Math.acos(THREE.MathUtils.clamp(rayOrigin.y, -1, 1)) / Math.PI;
+    return zoneAt(zoneMaps, u, v);
+  }
+
+  function setHover(zone: ZoneSlug | null, x: number, y: number) {
+    hoverIndex = zone ? ZONE_ORDER.indexOf(zone) + 1 : 0;
+    canvas.style.cursor = zone ? "pointer" : "default";
+    handlers.onHover(zone, x, y);
+  }
+  // Dernière position de la souris : le globe bouge sous un pointeur immobile (mise au point sur une zone),
+  // la zone survolée est donc revérifiée à chaque image.
+  let lastPointer: { x: number; y: number } | null = null;
+  function refreshHover(x: number, y: number) {
+    const zone = zoneUnderPointer(x, y);
+    const index = zone ? ZONE_ORDER.indexOf(zone) + 1 : 0;
+    if (index !== hoverIndex) setHover(zone, x, y);
+    else if (zone) handlers.onHover(zone, x, y);
+  }
+  const onPointerMove = (event: PointerEvent) => {
+    if (event.pointerType === "touch") return;
+    lastPointer = { x: event.clientX, y: event.clientY };
+    if (getControl().interactive) refreshHover(lastPointer.x, lastPointer.y);
+  };
+  const onPointerLeave = () => {
+    lastPointer = null;
+    setHover(null, 0, 0);
+  };
+  let downAt: { x: number; y: number } | null = null;
+  const onPointerDown = (event: PointerEvent) => {
+    downAt = { x: event.clientX, y: event.clientY };
+  };
+  const onPointerUp = (event: PointerEvent) => {
+    const origin = downAt;
+    downAt = null;
+    if (!origin || !getControl().interactive) return;
+    if (Math.hypot(event.clientX - origin.x, event.clientY - origin.y) > 6) return;
+    const zone = zoneUnderPointer(event.clientX, event.clientY);
+    if (zone) handlers.onPick(zone);
+  };
+  canvas.addEventListener("pointermove", onPointerMove);
+  canvas.addEventListener("pointerleave", onPointerLeave);
+  canvas.addEventListener("pointerdown", onPointerDown);
+  canvas.addEventListener("pointerup", onPointerUp);
+
+  // Contours des pays : chargés après la première image, sans retarder l'introduction.
+  async function loadZones() {
+    const response = await fetch("/data/world-countries.geo.json");
+    if (!response.ok) throw new Error("contours indisponibles");
+    const geojson = (await response.json()) as { features: Parameters<typeof paintZoneMaps>[0] };
+    if (disposed) return;
+    const maps = paintZoneMaps(geojson.features, 2048, 1024, compact ? 1 : 2);
+    const idTexture = new THREE.CanvasTexture(maps.idCanvas);
+    idTexture.minFilter = THREE.NearestFilter;
+    idTexture.magFilter = THREE.NearestFilter;
+    idTexture.generateMipmaps = false;
+    const borderTexture = track(new THREE.CanvasTexture(maps.borderCanvas));
+    textures.push(idTexture);
+    earthMaterial.uniforms.zoneMap.value = idTexture;
+    earthMaterial.uniforms.borderMap.value = borderTexture;
+    zoneMaps = maps;
+  }
+
   // --- Textures : version légère d'abord, version complète ensuite (ordinateur) ----------
   function load(url: string) {
     return new Promise<T.Texture>((resolve, reject) =>
@@ -323,6 +512,8 @@ export function createEarthScene(
       renderFrame();
       handlers.onReady();
       syncRunning();
+      // Les zones sont un plus : si les contours manquent, le globe reste affiché sans elles.
+      loadZones().catch(() => {});
       if (compact) return;
       return Promise.all([load(TEXTURES.dayFull), load(TEXTURES.nightFull)]).then(([dayFull, nightFull]) => {
         if (disposed) return;
@@ -342,6 +533,10 @@ export function createEarthScene(
     resizeObserver.disconnect();
     document.removeEventListener("visibilitychange", onVisibility);
     canvas.removeEventListener("webglcontextlost", onContextLost);
+    canvas.removeEventListener("pointermove", onPointerMove);
+    canvas.removeEventListener("pointerleave", onPointerLeave);
+    canvas.removeEventListener("pointerdown", onPointerDown);
+    canvas.removeEventListener("pointerup", onPointerUp);
     sphere.dispose();
     starGeometry.dispose();
     earthMaterial.dispose();

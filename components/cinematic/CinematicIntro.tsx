@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useState, useSyncExternalStore } from "react";
-import { ZONES } from "@/lib/zones";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { ZONE_LABELS, ZONE_ORDER, type ZoneSlug } from "@/lib/cinematic/zoneMap";
 import CinematicNav from "./CinematicNav";
 import EarthScene from "./EarthScene";
+import ZonePanel from "./ZonePanel";
 import styles from "./CinematicIntro.module.css";
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
@@ -28,6 +28,9 @@ export default function CinematicIntro() {
   const [skipped, setSkipped] = useState(false);
   const [introOver, setIntroOver] = useState(false);
   const [exploring, setExploring] = useState(false);
+  const [zone, setZone] = useState<ZoneSlug | null>(null);
+  const [hovered, setHovered] = useState<ZoneSlug | null>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
   // Sans 3D (WebGL absent, réseau lent) : l'image fixe et tout le texte restent affichés.
   useEffect(() => {
@@ -42,33 +45,54 @@ export default function CinematicIntro() {
     return () => window.clearTimeout(timer);
   }, [status, reducedMotion]);
 
+  // Échap : revient au globe entier, ou passe l'introduction si aucune zone n'est choisie.
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setSkipped(true);
+      if (event.key !== "Escape") return;
+      if (zone) setZone(null);
+      else setSkipped(true);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, [zone]);
+
+  // Choisir une zone (bandeau, pastille ou clic sur le globe) : le globe se centre dessus.
+  const focusZone = useCallback((next: ZoneSlug) => {
+    setZone(next);
+    setExploring(true);
+    setSkipped(true);
+  }, []);
+
+  const onHover = useCallback((next: ZoneSlug | null, x: number, y: number) => {
+    setHovered(next);
+    const tooltip = tooltipRef.current;
+    if (tooltip) tooltip.style.transform = `translate(${x + 16}px, ${y + 16}px)`;
   }, []);
 
   const instant = skipped || reducedMotion || status === "static";
-  const showSkip = status === "ready" && !instant && !introOver;
+  const showSkip = status === "ready" && !instant && !introOver && !zone;
   const stage = status === "loading" ? "loading" : instant ? "instant" : "playing";
+  const interactive = status === "ready" && (instant || introOver);
 
   return (
-    <div className={styles.stage} data-stage={stage} data-exploring={exploring}>
+    <div className={styles.stage} data-stage={stage} data-exploring={exploring} data-focused={zone !== null}>
       <div className={styles.poster} aria-hidden="true" data-ready={status === "ready"} />
       <div className={styles.canvasLayer} data-ready={status === "ready"}>
         <EarthScene
           skip={skipped}
           explore={exploring}
           reducedMotion={reducedMotion}
+          focusZone={zone}
+          interactive={interactive}
           onReady={() => setStatus("ready")}
           onFail={() => setStatus("static")}
+          onHover={onHover}
+          onPick={focusZone}
         />
       </div>
       <div className={styles.vignette} aria-hidden="true" />
 
-      <CinematicNav />
+      <CinematicNav activeZone={zone} onFocusZone={focusZone} />
 
       <main className={styles.content}>
         <div className={styles.copy}>
@@ -82,19 +106,30 @@ export default function CinematicIntro() {
           </button>
         </div>
 
-        <nav className={styles.choices} aria-label="Choisir une zone" aria-hidden={!exploring}>
+        <nav className={styles.choices} aria-label="Choisir une zone" aria-hidden={!exploring || zone !== null}>
           <p className={styles.choicesHint}>Choisissez une zone</p>
           <ul className={styles.choiceList}>
-            {ZONES.filter((zone) => zone.slug !== "tracking").map((zone) => (
-              <li key={zone.slug}>
-                <Link href={`/zones/${zone.slug}`} className={styles.choice} tabIndex={exploring ? 0 : -1}>
-                  {zone.slug === "moyen-orient" ? "Moyen-Orient" : zone.name}
-                </Link>
+            {ZONE_ORDER.map((slug) => (
+              <li key={slug}>
+                <button
+                  type="button"
+                  className={styles.choice}
+                  tabIndex={exploring && !zone ? 0 : -1}
+                  onClick={() => focusZone(slug)}
+                >
+                  {ZONE_LABELS[slug]}
+                </button>
               </li>
             ))}
           </ul>
         </nav>
       </main>
+
+      {zone ? <ZonePanel zone={zone} onClose={() => setZone(null)} /> : null}
+
+      <div ref={tooltipRef} className={styles.tooltip} data-visible={hovered !== null} aria-hidden="true">
+        {hovered ? ZONE_LABELS[hovered] : ""}
+      </div>
 
       {showSkip ? (
         <button type="button" className={styles.skip} onClick={() => setSkipped(true)}>

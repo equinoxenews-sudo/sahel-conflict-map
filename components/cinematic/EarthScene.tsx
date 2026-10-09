@@ -1,23 +1,30 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { createEarthScene, type SceneControl } from "@/lib/cinematic/earthScene";
+import { createEarthScene, type SceneControl, type SceneHandlers } from "@/lib/cinematic/earthScene";
 import styles from "./EarthScene.module.css";
 
-interface EarthSceneProps extends SceneControl {
-  onReady: () => void;
-  onFail: () => void;
-}
+interface EarthSceneProps extends SceneControl, SceneHandlers {}
 
 // Monte la scène 3D dans un conteneur. `three` n'est téléchargé qu'ici, après l'affichage de la page.
-export default function EarthScene({ skip, explore, reducedMotion, onReady, onFail }: EarthSceneProps) {
+export default function EarthScene({
+  skip,
+  explore,
+  reducedMotion,
+  focusZone,
+  interactive,
+  onReady,
+  onFail,
+  onHover,
+  onPick,
+}: EarthSceneProps) {
   const hostRef = useRef<HTMLDivElement>(null);
-  const control = useRef<SceneControl>({ skip, explore, reducedMotion });
-  const handlers = useRef({ onReady, onFail });
+  const control = useRef<SceneControl>({ skip, explore, reducedMotion, focusZone, interactive });
+  const handlers = useRef<SceneHandlers>({ onReady, onFail, onHover, onPick });
 
   useEffect(() => {
-    control.current = { skip, explore, reducedMotion };
-    handlers.current = { onReady, onFail };
+    control.current = { skip, explore, reducedMotion, focusZone, interactive };
+    handlers.current = { onReady, onFail, onHover, onPick };
   });
 
   useEffect(() => {
@@ -31,6 +38,8 @@ export default function EarthScene({ skip, explore, reducedMotion, onReady, onFa
         dispose = createEarthScene(THREE, host, () => control.current, {
           onReady: () => handlers.current.onReady(),
           onFail: () => handlers.current.onFail(),
+          onHover: (zone, x, y) => handlers.current.onHover(zone, x, y),
+          onPick: (zone) => handlers.current.onPick(zone),
         });
       })
       .catch(() => handlers.current.onFail());

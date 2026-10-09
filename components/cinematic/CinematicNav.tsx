@@ -3,14 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ZONES } from "@/lib/zones";
+import { ZONE_LABELS, ZONE_ORDER, type ZoneSlug } from "@/lib/cinematic/zoneMap";
 import styles from "./CinematicNav.module.css";
-
-// Les cinq zones, dans l'ordre demandé, avec les libellés typographiques du bandeau.
-const NAV_ZONES = ["europe", "moyen-orient", "afrique", "indopacifique", "amerique-du-sud"].map((slug) => {
-  const zone = ZONES.find((z) => z.slug === slug);
-  return { slug, label: slug === "moyen-orient" ? "Moyen-Orient" : (zone?.name ?? slug) };
-});
 
 const SECTIONS = [
   { key: "approche", label: "Approche", path: "approche" },
@@ -18,9 +12,15 @@ const SECTIONS = [
   { key: "analyse", label: "Analyse", path: "analyse" },
 ];
 
-export default function CinematicNav() {
+interface CinematicNavProps {
+  /** Zone actuellement au centre du globe. */
+  activeZone: ZoneSlug | null;
+  /** Clic sur une zone du bandeau : le globe se centre dessus. */
+  onFocusZone: (zone: ZoneSlug) => void;
+}
+
+export default function CinematicNav({ activeZone, onFocusZone }: CinematicNavProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [openZone, setOpenZone] = useState<string | null>(null);
 
   return (
     <header className={styles.bar}>
@@ -44,31 +44,31 @@ export default function CinematicNav() {
         className={menuOpen ? `${styles.zones} ${styles.zonesOpen}` : styles.zones}
         aria-label="Zones géographiques"
       >
-        {NAV_ZONES.map((zone) => {
-          const open = openZone === zone.slug;
-          return (
-            <div key={zone.slug} className={styles.zone} data-open={open}>
-              <button
-                type="button"
-                className={styles.zoneButton}
-                aria-expanded={open}
-                onClick={() => setOpenZone(open ? null : zone.slug)}
-              >
-                {zone.label}
-                <span className={styles.caret} aria-hidden="true" />
-              </button>
-              <ul className={styles.sections}>
-                {SECTIONS.map((section) => (
-                  <li key={section.key}>
-                    <Link href={`/zones/${zone.slug}/${section.path}`} className={styles.sectionLink}>
-                      {section.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
-        })}
+        {ZONE_ORDER.map((zone) => (
+          <div key={zone} className={styles.zone} data-active={activeZone === zone}>
+            <button
+              type="button"
+              className={styles.zoneButton}
+              aria-pressed={activeZone === zone}
+              onClick={() => {
+                onFocusZone(zone);
+                setMenuOpen(false);
+              }}
+            >
+              {ZONE_LABELS[zone]}
+              <span className={styles.caret} aria-hidden="true" />
+            </button>
+            <ul className={styles.sections}>
+              {SECTIONS.map((section) => (
+                <li key={section.key}>
+                  <Link href={`/zones/${zone}/${section.path}`} className={styles.sectionLink}>
+                    {section.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </nav>
     </header>
   );

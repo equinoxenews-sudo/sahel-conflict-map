@@ -59,7 +59,7 @@
 }
 
 .zoneButton:hover,
-.zone[data-open="true"] .zoneButton,
+.zone[data-active="true"] .zoneButton,
 .zone:focus-within .zoneButton {
   color: #8fd8ff;
 }
@@ -92,8 +92,7 @@
 }
 
 .zone:hover .sections,
-.zone:focus-within .sections,
-.zone[data-open="true"] .sections {
+.zone:focus-within .sections {
   opacity: 1;
   visibility: visible;
   transform: translate(-50%, 0);
@@ -190,28 +189,9 @@
     font-size: 13px;
   }
 
+  /* Les rubriques de chaque zone sont dans la fiche qui s'ouvre sous le globe. */
   .sections {
-    position: static;
     display: none;
-    min-width: 0;
-    padding: 0 0 8px 12px;
-    border: 0;
-    background: none;
-    backdrop-filter: none;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-  }
-
-  .zone[data-open="true"] .sections {
-    display: block;
-    transform: none;
-  }
-
-  /* Pas de survol sur mobile : seul le clic ouvre une zone. */
-  .zone:hover .sections,
-  .zone:focus-within .sections {
-    transform: none;
   }
 }
 
