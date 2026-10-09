@@ -319,3 +319,41 @@
     display: none;
   }
 }
+
+/* Heure UTC du jour/nuit et rappel du geste, discrets, en bas à droite. */
+.clock {
+  position: absolute;
+  right: clamp(16px, 4vw, 48px);
+  bottom: clamp(18px, 4vh, 40px);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  margin: 0;
+  pointer-events: none;
+  animation: fade 1.2s ease both;
+}
+
+.clockTime {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: rgba(191, 230, 255, 0.85);
+  font-variant-numeric: tabular-nums;
+}
+
+.clockHint {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(143, 155, 170, 0.7);
+}
+
+@media (max-aspect-ratio: 1/1) {
+  /* La fiche de zone occupe le bas de l'écran sur téléphone : l'horloge passe en haut, sous le bandeau. */
+  .clock {
+    bottom: auto;
+    top: 72px;
+    right: 16px;
+  }
+}

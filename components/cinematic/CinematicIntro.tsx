@@ -31,6 +31,24 @@ export default function CinematicIntro() {
   const [zone, setZone] = useState<ZoneSlug | null>(null);
   const [hovered, setHovered] = useState<ZoneSlug | null>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
+  const [utcLabel, setUtcLabel] = useState("");
+
+  // Heure UTC affichée : celle que le globe utilise pour le jour/nuit (?utc=… permet d'en imposer une).
+  useEffect(() => {
+    const forced = Date.parse(new URLSearchParams(window.location.search).get("utc") ?? "");
+    const offset = Number.isNaN(forced) ? 0 : forced - Date.now();
+    const update = () => {
+      const d = new Date(Date.now() + offset);
+      const pad = (n: number) => String(n).padStart(2, "0");
+      setUtcLabel(`${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())}`);
+    };
+    const first = window.setTimeout(update, 0);
+    const timer = window.setInterval(update, 20_000);
+    return () => {
+      window.clearTimeout(first);
+      window.clearInterval(timer);
+    };
+  }, []);
 
   // Sans 3D (WebGL absent, réseau lent) : l'image fixe et tout le texte restent affichés.
   useEffect(() => {
@@ -135,6 +153,13 @@ export default function CinematicIntro() {
         <button type="button" className={styles.skip} onClick={() => setSkipped(true)}>
           Passer l&apos;introduction
         </button>
+      ) : null}
+
+      {interactive && utcLabel ? (
+        <p className={styles.clock}>
+          <span className={styles.clockTime}>UTC {utcLabel}</span>
+          <span className={styles.clockHint}>Jour et nuit en temps réel · glisser pour tourner</span>
+        </p>
       ) : null}
 
       <p className={styles.tag}>Prototype expérimental — non public</p>

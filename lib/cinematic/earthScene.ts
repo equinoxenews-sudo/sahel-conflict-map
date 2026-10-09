@@ -2,6 +2,7 @@
 // Code impératif isolé du reste du site ; `three` est fourni par l'appelant
 // (import dynamique) pour ne rien ajouter au chargement des autres pages.
 import type * as T from "three";
+import { subsolarPoint, sunDirectionLocal } from "./sun";
 import { paintZoneMaps, zoneAt, ZONE_CODE_STEP, ZONE_FOCUS, ZONE_ORDER, type ZoneMaps, type ZoneSlug } from "./zoneMap";
 
 type Three = typeof T;
@@ -42,7 +43,6 @@ const SKIP_SECONDS = 0.9;
 /** Face de la Terre tournée vers la caméra à la fin du travelling (≈ longitude 20° E). */
 const END_SPIN = -1.92;
 const DRIFT_PER_SECOND = 0.004;
-const SUN = [1.0, 0.32, 0.28] as const;
 
 const EARTH_VERTEX = /* glsl */ `
   varying vec2 vUv;
@@ -157,12 +157,29 @@ export function createEarthScene(
   renderer.setClearColor(0x03060c, 1);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compact ? 1.5 : 2));
   const canvas = renderer.domElement;
-  canvas.style.cssText = "display:block;width:100%;height:100%";
+  // touch-action : sur écran tactile, le glissement fait tourner le globe au lieu de faire défiler la page.
+  canvas.style.cssText = "display:block;width:100%;height:100%;touch-action:none";
   host.appendChild(canvas);
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 300);
-  const sunDir = new THREE.Vector3(...SUN).normalize();
+  // Direction du Soleil dans le repère du monde : recalculée à chaque image d'après l'heure UTC réelle
+  // (ou l'heure imposée par ?utc=2026-10-09T03:00:00Z dans l'adresse, pour comparer).
+  const sunDir = new THREE.Vector3(1, 0, 0);
+  const sunLocal = new THREE.Vector3(1, 0, 0);
+  const earthQuaternion = new THREE.Quaternion();
+  const forcedUtc = new URLSearchParams(window.location.search).get("utc");
+  const forcedTime = forcedUtc ? Date.parse(forcedUtc) : NaN;
+  const clockAt = Number.isNaN(forcedTime) ? null : forcedTime - Date.now();
+  let sunUpdatedAt = 0;
+  function updateSun(force = false) {
+    const now = Date.now();
+    if (!force && now - sunUpdatedAt < 1000) return;
+    sunUpdatedAt = now;
+    const instant = new Date(clockAt === null ? now : now + clockAt);
+    sunLocal.set(...sunDirectionLocal(subsolarPoint(instant)));
+  }
+  updateSun(true);
 
   // Le groupe porte la position de la Terre (descend vers l'horizon pendant le travelling).
   const group = new THREE.Group();
@@ -279,6 +296,16 @@ export function createEarthScene(
   let focusedOn: ZoneSlug | null = null;
   let hoverIndex = 0;
 
+  // Rotation à la main : décalage de lacet (autour de l'axe des pôles) et d'inclinaison, avec inertie.
+  const MAX_TILT = 1.0;
+  let userSpin = 0;
+  let userTilt = 0;
+  let spinVelocity = 0;
+  let tiltVelocity = 0;
+  let dragging = false;
+  /** Après le choix d'une zone, la rotation manuelle revient doucement à zéro. */
+  let releaseUser = false;
+
   /** Rotation (radians) qui amène la longitude `lon` face à la caméra. */
   const spinForLon = (lon: number) => -Math.PI / 2 - THREE.MathUtils.degToRad(lon);
   /** Même angle que `target`, à un tour près de `reference` : évite de tourner le globe dans le mauvais sens. */
@@ -298,8 +325,12 @@ export function createEarthScene(
         fDistance = baseDistance;
       }
       focusedOn = zone;
+      releaseUser = true;
     }
-    if (!zone) focusedOn = null;
+    if (!zone && focusedOn) {
+      focusedOn = null;
+      releaseUser = true;
+    }
     if (focusedOn) {
       const target = ZONE_FOCUS[focusedOn];
       fSpin = damp(fSpin, nearestAngle(spinForLon(target.lon), fSpin), 2.6, dt);
@@ -332,11 +363,18 @@ export function createEarthScene(
     group.position.x = portrait ? 0 : 0.17 * visibleHeight * camera.aspect * blend;
     group.position.y = lerp(baseY, portrait ? 0.16 * visibleHeight : 0, blend);
 
-    group.rotation.x = fLat * blend;
+    // userSpin / userTilt : rotation donnée à la main (glisser) par-dessus la vue en cours.
+    group.rotation.x = fLat * blend + userTilt;
     group.rotation.z = 0.12 * (1 - blend);
-    earth.rotation.y = lerp(baseSpin, nearestAngle(fSpin, baseSpin), blend);
+    earth.rotation.y = lerp(baseSpin, nearestAngle(fSpin, baseSpin), blend) + userSpin;
     atmosphere.rotation.y = earth.rotation.y;
     stars.rotation.y = elapsed * 0.0006;
+
+    // Jour/nuit : le Soleil est fixe dans le repère de la texture ; on le ramène dans le repère du monde.
+    updateSun();
+    group.updateMatrixWorld(true);
+    earth.getWorldQuaternion(earthQuaternion);
+    sunDir.copy(sunLocal).applyQuaternion(earthQuaternion);
   }
 
   function renderFrame() {
@@ -361,14 +399,36 @@ export function createEarthScene(
     }
     const exploreStep = (reducedMotion ? 10 : dt) / 1.6;
     explore = control.explore ? Math.min(1, explore + exploreStep) : Math.max(0, explore - exploreStep);
-    const state = () => `${focusBlend}|${fSpin}|${fLat}|${fDistance}|${hoverIndex}|${explore}|${zoneFade}`;
+    const state = () => `${focusBlend}|${fSpin}|${fLat}|${fDistance}|${hoverIndex}|${explore}|${zoneFade}|${userSpin}|${userTilt}`;
     const before = state();
     stepFocus(reducedMotion ? 10 : dt, control.focusZone);
+    if (!dragging) {
+      if (releaseUser) {
+        userSpin = damp(userSpin, 0, 3, reducedMotion ? 10 : dt);
+        userTilt = damp(userTilt, 0, 3, reducedMotion ? 10 : dt);
+        spinVelocity = 0;
+        tiltVelocity = 0;
+        if (Math.abs(userSpin) + Math.abs(userTilt) < 0.001) {
+          userSpin = 0;
+          userTilt = 0;
+          releaseUser = false;
+        }
+      } else if (spinVelocity !== 0 || tiltVelocity !== 0) {
+        // Inertie : le globe continue un instant après le lâcher, puis s'arrête.
+        userSpin += spinVelocity * dt;
+        userTilt = THREE.MathUtils.clamp(userTilt + tiltVelocity * dt, -MAX_TILT, MAX_TILT);
+        const friction = Math.exp(-3.2 * dt);
+        spinVelocity *= friction;
+        tiltVelocity *= friction;
+        if (Math.abs(spinVelocity) < 0.002) spinVelocity = 0;
+        if (Math.abs(tiltVelocity) < 0.002) tiltVelocity = 0;
+      }
+    }
     earthMaterial.uniforms.selectedZone.value = focusedOn ? ZONE_ORDER.indexOf(focusedOn) + 1 : 0;
     earthMaterial.uniforms.hoverZone.value = hoverIndex;
     if (zoneMaps && zoneFade < 1) zoneFade = Math.min(1, zoneFade + (reducedMotion ? 1 : dt * 1.2));
     earthMaterial.uniforms.zoneReady.value = zoneFade;
-    if (lastPointer && control.interactive && zoneMaps) refreshHover(lastPointer.x, lastPointer.y);
+    if (lastPointer && !dragging && control.interactive && zoneMaps) refreshHover(lastPointer.x, lastPointer.y);
     if (reducedMotion && before === state()) return;
     renderFrame();
   }
@@ -440,7 +500,7 @@ export function createEarthScene(
 
   function setHover(zone: ZoneSlug | null, x: number, y: number) {
     hoverIndex = zone ? ZONE_ORDER.indexOf(zone) + 1 : 0;
-    canvas.style.cursor = zone ? "pointer" : "default";
+    canvas.style.cursor = zone ? "pointer" : "grab";
     handlers.onHover(zone, x, y);
   }
   // Dernière position de la souris : le globe bouge sous un pointeur immobile (mise au point sur une zone),
@@ -452,7 +512,29 @@ export function createEarthScene(
     if (index !== hoverIndex) setHover(zone, x, y);
     else if (zone) handlers.onHover(zone, x, y);
   }
+  // Glisser pour faire tourner : le point saisi suit le pointeur (≈ 1 unité du globe par hauteur d'écran visible).
+  let dragLast: { x: number; y: number; t: number } | null = null;
+  let dragDistance = 0;
   const onPointerMove = (event: PointerEvent) => {
+    if (dragLast && dragging) {
+      const dx = event.clientX - dragLast.x;
+      const dy = event.clientY - dragLast.y;
+      const dtMs = Math.max(event.timeStamp - dragLast.t, 1);
+      dragDistance += Math.hypot(dx, dy);
+      const perPixel = (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z) / Math.max(canvas.clientHeight, 1);
+      const dSpin = dx * perPixel;
+      const dTilt = dy * perPixel;
+      userSpin += dSpin;
+      userTilt = THREE.MathUtils.clamp(userTilt + dTilt, -MAX_TILT, MAX_TILT);
+      if (!reducedMotion) {
+        // Vitesse lissée, reprise à la fin du geste pour l'inertie.
+        spinVelocity = lerp(spinVelocity, (dSpin / dtMs) * 1000, 0.5);
+        tiltVelocity = lerp(tiltVelocity, (dTilt / dtMs) * 1000, 0.5);
+      }
+      dragLast = { x: event.clientX, y: event.clientY, t: event.timeStamp };
+      if (dragDistance > 6) setHover(null, 0, 0);
+      return;
+    }
     if (event.pointerType === "touch") return;
     lastPointer = { x: event.clientX, y: event.clientY };
     if (getControl().interactive) refreshHover(lastPointer.x, lastPointer.y);
@@ -461,22 +543,43 @@ export function createEarthScene(
     lastPointer = null;
     setHover(null, 0, 0);
   };
-  let downAt: { x: number; y: number } | null = null;
   const onPointerDown = (event: PointerEvent) => {
-    downAt = { x: event.clientX, y: event.clientY };
+    if (!getControl().interactive || (event.pointerType === "mouse" && event.button !== 0)) return;
+    dragging = true;
+    dragDistance = 0;
+    dragLast = { x: event.clientX, y: event.clientY, t: event.timeStamp };
+    spinVelocity = 0;
+    tiltVelocity = 0;
+    releaseUser = false;
+    canvas.setPointerCapture(event.pointerId);
+    canvas.style.cursor = "grabbing";
+  };
+  const endDrag = (event: PointerEvent) => {
+    if (!dragging) return;
+    dragging = false;
+    const last = dragLast;
+    dragLast = null;
+    if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+    canvas.style.cursor = "grab";
+    // Pointeur resté immobile avant le lâcher : pas d'inertie.
+    if (last && event.timeStamp - last.t > 90) {
+      spinVelocity = 0;
+      tiltVelocity = 0;
+    }
   };
   const onPointerUp = (event: PointerEvent) => {
-    const origin = downAt;
-    downAt = null;
-    if (!origin || !getControl().interactive) return;
-    if (Math.hypot(event.clientX - origin.x, event.clientY - origin.y) > 6) return;
+    const wasClick = dragging && dragDistance <= 6;
+    endDrag(event);
+    if (!wasClick || !getControl().interactive) return;
     const zone = zoneUnderPointer(event.clientX, event.clientY);
     if (zone) handlers.onPick(zone);
+    else if (event.pointerType !== "touch") canvas.style.cursor = "grab";
   };
   canvas.addEventListener("pointermove", onPointerMove);
   canvas.addEventListener("pointerleave", onPointerLeave);
   canvas.addEventListener("pointerdown", onPointerDown);
   canvas.addEventListener("pointerup", onPointerUp);
+  canvas.addEventListener("pointercancel", endDrag);
 
   // Contours des pays : chargés après la première image, sans retarder l'introduction.
   async function loadZones() {
@@ -537,6 +640,7 @@ export function createEarthScene(
     canvas.removeEventListener("pointerleave", onPointerLeave);
     canvas.removeEventListener("pointerdown", onPointerDown);
     canvas.removeEventListener("pointerup", onPointerUp);
+    canvas.removeEventListener("pointercancel", endDrag);
     sphere.dispose();
     starGeometry.dispose();
     earthMaterial.dispose();
