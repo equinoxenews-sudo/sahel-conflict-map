@@ -1,14 +1,20 @@
-name: Synthèses 8 h / 14 h
+name: Synthèses du jour
 
 # Remplace le cron Vercel de sync-briefs (le plan Hobby n'autorise qu'une
-# exécution par jour et à l'heure près). GitHub planifie en UTC : 6 h 05 et
-# 12 h 05 UTC = 8 h 05 et 14 h 05 à Paris en heure d'été (7 h 05 et 13 h 05
+# exécution par jour et à l'heure près). Une seule exécution par jour pour
+# maîtriser le coût de l'API : 6 h 05 UTC = 8 h 05 à Paris en heure d'été (7 h 05
 # en hiver). Les 5 minutes évitent le pic de charge de GitHub à l'heure pile.
+# Une zone dont le lot d'articles est mince et récent est reportée sans appel au
+# modèle (règles dans lib/aiBudget.ts) ; ses articles restent en attente.
 on:
   schedule:
     - cron: "5 6 * * *"
-    - cron: "5 12 * * *"
   workflow_dispatch:
+
+# Jamais deux exécutions en même temps (relance manuelle pendant un passage planifié).
+concurrency:
+  group: sync-briefs
+  cancel-in-progress: false
 
 jobs:
   sync:

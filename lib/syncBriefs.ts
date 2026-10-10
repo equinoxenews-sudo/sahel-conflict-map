@@ -1,9 +1,11 @@
+import { shouldGenerateBriefs, generationRulesFromEnv } from "./aiBudget";
+import { checkBudget, recordUsage } from "./aiUsage";
 import { chooseBriefImage } from "./briefImages";
 import { fetchArticleContent } from "./articleSummary";
 import { mapWithConcurrency } from "./gdelt";
 import { isSportsTitle } from "./sportsFilter";
 import { getSupabaseAdmin } from "./supabaseAdmin";
-import { synthesizeBriefs, type PreviousBrief, type SourceArticle } from "./synthesizeBriefs";
+import { MODEL, synthesizeBriefs, type PreviousBrief, type SourceArticle } from "./synthesizeBriefs";
 import { getZone } from "./zones";
 import { ZONE_KEYWORDS } from "./zoneKeywords";
 
@@ -24,7 +26,7 @@ interface StoredArticle {
 
 async function briefZone(
   zoneSlug: string
-): Promise<{ zoneSlug: string; articleCount: number; briefCount: number }> {
+): Promise<{ zoneSlug: string; articleCount: number; briefCount: number; deferred?: string }> {
   const supabase = getSupabaseAdmin();
 
   const loadUnbriefed = (columns: string) =>
@@ -56,6 +58,19 @@ async function briefZone(
   const articles = stored.filter((article) => !sportsIds.includes(article.id));
   if (articles.length === 0) {
     return { zoneSlug, articleCount: 0, briefCount: 0 };
+  }
+
+  // Génération conditionnelle : tant que le lot en attente est mince et récent, on ne
+  // paie ni téléchargement de pages ni appel au modèle. Rien n'est acquitté : les
+  // articles restent en attente et seront repris à la prochaine exécution.
+  const decision = shouldGenerateBriefs(
+    articles.map((article) => ({ title: article.title, publishedAt: article.published_at })),
+    new Date(),
+    generationRulesFromEnv(),
+  );
+  if (!decision.generate) {
+    console.log(`Brief sync ${zoneSlug} : report — ${decision.reason}`);
+    return { zoneSlug, articleCount: articles.length, briefCount: 0, deferred: decision.reason };
   }
 
   const sourceArticles: SourceArticle[] = await mapWithConcurrency(
@@ -95,7 +110,9 @@ async function briefZone(
   const pendingSources = sourceArticles.filter((article) => !alreadyCited.has(article.url)
     && !!(article.bodyText?.trim() || article.summary?.trim()));
   const zoneName = getZone(zoneSlug)?.name ?? zoneSlug;
-  const briefs = await synthesizeBriefs(zoneName, pendingSources, previous);
+  const briefs = await synthesizeBriefs(zoneName, pendingSources, previous, (usage) => {
+    void recordUsage({ job: "sync-briefs", zoneSlug, model: MODEL, usage, note: `${pendingSources.length} articles` });
+  });
 
   const { data: recentImages, error: imageError } = await supabase.from("zone_briefs")
     .select("image_url").order("published_at", { ascending: false }).limit(100);
@@ -155,6 +172,15 @@ export async function syncBriefs(onlyZone?: string) {
   if (columnError || archiveError) throw new Error(
     "Schéma des synthèses indisponible. Vérifier Supabase et appliquer supabase/add-brief-revisions.sql avant ce déploiement."
   );
+  // Budget mensuel : au-delà du plafond de sécurité, aucun appel payant n'est lancé
+  // (la collecte, les cartes et les contenus déjà publiés ne sont pas concernés).
+  const budget = await checkBudget("sync-briefs");
+  if (!budget.allowed) {
+    console.warn(budget.message);
+    return { summary: {}, errors: {}, skipped: budget.message };
+  }
+  if (budget.level !== "ok") console.warn(budget.message);
+
   const allZoneSlugs = Object.keys(ZONE_KEYWORDS);
   if (onlyZone && !allZoneSlugs.includes(onlyZone)) throw new Error(`Zone inconnue : ${onlyZone}`);
   const zoneSlugs = onlyZone ? [onlyZone] : allZoneSlugs;
@@ -169,12 +195,12 @@ export async function syncBriefs(onlyZone?: string) {
     }
   }));
 
-  const summary: Record<string, { articles: number; briefs: number } | -1> = {};
+  const summary: Record<string, { articles: number; briefs: number; deferred?: string } | -1> = {};
   const errors: Record<string, string> = {};
   results.forEach((result, i) => {
     const zoneSlug = zoneSlugs[i];
     if (result.status === "fulfilled") {
-      summary[zoneSlug] = { articles: result.value.articleCount, briefs: result.value.briefCount };
+      summary[zoneSlug] = { articles: result.value.articleCount, briefs: result.value.briefCount, ...(result.value.deferred ? { deferred: result.value.deferred } : {}) };
     } else {
       console.error(`Brief sync failed for ${zoneSlug}:`, result.reason);
       summary[zoneSlug] = -1;
@@ -182,5 +208,5 @@ export async function syncBriefs(onlyZone?: string) {
     }
   });
 
-  return { summary, errors };
+  return { summary, errors, ...(budget.level !== "ok" ? { budget: budget.message } : {}) };
 }

@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import { addUsage, EMPTY_USAGE, usageFromResponse, type AiUsage } from "./aiBudget";
 import { stripMarkup } from "./citationTags";
 import { SYNTHESIS_ALLOWED_DOMAINS } from "./synthesisSources";
 import { resolveTheme, themeLabel } from "./themes";
@@ -67,7 +68,14 @@ export class AnthropicRequestError extends Error {
   }
 }
 
-export function buildSynthesisPrompt(zoneName: string, briefs: InputBrief[], today: string, webAvailable: boolean): string {
+export function buildSynthesisPrompt(
+  zoneName: string,
+  briefs: InputBrief[],
+  today: string,
+  webAvailable: boolean,
+  /** Période couverte, en toutes lettres (« les dernières 72 heures » par défaut). */
+  period = "les dernières 72 heures"
+): string {
   const listing = briefs
     .map((b) => {
       const theme = resolveTheme(b);
@@ -85,7 +93,7 @@ export function buildSynthesisPrompt(zoneName: string, briefs: InputBrief[], tod
 
   return `Tu es un analyste du renseignement en sources ouvertes (OSINT) chez Équinoxe News. Date du jour : ${today}.
 
-Rédige en français la synthèse politico-sécuritaire de la zone « ${zoneName} » pour les dernières 72 heures.
+Rédige en français la synthèse politico-sécuritaire de la zone « ${zoneName} » pour ${period}.
 
 Base de travail — synthèses Équinoxe récentes, avec leur statut de véracité :
 ${listing}
@@ -193,14 +201,16 @@ export async function callSynthesisModel(
   apiKey: string,
   prompt: string,
   useWebSearch: boolean,
-  allowedDomains: readonly string[] = SYNTHESIS_ALLOWED_DOMAINS
-): Promise<{ text: string; sources: SynthesisSource[]; usedWebSearch: boolean }> {
+  allowedDomains: readonly string[] = SYNTHESIS_ALLOWED_DOMAINS,
+  maxSearches: number = MAX_WEB_SEARCHES
+): Promise<{ text: string; sources: SynthesisSource[]; usedWebSearch: boolean; usage: AiUsage }> {
   const tools = useWebSearch
-    ? [{ type: "web_search_20250305", name: "web_search", max_uses: MAX_WEB_SEARCHES, allowed_domains: [...allowedDomains] }]
+    ? [{ type: "web_search_20250305", name: "web_search", max_uses: maxSearches, allowed_domains: [...allowedDomains] }]
     : undefined;
 
   const blocks: Block[] = [];
   let assistantContent: Block[] = [];
+  let usage: AiUsage = { ...EMPTY_USAGE };
 
   for (let turn = 0; turn <= MAX_CONTINUATIONS; turn++) {
     const messages: { role: string; content: unknown }[] = [{ role: "user", content: prompt }];
@@ -219,6 +229,7 @@ export async function callSynthesisModel(
       });
       if (!res.ok) throw new AnthropicRequestError(res.status, await res.text());
       const data = (await res.json()) as { content?: Block[]; stop_reason?: string };
+      usage = addUsage(usage, usageFromResponse(data));
       const content = data.content ?? [];
       blocks.push(...content);
       assistantContent = [...assistantContent, ...content];
@@ -228,5 +239,5 @@ export async function callSynthesisModel(
     }
   }
 
-  return extractFromBlocks(blocks);
+  return { ...extractFromBlocks(blocks), usage };
 }

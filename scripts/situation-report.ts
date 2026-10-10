@@ -1,6 +1,6 @@
 // Agent « point de situation » : prépare, pour chaque zone, le brouillon du
-// rapport de la période écoulée (lundi matin : jeudi soir → lundi matin ;
-// jeudi soir : lundi matin → jeudi soir) à partir des synthèses Équinoxe.
+// rapport de la semaine écoulée (lundi matin : depuis le précédent point, soit
+// du lundi au dimanche) à partir des synthèses Équinoxe.
 // Le brouillon n'est PAS publié : il est relu et validé depuis /admin/situation.
 // Lancé par .github/workflows/situation-report.yml. Usage local :
 //   npx tsx scripts/situation-report.ts [--force] [--zone=afrique]
@@ -19,6 +19,7 @@ if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
   process.env.NEXT_PUBLIC_SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL.replace(/\/rest\/v1\/?$/, "").replace(/\/+$/, "");
 }
 
+import { checkBudget, recordUsage } from "../lib/aiUsage";
 import { getSupabaseAdmin } from "../lib/supabaseAdmin";
 import {
   buildSituationPrompt,
@@ -31,8 +32,8 @@ import { isSportsTitle } from "../lib/sportsFilter";
 import { callSynthesisModel, SYNTHESIS_MODEL } from "../lib/zoneSynthesis";
 import { ZONES, getZone } from "../lib/zones";
 
-const DEFAULT_WINDOW_DAYS = 4;
-const MAX_WINDOW_DAYS = 8;
+const DEFAULT_WINDOW_DAYS = 7;
+const MAX_WINDOW_DAYS = 9;
 const MIN_BRIEFS = 2;
 const MAX_BRIEFS = 40;
 // Deux lancements rapprochés (relance manuelle, cron en retard puis rattrapé)
@@ -91,7 +92,13 @@ async function draftZone(zoneSlug: string, apiKey: string): Promise<"créé" | "
   for (let attempt = 1; ; attempt++) {
     try {
       const result = await callSynthesisModel(apiKey, prompt, false);
-      content = parseSituationReport(result.text, briefs, zoneSlug);
+      try {
+        content = parseSituationReport(result.text, briefs, zoneSlug);
+      } catch (parseError) {
+        await recordUsage({ job: "situation-report", zoneSlug, model: SYNTHESIS_MODEL, usage: result.usage, ok: false, note: "réponse inexploitable" });
+        throw parseError;
+      }
+      await recordUsage({ job: "situation-report", zoneSlug, model: SYNTHESIS_MODEL, usage: result.usage, note: `${briefs.length} synthèses lues` });
       break;
     } catch (err) {
       // Réponse mal formée : le modèle n'est pas déterministe, un second essai suffit souvent.
@@ -149,6 +156,13 @@ async function main() {
   const zoneSlugs = ZONES.filter((z) => z.active && z.countries.length > 0 && z.slug !== "tracking").map((z) => z.slug);
   const targets = onlyZone ? zoneSlugs.filter((s) => s === onlyZone) : zoneSlugs;
   if (targets.length === 0) throw new Error(`Zone inconnue : ${onlyZone}`);
+
+  const budget = await checkBudget("situation-report");
+  if (budget.level !== "ok") {
+    console.log(budget.message);
+    if (process.env.GITHUB_ACTIONS) console.log(`::notice title=Budget IA::${budget.message}`);
+  } else console.log(budget.message);
+  if (!budget.allowed) return;
 
   console.log(`Points de situation, brouillons (modèle ${SYNTHESIS_MODEL}${force ? ", forcé" : ""}) :`);
   let failed = 0;

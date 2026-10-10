@@ -1,20 +1,23 @@
 name: Point de situation (brouillons)
 
-# Prépare le brouillon du point de situation de chaque zone, deux fois par
-# semaine : lundi 7 h et jeudi 18 h à Paris. GitHub planifie en UTC : 5 h 10 et
-# 16 h 10 UTC = 7 h 10 et 18 h 10 à Paris en heure d'été (6 h 10 et 17 h 10 en
-# hiver — à décaler le 25 octobre, comme les autres workflows). Les brouillons
-# ne sont PAS publiés : relecture et publication depuis /admin/situation.
+# Prépare le brouillon du point de situation de chaque zone, une fois par
+# semaine : lundi 7 h à Paris, pour la semaine écoulée. GitHub planifie en UTC :
+# 5 h 10 UTC = 7 h 10 à Paris en heure d'été (6 h 10 en hiver — à décaler le
+# 25 octobre, comme les autres workflows). Les brouillons ne sont PAS publiés :
+# relecture et publication depuis /admin/situation.
 on:
   schedule:
     - cron: "10 5 * * 1"
-    - cron: "10 16 * * 4"
   workflow_dispatch:
     inputs:
       force:
         description: "Préparer un brouillon même si un rapport récent existe"
         type: boolean
         default: false
+
+concurrency:
+  group: situation-report
+  cancel-in-progress: false
 
 jobs:
   draft:
@@ -26,6 +29,9 @@ jobs:
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       SYNTHESIS_MODEL: ${{ vars.SYNTHESIS_MODEL }}
       FORCE: ${{ inputs.force }}
+      AI_BUDGET_WARN_USD: ${{ vars.AI_BUDGET_WARN_USD }}
+      AI_BUDGET_STOP_USD: ${{ vars.AI_BUDGET_STOP_USD }}
+      AI_BUDGET_HARD_USD: ${{ vars.AI_BUDGET_HARD_USD }}
     steps:
       - name: Vérifier les secrets
         run: |

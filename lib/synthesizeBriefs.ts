@@ -2,10 +2,11 @@ import {
   eventTypePromptList, isEventTypeKey, isImportanceKey, isThemeKey, MAX_SECONDARY_THEMES, themePromptList,
   type EventTypeKey, type ImportanceKey, type ThemeKey,
 } from "./themes";
+import { usageFromResponse, type AiUsage } from "./aiBudget";
 import { isValidVeracity, type Veracity } from "./veracity";
 
 const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
-const MODEL = "claude-haiku-4-5-20251001";
+export const MODEL = "claude-haiku-4-5-20251001";
 const MAX_TOKENS = 4500;
 const TIMEOUT_MS = 50000;
 
@@ -209,7 +210,9 @@ const MIN_RETRY_BUDGET_MS = 15000;
 export async function synthesizeBriefs(
   zoneName: string,
   articles: SourceArticle[],
-  previous: PreviousBrief[] = []
+  previous: PreviousBrief[] = [],
+  /** Reçoit les jetons consommés par chaque appel (suivi du budget, lib/aiUsage.ts). */
+  onUsage?: (usage: AiUsage) => void
 ): Promise<SynthesizedBrief[]> {
   // Une clé collée dans un tableau de bord avec un espace, un retour à la
   // ligne ou des guillemets est refusée (401) : on la nettoie.
@@ -244,6 +247,7 @@ export async function synthesizeBriefs(
       }
 
       const data = (await res.json()) as { content?: { type: string; text?: string }[] };
+      onUsage?.(usageFromResponse(data));
       const text = data.content?.find((block) => block.type === "text")?.text ?? "";
       return parseResponse(text, articles, previous, true);
     } catch (err) {
