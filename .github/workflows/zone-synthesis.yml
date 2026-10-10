@@ -1,19 +1,30 @@
 name: Synthèse de zone 9 h
 
-# Agent de synthèse politico-sécuritaire de chaque zone. GitHub planifie en
-# UTC : 7 h 05 UTC = 9 h 05 à Paris en heure d'été (8 h 05 en hiver).
-# Tourne ici plutôt que sur Vercel : la recherche web dépasse les 60 s des
-# routes du plan Hobby. Ne régénère une zone que si de nouvelles synthèses
+# Agent de synthèse politico-sécuritaire. Une seule zone par jour (rotation de
+# scripts/zone-synthesis.ts) : mardi Europe, mercredi Moyen-Orient, jeudi Afrique,
+# vendredi Indopacifique, samedi Amérique du Sud ; lundi est réservé aux points
+# de situation. GitHub planifie en UTC : 7 h 05 UTC = 9 h 05 à Paris en heure
+# d'été (8 h 05 en hiver). Tourne ici plutôt que sur Vercel (60 s de limite).
+# La recherche web est désactivée par défaut (plafond mensuel : variable
+# AI_WEB_SEARCH_MONTHLY_CAP). Ne régénère une zone que si de nouvelles synthèses
 # Équinoxe sont arrivées (sauf lancement manuel avec "force").
 on:
   schedule:
-    - cron: "5 7 * * *"
+    - cron: "5 7 * * 2-6"
   workflow_dispatch:
     inputs:
+      zone:
+        description: "Zone (europe, moyen-orient, afrique, indopacifique, amerique-du-sud, all) — vide : zone du jour"
+        type: string
+        default: ""
       force:
         description: "Régénérer même si rien de nouveau"
         type: boolean
         default: false
+
+concurrency:
+  group: zone-synthesis
+  cancel-in-progress: false
 
 jobs:
   synthesis:
@@ -27,6 +38,12 @@ jobs:
       CRON_SECRET: ${{ secrets.CRON_SECRET }}
       SYNTHESIS_MODEL: ${{ vars.SYNTHESIS_MODEL }}
       FORCE: ${{ inputs.force }}
+      ZONE_INPUT: ${{ inputs.zone }}
+      AI_BUDGET_WARN_USD: ${{ vars.AI_BUDGET_WARN_USD }}
+      AI_BUDGET_STOP_USD: ${{ vars.AI_BUDGET_STOP_USD }}
+      AI_BUDGET_HARD_USD: ${{ vars.AI_BUDGET_HARD_USD }}
+      AI_WEB_SEARCH_MONTHLY_CAP: ${{ vars.AI_WEB_SEARCH_MONTHLY_CAP }}
+      AI_WEB_SEARCHES_PER_RUN: ${{ vars.AI_WEB_SEARCHES_PER_RUN }}
     steps:
       - name: Vérifier les secrets
         run: |
@@ -47,7 +64,12 @@ jobs:
       - run: npm ci
 
       - name: Générer les synthèses de zone
-        run: npx tsx scripts/zone-synthesis.ts
+        run: |
+          if [ -n "$ZONE_INPUT" ]; then
+            npx tsx scripts/zone-synthesis.ts "--zone=$ZONE_INPUT"
+          else
+            npx tsx scripts/zone-synthesis.ts
+          fi
 
       - name: Rafraîchir les pages du site
         if: always()

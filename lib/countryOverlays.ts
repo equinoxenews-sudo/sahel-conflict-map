@@ -1,6 +1,8 @@
 import europe from "@/data/country-profiles/europe.json";
+import indicators from "@/data/country-profiles/indicators.json";
 import type { CountryProfile } from "@/types/country";
 import { getCountryProfile } from "./countries";
+import { indicatorFields, mergeIndicatorFields, type IndicatorsFile } from "./countryIndicators";
 
 // Fiches pays renseignées par lots (un fichier JSON par zone dans
 // data/country-profiles/). Le fichier TypeScript de chaque pays ne sert plus
@@ -35,10 +37,14 @@ function stripNulls<T>(value: T): T {
   return value;
 }
 
+// Population, superficie, PIB, croissance, inflation : Banque mondiale (scripts/sync-country-indicators.ts).
+// Une valeur renseignée à la main dans le lot passe toujours avant.
+const INDICATORS = indicators as unknown as IndicatorsFile;
+
 const OVERLAYS = new Map<string, Record<string, unknown>>();
 for (const pkg of PACKAGES) {
   for (const country of pkg.countries) {
-    if (typeof country.slug === "string") OVERLAYS.set(country.slug, stripNulls(country));
+    if (typeof country.slug === "string") OVERLAYS.set(country.slug, mergeIndicatorFields(stripNulls(country), indicatorFields(INDICATORS.countries[country.slug])));
   }
 }
 

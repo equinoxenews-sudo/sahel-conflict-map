@@ -28,10 +28,16 @@ test("L'identité du dépôt fait foi (Kosovo : l'identifiant de carte reste CS-
 test("Les valeurs null du lot ne sont jamais remplacées ni affichées", () => {
   const albanie = getResolvedCountryProfile("albanie");
   assert.ok(albanie);
-  assert.equal(albanie.population, undefined);
-  assert.equal(albanie.economy?.gdp, undefined);
   assert.equal(albanie.politics?.headOfState, undefined);
+  assert.equal(albanie.politics?.parliament, undefined);
   assert.equal(albanie.capital, "Tirana");
+});
+
+test("Les chiffres de la Banque mondiale complètent les champs numériques du lot", () => {
+  const albanie = getResolvedCountryProfile("albanie");
+  assert.ok(albanie);
+  assert.match(albanie.population ?? "", /millions \(20\d\d\)$/);
+  assert.match(albanie.economy?.gdp ?? "", /Md USD \(20\d\d\)$/);
 });
 
 test("Une fiche intégrée n'a plus de contenu de démonstration et porte ses dates", () => {
