@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { FOCUS_ZONE_EVENT, isHomeZone } from "@/lib/homeZones";
 import { ZONES } from "@/lib/zones";
 import styles from "./Header.module.css";
 import MobileDrawer from "./MobileDrawer";
@@ -37,6 +38,14 @@ export default function Header() {
               key={zone.slug}
               href={`/zones/${zone.slug}`}
               className={isActive ? `${styles.zoneLink} ${styles.zoneLinkActive}` : styles.zoneLink}
+              onClick={(event) => {
+                // Sur l'accueil, le menu centre le globe sur la zone (la fiche donne ensuite accès
+                // aux pages). Partout ailleurs, ou avec Ctrl/Cmd-clic, le lien garde son effet normal.
+                if (pathname !== "/" || !isHomeZone(zone.slug)) return;
+                if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+                event.preventDefault();
+                window.dispatchEvent(new CustomEvent(FOCUS_ZONE_EVENT, { detail: { zone: zone.slug } }));
+              }}
             >
               {zone.name}
             </Link>

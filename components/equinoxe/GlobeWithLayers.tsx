@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { CountryRisk } from "@/lib/countryRisk";
 import type { MilitaryAircraft } from "@/lib/layers/aircraft";
 import type { Earthquake } from "@/lib/layers/earthquakes";
@@ -8,6 +8,8 @@ import type { Launch } from "@/lib/layers/launches";
 import type { NaturalEvent } from "@/lib/layers/naturalEvents";
 import type { SatellitePosition } from "@/lib/layers/satellites";
 import { LAYER_DEFAULTS, type EntityPopupData, type LayerKey } from "@/lib/layers/types";
+import { FOCUS_ZONE_EVENT, isHomeZone, type ZoneBriefsByZone } from "@/lib/homeZones";
+import type { ZoneSlug } from "@/lib/cinematic/zoneMap";
 import type { VesselPosition } from "@/types/vessel";
 import Globe3DLoader from "./Globe3DLoader";
 import GlobeClock from "./GlobeClock";
@@ -19,6 +21,7 @@ import styles from "./GlobeWithLayers.module.css";
 import LayersPanel from "./LayersPanel";
 import MobileSheet from "./MobileSheet";
 import RiskLevelPanel from "./RiskLevelPanel";
+import ZoneStage from "./ZoneStage";
 
 interface GlobeWithLayersProps {
   countryRisk: Record<string, CountryRisk>;
@@ -29,6 +32,8 @@ interface GlobeWithLayersProps {
   naturalEvents: NaturalEvent[];
   launches: Launch[];
   gdeltStatus: { hoursSinceSuccess: number | null; stale: boolean };
+  /** Derniers articles de chaque zone (carrousel de la fiche de zone). */
+  zoneBriefs: ZoneBriefsByZone;
 }
 
 export default function GlobeWithLayers({
@@ -40,6 +45,7 @@ export default function GlobeWithLayers({
   naturalEvents,
   launches,
   gdeltStatus,
+  zoneBriefs,
 }: GlobeWithLayersProps) {
   const [enabledLayers, setEnabledLayers] = useState<Record<LayerKey, boolean>>(LAYER_DEFAULTS);
   const [mobileSheet, setMobileSheet] = useState<null | "layers" | "risk">(null);
@@ -51,6 +57,30 @@ export default function GlobeWithLayers({
   // null until GlobeTimeRange's own effect reports its default (full)
   // bounds on mount — Globe3D treats null as "no date filtering yet".
   const [dateRange, setDateRange] = useState<GlobeDateRange | null>(null);
+  // Zone mise au centre du globe : choisie dans le menu du haut, sur le globe ou dans la fiche.
+  const [focusedZone, setFocusedZoneState] = useState<ZoneSlug | null>(null);
+  // Changer de zone referme la bulle ouverte : elle resterait accrochée à un point de l'écran
+  // qui ne correspond plus à rien une fois le globe déplacé.
+  function setFocusedZone(zone: ZoneSlug | null) {
+    setSelectedEntity(null);
+    setFocusedZoneState(zone);
+  }
+
+  useEffect(() => {
+    const onFocus = (event: Event) => {
+      const zone = (event as CustomEvent<{ zone?: string }>).detail?.zone;
+      if (zone && isHomeZone(zone)) setFocusedZone(zone);
+    };
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setFocusedZone(null);
+    };
+    window.addEventListener(FOCUS_ZONE_EVENT, onFocus);
+    window.addEventListener("keydown", onEscape);
+    return () => {
+      window.removeEventListener(FOCUS_ZONE_EVENT, onFocus);
+      window.removeEventListener("keydown", onEscape);
+    };
+  }, []);
 
   function handleEntitySelect(data: EntityPopupData | null, screen: { x: number; y: number } | null) {
     setSelectedEntity(data && screen ? { data, x: screen.x, y: screen.y } : null);
@@ -99,8 +129,13 @@ export default function GlobeWithLayers({
             launches={launches}
             dateRange={dateRange}
             onEntitySelect={handleEntitySelect}
+            focusZone={focusedZone}
+            onZonePick={setFocusedZone}
           />
           <GlobeClock />
+          {focusedZone ? (
+            <ZoneStage zone={focusedZone} briefs={zoneBriefs[focusedZone]} onClose={() => setFocusedZone(null)} />
+          ) : null}
           {selectedEntity ? (
             <GlobeEntityPopup
               data={selectedEntity.data}
@@ -111,7 +146,7 @@ export default function GlobeWithLayers({
           ) : null}
         </div>
 
-        <div className={styles.legendBar} data-intro-hide>
+        <div className={focusedZone ? `${styles.legendBar} ${styles.legendBarHidden}` : styles.legendBar} data-intro-hide>
           <span className={styles.disclaimer}>
             Calculé à partir des événements recensés sur chaque zone (90 derniers jours) — cliquez
             sur une zone du menu pour une analyse détaillée

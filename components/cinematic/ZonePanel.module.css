@@ -1,13 +1,13 @@
 .panel {
   position: absolute;
   z-index: 4;
-  left: clamp(16px, 4vw, 48px);
-  top: 130px;
+  left: var(--zone-panel-left, clamp(16px, 4vw, 48px));
+  top: var(--zone-panel-top, 130px);
   display: flex;
   flex-direction: column;
   width: min(350px, 32vw);
   /* Laisse la place du bandeau d'articles en bas de l'écran. */
-  max-height: calc(100vh - 130px - 230px);
+  max-height: var(--zone-panel-max-height, calc(100vh - 130px - 230px));
   padding: 18px 20px 20px;
   overflow-y: auto;
   border: 1px solid rgba(143, 216, 255, 0.2);

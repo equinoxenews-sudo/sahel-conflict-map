@@ -24,6 +24,11 @@
   padding: 12px 0 0;
 }
 
+/* Le carrousel de la fiche de zone occupe le bas du globe : la légende s'efface. */
+.legendBarHidden {
+  display: none;
+}
+
 .disclaimer {
   font-size: 11px;
   color: var(--text-secondary);

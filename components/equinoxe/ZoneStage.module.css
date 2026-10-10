@@ -1,0 +1,11 @@
+/* N'agit pas sur la mise en page : les enfants se positionnent par rapport à la zone du globe. */
+.stage {
+  display: contents;
+}
+
+/* Téléphone : la fiche de zone du globe est traitée à part (feuille du bas). */
+@media (max-width: 900px) {
+  .stage {
+    display: none;
+  }
+}

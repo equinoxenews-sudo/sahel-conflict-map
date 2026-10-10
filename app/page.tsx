@@ -11,6 +11,7 @@ import { fetchEarthquakes } from "@/lib/layers/earthquakes";
 import { fetchUpcomingLaunches } from "@/lib/layers/launches";
 import { fetchNaturalEvents } from "@/lib/layers/naturalEvents";
 import { fetchSatellitePositions } from "@/lib/layers/satellites";
+import { groupBriefsByZone } from "@/lib/homeZones";
 import { supabase } from "@/lib/supabaseClient";
 import { isSportsTitle } from "@/lib/sportsFilter";
 import type { Article } from "@/types/article";
@@ -152,6 +153,7 @@ export default async function Home() {
             naturalEvents={naturalEvents}
             launches={launches}
             gdeltStatus={gdeltStatus}
+            zoneBriefs={groupBriefsByZone(briefs)}
           />
         }
       />

@@ -10,7 +10,9 @@ import type { NaturalEvent, NaturalEventCategory } from "@/lib/layers/naturalEve
 import type { SatellitePosition } from "@/lib/layers/satellites";
 import type { EntityPopupData, LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
+import type { ZoneSlug } from "@/lib/cinematic/zoneMap";
 import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
+import { ISO3_TO_ZONE, ZONE_GLOBE_VIEWS } from "@/lib/homeZones";
 import styles from "./Globe3D.module.css";
 import type { GlobeDateRange } from "./GlobeTimeRange";
 
@@ -145,6 +147,10 @@ interface Globe3DProps {
   launches: Launch[];
   dateRange: GlobeDateRange | null;
   onEntitySelect: (data: EntityPopupData | null, screen: { x: number; y: number } | null) => void;
+  /** Zone au centre du globe (null : vue d'ensemble). */
+  focusZone: ZoneSlug | null;
+  /** Un clic sur un pays d'une zone demande de centrer le globe sur cette zone. */
+  onZonePick: (zone: ZoneSlug) => void;
 }
 
 export default function Globe3D({
@@ -158,6 +164,8 @@ export default function Globe3D({
   launches,
   dateRange,
   onEntitySelect,
+  focusZone,
+  onZonePick,
 }: Globe3DProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const dataSourcesRef = useRef<Partial<Record<LayerKey, CesiumNS.DataSource>>>({});
@@ -169,6 +177,13 @@ export default function Globe3D({
   useEffect(() => {
     onEntitySelectRef.current = onEntitySelect;
   }, [onEntitySelect]);
+  // Zone au centre du globe, relue par le gestionnaire de clic (créé une seule fois).
+  const focusZoneRef = useRef(focusZone);
+  const onZonePickRef = useRef(onZonePick);
+  useEffect(() => {
+    focusZoneRef.current = focusZone;
+    onZonePickRef.current = onZonePick;
+  }, [focusZone, onZonePick]);
   // Couches actuellement cochées : relues à la fin de l'introduction (le Viewer n'est pas reconstruit).
   const enabledLayersRef = useRef(enabledLayers);
   useEffect(() => {
@@ -289,6 +304,14 @@ export default function Globe3D({
         if (entity && typeof raw === "string") {
           try {
             const data = JSON.parse(raw) as EntityPopupData;
+            // Un pays d'une zone : le premier clic centre le globe sur la zone, le suivant
+            // (zone déjà au centre) ouvre la bulle du pays, comme avant.
+            const zone = data.layerKey === "risk" ? ISO3_TO_ZONE[String(entity.id)] : undefined;
+            if (zone && zone !== focusZoneRef.current) {
+              onEntitySelectRef.current(null, null);
+              onZonePickRef.current(zone);
+              return;
+            }
             onEntitySelectRef.current(data, { x: click.position.x, y: click.position.y });
             return;
           } catch (err) {
@@ -311,19 +334,43 @@ export default function Globe3D({
       // Derrière une imagerie translucide, Cesium montre sa couleur de fond (bleu vif par défaut) :
       // un noir bleuté garde la nuit sombre.
       viewer.scene.globe.baseColor = Cesium.Color.fromCssColorString("#02050c");
-      // Lumières des villes (NASA, extraites par scripts/gen-night-lights.mjs) :
-      // visibles seulement du côté nuit, grâce à l'éclairage activé plus bas. Un défaut de
-      // chargement ne doit jamais empêcher le globe de s'afficher.
-      Cesium.SingleTileImageryProvider.fromUrl("/cinematic/earth-lights.webp", {
-        rectangle: Cesium.Rectangle.MAX_VALUE,
-      })
-        .then((provider) => {
-          if (disposed || !viewer) return;
-          const lights = viewer.imageryLayers.addImageryProvider(provider, 1);
-          lights.dayAlpha = 0;
-          lights.nightAlpha = 1;
+      // Lumières des villes (NASA, extraites par scripts/gen-night-lights.mjs), côté nuit
+      // seulement grâce à l'éclairage activé plus bas : une couche avec halo, lisible quand
+      // le globe est vu en entier, et une couche au cœur net pour les vues rapprochées. Un
+      // défaut de chargement ne doit jamais empêcher le globe de s'afficher.
+      const addLights = (url: string) =>
+        Cesium.SingleTileImageryProvider.fromUrl(url, { rectangle: Cesium.Rectangle.MAX_VALUE }).then((provider) => {
+          if (disposed || !viewer) return null;
+          const layer = viewer.imageryLayers.addImageryProvider(provider, 1);
+          layer.dayAlpha = 0;
+          layer.nightAlpha = 1;
+          return layer;
+        });
+      let haloLayer: CesiumNS.ImageryLayer | null = null;
+      let coreLayer: CesiumNS.ImageryLayer | null = null;
+      addLights("/cinematic/earth-lights.webp")
+        .then((layer) => {
+          haloLayer = layer;
         })
         .catch((err) => console.warn("Lumières des villes indisponibles :", err));
+      addLights("/cinematic/earth-lights-core.webp")
+        .then((layer) => {
+          coreLayer = layer;
+        })
+        .catch((err) => console.warn("Lumières des villes indisponibles :", err));
+      // Le halo s'efface en s'approchant (il deviendrait de grosses taches) et le relief de la
+      // nuit se révèle un peu plus : de près, on lit la carte ; de loin, on voit les villes briller.
+      const smoothstep = (a: number, b: number, x: number) => {
+        const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
+        return t * t * (3 - 2 * t);
+      };
+      viewer.scene.preRender.addEventListener(() => {
+        if (!viewer) return;
+        const far = smoothstep(5.0e6, 1.4e7, viewer.camera.positionCartographic.height);
+        baseLayer.nightAlpha = 0.42 + (BASE_NIGHT_ALPHA - 0.42) * far;
+        if (haloLayer) haloLayer.nightAlpha = far;
+        if (coreLayer) coreLayer.nightAlpha = 0.95 - 0.25 * far;
+      });
       // Added on top: transparent borders + place/capital labels.
       const boundariesLayer = viewer.imageryLayers.addImageryProvider(
         new Cesium.UrlTemplateImageryProvider({ url: BOUNDARIES_URL, credit: IMAGERY_CREDIT })
@@ -747,6 +794,28 @@ export default function Globe3D({
       if (dateRange) applyDateFilter(source, dateRange);
     }
   }, [enabledLayers, dateRange]);
+
+  // Mise au point sur une zone : la caméra vole vers elle ; sans zone, elle revient à la vue
+  // d'ensemble. Le premier rendu (aucune zone) ne bouge pas la caméra.
+  const previousZoneRef = useRef<ZoneSlug | null>(null);
+  useEffect(() => {
+    if (previousZoneRef.current === focusZone) return;
+    previousZoneRef.current = focusZone;
+    const viewer = viewerRef.current;
+    const Cesium = window.Cesium;
+    if (!viewer || !Cesium) return;
+    const view = focusZone ? ZONE_GLOBE_VIEWS[focusZone] : null;
+    viewer.camera.flyTo({
+      destination: Cesium.Cartesian3.fromDegrees(
+        view?.lon ?? DEFAULT_LON,
+        view?.lat ?? DEFAULT_LAT,
+        view?.height ?? DEFAULT_HEIGHT
+      ),
+      orientation: { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 },
+      duration: 1.8,
+      easingFunction: Cesium.EasingFunction.QUADRATIC_IN_OUT,
+    });
+  }, [focusZone]);
 
   function handleZoomIn() {
     const viewer = viewerRef.current;

@@ -135,9 +135,9 @@
 .dock {
   position: absolute;
   z-index: 4;
-  left: calc(clamp(16px, 4vw, 48px) + min(350px, 32vw) + 24px);
-  right: clamp(16px, 4vw, 48px);
-  bottom: clamp(18px, 4vh, 40px);
+  left: var(--zone-dock-left, calc(clamp(16px, 4vw, 48px) + min(350px, 32vw) + 24px));
+  right: var(--zone-dock-right, clamp(16px, 4vw, 48px));
+  bottom: var(--zone-dock-bottom, clamp(18px, 4vh, 40px));
   animation: dockIn 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.45s both;
 }
 

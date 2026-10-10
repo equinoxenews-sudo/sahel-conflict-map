@@ -1,39 +1,10 @@
 // Derniers articles (synthèses) de chaque zone, pour le carrousel de l'introduction.
 // Lecture seule, avec la clé publique, comme la page d'accueil du site.
 import { supabase } from "@/lib/supabaseClient";
-import { isSportsTitle } from "@/lib/sportsFilter";
-import { ZONE_ORDER, type ZoneSlug } from "./zoneMap";
+import { groupBriefsByZone, type ZoneBriefsByZone } from "../homeZones";
 
-export interface ZoneBriefCard {
-  id: number;
-  title: string;
-  imageUrl: string | null;
-  publishedAt: string | null;
-  veracity: string | null;
-}
-
-export type ZoneBriefsByZone = Record<ZoneSlug, ZoneBriefCard[]>;
-
-const PER_ZONE = 8;
-
-/** Regroupe des synthèses déjà triées de la plus récente à la plus ancienne. */
-export function groupBriefsByZone(
-  rows: { id: number; zone_slug: string; title: string; image_url: string | null; published_at: string | null; veracity: string | null }[],
-): ZoneBriefsByZone {
-  const grouped = Object.fromEntries(ZONE_ORDER.map((zone) => [zone, [] as ZoneBriefCard[]])) as ZoneBriefsByZone;
-  for (const row of rows) {
-    const list = grouped[row.zone_slug as ZoneSlug];
-    if (!list || list.length >= PER_ZONE || isSportsTitle(row.title)) continue;
-    list.push({
-      id: row.id,
-      title: row.title,
-      imageUrl: row.image_url,
-      publishedAt: row.published_at,
-      veracity: row.veracity,
-    });
-  }
-  return grouped;
-}
+export { groupBriefsByZone } from "../homeZones";
+export type { ZoneBriefCard, ZoneBriefsByZone } from "../homeZones";
 
 export async function getZoneBriefs(): Promise<ZoneBriefsByZone> {
   try {
