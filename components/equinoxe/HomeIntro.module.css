@@ -1,0 +1,131 @@
+/* Texte de l'introduction, par-dessus le globe plein écran. Invisible hors introduction. */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(60px, 14vh, 160px) 20px 0;
+  text-align: center;
+  color: #f1f4f7;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* « loading » : globe en chargement, rien d'autre que le bouton. « playing » : le texte arrive. */
+.overlay[data-phase="loading"],
+.overlay[data-phase="playing"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Fin : le texte s'efface en fondu pendant que l'interface apparaît. */
+.overlay[data-phase="done"] {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.9s ease, visibility 0s linear 0.9s;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(26px, 4.4vw, 60px);
+  font-weight: 300;
+  line-height: 1.16;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55);
+}
+
+.line {
+  display: block;
+  opacity: 0;
+}
+
+.lineSecond {
+  color: #bfe6ff;
+}
+
+.subtitle {
+  margin: clamp(14px, 2.4vh, 26px) 0 0;
+  font-size: clamp(11px, 1.1vw, 15px);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(191, 230, 255, 0.82);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+}
+
+.overlay[data-phase="playing"] .line {
+  animation: rise 2s cubic-bezier(0.2, 0.7, 0.2, 1) 1.2s both;
+}
+
+.overlay[data-phase="playing"] .lineSecond {
+  animation-delay: 2.5s;
+}
+
+.overlay[data-phase="playing"] .subtitle {
+  animation: fade 1.8s ease 4s both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(8px);
+    letter-spacing: 0.07em;
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+    letter-spacing: 0.01em;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.skip {
+  position: absolute;
+  right: clamp(16px, 4vw, 48px);
+  bottom: clamp(18px, 4vh, 40px);
+  padding: 9px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(8, 20, 36, 0.5);
+  color: rgba(241, 244, 247, 0.85);
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.skip:hover,
+.skip:focus-visible {
+  color: #fff;
+  border-color: rgba(143, 216, 255, 0.6);
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay[data-phase="playing"] .line,
+  .overlay[data-phase="playing"] .subtitle {
+    animation: none;
+    opacity: 1;
+  }
+}

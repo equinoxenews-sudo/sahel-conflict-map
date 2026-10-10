@@ -45,7 +45,7 @@ export default function GlobeClock() {
   if (!mounted) return null;
 
   return (
-    <div className={styles.clock}>
+    <div className={styles.clock} data-intro-hide>
       <span className={styles.date}>{capitalize(DATE_FORMATTER.format(now))}</span>
       <span className={styles.time}>{TIME_FORMATTER.format(now)}</span>
       <span className={styles.offset}>{formatUtcOffset(now)}</span>

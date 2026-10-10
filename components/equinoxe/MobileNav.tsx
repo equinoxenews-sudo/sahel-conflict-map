@@ -78,7 +78,7 @@ export default function MobileNav() {
   }
 
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.nav} data-intro-hide>
       {ITEMS.map((item) => {
         const active = isActive(item.key);
         return (

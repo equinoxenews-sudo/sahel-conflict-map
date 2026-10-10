@@ -10,6 +10,7 @@ import type { NaturalEvent, NaturalEventCategory } from "@/lib/layers/naturalEve
 import type { SatellitePosition } from "@/lib/layers/satellites";
 import type { EntityPopupData, LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
+import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
 import styles from "./Globe3D.module.css";
 import type { GlobeDateRange } from "./GlobeTimeRange";
 
@@ -80,6 +81,18 @@ function loadCesium(): Promise<typeof CesiumNS> {
 const DEFAULT_LON = 15;
 const DEFAULT_LAT = 15;
 const DEFAULT_HEIGHT = 17_000_000;
+
+// Introduction : la caméra part de loin, côté Asie (le jour/nuit y est bien visible)
+// et rejoint la vue d'accueil.
+const INTRO_START_LON = 85;
+const INTRO_START_LAT = 8;
+const INTRO_START_HEIGHT = 48_000_000;
+const INTRO_FLIGHT_SECONDS = 9;
+/** Opacité de l'imagerie du côté nuit (0 = noir, 1 = comme le jour). */
+const BASE_NIGHT_ALPHA = 0.14;
+// Distances d'éclairage de Cesium : nuit franche pendant l'introduction, réglage par défaut ensuite.
+const LIGHTING_INTRO = { out: 5.0e6, in: 1.2e7 };
+const LIGHTING_HOME = { out: 1.0e7, in: 2.0e7 };
 
 function formatDateTime(value: string | number): string {
   return new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(
@@ -156,6 +169,11 @@ export default function Globe3D({
   useEffect(() => {
     onEntitySelectRef.current = onEntitySelect;
   }, [onEntitySelect]);
+  // Couches actuellement cochées : relues à la fin de l'introduction (le Viewer n'est pas reconstruit).
+  const enabledLayersRef = useRef(enabledLayers);
+  useEffect(() => {
+    enabledLayersRef.current = enabledLayers;
+  }, [enabledLayers]);
 
   // Heavy one-time setup: the Cesium Viewer itself, the country-risk
   // overlay, and every layer's CustomDataSource. Deliberately does NOT
@@ -172,6 +190,7 @@ export default function Globe3D({
     let viewer: CesiumNS.Viewer | null = null;
     let resizeObserver: ResizeObserver | null = null;
     let clickHandler: CesiumNS.ScreenSpaceEventHandler | null = null;
+    let removeIntroListeners: () => void = () => {};
 
     loadCesium().then(async (Cesium) => {
       if (disposed) return;
@@ -279,17 +298,54 @@ export default function Globe3D({
         onEntitySelectRef.current(null, null);
       }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
-      viewer.imageryLayers.addImageryProvider(
+      // Introduction de l'accueil : le script de démarrage (lib/homeIntro.ts) pose
+      // data-home-intro="loading" avant l'affichage. Le globe démarre alors « neutre » :
+      // ni frontières ni noms, ni couleurs de risque, et la caméra loin de la Terre.
+      const introMode = document.documentElement.getAttribute(INTRO_ATTR) === "loading";
+
+      const baseLayer = viewer.imageryLayers.addImageryProvider(
         new Cesium.UrlTemplateImageryProvider({ url: IMAGERY_URL, credit: IMAGERY_CREDIT })
       );
-      // Added second (on top): transparent borders + place/capital labels.
-      viewer.imageryLayers.addImageryProvider(
+      // Côté nuit, le relief reste à peine deviné : les lumières des villes ressortent.
+      baseLayer.nightAlpha = BASE_NIGHT_ALPHA;
+      // Derrière une imagerie translucide, Cesium montre sa couleur de fond (bleu vif par défaut) :
+      // un noir bleuté garde la nuit sombre.
+      viewer.scene.globe.baseColor = Cesium.Color.fromCssColorString("#02050c");
+      // Lumières des villes (NASA, extraites par scripts/gen-night-lights.mjs) :
+      // visibles seulement du côté nuit, grâce à l'éclairage activé plus bas. Un défaut de
+      // chargement ne doit jamais empêcher le globe de s'afficher.
+      Cesium.SingleTileImageryProvider.fromUrl("/cinematic/earth-lights.webp", {
+        rectangle: Cesium.Rectangle.MAX_VALUE,
+      })
+        .then((provider) => {
+          if (disposed || !viewer) return;
+          const lights = viewer.imageryLayers.addImageryProvider(provider, 1);
+          lights.dayAlpha = 0;
+          lights.nightAlpha = 1;
+        })
+        .catch((err) => console.warn("Lumières des villes indisponibles :", err));
+      // Added on top: transparent borders + place/capital labels.
+      const boundariesLayer = viewer.imageryLayers.addImageryProvider(
         new Cesium.UrlTemplateImageryProvider({ url: BOUNDARIES_URL, credit: IMAGERY_CREDIT })
       );
+      if (introMode) boundariesLayer.show = false;
 
       // Day/night shading — the sun-relative lighting that gives the
       // globe a more dramatic, "real satellite" look (matches paraxis.app).
       viewer.scene.globe.enableLighting = true;
+      // Réglages de la nuit de Cesium (par défaut : éclairage 1e7 → 2e7 m, nuit 1e7 → 5e7 m) :
+      //  - éclairage : plein au-delà de lightingFadeInDistance, absent en dessous de
+      //    lightingFadeOutDistance (de près, tout est éclairé, on lit la carte) ;
+      //  - couche de nuit (lumières des villes) : visible tant que la caméra est plus proche que
+      //    nightFadeOutDistance, puis s'efface jusqu'à nightFadeInDistance. Par défaut, les
+      //    lumières seraient presque invisibles sur la vue d'accueil (17 000 km).
+      viewer.scene.globe.nightFadeOutDistance = 1.0e8;
+      viewer.scene.globe.nightFadeInDistance = 2.0e8;
+      if (introMode) {
+        // Introduction : nuit franche (limite jour/nuit bien marquée) ; elle s'adoucit à l'arrivée.
+        viewer.scene.globe.lightingFadeOutDistance = LIGHTING_INTRO.out;
+        viewer.scene.globe.lightingFadeInDistance = LIGHTING_INTRO.in;
+      }
       viewer.scene.backgroundColor = Cesium.Color.BLACK;
 
       // Cesium's default (2) is tuned for a camera looking roughly
@@ -308,7 +364,9 @@ export default function Globe3D({
       // rather than Cesium's generic flyHome() default view (which
       // opens over the Americas/Atlantic, unrelated to this site).
       viewer.camera.setView({
-        destination: Cesium.Cartesian3.fromDegrees(DEFAULT_LON, DEFAULT_LAT, DEFAULT_HEIGHT),
+        destination: introMode
+          ? Cesium.Cartesian3.fromDegrees(INTRO_START_LON, INTRO_START_LAT, INTRO_START_HEIGHT)
+          : Cesium.Cartesian3.fromDegrees(DEFAULT_LON, DEFAULT_LAT, DEFAULT_HEIGHT),
         orientation: { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 },
       });
 
@@ -561,10 +619,82 @@ export default function Globe3D({
       for (const key of Object.keys(layerSources) as LayerKey[]) {
         const source = layerSources[key];
         if (!source) continue;
-        source.show = enabledLayers[key];
+        // Pendant l'introduction, aucune couche n'est visible : elles apparaissent à la fin.
+        source.show = introMode ? false : enabledLayers[key];
         viewer.dataSources.add(source);
       }
       dataSourcesRef.current = layerSources;
+
+      // --- Introduction : vol de la caméra, puis révélation de l'accueil -------------
+      // Le composant HomeIntro orchestre (titre, bouton « Passer », apparition de
+      // l'interface) ; il parle au globe par des évènements du navigateur.
+      if (introMode) {
+        let finished = false;
+        const defaultDestination = Cesium.Cartesian3.fromDegrees(DEFAULT_LON, DEFAULT_LAT, DEFAULT_HEIGHT);
+        const defaultOrientation = { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 };
+
+        const finish = () => {
+          if (finished) return;
+          finished = true;
+          boundariesLayer.show = true;
+          // La nuit s'adoucit en douceur jusqu'au réglage habituel de l'accueil (carte lisible).
+          const from = performance.now();
+          const soften = (now: number) => {
+            if (disposed || !viewer) return;
+            const t = Math.min(1, (now - from) / 1800);
+            const globe = viewer.scene.globe;
+            globe.lightingFadeOutDistance = LIGHTING_INTRO.out + (LIGHTING_HOME.out - LIGHTING_INTRO.out) * t;
+            globe.lightingFadeInDistance = LIGHTING_INTRO.in + (LIGHTING_HOME.in - LIGHTING_INTRO.in) * t;
+            if (t < 1) requestAnimationFrame(soften);
+          };
+          requestAnimationFrame(soften);
+          for (const key of Object.keys(dataSourcesRef.current) as LayerKey[]) {
+            const source = dataSourcesRef.current[key];
+            if (source) source.show = enabledLayersRef.current[key];
+          }
+          window.dispatchEvent(new Event(INTRO_EVENTS.flightDone));
+        };
+        const onFly = () => {
+          viewer?.camera.flyTo({
+            destination: defaultDestination,
+            orientation: defaultOrientation,
+            duration: INTRO_FLIGHT_SECONDS,
+            easingFunction: Cesium.EasingFunction.QUARTIC_IN_OUT,
+            complete: finish,
+            cancel: finish,
+          });
+        };
+        const onSkip = () => {
+          if (finished) return;
+          viewer?.camera.cancelFlight();
+          viewer?.camera.setView({ destination: defaultDestination, orientation: defaultOrientation });
+          finish();
+        };
+        window.addEventListener(INTRO_EVENTS.fly, onFly);
+        window.addEventListener(INTRO_EVENTS.skip, onSkip);
+        removeIntroListeners = () => {
+          window.removeEventListener(INTRO_EVENTS.fly, onFly);
+          window.removeEventListener(INTRO_EVENTS.skip, onSkip);
+        };
+
+        // Prêt : les tuiles visibles sont chargées (ou 6 s écoulées, pour ne jamais bloquer).
+        let announced = false;
+        const announceReady = () => {
+          if (announced) return;
+          announced = true;
+          window.dispatchEvent(new Event(INTRO_EVENTS.ready));
+        };
+        const stopWatching = viewer.scene.globe.tileLoadProgressEvent.addEventListener((pending: number) => {
+          if (pending === 0) announceReady();
+        });
+        const readyTimer = window.setTimeout(announceReady, 6000);
+        const previousRemove = removeIntroListeners;
+        removeIntroListeners = () => {
+          previousRemove();
+          stopWatching();
+          window.clearTimeout(readyTimer);
+        };
+      }
 
       // Cesium's own resize handling reacts to window resize, but not to
       // a flex-layout container being resized without a window resize
@@ -589,6 +719,7 @@ export default function Globe3D({
     return () => {
       disposed = true;
       resizeObserver?.disconnect();
+      removeIntroListeners();
       clickHandler?.destroy();
       viewer?.destroy();
       viewerRef.current = null;
@@ -652,7 +783,7 @@ export default function Globe3D({
   return (
     <>
       <div ref={containerRef} className={styles.globeContainer} />
-      <div className={styles.controls}>
+      <div className={styles.controls} data-intro-hide>
         <button type="button" className={styles.controlBtn} aria-label="Nord" onClick={handleCompass}>
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.6">
             <circle cx="12" cy="12" r="9" />

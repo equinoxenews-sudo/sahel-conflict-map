@@ -6,7 +6,7 @@ export default function Ticker() {
   const items = [...HOME_NEWS, ...HOME_NEWS];
 
   return (
-    <div className={styles.ticker}>
+    <div className={styles.ticker} data-intro-hide>
       <span className={styles.badge}>LATEST</span>
       <div className={styles.trackWrapper}>
         <div className={styles.track}>

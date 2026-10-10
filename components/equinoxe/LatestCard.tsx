@@ -15,7 +15,7 @@ function formatTime(iso: string | null): string {
 
 export default function LatestCard({ title, date, href, imageUrl }: LatestCardProps) {
   return (
-    <Link href={href} className={styles.card}>
+    <Link href={href} className={styles.card} data-intro-hide>
       {imageUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img src={imageUrl} referrerPolicy="no-referrer" alt="" className={styles.image} />

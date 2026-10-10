@@ -67,6 +67,24 @@ a {
   text-decoration: none;
 }
 
+/* Introduction de l'accueil (components/equinoxe/HomeIntro.tsx) : tant qu'elle joue, le
+   globe passe en plein écran et le reste de l'interface est masqué, puis réapparaît en
+   fondu. Aucun effet sans l'attribut data-home-intro sur <html>. */
+[data-intro-hide] {
+  transition: opacity 0.9s ease;
+}
+
+html[data-home-intro]:not([data-home-intro="done"]) [data-intro-hide] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html[data-home-intro]:not([data-home-intro="done"]) [data-intro-stage] {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 40 !important;
+}
+
 @media (max-width: 900px) {
   /* The bottom nav (components/equinoxe/MobileNav.tsx) is fixed and
      global (rendered from the root layout) — every page needs its last

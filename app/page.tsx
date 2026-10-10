@@ -1,5 +1,6 @@
 import GlobeWithLayers from "@/components/equinoxe/GlobeWithLayers";
 import Header from "@/components/equinoxe/Header";
+import HomeIntro from "@/components/equinoxe/HomeIntro";
 import HomeBody from "@/components/equinoxe/HomeBody";
 import HomeNewsColumn from "@/components/equinoxe/HomeNewsColumn";
 import Ticker from "@/components/equinoxe/Ticker";
@@ -133,6 +134,7 @@ export default async function Home() {
 
   return (
     <main className={styles.main}>
+      <HomeIntro />
       <Header />
       <Ticker />
 

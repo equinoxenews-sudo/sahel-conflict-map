@@ -86,7 +86,7 @@ export default function GlobeWithLayers({
 
   return (
     <>
-      <div className={styles.globeColumn}>
+      <div className={styles.globeColumn} data-intro-stage>
         <div className={styles.mapArea}>
           <Globe3DLoader
             countryRisk={countryRisk}
@@ -111,7 +111,7 @@ export default function GlobeWithLayers({
           ) : null}
         </div>
 
-        <div className={styles.legendBar}>
+        <div className={styles.legendBar} data-intro-hide>
           <span className={styles.disclaimer}>
             Calculé à partir des événements recensés sur chaque zone (90 derniers jours) — cliquez
             sur une zone du menu pour une analyse détaillée
@@ -124,14 +124,14 @@ export default function GlobeWithLayers({
         </div>
       </div>
 
-      <div className={styles.rightStack}>
+      <div className={styles.rightStack} data-intro-hide>
         <GlobeSearchBox />
         <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
         <GlobeTimeRange onChange={setDateRange} />
         <RiskLevelPanel />
       </div>
 
-      <div className={styles.mobileFabs}>
+      <div className={styles.mobileFabs} data-intro-hide>
         <button
           type="button"
           className={styles.fab}

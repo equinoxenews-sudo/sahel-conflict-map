@@ -13,7 +13,7 @@ export default function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} data-intro-hide>
       <Link href="/" className={styles.logo}>
         {/* unoptimized: the source PNG has a real alpha channel (confirmed
             by sampling it directly), but Next's /_next/image resizer

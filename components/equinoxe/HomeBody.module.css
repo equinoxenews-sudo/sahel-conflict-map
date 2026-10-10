@@ -13,6 +13,13 @@
 }
 
 @media (min-width: 901px) {
+  /* Colonne « Dernières infos » retirée sur ordinateur : la fiche de zone (avec le
+     carrousel des derniers articles) apparaît à sa place quand on choisit une zone.
+     Sur téléphone, elle reste l'onglet « Actualités ». */
+  .newsSection {
+    display: none;
+  }
+
   /* Desktop: the globe fills the whole area behind everything (see
      GlobeWithLayers.module.css), and the news/layers columns become
      floating panels on top of it instead of sitting beside it in a row
