@@ -1,11 +1,10 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import ZoneCarousel from "@/components/cinematic/ZoneCarousel";
-import ZonePanel from "@/components/cinematic/ZonePanel";
-import type { ZoneBriefCard } from "@/lib/homeZones";
-import type { ZoneSlug } from "@/lib/cinematic/zoneMap";
+import type { ZoneBriefCard, ZoneSlug } from "@/lib/homeZones";
 import styles from "./ZoneStage.module.css";
+import ZoneCarousel from "./ZoneCarousel";
+import ZonePanel from "./ZonePanel";
 
 interface ZoneStageProps {
   zone: ZoneSlug;

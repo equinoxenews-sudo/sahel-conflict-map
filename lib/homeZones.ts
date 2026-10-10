@@ -1,8 +1,19 @@
 // Zones de l'accueil : focus du globe, rattachement des pays à leur zone, derniers
 // articles par zone. Module sans accès réseau, utilisable dans le navigateur.
 import { isSportsTitle } from "./sportsFilter";
-import { ZONE_COUNTRIES } from "./cinematic/zoneCountries";
-import { ZONE_ORDER, type ZoneSlug } from "./cinematic/zoneMap";
+import { ZONE_COUNTRIES } from "./zoneCountries";
+
+/** Les cinq zones de l'accueil, dans l'ordre du menu. */
+export const ZONE_ORDER = ["europe", "moyen-orient", "afrique", "indopacifique", "amerique-du-sud"] as const;
+export type ZoneSlug = (typeof ZONE_ORDER)[number];
+
+export const ZONE_LABELS: Record<ZoneSlug, string> = {
+  europe: "Europe",
+  "moyen-orient": "Moyen-Orient",
+  afrique: "Afrique",
+  indopacifique: "Indopacifique",
+  "amerique-du-sud": "Amérique du Sud",
+};
 
 /** Évènement du navigateur : { detail: { zone } } — le menu du haut demande de centrer le globe. */
 export const FOCUS_ZONE_EVENT = "equinoxe:focus-zone";

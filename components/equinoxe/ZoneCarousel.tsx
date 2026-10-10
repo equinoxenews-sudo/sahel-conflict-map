@@ -2,8 +2,7 @@
 
 import Link from "next/link";
 import { useRef } from "react";
-import type { ZoneBriefCard } from "@/lib/cinematic/zoneBriefs";
-import { ZONE_LABELS, type ZoneSlug } from "@/lib/cinematic/zoneMap";
+import { ZONE_LABELS, type ZoneBriefCard, type ZoneSlug } from "@/lib/homeZones";
 import styles from "./ZoneCarousel.module.css";
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" });

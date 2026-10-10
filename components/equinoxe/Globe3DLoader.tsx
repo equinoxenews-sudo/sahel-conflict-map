@@ -9,7 +9,7 @@ import type { NaturalEvent } from "@/lib/layers/naturalEvents";
 import type { SatellitePosition } from "@/lib/layers/satellites";
 import type { EntityPopupData, LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
-import type { ZoneSlug } from "@/lib/cinematic/zoneMap";
+import type { ZoneSlug } from "@/lib/homeZones";
 import type { GlobeDateRange } from "./GlobeTimeRange";
 
 const Globe3D = dynamic(() => import("./Globe3D"), { ssr: false });

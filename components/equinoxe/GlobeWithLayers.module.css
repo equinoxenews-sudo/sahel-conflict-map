@@ -97,6 +97,11 @@
   display: none;
 }
 
+/* Téléphone : la fiche de zone occupe le bas de l'écran, les boutons flottants s'effacent. */
+.mobileFabsHidden {
+  display: none !important;
+}
+
 .eventCount {
   display: none;
 }

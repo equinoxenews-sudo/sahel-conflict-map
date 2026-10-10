@@ -1,4 +1,4 @@
-// Génère lib/cinematic/zoneCountries.ts : pour chaque zone, ses pays (slug, nom, code ISO 3),
+// Génère lib/zoneCountries.ts : pour chaque zone, ses pays (slug, nom, code ISO 3),
 // tirés des fiches pays. Un fichier léger utilisable dans le navigateur (lib/countries y est trop lourd)
 // qui sert à colorer et rendre cliquables les zones sur le globe de l'introduction.
 //   npx tsx scripts/gen-zone-countries.ts
@@ -33,5 +33,5 @@ export const ZONE_COUNTRIES: Record<string, readonly ZoneCountry[]> = {
 ${body}
 };
 `;
-fs.writeFileSync(path.join(process.cwd(), "lib", "cinematic", "zoneCountries.ts"), out);
+fs.writeFileSync(path.join(process.cwd(), "lib", "zoneCountries.ts"), out);
 console.log(ZONES.map((zone) => `${zone} : ${byZone[zone].length}`).join(", "));

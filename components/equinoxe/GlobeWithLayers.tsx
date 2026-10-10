@@ -8,8 +8,7 @@ import type { Launch } from "@/lib/layers/launches";
 import type { NaturalEvent } from "@/lib/layers/naturalEvents";
 import type { SatellitePosition } from "@/lib/layers/satellites";
 import { LAYER_DEFAULTS, type EntityPopupData, type LayerKey } from "@/lib/layers/types";
-import { FOCUS_ZONE_EVENT, isHomeZone, type ZoneBriefsByZone } from "@/lib/homeZones";
-import type { ZoneSlug } from "@/lib/cinematic/zoneMap";
+import { FOCUS_ZONE_EVENT, isHomeZone, type ZoneBriefsByZone, type ZoneSlug } from "@/lib/homeZones";
 import type { VesselPosition } from "@/types/vessel";
 import Globe3DLoader from "./Globe3DLoader";
 import GlobeClock from "./GlobeClock";
@@ -98,6 +97,7 @@ export default function GlobeWithLayers({
       volcanoes: naturalEvents.filter((e) => e.category === "volcanoes").length,
       floods: naturalEvents.filter((e) => e.category === "floods").length,
       launches: launches.length,
+      nightLights: 0,
     }),
     [countryRisk, aircraft, satellites, vessels, earthquakes, naturalEvents, launches]
   );
@@ -166,7 +166,7 @@ export default function GlobeWithLayers({
         <RiskLevelPanel />
       </div>
 
-      <div className={styles.mobileFabs} data-intro-hide>
+      <div className={focusedZone ? `${styles.mobileFabs} ${styles.mobileFabsHidden}` : styles.mobileFabs} data-intro-hide>
         <button
           type="button"
           className={styles.fab}

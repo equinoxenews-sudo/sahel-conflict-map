@@ -10,9 +10,8 @@ import type { NaturalEvent, NaturalEventCategory } from "@/lib/layers/naturalEve
 import type { SatellitePosition } from "@/lib/layers/satellites";
 import type { EntityPopupData, LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
-import type { ZoneSlug } from "@/lib/cinematic/zoneMap";
 import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
-import { ISO3_TO_ZONE, ZONE_GLOBE_VIEWS } from "@/lib/homeZones";
+import { ISO3_TO_ZONE, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
 import styles from "./Globe3D.module.css";
 import type { GlobeDateRange } from "./GlobeTimeRange";
 
@@ -186,8 +185,11 @@ export default function Globe3D({
   }, [focusZone, onZonePick]);
   // Couches actuellement cochées : relues à la fin de l'introduction (le Viewer n'est pas reconstruit).
   const enabledLayersRef = useRef(enabledLayers);
+  // Lumières des villes : lues à chaque image par le réglage de la nuit (créé une seule fois).
+  const nightLightsRef = useRef(enabledLayers.nightLights);
   useEffect(() => {
     enabledLayersRef.current = enabledLayers;
+    nightLightsRef.current = enabledLayers.nightLights;
   }, [enabledLayers]);
 
   // Heavy one-time setup: the Cesium Viewer itself, the country-risk
@@ -368,8 +370,16 @@ export default function Globe3D({
         if (!viewer) return;
         const far = smoothstep(5.0e6, 1.4e7, viewer.camera.positionCartographic.height);
         baseLayer.nightAlpha = 0.42 + (BASE_NIGHT_ALPHA - 0.42) * far;
-        if (haloLayer) haloLayer.nightAlpha = far;
-        if (coreLayer) coreLayer.nightAlpha = 0.95 - 0.25 * far;
+        const lightsOn = nightLightsRef.current;
+        if (haloLayer) {
+          haloLayer.show = lightsOn;
+          haloLayer.nightAlpha = far;
+        }
+        if (coreLayer) {
+          coreLayer.show = lightsOn;
+          // De près, des points discrets : la carte reste lisible.
+          coreLayer.nightAlpha = 0.4 + 0.3 * far;
+        }
       });
       // Added on top: transparent borders + place/capital labels.
       const boundariesLayer = viewer.imageryLayers.addImageryProvider(
@@ -805,14 +815,17 @@ export default function Globe3D({
     const Cesium = window.Cesium;
     if (!viewer || !Cesium) return;
     const view = focusZone ? ZONE_GLOBE_VIEWS[focusZone] : null;
+    // Écran en hauteur (téléphone) : la caméra recule, la zone doit tenir dans la largeur.
+    const widthFactor = window.innerWidth < window.innerHeight ? 1.5 : 1;
     viewer.camera.flyTo({
       destination: Cesium.Cartesian3.fromDegrees(
         view?.lon ?? DEFAULT_LON,
         view?.lat ?? DEFAULT_LAT,
-        view?.height ?? DEFAULT_HEIGHT
+        view ? view.height * widthFactor : DEFAULT_HEIGHT
       ),
       orientation: { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 },
-      duration: 1.8,
+      // Mouvement réduit : la caméra se place directement, sans vol.
+      duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1.8,
       easingFunction: Cesium.EasingFunction.QUADRATIC_IN_OUT,
     });
   }, [focusZone]);

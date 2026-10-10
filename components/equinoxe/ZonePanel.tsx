@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import type { ZoneBriefCard } from "@/lib/cinematic/zoneBriefs";
-import { ZONE_LABELS, type ZoneSlug } from "@/lib/cinematic/zoneMap";
-import { ZONE_COUNTRIES } from "@/lib/cinematic/zoneCountries";
+import { ZONE_LABELS, type ZoneBriefCard, type ZoneSlug } from "@/lib/homeZones";
+import { ZONE_COUNTRIES } from "@/lib/zoneCountries";
 import styles from "./ZonePanel.module.css";
 import ZoneCarousel from "./ZoneCarousel";
 

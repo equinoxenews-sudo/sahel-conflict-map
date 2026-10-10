@@ -2,10 +2,3 @@
 .stage {
   display: contents;
 }
-
-/* Téléphone : la fiche de zone du globe est traitée à part (feuille du bas). */
-@media (max-width: 900px) {
-  .stage {
-    display: none;
-  }
-}
