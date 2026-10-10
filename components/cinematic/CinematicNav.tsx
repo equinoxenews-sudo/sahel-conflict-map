@@ -35,15 +35,21 @@ export default function CinematicNav({ activeZone, onFocusZone }: CinematicNavPr
         aria-controls="cinematic-zones"
         onClick={() => setMenuOpen((open) => !open)}
       >
-        <span className={styles.burgerLabel}>Zones</span>
+        <span className={styles.burgerLabel}>Menu</span>
         <span className={styles.burgerIcon} aria-hidden="true" />
       </button>
 
       <nav
         id="cinematic-zones"
         className={menuOpen ? `${styles.zones} ${styles.zonesOpen}` : styles.zones}
-        aria-label="Zones géographiques"
+        aria-label="Navigation principale"
       >
+        {/* Renvoie vers la page d'accueil actuelle du site. */}
+        <div className={styles.zone}>
+          <Link href="/" className={styles.zoneButton}>
+            Explorer
+          </Link>
+        </div>
         {ZONE_ORDER.map((zone) => (
           <div key={zone} className={styles.zone} data-active={activeZone === zone}>
             <button
@@ -56,7 +62,6 @@ export default function CinematicNav({ activeZone, onFocusZone }: CinematicNavPr
               }}
             >
               {ZONE_LABELS[zone]}
-              <span className={styles.caret} aria-hidden="true" />
             </button>
             <ul className={styles.sections}>
               {SECTIONS.map((section) => (
@@ -70,6 +75,9 @@ export default function CinematicNav({ activeZone, onFocusZone }: CinematicNavPr
           </div>
         ))}
       </nav>
+
+      {/* Colonne vide : garde le menu centré malgré le logo à gauche. */}
+      <span className={styles.balance} aria-hidden="true" />
     </header>
   );
 }

@@ -1,9 +1,12 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
+import Ticker from "@/components/equinoxe/Ticker";
+import type { ZoneBriefsByZone } from "@/lib/cinematic/zoneBriefs";
 import { ZONE_LABELS, ZONE_ORDER, type ZoneSlug } from "@/lib/cinematic/zoneMap";
 import CinematicNav from "./CinematicNav";
 import EarthScene from "./EarthScene";
+import ZoneCarousel from "./ZoneCarousel";
 import ZonePanel from "./ZonePanel";
 import styles from "./CinematicIntro.module.css";
 
@@ -22,7 +25,12 @@ const readMotion = () => window.matchMedia(REDUCED_MOTION_QUERY).matches;
 
 type Status = "loading" | "ready" | "static";
 
-export default function CinematicIntro() {
+interface CinematicIntroProps {
+  /** Derniers articles de chaque zone, pour le carrousel. */
+  briefs: ZoneBriefsByZone;
+}
+
+export default function CinematicIntro({ briefs }: CinematicIntroProps) {
   const reducedMotion = useSyncExternalStore(subscribeMotion, readMotion, () => false);
   const [status, setStatus] = useState<Status>("loading");
   const [skipped, setSkipped] = useState(false);
@@ -112,6 +120,13 @@ export default function CinematicIntro() {
 
       <CinematicNav activeZone={zone} onFocusZone={focusZone} />
 
+      {/* Bandeau LATEST : présent dès que l'introduction est passée, comme sur la page d'accueil. */}
+      {interactive ? (
+        <div className={styles.ticker}>
+          <Ticker />
+        </div>
+      ) : null}
+
       <main className={styles.content}>
         <div className={styles.copy}>
           <h1 className={styles.title}>
@@ -143,7 +158,8 @@ export default function CinematicIntro() {
         </nav>
       </main>
 
-      {zone ? <ZonePanel zone={zone} onClose={() => setZone(null)} /> : null}
+      {zone ? <ZonePanel zone={zone} briefs={briefs[zone]} onClose={() => setZone(null)} /> : null}
+      {zone ? <ZoneCarousel key={zone} zone={zone} briefs={briefs[zone]} variant="dock" /> : null}
 
       <div ref={tooltipRef} className={styles.tooltip} data-visible={hovered !== null} aria-hidden="true">
         {hovered ? ZONE_LABELS[hovered] : ""}

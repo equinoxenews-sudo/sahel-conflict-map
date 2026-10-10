@@ -74,17 +74,21 @@ const EARTH_FRAGMENT = /* glsl */ `
     vec3 n = normalize(vWorldNormal);
     vec3 v = normalize(vViewDir);
     float ndl = dot(n, sunDir);
-    float day = smoothstep(-0.10, 0.22, ndl);
+    // Passage jour/nuit progressif (crépuscule), comme la lumière réelle d'une surface éclairée de biais.
+    float day = smoothstep(-0.20, 0.30, ndl);
 
-    vec3 dayCol = texture2D(dayMap, vUv).rgb;
-    float l = dot(dayCol, vec3(0.299, 0.587, 0.114));
-    dayCol = mix(vec3(l), dayCol, 0.9) * vec3(0.93, 1.0, 1.07);
-    dayCol *= 0.30 + 0.85 * clamp(ndl, 0.0, 1.0);
+    vec3 terrain = texture2D(dayMap, vUv).rgb;
+    float l = dot(terrain, vec3(0.299, 0.587, 0.114));
+    vec3 dayCol = mix(vec3(l), terrain, 0.92) * vec3(0.95, 1.0, 1.06);
+    // La texture est sombre : léger gain pour que la face éclairée soit lumineuse, comme une vue satellite.
+    dayCol = pow(dayCol, vec3(0.86)) * 1.1;
+    dayCol *= 0.62 + 0.48 * clamp(ndl, 0.0, 1.0);
 
+    // Côté nuit : les continents restent devinés (clair de Terre), les villes s'allument.
+    // Les lumières se repèrent au rouge de l'image de nuit : neige et glace y sont bleutées, jamais rouges.
     vec3 nightTex = texture2D(nightMap, vUv).rgb;
-    float lum = dot(nightTex, vec3(0.299, 0.587, 0.114));
-    float lights = smoothstep(0.10, 0.55, lum);
-    vec3 nightCol = vec3(0.008, 0.016, 0.034) + vec3(1.0, 0.76, 0.42) * lights * (0.35 + lum) * 1.25;
+    float lights = smoothstep(0.30, 0.85, nightTex.r);
+    vec3 nightCol = terrain * vec3(0.05, 0.075, 0.13) + vec3(0.004, 0.009, 0.02) + vec3(1.0, 0.78, 0.46) * lights * 1.15;
 
     vec3 color = mix(nightCol, dayCol, day);
 

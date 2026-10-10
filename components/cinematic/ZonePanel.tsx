@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import type { ZoneBriefCard } from "@/lib/cinematic/zoneBriefs";
 import { ZONE_LABELS, type ZoneSlug } from "@/lib/cinematic/zoneMap";
 import { ZONE_COUNTRIES } from "@/lib/cinematic/zoneCountries";
 import styles from "./ZonePanel.module.css";
+import ZoneCarousel from "./ZoneCarousel";
 
 const SECTIONS = [
   { label: "Approche", path: "approche", hint: "Fiches pays et repères" },
@@ -16,10 +18,11 @@ const COUNTRY_LINKS: ZoneSlug[] = ["europe"];
 
 interface ZonePanelProps {
   zone: ZoneSlug;
+  briefs: ZoneBriefCard[];
   onClose: () => void;
 }
 
-export default function ZonePanel({ zone, onClose }: ZonePanelProps) {
+export default function ZonePanel({ zone, briefs, onClose }: ZonePanelProps) {
   const countries = ZONE_COUNTRIES[zone];
   return (
     <aside className={styles.panel} aria-label={`Zone ${ZONE_LABELS[zone]}`} key={zone}>
@@ -39,6 +42,9 @@ export default function ZonePanel({ zone, onClose }: ZonePanelProps) {
           </li>
         ))}
       </ul>
+
+      {/* Sur téléphone, les articles sont dans la fiche ; sur ordinateur, ils sont dans le bandeau du bas. */}
+      <ZoneCarousel zone={zone} briefs={briefs} variant="inline" />
 
       {COUNTRY_LINKS.includes(zone) ? (
         <>

@@ -2,25 +2,25 @@
   position: absolute;
   z-index: 4;
   left: clamp(16px, 4vw, 48px);
-  top: 50%;
+  top: 130px;
   display: flex;
   flex-direction: column;
   width: min(350px, 32vw);
-  max-height: 72vh;
+  /* Laisse la place du bandeau d'articles en bas de l'écran. */
+  max-height: calc(100vh - 130px - 230px);
   padding: 18px 20px 20px;
   overflow-y: auto;
   border: 1px solid rgba(143, 216, 255, 0.2);
   border-radius: 14px;
   background: rgba(7, 13, 23, 0.82);
   backdrop-filter: blur(12px);
-  transform: translateY(-50%);
   animation: panelIn 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) 0.25s both;
 }
 
 @keyframes panelIn {
   from {
     opacity: 0;
-    transform: translate(-14px, -50%);
+    transform: translateX(-14px);
   }
 }
 
@@ -138,9 +138,8 @@
     top: auto;
     bottom: 12px;
     width: auto;
-    max-height: 44vh;
+    max-height: 52vh;
     padding: 14px 16px 16px;
-    transform: none;
     animation-name: panelInUp;
   }
 

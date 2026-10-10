@@ -37,6 +37,22 @@
     linear-gradient(180deg, rgba(2, 5, 10, 0.55) 0%, transparent 32%);
 }
 
+/* Bandeau LATEST sous la barre de navigation. */
+.ticker {
+  position: absolute;
+  z-index: 4;
+  top: 74px;
+  left: 0;
+  right: 0;
+  animation: fade 1s ease both;
+}
+
+@media (max-width: 900px) {
+  .ticker {
+    top: 64px;
+  }
+}
+
 .content {
   position: absolute;
   inset: 0;
@@ -323,8 +339,8 @@
 /* Heure UTC du jour/nuit et rappel du geste, discrets, en bas à droite. */
 .clock {
   position: absolute;
-  right: clamp(16px, 4vw, 48px);
-  bottom: clamp(18px, 4vh, 40px);
+  right: clamp(16px, 3vw, 40px);
+  top: 120px;
   z-index: 3;
   display: flex;
   flex-direction: column;
@@ -342,6 +358,10 @@
   font-variant-numeric: tabular-nums;
 }
 
+.stage[data-focused="true"] .clockHint {
+  display: none;
+}
+
 .clockHint {
   font-size: 10px;
   letter-spacing: 0.14em;
@@ -350,10 +370,13 @@
 }
 
 @media (max-aspect-ratio: 1/1) {
-  /* La fiche de zone occupe le bas de l'écran sur téléphone : l'horloge passe en haut, sous le bandeau. */
+  /* Pas de bandeau LATEST sur téléphone (comme sur le site) : l'heure se place sous la barre, sans le rappel du geste. */
   .clock {
-    bottom: auto;
-    top: 72px;
+    top: 74px;
     right: 16px;
+  }
+
+  .clockHint {
+    display: none;
   }
 }
