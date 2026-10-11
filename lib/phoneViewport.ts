@@ -1,10 +1,11 @@
-// Téléphones : la page est calculée sur 560 px de large au lieu de la largeur de l'écran
-// (≈ 390 px), ce qui la rend environ 30 % plus compacte — textes, panneaux et boutons plus
-// petits, plus d'informations à l'écran — tout en gardant la vraie mise en page mobile
-// (barre du bas, menu ☰, carte LATEST). Tablettes et ordinateurs ne sont pas concernés.
+// Téléphones : la page est calculée sur 980 px de large, comme le fait un navigateur mobile en
+// « Version ordinateur ». Le site y prend exactement la mise en page ordinateur adaptée aux écrans
+// en hauteur (période et niveau de risque en tête, couches par icône, menu complet en haut), sans
+// que le visiteur ait à cocher quoi que ce soit. Tablettes et ordinateurs ne sont pas concernés.
 //
 // Exécuté dans le HTML (app/layout.tsx), avant l'affichage. Le zoom par pincement reste possible.
-export const PHONE_LAYOUT_WIDTH = 560;
+// Pour revenir à la vraie version mobile (barre du bas, menu ☰), supprimer ce script.
+export const PHONE_LAYOUT_WIDTH = 980;
 const PHONE_MAX_SCREEN_WIDTH = 600;
 
 export const PHONE_VIEWPORT_SCRIPT = `(function(){try{
