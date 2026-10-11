@@ -76,7 +76,7 @@
 }
 
 /* Écran étroit : le panneau est à côté de « Période » ; seuls les niveaux restent. */
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .panel {
     padding: 12px;
   }
