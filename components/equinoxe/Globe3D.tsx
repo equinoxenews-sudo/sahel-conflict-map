@@ -339,6 +339,20 @@ export default function Globe3D({
       // ni frontières ni noms, ni couleurs de risque, et la caméra loin de la Terre.
       const introMode = document.documentElement.getAttribute(INTRO_ATTR) === "loading";
 
+      // Performances. Appareil tactile ou écran étroit : on allège le rendu (pas d'anticrénelage
+      // multi-échantillons, tuiles un peu moins fines, 30 images par seconde, une seule couche de
+      // lumières). Partout : le globe ne se redessine que lorsque quelque chose change (caméra,
+      // tuiles, couches) au lieu de tourner à vide 60 fois par seconde, ce qui libérait mal le
+      // processeur — le bandeau LATEST et le défilement de la page en souffraient.
+      const lowPower = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 900;
+      viewer.scene.requestRenderMode = true;
+      viewer.scene.maximumRenderTimeChange = Infinity;
+      if (lowPower) {
+        viewer.targetFrameRate = 30;
+        viewer.scene.msaaSamples = 1;
+        viewer.scene.fog.enabled = false;
+      }
+
       const baseLayer = viewer.imageryLayers.addImageryProvider(
         new Cesium.UrlTemplateImageryProvider({ url: IMAGERY_URL, credit: IMAGERY_CREDIT })
       );
@@ -357,6 +371,7 @@ export default function Globe3D({
           const layer = viewer.imageryLayers.addImageryProvider(provider, 1);
           layer.dayAlpha = 0;
           layer.nightAlpha = 1;
+          viewer.scene.requestRender();
           return layer;
         });
       let haloLayer: CesiumNS.ImageryLayer | null = null;
@@ -366,11 +381,14 @@ export default function Globe3D({
           haloLayer = layer;
         })
         .catch((err) => console.warn("Lumières des villes indisponibles :", err));
-      addLights("/cinematic/earth-lights-core.webp")
-        .then((layer) => {
-          coreLayer = layer;
-        })
-        .catch((err) => console.warn("Lumières des villes indisponibles :", err));
+      // Téléphone : la couche au cœur net est omise (une couche d'image en moins à mélanger).
+      if (!lowPower) {
+        addLights("/cinematic/earth-lights-core.webp")
+          .then((layer) => {
+            coreLayer = layer;
+          })
+          .catch((err) => console.warn("Lumières des villes indisponibles :", err));
+      }
       // Le halo s'efface en s'approchant (il deviendrait de grosses taches) et le relief de la
       // nuit se révèle un peu plus : de près, on lit la carte ; de loin, on voit les villes briller.
       const smoothstep = (a: number, b: number, x: number) => {
@@ -384,7 +402,8 @@ export default function Globe3D({
         const lightsOn = nightLightsRef.current;
         if (haloLayer) {
           haloLayer.show = lightsOn;
-          haloLayer.nightAlpha = far;
+          // Sans couche au cœur net (téléphone), le halo reste visible un peu plus près.
+          haloLayer.nightAlpha = lowPower ? 0.35 + 0.65 * far : far;
         }
         if (coreLayer) {
           coreLayer.show = lightsOn;
@@ -426,7 +445,7 @@ export default function Globe3D({
       // to sharp Sahel/Africa in the same frame). Tightening it makes
       // Cesium request higher-detail tiles everywhere, including toward
       // the limb, closing that gap — at the cost of more tile requests.
-      viewer.scene.globe.maximumScreenSpaceError = 1;
+      viewer.scene.globe.maximumScreenSpaceError = lowPower ? 2.5 : 1;
 
       // Centered on the Sahel/Africa — the site's editorial focus —
       // rather than Cesium's generic flyHome() default view (which
@@ -713,6 +732,7 @@ export default function Globe3D({
             const globe = viewer.scene.globe;
             globe.lightingFadeOutDistance = LIGHTING_INTRO.out + (LIGHTING_HOME.out - LIGHTING_INTRO.out) * t;
             globe.lightingFadeInDistance = LIGHTING_INTRO.in + (LIGHTING_HOME.in - LIGHTING_INTRO.in) * t;
+            viewer.scene.requestRender();
             if (t < 1) requestAnimationFrame(soften);
           };
           requestAnimationFrame(soften);
@@ -720,6 +740,7 @@ export default function Globe3D({
             const source = dataSourcesRef.current[key];
             if (source) source.show = enabledLayersRef.current[key];
           }
+          viewer?.scene.requestRender();
           window.dispatchEvent(new Event(INTRO_EVENTS.flightDone));
         };
         const onFly = () => {
@@ -770,6 +791,7 @@ export default function Globe3D({
       // Leaflet map in this project. A ResizeObserver keeps it honest here.
       resizeObserver = new ResizeObserver(() => {
         viewer?.resize();
+        viewer?.scene.requestRender();
       });
       resizeObserver.observe(container);
 
@@ -814,6 +836,8 @@ export default function Globe3D({
       source.show = enabledLayers[key];
       if (dateRange) applyDateFilter(source, dateRange);
     }
+    // Le globe ne se redessine plus en continu : on le demande après un changement de couche.
+    viewerRef.current?.scene.requestRender();
   }, [enabledLayers, dateRange]);
 
   // Mise au point sur une zone : la caméra vole vers elle ; sans zone, elle revient à la vue

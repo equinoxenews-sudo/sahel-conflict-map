@@ -36,6 +36,8 @@
 .track {
   display: flex;
   white-space: nowrap;
+  will-change: transform;
+  backface-visibility: hidden;
   animation: scroll 45s linear infinite;
 }
 
