@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import GlobeWithLayers from "@/components/equinoxe/GlobeWithLayers";
 import Header from "@/components/equinoxe/Header";
 import HomeIntro from "@/components/equinoxe/HomeIntro";
+import ZoneFromUrl from "@/components/equinoxe/ZoneFromUrl";
 import HomeBody from "@/components/equinoxe/HomeBody";
 import HomeNewsColumn from "@/components/equinoxe/HomeNewsColumn";
 import Ticker from "@/components/equinoxe/Ticker";
@@ -136,6 +138,9 @@ export default async function Home() {
   return (
     <main className={styles.main}>
       <HomeIntro />
+      <Suspense fallback={null}>
+        <ZoneFromUrl />
+      </Suspense>
       <Header />
       <Ticker />
 

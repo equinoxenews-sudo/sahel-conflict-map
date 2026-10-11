@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import { useHasMounted } from "@/lib/useHasMounted";
+import { zoneHomeHref } from "@/lib/homeZones";
 import { ZONES } from "@/lib/zones";
 import styles from "./MobileDrawer.module.css";
 
@@ -50,7 +51,7 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             Zones
           </Link>
           {ZONES.filter((z) => z.slug !== "tracking").map((zone) => (
-            <Link key={zone.slug} href={`/zones/${zone.slug}`} onClick={onClose} className={styles.sublink}>
+            <Link key={zone.slug} href={zoneHomeHref(zone.slug)} onClick={onClose} className={styles.sublink}>
               {zone.name}
             </Link>
           ))}

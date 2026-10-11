@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useSyncExternalStore } from "react";
-import { INTRO_ATTR, INTRO_BOOT_SCRIPT, INTRO_EVENTS, INTRO_STORAGE_KEY } from "@/lib/homeIntro";
+import { INTRO_ATTR, INTRO_EVENTS, INTRO_STORAGE_KEY } from "@/lib/homeIntro";
 import styles from "./HomeIntro.module.css";
 
 type IntroPhase = "loading" | "playing" | "done" | null;
@@ -65,7 +65,6 @@ export default function HomeIntro() {
 
   return (
     <>
-      <script dangerouslySetInnerHTML={{ __html: INTRO_BOOT_SCRIPT }} />
       <div className={styles.overlay} data-phase={phase ?? "off"} aria-hidden={phase !== "playing" && phase !== "loading"}>
         <div className={styles.copy}>
           <h1 className={styles.title}>

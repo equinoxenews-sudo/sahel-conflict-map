@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import { Suspense } from "react";
 import MobileNav from "@/components/equinoxe/MobileNav";
+import { INTRO_BOOT_SCRIPT } from "@/lib/homeIntro";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,6 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body>
+        <Script id="home-intro-boot" strategy="beforeInteractive">{INTRO_BOOT_SCRIPT}</Script>
         {children}
         <Suspense fallback={null}>
           <MobileNav />

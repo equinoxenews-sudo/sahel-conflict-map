@@ -6,6 +6,7 @@ import MapView from "@/components/MapView";
 import ZoneNewsList from "@/components/ZoneNewsList";
 import ZoneSynthesisPanel from "@/components/ZoneSynthesisPanel";
 import ZoneApprochePage from "@/components/zone-approche/ZoneApprochePage";
+import { zoneHomeHref } from "@/lib/homeZones";
 import { supabase } from "@/lib/supabaseClient";
 import { getZoneApprocheContent } from "@/lib/zoneApprocheContent";
 import { getZoneArticles, getZoneBriefs } from "@/lib/zoneBriefs";
@@ -64,7 +65,7 @@ export default async function ZoneTabPage({
       <Header />
 
       <div className={styles.topBar}>
-        <Link href={`/zones/${zone.slug}`} className={styles.back}>
+        <Link href={zoneHomeHref(zone.slug)} className={styles.back}>
           &lsaquo; Retour
         </Link>
         <h1 className={styles.title}>

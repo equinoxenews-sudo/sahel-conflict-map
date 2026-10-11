@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AnalyseFrame from "@/components/situation/AnalyseFrame";
+import { zoneHomeHref } from "@/lib/homeZones";
 import { psitLabel } from "@/lib/situationReport";
 import { getPublishedReports } from "@/lib/situationReportData";
 import { getZone } from "@/lib/zones";
@@ -17,7 +18,7 @@ export default async function ZoneAnalysePage({ params }: { params: Promise<{ sl
   const latest = reports[0];
 
   return (
-    <AnalyseFrame zoneName={zone.name} backHref={`/zones/${zone.slug}`}>
+    <AnalyseFrame zoneName={zone.name} backHref={zoneHomeHref(zone.slug)}>
       <div className={styles.choices}>
         <Link href={`/zones/${zone.slug}/analyse/point-de-situation`} className={styles.choice}>
           <span className={styles.choiceTitle}>Point de situation</span>

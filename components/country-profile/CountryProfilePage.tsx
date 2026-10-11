@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Header from "@/components/equinoxe/Header";
+import { zoneHomeHref } from "@/lib/homeZones";
 import { getZone } from "@/lib/zones";
 import type { CountryProfile } from "@/types/country";
 import CountryEventCard from "./CountryEventCard";
@@ -67,7 +68,7 @@ export default function CountryProfilePage({ country, map }: CountryProfilePageP
 
       <div className={styles.headerWrap}>
         <div className={styles.breadcrumb}>
-          <Link href={`/zones/${country.zoneSlug}`}>{zone?.name ?? country.zoneSlug}</Link>
+          <Link href={zoneHomeHref(country.zoneSlug)}>{zone?.name ?? country.zoneSlug}</Link>
           <span>/</span>
           <Link href={`/zones/${country.zoneSlug}/approche`}>Approche</Link>
           <span>/</span>

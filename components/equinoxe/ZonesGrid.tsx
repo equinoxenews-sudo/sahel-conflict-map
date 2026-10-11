@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { zoneHomeHref } from "@/lib/homeZones";
 import { ZONES } from "@/lib/zones";
 import styles from "./ZonesGrid.module.css";
 
@@ -7,7 +8,7 @@ export default function ZonesGrid() {
   return (
     <div className={styles.grid}>
       {ZONES.filter((z) => z.slug !== "tracking").map((zone) => (
-        <Link key={zone.slug} href={`/zones/${zone.slug}`} className={styles.zone}>
+        <Link key={zone.slug} href={zoneHomeHref(zone.slug)} className={styles.zone}>
           <span className={styles.hex}>
             <Image src={zone.icon} alt={zone.name} width={56} height={69} />
           </span>

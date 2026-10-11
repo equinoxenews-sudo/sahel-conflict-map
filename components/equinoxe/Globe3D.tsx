@@ -95,6 +95,17 @@ const BASE_NIGHT_ALPHA = 0.14;
 const LIGHTING_INTRO = { out: 5.0e6, in: 1.2e7 };
 const LIGHTING_HOME = { out: 1.0e7, in: 2.0e7 };
 
+/** Position de la caméra pour une zone : point visé et altitude (plus haute sur écran en hauteur). */
+function zoneCameraDestination(Cesium: typeof CesiumNS, zone: ZoneSlug | null) {
+  const view = zone ? ZONE_GLOBE_VIEWS[zone] : null;
+  const widthFactor = window.innerWidth < window.innerHeight ? 1.5 : 1;
+  return Cesium.Cartesian3.fromDegrees(
+    view?.lon ?? DEFAULT_LON,
+    view?.lat ?? DEFAULT_LAT,
+    view ? view.height * widthFactor : DEFAULT_HEIGHT
+  );
+}
+
 function formatDateTime(value: string | number): string {
   return new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(
     new Date(value)
@@ -423,7 +434,7 @@ export default function Globe3D({
       viewer.camera.setView({
         destination: introMode
           ? Cesium.Cartesian3.fromDegrees(INTRO_START_LON, INTRO_START_LAT, INTRO_START_HEIGHT)
-          : Cesium.Cartesian3.fromDegrees(DEFAULT_LON, DEFAULT_LAT, DEFAULT_HEIGHT),
+          : zoneCameraDestination(Cesium, focusZoneRef.current),
         orientation: { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 },
       });
 
@@ -687,7 +698,7 @@ export default function Globe3D({
       // l'interface) ; il parle au globe par des évènements du navigateur.
       if (introMode) {
         let finished = false;
-        const defaultDestination = Cesium.Cartesian3.fromDegrees(DEFAULT_LON, DEFAULT_LAT, DEFAULT_HEIGHT);
+        const defaultDestination = zoneCameraDestination(Cesium, focusZoneRef.current);
         const defaultOrientation = { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 };
 
         const finish = () => {
@@ -814,15 +825,8 @@ export default function Globe3D({
     const viewer = viewerRef.current;
     const Cesium = window.Cesium;
     if (!viewer || !Cesium) return;
-    const view = focusZone ? ZONE_GLOBE_VIEWS[focusZone] : null;
-    // Écran en hauteur (téléphone) : la caméra recule, la zone doit tenir dans la largeur.
-    const widthFactor = window.innerWidth < window.innerHeight ? 1.5 : 1;
     viewer.camera.flyTo({
-      destination: Cesium.Cartesian3.fromDegrees(
-        view?.lon ?? DEFAULT_LON,
-        view?.lat ?? DEFAULT_LAT,
-        view ? view.height * widthFactor : DEFAULT_HEIGHT
-      ),
+      destination: zoneCameraDestination(Cesium, focusZone),
       orientation: { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 },
       // Mouvement réduit : la caméra se place directement, sans vol.
       duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 1.8,

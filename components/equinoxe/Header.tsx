@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { FOCUS_ZONE_EVENT, isHomeZone } from "@/lib/homeZones";
+import { FOCUS_ZONE_EVENT, isHomeZone, zoneHomeHref } from "@/lib/homeZones";
 import { ZONES } from "@/lib/zones";
 import styles from "./Header.module.css";
 import MobileDrawer from "./MobileDrawer";
@@ -36,7 +36,7 @@ export default function Header() {
           return (
             <Link
               key={zone.slug}
-              href={`/zones/${zone.slug}`}
+              href={zone.slug === "tracking" ? `/zones/${zone.slug}` : zoneHomeHref(zone.slug)}
               className={isActive ? `${styles.zoneLink} ${styles.zoneLinkActive}` : styles.zoneLink}
               onClick={(event) => {
                 // Sur l'accueil, le menu centre le globe sur la zone (la fiche donne ensuite accès

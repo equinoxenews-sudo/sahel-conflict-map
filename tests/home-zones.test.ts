@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { groupBriefsByZone, ISO3_TO_ZONE, isHomeZone, ZONE_GLOBE_VIEWS, ZONE_ORDER } from "../lib/homeZones";
+import { groupBriefsByZone, HOME_NO_INTRO_HREF, ISO3_TO_ZONE, isHomeZone, ZONE_GLOBE_VIEWS, ZONE_ORDER, zoneHomeHref } from "../lib/homeZones";
 import { ZONE_COUNTRIES } from "../lib/zoneCountries";
 
 test("Les cinq zones de l'accueil ont une vue de caméra et des pays", () => {
@@ -40,4 +40,10 @@ test("Derniers articles : regroupés par zone, huit au plus, sport écarté", ()
   assert.equal(grouped.afrique.length, 8);
   assert.deepEqual(grouped.europe.map((b) => b.id), [100]);
   assert.equal(grouped["moyen-orient"].length, 0);
+});
+
+test("Les retours vers l'accueil n'ont ni page intermédiaire ni introduction", () => {
+  assert.equal(zoneHomeHref("europe"), "/?zone=europe&intro=0");
+  assert.equal(zoneHomeHref("tracking"), HOME_NO_INTRO_HREF);
+  assert.equal(HOME_NO_INTRO_HREF, "/?intro=0");
 });

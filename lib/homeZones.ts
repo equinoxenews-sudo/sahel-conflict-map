@@ -15,6 +15,14 @@ export const ZONE_LABELS: Record<ZoneSlug, string> = {
   "amerique-du-sud": "Amérique du Sud",
 };
 
+/** Accueil sans animation d'introduction (retour depuis une page de zone). */
+export const HOME_NO_INTRO_HREF = "/?intro=0";
+
+/** Accueil avec la zone au centre du globe et sa fiche ouverte, sans introduction. */
+export function zoneHomeHref(slug: string): string {
+  return isHomeZone(slug) ? `/?zone=${slug}&intro=0` : HOME_NO_INTRO_HREF;
+}
+
 /** Évènement du navigateur : { detail: { zone } } — le menu du haut demande de centrer le globe. */
 export const FOCUS_ZONE_EVENT = "equinoxe:focus-zone";
 

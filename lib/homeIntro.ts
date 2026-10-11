@@ -19,9 +19,11 @@ export const INTRO_EVENTS = {
   skip: "equinoxe:intro-skip",
 } as const;
 
-/** Exécuté dans le HTML, avant l'affichage : décide tout de suite si l'introduction joue,
- * pour que l'interface ne s'affiche pas une fraction de seconde avant d'être masquée. */
+/** Exécuté dans le HTML (app/layout.tsx), avant l'affichage : décide tout de suite si l'introduction
+ * joue, pour que l'interface ne s'affiche pas une fraction de seconde avant d'être masquée.
+ * Seulement au chargement de la page d'accueil elle-même. */
 export const INTRO_BOOT_SCRIPT = `(function(){try{
+if(location.pathname!=="/")return;
 var q=new URLSearchParams(location.search);
 var mode=q.get("intro");
 var seen=sessionStorage.getItem(${JSON.stringify(INTRO_STORAGE_KEY)});
