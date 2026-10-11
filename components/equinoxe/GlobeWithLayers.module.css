@@ -168,7 +168,7 @@
     width: auto;
     display: grid;
     grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
-    align-items: start;
+    align-items: stretch;
     gap: 10px;
     overflow: visible;
     transform: none;
@@ -180,15 +180,23 @@
     display: none;
   }
 
+  /* Les deux panneaux ont la même hauteur : leurs bords inférieurs sont alignés. */
   .stackPeriod,
   .stackRisk {
-    display: block;
+    display: flex;
+    min-width: 0;
+  }
+
+  .stackPeriod > *,
+  .stackRisk > * {
+    flex: 1 1 auto;
     min-width: 0;
   }
 
   .compactLayersBtn {
     grid-column: 2;
     justify-self: end;
+    align-self: start;
     display: flex;
     align-items: center;
     justify-content: center;

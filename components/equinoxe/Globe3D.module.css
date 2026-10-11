@@ -46,8 +46,9 @@
 /* Écran en hauteur : les boutons de navigation passent à gauche, sous la période. */
 @media (min-width: 901px) and (max-aspect-ratio: 1/1) {
   .controls {
-    top: 200px;
+    top: 56%;
     left: 10px;
+    transform: translateY(-50%);
   }
 }
 

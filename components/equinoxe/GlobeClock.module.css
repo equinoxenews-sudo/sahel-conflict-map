@@ -24,10 +24,15 @@
 /* Écran en hauteur (téléphone en « version ordinateur ») : l'horloge quitte le bas, occupé par la fiche de zone. */
 @media (min-width: 901px) and (max-aspect-ratio: 1/1) {
   .clock {
-    top: 362px;
-    bottom: auto;
-    left: 10px;
-    right: auto;
+    top: auto;
+    bottom: 16px;
+    left: auto;
+    right: 10px;
+  }
+
+  /* Fiche de zone ouverte : elle occupe le bas de l'écran, l'horloge se met en retrait. */
+  :global([data-zone-open="true"]) .clock {
+    display: none;
   }
 }
 

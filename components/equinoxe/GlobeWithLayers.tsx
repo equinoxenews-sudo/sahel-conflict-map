@@ -124,6 +124,7 @@ export default function GlobeWithLayers({
       <div
         className={styles.globeColumn}
         data-intro-stage
+        data-zone-open={focusedZone ? "true" : undefined}
         style={{ "--right-offset": rightCollapsed ? "16px" : "432px" } as CSSProperties}
       >
         <div className={styles.mapArea}>
