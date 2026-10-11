@@ -60,6 +60,9 @@ export default function GlobeWithLayers({
   const [focusedZone, setFocusedZoneState] = useState<ZoneSlug | null>(null);
   // Colonne de droite repliée (ordinateur) : le globe prend toute la largeur.
   const [rightCollapsed, setRightCollapsed] = useState(false);
+  // Écran en hauteur (téléphone, y compris en « version ordinateur ») : la liste des couches
+  // s'ouvre à la demande depuis une icône ; période et niveau de risque restent en tête.
+  const [layersOpen, setLayersOpen] = useState(false);
   // Changer de zone referme la bulle ouverte : elle resterait accrochée à un point de l'écran
   // qui ne correspond plus à rien une fois le globe déplacé.
   function setFocusedZone(zone: ZoneSlug | null) {
@@ -182,10 +185,31 @@ export default function GlobeWithLayers({
         className={rightCollapsed ? `${styles.rightStack} ${styles.rightStackCollapsed}` : styles.rightStack}
         data-intro-hide
       >
-        <GlobeSearchBox />
-        <GlobeTimeRange onChange={setDateRange} />
-        <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
-        <RiskLevelPanel />
+        <div className={styles.stackSearch}>
+          <GlobeSearchBox />
+        </div>
+        <div className={styles.stackPeriod}>
+          <GlobeTimeRange onChange={setDateRange} />
+        </div>
+        <div className={styles.stackRisk}>
+          <RiskLevelPanel />
+        </div>
+        <button
+          type="button"
+          className={layersOpen ? `${styles.compactLayersBtn} ${styles.compactLayersBtnOn}` : styles.compactLayersBtn}
+          aria-label="Couches"
+          aria-expanded={layersOpen}
+          onClick={() => setLayersOpen((open) => !open)}
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+            <path d="M12 3 3 8l9 5 9-5-9-5Z" />
+            <path d="M3 12l9 5 9-5" />
+            <path d="M3 16l9 5 9-5" />
+          </svg>
+        </button>
+        <div className={layersOpen ? `${styles.stackLayers} ${styles.stackLayersOpen}` : styles.stackLayers}>
+          <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
+        </div>
       </div>
 
       <div className={focusedZone ? `${styles.mobileFabs} ${styles.mobileFabsHidden}` : styles.mobileFabs} data-intro-hide>

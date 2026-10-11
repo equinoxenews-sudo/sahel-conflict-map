@@ -43,6 +43,14 @@
   }
 }
 
+/* Écran en hauteur : les boutons de navigation passent à gauche, sous la période. */
+@media (min-width: 901px) and (max-aspect-ratio: 1/1) {
+  .controls {
+    top: 200px;
+    left: 10px;
+  }
+}
+
 .controlBtn {
   width: 34px;
   height: 34px;

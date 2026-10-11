@@ -21,6 +21,16 @@
   }
 }
 
+/* Écran en hauteur (téléphone en « version ordinateur ») : l'horloge quitte le bas, occupé par la fiche de zone. */
+@media (min-width: 901px) and (max-aspect-ratio: 1/1) {
+  .clock {
+    top: 362px;
+    bottom: auto;
+    left: 10px;
+    right: auto;
+  }
+}
+
 .date {
   font-size: 11px;
   color: var(--text-secondary);
