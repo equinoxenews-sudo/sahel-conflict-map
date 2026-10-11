@@ -11,7 +11,7 @@ import type { SatellitePosition } from "@/lib/layers/satellites";
 import type { EntityPopupData, LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
 import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
-import { ISO3_TO_ZONE, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
+import { ISO3_TO_ZONE, isHomeZone, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
 import styles from "./Globe3D.module.css";
 import type { GlobeDateRange } from "./GlobeTimeRange";
 
@@ -146,6 +146,57 @@ const NATURAL_EVENT_LAYER: Record<NaturalEventCategory, LayerKey> = {
   floods: "floods",
 };
 
+// Le globe est long à construire (Viewer, 180 pays, tuiles). On le garde en vie quand on quitte
+// l'accueil (Approche, Actualités…) : au retour, il est simplement remis dans la page, sans
+// reconstruction. Il est détruit après quelques minutes d'absence (mémoire, surtout sur téléphone)
+// ou s'il est trop ancien (données des couches).
+interface PersistentGlobe {
+  viewer: CesiumNS.Viewer;
+  host: HTMLDivElement;
+  sources: Partial<Record<LayerKey, CesiumNS.DataSource>>;
+  clickHandler: CesiumNS.ScreenSpaceEventHandler | null;
+  createdAt: number;
+  lowPower: boolean;
+}
+
+let persistentGlobe: PersistentGlobe | null = null;
+let persistentTimer: number | null = null;
+
+const KEEP_ALIVE_MS = 10 * 60_000;
+const KEEP_ALIVE_LOW_POWER_MS = 4 * 60_000;
+const MAX_AGE_MS = 40 * 60_000;
+
+function destroyPersistentGlobe() {
+  if (persistentTimer !== null) window.clearTimeout(persistentTimer);
+  persistentTimer = null;
+  const kept = persistentGlobe;
+  persistentGlobe = null;
+  if (!kept) return;
+  try {
+    kept.clickHandler?.destroy();
+    kept.viewer.destroy();
+  } catch {
+    // Contexte déjà perdu : rien d'autre à libérer.
+  }
+  kept.host.remove();
+}
+
+// Valeurs partagées avec les gestionnaires du globe conservé : ils sont créés une seule fois,
+// mais le composant qui les pilote change à chaque retour sur l'accueil.
+const shared: {
+  onEntitySelect: Globe3DProps["onEntitySelect"];
+  focusZone: ZoneSlug | null;
+  onZonePick: Globe3DProps["onZonePick"];
+  enabledLayers: Record<LayerKey, boolean> | null;
+  nightLights: boolean;
+} = {
+  onEntitySelect: () => {},
+  focusZone: null,
+  onZonePick: () => {},
+  enabledLayers: null,
+  nightLights: true,
+};
+
 interface Globe3DProps {
   countryRisk: Record<string, CountryRisk>;
   enabledLayers: Record<LayerKey, boolean>;
@@ -180,27 +231,18 @@ export default function Globe3D({
   const containerRef = useRef<HTMLDivElement>(null);
   const dataSourcesRef = useRef<Partial<Record<LayerKey, CesiumNS.DataSource>>>({});
   const viewerRef = useRef<CesiumNS.Viewer | null>(null);
-  // Kept in a ref (not the effect's deps) so a new callback identity from
-  // the parent never tears down and rebuilds the whole viewer — see the
-  // comment on the effect below for why that must stay stable.
-  const onEntitySelectRef = useRef(onEntitySelect);
+  // Valeurs relues par les gestionnaires du globe (créés une seule fois, voir « shared ») : un
+  // nouveau callback du parent ne doit jamais reconstruire le Viewer.
   useEffect(() => {
-    onEntitySelectRef.current = onEntitySelect;
+    shared.onEntitySelect = onEntitySelect;
   }, [onEntitySelect]);
-  // Zone au centre du globe, relue par le gestionnaire de clic (créé une seule fois).
-  const focusZoneRef = useRef(focusZone);
-  const onZonePickRef = useRef(onZonePick);
   useEffect(() => {
-    focusZoneRef.current = focusZone;
-    onZonePickRef.current = onZonePick;
+    shared.focusZone = focusZone;
+    shared.onZonePick = onZonePick;
   }, [focusZone, onZonePick]);
-  // Couches actuellement cochées : relues à la fin de l'introduction (le Viewer n'est pas reconstruit).
-  const enabledLayersRef = useRef(enabledLayers);
-  // Lumières des villes : lues à chaque image par le réglage de la nuit (créé une seule fois).
-  const nightLightsRef = useRef(enabledLayers.nightLights);
   useEffect(() => {
-    enabledLayersRef.current = enabledLayers;
-    nightLightsRef.current = enabledLayers.nightLights;
+    shared.enabledLayers = enabledLayers;
+    shared.nightLights = enabledLayers.nightLights;
   }, [enabledLayers]);
 
   // Heavy one-time setup: the Cesium Viewer itself, the country-risk
@@ -216,14 +258,76 @@ export default function Globe3D({
 
     let disposed = false;
     let viewer: CesiumNS.Viewer | null = null;
+    let host: HTMLDivElement | null = null;
     let resizeObserver: ResizeObserver | null = null;
     let clickHandler: CesiumNS.ScreenSpaceEventHandler | null = null;
     let removeIntroListeners: () => void = () => {};
+    // Vrai tant que l'introduction n'est pas terminée : un globe à moitié « révélé » n'est pas conservé.
+    let introPending = false;
+    // Renseignés quand la construction est terminée (fin de la fonction asynchrone ci-dessous).
+    let builtComplete = false;
+    let builtSources: Partial<Record<LayerKey, CesiumNS.DataSource>> = {};
+    let builtLowPower = false;
+
+    const keepAlive = (kept: PersistentGlobe) => {
+      if (persistentTimer !== null) window.clearTimeout(persistentTimer);
+      persistentTimer = window.setTimeout(
+        destroyPersistentGlobe,
+        kept.lowPower ? KEEP_ALIVE_LOW_POWER_MS : KEEP_ALIVE_MS
+      );
+    };
+    const watchSize = (target: CesiumNS.Viewer) => {
+      resizeObserver = new ResizeObserver(() => {
+        target.resize();
+        target.scene.requestRender();
+      });
+      resizeObserver.observe(container);
+    };
+
+    // Retour sur l'accueil : le globe construit la dernière fois est remis dans la page.
+    const introWanted = document.documentElement.getAttribute(INTRO_ATTR) === "loading";
+    if (persistentGlobe && (introWanted || Date.now() - persistentGlobe.createdAt > MAX_AGE_MS)) {
+      destroyPersistentGlobe();
+    }
+    if (persistentGlobe && window.Cesium) {
+      const kept = persistentGlobe;
+      const Cesium = window.Cesium;
+      if (persistentTimer !== null) window.clearTimeout(persistentTimer);
+      persistentTimer = null;
+      container.appendChild(kept.host);
+      viewerRef.current = kept.viewer;
+      dataSourcesRef.current = kept.sources;
+      // Caméra : sur la zone demandée par l'adresse (?zone=…), sinon vue d'ensemble.
+      const asked = new URLSearchParams(window.location.search).get("zone");
+      kept.viewer.camera.cancelFlight();
+      kept.viewer.camera.setView({
+        destination: zoneCameraDestination(Cesium, asked && isHomeZone(asked) ? asked : null),
+        orientation: { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 },
+      });
+      watchSize(kept.viewer);
+      requestAnimationFrame(() => {
+        kept.viewer.resize();
+        kept.viewer.scene.requestRender();
+      });
+      return () => {
+        resizeObserver?.disconnect();
+        viewerRef.current = null;
+        dataSourcesRef.current = {};
+        if (persistentGlobe === kept) {
+          kept.host.remove();
+          keepAlive(kept);
+        }
+      };
+    }
 
     loadCesium().then(async (Cesium) => {
       if (disposed) return;
 
-      viewer = new Cesium.Viewer(container, {
+      host = document.createElement("div");
+      host.style.cssText = "width:100%;height:100%";
+      container.appendChild(host);
+
+      viewer = new Cesium.Viewer(host, {
         // No baseLayer here — added explicitly right after construction
         // via imageryLayers.addImageryProvider instead, so its readiness
         // isn't tied to Viewer construction timing.
@@ -320,24 +424,25 @@ export default function Globe3D({
             // Un pays d'une zone : le premier clic centre le globe sur la zone, le suivant
             // (zone déjà au centre) ouvre la bulle du pays, comme avant.
             const zone = data.layerKey === "risk" ? ISO3_TO_ZONE[String(entity.id)] : undefined;
-            if (zone && zone !== focusZoneRef.current) {
-              onEntitySelectRef.current(null, null);
-              onZonePickRef.current(zone);
+            if (zone && zone !== shared.focusZone) {
+              shared.onEntitySelect(null, null);
+              shared.onZonePick(zone);
               return;
             }
-            onEntitySelectRef.current(data, { x: click.position.x, y: click.position.y });
+            shared.onEntitySelect(data, { x: click.position.x, y: click.position.y });
             return;
           } catch (err) {
             console.error("Malformed entity popup payload:", err);
           }
         }
-        onEntitySelectRef.current(null, null);
+        shared.onEntitySelect(null, null);
       }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
       // Introduction de l'accueil : le script de démarrage (lib/homeIntro.ts) pose
       // data-home-intro="loading" avant l'affichage. Le globe démarre alors « neutre » :
       // ni frontières ni noms, ni couleurs de risque, et la caméra loin de la Terre.
       const introMode = document.documentElement.getAttribute(INTRO_ATTR) === "loading";
+      introPending = introMode;
 
       // Performances. Appareil tactile ou écran étroit : on allège le rendu (pas d'anticrénelage
       // multi-échantillons, tuiles un peu moins fines, 30 images par seconde, une seule couche de
@@ -399,7 +504,7 @@ export default function Globe3D({
         if (!viewer) return;
         const far = smoothstep(5.0e6, 1.4e7, viewer.camera.positionCartographic.height);
         baseLayer.nightAlpha = 0.42 + (BASE_NIGHT_ALPHA - 0.42) * far;
-        const lightsOn = nightLightsRef.current;
+        const lightsOn = shared.nightLights;
         if (haloLayer) {
           haloLayer.show = lightsOn;
           // Sans couche au cœur net (téléphone), le halo reste visible un peu plus près.
@@ -453,7 +558,7 @@ export default function Globe3D({
       viewer.camera.setView({
         destination: introMode
           ? Cesium.Cartesian3.fromDegrees(INTRO_START_LON, INTRO_START_LAT, INTRO_START_HEIGHT)
-          : zoneCameraDestination(Cesium, focusZoneRef.current),
+          : zoneCameraDestination(Cesium, shared.focusZone),
         orientation: { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 },
       });
 
@@ -717,12 +822,13 @@ export default function Globe3D({
       // l'interface) ; il parle au globe par des évènements du navigateur.
       if (introMode) {
         let finished = false;
-        const defaultDestination = zoneCameraDestination(Cesium, focusZoneRef.current);
+        const defaultDestination = zoneCameraDestination(Cesium, shared.focusZone);
         const defaultOrientation = { heading: 0, pitch: Cesium.Math.toRadians(-90), roll: 0 };
 
         const finish = () => {
           if (finished) return;
           finished = true;
+          introPending = false;
           boundariesLayer.show = true;
           // La nuit s'adoucit en douceur jusqu'au réglage habituel de l'accueil (carte lisible).
           const from = performance.now();
@@ -738,7 +844,7 @@ export default function Globe3D({
           requestAnimationFrame(soften);
           for (const key of Object.keys(dataSourcesRef.current) as LayerKey[]) {
             const source = dataSourcesRef.current[key];
-            if (source) source.show = enabledLayersRef.current[key];
+            if (source) source.show = (shared.enabledLayers ?? enabledLayers)[key];
           }
           viewer?.scene.requestRender();
           window.dispatchEvent(new Event(INTRO_EVENTS.flightDone));
@@ -789,11 +895,10 @@ export default function Globe3D({
       // a flex-layout container being resized without a window resize
       // event — the same class of bug already hit (and fixed) for every
       // Leaflet map in this project. A ResizeObserver keeps it honest here.
-      resizeObserver = new ResizeObserver(() => {
-        viewer?.resize();
-        viewer?.scene.requestRender();
-      });
-      resizeObserver.observe(container);
+      watchSize(viewer);
+      builtSources = layerSources;
+      builtLowPower = lowPower;
+      builtComplete = true;
 
       // Cesium sometimes needs an explicit nudge to paint its first
       // frame when the container wasn't at its final layout size at
@@ -810,10 +915,27 @@ export default function Globe3D({
       disposed = true;
       resizeObserver?.disconnect();
       removeIntroListeners();
-      clickHandler?.destroy();
-      viewer?.destroy();
       viewerRef.current = null;
       dataSourcesRef.current = {};
+      // Globe entièrement construit (et introduction terminée) : on le garde pour le retour.
+      if (viewer && host && builtComplete && !introPending && !viewer.isDestroyed()) {
+        if (persistentGlobe && persistentGlobe.viewer !== viewer) destroyPersistentGlobe();
+        const kept: PersistentGlobe = {
+          viewer,
+          host,
+          sources: builtSources,
+          clickHandler,
+          createdAt: Date.now(),
+          lowPower: builtLowPower,
+        };
+        persistentGlobe = kept;
+        host.remove();
+        keepAlive(kept);
+        return;
+      }
+      clickHandler?.destroy();
+      if (viewer && !viewer.isDestroyed()) viewer.destroy();
+      host?.remove();
     };
     // Layer datasets are fetched once server-side and don't change for
     // the lifetime of this page — only enabledLayers changes at runtime,
