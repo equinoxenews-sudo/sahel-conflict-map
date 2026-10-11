@@ -3,6 +3,22 @@
   inset: 0;
 }
 
+/* Une planète discrète, affichée dès le premier instant : elle occupe la place du globe pendant
+   que le moteur 3D et les tuiles se chargent, puis disparaît derrière le rendu. */
+.globeContainer::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(74%, 62vh);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 34%, #2b6ea6 0%, #14507f 30%, #0a2a47 62%, #040f1c 100%);
+  box-shadow: 0 0 70px rgba(70, 150, 230, 0.22);
+  opacity: 0.5;
+}
+
 /* Compass / zoom / recenter — Cesium ships no on-screen navigation UI
    here (navigationHelpButton etc. are all disabled), so this is a small
    custom control cluster instead. Positioned clear of the floating news

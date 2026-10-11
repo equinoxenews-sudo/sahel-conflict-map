@@ -10,6 +10,7 @@ import type { NaturalEvent, NaturalEventCategory } from "@/lib/layers/naturalEve
 import type { SatellitePosition } from "@/lib/layers/satellites";
 import type { EntityPopupData, LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
+import { CESIUM_BASE_URL } from "@/lib/cesiumCdn";
 import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
 import { ISO3_TO_ZONE, isHomeZone, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
 import styles from "./Globe3D.module.css";
@@ -39,8 +40,6 @@ const BOUNDARIES_URL =
 // Cesium in webpack/Turbopack projects. Only *types* are imported from
 // the npm package (`import type * as CesiumNS`), which is erased at
 // compile time and never touches the runtime bundle.
-const CESIUM_VERSION = "1.145.0";
-const CESIUM_BASE_URL = `https://cdn.jsdelivr.net/npm/cesium@${CESIUM_VERSION}/Build/Cesium/`;
 
 declare global {
   interface Window {
@@ -456,6 +455,11 @@ export default function Globe3D({
         viewer.targetFrameRate = 30;
         viewer.scene.msaaSamples = 1;
         viewer.scene.fog.enabled = false;
+        viewer.scene.postProcessStages.fxaa.enabled = false;
+        // Sur téléphone la page fait 980 px de large (voir app/layout.tsx) : le globe dessinait
+        // plus de cinq fois plus de pixels qu'en version mobile. On le dessine à environ 65 % de la
+        // définition (le navigateur l'étire), ce qui garde un rendu net à cette taille d'écran.
+        viewer.resolutionScale = window.innerWidth > 700 ? 0.65 : 0.85;
       }
 
       const baseLayer = viewer.imageryLayers.addImageryProvider(
@@ -572,6 +576,26 @@ export default function Globe3D({
       // "Too many properties to enumerate" on some of these country
       // shapes (large vertex counts / antimeridian-spanning rings, e.g.
       // Russia, Antarctica). Filled polygons alone don't hit that path.
+      // Téléphone : les 180 contours de pays (calcul lourd) attendent que les premières tuiles
+      // de la carte soient affichées, ou 2,5 s au plus, pour que le globe apparaisse plus vite.
+      // Pendant l'introduction, rien n'est retardé : elle attend de toute façon cette étape.
+      if (lowPower && !introMode) {
+        const v = viewer;
+        await new Promise<void>((resolve) => {
+          let off: (() => void) | null = null;
+          const timer = window.setTimeout(done, 2500);
+          function done() {
+            window.clearTimeout(timer);
+            off?.();
+            resolve();
+          }
+          off = v.scene.globe.tileLoadProgressEvent.addEventListener((pending: number) => {
+            if (pending === 0) done();
+          });
+        });
+        if (disposed) return;
+      }
+
       const countryDataSource = await Cesium.GeoJsonDataSource.load(
         "/data/world-countries.geo.json",
         { fill: Cesium.Color.WHITE.withAlpha(0.05) }

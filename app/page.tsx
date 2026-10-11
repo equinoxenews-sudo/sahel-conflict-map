@@ -1,3 +1,4 @@
+import { preconnect, preload } from "react-dom";
 import { Suspense } from "react";
 import GlobeWithLayers from "@/components/equinoxe/GlobeWithLayers";
 import Header from "@/components/equinoxe/Header";
@@ -7,6 +8,7 @@ import HomeBody from "@/components/equinoxe/HomeBody";
 import HomeNewsColumn from "@/components/equinoxe/HomeNewsColumn";
 import Ticker from "@/components/equinoxe/Ticker";
 import ZonesGrid from "@/components/equinoxe/ZonesGrid";
+import { CESIUM_CDN_ORIGIN, CESIUM_SCRIPT_URL, CESIUM_STYLE_URL, TILES_ORIGIN } from "@/lib/cesiumCdn";
 import { computeCountryRiskFromEvents } from "@/lib/computeCountryRisk";
 import { fetchMilitaryAircraft } from "@/lib/layers/aircraft";
 import { fetchEarthquakes } from "@/lib/layers/earthquakes";
@@ -108,6 +110,13 @@ async function getVesselPositions(): Promise<VesselPosition[]> {
 }
 
 export default async function Home() {
+  // Le globe est la pièce la plus lourde de l'accueil : le navigateur peut commencer à récupérer
+  // son moteur et ses tuiles dès la réception du HTML, sans attendre le reste du site.
+  preconnect(CESIUM_CDN_ORIGIN);
+  preconnect(TILES_ORIGIN, { crossOrigin: "anonymous" });
+  preload(CESIUM_SCRIPT_URL, { as: "script" });
+  preload(CESIUM_STYLE_URL, { as: "style" });
+
   const [countryRisk, briefs, gdeltStatus, vessels, aircraft, satellites, earthquakes, naturalEvents, launches] =
     await Promise.all([
       computeCountryRiskFromEvents(),
