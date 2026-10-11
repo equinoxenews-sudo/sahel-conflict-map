@@ -94,3 +94,14 @@ test("Le titre est formaté en sujets séparés par « / », sans point final", 
  assert.equal(formatHeadline(String.fromCharCode(60) + 'cite index="2-6">Tension' + String.fromCharCode(60) + "/cite>."), "Tension");
  assert.ok(buildSynthesisPrompt("Afrique", [], "lundi", true).includes("séparés par « / »"));
 });
+
+test("headlineTopics : un sujet par ligne, première lettre en capitale", async () => {
+  const { headlineTopics } = await import("../lib/headline");
+  assert.deepEqual(headlineTopics("second tour brésilien / tensions malouines ; inondations au Chili."), [
+    "Second tour brésilien",
+    "Tensions malouines",
+    "Inondations au Chili",
+  ]);
+  assert.deepEqual(headlineTopics("Crise éthiopienne"), ["Crise éthiopienne"]);
+  assert.deepEqual(headlineTopics("Sao Paulo / Rio"), ["Sao Paulo", "Rio"]);
+});
