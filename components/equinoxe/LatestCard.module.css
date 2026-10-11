@@ -21,6 +21,11 @@
   }
 }
 
+/* Fiche de zone ouverte : elle occupe le bas de l'écran, la carte LATEST s'efface. */
+:global(html[data-zone-open="true"]) .card {
+  display: none;
+}
+
 .image {
   display: none;
 }

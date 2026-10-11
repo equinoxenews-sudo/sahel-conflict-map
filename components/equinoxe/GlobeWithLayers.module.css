@@ -151,88 +151,6 @@
   display: none;
 }
 
-/* Écran en hauteur plus large que 900 px (téléphone en « version ordinateur », tablette) :
-   Période et Niveau de risque côte à côte en tête, la liste des couches s'ouvre depuis une icône. */
-@media (min-width: 901px) and (max-aspect-ratio: 1/1) {
-  .rightToggle {
-    display: none;
-  }
-
-  .rightStack,
-  .rightStackCollapsed {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: auto;
-    width: auto;
-    display: grid;
-    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
-    align-items: stretch;
-    gap: 10px;
-    overflow: visible;
-    transform: none;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .stackSearch {
-    display: none;
-  }
-
-  /* Les deux panneaux ont la même hauteur : leurs bords inférieurs sont alignés. */
-  .stackPeriod,
-  .stackRisk {
-    display: flex;
-    min-width: 0;
-  }
-
-  .stackPeriod > *,
-  .stackRisk > * {
-    flex: 1 1 auto;
-    min-width: 0;
-  }
-
-  .compactLayersBtn {
-    grid-column: 2;
-    justify-self: end;
-    align-self: start;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    border: 1px solid var(--border-glass);
-    border-radius: 50%;
-    background: var(--bg-glass);
-    backdrop-filter: blur(6px);
-    color: var(--text-primary);
-    cursor: pointer;
-  }
-
-  .compactLayersBtnOn {
-    color: var(--accent-gold-bright);
-    border-color: var(--accent-gold);
-  }
-
-  .stackLayers {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    width: min(340px, 72%);
-    max-height: 56vh;
-    margin-top: 8px;
-    overflow-y: auto;
-    z-index: 6;
-  }
-
-  .stackLayersOpen {
-    display: block;
-  }
-}
-
 @media (max-width: 1100px) {
   .globeColumn {
     flex-basis: auto;
@@ -329,5 +247,107 @@
 
   .eventCountLabel {
     font-size: 11px;
+  }
+}
+
+/* Écran en hauteur : téléphone (version mobile ou « version ordinateur » du navigateur) et
+   tablette. Période et Niveau de risque côte à côte en tête, la liste des couches s'ouvre
+   depuis une icône. Placé en dernier : il remplace les boutons flottants de la version mobile. */
+@media (max-width: 900px), (min-width: 901px) and (max-aspect-ratio: 1/1) {
+  .rightToggle {
+    display: none;
+  }
+
+  .rightStack,
+  .rightStackCollapsed {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: auto;
+    width: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 10px;
+    overflow: visible;
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .stackSearch {
+    display: none;
+  }
+
+  /* Les deux panneaux ont la même hauteur : leurs bords inférieurs sont alignés. */
+  .stackPeriod,
+  .stackRisk {
+    display: flex;
+    min-width: 0;
+  }
+
+  .stackPeriod > *,
+  .stackRisk > * {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .compactLayersBtn {
+    grid-column: 2;
+    justify-self: end;
+    align-self: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--border-glass);
+    border-radius: 50%;
+    background: var(--bg-glass);
+    backdrop-filter: blur(6px);
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+
+  .compactLayersBtnOn {
+    color: var(--accent-gold-bright);
+    border-color: var(--accent-gold);
+  }
+
+  .stackLayers {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: min(340px, 72%);
+    max-height: 56vh;
+    margin-top: 8px;
+    overflow-y: auto;
+    z-index: 6;
+  }
+
+  .stackLayersOpen {
+    display: block;
+  }
+}
+
+@media (max-width: 900px) {
+  .mobileFabs {
+    display: none !important;
+  }
+
+  .rightStack,
+  .rightStackCollapsed {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    gap: 8px;
+  }
+
+  .stackLayers {
+    width: min(320px, 88%);
+    max-height: 52vh;
   }
 }

@@ -70,6 +70,14 @@ export default function GlobeWithLayers({
     setFocusedZoneState(zone);
   }
 
+  // Fiche de zone ouverte : signalé sur <html> pour les éléments extérieurs au globe (carte LATEST).
+  useEffect(() => {
+    if (!focusedZone) return;
+    const root = document.documentElement;
+    root.setAttribute("data-zone-open", "true");
+    return () => root.removeAttribute("data-zone-open");
+  }, [focusedZone]);
+
   useEffect(() => {
     const onFocus = (event: Event) => {
       const zone = (event as CustomEvent<{ zone?: string }>).detail?.zone;

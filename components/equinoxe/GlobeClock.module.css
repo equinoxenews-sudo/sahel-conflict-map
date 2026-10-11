@@ -21,18 +21,37 @@
   }
 }
 
-/* Écran en hauteur (téléphone en « version ordinateur ») : l'horloge quitte le bas, occupé par la fiche de zone. */
-@media (min-width: 901px) and (max-aspect-ratio: 1/1) {
+/* Écran en hauteur (téléphone, version mobile ou « version ordinateur ») : date et heure en bas
+   à droite ; masquées quand la fiche de zone occupe le bas de l'écran. */
+@media (max-width: 900px), (min-width: 901px) and (max-aspect-ratio: 1/1) {
   .clock {
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    padding: 8px 12px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--border-glass);
+    border-radius: 8px;
     top: auto;
     bottom: 16px;
     left: auto;
     right: 10px;
   }
 
-  /* Fiche de zone ouverte : elle occupe le bas de l'écran, l'horloge se met en retrait. */
   :global([data-zone-open="true"]) .clock {
     display: none;
+  }
+}
+
+/* Version mobile : la carte LATEST occupe le bas de l'écran, l'horloge se place au-dessus. */
+@media (max-width: 900px) {
+  .clock {
+    bottom: 96px;
+    right: 8px;
   }
 }
 

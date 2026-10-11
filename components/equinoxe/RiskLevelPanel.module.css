@@ -74,3 +74,23 @@
   font-size: 11px;
   color: var(--text-secondary);
 }
+
+/* Écran étroit : le panneau est à côté de « Période » ; seuls les niveaux restent. */
+@media (max-width: 600px) {
+  .panel {
+    padding: 12px;
+  }
+
+  .heading {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .description {
+    display: none;
+  }
+
+  .list {
+    gap: 8px;
+  }
+}
