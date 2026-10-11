@@ -19,8 +19,9 @@ const POSITIONS = {
   "--zone-panel-left": "16px",
   "--zone-panel-top": "16px",
   "--zone-panel-max-height": "calc(100% - 16px - 290px)",
-  "--zone-dock-left": "398px",
-  "--zone-dock-right": "432px",
+  // Le carrousel va du bord gauche du globe jusqu'à la colonne de droite (ou au bord si elle est repliée).
+  "--zone-dock-left": "16px",
+  "--zone-dock-right": "var(--right-offset, 432px)",
   "--zone-dock-bottom": "92px",
 } as CSSProperties;
 

@@ -4,8 +4,6 @@ const LEVELS = [
   { label: "Critique", description: "Conflit majeur / Situation très instable", color: "var(--status-critical)" },
   { label: "Danger", description: "Tension élevée / Risque d'escalade", color: "var(--status-danger)" },
   { label: "À surveiller", description: "Situation sensible", color: "var(--status-watch)" },
-  { label: "Normal", description: "Situation stable", color: "var(--status-normal)" },
-  { label: "Information", description: "Événement OSINT / Autre", color: "var(--status-info)" },
 ] as const;
 
 export default function RiskLevelPanel() {

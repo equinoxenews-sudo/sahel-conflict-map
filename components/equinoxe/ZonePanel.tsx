@@ -12,9 +12,6 @@ const SECTIONS = [
   { label: "Analyse", path: "analyse", hint: "Points de situation" },
 ];
 
-// Seule l'Europe a pour l'instant des fiches pays complètes : les autres zones n'en listent pas les pays.
-const COUNTRY_LINKS: ZoneSlug[] = ["europe"];
-
 interface ZonePanelProps {
   zone: ZoneSlug;
   briefs: ZoneBriefCard[];
@@ -44,21 +41,6 @@ export default function ZonePanel({ zone, briefs, onClose }: ZonePanelProps) {
 
       {/* Sur téléphone, les articles sont dans la fiche ; sur ordinateur, ils sont dans le bandeau du bas. */}
       <ZoneCarousel zone={zone} briefs={briefs} variant="inline" />
-
-      {COUNTRY_LINKS.includes(zone) ? (
-        <>
-          <h3 className={styles.subtitle}>Fiches pays</h3>
-          <ul className={styles.countries}>
-            {countries.map((country) => (
-              <li key={country.slug}>
-                <Link href={`/zones/${zone}/approche/pays/${country.slug}`} className={styles.country}>
-                  {country.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : null}
     </aside>
   );
 }

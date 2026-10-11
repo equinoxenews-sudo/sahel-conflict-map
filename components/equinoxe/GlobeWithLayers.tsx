@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import type { CountryRisk } from "@/lib/countryRisk";
 import type { MilitaryAircraft } from "@/lib/layers/aircraft";
 import type { Earthquake } from "@/lib/layers/earthquakes";
@@ -58,6 +58,8 @@ export default function GlobeWithLayers({
   const [dateRange, setDateRange] = useState<GlobeDateRange | null>(null);
   // Zone mise au centre du globe : choisie dans le menu du haut, sur le globe ou dans la fiche.
   const [focusedZone, setFocusedZoneState] = useState<ZoneSlug | null>(null);
+  // Colonne de droite repliée (ordinateur) : le globe prend toute la largeur.
+  const [rightCollapsed, setRightCollapsed] = useState(false);
   // Changer de zone referme la bulle ouverte : elle resterait accrochée à un point de l'écran
   // qui ne correspond plus à rien une fois le globe déplacé.
   function setFocusedZone(zone: ZoneSlug | null) {
@@ -116,7 +118,11 @@ export default function GlobeWithLayers({
 
   return (
     <>
-      <div className={styles.globeColumn} data-intro-stage>
+      <div
+        className={styles.globeColumn}
+        data-intro-stage
+        style={{ "--right-offset": rightCollapsed ? "16px" : "432px" } as CSSProperties}
+      >
         <div className={styles.mapArea}>
           <Globe3DLoader
             countryRisk={countryRisk}
@@ -159,10 +165,26 @@ export default function GlobeWithLayers({
         </div>
       </div>
 
-      <div className={styles.rightStack} data-intro-hide>
+      <button
+        type="button"
+        className={rightCollapsed ? `${styles.rightToggle} ${styles.rightToggleCollapsed}` : styles.rightToggle}
+        aria-label={rightCollapsed ? "Afficher la colonne de droite" : "Masquer la colonne de droite"}
+        aria-expanded={!rightCollapsed}
+        onClick={() => setRightCollapsed((value) => !value)}
+        data-intro-hide
+      >
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <path d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <div
+        className={rightCollapsed ? `${styles.rightStack} ${styles.rightStackCollapsed}` : styles.rightStack}
+        data-intro-hide
+      >
         <GlobeSearchBox />
-        <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
         <GlobeTimeRange onChange={setDateRange} />
+        <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
         <RiskLevelPanel />
       </div>
 

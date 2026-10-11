@@ -29,7 +29,18 @@
   transition: opacity 0.9s ease, visibility 0s linear 0.9s;
 }
 
+/* Voile sombre derrière le texte : sur la face éclairée, le blanc se perdait dans l'imagerie. */
+.overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 62vh;
+  background: linear-gradient(180deg, rgba(2, 5, 10, 0.82) 0%, rgba(2, 5, 10, 0.6) 42%, rgba(2, 5, 10, 0) 100%);
+  pointer-events: none;
+}
+
 .copy {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,7 +51,7 @@
   font-size: clamp(26px, 4.4vw, 60px);
   font-weight: 300;
   line-height: 1.16;
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.55);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7), 0 4px 28px rgba(0, 0, 0, 0.85);
 }
 
 .line {
@@ -57,8 +68,8 @@
   font-size: clamp(11px, 1.1vw, 15px);
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: rgba(191, 230, 255, 0.82);
-  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.6);
+  color: #dff3ff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85), 0 2px 16px rgba(0, 0, 0, 0.8);
   opacity: 0;
 }
 

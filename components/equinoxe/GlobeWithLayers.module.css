@@ -86,6 +86,59 @@
   }
 }
 
+/* Ordinateur : flèche pour replier / rouvrir la colonne de droite. */
+.rightToggle {
+  display: none;
+}
+
+@media (min-width: 901px) {
+  .rightStack {
+    transition: transform 0.35s ease, opacity 0.25s ease;
+  }
+
+  .rightStackCollapsed {
+    transform: translateX(calc(100% + 24px));
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .rightToggle {
+    position: absolute;
+    top: 22px;
+    right: 416px;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid var(--border-glass);
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(6px);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: right 0.35s ease, color 0.2s ease;
+  }
+
+  .rightToggle:hover,
+  .rightToggle:focus-visible {
+    color: var(--accent-gold-bright);
+    outline: none;
+  }
+
+  /* Colonne repliée : la languette reste au bord de l'écran, flèche retournée. */
+  .rightToggleCollapsed {
+    right: 0;
+  }
+
+  .rightToggleCollapsed svg {
+    transform: rotate(180deg);
+  }
+}
+
 @media (max-width: 1100px) {
   .globeColumn {
     flex-basis: auto;

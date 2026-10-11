@@ -8,6 +8,25 @@
    custom control cluster instead. Positioned clear of the floating news
    column on desktop (400px wide + 16px margin, see HomeNewsColumn); on
    mobile there's no such column, so it just hugs the corner. */
+/* Crédit Cesium (obligation de licence) : conservé, mais discret. */
+.globeContainer :global(.cesium-credit-logoContainer) img {
+  height: 12px !important;
+  width: auto !important;
+  opacity: 0.75;
+}
+
+.globeContainer :global(.cesium-credit-textContainer),
+.globeContainer :global(.cesium-credit-expand-link),
+.globeContainer :global(.cesium-credit-textContainer a) {
+  font-size: 9px !important;
+  line-height: 1.2 !important;
+}
+
+.globeContainer :global(.cesium-viewer-bottom) {
+  transform-origin: left bottom;
+  opacity: 0.85;
+}
+
 .controls {
   position: absolute;
   top: 16px;
