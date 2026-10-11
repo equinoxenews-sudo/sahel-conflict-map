@@ -9,6 +9,8 @@ export const INTRO_ATTR = "data-home-intro";
 export const INTRO_STORAGE_KEY = "equinoxe-home-intro-v1";
 
 export const INTRO_EVENTS = {
+  /** Moteur 3D chargé et globe créé : l'écran de chargement passe à l'étape suivante. */
+  engine: "equinoxe:globe-engine",
   /** Globe construit et tuiles visibles chargées : le vol peut commencer. */
   ready: "equinoxe:globe-ready",
   /** Lance le vol de la caméra. */

@@ -350,6 +350,10 @@ export default function Globe3D({
         showRenderLoopErrors: false,
       });
       viewerRef.current = viewer;
+      // Écran de chargement de l'accueil : le moteur est prêt, il reste les tuiles de la carte.
+      if (document.documentElement.getAttribute(INTRO_ATTR) === "loading") {
+        window.dispatchEvent(new Event(INTRO_EVENTS.engine));
+      }
 
       // By default, ANY render-loop error (e.g. one pathological polygon
       // out of ~180 countries throwing during async geometry building —
