@@ -50,6 +50,8 @@ export interface ExportOptions {
 }
 
 export const MASK_CLASS = "eq-export-mask";
+/** Posée sur le graphe pendant tout l'export : masque les commandes (boutons de repli…). */
+export const EXPORTING_CLASS = "eq-exporting";
 
 const COLORS = {
   dark: { background: "#070d17", text: "#f1f4f7", muted: "#8f9baa" },
@@ -116,6 +118,7 @@ export async function renderGraphPng(
   if (!viewport || nodeElements.length === 0)
     throw new Error("Rien à exporter : le graphe est vide.");
 
+  container.classList.add(EXPORTING_CLASS);
   if (options.maskContacts) container.classList.add(MASK_CLASS);
   try {
     // Laisse le navigateur recalculer la taille des cartes (coordonnées masquées).
@@ -226,5 +229,6 @@ export async function renderGraphPng(
     });
   } finally {
     container.classList.remove(MASK_CLASS);
+    container.classList.remove(EXPORTING_CLASS);
   }
 }

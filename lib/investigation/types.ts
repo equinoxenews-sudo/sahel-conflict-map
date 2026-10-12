@@ -95,6 +95,8 @@ export interface InvestigationEntity {
   pinned?: boolean;
   /** Coordonnées rattachées à la fiche (e-mail, téléphone, comptes, lieux…). */
   attributes?: EntityAttribute[];
+  /** Coordonnées repliées sur la carte du graphe (seule la carte principale reste visible). */
+  attributesCollapsed?: boolean;
 }
 
 export type AttributeKind = "email" | "phone" | "social" | "website" | "location" | "identifier";

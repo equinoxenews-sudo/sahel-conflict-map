@@ -65,6 +65,43 @@
   background: var(--bg-panel-alt);
 }
 
+/* Bouton de repli des coordonnées, en bas à droite de la carte. */
+.cardWithToggle {
+  position: relative;
+  padding-right: 58px;
+}
+
+.attrToggle {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 8px;
+  border: 1px solid var(--accent-gold);
+  border-radius: 999px;
+  background: rgba(200, 155, 60, 0.12);
+  color: var(--accent-gold-bright);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.attrToggle:hover {
+  background: rgba(200, 155, 60, 0.28);
+}
+
+.attrToggleArrow {
+  font-size: 10px;
+}
+
+/* Pas de bouton de repli sur l'image exportée. */
+:global(.eq-exporting) .attrToggle {
+  display: none;
+}
+
 .selected .card,
 .selected .avatar,
 .selected .attrBox {

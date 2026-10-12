@@ -15,7 +15,7 @@ import {
   type ReactFlowInstance,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ENTITY_TYPE_LABELS,
   RELATION_STATUS_LABELS,
@@ -58,7 +58,7 @@ import RelationEdge from "./RelationEdge";
 import MergeDialog from "./MergeDialog";
 import EntityForm, { type EntityFormValues } from "./EntityForm";
 import RelationForm, { type RelationFormValues } from "./RelationForm";
-import EntityNode, { countryOf, OpenAttributeContext, type EntityFlowNode } from "./EntityNode";
+import EntityNode, { countryOf, OpenAttributeContext, ToggleAttributesContext, type EntityFlowNode } from "./EntityNode";
 import HexFlag from "./HexFlag";
 import { useEntityImage } from "./useEntityImage";
 import styles from "./EntityGraphPanel.module.css";
@@ -502,6 +502,19 @@ export default function EntityGraphPanel({
     };
   }
 
+  // Replier / déplier les coordonnées d'une fiche, ou de toutes à la fois.
+  const toggleAttributes = useCallback(
+    (entityId: string, collapsed: boolean) => storage.updateEntity(entityId, { attributesCollapsed: collapsed }),
+    [storage],
+  );
+  const withAttributes = entities.filter((entity) => (entity.attributes?.length ?? 0) > 0);
+  const anyExpanded = withAttributes.some((entity) => entity.attributesCollapsed !== true);
+  function setAllAttributes(collapsed: boolean) {
+    for (const entity of withAttributes) {
+      if ((entity.attributesCollapsed === true) !== collapsed) toggleAttributes(entity.id, collapsed);
+    }
+  }
+
   function handleAddRelation(values: RelationFormValues) {
     storage.addRelation({ dossierId, ...relationFields(values) });
     setShowRelationForm(false);
@@ -534,6 +547,16 @@ export default function EntityGraphPanel({
             title="Fiches qui portent la même coordonnée (e-mail, téléphone, compte…)"
           >
             {showPivots ? "Masquer" : "Afficher"} les valeurs communes ({sharedValues.length})
+          </button>
+        ) : null}
+        {withAttributes.length > 0 ? (
+          <button
+            type="button"
+            className={styles.toolbarBtn}
+            onClick={() => setAllAttributes(anyExpanded)}
+            title="Masque ou affiche les coordonnées (sites web, e-mails, comptes…) sous toutes les fiches ; chaque fiche a aussi son propre bouton"
+          >
+            {anyExpanded ? "Replier les coordonnées" : "Déplier les coordonnées"}
           </button>
         ) : null}
         {entities.length > 1 ? (
@@ -653,6 +676,7 @@ export default function EntityGraphPanel({
         <div className={compact ? `${styles.body} ${styles.bodyCompact}` : styles.body}>
           <div ref={canvasRef} className={compact ? `${styles.canvasWrap} ${styles.canvasCompact}` : styles.canvasWrap}>
             <OpenAttributeContext.Provider value={onOpenAttribute}>
+            <ToggleAttributesContext.Provider value={toggleAttributes}>
             <ReactFlow
               nodes={nodes}
               edges={edges}
@@ -688,6 +712,7 @@ export default function EntityGraphPanel({
                 </span>
               </Panel>
             </ReactFlow>
+            </ToggleAttributesContext.Provider>
             </OpenAttributeContext.Provider>
           </div>
 

@@ -20,6 +20,8 @@ export type EntityNodeData = {
 /** Ouvre la page d'une coordonnée ; absent = pas de bouton « ↗ » sur les cartes. Passé par un
  * contexte plutôt que par les données des cartes, pour ne pas les reconstruire à chaque rendu. */
 export const OpenAttributeContext = createContext<((entityId: string, attributeId: string) => void) | undefined>(undefined);
+/** Replie ou déplie les coordonnées d'une fiche. Absent = pas de bouton de repli sur les cartes. */
+export const ToggleAttributesContext = createContext<((entityId: string, collapsed: boolean) => void) | undefined>(undefined);
 export type EntityFlowNode = Node<EntityNodeData, "entityCard">;
 
 /** Pays d'une fiche : son nom français et le libellé à afficher à côté du drapeau. */
@@ -101,9 +103,13 @@ function AttributeValue({
 export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>) {
   const { entity, sharedWith } = data;
   const onOpenAttribute = useContext(OpenAttributeContext);
+  const onToggleAttributes = useContext(ToggleAttributesContext);
   const image = useEntityImage(entity.imageId, entity.imageUrl);
   const country = countryOf(entity);
   const groups = groupAttributes(entity.attributes ?? []);
+  const attributeCount = entity.attributes?.length ?? 0;
+  const collapsed = entity.attributesCollapsed === true && attributeCount > 0;
+  const canToggle = attributeCount > 0 && onToggleAttributes !== undefined;
 
   return (
     <div className={selected ? `${styles.node} ${styles.selected}` : styles.node}>
@@ -120,7 +126,7 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
           )}
         </div>
 
-        <div className={styles.card}>
+        <div className={canToggle ? `${styles.card} ${styles.cardWithToggle}` : styles.card}>
           <span className={styles.type}>
             {ENTITY_TYPE_LABELS[entity.type].toUpperCase()}
             {entity.pinned ? (
@@ -138,10 +144,27 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
               <HexFlag iso2={country.iso2} name={country.name} />
             </span>
           ) : null}
+          {canToggle ? (
+            <button
+              type="button"
+              className={`${styles.attrToggle} nodrag`}
+              aria-expanded={!collapsed}
+              title={collapsed ? `Afficher les coordonnées (${attributeCount})` : "Masquer les coordonnées"}
+              onClick={(event) => {
+                event.stopPropagation();
+                onToggleAttributes(entity.id, !collapsed);
+              }}
+            >
+              <span className={styles.attrToggleArrow} aria-hidden="true">
+                {collapsed ? "▸" : "▾"}
+              </span>
+              {attributeCount}
+            </button>
+          ) : null}
         </div>
       </div>
 
-      {groups.length > 0 ? (
+      {groups.length > 0 && !collapsed ? (
         <div className={styles.attrs}>
           {groups.map((group) => {
             const allSupposed = group.items.every((item) => item.status === "hypothesis");
