@@ -14,6 +14,8 @@ interface RelationsSectionProps {
   sources: Source[];
   onOpenEntityFiche: (entityId: string) => void;
   onShowInGraph: (entityId: string) => void;
+  /** Fiche fermée (cadenas) : les relations se lisent mais ne se modifient plus. */
+  readOnly?: boolean;
 }
 
 function toStored(values: RelationFormValues) {
@@ -25,6 +27,7 @@ function toStored(values: RelationFormValues) {
     status: values.status,
     confidence: values.confidence,
     justifyingSourceId: values.justifyingSourceId,
+    labelInverse: values.labelInverse || undefined,
     period: values.period || undefined,
   };
 }
@@ -38,6 +41,7 @@ export default function RelationsSection({
   sources,
   onOpenEntityFiche,
   onShowInGraph,
+  readOnly = false,
 }: RelationsSectionProps) {
   const storage = useInvestigationStorage();
   const [adding, setAdding] = useState(false);
@@ -49,9 +53,11 @@ export default function RelationsSection({
     <div className={styles.relations}>
       <div className={styles.relationsHeader}>
         <span className={styles.backTitle}>Relations ({mine.length})</span>
-        <button type="button" className={styles.ghost} onClick={() => setAdding((value) => !value)}>
-          {adding ? "Fermer" : "+ Ajouter une relation"}
-        </button>
+        {readOnly ? null : (
+          <button type="button" className={styles.ghost} onClick={() => setAdding((value) => !value)}>
+            {adding ? "Fermer" : "+ Ajouter une relation"}
+          </button>
+        )}
       </div>
 
       {adding ? (

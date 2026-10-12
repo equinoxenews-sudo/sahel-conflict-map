@@ -65,6 +65,37 @@
   background: var(--bg-panel-alt);
 }
 
+/* Cadenas en haut à droite de la carte : ouvert (modification) ou fermé (enregistrée). */
+.lockBtn {
+  position: absolute;
+  top: 7px;
+  right: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.lockBtn:hover {
+  color: var(--accent-gold-bright);
+  border-color: var(--accent-gold);
+}
+
+.lockBtnOn {
+  color: var(--accent-gold-bright);
+}
+
+:global(.eq-exporting) .lockBtn {
+  display: none;
+}
+
 /* Bouton de repli des coordonnées, en bas à droite de la carte. */
 .cardWithToggle {
   position: relative;

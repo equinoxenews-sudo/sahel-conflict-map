@@ -25,6 +25,7 @@ import EntityTypeIcon from "./EntityTypeIcon";
 import HexFlag from "./HexFlag";
 import NoteRenderer from "./NoteRenderer";
 import RelationsSection from "./RelationsSection";
+import LockIcon from "./LockIcon";
 import { useEntityImage } from "./useEntityImage";
 import styles from "./NotesWorkspace.module.css";
 
@@ -57,11 +58,13 @@ function FicheHeader({
   onShowInGraph,
   onEdit,
   onOpenAttribute,
+  readOnly = false,
 }: {
   entity: InvestigationEntity;
   onShowInGraph: () => void;
   onEdit: () => void;
   onOpenAttribute: (attributeId: string) => void;
+  readOnly?: boolean;
 }) {
   const image = useEntityImage(entity.imageId, entity.imageUrl);
   const country = countryOf(entity);
@@ -92,9 +95,11 @@ function FicheHeader({
           <button type="button" className={styles.gold} onClick={onShowInGraph}>
             Voir dans le graphe
           </button>
-          <button type="button" className={styles.ghost} onClick={onEdit}>
-            Modifier les infos
-          </button>
+          {readOnly ? null : (
+            <button type="button" className={styles.ghost} onClick={onEdit}>
+              Modifier les infos
+            </button>
+          )}
         </div>
       </div>
       {groups.length > 0 ? (
@@ -184,7 +189,7 @@ function AttributePageHeader({
 }
 
 // Vignette d'une image du texte, avec son bouton de suppression.
-function GalleryThumb({ id, onRemove }: { id: string; onRemove: () => void }) {
+function GalleryThumb({ id, onRemove }: { id: string; onRemove?: () => void }) {
   const url = useEntityImage(id);
   return (
     <span className={styles.thumb}>
@@ -194,9 +199,11 @@ function GalleryThumb({ id, onRemove }: { id: string; onRemove: () => void }) {
       ) : (
         <span className={styles.thumbMissing}>?</span>
       )}
-      <button type="button" className={styles.thumbRemove} onClick={onRemove} title="Retirer cette image de la note" aria-label="Retirer cette image">
-        ×
-      </button>
+      {onRemove ? (
+        <button type="button" className={styles.thumbRemove} onClick={onRemove} title="Retirer cette image de la note" aria-label="Retirer cette image">
+          ×
+        </button>
+      ) : null}
     </span>
   );
 }
@@ -225,7 +232,11 @@ export default function NoteEditor({
   const [editedTitle, setEditedTitle] = useState<string | null>(null);
   const title = editedTitle ?? note.title;
   const [body, setBody] = useState(note.body);
-  const [mode, setMode] = useState<"edit" | "read">(note.body.trim() ? "read" : "edit");
+  const [chosenMode, setMode] = useState<"edit" | "read">(note.body.trim() ? "read" : "edit");
+  // Cadenas : celui de l'entité pour une fiche du graphe (le même que sur sa carte), sinon celui de la note.
+  const locked = entity ? entity.locked === true : note.locked === true;
+  // Fiche fermée : toujours en lecture.
+  const mode: "edit" | "read" = locked ? "read" : chosenMode;
   const [editingEntity, setEditingEntity] = useState(false);
   const [suggest, setSuggest] = useState<{ query: string; start: number } | null>(null);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
@@ -347,6 +358,19 @@ export default function NoteEditor({
     }
   }
 
+  function toggleLock() {
+    const next = !locked;
+    // Fermer le cadenas enregistre d'abord le texte en cours.
+    if (next && body !== note.body) storage.updateNote(note.id, { body });
+    if (next && editedTitle !== null) commitTitle();
+    if (entity) storage.updateEntity(entity.id, { locked: next });
+    else storage.updateNote(note.id, { locked: next });
+    if (next) {
+      setSuggest(null);
+      setEditingEntity(false);
+    }
+  }
+
   function commitTitle() {
     if (editedTitle === null) return;
     renameNote(storage, notes, note, editedTitle);
@@ -370,9 +394,24 @@ export default function NoteEditor({
           onBlur={commitTitle}
           onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()}
           aria-label="Titre de la note"
+          readOnly={locked}
         />
+        <button
+          type="button"
+          className={locked ? `${styles.lockBtn} ${styles.lockBtnOn}` : styles.lockBtn}
+          aria-pressed={locked}
+          title={
+            locked
+              ? "Fiche fermée et enregistrée : cliquer pour la rouvrir et la modifier"
+              : "Fiche ouverte (modification en cours) : cliquer pour la fermer et l'enregistrer"
+          }
+          onClick={toggleLock}
+        >
+          <LockIcon locked={locked} size={16} />
+          <span>{locked ? "Fermée" : "Ouverte"}</span>
+        </button>
         <div className={styles.modeToggle} role="group" aria-label="Mode d'affichage">
-          <button type="button" className={mode === "edit" ? styles.modeOn : styles.mode} onClick={() => setMode("edit")}>
+          <button type="button" className={mode === "edit" ? styles.modeOn : styles.mode} onClick={() => setMode("edit")} disabled={locked}>
             Édition
           </button>
           <button type="button" className={mode === "read" ? styles.modeOn : styles.mode} onClick={() => setMode("read")}>
@@ -382,7 +421,7 @@ export default function NoteEditor({
       </div>
 
       {entity ? (
-        editingEntity ? (
+        editingEntity && !locked ? (
           <div className={styles.ficheForm}>
             <EntityForm
               key={entity.id}
@@ -403,6 +442,7 @@ export default function NoteEditor({
             entity={entity}
             onShowInGraph={() => onShowInGraph(entity.id)}
             onEdit={() => setEditingEntity(true)}
+            readOnly={locked}
             onOpenAttribute={(attributeId) => onOpenAttribute(entity.id, attributeId)}
           />
         )
@@ -424,6 +464,7 @@ export default function NoteEditor({
         />
       ) : null}
 
+      {locked ? null : (
       <div className={styles.imageBar}>
         <button type="button" className={styles.ghost} onClick={() => fileInput.current?.click()} disabled={importing}>
           {importing ? "Import…" : "+ Ajouter une image"}
@@ -442,6 +483,7 @@ export default function NoteEditor({
           }}
         />
       </div>
+      )}
       {imageError ? <p className={styles.imageError}>{imageError}</p> : null}
 
       <div
@@ -512,6 +554,7 @@ export default function NoteEditor({
           sources={sources}
           onOpenEntityFiche={onOpenEntityFiche}
           onShowInGraph={onShowInGraph}
+          readOnly={locked}
         />
       ) : null}
 
@@ -520,7 +563,7 @@ export default function NoteEditor({
           <span className={styles.backTitle}>Images de cette note ({extractImageIds(body).length})</span>
           <div className={styles.thumbs}>
             {extractImageIds(body).map((id) => (
-              <GalleryThumb key={id} id={id} onRemove={() => removeImage(id)} />
+              <GalleryThumb key={id} id={id} onRemove={locked ? undefined : () => removeImage(id)} />
             ))}
           </div>
         </div>
@@ -580,6 +623,8 @@ export default function NoteEditor({
         <button
           type="button"
           className={styles.danger}
+          disabled={locked}
+          title={locked ? "Rouvre le cadenas pour supprimer cette fiche" : undefined}
           onClick={() => {
             const warning = entity
               ? `Supprimer la fiche texte « ${note.title} » ? La carte du graphe est conservée.`

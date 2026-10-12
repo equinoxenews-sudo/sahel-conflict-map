@@ -97,6 +97,8 @@ export interface InvestigationEntity {
   attributes?: EntityAttribute[];
   /** Coordonnées repliées sur la carte du graphe (seule la carte principale reste visible). */
   attributesCollapsed?: boolean;
+  /** Cadenas fermé : la fiche est enregistrée et protégée (ni déplacée, ni modifiée, ni supprimée). */
+  locked?: boolean;
 }
 
 export type AttributeKind = "email" | "phone" | "social" | "website" | "location" | "identifier";
@@ -158,6 +160,8 @@ export interface Relation {
   justifyingSourceId: string | null;
   /** Type du catalogue (lib/investigation/relationTypes.ts) ; absent = libellé libre. */
   typeKey?: string;
+  /** Le trait du graphe affiche la lecture inverse du type (« est dirigé par » au lieu de « dirige »). */
+  labelInverse?: boolean;
   /** Période de validité en texte libre (« depuis 2021 », « jusqu'en mars 2025 »). */
   period?: string;
   /** 0-100 — a manual confidence estimate, not a computed score. */
@@ -177,6 +181,8 @@ export interface Note {
   entityId?: string;
   /** Page d'une coordonnée (téléphone, compte, e-mail…) d'une entité : une page par coordonnée. */
   attributeRef?: { entityId: string; attributeId: string };
+  /** Cadenas fermé : la note est enregistrée et protégée contre les modifications. */
+  locked?: boolean;
   createdAt: string;
   updatedAt: string;
 }

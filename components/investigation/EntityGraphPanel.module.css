@@ -126,6 +126,13 @@
   color: var(--text-primary);
 }
 
+.lockedNote {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
 .deleteBtn {
   background: transparent;
   border: 1px solid var(--border-glass);

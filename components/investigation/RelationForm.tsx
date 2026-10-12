@@ -10,7 +10,9 @@ import {
   type RelationFamily,
 } from "@/lib/investigation/relationTypes";
 import {
+  ENTITY_TYPE_LABELS,
   RELATION_STATUS_LABELS,
+  type EntityType,
   type InvestigationEntity,
   type Relation,
   type RelationStatus,
@@ -27,6 +29,8 @@ export interface RelationFormValues {
   status: RelationStatus;
   confidence: number;
   justifyingSourceId: string | null;
+  /** Le trait du graphe affiche la lecture inverse du type. */
+  labelInverse: boolean;
   period: string;
 }
 
@@ -70,6 +74,7 @@ export default function RelationForm({
   const [confidence, setConfidence] = useState(initial?.confidence ?? 50);
   const [justifyingSourceId, setJustifyingSourceId] = useState(initial?.justifyingSourceId ?? "");
   const [period, setPeriod] = useState(initial?.period ?? "");
+  const [labelInverse, setLabelInverse] = useState(initial?.labelInverse === true);
 
   const type = getRelationType(typeKey);
   const sourceName = entities.find((e) => e.id === sourceEntityId)?.name;
@@ -88,15 +93,30 @@ export default function RelationForm({
       status,
       confidence,
       justifyingSourceId: justifyingSourceId || null,
+      labelInverse: !custom && type !== null && !type.symmetric && labelInverse,
       period: period.trim(),
     });
   }
 
-  const entityOptions = entities.map((entity) => (
-    <option key={entity.id} value={entity.id}>
-      {entity.name}
-    </option>
+  // Entités classées par type (Personnes, Organisations…), puis par ordre alphabétique dans chaque type.
+  const entityGroups = (Object.keys(ENTITY_TYPE_LABELS) as EntityType[])
+    .map((entityType) => ({
+      type: entityType,
+      items: entities
+        .filter((entity) => entity.type === entityType)
+        .sort((a, b) => a.name.localeCompare(b.name, "fr", { sensitivity: "base" })),
+    }))
+    .filter((group) => group.items.length > 0);
+  const entityOptions = entityGroups.map((group) => (
+    <optgroup key={group.type} label={`${ENTITY_TYPE_LABELS[group.type]} (${group.items.length})`}>
+      {group.items.map((entity) => (
+        <option key={entity.id} value={entity.id}>
+          {entity.name}
+        </option>
+      ))}
+    </optgroup>
   ));
+  const sortedSources = [...sources].sort((a, b) => a.title.localeCompare(b.title, "fr", { sensitivity: "base" }));
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
@@ -153,17 +173,31 @@ export default function RelationForm({
       ) : null}
 
       {sourceName && targetName ? (
-        <p className={styles.preview}>
-          <strong>{sourceName}</strong> {custom ? label || "…" : type?.label} <strong>{targetName}</strong>
-          {!custom && type && !type.symmetric ? (
-            <>
-              <br />
-              <span className={styles.previewSecond}>
+        !custom && type && !type.symmetric ? (
+          <fieldset className={styles.reading}>
+            <legend className={styles.label}>Lecture affichée sur le graphe</legend>
+            <label className={styles.readingOption}>
+              <input type="radio" name="reading" checked={!labelInverse} onChange={() => setLabelInverse(false)} />
+              <span>
+                <strong>{sourceName}</strong> {type.label} <strong>{targetName}</strong>
+              </span>
+            </label>
+            <label className={styles.readingOption}>
+              <input type="radio" name="reading" checked={labelInverse} onChange={() => setLabelInverse(true)} />
+              <span>
                 <strong>{targetName}</strong> {type.inverse} <strong>{sourceName}</strong>
               </span>
-            </>
-          ) : null}
-        </p>
+            </label>
+            <span className={styles.readingHint}>
+              Les deux phrases disent la même chose ; le trait du graphe affiche « {labelInverse ? type.inverse : type.label} ».
+              Les deux lectures restent visibles dans les fiches.
+            </span>
+          </fieldset>
+        ) : (
+          <p className={styles.preview}>
+            <strong>{sourceName}</strong> {custom ? label || "…" : type?.label} <strong>{targetName}</strong>
+          </p>
+        )
       ) : null}
 
       <div className={styles.row}>
@@ -192,7 +226,7 @@ export default function RelationForm({
         <span className={styles.label}>Source justificative</span>
         <select className={styles.control} value={justifyingSourceId} onChange={(e) => setJustifyingSourceId(e.target.value)}>
           <option value="">Aucune</option>
-          {sources.map((source) => (
+          {sortedSources.map((source) => (
             <option key={source.id} value={source.id}>
               {source.title}
             </option>

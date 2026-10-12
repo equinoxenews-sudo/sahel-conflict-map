@@ -8,6 +8,7 @@ import { ENTITY_TYPE_LABELS, type EntityAttribute, type InvestigationEntity } fr
 import AttributeIcon from "./AttributeIcon";
 import EntityTypeIcon from "./EntityTypeIcon";
 import HexFlag from "./HexFlag";
+import LockIcon from "./LockIcon";
 import { useEntityImage } from "./useEntityImage";
 import styles from "./EntityNode.module.css";
 
@@ -22,6 +23,8 @@ export type EntityNodeData = {
 export const OpenAttributeContext = createContext<((entityId: string, attributeId: string) => void) | undefined>(undefined);
 /** Replie ou déplie les coordonnées d'une fiche. Absent = pas de bouton de repli sur les cartes. */
 export const ToggleAttributesContext = createContext<((entityId: string, collapsed: boolean) => void) | undefined>(undefined);
+/** Ferme ou ouvre le cadenas d'une fiche. Absent = pas de cadenas sur les cartes. */
+export const ToggleLockContext = createContext<((entityId: string, locked: boolean) => void) | undefined>(undefined);
 export type EntityFlowNode = Node<EntityNodeData, "entityCard">;
 
 /** Pays d'une fiche : son nom français et le libellé à afficher à côté du drapeau. */
@@ -104,6 +107,8 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
   const { entity, sharedWith } = data;
   const onOpenAttribute = useContext(OpenAttributeContext);
   const onToggleAttributes = useContext(ToggleAttributesContext);
+  const onToggleLock = useContext(ToggleLockContext);
+  const locked = entity.locked === true;
   const image = useEntityImage(entity.imageId, entity.imageUrl);
   const country = countryOf(entity);
   const groups = groupAttributes(entity.attributes ?? []);
@@ -136,6 +141,24 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
               </span>
             ) : null}
           </span>
+          {onToggleLock ? (
+            <button
+              type="button"
+              className={`${styles.lockBtn} ${locked ? styles.lockBtnOn : ""} nodrag`}
+              aria-pressed={locked}
+              title={
+                locked
+                  ? "Fiche fermée et enregistrée : cliquer pour la rouvrir et la modifier"
+                  : "Fiche ouverte : cliquer pour la fermer (elle est alors protégée et ne peut plus être déplacée ni modifiée)"
+              }
+              onClick={(event) => {
+                event.stopPropagation();
+                onToggleLock(entity.id, !locked);
+              }}
+            >
+              <LockIcon locked={locked} />
+            </button>
+          ) : null}
           <span className={styles.name}>{entity.name}</span>
           {entity.role ? <span className={styles.role}>{entity.role}</span> : null}
           {country ? (

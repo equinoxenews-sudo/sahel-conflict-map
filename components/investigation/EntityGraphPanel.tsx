@@ -58,7 +58,14 @@ import RelationEdge from "./RelationEdge";
 import MergeDialog from "./MergeDialog";
 import EntityForm, { type EntityFormValues } from "./EntityForm";
 import RelationForm, { type RelationFormValues } from "./RelationForm";
-import EntityNode, { countryOf, OpenAttributeContext, ToggleAttributesContext, type EntityFlowNode } from "./EntityNode";
+import EntityNode, {
+  countryOf,
+  OpenAttributeContext,
+  ToggleAttributesContext,
+  ToggleLockContext,
+  type EntityFlowNode,
+} from "./EntityNode";
+import LockIcon from "./LockIcon";
 import HexFlag from "./HexFlag";
 import { useEntityImage } from "./useEntityImage";
 import styles from "./EntityGraphPanel.module.css";
@@ -103,6 +110,8 @@ function entitiesToNodes(entities: InvestigationEntity[], shared: SharedValue[])
     id: entity.id,
     type: "entityCard" as const,
     position: entity.position,
+    // Cadenas fermé : la carte ne se déplace plus.
+    draggable: entity.locked !== true,
     data: { entity, sharedWith: sharedWith.get(entity.id) ?? {} },
   }));
 }
@@ -168,6 +177,7 @@ function EntityDetails({
   sharedValues,
   hasFiche,
   onTogglePin,
+  onToggleLock,
   mergeCandidates,
   onMergeWith,
   onOpenFiche,
@@ -177,6 +187,7 @@ function EntityDetails({
 }: {
   hasFiche: boolean;
   onTogglePin: () => void;
+  onToggleLock: () => void;
   mergeCandidates: InvestigationEntity[];
   onMergeWith: (otherId: string) => void;
   onOpenAttribute?: (attributeId: string) => void;
@@ -272,6 +283,16 @@ function EntityDetails({
           {hasFiche ? "Ouvrir la fiche" : "Créer la fiche"}
         </button>
       ) : null}
+      <button type="button" className={styles.editBtn} onClick={onToggleLock}>
+        <LockIcon locked={entity.locked === true} />{" "}
+        {entity.locked ? "Fiche fermée — rouvrir pour modifier" : "Fiche ouverte — fermer et enregistrer"}
+      </button>
+      {entity.locked ? (
+        <p className={styles.lockedNote}>
+          Fiche fermée : elle ne peut plus être déplacée, modifiée, fusionnée ni supprimée tant que le cadenas est fermé.
+        </p>
+      ) : (
+        <>
       <button type="button" className={styles.editBtn} onClick={onEdit}>
         Modifier les infos
       </button>
@@ -296,6 +317,8 @@ function EntityDetails({
       <button type="button" className={styles.deleteBtn} onClick={onDelete}>
         Supprimer l&apos;entité
       </button>
+        </>
+      )}
     </>
   );
 }
@@ -431,7 +454,7 @@ export default function EntityGraphPanel({
       y: entity.position.y,
       width: measured.get(entity.id)?.width ?? 340,
       height: measured.get(entity.id)?.height ?? 120,
-      pinned: entity.pinned,
+      pinned: entity.pinned || entity.locked,
     }));
     const hierarchy = relations.flatMap((relation) => {
       if (isDuplicateRelation(relation)) return [];
@@ -494,6 +517,7 @@ export default function EntityGraphPanel({
       targetEntityId: values.targetEntityId,
       // Le libellé suit le type du catalogue ; « Autre » garde le texte libre.
       typeKey: values.typeKey === "custom" ? undefined : values.typeKey,
+      labelInverse: values.labelInverse || undefined,
       label: values.label,
       status: values.status,
       confidence: values.confidence,
@@ -505,6 +529,10 @@ export default function EntityGraphPanel({
   // Replier / déplier les coordonnées d'une fiche, ou de toutes à la fois.
   const toggleAttributes = useCallback(
     (entityId: string, collapsed: boolean) => storage.updateEntity(entityId, { attributesCollapsed: collapsed }),
+    [storage],
+  );
+  const toggleLock = useCallback(
+    (entityId: string, locked: boolean) => storage.updateEntity(entityId, { locked }),
     [storage],
   );
   const withAttributes = entities.filter((entity) => (entity.attributes?.length ?? 0) > 0);
@@ -677,6 +705,7 @@ export default function EntityGraphPanel({
           <div ref={canvasRef} className={compact ? `${styles.canvasWrap} ${styles.canvasCompact}` : styles.canvasWrap}>
             <OpenAttributeContext.Provider value={onOpenAttribute}>
             <ToggleAttributesContext.Provider value={toggleAttributes}>
+            <ToggleLockContext.Provider value={toggleLock}>
             <ReactFlow
               nodes={nodes}
               edges={edges}
@@ -712,6 +741,7 @@ export default function EntityGraphPanel({
                 </span>
               </Panel>
             </ReactFlow>
+            </ToggleLockContext.Provider>
             </ToggleAttributesContext.Provider>
             </OpenAttributeContext.Provider>
           </div>
@@ -735,6 +765,7 @@ export default function EntityGraphPanel({
                   entities={entities}
                   hasFiche={ficheEntityIds.has(selectedEntity.id)}
                   onTogglePin={() => storage.updateEntity(selectedEntity.id, { pinned: !selectedEntity.pinned })}
+                  onToggleLock={() => storage.updateEntity(selectedEntity.id, { locked: selectedEntity.locked !== true })}
                   mergeCandidates={entities.filter((e) => e.id !== selectedEntity.id)}
                   onMergeWith={(otherId) => setMerging({ primaryId: selectedEntity.id, secondaryId: otherId })}
                   onOpenAttribute={onOpenAttribute ? (attributeId) => onOpenAttribute(selectedEntity.id, attributeId) : undefined}

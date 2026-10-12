@@ -96,10 +96,12 @@ export function resolveRelationType(relation: Pick<Relation, "typeKey" | "label"
   return null;
 }
 
-/** Libellé affiché sur le trait du graphe (lecture de la source vers la cible). */
-export function edgeLabel(relation: Pick<Relation, "typeKey" | "label">): string {
+/** Libellé affiché sur le trait du graphe : la lecture de la source vers la cible, ou la lecture
+ * inverse (« est dirigé par ») si elle a été choisie à la création de la relation. */
+export function edgeLabel(relation: Pick<Relation, "typeKey" | "label" | "labelInverse">): string {
   const known = getRelationType(relation.typeKey);
-  return known ? known.label : relation.label;
+  if (!known) return relation.label;
+  return relation.labelInverse && !known.symmetric ? known.inverse : known.label;
 }
 
 export interface RelationPhrase {
