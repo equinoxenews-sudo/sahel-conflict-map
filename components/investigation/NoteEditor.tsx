@@ -232,11 +232,10 @@ export default function NoteEditor({
   const [editedTitle, setEditedTitle] = useState<string | null>(null);
   const title = editedTitle ?? note.title;
   const [body, setBody] = useState(note.body);
-  const [chosenMode, setMode] = useState<"edit" | "read">(note.body.trim() ? "read" : "edit");
   // Cadenas : celui de l'entité pour une fiche du graphe (le même que sur sa carte), sinon celui de la note.
   const locked = entity ? entity.locked === true : note.locked === true;
-  // Fiche fermée : toujours en lecture.
-  const mode: "edit" | "read" = locked ? "read" : chosenMode;
+  // Cadenas ouvert = édition (texte, modification, suppression) ; fermé = lecture seule.
+  const mode: "edit" | "read" = locked ? "read" : "edit";
   const [editingEntity, setEditingEntity] = useState(false);
   const [suggest, setSuggest] = useState<{ query: string; start: number } | null>(null);
   const [activeSuggestion, setActiveSuggestion] = useState(0);
@@ -402,22 +401,14 @@ export default function NoteEditor({
           aria-pressed={locked}
           title={
             locked
-              ? "Fiche fermée et enregistrée : cliquer pour la rouvrir et la modifier"
-              : "Fiche ouverte (modification en cours) : cliquer pour la fermer et l'enregistrer"
+              ? "Fermée (lecture seule) : cliquer pour rouvrir et modifier"
+              : "Ouverte (modification) : cliquer pour fermer et passer en lecture"
           }
           onClick={toggleLock}
         >
           <LockIcon locked={locked} size={16} />
           <span>{locked ? "Fermée" : "Ouverte"}</span>
         </button>
-        <div className={styles.modeToggle} role="group" aria-label="Mode d'affichage">
-          <button type="button" className={mode === "edit" ? styles.modeOn : styles.mode} onClick={() => setMode("edit")} disabled={locked}>
-            Édition
-          </button>
-          <button type="button" className={mode === "read" ? styles.modeOn : styles.mode} onClick={() => setMode("read")}>
-            Lecture
-          </button>
-        </div>
       </div>
 
       {entity ? (

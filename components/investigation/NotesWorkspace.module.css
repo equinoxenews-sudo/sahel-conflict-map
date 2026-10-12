@@ -350,31 +350,6 @@
   color: var(--accent-gold-bright);
 }
 
-.modeToggle {
-  display: flex;
-  flex: 0 0 auto;
-  border: 1px solid var(--border-glass);
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.mode,
-.modeOn {
-  padding: 6px 12px;
-  border: none;
-  background: transparent;
-  color: var(--text-secondary);
-  font: inherit;
-  font-size: 12.5px;
-  cursor: pointer;
-}
-
-.modeOn {
-  background: rgba(200, 155, 60, 0.18);
-  color: var(--accent-gold-bright);
-  font-weight: 700;
-}
-
 .bodyArea {
   flex: 1;
   min-height: 260px;
