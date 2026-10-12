@@ -129,12 +129,24 @@ export async function commitCloudUpload(input: CommitInput): Promise<CloudDossie
     .single();
   if (upsertError) throw new Error(upsertError.message);
 
-  // Nettoyage : les versions précédentes et les envois abandonnés de ce dossier.
-  await admin
+  // Nettoyage : on garde la version qui vient d'être validée ET la précédente (filet de sécurité
+  // contre un envoi par erreur) ; les versions plus anciennes et les envois abandonnés sont retirés.
+  const { data: versions } = await admin
+    .from("investigation_cloud_chunks")
+    .select("upload_id, created_at")
+    .eq("dossier_id", input.dossierId)
+    .eq("seq", 0);
+  const ranked = ((versions ?? []) as { upload_id: string; created_at: string }[])
+    .filter((row) => row.upload_id !== input.uploadId)
+    .sort((a, b) => b.created_at.localeCompare(a.created_at));
+  const keepPrevious = ranked[0]?.upload_id;
+  let cleanup = admin
     .from("investigation_cloud_chunks")
     .delete()
     .eq("dossier_id", input.dossierId)
     .neq("upload_id", input.uploadId);
+  if (keepPrevious) cleanup = cleanup.neq("upload_id", keepPrevious);
+  await cleanup;
   return toMeta(saved as MetaRow);
 }
 

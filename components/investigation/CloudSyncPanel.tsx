@@ -106,6 +106,14 @@ export default function CloudSyncPanel() {
 
   async function handlePush(row: Row) {
     if (!row.local) return;
+    const localContent = row.local.entities + row.local.notes;
+    const remoteContent = row.remote ? row.remote.entityCount + row.remote.noteCount : 0;
+    if (localContent === 0 && remoteContent > 0) {
+      window.alert(
+        `Envoi annulé : « ${row.name} » est vide sur cet appareil alors que la copie en ligne contient ${row.remote?.entityCount} fiche(s) et ${row.remote?.noteCount} note(s). L'envoyer l'effacerait. Récupère d'abord la copie en ligne.`,
+      );
+      return;
+    }
     if (row.remote && !window.confirm(`Remplacer la copie en ligne de « ${row.name} » par la version de cet appareil ?`)) return;
     setMessage(null);
     setBusy({ id: row.id, label: "Envoi…" });
@@ -124,6 +132,13 @@ export default function CloudSyncPanel() {
 
   async function handlePull(row: Row) {
     if (!row.remote) return;
+    const localContent = row.local ? row.local.entities + row.local.notes : 0;
+    if (row.local && localContent > 0 && row.remote.entityCount + row.remote.noteCount === 0) {
+      window.alert(
+        `Récupération annulée : la copie en ligne de « ${row.name} » est vide, alors que cet appareil contient ${row.local.entities} fiche(s) et ${row.local.notes} note(s). La récupérer les effacerait. Envoie plutôt la version de cet appareil.`,
+      );
+      return;
+    }
     if (row.local && !window.confirm(`Remplacer la version de « ${row.name} » sur cet appareil par la copie en ligne ? Les modifications faites ici et non envoyées seront perdues.`)) return;
     setMessage(null);
     setBusy({ id: row.id, label: "Récupération…" });

@@ -105,10 +105,9 @@ function remapAttributeRef(
   return entityId && attributeId ? { entityId, attributeId } : undefined;
 }
 
-function readRaw(): InvestigationData {
+function parseRaw(raw: string | null): InvestigationData | null {
+  if (!raw) return emptyInvestigationData();
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return emptyInvestigationData();
     const parsed = JSON.parse(raw) as Partial<InvestigationData>;
     return {
       version: 1,
@@ -121,12 +120,33 @@ function readRaw(): InvestigationData {
       canvasLinks: parsed.canvasLinks ?? [],
     };
   } catch {
+    return null;
+  }
+}
+
+function readRaw(): InvestigationData {
+  try {
+    return parseRaw(window.localStorage.getItem(STORAGE_KEY)) ?? emptyInvestigationData();
+  } catch {
     return emptyInvestigationData();
   }
 }
 
-function writeRaw(data: InvestigationData): void {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+/** Données du navigateur à l'instant T, ou null si elles sont illisibles (on n'écrase alors rien). */
+function readLatest(): { data: InvestigationData; raw: string | null } | null {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const data = parseRaw(raw);
+    return data ? { data, raw } : null;
+  } catch {
+    return null;
+  }
+}
+
+function writeRaw(data: InvestigationData): string {
+  const raw = JSON.stringify(data);
+  window.localStorage.setItem(STORAGE_KEY, raw);
+  return raw;
 }
 
 /**
@@ -144,15 +164,44 @@ function writeRaw(data: InvestigationData): void {
 export function createLocalStorageEngine(): InvestigationStorage {
   const listeners = new Set<Listener>();
   let cached: InvestigationData = readRaw();
+  // Dernier contenu connu du navigateur : sert à détecter qu'un autre onglet a modifié les données.
+  let lastRaw: string | null = null;
+  try {
+    lastRaw = window.localStorage.getItem(STORAGE_KEY);
+  } catch {
+    lastRaw = null;
+  }
 
   function emit() {
     for (const l of listeners) l();
   }
 
+  // Plusieurs onglets (ou une récupération depuis la copie en ligne) peuvent modifier les données
+  // du navigateur : cet onglet reprend alors la version la plus récente au lieu d'écraser le travail
+  // des autres avec sa copie en mémoire.
+  function syncFromBrowser() {
+    const latest = readLatest();
+    if (!latest || latest.raw === lastRaw) return;
+    lastRaw = latest.raw;
+    cached = latest.data;
+    emit();
+  }
+  if (typeof window !== "undefined") {
+    window.addEventListener("storage", (event) => {
+      if (event.key === null || event.key === STORAGE_KEY) syncFromBrowser();
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") syncFromBrowser();
+    });
+  }
+
   function mutate(fn: (data: InvestigationData) => void): void {
-    const next = { ...cached };
+    // Toute modification s'applique aux données les plus récentes du navigateur, pas à la copie
+    // éventuellement périmée de cet onglet.
+    const latest = readLatest();
+    const next = { ...(latest ? latest.data : cached) };
     fn(next);
-    writeRaw(next);
+    lastRaw = writeRaw(next);
     cached = next;
     emit();
   }
@@ -366,7 +415,8 @@ export function createLocalStorageEngine(): InvestigationStorage {
     },
 
     async exportDossier(dossierId) {
-      const data = cached;
+      // Les données les plus récentes du navigateur : un onglet resté ouvert ne doit pas envoyer une version périmée.
+      const data = readLatest()?.data ?? cached;
       const entities = data.entities.filter((e) => e.dossierId === dossierId);
       const images: Record<string, string> = {};
       const notes = data.notes.filter((n) => n.dossierId === dossierId);
