@@ -75,8 +75,10 @@ export interface InvestigationStorage {
   restoreSnapshot(before: InvestigationData, after: InvestigationData): boolean;
   /** JSON du dossier ; les images importées y sont incluses (en data URL) pour qu'un export les emporte. */
   exportDossier(dossierId: string): Promise<string>;
-  /** Returns the imported dossier's new id (ids are regenerated to avoid collisions). */
-  importDossier(json: string): Promise<string>;
+  /** Returns the imported dossier's id. Par défaut les identifiants sont régénérés (le dossier arrive en
+   * copie « (importé) »). Avec `keepIds`, le dossier garde ses identifiants et REMPLACE celui qui porte le
+   * même identifiant (récupération depuis la copie en ligne). */
+  importDossier(json: string, options?: { keepIds?: boolean }): Promise<string>;
 }
 
 /** Fichier d'export : le dossier plus ses images importées, par identifiant. */
@@ -387,39 +389,42 @@ export function createLocalStorageEngine(): InvestigationStorage {
       return JSON.stringify(bundle, null, 2);
     },
 
-    async importDossier(json) {
+    async importDossier(json, options) {
       const parsed = JSON.parse(json) as ExportBundle;
+      const keep = options?.keepIds === true;
+      const mint = (oldId: string) => (keep ? oldId : newId());
       // Chaque image du fichier reçoit un nouvel identifiant, comme le reste.
       const imageIdMap = new Map<string, string>();
       for (const [oldId, dataUrl] of Object.entries(parsed.images ?? {})) {
         try {
-          imageIdMap.set(oldId, await putImage(await dataUrlToBlob(dataUrl)));
+          imageIdMap.set(oldId, await putImage(await dataUrlToBlob(dataUrl), keep ? oldId : undefined));
         } catch {
           // image illisible : la fiche s'importe sans elle
         }
       }
-      const newDossierId = newId();
+      const [importedDossier] = parsed.dossiers;
+      const newDossierId = keep && importedDossier ? importedDossier.id : newId();
       const entityIdMap = new Map<string, string>();
       const attributeIdMap = new Map<string, string>();
       const sourceIdMap = new Map<string, string>();
       const cardIdMap = new Map<string, string>();
 
-      const [importedDossier] = parsed.dossiers;
       const newDossier: Dossier = {
         id: newDossierId,
-        name: importedDossier ? `${importedDossier.name} (importé)` : "Dossier importé",
+        name: importedDossier ? (keep ? importedDossier.name : `${importedDossier.name} (importé)`) : "Dossier importé",
         description: importedDossier?.description ?? "",
-        createdAt: nowIso(),
-        updatedAt: nowIso(),
+        createdAt: keep && importedDossier ? importedDossier.createdAt : nowIso(),
+        updatedAt: keep && importedDossier ? importedDossier.updatedAt : nowIso(),
+        ...(keep && importedDossier?.dismissedDuplicates ? { dismissedDuplicates: importedDossier.dismissedDuplicates } : {}),
       };
 
       const newSources: Source[] = (parsed.sources ?? []).map((s) => {
-        const id = newId();
+        const id = mint(s.id);
         sourceIdMap.set(s.id, id);
         return { ...s, id, dossierId: newDossierId };
       });
       const newEntities: InvestigationEntity[] = (parsed.entities ?? []).map((e) => {
-        const id = newId();
+        const id = mint(e.id);
         entityIdMap.set(e.id, id);
         return {
           ...e,
@@ -428,7 +433,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
           imageId: e.imageId ? imageIdMap.get(e.imageId) : undefined,
           // Les sources reçoivent de nouveaux identifiants : les coordonnées qui s'y réfèrent suivent.
           attributes: e.attributes?.map((attribute) => {
-            const attributeId = newId();
+            const attributeId = mint(attribute.id);
             attributeIdMap.set(attribute.id, attributeId);
             return {
               ...attribute,
@@ -445,7 +450,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
           if (!sourceEntityId || !targetEntityId) return null;
           const relation: Relation = {
             ...r,
-            id: newId(),
+            id: mint(r.id),
             dossierId: newDossierId,
             sourceEntityId,
             targetEntityId,
@@ -456,7 +461,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
         .filter((r): r is Relation => r !== null);
       const newNotes: Note[] = (parsed.notes ?? []).map((n) => ({
         ...n,
-        id: newId(),
+        id: mint(n.id),
         dossierId: newDossierId,
         linkedSourceIds: n.linkedSourceIds.map((id) => sourceIdMap.get(id)).filter((id): id is string => !!id),
         linkedEntityIds: n.linkedEntityIds.map((id) => entityIdMap.get(id)).filter((id): id is string => !!id),
@@ -465,7 +470,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
         body: replaceImageIds(n.body, imageIdMap),
       }));
       const newCanvasCards: CanvasCard[] = (parsed.canvasCards ?? []).map((c) => {
-        const id = newId();
+        const id = mint(c.id);
         cardIdMap.set(c.id, id);
         let refId = c.refId;
         if (refId) {
@@ -480,12 +485,22 @@ export function createLocalStorageEngine(): InvestigationStorage {
           const fromCardId = cardIdMap.get(l.fromCardId);
           const toCardId = cardIdMap.get(l.toCardId);
           if (!fromCardId || !toCardId) return null;
-          const link: CanvasLink = { id: newId(), dossierId: newDossierId, fromCardId, toCardId };
+          const link: CanvasLink = { id: mint(l.id), dossierId: newDossierId, fromCardId, toCardId };
           return link;
         })
         .filter((l): l is CanvasLink => l !== null);
 
       mutate((data) => {
+        if (keep) {
+          // Récupération depuis la copie en ligne : la version locale du même dossier est remplacée.
+          data.dossiers = data.dossiers.filter((d) => d.id !== newDossierId);
+          data.sources = data.sources.filter((x) => x.dossierId !== newDossierId);
+          data.entities = data.entities.filter((x) => x.dossierId !== newDossierId);
+          data.relations = data.relations.filter((x) => x.dossierId !== newDossierId);
+          data.notes = data.notes.filter((x) => x.dossierId !== newDossierId);
+          data.canvasCards = data.canvasCards.filter((x) => x.dossierId !== newDossierId);
+          data.canvasLinks = data.canvasLinks.filter((x) => x.dossierId !== newDossierId);
+        }
         data.dossiers = [...data.dossiers, newDossier];
         data.sources = [...data.sources, ...newSources];
         data.entities = [...data.entities, ...newEntities];

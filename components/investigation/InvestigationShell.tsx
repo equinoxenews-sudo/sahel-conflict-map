@@ -27,8 +27,9 @@ export default function InvestigationShell({ children }: { children: ReactNode }
       <Header />
 
       <div className={styles.banner}>
-        <strong>Données enregistrées sur cet appareil.</strong> Rien n&apos;est envoyé à un serveur — vos
-        dossiers vivent dans ce navigateur. Exportez-les en JSON pour les sauvegarder ou les transférer.
+        <strong>Données enregistrées sur cet appareil.</strong> Vos dossiers vivent dans ce navigateur et ne
+        sont envoyés à un serveur que si vous le demandez (« Synchronisation entre appareils », protégée par
+        mot de passe). Exportez-les en JSON pour les sauvegarder ou les transférer.
       </div>
 
       <nav className={styles.subnav}>

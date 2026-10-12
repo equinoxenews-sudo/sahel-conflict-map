@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRef, useState, type FormEvent } from "react";
+import CloudSyncPanel from "@/components/investigation/CloudSyncPanel";
 import { useDossiers, useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
 import styles from "./page.module.css";
 
@@ -53,6 +54,8 @@ export default function DossiersPage() {
         </button>
         <input ref={fileInputRef} type="file" accept="application/json" hidden onChange={handleImportFile} />
       </div>
+
+      <CloudSyncPanel />
 
       <form className={styles.newForm} onSubmit={handleCreate}>
         <input
