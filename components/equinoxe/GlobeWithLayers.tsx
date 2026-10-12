@@ -104,6 +104,8 @@ export default function GlobeWithLayers({
       aircraft: aircraft.length,
       satellites: satellites.length,
       vessels: vessels.length,
+      // Chargés à la première activation de la couche (voir Globe3D) : pas de compte à l'avance.
+      cables: 0,
       earthquakes: earthquakes.length,
       wildfires: naturalEvents.filter((e) => e.category === "wildfires").length,
       storms: naturalEvents.filter((e) => e.category === "severeStorms").length,

@@ -3,6 +3,7 @@ export type LayerKey =
   | "aircraft"
   | "satellites"
   | "vessels"
+  | "cables"
   | "earthquakes"
   | "wildfires"
   | "storms"
@@ -16,6 +17,7 @@ export const LAYER_LABELS: Record<LayerKey, string> = {
   aircraft: "Avions militaires",
   satellites: "Satellites",
   vessels: "Navires",
+  cables: "Câbles sous-marins",
   earthquakes: "Séismes",
   wildfires: "Feux de forêt",
   storms: "Tempêtes",
@@ -30,6 +32,7 @@ export const LAYER_ORDER: LayerKey[] = [
   "aircraft",
   "satellites",
   "vessels",
+  "cables",
   "earthquakes",
   "wildfires",
   "storms",
@@ -47,6 +50,7 @@ export const LAYER_DEFAULTS: Record<LayerKey, boolean> = {
   aircraft: false,
   satellites: false,
   vessels: false,
+  cables: false,
   earthquakes: false,
   wildfires: false,
   storms: false,

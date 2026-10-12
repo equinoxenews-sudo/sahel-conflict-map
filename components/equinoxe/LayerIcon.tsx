@@ -54,6 +54,15 @@ export default function LayerIcon({ layerKey, color }: LayerIconProps) {
           <path d="M12 4l6 6h-6z" />
         </svg>
       );
+    case "cables":
+      return (
+        <svg {...common}>
+          <path d="M2 8c3-3 5 3 8 0s5-3 8 0 3 0 4-1" />
+          <path d="M2 16c3-3 5 3 8 0s5-3 8 0 3 0 4-1" />
+          <circle cx="2.5" cy="8" r="1.1" fill="currentColor" stroke="none" />
+          <circle cx="21.5" cy="15" r="1.1" fill="currentColor" stroke="none" />
+        </svg>
+      );
     case "earthquakes":
       return (
         <svg {...common}>

@@ -145,6 +145,36 @@ const NATURAL_EVENT_LAYER: Record<NaturalEventCategory, LayerKey> = {
   floods: "floods",
 };
 
+const CABLES_URL = "/data/submarine-cables.geo.json";
+const CABLE_COLOR = "#e040fb";
+
+// Construit la couche des câbles : un trait fin par tronçon, un clic ouvre la bulle du câble.
+// Données : TeleGeography (submarinecablemap.com), licence CC BY-SA 3.0, allégées par
+// scripts/gen-submarine-cables.mjs.
+async function loadCableSource(Cesium: typeof CesiumNS): Promise<CesiumNS.GeoJsonDataSource> {
+  const source = await Cesium.GeoJsonDataSource.load(CABLES_URL, {
+    stroke: Cesium.Color.fromCssColorString(CABLE_COLOR).withAlpha(0.85),
+    strokeWidth: 1.6,
+    clampToGround: false,
+    credit: "Câbles sous-marins : TeleGeography (CC BY-SA 3.0)",
+  });
+  for (const entity of source.entities.values) {
+    const name = String(entity.properties?.name?.getValue() ?? "Câble sous-marin");
+    const km = Number(entity.properties?.km?.getValue());
+    const popup: EntityPopupData = {
+      layerKey: "cables",
+      badge: "CÂBLE SOUS-MARIN",
+      title: name,
+      fields: [
+        ...(Number.isFinite(km) && km > 0 ? [{ label: "Longueur", value: `≈ ${Math.round(km).toLocaleString("fr-FR")} km` }] : []),
+        { label: "Source", value: "TeleGeography · CC BY-SA 3.0" },
+      ],
+    };
+    entity.properties = new Cesium.PropertyBag({ popup: JSON.stringify(popup) });
+  }
+  return source;
+}
+
 // Le globe est long à construire (Viewer, 180 pays, tuiles). On le garde en vie quand on quitte
 // l'accueil (Approche, Actualités…) : au retour, il est simplement remis dans la page, sans
 // reconstruction. Il est détruit après quelques minutes d'absence (mémoire, surtout sur téléphone)
@@ -397,7 +427,7 @@ export default function Globe3D({
         const direct = currentViewer.scene.pick(position);
         const directEntity =
           Cesium.defined(direct) && direct.id instanceof Cesium.Entity ? direct.id : null;
-        if (directEntity?.point) return directEntity;
+        if (directEntity?.point || directEntity?.polyline) return directEntity;
 
         const RADII = [5, 9, 13];
         const SAMPLES_PER_RING = 8;
@@ -410,7 +440,7 @@ export default function Globe3D({
             );
             const picked = currentViewer.scene.pick(sample);
             const entity = Cesium.defined(picked) && picked.id instanceof Cesium.Entity ? picked.id : null;
-            if (entity?.point) return entity;
+            if (entity?.point || entity?.polyline) return entity;
           }
         }
 
@@ -1007,6 +1037,41 @@ export default function Globe3D({
       easingFunction: Cesium.EasingFunction.QUADRATIC_IN_OUT,
     });
   }, [focusZone]);
+
+  // Câbles sous-marins : fichier de 320 Ko, chargé à la première activation de la couche
+  // (pas au démarrage de l'accueil), puis conservé avec le globe.
+  useEffect(() => {
+    if (!enabledLayers.cables) return;
+    let cancelled = false;
+    let timer: number | undefined;
+    let tries = 0;
+    const attempt = () => {
+      if (cancelled) return;
+      const viewer = viewerRef.current;
+      const Cesium = window.Cesium;
+      const sources = dataSourcesRef.current;
+      // Le globe n'est pas encore construit (la couche « risk » en est le signe).
+      if (!viewer || viewer.isDestroyed() || !Cesium || !sources.risk) {
+        if (++tries < 40) timer = window.setTimeout(attempt, 500);
+        return;
+      }
+      if (sources.cables) return;
+      void loadCableSource(Cesium)
+        .then((source) => {
+          if (!source || cancelled || viewer.isDestroyed() || viewerRef.current !== viewer) return;
+          source.show = shared.enabledLayers?.cables ?? true;
+          viewer.dataSources.add(source);
+          dataSourcesRef.current.cables = source;
+          viewer.scene.requestRender();
+        })
+        .catch((err) => console.error("Câbles sous-marins : chargement impossible", err));
+    };
+    attempt();
+    return () => {
+      cancelled = true;
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
+  }, [enabledLayers.cables]);
 
   function handleZoomIn() {
     const viewer = viewerRef.current;
