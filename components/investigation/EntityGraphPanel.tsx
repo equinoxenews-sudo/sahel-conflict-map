@@ -20,9 +20,11 @@ import {
   ENTITY_TYPE_LABELS,
   RELATION_STATUS_LABELS,
   type AnchorId,
+  type GraphShape,
   type InvestigationEntity,
   type LineStyle,
   type Relation,
+  type ShapeKind,
 } from "@/lib/investigation/types";
 import { LINE_STYLES, LINE_STYLE_LABELS } from "@/lib/investigation/anchors";
 import {
@@ -31,8 +33,10 @@ import {
   useInvestigationStorage,
   useNotes,
   useRelations,
+  useShapes,
   useSources,
 } from "@/lib/investigation/InvestigationContext";
+import { frontZ, newShape, reorderShape, type LayerOperation } from "@/lib/investigation/shapes";
 import {
   attributeLink,
   findSharedValues,
@@ -71,6 +75,8 @@ import EntityNode, {
   type EntityFlowNode,
 } from "./EntityNode";
 import LockIcon from "./LockIcon";
+import GraphToolbox, { type ColorTarget } from "./GraphToolbox";
+import ShapeNode, { ShapeActionsContext, type ShapeFlowNode } from "./ShapeNode";
 import HexFlag from "./HexFlag";
 import { useEntityImage } from "./useEntityImage";
 import styles from "./EntityGraphPanel.module.css";
@@ -88,7 +94,9 @@ interface EntityGraphPanelProps {
 }
 
 // Défini hors du composant : React Flow exige une référence stable.
-const NODE_TYPES = { entityCard: EntityNode };
+const NODE_TYPES = { entityCard: EntityNode, shape: ShapeNode };
+
+type GraphNode = EntityFlowNode | ShapeFlowNode;
 const EDGE_TYPES = { relation: RelationEdge };
 
 /** Pour chaque coordonnée partagée : les noms des autres fiches qui portent la même valeur. */
@@ -118,6 +126,20 @@ function entitiesToNodes(entities: InvestigationEntity[], shared: SharedValue[])
     // Cadenas fermé : la carte ne se déplace plus.
     draggable: entity.locked !== true,
     data: { entity, sharedWith: sharedWith.get(entity.id) ?? {} },
+  }));
+}
+
+/** Formes et annotations : devant (z > 0) ou derrière (z < 0) les fiches, qui sont à 0. */
+function shapesToNodes(shapes: GraphShape[]): ShapeFlowNode[] {
+  return shapes.map((shape) => ({
+    id: shape.id,
+    type: "shape" as const,
+    position: shape.position,
+    width: shape.width,
+    height: shape.height,
+    zIndex: shape.z,
+    draggable: shape.locked !== true,
+    data: { shape },
   }));
 }
 
@@ -361,16 +383,22 @@ export default function EntityGraphPanel({
   const [merging, setMerging] = useState<{ primaryId: string; secondaryId: string } | null>(null);
   const [lastMerge, setLastMerge] = useState<{ before: InvestigationData; after: InvestigationData; text: string; failed?: boolean } | null>(null);
   const ficheEntityIds = useMemo(() => new Set(notes.flatMap((note) => (note.entityId ? [note.entityId] : []))), [notes]);
-  const [flow, setFlow] = useState<ReactFlowInstance<EntityFlowNode> | null>(null);
+  const shapes = useShapes(dossierId);
+  const [flow, setFlow] = useState<ReactFlowInstance<GraphNode> | null>(null);
+  const [toolsOpen, setToolsOpen] = useState(!compact);
+  const [pipetteTarget, setPipetteTarget] = useState<ColorTarget | null>(null);
   const [appliedFocus, setAppliedFocus] = useState(0);
 
   const [showEntityForm, setShowEntityForm] = useState(false);
   const [showRelationForm, setShowRelationForm] = useState(false);
-  const [selected, setSelected] = useState<{ kind: "entity" | "relation"; id: string } | null>(null);
+  const [selected, setSelected] = useState<{ kind: "entity" | "relation" | "shape"; id: string } | null>(null);
 
   const [showPivots, setShowPivots] = useState(true);
   const sharedValues = useMemo(() => findSharedValues(entities), [entities]);
-  const initialNodes = useMemo(() => entitiesToNodes(entities, sharedValues), [entities, sharedValues]);
+  const initialNodes = useMemo<GraphNode[]>(
+    () => [...entitiesToNodes(entities, sharedValues), ...shapesToNodes(shapes)],
+    [entities, sharedValues, shapes]
+  );
   const initialEdges = useMemo(
     () => [...relationsToEdges(relations), ...(showPivots ? pivotEdges(sharedValues) : [])],
     [relations, sharedValues, showPivots]
@@ -383,14 +411,51 @@ export default function EntityGraphPanel({
   // resyncs them whenever the underlying entities/relations change (add,
   // delete, or an external update) — the standard pattern for a
   // React-Flow canvas backed by external state.
-  useEffect(() => setNodes(initialNodes), [initialNodes, setNodes]);
+  // La sélection (cadre de redimensionnement d'une forme) survit au rafraîchissement des données.
+  const selectedShapeId = selected?.kind === "shape" ? selected.id : null;
+  useEffect(
+    () =>
+      setNodes((previous) => {
+        const keep = new Set(previous.filter((node) => node.selected).map((node) => node.id));
+        return initialNodes.map((node) => (keep.has(node.id) ? { ...node, selected: true } : node)) as GraphNode[];
+      }),
+    [initialNodes, setNodes]
+  );
+  useEffect(
+    () =>
+      setNodes((previous) =>
+        previous.map((node) => (node.type === "shape" && (node.selected === true) !== (node.id === selectedShapeId) ? { ...node, selected: node.id === selectedShapeId } : node)) as GraphNode[]
+      ),
+    [selectedShapeId, initialNodes, setNodes]
+  );
   useEffect(() => setEdges(initialEdges), [initialEdges, setEdges]);
 
   const handleNodeDragStop: OnNodeDrag = (_evt, node) => {
-    storage.updateEntity(node.id, { position: node.position });
+    if (node.type === "shape") storage.updateShape(node.id, { position: node.position });
+    else storage.updateEntity(node.id, { position: node.position });
   };
 
   const handleNodeClick: NodeMouseHandler = (_evt, node) => {
+    if (node.type === "shape") {
+      // Pipette (repli) : cliquer une autre forme copie sa couleur dans la forme sélectionnée.
+      const source = shapes.find((shape) => shape.id === node.id);
+      const target = shapes.find((shape) => shape.id === selectedShapeId);
+      if (pipetteTarget && source && target && source.id !== target.id) {
+        const color =
+          pipetteTarget === "fill" ? (source.fill ?? source.stroke) : pipetteTarget === "stroke" ? (source.stroke ?? source.fill) : (source.textColor ?? source.fill ?? source.stroke);
+        if (color) {
+          storage.updateShape(
+            target.id,
+            pipetteTarget === "fill" ? { fill: color } : pipetteTarget === "stroke" ? { stroke: color } : { textColor: color }
+          );
+        }
+        setPipetteTarget(null);
+        return;
+      }
+      setSelected({ kind: "shape", id: node.id });
+      return;
+    }
+    setPipetteTarget(null);
     setSelected({ kind: "entity", id: node.id });
   };
 
@@ -448,6 +513,60 @@ export default function EntityGraphPanel({
 
   const selectedEntity = selected?.kind === "entity" ? entities.find((e) => e.id === selected.id) : null;
   const selectedRelation = selected?.kind === "relation" ? relations.find((r) => r.id === selected.id) : null;
+  const selectedShape = selected?.kind === "shape" ? (shapes.find((s) => s.id === selected.id) ?? null) : null;
+
+  // Boîte à outils : ajouter une forme au centre de la vue, la régler, la ranger, la supprimer.
+  function addShape(kind: ShapeKind) {
+    const rect = canvasRef.current?.getBoundingClientRect();
+    const center =
+      flow && rect
+        ? flow.screenToFlowPosition({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 })
+        : { x: 0, y: 0 };
+    const created = storage.addShape(newShape(kind, dossierId, center, frontZ(shapes)));
+    setSelected({ kind: "shape", id: created.id });
+  }
+  function changeSelectedShape(patch: Partial<GraphShape>) {
+    if (selectedShape) storage.updateShape(selectedShape.id, patch);
+  }
+  function layerSelectedShape(operation: LayerOperation) {
+    if (selectedShape) storage.setShapeLayers(reorderShape(shapes, selectedShape.id, operation));
+  }
+  function duplicateSelectedShape() {
+    if (!selectedShape) return;
+    const { id: _id, createdAt: _createdAt, ...copy } = selectedShape;
+    void _id;
+    void _createdAt;
+    const created = storage.addShape({
+      ...copy,
+      position: { x: selectedShape.position.x + 28, y: selectedShape.position.y + 28 },
+      z: frontZ(shapes),
+      locked: false,
+    });
+    setSelected({ kind: "shape", id: created.id });
+  }
+  const deleteSelectedShape = useCallback(() => {
+    if (!selectedShape || selectedShape.locked) return;
+    storage.deleteShape(selectedShape.id);
+    setSelected(null);
+  }, [selectedShape, storage]);
+  const updateShapeFromNode = useCallback(
+    (id: string, patch: Partial<GraphShape>) => storage.updateShape(id, patch),
+    [storage]
+  );
+
+  // Suppr / Retour arrière efface la forme sélectionnée (hors saisie de texte).
+  useEffect(() => {
+    if (!selectedShape) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key !== "Delete" && event.key !== "Backspace") return;
+      const target = event.target as HTMLElement | null;
+      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.tagName === "SELECT" || target.isContentEditable)) return;
+      event.preventDefault();
+      deleteSelectedShape();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selectedShape, deleteSelectedShape]);
 
   const activeAnchors = useMemo<Record<string, AnchorId[]>>(() => {
     const map: Record<string, AnchorId[]> = {};
@@ -808,6 +927,7 @@ export default function EntityGraphPanel({
             <ToggleAttributesContext.Provider value={toggleAttributes}>
             <ToggleLockContext.Provider value={toggleLock}>
             <ActiveAnchorsContext.Provider value={activeAnchors}>
+            <ShapeActionsContext.Provider value={updateShapeFromNode}>
             <ReactFlow
               nodes={nodes}
               edges={edges}
@@ -816,7 +936,12 @@ export default function EntityGraphPanel({
               onNodeDragStop={handleNodeDragStop}
               onNodeClick={handleNodeClick}
               onEdgeClick={handleEdgeClick}
-              onPaneClick={() => setSelected(null)}
+              onPaneClick={() => {
+                setSelected(null);
+                setPipetteTarget(null);
+              }}
+              elevateNodesOnSelect={false}
+              deleteKeyCode={null}
               nodeTypes={NODE_TYPES}
               edgeTypes={EDGE_TYPES}
               onInit={setFlow}
@@ -828,6 +953,29 @@ export default function EntityGraphPanel({
               <Background />
               <Controls />
               <MiniMap pannable zoomable />
+              <Panel position="top-left" className={styles.toolsPanel}>
+                <button
+                  type="button"
+                  className={toolsOpen ? `${styles.toolsToggle} ${styles.toolsToggleOn}` : styles.toolsToggle}
+                  aria-expanded={toolsOpen}
+                  onClick={() => setToolsOpen((value) => !value)}
+                  title="Formes, annotations, couleurs et couches"
+                >
+                  ✎ Outils {toolsOpen ? "▾" : "▸"}
+                </button>
+                {toolsOpen ? (
+                  <GraphToolbox
+                    selected={selectedShape}
+                    onAdd={addShape}
+                    onChange={changeSelectedShape}
+                    onLayer={layerSelectedShape}
+                    onDuplicate={duplicateSelectedShape}
+                    onDelete={deleteSelectedShape}
+                    pipetteTarget={pipetteTarget}
+                    onPipetteTarget={setPipetteTarget}
+                  />
+                ) : null}
+              </Panel>
               <Panel position="bottom-center" className={styles.legend}>
                 <span className={styles.legendItem}>
                   <svg width="30" height="8" aria-hidden>
@@ -843,6 +991,7 @@ export default function EntityGraphPanel({
                 </span>
               </Panel>
             </ReactFlow>
+            </ShapeActionsContext.Provider>
             </ActiveAnchorsContext.Provider>
             </ToggleLockContext.Provider>
             </ToggleAttributesContext.Provider>

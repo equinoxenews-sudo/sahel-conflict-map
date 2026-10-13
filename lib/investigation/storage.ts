@@ -2,6 +2,7 @@ import {
   CanvasCard,
   CanvasLink,
   Dossier,
+  GraphShape,
   InvestigationData,
   InvestigationEntity,
   Note,
@@ -68,6 +69,12 @@ export interface InvestigationStorage {
   addCanvasLink(input: Omit<CanvasLink, "id">): CanvasLink;
   deleteCanvasLink(id: string): void;
 
+  addShape(input: Omit<GraphShape, "id" | "createdAt">): GraphShape;
+  updateShape(id: string, patch: Partial<Omit<GraphShape, "id" | "dossierId" | "createdAt">>): void;
+  /** Change plusieurs formes d'un coup (ordre des couches) : une seule écriture. */
+  setShapeLayers(layers: Record<string, number>): void;
+  deleteShape(id: string): void;
+
   /** Fusionne la seconde fiche dans la principale, d'un seul bloc. Renvoie les données avant et après
    * (pour « Annuler la fusion »), ou null si la fusion est impossible. */
   mergeEntities(primaryId: string, secondaryId: string, plan: MergePlan): { before: InvestigationData; after: InvestigationData } | null;
@@ -118,6 +125,7 @@ function parseRaw(raw: string | null): InvestigationData | null {
       notes: parsed.notes ?? [],
       canvasCards: parsed.canvasCards ?? [],
       canvasLinks: parsed.canvasLinks ?? [],
+      shapes: parsed.shapes ?? [],
     };
   } catch {
     return null;
@@ -254,6 +262,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
         data.notes = data.notes.filter((n) => n.dossierId !== id);
         data.canvasCards = data.canvasCards.filter((c) => c.dossierId !== id);
         data.canvasLinks = data.canvasLinks.filter((l) => l.dossierId !== id);
+        data.shapes = data.shapes.filter((s) => s.dossierId !== id);
       });
     },
 
@@ -414,6 +423,29 @@ export function createLocalStorageEngine(): InvestigationStorage {
       });
     },
 
+    addShape(input) {
+      const shape: GraphShape = { ...input, id: newId(), createdAt: nowIso() };
+      mutate((data) => {
+        data.shapes = [...data.shapes, shape];
+      });
+      return shape;
+    },
+    updateShape(id, patch) {
+      mutate((data) => {
+        data.shapes = data.shapes.map((s) => (s.id === id ? { ...s, ...patch } : s));
+      });
+    },
+    setShapeLayers(layers) {
+      mutate((data) => {
+        data.shapes = data.shapes.map((s) => (s.id in layers ? { ...s, z: layers[s.id] } : s));
+      });
+    },
+    deleteShape(id) {
+      mutate((data) => {
+        data.shapes = data.shapes.filter((s) => s.id !== id);
+      });
+    },
+
     async exportDossier(dossierId) {
       // Les données les plus récentes du navigateur : un onglet resté ouvert ne doit pas envoyer une version périmée.
       const data = readLatest()?.data ?? cached;
@@ -435,6 +467,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
         notes,
         canvasCards: data.canvasCards.filter((c) => c.dossierId === dossierId),
         canvasLinks: data.canvasLinks.filter((l) => l.dossierId === dossierId),
+        shapes: (data.shapes ?? []).filter((s) => s.dossierId === dossierId),
       };
       return JSON.stringify(bundle, null, 2);
     },
@@ -540,6 +573,8 @@ export function createLocalStorageEngine(): InvestigationStorage {
         })
         .filter((l): l is CanvasLink => l !== null);
 
+      const newShapes: GraphShape[] = (parsed.shapes ?? []).map((s) => ({ ...s, id: mint(s.id), dossierId: newDossierId }));
+
       mutate((data) => {
         if (keep) {
           // Récupération depuis la copie en ligne : la version locale du même dossier est remplacée.
@@ -550,6 +585,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
           data.notes = data.notes.filter((x) => x.dossierId !== newDossierId);
           data.canvasCards = data.canvasCards.filter((x) => x.dossierId !== newDossierId);
           data.canvasLinks = data.canvasLinks.filter((x) => x.dossierId !== newDossierId);
+          data.shapes = data.shapes.filter((x) => x.dossierId !== newDossierId);
         }
         data.dossiers = [...data.dossiers, newDossier];
         data.sources = [...data.sources, ...newSources];
@@ -558,6 +594,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
         data.notes = [...data.notes, ...newNotes];
         data.canvasCards = [...data.canvasCards, ...newCanvasCards];
         data.canvasLinks = [...data.canvasLinks, ...newCanvasLinks];
+        data.shapes = [...data.shapes, ...newShapes];
       });
 
       return newDossierId;

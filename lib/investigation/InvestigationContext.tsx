@@ -85,6 +85,11 @@ export function useCanvasCards(dossierId: string) {
   return useMemo(() => data.canvasCards.filter((c) => c.dossierId === dossierId), [data.canvasCards, dossierId]);
 }
 
+export function useShapes(dossierId: string) {
+  const { data } = useInvestigationContext();
+  return useMemo(() => data.shapes.filter((s) => s.dossierId === dossierId), [data.shapes, dossierId]);
+}
+
 export function useCanvasLinks(dossierId: string) {
   const { data } = useInvestigationContext();
   return useMemo(() => data.canvasLinks.filter((l) => l.dossierId === dossierId), [data.canvasLinks, dossierId]);

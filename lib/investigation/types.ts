@@ -219,6 +219,37 @@ export interface CanvasLink {
 }
 
 /** The full shape persisted to localStorage / exported as JSON. */
+/** Forme ou annotation posée librement sur le graphe (boîte à outils). */
+export type ShapeKind = "rect" | "roundRect" | "ellipse" | "triangle" | "diamond" | "line" | "arrow" | "text";
+
+export interface GraphShape {
+  id: string;
+  dossierId: string;
+  kind: ShapeKind;
+  position: { x: number; y: number };
+  width: number;
+  height: number;
+  /** Couleur de remplissage (#rrggbb) ; absente = aucun remplissage. */
+  fill?: string;
+  /** Opacité du remplissage, de 0 à 1 (1 par défaut). */
+  fillOpacity?: number;
+  /** Couleur du contour (#rrggbb) ; absente = aucun contour. */
+  stroke?: string;
+  /** Épaisseur du contour en pixels (2 par défaut). */
+  strokeWidth?: number;
+  /** Texte écrit dans la forme (ou texte libre pour le type « text »). */
+  text?: string;
+  textColor?: string;
+  fontSize?: number;
+  /** Ligne et flèche : suit l'autre diagonale du cadre (bas-gauche vers haut-droite). */
+  flipped?: boolean;
+  /** Ordre des couches : les fiches du graphe sont à 0, les formes à valeur positive passent devant,
+   * à valeur négative derrière. */
+  z: number;
+  locked?: boolean;
+  createdAt: string;
+}
+
 export interface InvestigationData {
   version: 1;
   dossiers: Dossier[];
@@ -228,6 +259,8 @@ export interface InvestigationData {
   notes: Note[];
   canvasCards: CanvasCard[];
   canvasLinks: CanvasLink[];
+  /** Formes et annotations du graphe. */
+  shapes: GraphShape[];
 }
 
 export function emptyInvestigationData(): InvestigationData {
@@ -240,5 +273,6 @@ export function emptyInvestigationData(): InvestigationData {
     notes: [],
     canvasCards: [],
     canvasLinks: [],
+    shapes: [],
   };
 }

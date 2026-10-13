@@ -24,6 +24,29 @@
   border-color: var(--accent-gold);
 }
 
+.toolsPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.toolsToggle {
+  padding: 6px 12px;
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  background: rgba(14, 20, 34, 0.96);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.toolsToggle:hover,
+.toolsToggleOn {
+  border-color: var(--accent-gold);
+}
+
 .toolbarBtnOn {
   border-color: var(--accent-gold);
   background: rgba(213, 166, 64, 0.12);
