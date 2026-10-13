@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
-import DossierExportImport from "@/components/investigation/DossierExportImport";
+import DossierBackup from "@/components/investigation/DossierBackup";
 import EntityGraphPanel from "@/components/investigation/EntityGraphPanel";
 import NotesWorkspace from "@/components/investigation/NotesWorkspace";
 import SourcesPanel from "@/components/investigation/SourcesPanel";
@@ -86,7 +86,7 @@ export default function DossierWorkspacePage() {
           <span className={styles.title}>{dossier.name}</span>
           {dossier.description && <span className={styles.desc}>{dossier.description}</span>}
         </div>
-        <DossierExportImport dossierId={dossier.id} dossierName={dossier.name} className={sharedStyles.importBtn} />
+        <DossierBackup dossierId={dossier.id} dossierName={dossier.name} className={sharedStyles.importBtn} />
       </div>
 
       <div className={styles.tabs}>
