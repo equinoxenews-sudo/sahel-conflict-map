@@ -4,7 +4,8 @@ import { Handle, Position, type Node, type NodeProps } from "@xyflow/react";
 import { createContext, useContext } from "react";
 import { FLAG_COUNTRIES } from "@/lib/countryFlagIndex";
 import { attributeLink, groupAttributes } from "@/lib/investigation/attributes";
-import { ENTITY_TYPE_LABELS, type EntityAttribute, type InvestigationEntity } from "@/lib/investigation/types";
+import { ANCHOR_IDS, sideOf } from "@/lib/investigation/anchors";
+import { ENTITY_TYPE_LABELS, type AnchorId, type EntityAttribute, type InvestigationEntity } from "@/lib/investigation/types";
 import AttributeIcon from "./AttributeIcon";
 import EntityTypeIcon from "./EntityTypeIcon";
 import HexFlag from "./HexFlag";
@@ -25,7 +26,11 @@ export const OpenAttributeContext = createContext<((entityId: string, attributeI
 export const ToggleAttributesContext = createContext<((entityId: string, collapsed: boolean) => void) | undefined>(undefined);
 /** Ferme ou ouvre le cadenas d'une fiche. Absent = pas de cadenas sur les cartes. */
 export const ToggleLockContext = createContext<((entityId: string, locked: boolean) => void) | undefined>(undefined);
+/** Points d'ancrage utilisés par la relation sélectionnée, par fiche : mis en évidence sur les cartes. */
+export const ActiveAnchorsContext = createContext<Record<string, AnchorId[]>>({});
 export type EntityFlowNode = Node<EntityNodeData, "entityCard">;
+
+const HANDLE_POSITION = { top: Position.Top, bottom: Position.Bottom, left: Position.Left, right: Position.Right } as const;
 
 /** Pays d'une fiche : son nom français et le libellé à afficher à côté du drapeau. */
 export function countryOf(entity: Pick<InvestigationEntity, "countryIso2" | "countryLabel">) {
@@ -108,6 +113,7 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
   const onOpenAttribute = useContext(OpenAttributeContext);
   const onToggleAttributes = useContext(ToggleAttributesContext);
   const onToggleLock = useContext(ToggleLockContext);
+  const activeAnchors = useContext(ActiveAnchorsContext)[entity.id];
   const locked = entity.locked === true;
   const image = useEntityImage(entity.imageId, entity.imageUrl);
   const country = countryOf(entity);
@@ -119,8 +125,17 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
   return (
     <div className={selected ? `${styles.node} ${styles.selected}` : styles.node}>
       <div className={styles.head}>
-        <Handle type="target" position={Position.Left} className={styles.handle} isConnectable={false} />
-        <Handle type="source" position={Position.Left} className={styles.handle} isConnectable={false} />
+        {/* Huit points d'ancrage (coins et milieux des côtés), comme les poignées d'une forme
+            PowerPoint : une relation en choisit un au départ et un à l'arrivée. */}
+        {ANCHOR_IDS.map((anchor) => {
+          const className = `${styles.anchor} ${styles[`anchor_${anchor}`]} ${activeAnchors?.includes(anchor) ? styles.anchorActive : ""}`;
+          return (
+            <span key={anchor}>
+              <Handle id={anchor} type="target" position={HANDLE_POSITION[sideOf(anchor)]} className={className} isConnectable={false} />
+              <Handle id={anchor} type="source" position={HANDLE_POSITION[sideOf(anchor)]} className={className} isConnectable={false} />
+            </span>
+          );
+        })}
 
         <div className={styles.avatar}>
           {image ? (

@@ -73,3 +73,8 @@
 .wrapWide {
   max-width: 1760px;
 }
+
+/* Onglet Graphe : toute la largeur disponible, l'espace de travail ne se perd plus sur les côtés. */
+.wrapFull {
+  max-width: none;
+}

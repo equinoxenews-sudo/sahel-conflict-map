@@ -19,9 +19,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ENTITY_TYPE_LABELS,
   RELATION_STATUS_LABELS,
+  type AnchorId,
   type InvestigationEntity,
+  type LineStyle,
   type Relation,
 } from "@/lib/investigation/types";
+import { LINE_STYLES, LINE_STYLE_LABELS } from "@/lib/investigation/anchors";
 import {
   useDossier,
   useEntities,
@@ -55,10 +58,12 @@ import {
 import DuplicatesPanel from "./DuplicatesPanel";
 import ExportPanel from "./ExportPanel";
 import RelationEdge from "./RelationEdge";
+import RelationRouting from "./RelationRouting";
 import MergeDialog from "./MergeDialog";
 import EntityForm, { type EntityFormValues } from "./EntityForm";
 import RelationForm, { type RelationFormValues } from "./RelationForm";
 import EntityNode, {
+  ActiveAnchorsContext,
   countryOf,
   OpenAttributeContext,
   ToggleAttributesContext,
@@ -127,8 +132,9 @@ function pivotEdges(shared: SharedValue[]): Edge[] {
           id: `pivot:${value.key}:${ids[i]}:${ids[j]}`,
           source: ids[i],
           target: ids[j],
-          // Courbe : le trait ne se superpose pas à un lien direct entre les mêmes fiches.
-          type: "default",
+          // Arc au-dessus des cartes : le trait ne se superpose pas à un lien direct entre les mêmes fiches.
+          type: "relation",
+          data: { lineStyle: "curve" as const, sourceAnchor: "tc" as const, targetAnchor: "tc" as const },
           label: sharedValueLabel(value),
           style: { stroke: "#8f9baa", strokeWidth: 1.4, strokeDasharray: "2 5" },
           labelStyle: { fill: "#8f9baa", fontSize: 11, fontStyle: "italic" },
@@ -152,7 +158,12 @@ function relationsToEdges(relations: Relation[]): Edge[] {
       target: r.targetEntityId,
       label: edgeLabel(r),
       type: "relation",
-      data: { curved: duplicate },
+      // Droit par défaut ; un doublon possible est courbe pour ne pas se confondre avec un lien direct.
+      data: {
+        lineStyle: r.lineStyle ?? (duplicate ? "curve" : "straight"),
+        sourceAnchor: r.sourceAnchor,
+        targetAnchor: r.targetAnchor,
+      },
       // Pointillés animés = lien supposé (hypothèse) ; trait plein = lien documenté.
       animated: r.status === "hypothesis",
       // Un doublon possible est orange : à examiner, jamais fusionné automatiquement.
@@ -343,6 +354,8 @@ export default function EntityGraphPanel({
   const [showDuplicates, setShowDuplicates] = useState(false);
   const [showExport, setShowExport] = useState(false);
   const canvasRef = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [fullscreen, setFullscreen] = useState(false);
   const [layoutDirection, setLayoutDirection] = useState<"TB" | "LR">("TB");
   const [layoutUndo, setLayoutUndo] = useState<Positions | null>(null);
   const [merging, setMerging] = useState<{ primaryId: string; secondaryId: string } | null>(null);
@@ -400,8 +413,63 @@ export default function EntityGraphPanel({
     return () => window.clearTimeout(id);
   }, [flow, focusedId, focusNonce]);
 
+  // Plein écran : le graphe recouvre la page (et le navigateur passe en plein écran quand il le permet).
+  // Échap en sort.
+  useEffect(() => {
+    if (!fullscreen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !document.fullscreenElement) setFullscreen(false);
+    };
+    const onFullscreenChange = () => {
+      if (!document.fullscreenElement) setFullscreen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("fullscreenchange", onFullscreenChange);
+    };
+  }, [fullscreen]);
+
+  function toggleFullscreen() {
+    const next = !fullscreen;
+    setFullscreen(next);
+    if (next) {
+      void wrapRef.current?.requestFullscreen?.().catch(() => undefined);
+    } else if (document.fullscreenElement) {
+      void document.exitFullscreen().catch(() => undefined);
+    }
+    // Le graphe a changé de taille : on le recadre une fois la mise en page appliquée.
+    window.setTimeout(() => void flow?.fitView({ duration: 300, padding: 0.12 }), 160);
+  }
+
   const selectedEntity = selected?.kind === "entity" ? entities.find((e) => e.id === selected.id) : null;
   const selectedRelation = selected?.kind === "relation" ? relations.find((r) => r.id === selected.id) : null;
+
+  const activeAnchors = useMemo<Record<string, AnchorId[]>>(() => {
+    const map: Record<string, AnchorId[]> = {};
+    if (!selectedRelation) return map;
+    if (selectedRelation.sourceAnchor) map[selectedRelation.sourceEntityId] = [selectedRelation.sourceAnchor];
+    if (selectedRelation.targetAnchor) {
+      map[selectedRelation.targetEntityId] = [...(map[selectedRelation.targetEntityId] ?? []), selectedRelation.targetAnchor];
+    }
+    return map;
+  }, [selectedRelation]);
+
+  // Forme commune de tous les traits (vide = mélange) ; la changer l'applique à toutes les relations.
+  const commonLineStyle: LineStyle | "" = (() => {
+    if (relations.length === 0) return "straight";
+    const first = relations[0].lineStyle ?? "straight";
+    return relations.every((relation) => (relation.lineStyle ?? "straight") === first) ? first : "";
+  })();
+  function setAllLineStyles(lineStyle: LineStyle) {
+    for (const relation of relations) {
+      if ((relation.lineStyle ?? "straight") !== lineStyle) storage.updateRelation(relation.id, { lineStyle });
+    }
+  }
 
   const [editingEntityId, setEditingEntityId] = useState<string | null>(null);
   const [editingRelationId, setEditingRelationId] = useState<string | null>(null);
@@ -522,6 +590,9 @@ export default function EntityGraphPanel({
       status: values.status,
       confidence: values.confidence,
       justifyingSourceId: values.justifyingSourceId,
+      sourceAnchor: values.sourceAnchor,
+      targetAnchor: values.targetAnchor,
+      lineStyle: values.lineStyle,
       period: values.period || undefined,
     };
   }
@@ -553,7 +624,10 @@ export default function EntityGraphPanel({
     setEditingRelationId(null);
   }
   return (
-    <div className={compact ? `${styles.wrap} ${styles.wrapCompact}` : styles.wrap}>
+    <div
+      ref={wrapRef}
+      className={[styles.wrap, compact ? styles.wrapCompact : "", fullscreen ? styles.wrapFullscreen : ""].filter(Boolean).join(" ")}
+    >
       <div className={styles.toolbar}>
         <button type="button" className={styles.toolbarBtn} onClick={() => setShowEntityForm((v) => !v)}>
           + Ajouter une entité
@@ -603,6 +677,33 @@ export default function EntityGraphPanel({
             </select>
           </>
         ) : null}
+        {relations.length > 0 ? (
+          <label className={styles.toolbarSelect} title="Forme de tous les traits ; chaque relation peut aussi avoir la sienne (clic sur le trait)">
+            <span>Traits</span>
+            <select
+              className={styles.layoutSelect}
+              value={commonLineStyle}
+              onChange={(e) => e.target.value && setAllLineStyles(e.target.value as LineStyle)}
+              aria-label="Forme de tous les traits"
+            >
+              {commonLineStyle === "" ? <option value="">mélangés</option> : null}
+              {LINE_STYLES.map((style) => (
+                <option key={style} value={style}>
+                  {LINE_STYLE_LABELS[style].toLowerCase()}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : null}
+        <button
+          type="button"
+          className={fullscreen ? `${styles.toolbarBtn} ${styles.toolbarBtnOn}` : styles.toolbarBtn}
+          onClick={toggleFullscreen}
+          aria-pressed={fullscreen}
+          title={fullscreen ? "Quitter le plein écran (Échap)" : "Agrandir le graphe sur tout l'écran"}
+        >
+          {fullscreen ? "⤫ Quitter le plein écran" : "⛶ Plein écran"}
+        </button>
         {entities.length > 0 ? (
           <button type="button" className={styles.toolbarBtn} onClick={() => setShowExport((value) => !value)}>
             Exporter en image
@@ -706,6 +807,7 @@ export default function EntityGraphPanel({
             <OpenAttributeContext.Provider value={onOpenAttribute}>
             <ToggleAttributesContext.Provider value={toggleAttributes}>
             <ToggleLockContext.Provider value={toggleLock}>
+            <ActiveAnchorsContext.Provider value={activeAnchors}>
             <ReactFlow
               nodes={nodes}
               edges={edges}
@@ -741,6 +843,7 @@ export default function EntityGraphPanel({
                 </span>
               </Panel>
             </ReactFlow>
+            </ActiveAnchorsContext.Provider>
             </ToggleLockContext.Provider>
             </ToggleAttributesContext.Provider>
             </OpenAttributeContext.Provider>
@@ -829,6 +932,19 @@ export default function EntityGraphPanel({
                     <span className={styles.detailValue}>
                       {sources.find((s) => s.id === selectedRelation.justifyingSourceId)?.title ?? "Aucune"}
                     </span>
+                  </div>
+                  <div className={styles.detailRow}>
+                    <span className={styles.detailLabel}>Tracé du trait</span>
+                    <RelationRouting
+                      value={{
+                        sourceAnchor: selectedRelation.sourceAnchor,
+                        targetAnchor: selectedRelation.targetAnchor,
+                        lineStyle: selectedRelation.lineStyle,
+                      }}
+                      sourceName={entities.find((e) => e.id === selectedRelation.sourceEntityId)?.name}
+                      targetName={entities.find((e) => e.id === selectedRelation.targetEntityId)?.name}
+                      onChange={(patch) => storage.updateRelation(selectedRelation.id, patch)}
+                    />
                   </div>
                   <button type="button" className={styles.editBtn} onClick={() => setEditingRelationId(selectedRelation.id)}>
                     Modifier la relation

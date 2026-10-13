@@ -77,7 +77,7 @@ export default function DossierWorkspacePage() {
   }
 
   return (
-    <div className={tab === "notes" ? `${styles.wrap} ${styles.wrapWide}` : styles.wrap}>
+    <div className={tab === "notes" ? `${styles.wrap} ${styles.wrapWide}` : tab === "graphe" ? `${styles.wrap} ${styles.wrapFull}` : styles.wrap}>
       <div className={styles.header}>
         <div className={styles.titleBlock}>
           <Link href="/investigation/dossiers" className={styles.back}>

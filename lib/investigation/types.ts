@@ -150,6 +150,12 @@ export interface EntityAttribute {
   sourceId?: string;
 }
 
+/** Point d'ancrage d'une fiche : coins (tl, tr, bl, br) et milieux des côtés (tc, ml, mr, bc). */
+export type AnchorId = "tl" | "tc" | "tr" | "ml" | "mr" | "bl" | "bc" | "br";
+
+/** Forme du trait d'une relation : droit (par défaut), courbe ou coude. */
+export type LineStyle = "straight" | "curve" | "elbow";
+
 export interface Relation {
   id: string;
   dossierId: string;
@@ -162,6 +168,12 @@ export interface Relation {
   typeKey?: string;
   /** Le trait du graphe affiche la lecture inverse du type (« est dirigé par » au lieu de « dirige »). */
   labelInverse?: boolean;
+  /** Point d'ancrage du trait sur la fiche source ; absent = choisi automatiquement. */
+  sourceAnchor?: AnchorId;
+  /** Point d'ancrage du trait sur la fiche cible ; absent = choisi automatiquement. */
+  targetAnchor?: AnchorId;
+  /** Forme du trait ; absent = droit. */
+  lineStyle?: LineStyle;
   /** Période de validité en texte libre (« depuis 2021 », « jusqu'en mars 2025 »). */
   period?: string;
   /** 0-100 — a manual confidence estimate, not a computed score. */

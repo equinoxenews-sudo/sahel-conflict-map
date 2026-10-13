@@ -1,0 +1,108 @@
+.routing {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pickers {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.picker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  flex: 1 1 120px;
+}
+
+.pickerTitle {
+  overflow: hidden;
+  font-size: 10.5px;
+  letter-spacing: 0.3px;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--text-secondary);
+}
+
+/* Schéma d'une fiche : les huit points d'ancrage se choisissent d'un clic. */
+.diagram {
+  position: relative;
+  height: 52px;
+  margin: 7px;
+  border: 1.5px solid var(--border-glass);
+  border-radius: 8px;
+  background: var(--bg-panel-alt);
+}
+
+.dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  border: 1.5px solid var(--accent-gold);
+  border-radius: 50%;
+  background: var(--bg-primary);
+  cursor: pointer;
+}
+
+.dot:hover {
+  background: rgba(213, 166, 64, 0.45);
+}
+
+.dotOn {
+  background: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(213, 166, 64, 0.25);
+}
+
+.auto {
+  align-self: flex-start;
+  padding: 3px 10px;
+  border: 1px solid var(--border-glass);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.autoOn {
+  border-color: var(--accent-gold);
+  background: rgba(213, 166, 64, 0.14);
+  color: var(--accent-gold-bright);
+}
+
+.styles {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.styleBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.styleBtn:hover {
+  border-color: var(--accent-gold);
+}
+
+.styleBtnOn {
+  border-color: var(--accent-gold);
+  background: rgba(213, 166, 64, 0.14);
+  color: var(--accent-gold-bright);
+}

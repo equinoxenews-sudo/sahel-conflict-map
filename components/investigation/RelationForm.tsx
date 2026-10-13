@@ -12,12 +12,15 @@ import {
 import {
   ENTITY_TYPE_LABELS,
   RELATION_STATUS_LABELS,
+  type AnchorId,
   type EntityType,
+  type LineStyle,
   type InvestigationEntity,
   type Relation,
   type RelationStatus,
   type Source,
 } from "@/lib/investigation/types";
+import RelationRouting from "./RelationRouting";
 import styles from "./EntityForm.module.css";
 
 export interface RelationFormValues {
@@ -31,6 +34,10 @@ export interface RelationFormValues {
   justifyingSourceId: string | null;
   /** Le trait du graphe affiche la lecture inverse du type. */
   labelInverse: boolean;
+  /** Points d'ancrage et forme du trait (absents : choisis automatiquement / droit). */
+  sourceAnchor?: AnchorId;
+  targetAnchor?: AnchorId;
+  lineStyle?: LineStyle;
   period: string;
 }
 
@@ -75,6 +82,11 @@ export default function RelationForm({
   const [justifyingSourceId, setJustifyingSourceId] = useState(initial?.justifyingSourceId ?? "");
   const [period, setPeriod] = useState(initial?.period ?? "");
   const [labelInverse, setLabelInverse] = useState(initial?.labelInverse === true);
+  const [routing, setRouting] = useState<{ sourceAnchor?: AnchorId; targetAnchor?: AnchorId; lineStyle?: LineStyle }>({
+    sourceAnchor: initial?.sourceAnchor,
+    targetAnchor: initial?.targetAnchor,
+    lineStyle: initial?.lineStyle,
+  });
 
   const type = getRelationType(typeKey);
   const sourceName = entities.find((e) => e.id === sourceEntityId)?.name;
@@ -94,6 +106,9 @@ export default function RelationForm({
       confidence,
       justifyingSourceId: justifyingSourceId || null,
       labelInverse: !custom && type !== null && !type.symmetric && labelInverse,
+      sourceAnchor: routing.sourceAnchor,
+      targetAnchor: routing.targetAnchor,
+      lineStyle: routing.lineStyle && routing.lineStyle !== "straight" ? routing.lineStyle : undefined,
       period: period.trim(),
     });
   }
@@ -199,6 +214,16 @@ export default function RelationForm({
           </p>
         )
       ) : null}
+
+      <div className={styles.field}>
+        <span className={styles.label}>Tracé du trait</span>
+        <RelationRouting
+          value={routing}
+          sourceName={sourceName}
+          targetName={targetName}
+          onChange={(patch) => setRouting((current) => ({ ...current, ...patch }))}
+        />
+      </div>
 
       <div className={styles.row}>
         <label className={`${styles.field} ${styles.grow}`}>

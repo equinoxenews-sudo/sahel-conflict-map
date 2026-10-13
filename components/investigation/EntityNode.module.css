@@ -11,19 +11,60 @@
   min-height: 72px;
 }
 
-/* Les liens arrivent au centre de la pastille. */
-.handle {
-  left: 36px !important;
-  top: 50% !important;
+/* Points d'ancrage des relations : coins de la carte et milieu de chaque côté. Le point logique
+   est minuscule (le trait s'y accroche au pixel près) ; la pastille visible est un pseudo-élément,
+   affichée au survol, sur la fiche sélectionnée, ou quand la relation sélectionnée l'utilise. */
+.anchor {
   width: 2px !important;
   height: 2px !important;
   min-width: 0 !important;
   min-height: 0 !important;
   border: none !important;
   background: transparent !important;
-  opacity: 0;
+  opacity: 1;
   transform: translate(-50%, -50%) !important;
+  pointer-events: none !important;
 }
+
+.anchor::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  transform: translate(-50%, -50%) scale(0.6);
+  border: 1.5px solid var(--accent-gold);
+  border-radius: 50%;
+  background: var(--bg-primary);
+  opacity: 0;
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+:global(.eq-exporting) .anchor::after {
+  display: none;
+}
+
+.node:hover .anchor::after,
+.selected .anchor::after {
+  opacity: 0.85;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.anchorActive::after {
+  opacity: 1 !important;
+  transform: translate(-50%, -50%) scale(1.15) !important;
+  background: var(--accent-gold) !important;
+}
+
+.anchor_tl { left: 36px !important; top: 0 !important; }
+.anchor_tc { left: calc(36px + (100% - 36px) / 2) !important; top: 0 !important; }
+.anchor_tr { left: 100% !important; top: 0 !important; }
+.anchor_ml { left: 0 !important; top: 50% !important; }
+.anchor_mr { left: 100% !important; top: 50% !important; }
+.anchor_bl { left: 36px !important; top: 100% !important; }
+.anchor_bc { left: calc(36px + (100% - 36px) / 2) !important; top: 100% !important; }
+.anchor_br { left: 100% !important; top: 100% !important; }
 
 .avatar {
   position: absolute;
