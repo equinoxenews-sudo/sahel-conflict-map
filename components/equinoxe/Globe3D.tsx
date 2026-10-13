@@ -146,7 +146,7 @@ const NATURAL_EVENT_LAYER: Record<NaturalEventCategory, LayerKey> = {
 };
 
 const CABLES_URL = "/data/submarine-cables.geo.json";
-const CABLE_COLOR = "#e040fb";
+const CABLE_COLOR = "#e0b44c";
 
 // Construit la couche des câbles : un trait fin par tronçon, un clic ouvre la bulle du câble.
 // Données : TeleGeography (submarinecablemap.com), licence CC BY-SA 3.0, allégées par
