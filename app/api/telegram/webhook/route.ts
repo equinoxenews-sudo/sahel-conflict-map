@@ -20,9 +20,25 @@ interface Update {
   message?: { chat: { id: number }; text?: string };
 }
 
+/** Diagnostic de configuration : dit seulement si chaque variable est présente, jamais sa valeur. */
+export async function GET() {
+  return NextResponse.json({
+    TELEGRAM_WEBHOOK_SECRET: Boolean(process.env.TELEGRAM_WEBHOOK_SECRET?.trim()),
+    TELEGRAM_BOT_TOKEN: Boolean(process.env.TELEGRAM_BOT_TOKEN?.trim()),
+    TELEGRAM_CHAT_ID: Boolean(process.env.TELEGRAM_CHAT_ID?.trim()),
+  });
+}
+
 export async function POST(request: Request) {
-  const secret = process.env.TELEGRAM_WEBHOOK_SECRET?.trim();
-  if (!secret || request.headers.get("x-telegram-bot-api-secret-token") !== secret) {
+  const secret = process.env.TELEGRAM_WEBHOOK_SECRET?.trim().replace(/^["']|["']$/g, "");
+  const received = request.headers.get("x-telegram-bot-api-secret-token") ?? "";
+  if (!secret || received !== secret) {
+    // Cause du refus dans les journaux Vercel, sans aucune valeur secrète.
+    console.warn(
+      !secret
+        ? "Webhook Telegram refusé : TELEGRAM_WEBHOOK_SECRET absent du site (variable + Redeploy)."
+        : `Webhook Telegram refusé : secret différent (reçu ${received.length} caractères, attendu ${secret.length}).`,
+    );
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const nicolas = telegramChatId();
