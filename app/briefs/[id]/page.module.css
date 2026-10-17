@@ -190,3 +190,14 @@
   color: var(--accent-gold-bright);
   font-weight: 700;
 }
+
+.confidence {
+  max-width: 520px;
+  margin: 0 0 14px;
+}
+
+.place {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary, #8f9baa);
+}

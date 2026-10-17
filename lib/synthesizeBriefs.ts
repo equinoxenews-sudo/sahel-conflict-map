@@ -4,10 +4,15 @@ import {
 } from "./themes";
 import { usageFromResponse, type AiUsage } from "./aiBudget";
 import { isValidVeracity, type Veracity } from "./veracity";
+import { CONFIDENCE_LEVELS, normalizeConfidence, type Confidence } from "./confidence";
 
 const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
-export const MODEL = "claude-haiku-4-5-20251001";
-const MAX_TOKENS = 4500;
+// Modifiable sans redéploiement (variable BRIEFS_MODEL) ; ajuster alors les tarifs
+// d'estimation (AI_PRICE_*, lib/aiBudget.ts).
+export const MODEL = process.env.BRIEFS_MODEL?.trim() || "claude-haiku-4-5-20251001";
+const MAX_TOKENS = 6000;
+/** Un message Telegram seul ne fait une synthèse que s'il traite le sujet de façon conséquente. */
+export const TELEGRAM_STANDALONE_MIN_CHARS = 600;
 const TIMEOUT_MS = 50000;
 
 export interface SourceArticle {
@@ -18,6 +23,8 @@ export interface SourceArticle {
   bodyText: string | null;
   imageUrl: string | null;
   publishedAt?: string | null;
+  /** Analystes V2 : message Telegram, source complémentaire et orientée. */
+  telegram?: { channel: string; note: string } | null;
 }
 
 export interface BriefSection {
@@ -52,12 +59,29 @@ export interface SynthesizedBrief {
    * candidate is already showing on another brief.
    */
   imageCandidates: string[];
+  /** Analystes V2 uniquement (null sinon). */
+  confidence: Confidence | null;
+  place: { city: string | null; country: string | null } | null;
 }
 
-function buildPrompt(zoneName: string, articles: SourceArticle[], previous: PreviousBrief[]): string {
+function analystRules(): string {
+  const scale = CONFIDENCE_LEVELS.map((l) => `${l.label} (${l.min}-${l.max} %)`).join(" ; ");
+  return `
+
+RÈGLES DE L'ANALYSTE DE ZONE (obligatoires) :
+- Les sources marquées « TELEGRAM » sont COMPLÉMENTAIRES : utilise-les pour étoffer, préciser ou corroborer les synthèses tirées de la presse, en les citant dans sourceIndexes. Une information Telegram ne devient PAS une synthèse à elle seule, sauf dans deux cas : (a) un message traite de manière conséquente et factuelle un sujet absent de la presse fournie et des brèves précédentes ; (b) au moins deux messages de canaux DIFFÉRENTS décrivent le même événement et forment ensemble une information construite. Sinon, ignore-les.
+- Plusieurs canaux Telegram sont des canaux d'acteurs ou de propagande (leur ligne éditoriale est indiquée) : leurs affirmations sont des revendications ou des narratifs, à attribuer explicitement (« selon le canal pro-russe X… »). Ils ne suffisent jamais seuls à dépasser 70 %.
+- Indice de confiance : juge la PROBABILITÉ QUE L'ÉVÉNEMENT SOIT RÉEL, même avec une seule source. confidence = un entier de 0 à 100 ; confidenceLabel = EXACTEMENT une étiquette parmi : ${scale}. Critères : nombre et indépendance des sources, confirmation officielle ou indépendante, précision (lieu, date, acteurs), cohérence avec le contexte, orientation des sources. « Revendiqué » = une partie prenante annonce ou s'attribue l'événement sans confirmation indépendante : renseigne alors claimedBy (qui revendique). Si une source indépendante confirme le fait, choisis l'étiquette du pourcentage et garde claimedBy. Dans le doute, choisis le niveau le plus prudent. Renseigne aussi veracity (ancienne échelle) de façon cohérente.
+- Lieu : place.city = la localité précise de l'événement (ville, village, ou région si rien de plus précis), ou null si l'information est d'ordre national ou général ; place.country = le pays concerné, en français (ex. « Burkina Faso », « République démocratique du Congo »), ou null si plusieurs pays sans dominante.`;
+}
+
+function buildPrompt(zoneName: string, articles: SourceArticle[], previous: PreviousBrief[], analyst = false): string {
   const listing = articles
     .map((a, i) => {
       const body = a.bodyText ?? a.summary ?? "non disponible";
+      if (a.telegram) {
+        return `[${i}] Source: TELEGRAM @${a.telegram.channel} (${a.telegram.note})\nPublication: ${a.publishedAt ?? "inconnue"}\nTexte: ${body}`;
+      }
       return `[${i}] Source: ${a.domain}\nPublication source: ${a.publishedAt ?? "inconnue"}\nTitre: ${a.title}\nTexte: ${body}`;
     })
     .join("\n\n---\n\n");
@@ -83,8 +107,29 @@ Classe chaque synthèse avec : primaryTheme = le sujet dominant, EXACTEMENT une 
 
 Règles strictes : n'utilise QUE les informations présentes dans les textes ci-dessus. N'invente aucun fait, aucune citation, aucun chiffre, aucune date qui n'y figure pas explicitement — étoffer veut dire mieux exploiter le texte source fourni, jamais ajouter une information qui n'y figure pas. Rédaction neutre, factuelle et journalistique en français.
 
+${analyst ? analystRules() : ""}
+
 Réponds UNIQUEMENT avec un tableau JSON valide, sans texte ni markdown autour, au format exact :
-[{"existingBriefId": null, "title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "primaryTheme": "conflicts", "secondaryThemes": ["energy_resources"], "eventType": "drone_strike", "importance": "medium", "veracity": "Confirmé", "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
+${analyst ? ANALYST_FORMAT : CLASSIC_FORMAT}`;
+}
+
+const CLASSIC_FORMAT = `[{"existingBriefId": null, "title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "primaryTheme": "conflicts", "secondaryThemes": ["energy_resources"], "eventType": "drone_strike", "importance": "medium", "veracity": "Confirmé", "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
+const ANALYST_FORMAT = `[{"existingBriefId": null, "title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "primaryTheme": "conflicts", "secondaryThemes": ["energy_resources"], "eventType": "drone_strike", "importance": "medium", "veracity": "Très probable", "confidence": 78, "confidenceLabel": "Très probable", "claimedBy": null, "place": {"city": "Djibo", "country": "Burkina Faso"}, "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
+
+/** Règle Telegram : un groupe sans aucune source de presse n'est retenu que si
+ *  plusieurs canaux différents concordent, ou si un message est conséquent. */
+export function telegramOnlyGroupAllowed(sources: SourceArticle[]): boolean {
+  if (sources.some((s) => !s.telegram)) return true;
+  const channels = new Set(sources.map((s) => s.telegram!.channel.toLowerCase()));
+  if (channels.size >= 2) return true;
+  return sources.some((s) => (s.bodyText ?? s.summary ?? "").length >= TELEGRAM_STANDALONE_MIN_CHARS);
+}
+
+function parsePlace(value: unknown): { city: string | null; country: string | null } | null {
+  if (typeof value !== "object" || value === null) return null;
+  const { city, country } = value as { city?: unknown; country?: unknown };
+  const clean = (v: unknown) => (typeof v === "string" && v.trim() ? v.trim().slice(0, 120) : null);
+  return { city: clean(city), country: clean(country) };
 }
 
 function isValidSection(value: unknown): value is BriefSection {
@@ -97,7 +142,13 @@ function isValidSection(value: unknown): value is BriefSection {
   );
 }
 
-export function parseResponse(text: string, articles: SourceArticle[], previous: PreviousBrief[] = [], strict = false): SynthesizedBrief[] {
+export function parseResponse(
+  text: string,
+  articles: SourceArticle[],
+  previous: PreviousBrief[] = [],
+  strict = false,
+  analyst = false,
+): SynthesizedBrief[] {
   const cleaned = text
     .trim()
     .replace(/^```(?:json)?/i, "")
@@ -121,7 +172,14 @@ export function parseResponse(text: string, articles: SourceArticle[], previous:
   const usedPreviousIds = new Set<number>();
   for (const item of parsed) {
     if (typeof item !== "object" || item === null) continue;
-    const { title, excerpt, sections, primaryTheme, secondaryThemes, eventType, importance, veracity, sourceIndexes, existingBriefId } = item as {
+    const {
+      title, excerpt, sections, primaryTheme, secondaryThemes, eventType, importance, veracity, sourceIndexes, existingBriefId,
+      confidence, confidenceLabel, claimedBy, place,
+    } = item as {
+      confidence?: unknown;
+      confidenceLabel?: unknown;
+      claimedBy?: unknown;
+      place?: unknown;
       existingBriefId?: unknown;
       title?: unknown;
       excerpt?: unknown;
@@ -149,6 +207,8 @@ export function parseResponse(text: string, articles: SourceArticle[], previous:
     if (!indexes.length || indexes.some((index) => typeof index !== "number" ||
       !Number.isInteger(index) || index < 0 || index >= articles.length || usedIndexes.has(index))) continue;
     const sources = (indexes as number[]).map((index) => articles[index]);
+    // Telegram ne fait pas une information à lui seul (sauf exceptions encadrées).
+    if (analyst && !telegramOnlyGroupAllowed(sources)) continue;
     const old = existingBriefId == null ? undefined : previous.find((brief) => brief.id === existingBriefId);
     if (existingBriefId != null && (!old || usedPreviousIds.has(old.id))) continue;
     const citations = new Map<string, string>();
@@ -181,7 +241,11 @@ export function parseResponse(text: string, articles: SourceArticle[], previous:
       // its URL.
       sourceUrls: [...citations.keys()],
       sourceDomains: [...citations.values()],
-      imageCandidates: [...new Set(sources.map((s) => s.imageUrl).filter((u): u is string => !!u))],
+      // Images de presse d'abord, celles de Telegram en dernier recours.
+      imageCandidates: [...new Set([...sources.filter((s) => !s.telegram), ...sources.filter((s) => s.telegram)]
+        .map((s) => s.imageUrl).filter((u): u is string => !!u))],
+      confidence: analyst ? normalizeConfidence(confidence, confidenceLabel, claimedBy) : null,
+      place: analyst ? parsePlace(place) : null,
     });
   }
   // Un groupe en doublon (même article ou même brève citée deux fois) est
@@ -212,7 +276,9 @@ export async function synthesizeBriefs(
   articles: SourceArticle[],
   previous: PreviousBrief[] = [],
   /** Reçoit les jetons consommés par chaque appel (suivi du budget, lib/aiUsage.ts). */
-  onUsage?: (usage: AiUsage) => void
+  onUsage?: (usage: AiUsage) => void,
+  /** Analystes V2 : indice de confiance, lieu, règles Telegram. */
+  analyst = false
 ): Promise<SynthesizedBrief[]> {
   // Une clé collée dans un tableau de bord avec un espace, un retour à la
   // ligne ou des guillemets est refusée (401) : on la nettoie.
@@ -237,7 +303,7 @@ export async function synthesizeBriefs(
         body: JSON.stringify({
           model: MODEL,
           max_tokens: MAX_TOKENS,
-          messages: [{ role: "user", content: buildPrompt(zoneName, articles, previous) }],
+          messages: [{ role: "user", content: buildPrompt(zoneName, articles, previous, analyst) }],
         }),
         signal: controller.signal,
       });
@@ -249,7 +315,7 @@ export async function synthesizeBriefs(
       const data = (await res.json()) as { content?: { type: string; text?: string }[] };
       onUsage?.(usageFromResponse(data));
       const text = data.content?.find((block) => block.type === "text")?.text ?? "";
-      return parseResponse(text, articles, previous, true);
+      return parseResponse(text, articles, previous, true, analyst);
     } catch (err) {
       const canRetry =
         err instanceof SynthesisFormatError && attempt === 1 && deadline - Date.now() >= MIN_RETRY_BUDGET_MS;

@@ -83,7 +83,9 @@ export interface BudgetLimits {
   hard: number;
 }
 
-export const DEFAULT_LIMITS: BudgetLimits = { warn: 3, stop: 5, hard: 8 };
+// Relevés le 17/10/2026 (décision de Nicolas) pour les analystes de zone : le plafond
+// mensuel visé est 35-40 €, et Elisa (ÉQUINOXE HQ) rend compte de la consommation.
+export const DEFAULT_LIMITS: BudgetLimits = { warn: 15, stop: 25, hard: 35 };
 
 export function limitsFromEnv(env: Record<string, string | undefined> = process.env): BudgetLimits {
   return {

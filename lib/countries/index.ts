@@ -344,5 +344,14 @@ export function findCountryByLabel(label: string): { iso2: string; name: string 
   return FLAG_BY_LABEL.get(normalizeCountryLabel(label)) ?? null;
 }
 
+/** Nom et capitale d'un pays désigné par un libellé courant (« RDC », « Burkina Faso »…),
+ *  pour placer sur la carte une information d'ordre national. null si inconnu. */
+export function findCapitalByLabel(label: string): { country: string; capital: string } | null {
+  const found = findCountryByLabel(label);
+  if (!found) return null;
+  const profile = Object.values(COUNTRY_PROFILES).find((p) => p.name === found.name);
+  return profile?.capital ? { country: profile.name, capital: profile.capital } : null;
+}
+
 /** Toutes les fiches du registre (pour les scripts et les tests ; ne pas importer côté navigateur). */
 export const COUNTRY_PROFILES_LIST: readonly CountryProfile[] = Object.values(COUNTRY_PROFILES);

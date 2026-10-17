@@ -1,5 +1,6 @@
 "use client";
 
+import ConfidenceBar from "./ConfidenceBar";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { formatDate } from "@/lib/formatDate";
@@ -219,14 +220,25 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
                           <span className={styles.themeTag}>{themeShortLabel(primaryTheme)}</span>
                         ) : null}
                       </span>
-                      <span
-                        className={styles.veracityBadge}
-                        style={{ backgroundColor: veracity ? VERACITY_COLORS[veracity] : "#8b96a5" }}
-                      >
-                        {veracity ?? "Non évalué"}
-                      </span>
+                      {b.confidence == null ? (
+                        <span
+                          className={styles.veracityBadge}
+                          style={{ backgroundColor: veracity ? VERACITY_COLORS[veracity] : "#8b96a5" }}
+                        >
+                          {veracity ?? "Non évalué"}
+                        </span>
+                      ) : null}
                     </div>
                     <h2 className={styles.newsTitle}>{b.title}</h2>
+                    {b.confidence != null && b.confidence_label ? (
+                      <ConfidenceBar
+                        compact
+                        percent={b.confidence}
+                        label={b.confidence_label}
+                        sourceCount={b.source_count ?? b.source_urls.length}
+                        claimedBy={b.claimed_by}
+                      />
+                    ) : null}
                     <p className={styles.newsSummary}>{b.summary}</p>
                   </div>
                 </Link>

@@ -22,4 +22,14 @@ export interface ZoneBrief {
   image_url: string | null;
   published_at: string | null;
   updated_at?: string | null;
+  /** Analystes V2 (supabase/add-analyst-v2.sql) : absents sur les synthèses antérieures. */
+  confidence?: number | null;
+  confidence_label?: string | null;
+  claimed_by?: string | null;
+  source_count?: number | null;
+  place_name?: string | null;
+  place_country?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  geo_precision?: string | null;
 }

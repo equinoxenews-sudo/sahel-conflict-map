@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import BackLink from "@/components/BackLink";
+import ConfidenceBar from "@/components/ConfidenceBar";
 import Header from "@/components/equinoxe/Header";
 import { formatDate } from "@/lib/formatDate";
 import { supabase } from "@/lib/supabaseClient";
+import { BRIEF_V2_COLUMNS } from "@/lib/zoneBriefs";
 import { eventTypeLabel, importanceLabel, resolveEventType, resolveTheme, themeLabel } from "@/lib/themes";
 import { isValidVeracity, VERACITY_COLORS } from "@/lib/veracity";
 import { getZone } from "@/lib/zones";
@@ -16,20 +18,19 @@ async function getBrief(id: string): Promise<ZoneBrief | null> {
   if (!Number.isInteger(numericId)) return null;
 
   try {
-    const { data, error } = await supabase
-      .from("zone_briefs")
-      .select(
-        "id, zone_slug, title, category, primary_theme, secondary_themes, event_type, importance, veracity, summary, sections, source_urls, source_domains, image_url, published_at, updated_at"
-      )
-      .eq("id", numericId)
-      .maybeSingle();
+    const columns =
+      "id, zone_slug, title, category, primary_theme, secondary_themes, event_type, importance, veracity, summary, sections, source_urls, source_domains, image_url, published_at, updated_at";
+    const load = (cols: string) => supabase.from("zone_briefs").select(cols).eq("id", numericId).maybeSingle();
+    // Colonnes V2 (indice de confiance, lieu) si la migration est passée, sinon sans elles.
+    let { data, error } = await load(`${columns}, ${BRIEF_V2_COLUMNS}`);
+    if (error) ({ data, error } = await load(columns));
 
     if (error) {
       console.error("Failed to load brief:", error.message);
       return null;
     }
 
-    return data;
+    return data as unknown as ZoneBrief | null;
   } catch (err) {
     console.error("Failed to reach Supabase:", err);
     return null;
@@ -76,13 +77,33 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
 
         <div className={styles.meta}>
           <span className={styles.date}>Première synthèse : {formatDate(brief.published_at)}{brief.updated_at ? ` · Mise à jour : ${formatDate(brief.updated_at)}` : ""}</span>
-          <span
-            className={styles.veracityBadge}
-            style={{ backgroundColor: veracity ? VERACITY_COLORS[veracity] : "#8b96a5" }}
-          >
-            {veracity ?? "Non évalué"}
-          </span>
+          {brief.confidence == null ? (
+            <span
+              className={styles.veracityBadge}
+              style={{ backgroundColor: veracity ? VERACITY_COLORS[veracity] : "#8b96a5" }}
+            >
+              {veracity ?? "Non évalué"}
+            </span>
+          ) : null}
         </div>
+
+        {brief.confidence != null && brief.confidence_label ? (
+          <div className={styles.confidence}>
+            <ConfidenceBar
+              percent={brief.confidence}
+              label={brief.confidence_label}
+              sourceCount={brief.source_count ?? brief.source_urls.length}
+              claimedBy={brief.claimed_by}
+            />
+            {brief.place_name ? (
+              <p className={styles.place}>
+                📍 {brief.place_name}
+                {brief.place_country && brief.place_country !== brief.place_name ? `, ${brief.place_country}` : ""}
+                {brief.geo_precision === "capitale" ? " (information d’ordre national)" : ""}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
 
         {tags.length > 0 || eventType || brief.importance ? (
           <div className={styles.tags}>

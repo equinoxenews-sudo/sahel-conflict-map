@@ -2,7 +2,8 @@ import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { syncBriefs } from "@/lib/syncBriefs";
 
-export const maxDuration = 60;
+// 300 s (maximum du plan Hobby) : une zone « analyste » enchaîne jusqu'à 3 lots (lib/syncBriefs.ts).
+export const maxDuration = 300;
 
 // Called by Vercel Cron (see vercel.json). Vercel automatically sends
 // "Authorization: Bearer $CRON_SECRET" when that env var is set, which we

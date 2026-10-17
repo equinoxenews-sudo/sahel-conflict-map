@@ -2,10 +2,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import DocumentGrid from "@/components/DocumentGrid";
 import Header from "@/components/equinoxe/Header";
+import BriefMapView from "@/components/BriefMapView";
 import MapView from "@/components/MapView";
 import ZoneNewsList from "@/components/ZoneNewsList";
 import ZoneSynthesisPanel from "@/components/ZoneSynthesisPanel";
 import ZoneApprochePage from "@/components/zone-approche/ZoneApprochePage";
+import { isAnalystV2Zone } from "@/lib/analystZones";
 import { zoneHomeHref } from "@/lib/homeZones";
 import { supabase } from "@/lib/supabaseClient";
 import { getZoneApprocheContent } from "@/lib/zoneApprocheContent";
@@ -83,7 +85,12 @@ export default async function ZoneTabPage({
               <ZoneSynthesisPanel zoneName={zone.name} synthesis={synthesis} />
             </div>
             <div className={styles.mapArea}>
-              <MapView events={await getZoneEvents(zone.countries)} zoneSlug={zone.slug} />
+              {/* Zones « analyste » : la carte montre les articles de l'analyste (GDELT et ACLED retirés). */}
+              {isAnalystV2Zone(zone.slug) ? (
+                <BriefMapView briefs={briefs} zoneSlug={zone.slug} />
+              ) : (
+                <MapView events={await getZoneEvents(zone.countries)} zoneSlug={zone.slug} />
+              )}
             </div>
           </div>
         </div>

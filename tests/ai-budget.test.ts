@@ -26,14 +26,14 @@ test("L'utilisation est lue dans la réponse de l'API, valeurs absentes à zéro
   assert.deepEqual(addUsage(usage, usage), { inputTokens: 240, outputTokens: 160, webSearches: 4 });
 });
 
-test("Seuils : avertissement à 3 $, suspension à 5 $, arrêt total à 8 $", () => {
+test("Seuils : avertissement à 15 $, suspension à 25 $, arrêt total à 35 $", () => {
   const limits = limitsFromEnv({});
-  assert.deepEqual(limits, { warn: 3, stop: 5, hard: 8 });
-  assert.equal(budgetLevel(2.99, limits), "ok");
-  assert.equal(budgetLevel(3, limits), "warn");
-  assert.equal(budgetLevel(5, limits), "stop");
-  assert.equal(budgetLevel(8, limits), "hard");
-  assert.deepEqual(limitsFromEnv({ AI_BUDGET_STOP_USD: "10" }), { warn: 3, stop: 10, hard: 8 });
+  assert.deepEqual(limits, { warn: 15, stop: 25, hard: 35 });
+  assert.equal(budgetLevel(14.99, limits), "ok");
+  assert.equal(budgetLevel(15, limits), "warn");
+  assert.equal(budgetLevel(25, limits), "stop");
+  assert.equal(budgetLevel(35, limits), "hard");
+  assert.deepEqual(limitsFromEnv({ AI_BUDGET_STOP_USD: "20" }), { warn: 15, stop: 20, hard: 35 });
 });
 
 test("Au seuil de suspension, seules les synthèses du jour continuent", () => {

@@ -23,7 +23,7 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     env:
       SITE_URL: https://sahel-conflict-map.vercel.app
       CRON_SECRET: ${{ secrets.CRON_SECRET }}
@@ -70,7 +70,7 @@ jobs:
             # Une zone qui échoue garde ses articles non traités : on réessaie une fois.
             for attempt in 1 2; do
               echo "== $zone (essai $attempt)"
-              if body=$(curl -sS --max-time 90 --fail-with-body \
+              if body=$(curl -sS --max-time 310 --fail-with-body \
                 -H "Authorization: Bearer $CRON_SECRET" \
                 "$SITE_URL/api/sync-briefs?zone=$zone" 2>&1); then
                 echo "$body"

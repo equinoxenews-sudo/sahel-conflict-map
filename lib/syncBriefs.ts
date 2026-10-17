@@ -1,11 +1,15 @@
 import { shouldGenerateBriefs, generationRulesFromEnv } from "./aiBudget";
 import { checkBudget, recordUsage } from "./aiUsage";
+import { isAnalystV2Zone } from "./analystZones";
 import { chooseBriefImage } from "./briefImages";
 import { fetchArticleContent } from "./articleSummary";
+import { legacyVeracity } from "./confidence";
 import { mapWithConcurrency } from "./gdelt";
+import { locateBrief } from "./geocode";
 import { isSportsTitle } from "./sportsFilter";
 import { getSupabaseAdmin } from "./supabaseAdmin";
 import { MODEL, synthesizeBriefs, type PreviousBrief, type SourceArticle } from "./synthesizeBriefs";
+import { channelNote } from "./telegramChannels";
 import { getZone } from "./zones";
 import { ZONE_KEYWORDS } from "./zoneKeywords";
 
@@ -14,6 +18,19 @@ import { ZONE_KEYWORDS } from "./zoneKeywords";
 // picked up on the next run.
 const ARTICLES_PER_ZONE = 5;
 const SUMMARY_FETCH_CONCURRENCY = 6;
+
+// Zones « analyste » (lib/analystZones.ts) : jusqu'à 3 lots de 8 articles par
+// passage (24 articles par zone et par jour au plus), chacun complété par les
+// messages Telegram récents de la zone. La route dispose alors de 300 s.
+const ANALYST_BATCH = 8;
+const ANALYST_MAX_BATCHES = 3;
+const ANALYST_TIME_BUDGET_MS = 200_000;
+const TELEGRAM_PER_BATCH = 15;
+const TELEGRAM_PROMPT_CHARS = 700;
+const TELEGRAM_MAX_AGE_HOURS = 72;
+/** Sans article de presse en attente, un appel « Telegram seul » demande au moins ce nombre de messages. */
+const TELEGRAM_ONLY_MIN_POSTS = 2;
+
 interface StoredArticle {
   id: number;
   title: string;
@@ -24,9 +41,70 @@ interface StoredArticle {
   image_url?: string | null;
 }
 
-async function briefZone(
-  zoneSlug: string
-): Promise<{ zoneSlug: string; articleCount: number; briefCount: number; deferred?: string }> {
+interface StoredTelegramPost {
+  id: number;
+  channel: string;
+  url: string;
+  text: string;
+  image_url: string | null;
+  published_at: string | null;
+}
+
+interface BatchResult {
+  zoneSlug: string;
+  articleCount: number;
+  briefCount: number;
+  telegramUsed: number;
+  deferred?: string;
+}
+
+/** Colonnes et tables de la V2 présentes ? Sinon, la zone garde l'ancien fonctionnement. */
+async function analystSchemaReady(): Promise<boolean> {
+  const db = getSupabaseAdmin();
+  const [a, b] = await Promise.all([
+    db.from("zone_briefs").select("confidence, latitude").limit(1),
+    db.from("telegram_posts").select("id").limit(1),
+  ]);
+  if (a.error || b.error) {
+    console.warn("Analystes V2 : appliquer supabase/add-analyst-v2.sql ; ancien fonctionnement conservé en attendant.");
+    return false;
+  }
+  return true;
+}
+
+async function loadTelegram(zoneSlug: string, exclude: Set<number>): Promise<StoredTelegramPost[]> {
+  const since = new Date(Date.now() - TELEGRAM_MAX_AGE_HOURS * 3600_000).toISOString();
+  const { data, error } = await getSupabaseAdmin()
+    .from("telegram_posts")
+    .select("id, channel, url, text, image_url, published_at")
+    .eq("zone_slug", zoneSlug)
+    .eq("used_in_brief", false)
+    .gte("published_at", since)
+    .order("published_at", { ascending: false })
+    .limit(TELEGRAM_PER_BATCH + exclude.size);
+  if (error) throw new Error(`Telegram : lecture impossible (${error.message})`);
+  return ((data ?? []) as StoredTelegramPost[]).filter((p) => !exclude.has(p.id)).slice(0, TELEGRAM_PER_BATCH);
+}
+
+function telegramSource(p: StoredTelegramPost): SourceArticle {
+  return {
+    title: p.text.split("\n")[0].slice(0, 140),
+    url: p.url,
+    domain: `t.me/${p.channel}`,
+    summary: null,
+    bodyText: p.text.slice(0, TELEGRAM_PROMPT_CHARS),
+    imageUrl: p.image_url,
+    publishedAt: p.published_at,
+    telegram: { channel: p.channel, note: channelNote(p.channel) },
+  };
+}
+
+async function briefBatch(
+  zoneSlug: string,
+  analyst: boolean,
+  limit: number,
+  telegramExclude: Set<number>,
+): Promise<BatchResult> {
   const supabase = getSupabaseAdmin();
 
   const loadUnbriefed = (columns: string) =>
@@ -36,7 +114,7 @@ async function briefZone(
       .eq("zone_slug", zoneSlug)
       .eq("used_in_brief", false)
       .order("published_at", { ascending: false })
-      .limit(ARTICLES_PER_ZONE);
+      .limit(limit);
   // La colonne image_url (supabase/add-article-images.sql) peut ne pas exister encore.
   let { data, error } = await loadUnbriefed("id, title, url, domain, published_at, image_url");
   if (error && /image_url/.test(error.message)) {
@@ -56,24 +134,28 @@ async function briefZone(
     if (sportsError) throw new Error(`Failed to set aside sports articles: ${sportsError.message}`);
   }
   const articles = stored.filter((article) => !sportsIds.includes(article.id));
-  if (articles.length === 0) {
-    return { zoneSlug, articleCount: 0, briefCount: 0 };
+  const telegram = analyst ? await loadTelegram(zoneSlug, telegramExclude) : [];
+  const telegramOnly = articles.length === 0;
+  if (telegramOnly && telegram.length < TELEGRAM_ONLY_MIN_POSTS) {
+    return { zoneSlug, articleCount: 0, briefCount: 0, telegramUsed: 0 };
   }
 
   // Génération conditionnelle : tant que le lot en attente est mince et récent, on ne
   // paie ni téléchargement de pages ni appel au modèle. Rien n'est acquitté : les
   // articles restent en attente et seront repris à la prochaine exécution.
-  const decision = shouldGenerateBriefs(
-    articles.map((article) => ({ title: article.title, publishedAt: article.published_at })),
-    new Date(),
-    generationRulesFromEnv(),
-  );
-  if (!decision.generate) {
-    console.log(`Brief sync ${zoneSlug} : report — ${decision.reason}`);
-    return { zoneSlug, articleCount: articles.length, briefCount: 0, deferred: decision.reason };
+  if (!telegramOnly) {
+    const decision = shouldGenerateBriefs(
+      articles.map((article) => ({ title: article.title, publishedAt: article.published_at })),
+      new Date(),
+      generationRulesFromEnv(),
+    );
+    if (!decision.generate) {
+      console.log(`Brief sync ${zoneSlug} : report — ${decision.reason}`);
+      return { zoneSlug, articleCount: articles.length, briefCount: 0, telegramUsed: 0, deferred: decision.reason };
+    }
   }
 
-  const sourceArticles: SourceArticle[] = await mapWithConcurrency(
+  const pressSources: SourceArticle[] = await mapWithConcurrency(
     articles,
     SUMMARY_FETCH_CONCURRENCY,
     async (a) => {
@@ -107,22 +189,29 @@ async function briefZone(
     const { error: retryError } = await supabase.from("articles").update({ used_in_brief: true }).in("id", acknowledgedIds);
     if (retryError) throw new Error(`Failed to acknowledge existing citations: ${retryError.message}`);
   }
-  const pendingSources = sourceArticles.filter((article) => !alreadyCited.has(article.url)
+  const pendingPress = pressSources.filter((article) => !alreadyCited.has(article.url)
     && !!(article.bodyText?.trim() || article.summary?.trim()));
+  const pendingTelegram = telegram.filter((p) => !alreadyCited.has(p.url)).map(telegramSource);
+  // La presse d'abord : les messages Telegram suivent, en complément.
+  const pendingSources = [...pendingPress, ...pendingTelegram];
   const zoneName = getZone(zoneSlug)?.name ?? zoneSlug;
   const briefs = await synthesizeBriefs(zoneName, pendingSources, previous, (usage) => {
-    void recordUsage({ job: "sync-briefs", zoneSlug, model: MODEL, usage, note: `${pendingSources.length} articles` });
-  });
+    void recordUsage({
+      job: "sync-briefs", zoneSlug, model: MODEL, usage,
+      note: `${pendingPress.length} articles${analyst ? ` + ${pendingTelegram.length} Telegram` : ""}`,
+    });
+  }, analyst);
 
   const { data: recentImages, error: imageError } = await supabase.from("zone_briefs")
     .select("image_url").order("published_at", { ascending: false }).limit(100);
   if (imageError) throw new Error(`Cannot load recent images: ${imageError.message}`);
   const usedImages = new Set<string>((recentImages ?? []).map((row) => row.image_url).filter(Boolean));
 
+  let telegramUsed = 0;
   // Only acknowledge sources after their corresponding brief was persisted.
   // A missing API key, malformed JSON or failed API request must not consume them.
   for (const brief of briefs) {
-    const row = {
+    const row: Record<string, unknown> = {
       zone_slug: zoneSlug, title: brief.title, summary: brief.excerpt,
       sections: brief.sections, veracity: brief.veracity,
       primary_theme: brief.primaryTheme, secondary_themes: brief.secondaryThemes,
@@ -131,6 +220,19 @@ async function briefZone(
       updated_at: new Date().toISOString(),
       image_url: chooseBriefImage(brief.imageCandidates, usedImages, zoneSlug),
     };
+    if (analyst && brief.confidence) {
+      row.confidence = brief.confidence.percent;
+      row.confidence_label = brief.confidence.label;
+      row.claimed_by = brief.confidence.claimedBy;
+      row.veracity = legacyVeracity(brief.confidence.label);
+      row.source_count = brief.sourceUrls.length;
+      const point = brief.place ? await locateBrief(brief.place.city, brief.place.country) : null;
+      row.place_name = point?.placeName ?? null;
+      row.place_country = point?.country ?? brief.place?.country ?? null;
+      row.latitude = point?.latitude ?? null;
+      row.longitude = point?.longitude ?? null;
+      row.geo_precision = point?.precision ?? null;
+    }
     const result = brief.existingBriefId == null
       ? await supabase.from("zone_briefs").insert(row).select("id").single()
       : await supabase.from("zone_briefs").update(row).eq("id", brief.existingBriefId)
@@ -140,18 +242,48 @@ async function briefZone(
     const { error: acknowledgeError } = await supabase.from("articles")
       .update({ used_in_brief: true }).in("id", citedIds);
     if (acknowledgeError) throw new Error(`Failed to acknowledge sources: ${acknowledgeError.message}`);
+    // Messages Telegram cités : utilisés. Les autres restent disponibles 72 h pour
+    // étoffer un futur article de presse.
+    const citedTelegram = telegram.filter((p) => brief.newSourceUrls.includes(p.url)).map((p) => p.id);
+    if (citedTelegram.length) {
+      const { error: tgError } = await supabase.from("telegram_posts").update({ used_in_brief: true }).in("id", citedTelegram);
+      if (tgError) throw new Error(`Failed to acknowledge Telegram sources: ${tgError.message}`);
+      telegramUsed += citedTelegram.length;
+    }
   }
+  for (const p of telegram) telegramExclude.add(p.id);
 
   // A valid response (including []) means the entire submitted batch was
   // processed. Omitted articles must not be billed again each day. Exceptions
   // above preserve pending state; unavailable source text was never submitted.
-  const submittedUrls = new Set(pendingSources.map((article) => article.url));
+  const submittedUrls = new Set(pendingPress.map((article) => article.url));
   const submittedIds = articles.filter((article) => submittedUrls.has(article.url)).map((article) => article.id);
   if (submittedIds.length) {
     const { error: processedError } = await supabase.from("articles").update({ used_in_brief: true }).in("id", submittedIds);
     if (processedError) throw new Error(`Failed to acknowledge processed batch: ${processedError.message}`);
   }
-  return { zoneSlug, articleCount: articles.length, briefCount: briefs.length };
+  return { zoneSlug, articleCount: articles.length, briefCount: briefs.length, telegramUsed };
+}
+
+async function briefZone(zoneSlug: string): Promise<BatchResult> {
+  const analyst = isAnalystV2Zone(zoneSlug) && (await analystSchemaReady());
+  if (!analyst) return briefBatch(zoneSlug, false, ARTICLES_PER_ZONE, new Set());
+
+  // Plusieurs lots tant qu'il reste des articles, dans la limite du temps et du
+  // plafond quotidien. Un même message Telegram n'est proposé qu'une fois par passage.
+  const started = Date.now();
+  const seenTelegram = new Set<number>();
+  const total: BatchResult = { zoneSlug, articleCount: 0, briefCount: 0, telegramUsed: 0 };
+  for (let batch = 0; batch < ANALYST_MAX_BATCHES && Date.now() - started < ANALYST_TIME_BUDGET_MS; batch++) {
+    const r = await briefBatch(zoneSlug, true, ANALYST_BATCH, seenTelegram);
+    total.articleCount += r.articleCount;
+    total.briefCount += r.briefCount;
+    total.telegramUsed += r.telegramUsed;
+    if (r.deferred) total.deferred = r.deferred;
+    // Lot incomplet ou reporté : plus rien à traiter pour aujourd'hui.
+    if (r.deferred || r.articleCount < ANALYST_BATCH) break;
+  }
+  return total;
 }
 
 /**
@@ -195,12 +327,12 @@ export async function syncBriefs(onlyZone?: string) {
     }
   }));
 
-  const summary: Record<string, { articles: number; briefs: number; deferred?: string } | -1> = {};
+  const summary: Record<string, { articles: number; briefs: number; telegram?: number; deferred?: string } | -1> = {};
   const errors: Record<string, string> = {};
   results.forEach((result, i) => {
     const zoneSlug = zoneSlugs[i];
     if (result.status === "fulfilled") {
-      summary[zoneSlug] = { articles: result.value.articleCount, briefs: result.value.briefCount, ...(result.value.deferred ? { deferred: result.value.deferred } : {}) };
+      summary[zoneSlug] = { articles: result.value.articleCount, briefs: result.value.briefCount, ...(result.value.telegramUsed ? { telegram: result.value.telegramUsed } : {}), ...(result.value.deferred ? { deferred: result.value.deferred } : {}) };
     } else {
       console.error(`Brief sync failed for ${zoneSlug}:`, result.reason);
       summary[zoneSlug] = -1;

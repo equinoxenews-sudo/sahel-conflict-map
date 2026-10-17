@@ -1,6 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { syncArticles } from "@/lib/syncArticles";
+import { syncTelegram } from "@/lib/syncTelegram";
 
 export const maxDuration = 60;
 
@@ -15,12 +16,18 @@ export async function GET(request: Request) {
 
   try {
     const summary = await syncArticles();
+    // Telegram (sources complémentaires des zones « analyste ») : un échec ne
+    // doit pas priver le site de ses articles de presse.
+    const telegram = await syncTelegram().catch((err) => {
+      console.error("Telegram sync failed", err);
+      return { error: err instanceof Error ? err.message : String(err) };
+    });
     // The homepage and zone pages are ISR-cached (revalidate = 3600) — mark
     // them stale so the very next visit picks up the new articles/briefs
     // instead of waiting up to an hour.
     revalidatePath("/");
     revalidatePath("/zones/[slug]/[tab]", "page");
-    return NextResponse.json({ ok: true, summary });
+    return NextResponse.json({ ok: true, summary, telegram });
   } catch (error) {
     console.error("Article sync failed", error);
     return NextResponse.json(
