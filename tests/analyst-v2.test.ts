@@ -79,3 +79,19 @@ test("Canal généraliste : le message va à la zone dont il cite un pays", () =
   assert.equal(zoneForText("Frappe de drones près de Gao, au Mali", ["afrique"]), "afrique");
   assert.equal(zoneForText("Situation à Kharkiv", ["afrique"]), null);
 });
+
+test("Doute de l'analyste : lu dans la réponse, message clair pour Nicolas", async () => {
+  const { reviewMessage } = await import("../lib/briefReviews");
+  const json = JSON.stringify([
+    { existingBriefId: null, title: "Frappe revendiquée", excerpt: "x", primaryTheme: "conflicts", secondaryThemes: [], eventType: null,
+      importance: "high", veracity: "Revendiqué", confidence: 62, confidenceLabel: "Revendiqué", claimedBy: "Africa Corps",
+      doubt: "Seule source : un canal pro-russe, bilan invérifiable.", place: { city: null, country: "Mali" },
+      sections: [{ heading: null, body: "Texte." }], sourceIndexes: [0] },
+  ]);
+  const [brief] = parseResponse(json, [press(0)], [], false, true);
+  assert.equal(brief.doubt, "Seule source : un canal pro-russe, bilan invérifiable.");
+  assert.equal(parseResponse(json, [press(0)], [], false, false)[0].doubt, null);
+  const text = reviewMessage({ zone: "afrique", title: brief.title, doubt: brief.doubt!, confidence: 62, label: "Revendiqué", sources: ["rfi.fr"] });
+  assert.match(text, /Gabriel \(Afrique\) a un doute/);
+  assert.match(text, /Revendiqué \(62 %\)/);
+});

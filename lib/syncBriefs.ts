@@ -1,6 +1,7 @@
 import { shouldGenerateBriefs, generationRulesFromEnv } from "./aiBudget";
 import { checkBudget, recordUsage } from "./aiUsage";
 import { isAnalystV2Zone } from "./analystZones";
+import { holdForReview, reviewsReady } from "./briefReviews";
 import { chooseBriefImage } from "./briefImages";
 import { fetchArticleContent } from "./articleSummary";
 import { legacyVeracity } from "./confidence";
@@ -55,6 +56,8 @@ interface BatchResult {
   articleCount: number;
   briefCount: number;
   telegramUsed: number;
+  /** Articles mis en attente de la décision de Nicolas (doute de l'analyste). */
+  held?: number;
   deferred?: string;
 }
 
@@ -208,6 +211,7 @@ async function briefBatch(
   const usedImages = new Set<string>((recentImages ?? []).map((row) => row.image_url).filter(Boolean));
 
   let telegramUsed = 0;
+  let held = 0;
   // Only acknowledge sources after their corresponding brief was persisted.
   // A missing API key, malformed JSON or failed API request must not consume them.
   for (const brief of briefs) {
@@ -233,11 +237,19 @@ async function briefBatch(
       row.longitude = point?.longitude ?? null;
       row.geo_precision = point?.precision ?? null;
     }
-    const result = brief.existingBriefId == null
-      ? await supabase.from("zone_briefs").insert(row).select("id").single()
-      : await supabase.from("zone_briefs").update(row).eq("id", brief.existingBriefId)
-        .eq("zone_slug", zoneSlug).select("id").single();
-    if (result.error) throw new Error(`Failed to persist brief: ${result.error.message}`);
+    // Doute de l'analyste sur un nouvel article : pas de publication, Nicolas tranche
+    // par Telegram (lib/briefReviews.ts). Les sources sont acquittées comme d'habitude.
+    if (analyst && brief.doubt && brief.existingBriefId == null && (await reviewsReady())) {
+      row.published_at = new Date().toISOString();
+      await holdForReview(zoneSlug, row, brief.doubt);
+      held += 1;
+    } else {
+      const result = brief.existingBriefId == null
+        ? await supabase.from("zone_briefs").insert(row).select("id").single()
+        : await supabase.from("zone_briefs").update(row).eq("id", brief.existingBriefId)
+          .eq("zone_slug", zoneSlug).select("id").single();
+      if (result.error) throw new Error(`Failed to persist brief: ${result.error.message}`);
+    }
     const citedIds = articles.filter((article) => brief.newSourceUrls.includes(article.url)).map((article) => article.id);
     const { error: acknowledgeError } = await supabase.from("articles")
       .update({ used_in_brief: true }).in("id", citedIds);
@@ -262,7 +274,7 @@ async function briefBatch(
     const { error: processedError } = await supabase.from("articles").update({ used_in_brief: true }).in("id", submittedIds);
     if (processedError) throw new Error(`Failed to acknowledge processed batch: ${processedError.message}`);
   }
-  return { zoneSlug, articleCount: articles.length, briefCount: briefs.length, telegramUsed };
+  return { zoneSlug, articleCount: articles.length, briefCount: briefs.length - held, telegramUsed, held };
 }
 
 async function briefZone(zoneSlug: string): Promise<BatchResult> {
@@ -279,6 +291,7 @@ async function briefZone(zoneSlug: string): Promise<BatchResult> {
     total.articleCount += r.articleCount;
     total.briefCount += r.briefCount;
     total.telegramUsed += r.telegramUsed;
+    total.held = (total.held ?? 0) + (r.held ?? 0);
     if (r.deferred) total.deferred = r.deferred;
     // Lot incomplet ou reporté : plus rien à traiter pour aujourd'hui.
     if (r.deferred || r.articleCount < ANALYST_BATCH) break;
@@ -327,12 +340,12 @@ export async function syncBriefs(onlyZone?: string) {
     }
   }));
 
-  const summary: Record<string, { articles: number; briefs: number; telegram?: number; deferred?: string } | -1> = {};
+  const summary: Record<string, { articles: number; briefs: number; telegram?: number; aTrancher?: number; deferred?: string } | -1> = {};
   const errors: Record<string, string> = {};
   results.forEach((result, i) => {
     const zoneSlug = zoneSlugs[i];
     if (result.status === "fulfilled") {
-      summary[zoneSlug] = { articles: result.value.articleCount, briefs: result.value.briefCount, ...(result.value.telegramUsed ? { telegram: result.value.telegramUsed } : {}), ...(result.value.deferred ? { deferred: result.value.deferred } : {}) };
+      summary[zoneSlug] = { articles: result.value.articleCount, briefs: result.value.briefCount, ...(result.value.telegramUsed ? { telegram: result.value.telegramUsed } : {}), ...(result.value.held ? { aTrancher: result.value.held } : {}), ...(result.value.deferred ? { deferred: result.value.deferred } : {}) };
     } else {
       console.error(`Brief sync failed for ${zoneSlug}:`, result.reason);
       summary[zoneSlug] = -1;

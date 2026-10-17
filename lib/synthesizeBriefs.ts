@@ -62,6 +62,8 @@ export interface SynthesizedBrief {
   /** Analystes V2 uniquement (null sinon). */
   confidence: Confidence | null;
   place: { city: string | null; country: string | null } | null;
+  /** Analystes V2 : raison du doute ; l'article attend alors la décision de Nicolas. */
+  doubt: string | null;
 }
 
 function analystRules(): string {
@@ -72,6 +74,7 @@ RÈGLES DE L'ANALYSTE DE ZONE (obligatoires) :
 - Les sources marquées « TELEGRAM » sont COMPLÉMENTAIRES : utilise-les pour étoffer, préciser ou corroborer les synthèses tirées de la presse, en les citant dans sourceIndexes. Une information Telegram ne devient PAS une synthèse à elle seule, sauf dans deux cas : (a) un message traite de manière conséquente et factuelle un sujet absent de la presse fournie et des brèves précédentes ; (b) au moins deux messages de canaux DIFFÉRENTS décrivent le même événement et forment ensemble une information construite. Sinon, ignore-les.
 - Plusieurs canaux Telegram sont des canaux d'acteurs ou de propagande (leur ligne éditoriale est indiquée) : leurs affirmations sont des revendications ou des narratifs, à attribuer explicitement (« selon le canal pro-russe X… »). Ils ne suffisent jamais seuls à dépasser 70 %.
 - Indice de confiance : juge la PROBABILITÉ QUE L'ÉVÉNEMENT SOIT RÉEL, même avec une seule source. confidence = un entier de 0 à 100 ; confidenceLabel = EXACTEMENT une étiquette parmi : ${scale}. Critères : nombre et indépendance des sources, confirmation officielle ou indépendante, précision (lieu, date, acteurs), cohérence avec le contexte, orientation des sources. « Revendiqué » = une partie prenante annonce ou s'attribue l'événement sans confirmation indépendante : renseigne alors claimedBy (qui revendique). Si une source indépendante confirme le fait, choisis l'étiquette du pourcentage et garde claimedBy. Dans le doute, choisis le niveau le plus prudent. Renseigne aussi veracity (ancienne échelle) de façon cohérente.
+- Doute : si tu doutes sérieusement de la PERTINENCE de l'information pour le site (sujet hors sécurité ou géopolitique, intérêt douteux) ou de sa FIABILITÉ au point de ne pas savoir s'il faut la publier (information grave reposant sur une seule source orientée, contradiction majeure non tranchée, image ou chiffre invérifiable), renseigne doubt en une phrase qui explique le doute à ton rédacteur en chef ; il décidera de publier ou non. Sinon doubt vaut null. Ne l'utilise pas pour une simple prudence déjà reflétée par un indice de confiance bas.
 - Lieu : place.city = la localité précise de l'événement (ville, village, ou région si rien de plus précis), ou null si l'information est d'ordre national ou général ; place.country = le pays concerné, en français (ex. « Burkina Faso », « République démocratique du Congo »), ou null si plusieurs pays sans dominante.`;
 }
 
@@ -114,7 +117,7 @@ ${analyst ? ANALYST_FORMAT : CLASSIC_FORMAT}`;
 }
 
 const CLASSIC_FORMAT = `[{"existingBriefId": null, "title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "primaryTheme": "conflicts", "secondaryThemes": ["energy_resources"], "eventType": "drone_strike", "importance": "medium", "veracity": "Confirmé", "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
-const ANALYST_FORMAT = `[{"existingBriefId": null, "title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "primaryTheme": "conflicts", "secondaryThemes": ["energy_resources"], "eventType": "drone_strike", "importance": "medium", "veracity": "Très probable", "confidence": 78, "confidenceLabel": "Très probable", "claimedBy": null, "place": {"city": "Djibo", "country": "Burkina Faso"}, "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
+const ANALYST_FORMAT = `[{"existingBriefId": null, "title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "primaryTheme": "conflicts", "secondaryThemes": ["energy_resources"], "eventType": "drone_strike", "importance": "medium", "veracity": "Très probable", "confidence": 78, "confidenceLabel": "Très probable", "claimedBy": null, "doubt": null, "place": {"city": "Djibo", "country": "Burkina Faso"}, "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
 
 /** Règle Telegram : un groupe sans aucune source de presse n'est retenu que si
  *  plusieurs canaux différents concordent, ou si un message est conséquent. */
@@ -174,8 +177,9 @@ export function parseResponse(
     if (typeof item !== "object" || item === null) continue;
     const {
       title, excerpt, sections, primaryTheme, secondaryThemes, eventType, importance, veracity, sourceIndexes, existingBriefId,
-      confidence, confidenceLabel, claimedBy, place,
+      confidence, confidenceLabel, claimedBy, place, doubt,
     } = item as {
+      doubt?: unknown;
       confidence?: unknown;
       confidenceLabel?: unknown;
       claimedBy?: unknown;
@@ -246,6 +250,7 @@ export function parseResponse(
         .map((s) => s.imageUrl).filter((u): u is string => !!u))],
       confidence: analyst ? normalizeConfidence(confidence, confidenceLabel, claimedBy) : null,
       place: analyst ? parsePlace(place) : null,
+      doubt: analyst && typeof doubt === "string" && doubt.trim() ? doubt.trim().slice(0, 500) : null,
     });
   }
   // Un groupe en doublon (même article ou même brève citée deux fois) est
