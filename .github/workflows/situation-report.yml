@@ -1,13 +1,14 @@
 name: Point de situation (brouillons)
 
-# Prépare le brouillon du point de situation de chaque zone, une fois par
-# semaine : lundi 7 h à Paris, pour la semaine écoulée. GitHub planifie en UTC :
-# 5 h 10 UTC = 7 h 10 à Paris en heure d'été (6 h 10 en hiver — à décaler le
-# 25 octobre, comme les autres workflows). Les brouillons ne sont PAS publiés :
-# relecture et publication depuis /admin/situation.
+# Les analystes de zone préparent le brouillon du point de situation de leur zone deux
+# fois par semaine : lundi et jeudi, vers 6 h - 7 h à Paris (cron Vercel 05:00 UTC à
+# ±59 min ; la planification ci-dessous reste en secours). Chaque édition couvre la
+# période depuis la précédente. Modèle dédié : Opus par défaut (variable PSIT_MODEL).
+# Les brouillons ne sont PAS publiés : relecture et publication par Nicolas depuis
+# /admin/situation (le HQ et Telegram signalent chaque brouillon prêt).
 on:
   schedule:
-    - cron: "10 5 * * 1"
+    - cron: "10 5 * * 1,4"
   workflow_dispatch:
     inputs:
       force:
@@ -31,7 +32,7 @@ jobs:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-      SYNTHESIS_MODEL: ${{ vars.SYNTHESIS_MODEL }}
+      PSIT_MODEL: ${{ vars.PSIT_MODEL }}
       FORCE: ${{ inputs.force }}
       AI_BUDGET_WARN_USD: ${{ vars.AI_BUDGET_WARN_USD }}
       AI_BUDGET_STOP_USD: ${{ vars.AI_BUDGET_STOP_USD }}

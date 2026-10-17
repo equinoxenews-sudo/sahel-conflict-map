@@ -202,7 +202,9 @@ export async function callSynthesisModel(
   prompt: string,
   useWebSearch: boolean,
   allowedDomains: readonly string[] = SYNTHESIS_ALLOWED_DOMAINS,
-  maxSearches: number = MAX_WEB_SEARCHES
+  maxSearches: number = MAX_WEB_SEARCHES,
+  /** Modèle de l'appel ; les points de situation ont le leur (PSIT_MODEL). */
+  model: string = SYNTHESIS_MODEL
 ): Promise<{ text: string; sources: SynthesisSource[]; usedWebSearch: boolean; usage: AiUsage }> {
   const tools = useWebSearch
     ? [{ type: "web_search_20250305", name: "web_search", max_uses: maxSearches, allowed_domains: [...allowedDomains] }]
@@ -224,7 +226,7 @@ export async function callSynthesisModel(
       const res = await fetch(ANTHROPIC_API_URL, {
         method: "POST",
         headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-        body: JSON.stringify({ model: SYNTHESIS_MODEL, max_tokens: MAX_TOKENS, tools, messages }),
+        body: JSON.stringify({ model, max_tokens: MAX_TOKENS, tools, messages }),
         signal: controller.signal,
       });
       if (!res.ok) throw new AnthropicRequestError(res.status, await res.text());

@@ -93,3 +93,15 @@ test("Génération : un événement majeur ou une attente trop longue déclenche
   assert.equal(shouldGenerateBriefs([{ title: "Attentat à Ouagadougou : plusieurs morts", publishedAt: ago(1) }], NOW).generate, true);
   assert.equal(shouldGenerateBriefs([{ title: "Visite du ministre", publishedAt: ago(40) }], NOW).generate, true);
 });
+
+test("Coût estimé au tarif du modèle réellement utilisé", async () => {
+  const { pricingFromEnv } = await import("../lib/aiBudget");
+  const usage = { inputTokens: 1_000_000, outputTokens: 1_000_000, webSearches: 0 };
+  assert.equal(estimateCostUsd(usage, pricingFromEnv({}, "claude-opus-5-5")), 24);
+  assert.equal(estimateCostUsd(usage, pricingFromEnv({}, "claude-sonnet-5-5")), 12);
+  assert.equal(estimateCostUsd(usage, pricingFromEnv({}, "claude-haiku-4-5-20251001")), 6);
+  assert.ok(Math.abs(estimateCostUsd(usage, pricingFromEnv({}, "claude-haiku-5-5")) - 0.6) < 1e-9);
+  // Modèle inconnu : tarif par défaut (Haiku 4.5) ; variable d'environnement prioritaire.
+  assert.equal(estimateCostUsd(usage, pricingFromEnv({}, "inconnu")), 6);
+  assert.equal(estimateCostUsd(usage, pricingFromEnv({ AI_PRICE_INPUT_PER_MTOK: "3" }, "claude-opus-5-5")), 23);
+});

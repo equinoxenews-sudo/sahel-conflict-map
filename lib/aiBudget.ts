@@ -51,10 +51,23 @@ function numberFrom(value: string | undefined, fallback: number): number {
   return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback;
 }
 
-export function pricingFromEnv(env: Record<string, string | undefined> = process.env): Pricing {
+// Tarifs publics par famille de modèles (dollars par million de jetons, relevés le
+// 17/10/2026 sur la documentation d'Anthropic). Chaque appel est estimé au tarif du
+// modèle réellement utilisé : Opus coûte 4 fois Haiku 4.5, Haiku 5.5 dix fois moins.
+const MODEL_PRICES: { match: RegExp; input: number; output: number }[] = [
+  { match: /opus/i, input: 4, output: 20 },
+  { match: /sonnet/i, input: 2, output: 10 },
+  { match: /haiku-5/i, input: 0.1, output: 0.5 },
+  { match: /haiku-4/i, input: 1, output: 5 },
+  { match: /fable|mythos/i, input: 10, output: 50 },
+];
+
+/** Tarif d'un modèle ; les variables AI_PRICE_* restent prioritaires si elles sont définies. */
+export function pricingFromEnv(env: Record<string, string | undefined> = process.env, model?: string | null): Pricing {
+  const known = model ? MODEL_PRICES.find((p) => p.match.test(model)) : undefined;
   return {
-    inputPerMillionTokens: numberFrom(env.AI_PRICE_INPUT_PER_MTOK, DEFAULT_PRICING.inputPerMillionTokens),
-    outputPerMillionTokens: numberFrom(env.AI_PRICE_OUTPUT_PER_MTOK, DEFAULT_PRICING.outputPerMillionTokens),
+    inputPerMillionTokens: numberFrom(env.AI_PRICE_INPUT_PER_MTOK, known?.input ?? DEFAULT_PRICING.inputPerMillionTokens),
+    outputPerMillionTokens: numberFrom(env.AI_PRICE_OUTPUT_PER_MTOK, known?.output ?? DEFAULT_PRICING.outputPerMillionTokens),
     webSearchPerThousand: numberFrom(env.AI_PRICE_WEB_SEARCH_PER_1000, DEFAULT_PRICING.webSearchPerThousand),
   };
 }

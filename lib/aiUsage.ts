@@ -31,7 +31,7 @@ interface RecordInput {
 /** Enregistre un appel. Ne lève jamais : un défaut de journal ne doit pas bloquer une synthèse. */
 export async function recordUsage(input: RecordInput): Promise<void> {
   try {
-    const cost = estimateCostUsd(input.usage, pricingFromEnv());
+    const cost = estimateCostUsd(input.usage, pricingFromEnv(process.env, input.model));
     const { error } = await getSupabaseAdmin().from("ai_usage").insert({
       job: input.job,
       zone_slug: input.zoneSlug ?? null,

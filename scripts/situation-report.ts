@@ -29,7 +29,12 @@ import {
   type SituationInputBrief,
 } from "../lib/situationReport";
 import { isSportsTitle } from "../lib/sportsFilter";
-import { callSynthesisModel, SYNTHESIS_MODEL } from "../lib/zoneSynthesis";
+import { callSynthesisModel } from "../lib/zoneSynthesis";
+import { SYNTHESIS_ALLOWED_DOMAINS } from "../lib/synthesisSources";
+
+// Modèle des points de situation, distinct de la synthèse quotidienne : Opus par défaut
+// (décision de Nicolas, 17/10/2026). Modifiable sans redéploiement : variable PSIT_MODEL.
+const PSIT_MODEL = process.env.PSIT_MODEL?.trim() || "claude-opus-5-5";
 import { ZONES, getZone } from "../lib/zones";
 
 const DEFAULT_WINDOW_DAYS = 7;
@@ -71,17 +76,22 @@ async function draftZone(zoneSlug: string, apiKey: string): Promise<"créé" | "
   const fallbackStart = new Date(now.getTime() - DEFAULT_WINDOW_DAYS * 86400_000);
   const periodStart = last ? new Date(Math.max(new Date(last.period_end).getTime(), earliest.getTime())) : fallbackStart;
 
-  const { data, error } = await supabase
-    .from("zone_briefs")
-    .select("id, title, summary, sections, primary_theme, category, importance, veracity, source_domains, published_at, image_url")
-    .eq("zone_slug", zoneSlug)
-    .gte("updated_at", periodStart.toISOString())
-    .order("updated_at", { ascending: false })
-    .limit(MAX_BRIEFS);
+  const columns = "id, title, summary, sections, primary_theme, category, importance, veracity, source_domains, published_at, image_url";
+  const load = (cols: string) =>
+    supabase
+      .from("zone_briefs")
+      .select(cols)
+      .eq("zone_slug", zoneSlug)
+      .gte("updated_at", periodStart.toISOString())
+      .order("updated_at", { ascending: false })
+      .limit(MAX_BRIEFS);
+  // Indice de confiance des analystes si la migration V2 est passée, sinon sans.
+  let { data, error } = await load(`${columns}, confidence, confidence_label, claimed_by`);
+  if (error) ({ data, error } = await load(columns));
   if (error) throw new Error(`Lecture des synthèses impossible : ${error.message}`);
 
   // Les synthèses de sport ne sont jamais proposées au modèle.
-  const briefs = ((data ?? []) as SituationInputBrief[]).filter((b) => !isSportsTitle(b.title));
+  const briefs = ((data ?? []) as unknown as SituationInputBrief[]).filter((b) => !isSportsTitle(b.title));
   if (briefs.length < MIN_BRIEFS) {
     console.log(`  ${zoneName} : ${briefs.length} synthèse(s) sur la période, pas assez pour un rapport.`);
     return "ignoré";
@@ -91,14 +101,14 @@ async function draftZone(zoneSlug: string, apiKey: string): Promise<"créé" | "
   let content;
   for (let attempt = 1; ; attempt++) {
     try {
-      const result = await callSynthesisModel(apiKey, prompt, false);
+      const result = await callSynthesisModel(apiKey, prompt, false, SYNTHESIS_ALLOWED_DOMAINS, 0, PSIT_MODEL);
       try {
         content = parseSituationReport(result.text, briefs, zoneSlug);
       } catch (parseError) {
-        await recordUsage({ job: "situation-report", zoneSlug, model: SYNTHESIS_MODEL, usage: result.usage, ok: false, note: "réponse inexploitable" });
+        await recordUsage({ job: "situation-report", zoneSlug, model: PSIT_MODEL, usage: result.usage, ok: false, note: "réponse inexploitable" });
         throw parseError;
       }
-      await recordUsage({ job: "situation-report", zoneSlug, model: SYNTHESIS_MODEL, usage: result.usage, note: `${briefs.length} synthèses lues` });
+      await recordUsage({ job: "situation-report", zoneSlug, model: PSIT_MODEL, usage: result.usage, note: `${briefs.length} synthèses lues` });
       break;
     } catch (err) {
       // Réponse mal formée : le modèle n'est pas déterministe, un second essai suffit souvent.
@@ -129,7 +139,7 @@ async function draftZone(zoneSlug: string, apiKey: string): Promise<"créé" | "
     conclusion: content.conclusion,
     image_url: candidates[0]?.image_url ?? null,
     brief_ids: usedIds,
-    model: SYNTHESIS_MODEL,
+    model: PSIT_MODEL,
   });
   if (insertError) throw new Error(`Enregistrement impossible : ${insertError.message}`);
 
@@ -164,7 +174,7 @@ async function main() {
   } else console.log(budget.message);
   if (!budget.allowed) return;
 
-  console.log(`Points de situation, brouillons (modèle ${SYNTHESIS_MODEL}${force ? ", forcé" : ""}) :`);
+  console.log(`Points de situation, brouillons (modèle ${PSIT_MODEL}${force ? ", forcé" : ""}) :`);
   let failed = 0;
   for (const zoneSlug of targets) {
     try {

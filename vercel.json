@@ -14,7 +14,7 @@
     },
     {
       "path": "/api/cron/dispatch/situation-report.yml",
-      "schedule": "0 5 * * 1"
+      "schedule": "0 5 * * 1,4"
     },
     {
       "path": "/api/cron/dispatch/sync-briefs.yml",
