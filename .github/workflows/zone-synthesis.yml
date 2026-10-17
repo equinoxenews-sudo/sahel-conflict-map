@@ -1,20 +1,19 @@
 name: Synthèse de zone 9 h
 
-# Agent de synthèse politico-sécuritaire. Une seule zone par jour (rotation de
-# scripts/zone-synthesis.ts) : mardi Europe, mercredi Moyen-Orient, jeudi Afrique,
-# vendredi Indopacifique, samedi Amérique du Sud ; lundi est réservé aux points
-# de situation. GitHub planifie en UTC : 7 h 05 UTC = 9 h 05 à Paris en heure
-# d'été (8 h 05 en hiver). Tourne ici plutôt que sur Vercel (60 s de limite).
-# La recherche web est désactivée par défaut (plafond mensuel : variable
-# AI_WEB_SEARCH_MONTHLY_CAP). Ne régénère une zone que si de nouvelles synthèses
-# Équinoxe sont arrivées (sauf lancement manuel avec "force").
+# Agent de synthèse politico-sécuritaire : chaque matin, les cinq zones (une synthèse par
+# analyste). Lancé à l'heure par le cron de Vercel (vercel.json, 08:00 UTC à ±59 min,
+# soit 9 h - 10 h à Paris en hiver, 10 h - 11 h en été) ; la planification ci-dessous
+# reste en secours et s'arrête si le passage du jour a déjà eu lieu.
+# Une zone n'est régénérée que si de nouvelles synthèses Équinoxe sont arrivées (sauf
+# lancement manuel avec « force »). Recherche web désactivée par défaut (plafond mensuel :
+# variable AI_WEB_SEARCH_MONTHLY_CAP). Tourne ici plutôt que sur Vercel (durée).
 on:
   schedule:
-    - cron: "5 7 * * 2-6"
+    - cron: "5 8 * * *"
   workflow_dispatch:
     inputs:
       zone:
-        description: "Zone (europe, moyen-orient, afrique, indopacifique, amerique-du-sud, all) — vide : zone du jour"
+        description: "Zone (europe, moyen-orient, afrique, indopacifique, amerique-du-sud) — vide : les cinq"
         type: string
         default: ""
       force:

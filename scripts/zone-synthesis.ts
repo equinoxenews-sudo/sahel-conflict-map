@@ -1,9 +1,10 @@
 // Agent de synthèse de zone : lit les synthèses Équinoxe parues depuis la dernière
 // synthèse de la zone et enregistre l'analyse dans zone_syntheses.
 //
-// Rotation : une seule zone par jour (mardi Europe, mercredi Moyen-Orient, jeudi
-// Afrique, vendredi Indopacifique, samedi Amérique du Sud ; lundi est réservé aux
-// points de situation, dimanche rien). La recherche web payante est désactivée par
+// Chaque matin vers 9 h (Paris), les cinq zones : chaque analyste fait la synthèse de
+// la sienne (décision de Nicolas, 17/10/2026 ; auparavant une zone par jour en
+// rotation). Une zone sans nouvelle synthèse Équinoxe depuis la dernière n'est pas
+// régénérée, sans appel au modèle. La recherche web payante est désactivée par
 // défaut : elle n'est utilisée que si la politique de lib/aiBudget.ts l'autorise
 // (information importante non établie, plafond mensuel > 0). Chaque appel est
 // journalisé dans ai_usage, et le budget mensuel est vérifié avant de commencer.
@@ -26,7 +27,7 @@ if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
   process.env.NEXT_PUBLIC_SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL.replace(/\/rest\/v1\/?$/, "").replace(/\/+$/, "");
 }
 
-import { decideWebSearch, webPolicyFromEnv, zoneForWeekday } from "../lib/aiBudget";
+import { decideWebSearch, webPolicyFromEnv } from "../lib/aiBudget";
 import { checkBudget, recordUsage } from "../lib/aiUsage";
 import { getSupabaseAdmin } from "../lib/supabaseAdmin";
 import {
@@ -202,18 +203,8 @@ async function main() {
 
   const zoneSlugs = ZONES.filter((z) => z.active && z.countries.length > 0 && z.slug !== "tracking").map((z) => z.slug);
 
-  // Quelles zones ? --zone=all : toutes ; --zone=<zone> : celle-là ; sinon la zone du jour.
-  let targets: string[];
-  if (zoneArg === "all") targets = zoneSlugs;
-  else if (zoneArg) targets = zoneSlugs.filter((s) => s === zoneArg);
-  else {
-    const today = zoneForWeekday(new Date().getUTCDay());
-    targets = today && zoneSlugs.includes(today) ? [today] : [];
-    if (targets.length === 0) {
-      notice("Synthèse de zone", "Pas de synthèse de zone programmée aujourd'hui (lundi : points de situation, dimanche : repos).");
-      return;
-    }
-  }
+  // Quelles zones ? --zone=<zone> : celle-là ; sinon (ou --zone=all) : les cinq.
+  const targets = zoneArg && zoneArg !== "all" ? zoneSlugs.filter((s) => s === zoneArg) : zoneSlugs;
   if (targets.length === 0) throw new Error(`Zone inconnue : ${zoneArg}`);
 
   const budget = await checkBudget("zone-synthesis");

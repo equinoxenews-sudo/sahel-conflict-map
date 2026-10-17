@@ -26,7 +26,7 @@
     },
     {
       "path": "/api/cron/dispatch/zone-synthesis.yml",
-      "schedule": "0 8 * * 2-6"
+      "schedule": "0 8 * * *"
     }
   ]
 }
