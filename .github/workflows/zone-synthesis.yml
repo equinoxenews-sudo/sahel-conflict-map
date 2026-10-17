@@ -22,6 +22,10 @@ on:
         type: boolean
         default: false
 
+permissions:
+  actions: read
+  contents: read
+
 concurrency:
   group: zone-synthesis
   cancel-in-progress: false
@@ -45,7 +49,25 @@ jobs:
       AI_WEB_SEARCH_MONTHLY_CAP: ${{ vars.AI_WEB_SEARCH_MONTHLY_CAP }}
       AI_WEB_SEARCHES_PER_RUN: ${{ vars.AI_WEB_SEARCHES_PER_RUN }}
     steps:
+      # Le cron de Vercel lance ce workflow à l'heure (route /api/cron/dispatch). La
+      # planification ci-dessus reste en secours : si un lancement de la journée existe
+      # déjà, ce passage planifié s'arrête, sans doublon ni coût IA supplémentaire.
+      - name: Déjà lancé aujourd'hui ?
+        id: guard
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # En cas d'erreur de lecture, on ne saute rien : mieux vaut un doublon qu'un jour sans synthèse.
+          today=$(date -u +%F)
+          n=$(gh api "repos/${{ github.repository }}/actions/workflows/zone-synthesis.yml/runs?created=>=$today&per_page=30" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }}) | select(.event == "workflow_dispatch") | select(.status != "completed" or .conclusion == "success")] | length' 2>/dev/null) || n=0
+          if [ "$n" -gt 0 ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::Déjà lancé aujourd'hui (cron Vercel ou lancement manuel) : passage planifié ignoré."
+          fi
+
       - name: Vérifier les secrets
+        if: steps.guard.outputs.skip != 'true'
         run: |
           for name in ANTHROPIC_API_KEY SUPABASE_SERVICE_ROLE_KEY NEXT_PUBLIC_SUPABASE_URL CRON_SECRET; do
             if [ -z "${!name}" ]; then
@@ -55,15 +77,19 @@ jobs:
           done
 
       - uses: actions/checkout@v4
+        if: steps.guard.outputs.skip != 'true'
 
       - uses: actions/setup-node@v4
+        if: steps.guard.outputs.skip != 'true'
         with:
           node-version: 22
           cache: npm
 
       - run: npm ci
+        if: steps.guard.outputs.skip != 'true'
 
       - name: Générer les synthèses de zone
+        if: steps.guard.outputs.skip != 'true'
         run: |
           if [ -n "$ZONE_INPUT" ]; then
             npx tsx scripts/zone-synthesis.ts "--zone=$ZONE_INPUT"
@@ -72,7 +98,7 @@ jobs:
           fi
 
       - name: Rafraîchir les pages du site
-        if: always()
+        if: always() && steps.guard.outputs.skip != 'true'
         run: |
           curl -sS --max-time 60 --fail-with-body \
             -H "Authorization: Bearer $CRON_SECRET" \
