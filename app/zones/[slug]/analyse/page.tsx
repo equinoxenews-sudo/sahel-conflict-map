@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import AnalyseFrame from "@/components/situation/AnalyseFrame";
 import { zoneHomeHref } from "@/lib/homeZones";
+import { getPublishedArticles } from "@/lib/premiumArticles";
 import { psitLabel } from "@/lib/situationReport";
 import { getPublishedReports } from "@/lib/situationReportData";
 import { getZone } from "@/lib/zones";
@@ -14,7 +15,7 @@ export default async function ZoneAnalysePage({ params }: { params: Promise<{ sl
   const zone = getZone(slug);
   if (!zone || !zone.active || zone.countries.length === 0) notFound();
 
-  const reports = await getPublishedReports(zone.slug);
+  const [reports, articles] = await Promise.all([getPublishedReports(zone.slug), getPublishedArticles(zone.slug)]);
   const latest = reports[0];
 
   return (
@@ -34,7 +35,11 @@ export default async function ZoneAnalysePage({ params }: { params: Promise<{ sl
         <Link href={`/zones/${zone.slug}/analyse/premium`} className={styles.choice}>
           <span className={styles.choiceTitle}>Articles premium</span>
           <span className={styles.choiceText}>Analyses de fond réservées aux abonnés.</span>
-          <span className={styles.choiceMeta}>Bientôt disponible</span>
+          <span className={styles.choiceMeta}>
+            {articles.length
+              ? `${articles.length} article${articles.length > 1 ? "s" : ""} publié${articles.length > 1 ? "s" : ""}`
+              : "Bientôt disponible"}
+          </span>
         </Link>
       </div>
     </AnalyseFrame>
