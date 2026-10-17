@@ -2,10 +2,10 @@
  * Zones passées au fonctionnement « analyste » (V2) : indice de confiance,
  * géolocalisation des synthèses, Telegram en source complémentaire et carte
  * d'actualités alimentée par les synthèses. Mise en service zone par zone,
- * sur décision de Nicolas : variable ANALYST_V2_ZONES (« afrique,europe… »),
- * Afrique seule par défaut.
+ * sur décision de Nicolas : les cinq zones depuis le 17/10/2026. La variable
+ * ANALYST_V2_ZONES (« afrique,europe… ») permet d'en retirer une sans redéployer.
  */
-const DEFAULT_ZONES = ["afrique"];
+const DEFAULT_ZONES = ["afrique", "europe", "moyen-orient", "indopacifique", "amerique-du-sud"];
 
 export function analystV2Zones(env: Record<string, string | undefined> = process.env): string[] {
   const raw = env.ANALYST_V2_ZONES?.trim();
