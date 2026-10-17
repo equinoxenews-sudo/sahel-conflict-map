@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import AnalyseFrame from "@/components/situation/AnalyseFrame";
+import { parseImage } from "@/lib/articleBlocks";
 import { Markdown } from "@/lib/markdown";
 import { getArticlePreview, getPublishedArticle, readingMinutes, type PremiumArticle } from "@/lib/premiumArticles";
 import { getZone } from "@/lib/zones";
@@ -44,6 +45,10 @@ export default async function PremiumArticlePage(props: Props) {
   const { article, preview } = found;
   const zone = getZone(article.zone_slug)!;
   const date = article.published_at ?? article.updated_at;
+  // Image de présentation : la première image du texte, si elle ouvre l'article.
+  const firstLine = article.body_md.trimStart().split("\n")[0] ?? "";
+  const cover = parseImage(firstLine);
+  const body = cover ? article.body_md.trimStart().slice(firstLine.length) : article.body_md;
 
   return (
     <AnalyseFrame zoneName={zone.name} section="Articles premium" backHref={`/zones/${zone.slug}/analyse/premium`}>
@@ -54,7 +59,14 @@ export default async function PremiumArticlePage(props: Props) {
             : "Aperçu : brouillon non publié, visible uniquement avec ce lien."}
         </p>
       )}
-      <article className={styles.article}>
+      <article className={styles.article} lang="fr">
+        {cover && (
+          <figure className={styles.cover}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={cover.src} alt={cover.alt} referrerPolicy="no-referrer" />
+            {cover.alt && <figcaption>{cover.alt}</figcaption>}
+          </figure>
+        )}
         <header className={styles.header}>
           <p className={styles.meta}>
             {dayFormat.format(new Date(date))}
@@ -63,7 +75,7 @@ export default async function PremiumArticlePage(props: Props) {
           <h2 className={styles.title}>{article.title}</h2>
           {article.summary && <p className={styles.summary}>{article.summary}</p>}
         </header>
-        <Markdown source={article.body_md} className={styles.body} />
+        <Markdown source={body} className={styles.body} />
         <p className={styles.disclaimer}>
           Article rédigé avec l&apos;aide d&apos;une IA à partir de sources ouvertes, puis relu et validé avant publication.
           Les indices de confiance qualifient chaque fait ; les affirmations non confirmées sont attribuées à leurs sources.
