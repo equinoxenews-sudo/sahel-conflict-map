@@ -1091,6 +1091,7 @@ export default function Globe3D({
               : []),
           ],
           href: `/briefs/${ev.id}`,
+          brief: { zone: ev.zone, id: ev.id, title: ev.title, imageUrl: ev.imageUrl ?? null, publishedAt: ev.publishedAt, veracity: ev.confidenceLabel },
         };
         const [dx, dy] = spreadOffsets[index];
         const entity = eventSource.entities.add({

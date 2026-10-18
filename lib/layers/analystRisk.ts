@@ -67,7 +67,8 @@ export function tierForScore(score: number): RiskTier | null {
 export function countryRiskFromAnalystEvents(events: AnalystEvent[], now = Date.now()): Record<string, CountryRisk> {
   const byIso = new Map<string, { score: number; count: number; name: string }>();
   for (const e of events) {
-    if (!e.country) continue;
+    // Couleurs des pays : 30 derniers jours seulement.
+    if (!e.country || now - Date.parse(e.publishedAt) > 30 * 86_400_000) continue;
     const iso = findIso3ByLabel(e.country);
     if (!iso) continue;
     const cur = byIso.get(iso.iso3) ?? { score: 0, count: 0, name: iso.name };

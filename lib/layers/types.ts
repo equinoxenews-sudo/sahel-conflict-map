@@ -108,4 +108,6 @@ export interface EntityPopupData {
   wikiQuery?: string;
   /** N'afficher le bloc Wikipédia que s'il a une photo (volcans). */
   wikiPhotoOnly?: boolean;
+  /** Événement analysé : sa zone et sa carte d'article, pour le surligner dans le bandeau. */
+  brief?: { zone: string; id: number; title: string; imageUrl: string | null; publishedAt: string; veracity: string | null };
 }

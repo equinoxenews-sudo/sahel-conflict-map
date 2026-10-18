@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ZONE_LABELS, type ZoneBriefCard, type ZoneSlug } from "@/lib/homeZones";
 import styles from "./ZoneCarousel.module.css";
 
@@ -12,11 +12,19 @@ interface ZoneCarouselProps {
   briefs: ZoneBriefCard[];
   /** `dock` : bandeau au bas de l'écran (ordinateur) ; `inline` : dans la fiche (téléphone). */
   variant: "dock" | "inline";
+  /** Article surligné (événement cliqué sur le globe) : amené au centre du bandeau. */
+  highlightId?: number | null;
 }
 
 // Les derniers articles de la zone, en défilement horizontal.
-export default function ZoneCarousel({ zone, briefs, variant }: ZoneCarouselProps) {
+export default function ZoneCarousel({ zone, briefs, variant, highlightId = null }: ZoneCarouselProps) {
   const scroller = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    if (highlightId == null) return;
+    const card = scroller.current?.querySelector<HTMLElement>(`[data-brief-id="${highlightId}"]`);
+    card?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  }, [highlightId]);
 
   function scrollBy(direction: -1 | 1) {
     const element = scroller.current;
@@ -46,8 +54,8 @@ export default function ZoneCarousel({ zone, briefs, variant }: ZoneCarouselProp
       ) : (
         <ul className={styles.track} ref={scroller}>
           {briefs.map((brief) => (
-            <li key={brief.id} className={styles.item}>
-              <Link href={`/briefs/${brief.id}`} className={styles.card}>
+            <li key={brief.id} className={styles.item} data-brief-id={brief.id}>
+              <Link href={`/briefs/${brief.id}`} className={brief.id === highlightId ? `${styles.card} ${styles.cardHighlight}` : styles.card}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={brief.imageUrl ?? `/equinoxe/hero-${zone}.webp`}

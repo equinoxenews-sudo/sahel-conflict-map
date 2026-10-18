@@ -9,6 +9,8 @@ import ZonePanel from "./ZonePanel";
 interface ZoneStageProps {
   zone: ZoneSlug;
   briefs: ZoneBriefCard[];
+  /** Article à surligner dans le bandeau (événement cliqué sur le globe). */
+  highlightId?: number | null;
   onClose: () => void;
 }
 
@@ -25,11 +27,11 @@ const POSITIONS = {
   "--zone-dock-bottom": "92px",
 } as CSSProperties;
 
-export default function ZoneStage({ zone, briefs, onClose }: ZoneStageProps) {
+export default function ZoneStage({ zone, briefs, highlightId = null, onClose }: ZoneStageProps) {
   return (
     <div className={styles.stage} style={POSITIONS}>
       <ZonePanel zone={zone} briefs={briefs} onClose={onClose} />
-      <ZoneCarousel key={zone} zone={zone} briefs={briefs} variant="dock" />
+      <ZoneCarousel key={zone} zone={zone} briefs={briefs} variant="dock" highlightId={highlightId} />
     </div>
   );
 }

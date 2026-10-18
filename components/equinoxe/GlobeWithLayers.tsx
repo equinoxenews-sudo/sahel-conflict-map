@@ -72,9 +72,17 @@ export default function GlobeWithLayers({
   const [layersOpen, setLayersOpen] = useState(false);
   // Changer de zone referme la bulle ouverte : elle resterait accrochée à un point de l'écran
   // qui ne correspond plus à rien une fois le globe déplacé.
+  // Événement analysé cliqué : son article est surligné dans le bandeau du bas. Si le bandeau
+  // de sa zone n'est pas ouvert, il s'ouvre sans déplacer le globe (« peekZone »).
+  const [highlight, setHighlight] = useState<NonNullable<EntityPopupData["brief"]> | null>(null);
+  const [peekZone, setPeekZone] = useState<ZoneSlug | null>(null);
+
   function setFocusedZone(zone: ZoneSlug | null) {
     setSelectedEntity(null);
     setFocusedZoneState(zone);
+    // Le bandeau ouvert par un clic sur un événement laisse la place à la zone choisie.
+    setPeekZone(null);
+    setHighlight((h) => (h && h.zone === zone ? h : null));
   }
 
   // Zone affichée : le menu du haut la surligne.
@@ -108,7 +116,21 @@ export default function GlobeWithLayers({
 
   function handleEntitySelect(data: EntityPopupData | null, screen: { x: number; y: number } | null) {
     setSelectedEntity(data && screen ? { data, x: screen.x, y: screen.y } : null);
+    const brief = data?.brief;
+    if (brief && isHomeZone(brief.zone)) {
+      setHighlight(brief);
+      if (focusedZone !== brief.zone) setPeekZone(brief.zone);
+    }
   }
+
+  const stageZone = focusedZone ?? peekZone;
+  // Carte surlignée ajoutée en tête si elle ne figure pas parmi les derniers articles.
+  const stageBriefs = (() => {
+    if (!stageZone) return [];
+    const list = zoneBriefs[stageZone];
+    if (!highlight || highlight.zone !== stageZone || list.some((b) => b.id === highlight.id)) return list;
+    return [{ id: highlight.id, title: highlight.title, imageUrl: highlight.imageUrl, publishedAt: highlight.publishedAt, veracity: highlight.veracity }, ...list];
+  })();
 
   const counts = useMemo<Record<LayerKey, number>>(
     () => ({
@@ -169,8 +191,17 @@ export default function GlobeWithLayers({
             onZonePick={setFocusedZone}
           />
           <GlobeClock />
-          {focusedZone ? (
-            <ZoneStage zone={focusedZone} briefs={zoneBriefs[focusedZone]} onClose={() => setFocusedZone(null)} />
+          {stageZone ? (
+            <ZoneStage
+              zone={stageZone}
+              briefs={stageBriefs}
+              highlightId={highlight?.zone === stageZone ? highlight.id : null}
+              onClose={() => {
+                setPeekZone(null);
+                setHighlight(null);
+                setFocusedZone(null);
+              }}
+            />
           ) : null}
           {selectedEntity ? (
             <GlobeEntityPopup

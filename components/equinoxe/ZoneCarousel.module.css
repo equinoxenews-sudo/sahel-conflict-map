@@ -177,3 +177,10 @@
     animation: none;
   }
 }
+
+/* Article de l'événement cliqué sur le globe. */
+.cardHighlight {
+  border-color: var(--accent-gold-bright);
+  box-shadow: 0 0 0 2px var(--accent-gold-bright), 0 0 18px rgba(224, 180, 76, 0.55);
+  transform: translateY(-3px);
+}

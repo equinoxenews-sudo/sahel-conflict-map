@@ -7,7 +7,9 @@ export { countryRiskFromAnalystEvents, type AnalystEvent } from "./analystRisk";
 // et niveau de risque des pays calculé à partir d'eux. Aucun appel d'IA : lecture seule
 // des articles déjà rédigés chaque matin.
 
-export const ANALYST_EVENTS_DAYS = 30;
+// 60 jours : toute la période réglable du globe (les couleurs des pays, elles, ne
+// retiennent que les 30 derniers jours, voir analystRisk.ts).
+export const ANALYST_EVENTS_DAYS = 60;
 const PAGE = 1000;
 const MAX_ROWS = 5000;
 
