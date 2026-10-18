@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { ZONE_LABELS, type ZoneBriefCard, type ZoneSlug } from "@/lib/homeZones";
 import styles from "./ZoneCarousel.module.css";
+import { briefImageSrc } from "@/lib/imageUrls";
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" });
 
@@ -58,11 +59,16 @@ export default function ZoneCarousel({ zone, briefs, variant, highlightId = null
               <Link href={`/briefs/${brief.id}`} className={brief.id === highlightId ? `${styles.card} ${styles.cardHighlight}` : styles.card}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={brief.imageUrl ?? `/equinoxe/hero-${zone}.webp`}
+                  src={briefImageSrc(brief.imageUrl) ?? `/equinoxe/hero-${zone}.webp`}
                   referrerPolicy="no-referrer"
                   alt=""
                   className={styles.image}
                   loading="lazy"
+                  // Image disparue chez la source : illustration de la zone plutôt qu'un cadre vide.
+                  onError={(e) => {
+                    const hero = `/equinoxe/hero-${zone}.webp`;
+                    if (!e.currentTarget.src.endsWith(hero)) e.currentTarget.src = hero;
+                  }}
                 />
                 <span className={styles.body}>
                   <span className={styles.meta}>

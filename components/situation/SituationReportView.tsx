@@ -8,6 +8,7 @@ import { themeLabel } from "@/lib/themes";
 import SituationMap from "./SituationMapLoader";
 import ThemeIcon from "./ThemeIcon";
 import styles from "./SituationReportView.module.css";
+import { briefImageSrc } from "@/lib/imageUrls";
 
 interface SituationReportViewProps {
   zoneSlug: string;
@@ -91,7 +92,7 @@ export default function SituationReportView({
           {selectedItem && selectedImage ? (
             <figure className={styles.mapImage}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={selectedImage} referrerPolicy="no-referrer" alt="" className={styles.mapImageImg} />
+              <img src={briefImageSrc(selectedImage)} referrerPolicy="no-referrer" alt="" className={styles.mapImageImg} />
               <figcaption className={styles.mapImageCaption}>
                 <span className={styles.mapImageNumber}>{selectedItem.n}</span>
                 {selectedItem.place ?? shortItemDate(selectedItem.date)}

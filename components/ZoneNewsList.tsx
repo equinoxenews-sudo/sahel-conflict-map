@@ -12,6 +12,7 @@ import type { NewsItem } from "@/lib/africaNews";
 import type { Article } from "@/types/article";
 import type { ZoneBrief } from "@/types/brief";
 import styles from "./ZoneNewsList.module.css";
+import { briefImageSrc } from "@/lib/imageUrls";
 
 type Period = "all" | "day" | "week" | "month" | "quarter";
 type Slot = "all" | "morning" | "afternoon" | "evening";
@@ -204,7 +205,7 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
                   {b.image_url ? (
                     <span className={styles.newsImageWrap}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={b.image_url} referrerPolicy="no-referrer" alt="" className={styles.newsImage} />
+                      <img src={briefImageSrc(b.image_url)} referrerPolicy="no-referrer" alt="" className={styles.newsImage} />
                       {isGenericImage ? (
                         <span className={styles.genericTag} title="Illustration générique de la zone — ne représente pas cet événement précis">
                           Illustration

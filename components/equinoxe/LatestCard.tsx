@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./LatestCard.module.css";
+import { briefImageSrc } from "@/lib/imageUrls";
 
 interface LatestCardProps {
   title: string;
@@ -18,7 +19,7 @@ export default function LatestCard({ title, date, href, imageUrl }: LatestCardPr
     <Link href={href} className={styles.card} data-intro-hide>
       {imageUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={imageUrl} referrerPolicy="no-referrer" alt="" className={styles.image} />
+        <img src={briefImageSrc(imageUrl)} referrerPolicy="no-referrer" alt="" className={styles.image} />
       ) : null}
       <div className={styles.body}>
         <div className={styles.meta}>

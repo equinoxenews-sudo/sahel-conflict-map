@@ -10,6 +10,7 @@ import { isValidVeracity, VERACITY_COLORS } from "@/lib/veracity";
 import { getZone } from "@/lib/zones";
 import type { ZoneBrief } from "@/types/brief";
 import styles from "./page.module.css";
+import { briefImageSrc } from "@/lib/imageUrls";
 
 export const revalidate = 3600;
 
@@ -72,7 +73,7 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
       <article className={styles.article} lang="fr">
         {brief.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={brief.image_url} referrerPolicy="no-referrer" alt="" className={styles.image} />
+          <img src={briefImageSrc(brief.image_url)} referrerPolicy="no-referrer" alt="" className={styles.image} />
         ) : null}
 
         <div className={styles.meta}>

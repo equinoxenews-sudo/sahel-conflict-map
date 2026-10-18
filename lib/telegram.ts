@@ -85,3 +85,26 @@ export async function fetchChannel(channel: string): Promise<TelegramPost[]> {
     clearTimeout(timer);
   }
 }
+
+/** Image actuelle d'un message (https://t.me/<canal>/<n>) : les adresses d'images de Telegram
+ *  expirent, la page du message en donne toujours une valide. Null si introuvable. */
+export async function fetchPostImage(postUrl: string): Promise<string | null> {
+  if (!/^https:\/\/t\.me\/\w+\/\d+$/.test(postUrl)) return null;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const res = await fetch(`${postUrl}?embed=1`, {
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; EquinoxeNews/1.0; +https://sahel-conflict-map.vercel.app)" },
+      signal: controller.signal,
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    const html = await res.text();
+    return firstMatch(html, /tgme_widget_message_photo_wrap[^>]*background-image:url\('([^']+)'\)/)
+      ?? firstMatch(html, /link_preview_image"[^>]*background-image:url\('([^']+)'\)/);
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}

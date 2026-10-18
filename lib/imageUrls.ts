@@ -22,3 +22,18 @@ export function normalizeImageUrl(raw: string | null | undefined, baseUrl?: stri
   if (JUNK_FILENAME.test(filename)) return null;
   return url.toString();
 }
+
+/** Les images de Telegram (cdn*.telesco.pe) expirent au bout de quelques heures : elles passent
+ *  par le relais /api/thumb, qui retrouve au besoin l'image actuelle du message d'origine. */
+export function isTelegramImage(url: string): boolean {
+  try {
+    return /(^|\.)telesco\.pe$/.test(new URL(url).hostname);
+  } catch {
+    return false;
+  }
+}
+
+/** Adresse à afficher pour l'image d'un article. */
+export function briefImageSrc<T extends string | null | undefined>(url: T): T | string {
+  return url && isTelegramImage(url) ? `/api/thumb?url=${encodeURIComponent(url)}` : url;
+}

@@ -6,6 +6,7 @@ import { parisDay, psitLabel, reportThemes, type SituationReport } from "@/lib/s
 import { themeShortLabel } from "@/lib/themes";
 import ThemeIcon from "./ThemeIcon";
 import styles from "./PsitList.module.css";
+import { briefImageSrc } from "@/lib/imageUrls";
 
 interface PsitListProps {
   zoneSlug: string;
@@ -127,7 +128,7 @@ export default function PsitList({ zoneSlug, reports }: PsitListProps) {
               <span className={styles.imageWrap}>
                 {report.image_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={report.image_url} referrerPolicy="no-referrer" alt="" className={styles.image} />
+                  <img src={briefImageSrc(report.image_url)} referrerPolicy="no-referrer" alt="" className={styles.image} />
                 ) : null}
               </span>
               <span className={styles.cardBody}>
