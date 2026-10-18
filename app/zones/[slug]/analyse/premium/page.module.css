@@ -31,6 +31,40 @@
   border-color: var(--accent-gold);
 }
 
+/* Avec vignette : image à gauche, texte à droite (empilés sur mobile). */
+.card[data-cover="true"] {
+  flex-direction: row;
+  align-items: stretch;
+  gap: 18px;
+}
+
+.thumb {
+  flex: none;
+  width: 200px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: var(--bg-panel-alt);
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .card[data-cover="true"] {
+    flex-direction: column;
+  }
+
+  .thumb {
+    width: 100%;
+    height: 170px;
+  }
+}
+
 .cardMeta {
   font-size: 12px;
   letter-spacing: 1px;
@@ -45,6 +79,10 @@
 }
 
 .cardSummary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
   font-size: 14px;
   line-height: 1.55;
   color: var(--text-secondary);

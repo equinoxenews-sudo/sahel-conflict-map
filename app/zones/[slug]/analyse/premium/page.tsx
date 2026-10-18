@@ -24,13 +24,19 @@ export default async function PremiumPage({ params }: { params: Promise<{ slug: 
         <ul className={styles.list}>
           {articles.map((a) => (
             <li key={a.id}>
-              <Link href={`/zones/${zone.slug}/analyse/premium/${a.id}`} className={styles.card}>
+              <Link href={`/zones/${zone.slug}/analyse/premium/${a.id}`} className={styles.card} data-cover={a.cover ? "true" : undefined}>
+                {a.cover && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img className={styles.thumb} src={a.cover.src} alt="" loading="lazy" referrerPolicy="no-referrer" />
+                )}
+                <span className={styles.cardText}>
                 <span className={styles.cardMeta}>
                   {a.published_at ? dayFormat.format(new Date(a.published_at)) : ""}
                   {a.author_name ? ` · ${a.author_name}` : ""}
                 </span>
                 <span className={styles.cardTitle}>{a.title}</span>
                 {a.summary && <span className={styles.cardSummary}>{a.summary}</span>}
+                </span>
               </Link>
             </li>
           ))}
