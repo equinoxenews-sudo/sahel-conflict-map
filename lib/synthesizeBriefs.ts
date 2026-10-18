@@ -17,7 +17,9 @@ export const TELEGRAM_STANDALONE_MIN_CHARS = 600;
 // Délai de rédaction d'un lot. Le format « analyste » (confiance, lieu, doute) allonge les
 // réponses : à 50 s, toutes les zones ont été coupées le 18/10/2026. 120 s laissent la
 // marge voulue, et lib/syncBriefs.ts n'ouvre un lot que s'il peut finir avant les 300 s de la route.
-export const TIMEOUT_MS = 120_000;
+// 18/10 après-midi : articles plus longs (150-400 mots), certains lots dépassaient encore
+// 120 s ; lots ramenés à 5 sources (lib/syncBriefs.ts) et délai porté à 170 s.
+export const TIMEOUT_MS = 170_000;
 
 export interface SourceArticle {
   title: string;

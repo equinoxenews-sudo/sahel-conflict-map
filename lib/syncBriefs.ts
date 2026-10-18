@@ -21,15 +21,17 @@ import { ZONE_KEYWORDS } from "./zoneKeywords";
 const ARTICLES_PER_ZONE = 5;
 const SUMMARY_FETCH_CONCURRENCY = 6;
 
-// Zones « analyste » (lib/analystZones.ts) : jusqu'à 3 lots de 8 articles par
-// passage (24 articles par zone et par jour au plus), chacun complété par les
-// messages Telegram récents de la zone. La route dispose alors de 300 s.
-const ANALYST_BATCH = 8;
+// Zones « analyste » (lib/analystZones.ts) : jusqu'3 lots de 5 sources par passage, chacun
+// complété par les messages Telegram récents de la zone. La route dispose de 300 s : un
+// lot ne démarre que s'il peut finir à temps (ANALYST_TIME_BUDGET_MS).
+// 5 sources par lot (au lieu de 8) : avec des articles de 150 à 400 mots, un lot de 8
+// pouvait dépasser deux minutes de rédaction et être coupé.
+const ANALYST_BATCH = 5;
 const ANALYST_MAX_BATCHES = 3;
 /** Un nouveau lot ne démarre que si ce temps n'est pas écoulé : ce budget + un lot complet
  *  (rédaction, TIMEOUT_MS, et téléchargement des pages) restent sous les 300 s de la route. */
 const ANALYST_TIME_BUDGET_MS = 300_000 - TIMEOUT_MS - 45_000;
-const TELEGRAM_PER_BATCH = 15;
+const TELEGRAM_PER_BATCH = 10;
 const TELEGRAM_PROMPT_CHARS = 700;
 const TELEGRAM_MAX_AGE_HOURS = 72;
 /** Sans article de presse en attente, un appel « Telegram seul » demande au moins ce nombre de messages. */
