@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import AnalyseFrame from "@/components/situation/AnalyseFrame";
+import SafeImg from "@/components/premium/SafeImg";
 import { getPublishedArticles } from "@/lib/premiumArticles";
 import { getZone } from "@/lib/zones";
 import styles from "./page.module.css";
@@ -26,8 +27,7 @@ export default async function PremiumPage({ params }: { params: Promise<{ slug: 
             <li key={a.id}>
               <Link href={`/zones/${zone.slug}/analyse/premium/${a.id}`} className={styles.card} data-cover={a.cover ? "true" : undefined}>
                 {a.cover && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img className={styles.thumb} src={a.cover.src} alt="" loading="lazy" referrerPolicy="no-referrer" />
+                  <SafeImg className={styles.thumb} src={a.cover.src} width={500} alt="" />
                 )}
                 <span className={styles.cardText}>
                 <span className={styles.cardMeta}>

@@ -2,6 +2,7 @@ import { Fragment, type ReactNode } from "react";
 import ArticleChart from "@/components/premium/ArticleChart";
 import ArticleMapBlock from "@/components/premium/ArticleMapBlock";
 import blockStyles from "@/components/premium/ArticleBlocks.module.css";
+import SafeImg from "@/components/premium/SafeImg";
 import { parseChart, parseMap } from "./articleBlocks";
 import { parseBlocks } from "./markdownBlocks";
 
@@ -113,8 +114,7 @@ export function Markdown({ source, className }: { source: string; className?: st
             return (
               <figure key={k} className={`${blockStyles.image}${i === 0 ? ` ${blockStyles.cover}` : ""}`}>
                 {/* Images externes (Wikimedia…) : pas d'optimisation Next, chargement différé. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={b.src} alt={b.alt} loading={i === 0 ? "eager" : "lazy"} referrerPolicy="no-referrer" />
+                <SafeImg src={b.src} width={960} alt={b.alt} eager={i === 0} />
                 {b.alt && <figcaption>{b.alt}</figcaption>}
               </figure>
             );

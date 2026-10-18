@@ -81,3 +81,16 @@ export function parseImage(line: string): { alt: string; src: string } | null {
   const m = /^!\[([^\]]*)\]\((https:\/\/[^\s)]+)\)$/.exec(line.trim());
   return m ? { alt: m[1].trim(), src: m[2] } : null;
 }
+
+/**
+ * Miniature Wikimedia Commons à la largeur voulue (les originaux font souvent plusieurs
+ * mégaoctets). Les autres adresses sont rendues telles quelles.
+ */
+export function sizedImage(src: string, width: number): string {
+  const m = /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/([0-9a-f])\/([0-9a-f]{2})\/([^/?#]+)$/.exec(src);
+  if (!m) return src;
+  const [, a, ab, name] = m;
+  // Les SVG se déclinent en PNG ; les autres formats gardent leur extension.
+  const thumb = /\.svg$/i.test(name) ? `${width}px-${name}.png` : `${width}px-${name}`;
+  return `https://upload.wikimedia.org/wikipedia/commons/thumb/${a}/${ab}/${name}/${thumb}`;
+}

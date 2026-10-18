@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import AnalyseFrame from "@/components/situation/AnalyseFrame";
+import SafeImg from "@/components/premium/SafeImg";
 import { parseImage } from "@/lib/articleBlocks";
 import { Markdown } from "@/lib/markdown";
 import { getArticlePreview, getPublishedArticle, readingMinutes, type PremiumArticle } from "@/lib/premiumArticles";
@@ -62,8 +63,7 @@ export default async function PremiumArticlePage(props: Props) {
       <article className={styles.article} lang="fr">
         {cover && (
           <figure className={styles.cover}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={cover.src} alt={cover.alt} referrerPolicy="no-referrer" />
+            <SafeImg src={cover.src} width={1280} alt={cover.alt} eager />
             {cover.alt && <figcaption>{cover.alt}</figcaption>}
           </figure>
         )}
