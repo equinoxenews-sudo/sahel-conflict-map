@@ -107,6 +107,19 @@ function zoneCameraDestination(Cesium: typeof CesiumNS, zone: ZoneSlug | null) {
   );
 }
 
+/** Diamètre (pixels) d'un séisme : croît vite avec la magnitude (échelle logarithmique). */
+function quakeSize(magnitude: number): number {
+  const m = Math.min(Math.max(magnitude, 2.5), 8.5);
+  return Math.round(4 + Math.pow(m - 2.5, 1.6) * 1.9);
+}
+
+/** Dégradé jaune (M4 et moins) → orange (M5,5) → rouge (M7 et plus). */
+function quakeColor(magnitude: number): string {
+  const t = Math.min(1, Math.max(0, (magnitude - 4) / 3));
+  const hue = Math.round(55 - 55 * t); // 55° = jaune, 0° = rouge
+  return `hsl(${hue}, 95%, ${55 - 8 * t}%)`;
+}
+
 const PAGER_LABELS: Record<string, string> = {
   green: "Verte (impact limité)",
   yellow: "Jaune (dégâts locaux possibles)",
@@ -977,9 +990,9 @@ export default function Globe3D({
         earthquakeSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(eq.lon, eq.lat, 0),
           point: {
-            // Plus de 2 000 séismes sur deux mois : petits points, les forts restent visibles.
-            pixelSize: Math.max(4, Math.max(eq.magnitude, 0) * 2.4 - 4),
-            color: (eq.magnitude >= 6 ? Cesium.Color.ORANGERED : Cesium.Color.YELLOW).withAlpha(0.75),
+            // Taille et couleur selon la magnitude : petit et jaune pour M4, gros et rouge à M7+.
+            pixelSize: quakeSize(eq.magnitude),
+            color: Cesium.Color.fromCssColorString(quakeColor(eq.magnitude)).withAlpha(0.8),
             outlineColor: Cesium.Color.BLACK,
             outlineWidth: 1,
           },
