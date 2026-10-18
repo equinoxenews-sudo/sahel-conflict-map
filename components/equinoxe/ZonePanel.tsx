@@ -15,10 +15,12 @@ const SECTIONS = [
 interface ZonePanelProps {
   zone: ZoneSlug;
   briefs: ZoneBriefCard[];
+  /** Article surligné (événement cliqué sur le globe), aussi sur téléphone. */
+  highlightId?: number | null;
   onClose: () => void;
 }
 
-export default function ZonePanel({ zone, briefs, onClose }: ZonePanelProps) {
+export default function ZonePanel({ zone, briefs, highlightId = null, onClose }: ZonePanelProps) {
   const countries = ZONE_COUNTRIES[zone];
   return (
     <aside className={styles.panel} aria-label={`Zone ${ZONE_LABELS[zone]}`} key={zone}>
@@ -40,7 +42,7 @@ export default function ZonePanel({ zone, briefs, onClose }: ZonePanelProps) {
       </ul>
 
       {/* Sur téléphone, les articles sont dans la fiche ; sur ordinateur, ils sont dans le bandeau du bas. */}
-      <ZoneCarousel zone={zone} briefs={briefs} variant="inline" />
+      <ZoneCarousel zone={zone} briefs={briefs} variant="inline" highlightId={highlightId} />
     </aside>
   );
 }

@@ -30,7 +30,7 @@ const POSITIONS = {
 export default function ZoneStage({ zone, briefs, highlightId = null, onClose }: ZoneStageProps) {
   return (
     <div className={styles.stage} style={POSITIONS}>
-      <ZonePanel zone={zone} briefs={briefs} onClose={onClose} />
+      <ZonePanel zone={zone} briefs={briefs} highlightId={highlightId} onClose={onClose} />
       <ZoneCarousel key={zone} zone={zone} briefs={briefs} variant="dock" highlightId={highlightId} />
     </div>
   );

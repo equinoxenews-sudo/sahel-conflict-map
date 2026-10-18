@@ -694,9 +694,13 @@ export default function Globe3D({
         const direct = currentViewer.scene.pick(position);
         const directEntity =
           Cesium.defined(direct) && direct.id instanceof Cesium.Entity ? direct.id : null;
-        if (directEntity?.point || directEntity?.polyline) return directEntity;
+        // Marqueurs illustrés (hexagones d'articles, icônes) : des billboards, prioritaires eux aussi.
+        const isMarker = (e: CesiumNS.Entity | null) => Boolean(e?.point || e?.polyline || e?.billboard);
+        if (isMarker(directEntity)) return directEntity;
 
-        const RADII = [5, 9, 13];
+        // Au doigt (téléphone), le tap tombe souvent à côté du marqueur : cercle de recherche plus large.
+        const coarse = window.matchMedia("(pointer: coarse)").matches;
+        const RADII = coarse ? [6, 12, 18, 26] : [5, 9, 13];
         const SAMPLES_PER_RING = 8;
         for (const radius of RADII) {
           for (let i = 0; i < SAMPLES_PER_RING; i++) {
@@ -707,7 +711,7 @@ export default function Globe3D({
             );
             const picked = currentViewer.scene.pick(sample);
             const entity = Cesium.defined(picked) && picked.id instanceof Cesium.Entity ? picked.id : null;
-            if (entity?.point || entity?.polyline) return entity;
+            if (isMarker(entity)) return entity;
           }
         }
 
