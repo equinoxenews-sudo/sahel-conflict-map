@@ -294,8 +294,7 @@ const PIN_COLORS: Record<PinKind, string> = {
   wildfire: "#ff7a1a",
   storm: "#a64dff",
   aircraft: "#2ee66b",
-  // Sécheresse : ocre (pas de photo fournie : soleil dessiné sur fond sombre).
-  drought: "#d9a520",
+  drought: "#e6a73c",
 };
 
 const PIN_OF_CATEGORY: Record<NaturalEventCategory, PinKind> = {
@@ -311,8 +310,7 @@ const pinPhotos: Partial<Record<PinKind, HTMLImageElement>> = {};
 /** Charge les six photos (public/equinoxe/markers) ; une photo manquante laisse l'anneau seul. */
 function loadPinPhotos(): Promise<void> {
   return Promise.all(
-    // Pas de photo pour la sécheresse (soleil dessiné) : rien à charger.
-    (Object.keys(PIN_COLORS) as PinKind[]).filter((k) => k !== "drought").map(
+    (Object.keys(PIN_COLORS) as PinKind[]).map(
       (kind) =>
         new Promise<void>((resolve) => {
           if (pinPhotos[kind]) return resolve();
@@ -330,77 +328,44 @@ function loadPinPhotos(): Promise<void> {
 
 const pinCanvases = new Map<PinKind, HTMLCanvasElement>();
 
-/** Rond illustré : photo de la catégorie et anneau lumineux coloré, centré sur le lieu
- *  (sans pointe, à la demande de Nicolas). */
+/** Marqueur rond : l'icône de la catégorie (anneau compris, modèle de Nicolas du 18/10/2026)
+ *  posée sur un halo lumineux de sa couleur, centrée sur le lieu. */
 function pinMarker(kind: PinKind): HTMLCanvasElement {
   const cached = pinCanvases.get(kind);
   if (cached) return cached;
-  // Dessinée en haute définition : elle reste nette quand elle grossit en zoomant.
   const W = 192;
-  const H = 192;
   const cx = W / 2;
-  const cy = H / 2;
-  const r = 72;
+  const r = 84;
   const color = PIN_COLORS[kind];
   const canvas = document.createElement("canvas");
   canvas.width = W;
-  canvas.height = H;
+  canvas.height = W;
   const ctx = canvas.getContext("2d")!;
-  // Halo lumineux.
+  // Halo lumineux sous l'icône.
   ctx.shadowColor = color;
-  ctx.shadowBlur = 28;
-  ctx.beginPath();
-  ctx.arc(cx, cy, r, 0, Math.PI * 2);
-  ctx.lineWidth = 12;
-  ctx.strokeStyle = color;
-  ctx.stroke();
-  ctx.shadowBlur = 0;
-  // Photo recadrée dans le cercle.
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(cx, cy, r - 6, 0, Math.PI * 2);
-  ctx.clip();
+  ctx.shadowBlur = 22;
   ctx.fillStyle = "#0b1220";
-  ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
-  const photo = pinPhotos[kind];
-  if (!photo && kind === "drought") {
-    // Soleil stylisé et sol craquelé, faute de photo.
-    ctx.fillStyle = "#3a2a12";
-    ctx.fillRect(cx - r, cy, r * 2, r);
-    ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(cx, cx, r - 4, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  const icon = pinPhotos[kind];
+  if (icon) {
+    // L'icône découpée comprend son anneau : affichée entière, dans un cercle.
+    ctx.save();
     ctx.beginPath();
-    ctx.arc(cx, cy - 8, 22, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.arc(cx, cx, r, 0, Math.PI * 2);
+    ctx.clip();
+    ctx.drawImage(icon, cx - r, cx - r, r * 2, r * 2);
+    ctx.restore();
+  } else {
+    // Icône indisponible : simple anneau coloré.
+    ctx.beginPath();
+    ctx.arc(cx, cx, r - 6, 0, Math.PI * 2);
+    ctx.lineWidth = 10;
     ctx.strokeStyle = color;
-    ctx.lineWidth = 6;
-    for (let i = 0; i < 8; i++) {
-      const a = (i * Math.PI) / 4;
-      ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(a) * 30, cy - 8 + Math.sin(a) * 30);
-      ctx.lineTo(cx + Math.cos(a) * 42, cy - 8 + Math.sin(a) * 42);
-      ctx.stroke();
-    }
-    ctx.strokeStyle = "#1a1208";
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(cx - 40, cy + 30);
-    ctx.lineTo(cx - 10, cy + 22);
-    ctx.lineTo(cx + 6, cy + 40);
-    ctx.lineTo(cx + 36, cy + 28);
     ctx.stroke();
   }
-  if (photo) {
-    // Cadrage serré sur le sujet (volcan, fusée…) : le centre de la photo (70 %).
-    const crop = Math.min(photo.naturalWidth, photo.naturalHeight) * 0.7;
-    ctx.drawImage(photo, (photo.naturalWidth - crop) / 2, (photo.naturalHeight - crop) / 2, crop, crop, cx - r, cy - r, r * 2, r * 2);
-  }
-  ctx.restore();
-  // Anneau net par-dessus la photo.
-  ctx.beginPath();
-  ctx.arc(cx, cy, r, 0, Math.PI * 2);
-  ctx.lineWidth = 8;
-  ctx.strokeStyle = color;
-  ctx.stroke();
   pinCanvases.set(kind, canvas);
   return canvas;
 }
