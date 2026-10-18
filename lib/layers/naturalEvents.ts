@@ -172,11 +172,15 @@ interface EonetEvent {
   geometry?: { date?: string; coordinates?: [number, number]; magnitudeValue?: number | null; magnitudeUnit?: string | null }[];
 }
 
-async function fetchEonet(): Promise<NaturalEvent[]> {
-  const url = `${EONET_URL}?status=open&category=volcanoes,severeStorms&days=${HISTORY_DAYS}`;
-  const data = await getJson<{ events?: EonetEvent[] }>(url);
+async function fetchEonet(now: number): Promise<NaturalEvent[]> {
+  // Volcans : sans limite de date (une éruption ouverte depuis des mois reste active) ;
+  // tempêtes : les 60 derniers jours.
+  const [volcanoes, storms] = await Promise.all([
+    getJson<{ events?: EonetEvent[] }>(`${EONET_URL}?status=open&category=volcanoes`),
+    getJson<{ events?: EonetEvent[] }>(`${EONET_URL}?status=open&category=severeStorms&days=${HISTORY_DAYS}`),
+  ]);
   const out: NaturalEvent[] = [];
-  for (const e of data?.events ?? []) {
+  for (const e of [...(volcanoes?.events ?? []), ...(storms?.events ?? [])]) {
     const cat = e.categories?.[0]?.id;
     if ((cat !== "volcanoes" && cat !== "severeStorms") || !e.id || !e.title) continue;
     const first = e.geometry?.[0];
@@ -190,7 +194,8 @@ async function fetchEonet(): Promise<NaturalEvent[]> {
       lon: last.coordinates[0],
       lat: last.coordinates[1],
       date: first?.date ?? last.date ?? null,
-      endDate: last.date ?? null,
+      // Événement encore « ouvert » : il dure jusqu'à aujourd'hui (visible quelle que soit la période).
+      endDate: new Date(now).toISOString(),
       country: null,
       alert: null,
       severity: mag,
@@ -218,6 +223,6 @@ export async function fetchNaturalEvents(now = Date.now()): Promise<NaturalEvent
   const from = new Date(now - HISTORY_DAYS * 86_400_000).toISOString().slice(0, 10);
   const to = new Date(now + 86_400_000).toISOString().slice(0, 10);
   const types: GdacsType[] = ["WF", "TC", "FL", "VO", "DR"];
-  const [eonet, ...gdacs] = await Promise.all([fetchEonet(), ...types.map((t) => fetchGdacsType(t, from, to))]);
+  const [eonet, ...gdacs] = await Promise.all([fetchEonet(now), ...types.map((t) => fetchGdacsType(t, from, to))]);
   return dedupe([...gdacs.flat(), ...eonet]);
 }
