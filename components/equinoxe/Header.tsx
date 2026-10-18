@@ -50,6 +50,7 @@ export default function Header() {
                 window.dispatchEvent(new CustomEvent(FOCUS_ZONE_EVENT, { detail: { zone: zone.slug } }));
               }}
             >
+              <Image src={zone.icon} alt="" width={18} height={22} className={styles.zoneHex} aria-hidden="true" />
               {SHORT_NAMES[zone.slug] ? (
                 <>
                   <span className={styles.longName}>{zone.name}</span>

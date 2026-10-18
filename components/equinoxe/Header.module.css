@@ -45,6 +45,26 @@
   color: var(--text-primary);
 }
 
+/* Petit logo hexagonal de la zone, à gauche du nom. */
+a.zoneLink:has(.zoneHex) {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.zoneHex {
+  width: 18px;
+  height: auto;
+  flex: none;
+  opacity: 0.85;
+  transition: opacity 0.15s ease;
+}
+
+.zoneLink:hover .zoneHex,
+.zoneLinkActive .zoneHex {
+  opacity: 1;
+}
+
 .zoneLinkActive {
   color: var(--accent-gold-bright);
   border-bottom-color: var(--accent-gold-bright);
@@ -133,11 +153,19 @@
 
   .zones {
     flex-wrap: nowrap;
-    gap: 16px;
+    gap: 11px;
   }
 
   .zoneLink {
     font-size: 13px;
+  }
+
+  a.zoneLink:has(.zoneHex) {
+    gap: 4px;
+  }
+
+  .zoneHex {
+    width: 15px;
   }
 
   .longName {
