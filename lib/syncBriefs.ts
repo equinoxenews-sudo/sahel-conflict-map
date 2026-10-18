@@ -3,6 +3,7 @@ import { checkBudget, recordUsage } from "./aiUsage";
 import { isAnalystV2Zone } from "./analystZones";
 import { holdForReview, reviewsReady } from "./briefReviews";
 import { chooseBriefImage } from "./briefImages";
+import { placeImage } from "./placeImages";
 import { fetchArticleContent } from "./articleSummary";
 import { legacyVeracity } from "./confidence";
 import { mapWithConcurrency } from "./gdelt";
@@ -234,6 +235,11 @@ async function briefBatch(
       updated_at: new Date().toISOString(),
       image_url: chooseBriefImage(brief.imageCandidates, usedImages, zoneSlug),
     };
+    // Aucune photo de source utilisable (illustration générique de la zone) : photo du lieu.
+    if (analyst && brief.place?.city && String(row.image_url).startsWith("/equinoxe/")) {
+      const photo = await placeImage(brief.place.city, brief.place.country);
+      if (photo) row.image_url = photo;
+    }
     if (analyst && brief.confidence) {
       row.confidence = brief.confidence.percent;
       row.confidence_label = brief.confidence.label;
