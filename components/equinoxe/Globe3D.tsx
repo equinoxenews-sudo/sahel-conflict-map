@@ -329,11 +329,12 @@ const pinCanvases = new Map<PinKind, HTMLCanvasElement>();
 function pinMarker(kind: PinKind): HTMLCanvasElement {
   const cached = pinCanvases.get(kind);
   if (cached) return cached;
-  const W = 96;
-  const H = 120;
+  // Dessinée en haute définition : elle reste nette quand elle grossit en zoomant.
+  const W = 192;
+  const H = 240;
   const cx = W / 2;
-  const cy = 46;
-  const r = 36;
+  const cy = 92;
+  const r = 72;
   const color = PIN_COLORS[kind];
   const canvas = document.createElement("canvas");
   canvas.width = W;
@@ -341,38 +342,38 @@ function pinMarker(kind: PinKind): HTMLCanvasElement {
   const ctx = canvas.getContext("2d")!;
   // Halo et pointe (lumineux).
   ctx.shadowColor = color;
-  ctx.shadowBlur = 14;
+  ctx.shadowBlur = 28;
   ctx.fillStyle = color;
   ctx.beginPath();
-  ctx.moveTo(cx - 11, cy + r - 2);
-  ctx.lineTo(cx + 11, cy + r - 2);
-  ctx.lineTo(cx, H - 6);
+  ctx.moveTo(cx - 22, cy + r - 4);
+  ctx.lineTo(cx + 22, cy + r - 4);
+  ctx.lineTo(cx, H - 12);
   ctx.closePath();
   ctx.fill();
   ctx.beginPath();
   ctx.arc(cx, cy, r, 0, Math.PI * 2);
-  ctx.lineWidth = 6;
+  ctx.lineWidth = 12;
   ctx.strokeStyle = color;
   ctx.stroke();
   ctx.shadowBlur = 0;
   // Photo recadrée dans le cercle.
   ctx.save();
   ctx.beginPath();
-  ctx.arc(cx, cy, r - 3, 0, Math.PI * 2);
+  ctx.arc(cx, cy, r - 6, 0, Math.PI * 2);
   ctx.clip();
   ctx.fillStyle = "#0b1220";
   ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
   const photo = pinPhotos[kind];
   if (photo) {
-    // La photo d'origine porte son propre anneau : on garde le centre (85 %).
-    const crop = Math.min(photo.naturalWidth, photo.naturalHeight) * 0.85;
+    // Cadrage serré sur le sujet (volcan, fusée…) : le centre de la photo (70 %).
+    const crop = Math.min(photo.naturalWidth, photo.naturalHeight) * 0.7;
     ctx.drawImage(photo, (photo.naturalWidth - crop) / 2, (photo.naturalHeight - crop) / 2, crop, crop, cx - r, cy - r, r * 2, r * 2);
   }
   ctx.restore();
   // Anneau net par-dessus la photo.
   ctx.beginPath();
   ctx.arc(cx, cy, r, 0, Math.PI * 2);
-  ctx.lineWidth = 4;
+  ctx.lineWidth = 8;
   ctx.strokeStyle = color;
   ctx.stroke();
   pinCanvases.set(kind, canvas);
@@ -386,6 +387,9 @@ function pinBillboard(Cesium: typeof CesiumNS, kind: PinKind, width: number): Ce
     width: Math.round(width),
     height: Math.round(width * 1.25),
     verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+    // Taille selon le zoom : petite vue de loin (globe entier), jusqu'à 2,4 fois plus grande
+    // de près (une région, un pays), là où l'on veut voir la photo.
+    scaleByDistance: new Cesium.NearFarScalar(4.0e5, 2.4, 1.5e7, 0.85),
   };
 }
 
