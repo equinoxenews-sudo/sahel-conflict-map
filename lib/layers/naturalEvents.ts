@@ -15,7 +15,7 @@ const GDACS_PAGE = 100;
 const GDACS_MAX_PAGES: Record<GdacsType, number> = { WF: 15, FL: 4, TC: 2, VO: 1, DR: 1 };
 const EONET_URL = "https://eonet.gsfc.nasa.gov/api/v3/events";
 
-export type NaturalEventCategory = "wildfires" | "severeStorms" | "volcanoes" | "floods";
+export type NaturalEventCategory = "wildfires" | "severeStorms" | "volcanoes" | "floods" | "droughts";
 
 export interface NaturalEvent {
   id: string;
@@ -43,8 +43,7 @@ const GDACS_CATEGORY: Record<GdacsType, NaturalEventCategory> = {
   TC: "severeStorms",
   FL: "floods",
   VO: "volcanoes",
-  // Sécheresses : rangées avec les inondations (couche « eau »), faute de couche dédiée.
-  DR: "floods",
+  DR: "droughts",
 };
 
 const GDACS_KIND: Record<GdacsType, string> = {
@@ -103,11 +102,34 @@ function severityText(type: GdacsType, s: GdacsFeature["properties"]): string | 
   const n = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 });
   if (type === "WF" && data.severity) return `${n.format(data.severity)} ha touchés`;
   if (type === "TC" && data.severity) return `Vents jusqu'à ${n.format(data.severity)} km/h`;
+  // « Medium impact for agricultural drought in 1759971 km2 » → en français.
+  const dr = /^(Minor|Low|Medium|High)\s+impact for agricultural drought in\s+([\d.]+)\s*km2/i.exec(data.severitytext ?? "");
+  if (dr) {
+    const level = { minor: "faible", low: "faible", medium: "moyen", high: "fort" }[dr[1].toLowerCase() as "low"];
+    return `Impact ${level} sur l'agriculture, sur ${n.format(Number(dr[2]))} km²`;
+  }
+  // Inondations : GDACS publie souvent « Magnitude 0 », sans signification pour le lecteur.
+  if (/^Magnitude\s+0(\.0+)?\b/i.test(data.severitytext ?? "")) return null;
   return data.severitytext?.trim() || null;
 }
 
 /** Nom français d'un pays à partir de son code ISO 3 (GDACS publie en anglais). */
-const FRENCH_BY_ISO3 = new Map(COUNTRY_PROFILES_LIST.map((c) => [c.iso3, c.name]));
+const FRENCH_BY_ISO3 = new Map<string, string>([
+  // Grands pays absents des fiches pays du site.
+  ["USA", "États-Unis"],
+  ["CHN", "Chine"],
+  ["RUS", "Russie"],
+  ["JPN", "Japon"],
+  ["IND", "Inde"],
+  ["AUS", "Australie"],
+  ["CAN", "Canada"],
+  ["MEX", "Mexique"],
+  ["IDN", "Indonésie"],
+  ["PHL", "Philippines"],
+  ["NZL", "Nouvelle-Zélande"],
+  ["GBR", "Royaume-Uni"],
+  ...COUNTRY_PROFILES_LIST.map((c) => [c.iso3, c.name] as [string, string]),
+]);
 
 function frenchCountry(p: GdacsFeature["properties"]): string | null {
   const iso = p?.iso3?.trim().toUpperCase();

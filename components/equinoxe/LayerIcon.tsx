@@ -112,6 +112,14 @@ export default function LayerIcon({ layerKey, color }: LayerIconProps) {
           <circle cx="18" cy="12.5" r="0.7" fill="currentColor" stroke="none" />
         </svg>
       );
+    case "droughts":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="9" r="3.5" />
+          <path d="M12 2.5v1.5M12 14v1.5M5.5 9H4M20 9h-1.5M7.4 4.4l1 1M15.6 4.4l-1 1" />
+          <path d="M3 20l5-3 3 2 4-3 6 4" />
+        </svg>
+      );
     case "floods":
       return (
         <svg {...common}>

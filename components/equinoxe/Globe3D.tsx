@@ -153,6 +153,7 @@ const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
   severeStorms: "TEMPÊTE",
   volcanoes: "VOLCAN",
   floods: "INONDATION",
+  droughts: "SÉCHERESSE",
 };
 
 // --- Vignettes hexagonales des événements des analystes --------------------------------
@@ -283,7 +284,7 @@ function volcanoName(title: string): string {
 
 // --- Épingles illustrées (volcans, lancements, inondations, feux, tempêtes, avions) ----
 
-type PinKind = "volcano" | "launch" | "flood" | "wildfire" | "storm" | "aircraft";
+type PinKind = "volcano" | "launch" | "flood" | "wildfire" | "storm" | "aircraft" | "drought";
 
 /** Couleur de l'anneau lumineux de chaque épingle (modèle validé par Nicolas, 18/10/2026). */
 const PIN_COLORS: Record<PinKind, string> = {
@@ -293,6 +294,8 @@ const PIN_COLORS: Record<PinKind, string> = {
   wildfire: "#ff7a1a",
   storm: "#a64dff",
   aircraft: "#2ee66b",
+  // Sécheresse : ocre (pas de photo fournie : soleil dessiné sur fond sombre).
+  drought: "#d9a520",
 };
 
 const PIN_OF_CATEGORY: Record<NaturalEventCategory, PinKind> = {
@@ -300,6 +303,7 @@ const PIN_OF_CATEGORY: Record<NaturalEventCategory, PinKind> = {
   floods: "flood",
   wildfires: "wildfire",
   severeStorms: "storm",
+  droughts: "drought",
 };
 
 const pinPhotos: Partial<Record<PinKind, HTMLImageElement>> = {};
@@ -307,7 +311,8 @@ const pinPhotos: Partial<Record<PinKind, HTMLImageElement>> = {};
 /** Charge les six photos (public/equinoxe/markers) ; une photo manquante laisse l'anneau seul. */
 function loadPinPhotos(): Promise<void> {
   return Promise.all(
-    (Object.keys(PIN_COLORS) as PinKind[]).map(
+    // Pas de photo pour la sécheresse (soleil dessiné) : rien à charger.
+    (Object.keys(PIN_COLORS) as PinKind[]).filter((k) => k !== "drought").map(
       (kind) =>
         new Promise<void>((resolve) => {
           if (pinPhotos[kind]) return resolve();
@@ -358,6 +363,32 @@ function pinMarker(kind: PinKind): HTMLCanvasElement {
   ctx.fillStyle = "#0b1220";
   ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
   const photo = pinPhotos[kind];
+  if (!photo && kind === "drought") {
+    // Soleil stylisé et sol craquelé, faute de photo.
+    ctx.fillStyle = "#3a2a12";
+    ctx.fillRect(cx - r, cy, r * 2, r);
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(cx, cy - 8, 22, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 6;
+    for (let i = 0; i < 8; i++) {
+      const a = (i * Math.PI) / 4;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(a) * 30, cy - 8 + Math.sin(a) * 30);
+      ctx.lineTo(cx + Math.cos(a) * 42, cy - 8 + Math.sin(a) * 42);
+      ctx.stroke();
+    }
+    ctx.strokeStyle = "#1a1208";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(cx - 40, cy + 30);
+    ctx.lineTo(cx - 10, cy + 22);
+    ctx.lineTo(cx + 6, cy + 40);
+    ctx.lineTo(cx + 36, cy + 28);
+    ctx.stroke();
+  }
   if (photo) {
     // Cadrage serré sur le sujet (volcan, fusée…) : le centre de la photo (70 %).
     const crop = Math.min(photo.naturalWidth, photo.naturalHeight) * 0.7;
@@ -402,6 +433,7 @@ const NATURAL_EVENT_LAYER: Record<NaturalEventCategory, LayerKey> = {
   severeStorms: "storms",
   volcanoes: "volcanoes",
   floods: "floods",
+  droughts: "droughts",
 };
 
 const CABLES_URL = "/data/submarine-cables.geo.json";
@@ -1122,6 +1154,7 @@ export default function Globe3D({
         storms: new Cesium.CustomDataSource("storms"),
         volcanoes: new Cesium.CustomDataSource("volcanoes"),
         floods: new Cesium.CustomDataSource("floods"),
+        droughts: new Cesium.CustomDataSource("droughts"),
       } as Record<LayerKey, CesiumNS.CustomDataSource>;
       for (const evt of naturalEvents) {
         const layerKey = NATURAL_EVENT_LAYER[evt.category];
@@ -1164,6 +1197,7 @@ export default function Globe3D({
       layerSources.storms = naturalEventSources.storms;
       layerSources.volcanoes = naturalEventSources.volcanoes;
       layerSources.floods = naturalEventSources.floods;
+      layerSources.droughts = naturalEventSources.droughts;
 
       const launchSource = new Cesium.CustomDataSource("launches");
       for (const l of launches) {

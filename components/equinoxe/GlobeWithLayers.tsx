@@ -124,6 +124,7 @@ export default function GlobeWithLayers({
       storms: naturalEvents.filter((e) => e.category === "severeStorms").length,
       volcanoes: naturalEvents.filter((e) => e.category === "volcanoes").length,
       floods: naturalEvents.filter((e) => e.category === "floods").length,
+      droughts: naturalEvents.filter((e) => e.category === "droughts").length,
       launches: launches.length,
       nightLights: 0,
       dayNight: 0,

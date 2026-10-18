@@ -10,6 +10,7 @@ export type LayerKey =
   | "storms"
   | "volcanoes"
   | "floods"
+  | "droughts"
   | "launches"
   | "nightLights"
   | "dayNight";
@@ -26,6 +27,7 @@ export const LAYER_LABELS: Record<LayerKey, string> = {
   storms: "Tempêtes",
   volcanoes: "Volcans",
   floods: "Inondations",
+  droughts: "Sécheresses",
   launches: "Lancements",
   nightLights: "Lumières des villes",
   dayNight: "Jour / nuit",
@@ -43,6 +45,7 @@ export const LAYER_ORDER: LayerKey[] = [
   "storms",
   "volcanoes",
   "floods",
+  "droughts",
   "launches",
   "nightLights",
   "dayNight",
@@ -64,6 +67,7 @@ export const LAYER_DEFAULTS: Record<LayerKey, boolean> = {
   storms: false,
   volcanoes: false,
   floods: false,
+  droughts: false,
   launches: false,
   // Réglage d'affichage (pas une donnée) : les lumières des villes côté nuit. Décochées,
   // le globe reste lisible de près, même la nuit.
