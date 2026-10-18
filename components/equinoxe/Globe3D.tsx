@@ -325,31 +325,25 @@ function loadPinPhotos(): Promise<void> {
 
 const pinCanvases = new Map<PinKind, HTMLCanvasElement>();
 
-/** Épingle ronde : photo de la catégorie, anneau lumineux coloré, pointe vers le lieu. */
+/** Rond illustré : photo de la catégorie et anneau lumineux coloré, centré sur le lieu
+ *  (sans pointe, à la demande de Nicolas). */
 function pinMarker(kind: PinKind): HTMLCanvasElement {
   const cached = pinCanvases.get(kind);
   if (cached) return cached;
   // Dessinée en haute définition : elle reste nette quand elle grossit en zoomant.
   const W = 192;
-  const H = 240;
+  const H = 192;
   const cx = W / 2;
-  const cy = 92;
+  const cy = H / 2;
   const r = 72;
   const color = PIN_COLORS[kind];
   const canvas = document.createElement("canvas");
   canvas.width = W;
   canvas.height = H;
   const ctx = canvas.getContext("2d")!;
-  // Halo et pointe (lumineux).
+  // Halo lumineux.
   ctx.shadowColor = color;
   ctx.shadowBlur = 28;
-  ctx.fillStyle = color;
-  ctx.beginPath();
-  ctx.moveTo(cx - 22, cy + r - 4);
-  ctx.lineTo(cx + 22, cy + r - 4);
-  ctx.lineTo(cx, H - 12);
-  ctx.closePath();
-  ctx.fill();
   ctx.beginPath();
   ctx.arc(cx, cy, r, 0, Math.PI * 2);
   ctx.lineWidth = 12;
@@ -380,13 +374,13 @@ function pinMarker(kind: PinKind): HTMLCanvasElement {
   return canvas;
 }
 
-/** Billboard Cesium d'une épingle, de largeur `width` pixels, la pointe sur le lieu. */
+/** Billboard Cesium d'un rond illustré, de largeur `width` pixels, centré sur le lieu. */
 function pinBillboard(Cesium: typeof CesiumNS, kind: PinKind, width: number): CesiumNS.BillboardGraphics.ConstructorOptions {
   return {
     image: pinMarker(kind),
     width: Math.round(width),
-    height: Math.round(width * 1.25),
-    verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+    height: Math.round(width),
+    verticalOrigin: Cesium.VerticalOrigin.CENTER,
     // Taille selon le zoom : petite vue de loin (globe entier), jusqu'à 2,4 fois plus grande
     // de près (une région, un pays), là où l'on veut voir la photo.
     scaleByDistance: new Cesium.NearFarScalar(4.0e5, 2.4, 1.5e7, 0.85),
