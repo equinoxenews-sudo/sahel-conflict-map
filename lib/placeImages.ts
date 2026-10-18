@@ -40,10 +40,13 @@ export async function placeImage(city: string | null, country: string | null): P
     const s = await summary(lang, title);
     // Page d'homonymie : pas d'image fiable.
     if (!s || s.type === "disambiguation") continue;
-    const src = s.thumbnail?.source ?? s.originalimage?.source;
+    const src = s.originalimage?.source ?? s.thumbnail?.source;
     // Écarte les cartes, blasons et drapeaux (fichiers SVG ou « map », « flag », « coat »).
     if (src && !/\.svg|map|flag|coat|blason|drapeau|locator|location/i.test(src)) {
-      url = src.replace(/\/(\d+)px-/, "/960px-");
+      // Original de taille raisonnable : tel quel. Très grand : miniature de 960 px (une
+      // miniature plus large que l'original n'existe pas et donnerait une image cassée).
+      const width = s.originalimage?.width ?? 0;
+      url = width > 1600 && s.thumbnail?.source ? s.thumbnail.source.replace(/\/(\d+)px-/, "/960px-") : src;
       break;
     }
   }
