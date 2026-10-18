@@ -88,6 +88,12 @@ export interface EntityPopupData {
   badge: string;
   title: string;
   fields: EntityPopupField[];
-  /** Lien vers la page complète (article d'analyste). */
+  /** Lien vers une page complète (article d'analyste, fiche de la source…). */
   href?: string;
+  /** Texte du lien (« Lire l'article → » par défaut). */
+  hrefLabel?: string;
+  /** Liens complémentaires (sources externes). */
+  links?: { label: string; href: string }[];
+  /** Image d'illustration (photo, vue satellite du site). */
+  imageUrl?: string;
 }

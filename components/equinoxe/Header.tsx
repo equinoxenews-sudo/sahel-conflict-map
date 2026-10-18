@@ -3,8 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { FOCUS_ZONE_EVENT, isHomeZone, zoneHomeHref } from "@/lib/homeZones";
+import { useEffect, useState } from "react";
+import { FOCUS_ZONE_EVENT, ZONE_FOCUSED_EVENT, isHomeZone, zoneHomeHref } from "@/lib/homeZones";
 import { ZONES } from "@/lib/zones";
 import styles from "./Header.module.css";
 import MobileDrawer from "./MobileDrawer";
@@ -15,6 +15,13 @@ const SHORT_NAMES: Record<string, string> = { "amerique-du-sud": "Am. du Sud", "
 export default function Header() {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  // Zone au centre du globe d'accueil (signalée par le globe) : surlignée comme une page active.
+  const [globeZone, setGlobeZone] = useState<string | null>(null);
+  useEffect(() => {
+    const onFocused = (event: Event) => setGlobeZone((event as CustomEvent<{ zone: string | null }>).detail?.zone ?? null);
+    window.addEventListener(ZONE_FOCUSED_EVENT, onFocused);
+    return () => window.removeEventListener(ZONE_FOCUSED_EVENT, onFocused);
+  }, []);
 
   return (
     <header className={styles.header} data-intro-hide>
@@ -35,7 +42,7 @@ export default function Header() {
 
       <nav className={styles.zones}>
         {ZONES.filter((zone) => zone.active).map((zone) => {
-          const isActive = pathname?.startsWith(`/zones/${zone.slug}`);
+          const isActive = pathname?.startsWith(`/zones/${zone.slug}`) || (pathname === "/" && globeZone === zone.slug);
           return (
             <Link
               key={zone.slug}
@@ -50,7 +57,7 @@ export default function Header() {
                 window.dispatchEvent(new CustomEvent(FOCUS_ZONE_EVENT, { detail: { zone: zone.slug } }));
               }}
             >
-              <Image src={zone.icon} alt="" width={18} height={22} className={styles.zoneHex} aria-hidden="true" />
+              <Image src={zone.icon} alt="" width={24} height={30} className={styles.zoneHex} aria-hidden="true" />
               {SHORT_NAMES[zone.slug] ? (
                 <>
                   <span className={styles.longName}>{zone.name}</span>

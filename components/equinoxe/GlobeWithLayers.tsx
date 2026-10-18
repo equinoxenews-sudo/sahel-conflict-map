@@ -9,7 +9,7 @@ import type { Launch } from "@/lib/layers/launches";
 import type { NaturalEvent } from "@/lib/layers/naturalEvents";
 import type { SatellitePosition } from "@/lib/layers/satellites";
 import { LAYER_DEFAULTS, type EntityPopupData, type LayerKey } from "@/lib/layers/types";
-import { FOCUS_ZONE_EVENT, isHomeZone, type ZoneBriefsByZone, type ZoneSlug } from "@/lib/homeZones";
+import { FOCUS_ZONE_EVENT, ZONE_FOCUSED_EVENT, isHomeZone, type ZoneBriefsByZone, type ZoneSlug } from "@/lib/homeZones";
 import type { VesselPosition } from "@/types/vessel";
 import Globe3DLoader from "./Globe3DLoader";
 import GlobeClock from "./GlobeClock";
@@ -76,6 +76,11 @@ export default function GlobeWithLayers({
     setSelectedEntity(null);
     setFocusedZoneState(zone);
   }
+
+  // Zone affichée : le menu du haut la surligne.
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent(ZONE_FOCUSED_EVENT, { detail: { zone: focusedZone } }));
+  }, [focusedZone]);
 
   // Fiche de zone ouverte : signalé sur <html> pour les éléments extérieurs au globe (carte LATEST).
   useEffect(() => {

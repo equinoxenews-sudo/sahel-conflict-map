@@ -107,3 +107,27 @@
 .zoomGroup .controlBtn:first-child {
   border-bottom: none;
 }
+
+/* Écran tactile (téléphone, tablette) : boutons recentrer, + et − plus grands et plus
+   faciles à toucher, même quand le site s'affiche réduit (980 px). */
+@media (pointer: coarse) {
+  .controls {
+    gap: 12px;
+  }
+
+  .controlBtn {
+    width: 56px;
+    height: 56px;
+    font-size: 26px;
+    border-radius: 12px;
+  }
+
+  .controlBtn svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .zoomGroup {
+    border-radius: 12px;
+  }
+}

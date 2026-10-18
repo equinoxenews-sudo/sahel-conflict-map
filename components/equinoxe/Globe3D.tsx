@@ -106,6 +106,13 @@ function zoneCameraDestination(Cesium: typeof CesiumNS, zone: ZoneSlug | null) {
   );
 }
 
+const PAGER_LABELS: Record<string, string> = {
+  green: "Verte (impact limité)",
+  yellow: "Jaune (dégâts locaux possibles)",
+  orange: "Orange (dégâts importants probables)",
+  red: "Rouge (catastrophe probable)",
+};
+
 function formatDateTime(value: string | number): string {
   return new Intl.DateTimeFormat("fr-FR", { dateStyle: "medium", timeStyle: "short" }).format(
     new Date(value)
@@ -120,7 +127,9 @@ function applyDateFilter(source: CesiumNS.DataSource, dateRange: GlobeDateRange)
   for (const entity of source.entities.values) {
     const t = entity.properties?.eventTime?.getValue();
     if (typeof t === "number") {
-      entity.show = t >= dateRange.start && t <= dateRange.end;
+      // Événement qui dure (feu, inondation…) : visible tant qu'il chevauche la période.
+      const end = entity.properties?.eventEnd?.getValue();
+      entity.show = t <= dateRange.end && (typeof end === "number" ? end : t) >= dateRange.start;
     }
   }
 }
@@ -131,6 +140,16 @@ const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
   volcanoes: "VOLCAN",
   floods: "INONDATION",
 };
+
+const ALERT_LABELS: Record<string, string> = {
+  green: "Verte (impact limité)",
+  orange: "Orange (impact modéré)",
+  red: "Rouge (impact grave)",
+};
+
+function formatDay(value: string): string {
+  return new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value));
+}
 
 const NATURAL_EVENT_COLORS: Record<NaturalEventCategory, string> = {
   wildfires: "#ff6d00",
@@ -808,14 +827,20 @@ export default function Globe3D({
             { label: "Magnitude", value: `M${eq.magnitude.toFixed(1)}` },
             { label: "Profondeur", value: eq.depthKm != null ? `${eq.depthKm.toFixed(1)} km` : "Inconnue" },
             { label: "Heure", value: formatDateTime(eq.time) },
+            ...(eq.alert ? [{ label: "Alerte PAGER", value: PAGER_LABELS[eq.alert] ?? eq.alert }] : []),
+            ...(eq.tsunami ? [{ label: "Tsunami", value: "Alerte émise (voir la fiche)" }] : []),
+            ...(eq.felt ? [{ label: "Ressenti", value: `${eq.felt} témoignage${eq.felt > 1 ? "s" : ""}` }] : []),
             { label: "Coordonnées", value: `${eq.lat.toFixed(2)}, ${eq.lon.toFixed(2)}` },
           ],
+          href: eq.url ?? undefined,
+          hrefLabel: "Fiche USGS →",
         };
         earthquakeSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(eq.lon, eq.lat, 0),
           point: {
-            pixelSize: 6 + Math.max(eq.magnitude, 0) * 2,
-            color: Cesium.Color.YELLOW.withAlpha(0.7),
+            // Plus de 2 000 séismes sur deux mois : petits points, les forts restent visibles.
+            pixelSize: Math.max(4, Math.max(eq.magnitude, 0) * 2.4 - 4),
+            color: (eq.magnitude >= 6 ? Cesium.Color.ORANGERED : Cesium.Color.YELLOW).withAlpha(0.75),
             outlineColor: Cesium.Color.BLACK,
             outlineWidth: 1,
           },
@@ -832,16 +857,31 @@ export default function Globe3D({
       } as Record<LayerKey, CesiumNS.CustomDataSource>;
       for (const evt of naturalEvents) {
         const layerKey = NATURAL_EVENT_LAYER[evt.category];
+        const period =
+          evt.date && evt.endDate && evt.endDate.slice(0, 10) !== evt.date.slice(0, 10)
+            ? `du ${formatDay(evt.date)} au ${formatDay(evt.endDate)}`
+            : evt.date
+              ? formatDay(evt.date)
+              : null;
         const popup: EntityPopupData = {
           layerKey,
           badge: NATURAL_EVENT_LABELS[evt.category],
           title: evt.title,
-          fields: evt.date ? [{ label: "Date", value: formatDateTime(evt.date) }] : [],
+          fields: [
+            ...(evt.severity ? [{ label: "Intensité", value: evt.severity }] : []),
+            ...(evt.alert ? [{ label: "Alerte", value: ALERT_LABELS[evt.alert.toLowerCase()] ?? evt.alert }] : []),
+            ...(evt.country ? [{ label: "Pays", value: evt.country }] : []),
+            ...(period ? [{ label: "Période", value: period }] : []),
+            { label: "Localisation", value: `${evt.lat.toFixed(2)}, ${evt.lon.toFixed(2)}` },
+            { label: "Source", value: evt.source === "GDACS" ? "GDACS (ONU / Commission européenne)" : "EONET (NASA)" },
+          ],
+          links: evt.links,
         };
+        const alertScale = evt.alert?.toLowerCase() === "red" ? 1.6 : evt.alert?.toLowerCase() === "orange" ? 1.3 : 1;
         naturalEventSources[layerKey].entities.add({
           position: Cesium.Cartesian3.fromDegrees(evt.lon, evt.lat, 0),
           point: {
-            pixelSize: 7,
+            pixelSize: (evt.category === "wildfires" ? 6 : 9) * alertScale,
             color: Cesium.Color.fromCssColorString(NATURAL_EVENT_COLORS[evt.category]),
             outlineColor: Cesium.Color.BLACK,
             outlineWidth: 1,
@@ -849,6 +889,7 @@ export default function Globe3D({
           properties: {
             popup: JSON.stringify(popup),
             eventTime: evt.date ? new Date(evt.date).getTime() : undefined,
+            eventEnd: evt.endDate ? new Date(evt.endDate).getTime() : undefined,
           },
         });
       }

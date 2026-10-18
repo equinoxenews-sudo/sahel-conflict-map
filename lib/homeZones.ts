@@ -26,6 +26,10 @@ export function zoneHomeHref(slug: string): string {
 /** Évènement du navigateur : { detail: { zone } } — le menu du haut demande de centrer le globe. */
 export const FOCUS_ZONE_EVENT = "equinoxe:focus-zone";
 
+/** Évènement du navigateur : { detail: { zone | null } } — le globe signale la zone affichée
+ *  (le menu du haut la surligne en doré). */
+export const ZONE_FOCUSED_EVENT = "equinoxe:zone-focused";
+
 export function isHomeZone(slug: string): slug is ZoneSlug {
   return (ZONE_ORDER as readonly string[]).includes(slug);
 }

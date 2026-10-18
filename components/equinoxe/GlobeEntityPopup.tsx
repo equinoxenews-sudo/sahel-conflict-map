@@ -21,6 +21,10 @@ export default function GlobeEntityPopup({ data, x, y, onClose }: GlobeEntityPop
           ✕
         </button>
       </div>
+      {data.imageUrl ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img className={styles.image} src={data.imageUrl} alt="" loading="lazy" referrerPolicy="no-referrer" />
+      ) : null}
       <h3 className={styles.title}>{data.title}</h3>
       {data.fields.length > 0 ? (
         <dl className={styles.fields}>
@@ -32,10 +36,19 @@ export default function GlobeEntityPopup({ data, x, y, onClose }: GlobeEntityPop
           ))}
         </dl>
       ) : null}
-      {data.href ? (
-        <a className={styles.link} href={data.href}>
-          Lire l’article →
-        </a>
+      {data.href || data.links?.length ? (
+        <div className={styles.links}>
+          {data.href ? (
+            <a className={styles.link} href={data.href} target={data.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+              {data.hrefLabel ?? "Lire l’article →"}
+            </a>
+          ) : null}
+          {data.links?.map((l) => (
+            <a key={l.href} className={styles.link} href={l.href} target="_blank" rel="noopener noreferrer">
+              {l.label}
+            </a>
+          ))}
+        </div>
       ) : null}
     </div>
   );

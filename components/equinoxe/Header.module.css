@@ -18,27 +18,32 @@
 }
 
 .logoImage {
-  height: 64px;
+  height: 56px;
   width: auto;
 }
 
 .zones {
   display: flex;
   align-items: center;
-  gap: 40px;
-  flex-wrap: wrap;
+  gap: 6px;
+  flex-wrap: nowrap;
 }
 
+/* Chaque entrée est une « pastille » : la zone active (page ouverte ou zone au centre
+   du globe) se surligne en doré Équinoxe. */
 .zoneLink {
   color: var(--text-secondary);
   text-decoration: none;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 500;
   white-space: nowrap;
-  padding-bottom: 4px;
-  border-bottom: 2px solid transparent;
+  padding: 6px 11px;
+  border: 1px solid transparent;
+  border-radius: 999px;
   transition:
     color 0.15s ease,
-    border-color 0.15s ease;
+    border-color 0.15s ease,
+    background-color 0.15s ease;
 }
 
 .zoneLink:hover {
@@ -53,21 +58,29 @@ a.zoneLink:has(.zoneHex) {
 }
 
 .zoneHex {
-  width: 18px;
+  width: 24px;
   height: auto;
   flex: none;
   opacity: 0.85;
-  transition: opacity 0.15s ease;
+  transition:
+    opacity 0.15s ease,
+    filter 0.15s ease;
 }
 
-.zoneLink:hover .zoneHex,
-.zoneLinkActive .zoneHex {
+.zoneLink:hover .zoneHex {
   opacity: 1;
 }
 
 .zoneLinkActive {
   color: var(--accent-gold-bright);
-  border-bottom-color: var(--accent-gold-bright);
+  border-color: rgba(224, 180, 76, 0.65);
+  background: rgba(224, 180, 76, 0.14);
+}
+
+/* Logo de la zone active teinté or. */
+.zoneLinkActive .zoneHex {
+  opacity: 1;
+  filter: sepia(1) saturate(4) hue-rotate(-12deg) brightness(1.05) drop-shadow(0 0 4px rgba(224, 180, 76, 0.55));
 }
 
 .zoneLabel {
@@ -139,33 +152,36 @@ a.zoneLink:has(.zoneHex) {
 }
 
 /* Écrans moyens, et téléphones (le site s'y affiche sur 980 px, app/layout.tsx) :
-   logo, navigation et icônes tiennent sur une seule ligne. */
-@media (max-width: 1240px) and (min-width: 901px) {
+   deux lignes, logo et icônes en haut, la navigation en grand en dessous. */
+@media (max-width: 1360px) and (min-width: 901px) {
   .header {
-    flex-wrap: nowrap;
-    gap: 12px;
-    padding: 10px 16px;
+    row-gap: 10px;
+    padding: 12px 20px 10px;
   }
 
   .logoImage {
-    height: 40px;
+    height: 52px;
+  }
+
+  .actions {
+    margin-left: auto;
   }
 
   .zones {
+    order: 3;
+    flex: 0 0 100%;
+    justify-content: center;
     flex-wrap: nowrap;
-    gap: 11px;
-  }
-
-  .zoneLink {
-    font-size: 13px;
-  }
-
-  a.zoneLink:has(.zoneHex) {
     gap: 4px;
   }
 
+  .zoneLink {
+    font-size: 16px;
+    padding: 6px 10px;
+  }
+
   .zoneHex {
-    width: 15px;
+    width: 24px;
   }
 
   .longName {
@@ -176,24 +192,20 @@ a.zoneLink:has(.zoneHex) {
     display: inline;
   }
 
-  .actions {
-    gap: 8px;
-    padding-left: 10px;
-  }
-
   .iconGlyph {
-    width: 30px;
-    height: 30px;
-    font-size: 14px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
   }
 
   .zoneLabel {
-    font-size: 9px;
+    font-size: 11px;
   }
 
   .search input {
-    width: 104px;
-    padding: 7px 12px;
+    width: 150px;
+    padding: 10px 16px;
+    font-size: 15px;
   }
 }
 
