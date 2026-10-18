@@ -18,7 +18,8 @@ function significant(text: string): string[] {
     .replace(/[̀-ͯ]/g, "")
     .toLowerCase()
     .split(/[^a-z0-9]+/)
-    .filter((w) => w.length >= 3 && !["satellite", "the", "les", "des"].includes(w));
+    // Mots de catégorie ajoutés à la recherche (« satellite », « volcan ») : pas exigés dans le titre.
+    .filter((w) => w.length >= 3 && !["satellite", "volcan", "volcano", "the", "les", "des"].includes(w));
 }
 
 /** Photo et résumé Wikipédia (français, puis anglais) : seulement si l'article trouvé
@@ -28,7 +29,7 @@ async function lookupWiki(query: string, signal: AbortSignal): Promise<WikiCard 
   if (!wanted.length) return null;
   for (const lang of ["fr", "en"]) {
     const search = await fetch(
-      `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(`${query} satellite`)}&srlimit=3&format=json&origin=*`,
+      `https://${lang}.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&srlimit=3&format=json&origin=*`,
       { signal },
     ).then((r) => (r.ok ? r.json() : null));
     const hits = (search?.query?.search ?? []) as { title: string }[];
@@ -49,7 +50,7 @@ async function lookupWiki(query: string, signal: AbortSignal): Promise<WikiCard 
   return null;
 }
 
-function WikiBlock({ query }: { query: string }) {
+function WikiBlock({ query, photoOnly }: { query: string; photoOnly?: boolean }) {
   const [card, setCard] = useState<WikiCard | null | "loading">("loading");
   useEffect(() => {
     const controller = new AbortController();
@@ -59,7 +60,7 @@ function WikiBlock({ query }: { query: string }) {
     return () => controller.abort();
   }, [query]);
   if (card === "loading") return <p className={styles.wikiNote}>Recherche d’une photo…</p>;
-  if (!card) return null;
+  if (!card || (photoOnly && !card.image)) return null;
   return (
     <div className={styles.wiki}>
       {card.image ? (
@@ -133,7 +134,7 @@ export default function GlobeEntityPopup({ data, x, y, onClose }: GlobeEntityPop
           ))}
         </div>
       ) : null}
-      {data.wikiQuery ? <WikiBlock key={data.wikiQuery} query={data.wikiQuery} /> : null}
+      {data.wikiQuery ? <WikiBlock key={data.wikiQuery} query={data.wikiQuery} photoOnly={data.wikiPhotoOnly} /> : null}
     </div>
   );
 }

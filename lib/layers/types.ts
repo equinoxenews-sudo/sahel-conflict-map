@@ -102,4 +102,6 @@ export interface EntityPopupData {
   flagIso2?: string;
   /** Recherche Wikipédia faite au clic (photo et résumé), pour les objets connus. */
   wikiQuery?: string;
+  /** N'afficher le bloc Wikipédia que s'il a une photo (volcans). */
+  wikiPhotoOnly?: boolean;
 }

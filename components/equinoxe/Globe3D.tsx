@@ -269,6 +269,18 @@ function satelliteColor(fn: string): string {
   return "#b388ff";
 }
 
+/** Recherche Wikipédia d'un volcan à partir du titre de l'événement :
+ *  « Telica Volcano, Nicaragua » ou « Éruption volcanique Etna — Italie » → « Telica volcan ». */
+function volcanoName(title: string): string {
+  const name = title
+    .replace(/^Éruption volcanique\s*/i, "")
+    .replace(/\s+—.*$/, "")
+    .replace(/,.*$/, "")
+    .replace(/\s+(Volcano|Volcanic Complex|Group)$/i, "")
+    .trim();
+  return `${name} volcan`;
+}
+
 /** Icône de volcan pour le globe : cône sombre, cratère en lave, panache. */
 const VOLCANO_ICON =
   "data:image/svg+xml;charset=utf-8," +
@@ -1040,6 +1052,9 @@ export default function Globe3D({
             { label: "Source", value: evt.source === "GDACS" ? "GDACS (ONU / Commission européenne)" : "EONET (NASA)" },
           ],
           links: evt.links,
+          // Volcans : photo et description Wikipédia au clic (rien si l'article n'existe pas).
+          wikiQuery: evt.category === "volcanoes" ? volcanoName(evt.title) : undefined,
+          wikiPhotoOnly: evt.category === "volcanoes",
         };
         const alertScale = evt.alert?.toLowerCase() === "red" ? 1.6 : evt.alert?.toLowerCase() === "orange" ? 1.3 : 1;
         const volcano = evt.category === "volcanoes";
@@ -1138,7 +1153,7 @@ export default function Globe3D({
               ]
             : [],
           // Photo et description cherchées dans Wikipédia au clic (nom sans précision entre parenthèses).
-          wikiQuery: sat.name.replace(/s*(.*?)s*/g, " ").trim(),
+          wikiQuery: `${sat.name.replace(/\s*\(.*?\)\s*/g, " ").trim()} satellite`,
         };
         satelliteSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(sat.lon, sat.lat, sat.altitudeMeters),
