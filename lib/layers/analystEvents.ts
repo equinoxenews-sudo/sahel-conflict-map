@@ -28,10 +28,11 @@ interface Row {
   primary_theme: string | null;
   event_type: string | null;
   geo_precision: string | null;
+  image_url: string | null;
 }
 
 const COLUMNS =
-  "id, zone_slug, title, published_at, latitude, longitude, place_name, place_country, confidence, confidence_label, claimed_by, importance, primary_theme, event_type, geo_precision";
+  "id, zone_slug, title, published_at, latitude, longitude, place_name, place_country, confidence, confidence_label, claimed_by, importance, primary_theme, event_type, geo_precision, image_url";
 
 /** Articles géolocalisés des 30 derniers jours (lecture paginée : jamais tronquée à 1 000). */
 export async function fetchAnalystEvents(now = Date.now()): Promise<AnalystEvent[]> {
@@ -68,6 +69,7 @@ export async function fetchAnalystEvents(now = Date.now()): Promise<AnalystEvent
           theme: r.primary_theme,
           eventType: r.event_type,
           precision: r.geo_precision,
+          imageUrl: r.image_url,
         });
       }
       if ((data ?? []).length < PAGE) break;

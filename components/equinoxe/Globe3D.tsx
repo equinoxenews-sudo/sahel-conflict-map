@@ -141,6 +141,84 @@ const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
   floods: "INONDATION",
 };
 
+// --- Vignettes hexagonales des événements des analystes --------------------------------
+
+/** Hauteur / largeur d'un hexagone à pointe en haut. */
+const HEX_RATIO = 2 / Math.sqrt(3);
+const HEX_PX = 96;
+const HEX_BORDER = "#e0b44c";
+
+function hexPath(ctx: CanvasRenderingContext2D, w: number, h: number, inset: number): void {
+  const cx = w / 2;
+  const r = h / 2 - inset;
+  ctx.beginPath();
+  for (let i = 0; i < 6; i++) {
+    const a = Math.PI / 6 + (i * Math.PI) / 3 - Math.PI / 2;
+    const x = cx + r * Math.cos(a);
+    const y = h / 2 + r * Math.sin(a);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  }
+  ctx.closePath();
+}
+
+function hexCanvas(draw?: (ctx: CanvasRenderingContext2D, w: number, h: number) => void): HTMLCanvasElement {
+  const w = HEX_PX;
+  const h = Math.round(HEX_PX * HEX_RATIO);
+  const canvas = document.createElement("canvas");
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext("2d")!;
+  ctx.save();
+  hexPath(ctx, w, h, 4);
+  ctx.clip();
+  ctx.fillStyle = "#101c2c";
+  ctx.fillRect(0, 0, w, h);
+  draw?.(ctx, w, h);
+  ctx.restore();
+  hexPath(ctx, w, h, 4);
+  ctx.lineWidth = 7;
+  ctx.strokeStyle = HEX_BORDER;
+  ctx.stroke();
+  return canvas;
+}
+
+let placeholder: HTMLCanvasElement | null = null;
+/** Hexagone doré uni, en attendant la vignette (ou si elle ne se charge pas). */
+function hexagonPlaceholder(): HTMLCanvasElement {
+  placeholder ??= hexCanvas((ctx, w, h) => {
+    ctx.fillStyle = "rgba(224, 180, 76, 0.35)";
+    ctx.fillRect(0, 0, w, h);
+  });
+  return placeholder;
+}
+
+const thumbnails = new Map<string, Promise<HTMLCanvasElement>>();
+/** Vignette de l'article recadrée dans l'hexagone. Images d'autres sites relayées par
+ *  /api/thumb (le moteur 3D refuse les images sans autorisation CORS). */
+function hexagonThumbnail(src: string): Promise<HTMLCanvasElement> {
+  const cached = thumbnails.get(src);
+  if (cached) return cached;
+  const promise = new Promise<HTMLCanvasElement>((resolve) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () =>
+      resolve(
+        hexCanvas((ctx, w, h) => {
+          // Recadrage « cover » : l'image remplit l'hexagone sans déformation.
+          const scale = Math.max(w / img.naturalWidth, h / img.naturalHeight);
+          const dw = img.naturalWidth * scale;
+          const dh = img.naturalHeight * scale;
+          ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
+        }),
+      );
+    img.onerror = () => resolve(hexagonPlaceholder());
+    img.src = src.startsWith("/") ? src : `/api/thumb?url=${encodeURIComponent(src)}`;
+  });
+  thumbnails.set(src, promise);
+  return promise;
+}
+
 /** Couleur d'un satellite selon sa fonction. */
 function satelliteColor(fn: string): string {
   if (fn.startsWith("Navigation")) return "#35b779";
@@ -805,8 +883,9 @@ export default function Globe3D({
       }
       layerSources.vessels = vesselSource;
 
-      // Événements des analystes : points dorés (couleur du site, distincte des pays colorés),
-      // taille selon la gravité, opacité selon l'indice de confiance.
+      // Événements des analystes : hexagone portant la vignette de l'article, liseré doré
+      // (couleur du site), plus grand pour un événement majeur. La vignette est chargée après
+      // coup (relais /api/thumb) ; en attendant ou à défaut, un hexagone doré uni.
       const eventSource = new Cesium.CustomDataSource("events");
       for (const ev of analystEvents) {
         const where = [ev.place, ev.country].filter(Boolean).join(", ");
@@ -823,17 +902,26 @@ export default function Globe3D({
           ],
           href: `/briefs/${ev.id}`,
         };
-        const alpha = 0.45 + 0.55 * Math.min(1, Math.max(0, (ev.confidence ?? 55) / 100));
-        eventSource.entities.add({
+        const size = ev.importance === "high" ? 44 : ev.importance === "low" ? 30 : 36;
+        const entity = eventSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(ev.lon, ev.lat, 0),
-          point: {
-            pixelSize: ev.importance === "high" ? 12 : ev.importance === "low" ? 7 : 9,
-            color: Cesium.Color.fromCssColorString("#e0b44c").withAlpha(alpha),
-            outlineColor: Cesium.Color.WHITE.withAlpha(0.9),
-            outlineWidth: 1.5,
+          billboard: {
+            image: hexagonPlaceholder(),
+            width: size,
+            height: Math.round(size * HEX_RATIO),
+            verticalOrigin: Cesium.VerticalOrigin.CENTER,
+            // Toujours lisible au-dessus des pays colorés, même au bord du globe.
+            eyeOffset: new Cesium.Cartesian3(0, 0, -50),
           },
           properties: { popup: JSON.stringify(popup), eventTime: Date.parse(ev.publishedAt) },
         });
+        if (ev.imageUrl) {
+          void hexagonThumbnail(ev.imageUrl).then((canvas) => {
+            if (disposed || !viewer || !entity.billboard) return;
+            entity.billboard.image = new Cesium.ConstantProperty(canvas);
+            viewer.scene.requestRender();
+          });
+        }
       }
       layerSources.events = eventSource;
 

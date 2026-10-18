@@ -20,6 +20,8 @@ export interface AnalystEvent {
   eventType: string | null;
   /** « ville » (localité citée) ou « capitale » (information d'ordre national). */
   precision: string | null;
+  /** Vignette de l'article (affichée en hexagone sur le globe). */
+  imageUrl?: string | null;
 }
 
 // --- Niveau de risque par pays ----------------------------------------------------------
