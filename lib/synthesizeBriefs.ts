@@ -283,7 +283,9 @@ export async function synthesizeBriefs(
   /** Reçoit les jetons consommés par chaque appel (suivi du budget, lib/aiUsage.ts). */
   onUsage?: (usage: AiUsage) => void,
   /** Analystes V2 : indice de confiance, lieu, règles Telegram. */
-  analyst = false
+  analyst = false,
+  /** Consigne du jour de Nicolas pour la zone (lib/zoneDirectives.ts), déjà mise en forme. */
+  directive = ""
 ): Promise<SynthesizedBrief[]> {
   // Une clé collée dans un tableau de bord avec un espace, un retour à la
   // ligne ou des guillemets est refusée (401) : on la nettoie.
@@ -308,7 +310,7 @@ export async function synthesizeBriefs(
         body: JSON.stringify({
           model: MODEL,
           max_tokens: MAX_TOKENS,
-          messages: [{ role: "user", content: buildPrompt(zoneName, articles, previous, analyst) }],
+          messages: [{ role: "user", content: buildPrompt(zoneName, articles, previous, analyst) + directive }],
         }),
         signal: controller.signal,
       });

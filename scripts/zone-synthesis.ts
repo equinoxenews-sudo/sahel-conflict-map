@@ -43,6 +43,7 @@ import {
 import { isSportsTitle } from "../lib/sportsFilter";
 import { SYNTHESIS_ALLOWED_DOMAINS } from "../lib/synthesisSources";
 import { ZONES, getZone } from "../lib/zones";
+import { activeDirective, directivePrompt } from "../lib/zoneDirectives";
 
 /** Période lue quand la zone n'a encore aucune synthèse, et plafond de remontée. */
 const DEFAULT_WINDOW_DAYS = 7;
@@ -73,6 +74,8 @@ async function synthesizeZone(
 ): Promise<{ status: "créée" | "inchangée" | "ignorée"; webSearches: number }> {
   const supabase = getSupabaseAdmin();
   const zoneName = getZone(zoneSlug)?.name ?? zoneSlug;
+  // Consigne du jour de Nicolas (HQ) : même orientation que pour les articles du matin.
+  const directiveText = directivePrompt(await activeDirective(zoneSlug));
   const now = Date.now();
 
   // La période commence à la dernière synthèse de la zone (plafonnée à 8 jours) :
@@ -123,9 +126,9 @@ async function synthesizeZone(
   let result;
   try {
     if (!web.allowed) {
-      result = await callSynthesisModel(apiKey, buildSynthesisPrompt(zoneName, briefs, today, false, period), false);
+      result = await callSynthesisModel(apiKey, buildSynthesisPrompt(zoneName, briefs, today, false, period) + directiveText, false);
     } else {
-      const webPrompt = buildSynthesisPrompt(zoneName, briefs, today, true, period);
+      const webPrompt = buildSynthesisPrompt(zoneName, briefs, today, true, period) + directiveText;
       try {
         try {
           result = await callSynthesisModel(apiKey, webPrompt, true, SYNTHESIS_ALLOWED_DOMAINS, web.maxUses);
@@ -146,7 +149,7 @@ async function synthesizeZone(
       } catch (err) {
         if (!isWebSearchUnavailable(err)) throw err;
         console.warn(`  ${zoneName} : recherche web indisponible sur ce compte, synthèse sans web.`);
-        result = await callSynthesisModel(apiKey, buildSynthesisPrompt(zoneName, briefs, today, false, period), false);
+        result = await callSynthesisModel(apiKey, buildSynthesisPrompt(zoneName, briefs, today, false, period) + directiveText, false);
       }
     }
   } catch (err) {

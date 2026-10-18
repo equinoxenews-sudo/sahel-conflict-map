@@ -12,6 +12,7 @@ import { getSupabaseAdmin } from "./supabaseAdmin";
 import { MODEL, synthesizeBriefs, type PreviousBrief, type SourceArticle } from "./synthesizeBriefs";
 import { channelNote } from "./telegramChannels";
 import { getZone } from "./zones";
+import { activeDirective, directiveKeywords, directivePrompt, prioritize, type ZoneDirective } from "./zoneDirectives";
 import { ZONE_KEYWORDS } from "./zoneKeywords";
 
 // Kept small so one Claude call finishes inside the route's 60 s budget
@@ -75,7 +76,7 @@ async function analystSchemaReady(): Promise<boolean> {
   return true;
 }
 
-async function loadTelegram(zoneSlug: string, exclude: Set<number>): Promise<StoredTelegramPost[]> {
+async function loadTelegram(zoneSlug: string, exclude: Set<number>, keywords: string[] = []): Promise<StoredTelegramPost[]> {
   const since = new Date(Date.now() - TELEGRAM_MAX_AGE_HOURS * 3600_000).toISOString();
   const { data, error } = await getSupabaseAdmin()
     .from("telegram_posts")
@@ -84,9 +85,11 @@ async function loadTelegram(zoneSlug: string, exclude: Set<number>): Promise<Sto
     .eq("used_in_brief", false)
     .gte("published_at", since)
     .order("published_at", { ascending: false })
-    .limit(TELEGRAM_PER_BATCH + exclude.size);
+    // Consigne du jour : un réservoir plus large, trié pour que les messages concernés passent d'abord.
+    .limit((keywords.length ? TELEGRAM_PER_BATCH * 3 : TELEGRAM_PER_BATCH) + exclude.size);
   if (error) throw new Error(`Telegram : lecture impossible (${error.message})`);
-  return ((data ?? []) as StoredTelegramPost[]).filter((p) => !exclude.has(p.id)).slice(0, TELEGRAM_PER_BATCH);
+  const posts = ((data ?? []) as StoredTelegramPost[]).filter((p) => !exclude.has(p.id));
+  return prioritize(posts, (p) => p.text, keywords).slice(0, TELEGRAM_PER_BATCH);
 }
 
 function telegramSource(p: StoredTelegramPost): SourceArticle {
@@ -107,7 +110,9 @@ async function briefBatch(
   analyst: boolean,
   limit: number,
   telegramExclude: Set<number>,
+  directive: ZoneDirective | null = null,
 ): Promise<BatchResult> {
+  const keywords = directive ? directiveKeywords(directive.text) : [];
   const supabase = getSupabaseAdmin();
 
   const loadUnbriefed = (columns: string) =>
@@ -117,7 +122,7 @@ async function briefBatch(
       .eq("zone_slug", zoneSlug)
       .eq("used_in_brief", false)
       .order("published_at", { ascending: false })
-      .limit(limit);
+      .limit(keywords.length ? limit * 4 : limit);
   // La colonne image_url (supabase/add-article-images.sql) peut ne pas exister encore.
   let { data, error } = await loadUnbriefed("id, title, url, domain, published_at, image_url");
   if (error && /image_url/.test(error.message)) {
@@ -136,8 +141,9 @@ async function briefBatch(
     const { error: sportsError } = await supabase.from("articles").update({ used_in_brief: true }).in("id", sportsIds);
     if (sportsError) throw new Error(`Failed to set aside sports articles: ${sportsError.message}`);
   }
-  const articles = stored.filter((article) => !sportsIds.includes(article.id));
-  const telegram = analyst ? await loadTelegram(zoneSlug, telegramExclude) : [];
+  // Consigne du jour : les articles qui en parlent passent en tête du lot.
+  const articles = prioritize(stored.filter((article) => !sportsIds.includes(article.id)), (a) => a.title, keywords).slice(0, limit);
+  const telegram = analyst ? await loadTelegram(zoneSlug, telegramExclude, keywords) : [];
   const telegramOnly = articles.length === 0;
   if (telegramOnly && telegram.length < TELEGRAM_ONLY_MIN_POSTS) {
     return { zoneSlug, articleCount: 0, briefCount: 0, telegramUsed: 0 };
@@ -203,7 +209,7 @@ async function briefBatch(
       job: "sync-briefs", zoneSlug, model: MODEL, usage,
       note: `${pendingPress.length} articles${analyst ? ` + ${pendingTelegram.length} Telegram` : ""}`,
     });
-  }, analyst);
+  }, analyst, directivePrompt(directive));
 
   const { data: recentImages, error: imageError } = await supabase.from("zone_briefs")
     .select("image_url").order("published_at", { ascending: false }).limit(100);
@@ -280,6 +286,7 @@ async function briefBatch(
 async function briefZone(zoneSlug: string): Promise<BatchResult> {
   const analyst = isAnalystV2Zone(zoneSlug) && (await analystSchemaReady());
   if (!analyst) return briefBatch(zoneSlug, false, ARTICLES_PER_ZONE, new Set());
+  const directive = await activeDirective(zoneSlug);
 
   // Plusieurs lots tant qu'il reste des articles, dans la limite du temps et du
   // plafond quotidien. Un même message Telegram n'est proposé qu'une fois par passage.
@@ -287,7 +294,7 @@ async function briefZone(zoneSlug: string): Promise<BatchResult> {
   const seenTelegram = new Set<number>();
   const total: BatchResult = { zoneSlug, articleCount: 0, briefCount: 0, telegramUsed: 0 };
   for (let batch = 0; batch < ANALYST_MAX_BATCHES && Date.now() - started < ANALYST_TIME_BUDGET_MS; batch++) {
-    const r = await briefBatch(zoneSlug, true, ANALYST_BATCH, seenTelegram);
+    const r = await briefBatch(zoneSlug, true, ANALYST_BATCH, seenTelegram, directive);
     total.articleCount += r.articleCount;
     total.briefCount += r.briefCount;
     total.telegramUsed += r.telegramUsed;

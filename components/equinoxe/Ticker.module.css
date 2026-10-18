@@ -80,3 +80,11 @@
     display: none;
   }
 }
+
+.link {
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--text-primary);
+}
