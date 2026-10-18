@@ -1386,8 +1386,19 @@ export default function Globe3D({
       source.show = enabledLayers[key];
       if (dateRange) applyDateFilter(source, dateRange);
     }
-    // Le globe ne se redessine plus en continu : on le demande après un changement de couche.
-    viewerRef.current?.scene.requestRender();
+    // Le globe ne se redessine plus en continu : on le demande après un changement de couche,
+    // puis encore quelques fois, le temps que les images des marqueurs (ronds illustrés,
+    // hexagones) soient chargées sur la carte graphique ; sinon elles n'apparaissent qu'au
+    // prochain mouvement du globe.
+    const viewer = viewerRef.current;
+    if (!viewer) return;
+    viewer.scene.requestRender();
+    const timers = [80, 250, 600, 1200, 2500].map((ms) =>
+      window.setTimeout(() => {
+        if (!viewer.isDestroyed()) viewer.scene.requestRender();
+      }, ms),
+    );
+    return () => timers.forEach((t) => window.clearTimeout(t));
   }, [enabledLayers, dateRange]);
 
   // Mise au point sur une zone : la caméra vole vers elle ; sans zone, elle revient à la vue
