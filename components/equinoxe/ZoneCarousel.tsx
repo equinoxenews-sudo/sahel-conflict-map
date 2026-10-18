@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { ZONE_LABELS, type ZoneBriefCard, type ZoneSlug } from "@/lib/homeZones";
 import styles from "./ZoneCarousel.module.css";
 import { briefImageSrc } from "@/lib/imageUrls";
+import { setHoveredBrief } from "@/lib/briefHover";
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" });
 
@@ -26,6 +27,9 @@ export default function ZoneCarousel({ zone, briefs, variant, highlightId = null
     const card = scroller.current?.querySelector<HTMLElement>(`[data-brief-id="${highlightId}"]`);
     card?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   }, [highlightId]);
+
+  // Bandeau fermé pendant un survol : le point du globe reprend sa taille.
+  useEffect(() => () => setHoveredBrief(null), []);
 
   function scrollBy(direction: -1 | 1) {
     const element = scroller.current;
@@ -56,7 +60,14 @@ export default function ZoneCarousel({ zone, briefs, variant, highlightId = null
         <ul className={styles.track} ref={scroller}>
           {briefs.map((brief) => (
             <li key={brief.id} className={styles.item} data-brief-id={brief.id}>
-              <Link href={`/briefs/${brief.id}`} className={brief.id === highlightId ? `${styles.card} ${styles.cardHighlight}` : styles.card}>
+              <Link
+                href={`/briefs/${brief.id}`}
+                // Survol : le point de l'événement grossit sur le globe et cesse de clignoter.
+                onMouseEnter={() => setHoveredBrief(brief.id)}
+                onMouseLeave={() => setHoveredBrief(null)}
+                onFocus={() => setHoveredBrief(brief.id)}
+                onBlur={() => setHoveredBrief(null)}
+                className={brief.id === highlightId ? `${styles.card} ${styles.cardHighlight}` : styles.card}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={briefImageSrc(brief.imageUrl) ?? `/equinoxe/hero-${zone}.webp`}

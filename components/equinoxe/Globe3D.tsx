@@ -6,7 +6,6 @@ import { RISK_COLORS, type CountryRisk } from "@/lib/countryRisk";
 import type { MilitaryAircraft } from "@/lib/layers/aircraft";
 import { confidenceColor } from "@/lib/confidence";
 import type { AnalystEvent } from "@/lib/layers/analystEvents";
-import { eventTone, type EventTone } from "@/lib/layers/analystRisk";
 import type { Earthquake } from "@/lib/layers/earthquakes";
 import type { Launch } from "@/lib/layers/launches";
 import type { NaturalEvent, NaturalEventCategory } from "@/lib/layers/naturalEvents";
@@ -16,6 +15,7 @@ import type { VesselPosition } from "@/types/vessel";
 import { CESIUM_BASE_URL } from "@/lib/cesiumCdn";
 import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
 import { ISO3_TO_ZONE, isHomeZone, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
+import { getHoveredBrief, onHoveredBrief } from "@/lib/briefHover";
 import styles from "./Globe3D.module.css";
 import type { GlobeDateRange } from "./GlobeTimeRange";
 
@@ -159,32 +159,24 @@ const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
 
 // --- Points lumineux des événements des analystes ---------------------------------------
 
-/** Couleur de chaque type de point (voir eventTone). */
-const TONE_COLOR: Record<EventTone, string> = {
-  red: "#ff3b30",
-  orange: "#ff9500",
-  yellow: "#ffd60a",
-  green: "#34c759",
-  blue: "#2f8cff",
-};
+/** Rouge des points d'événements (tous de la même couleur, demande de Nicolas, 18/10/2026). */
+const DOT_COLOR = "#ff3b30";
 const DOT_PX = 64;
 
-const dotCanvases = new Map<EventTone, HTMLCanvasElement>();
-/** Point lumineux : cœur clair, couleur vive, halo qui s'estompe (style « lumières de la nuit »). */
-function glowDot(tone: EventTone): HTMLCanvasElement {
-  const cached = dotCanvases.get(tone);
-  if (cached) return cached;
+let dotCanvas: HTMLCanvasElement | null = null;
+/** Point lumineux : cœur clair, rouge vif, halo qui s'estompe (style « lumières de la nuit »). */
+function glowDot(): HTMLCanvasElement {
+  if (dotCanvas) return dotCanvas;
   const canvas = document.createElement("canvas");
   canvas.width = DOT_PX;
   canvas.height = DOT_PX;
   const ctx = canvas.getContext("2d")!;
   const c = DOT_PX / 2;
-  const color = TONE_COLOR[tone];
   const halo = ctx.createRadialGradient(c, c, 0, c, c, c);
-  halo.addColorStop(0, `${color}ff`);
-  halo.addColorStop(0.18, `${color}e6`);
-  halo.addColorStop(0.4, `${color}55`);
-  halo.addColorStop(1, `${color}00`);
+  halo.addColorStop(0, `${DOT_COLOR}ff`);
+  halo.addColorStop(0.18, `${DOT_COLOR}e6`);
+  halo.addColorStop(0.4, `${DOT_COLOR}55`);
+  halo.addColorStop(1, `${DOT_COLOR}00`);
   ctx.fillStyle = halo;
   ctx.fillRect(0, 0, DOT_PX, DOT_PX);
   // Cœur presque blanc : le point reste visible même sur un pays coloré.
@@ -193,7 +185,7 @@ function glowDot(tone: EventTone): HTMLCanvasElement {
   core.addColorStop(1, "rgba(255,255,255,0)");
   ctx.fillStyle = core;
   ctx.fillRect(0, 0, DOT_PX, DOT_PX);
-  dotCanvases.set(tone, canvas);
+  dotCanvas = canvas;
   return canvas;
 }
 
@@ -1010,9 +1002,8 @@ export default function Globe3D({
       }
       layerSources.vessels = vesselSource;
 
-      // Événements des analystes : point lumineux qui clignote lentement, coloré selon la
-      // nature de l'article (voir eventTone). Plusieurs événements au même endroit (une
-      // capitale, souvent) sont écartés en couronne autour du point.
+      // Événements des analystes : point rouge lumineux qui clignote lentement. Plusieurs
+      // événements au même endroit (une capitale, souvent) sont écartés en couronne autour du point.
       const eventSource = new Cesium.CustomDataSource("events");
       const EVENT_DOT = 22;
       const spreadOffsets = eventOffsets(analystEvents, EVENT_DOT * 0.6);
@@ -1039,10 +1030,15 @@ export default function Globe3D({
         eventSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(ev.lon, ev.lat, 0),
           billboard: {
-            image: glowDot(eventTone(ev)),
+            image: glowDot(),
             width: size,
             height: size,
-            color: new Cesium.CallbackProperty(() => Cesium.Color.WHITE.withAlpha(blinkLevel(phase)), false),
+            // Article survolé dans le bandeau : point plus gros, allumé en continu.
+            color: new Cesium.CallbackProperty(
+              () => Cesium.Color.WHITE.withAlpha(getHoveredBrief() === ev.id ? 1 : blinkLevel(phase)),
+              false,
+            ),
+            scale: new Cesium.CallbackProperty(() => (getHoveredBrief() === ev.id ? 1.6 : 1), false),
             // Décalage en pixels d'écran : la couronne garde le même écart à tous les zooms.
             pixelOffset: new Cesium.Cartesian2(dx, dy),
             verticalOrigin: Cesium.VerticalOrigin.CENTER,
@@ -1383,6 +1379,17 @@ export default function Globe3D({
     }, 100);
     return () => window.clearInterval(id);
   }, [enabledLayers.events]);
+
+  // Survol d'un article du bandeau : redessin immédiat (sans attendre le clignotement, coupé
+  // si l'utilisateur a réduit les animations).
+  useEffect(
+    () =>
+      onHoveredBrief(() => {
+        const viewer = viewerRef.current;
+        if (viewer && !viewer.isDestroyed()) viewer.scene.requestRender();
+      }),
+    [],
+  );
 
   // Mise au point sur une zone : la caméra vole vers elle ; sans zone, elle revient à la vue
   // d'ensemble. Le premier rendu (aucune zone) ne bouge pas la caméra.

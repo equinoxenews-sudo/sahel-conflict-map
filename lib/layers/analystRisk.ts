@@ -42,19 +42,6 @@ const SOFT_THEMES = new Set([
   "strategic_development",
 ]);
 
-/** Couleur du point d'un événement sur le globe (code de Nicolas, 18/10/2026) : sécuritaire
- *  rouge (grave), orange (moyen) ou jaune (léger) ; politique et diplomatie en bleu ; tout le
- *  reste (économie, humanitaire, climat… information courante) en vert. */
-export type EventTone = "red" | "orange" | "yellow" | "green" | "blue";
-const POLITICAL_THEMES = new Set(["politics", "diplomacy"]);
-const SECURITY_THEMES = new Set(["conflicts", "terrorism", "civil_unrest", "defense_security", "intelligence_influence", "crime_trafficking"]);
-
-export function eventTone(e: Pick<AnalystEvent, "theme" | "importance">): EventTone {
-  if (e.theme && POLITICAL_THEMES.has(e.theme)) return "blue";
-  if (!e.theme || !SECURITY_THEMES.has(e.theme)) return "green";
-  return e.importance === "high" ? "red" : e.importance === "low" ? "yellow" : "orange";
-}
-
 /** Poids d'un événement : gravité × crédibilité × fraîcheur × nature du thème. */
 export function eventWeight(e: AnalystEvent, now: number): number {
   const ageDays = Math.max(0, (now - Date.parse(e.publishedAt)) / 86_400_000);
