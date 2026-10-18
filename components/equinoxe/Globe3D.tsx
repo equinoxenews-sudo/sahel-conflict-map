@@ -1038,7 +1038,7 @@ export default function Globe3D({
               () => Cesium.Color.WHITE.withAlpha(getHoveredBrief() === ev.id ? 1 : blinkLevel(phase)),
               false,
             ),
-            scale: new Cesium.CallbackProperty(() => (getHoveredBrief() === ev.id ? 1.6 : 1), false),
+            scale: new Cesium.CallbackProperty(() => (getHoveredBrief() === ev.id ? 2.6 : 1), false),
             // Décalage en pixels d'écran : la couronne garde le même écart à tous les zooms.
             pixelOffset: new Cesium.Cartesian2(dx, dy),
             verticalOrigin: Cesium.VerticalOrigin.CENTER,
