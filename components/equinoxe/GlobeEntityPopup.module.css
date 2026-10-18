@@ -2,7 +2,10 @@
   position: absolute;
   z-index: 20;
   transform: translate(-50%, calc(-100% - 14px));
-  width: 240px;
+  width: 290px;
+  /* Fiches riches (photo, liens) : défilement interne plutôt que de sortir de l'écran. */
+  max-height: min(70vh, 520px);
+  overflow-y: auto;
   background: var(--bg-glass);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-glass);
@@ -116,4 +119,30 @@
   object-fit: cover;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.04);
+}
+
+.flag {
+  display: inline-flex;
+  vertical-align: -2px;
+  margin-right: 6px;
+  font-size: 15px;
+}
+
+.wiki {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-glass);
+}
+
+.wikiText {
+  margin: 0 0 4px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text-secondary);
+}
+
+.wikiNote {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: var(--text-secondary);
 }

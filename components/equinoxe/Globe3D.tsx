@@ -141,6 +141,17 @@ const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
   floods: "INONDATION",
 };
 
+/** Couleur d'un satellite selon sa fonction. */
+function satelliteColor(fn: string): string {
+  if (fn.startsWith("Navigation")) return "#35b779";
+  if (fn.startsWith("Militaire")) return "#ff5252";
+  if (fn.startsWith("Météo")) return "#7fc8e8";
+  if (fn.startsWith("Observation")) return "#26c6da";
+  if (fn.startsWith("Station")) return "#ffffff";
+  if (fn.startsWith("Science") || fn.startsWith("Recherche")) return "#e0b44c";
+  return "#b388ff";
+}
+
 const ALERT_LABELS: Record<string, string> = {
   green: "Verte (impact limité)",
   orange: "Orange (impact modéré)",
@@ -742,16 +753,25 @@ export default function Globe3D({
         const popup: EntityPopupData = {
           layerKey: "aircraft",
           badge: "AVION MILITAIRE",
-          title: a.callsign ?? a.hex,
+          title: a.callsign ?? a.registration ?? a.hex,
           fields: [
-            { label: "Type", value: a.type ?? "Inconnu" },
+            { label: "Appareil", value: a.description ?? a.type ?? "Inconnu" },
+            ...(a.operator ? [{ label: "Opérateur", value: a.operator }] : []),
             { label: "Immatriculation", value: a.registration ?? "Inconnue" },
-            { label: "Altitude", value: a.altitude != null ? `${Math.round(a.altitude)} m` : "Inconnue" },
-            { label: "ICAO hex", value: a.hex },
+            {
+              label: "Altitude",
+              // L'ADS-B donne des pieds : affichés en mètres, avec la valeur d'origine.
+              value: a.altitude != null ? `${Math.round(a.altitude * 0.3048).toLocaleString("fr-FR")} m (${Math.round(a.altitude).toLocaleString("fr-FR")} ft)` : "Au sol ou inconnue",
+            },
+            ...(a.speed != null ? [{ label: "Vitesse", value: `${Math.round(a.speed * 1.852)} km/h` }] : []),
+            ...(a.heading != null ? [{ label: "Cap", value: `${Math.round(a.heading)}°` }] : []),
+            ...(a.squawk ? [{ label: "Transpondeur", value: a.squawk }] : []),
+            { label: "Code ICAO", value: a.hex.toUpperCase() },
           ],
+          links: [{ label: "Suivre sur ADS-B Exchange →", href: `https://globe.adsbexchange.com/?icao=${a.hex}` }],
         };
         aircraftSource.entities.add({
-          position: Cesium.Cartesian3.fromDegrees(a.lon, a.lat, a.altitude ?? 0),
+          position: Cesium.Cartesian3.fromDegrees(a.lon, a.lat, (a.altitude ?? 0) * 0.3048),
           point: { pixelSize: 6, color: Cesium.Color.LIME, outlineColor: Cesium.Color.BLACK, outlineWidth: 1 },
           properties: { popup: JSON.stringify(popup) },
         });
@@ -900,28 +920,36 @@ export default function Globe3D({
 
       const launchSource = new Cesium.CustomDataSource("launches");
       for (const l of launches) {
+        const pad = [l.padName, l.location].filter(Boolean).join(" — ");
         const popup: EntityPopupData = {
           layerKey: "launches",
-          badge: "LANCEMENT",
+          badge: l.past ? "LANCEMENT EFFECTUÉ" : "LANCEMENT PRÉVU",
           title: l.name,
+          imageUrl: l.padImage ?? undefined,
           fields: [
+            { label: l.past ? "Date" : "Date prévue", value: l.net ? formatDateTime(l.net) : "Inconnue" },
             { label: "Statut", value: l.statusName ?? "Inconnu" },
-            { label: "Pas de tir", value: l.padName ?? "Inconnu" },
-            { label: "Date prévue", value: l.net ? formatDateTime(l.net) : "Inconnue" },
+            { label: "Chargement", value: l.missionType ?? "Non précisé" },
+            ...(l.missionName ? [{ label: "Mission", value: l.missionName }] : []),
+            ...(l.orbit ? [{ label: "Orbite", value: l.orbit }] : []),
+            ...(l.customers.length ? [{ label: "Client", value: l.customers.join(", ") }] : []),
+            ...(l.rocket ? [{ label: "Lanceur", value: `${l.rocket}${l.provider ? ` (${l.provider})` : ""}` }] : []),
+            { label: "Pas de tir", value: pad || "Inconnu" },
+            ...(l.country ? [{ label: "Pays", value: l.country }] : []),
           ],
         };
         launchSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(l.lon, l.lat, 0),
           point: {
-            pixelSize: 7,
-            color: Cesium.Color.WHITE,
+            pixelSize: 8,
+            // À venir : point blanc cerclé d'orange ; effectué : point orange plein (échec : rouge).
+            color: l.past
+              ? Cesium.Color.fromCssColorString(l.statusName?.startsWith("Échec") ? "#d94a4a" : "#ff9800")
+              : Cesium.Color.WHITE,
             outlineColor: Cesium.Color.fromCssColorString("#ff6d00"),
             outlineWidth: 2,
           },
-          properties: {
-            popup: JSON.stringify(popup),
-            eventTime: l.net ? new Date(l.net).getTime() : undefined,
-          },
+          properties: { popup: JSON.stringify(popup), eventTime: l.net ? Date.parse(l.net) : undefined },
         });
       }
       layerSources.launches = launchSource;
@@ -937,13 +965,29 @@ export default function Globe3D({
           layerKey: "satellites",
           badge: "SATELLITE",
           title: sat.name,
-          fields: [{ label: "Altitude", value: `${Math.round(sat.altitudeMeters / 1000)} km` }],
+          flagIso2: sat.ownerIso2 ?? undefined,
+          fields: [
+            { label: "Fonction", value: sat.fn },
+            ...(sat.owner ? [{ label: "Propriétaire", value: sat.owner }] : []),
+            ...(sat.launchDate ? [{ label: "Lancé", value: sat.launchDate.length > 4 ? formatDay(sat.launchDate) : `en ${sat.launchDate}` }] : []),
+            { label: "Altitude", value: `${Math.round(sat.altitudeMeters / 1000).toLocaleString("fr-FR")} km` },
+            ...(sat.norad ? [{ label: "N° NORAD", value: String(sat.norad) }] : []),
+            ...(sat.intlDesignator ? [{ label: "Désignation", value: sat.intlDesignator }] : []),
+          ],
+          links: sat.norad
+            ? [
+                { label: "Position en direct (N2YO) →", href: `https://www.n2yo.com/satellite/?s=${sat.norad}` },
+                { label: "Fiche CelesTrak →", href: `https://celestrak.org/satcat/table-satcat.php?CATNR=${sat.norad}` },
+              ]
+            : [],
+          // Photo et description cherchées dans Wikipédia au clic (nom sans précision entre parenthèses).
+          wikiQuery: sat.name.replace(/s*(.*?)s*/g, " ").trim(),
         };
         satelliteSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(sat.lon, sat.lat, sat.altitudeMeters),
           point: {
             pixelSize: 4,
-            color: Cesium.Color.CYAN,
+            color: Cesium.Color.fromCssColorString(satelliteColor(sat.fn)),
             outlineColor: Cesium.Color.BLACK,
             outlineWidth: 1,
           },

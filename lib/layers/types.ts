@@ -96,4 +96,8 @@ export interface EntityPopupData {
   links?: { label: string; href: string }[];
   /** Image d'illustration (photo, vue satellite du site). */
   imageUrl?: string;
+  /** Drapeau (code ISO 2) affiché en hexagone à côté du titre. */
+  flagIso2?: string;
+  /** Recherche Wikipédia faite au clic (photo et résumé), pour les objets connus. */
+  wikiQuery?: string;
 }
