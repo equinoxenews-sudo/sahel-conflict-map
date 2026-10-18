@@ -21,7 +21,7 @@ import { ZONE_KEYWORDS } from "./zoneKeywords";
 const ARTICLES_PER_ZONE = 5;
 const SUMMARY_FETCH_CONCURRENCY = 6;
 
-// Zones « analyste » (lib/analystZones.ts) : jusqu'3 lots de 5 sources par passage, chacun
+// Zones « analyste » (lib/analystZones.ts) : jusqu'à 3 lots de 5 sources par passage, chacun
 // complété par les messages Telegram récents de la zone. La route dispose de 300 s : un
 // lot ne démarre que s'il peut finir à temps (ANALYST_TIME_BUDGET_MS).
 // 5 sources par lot (au lieu de 8) : avec des articles de 150 à 400 mots, un lot de 8
