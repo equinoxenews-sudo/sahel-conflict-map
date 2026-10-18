@@ -7,6 +7,13 @@ export interface Zone {
   countries: string[];
 }
 
+/**
+ * Tracking (navires, avions) mis en sommeil le 18/10/2026 sur décision de Nicolas :
+ * retiré des menus et de la grille des zones, page renvoyée vers l'accueil, collecte
+ * quotidienne arrêtée (vercel.json). Le code reste en place : passer à true pour réactiver.
+ */
+export const TRACKING_ENABLED = false;
+
 export const ZONES: Zone[] = [
   {
     slug: "europe",
@@ -75,7 +82,7 @@ export const ZONES: Zone[] = [
     slug: "tracking",
     name: "Tracking",
     icon: "/equinoxe/logo-tracking.png",
-    active: true,
+    active: TRACKING_ENABLED,
     countries: [],
   },
 ];

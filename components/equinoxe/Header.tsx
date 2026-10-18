@@ -9,6 +9,9 @@ import { ZONES } from "@/lib/zones";
 import styles from "./Header.module.css";
 import MobileDrawer from "./MobileDrawer";
 
+/** Libellés courts sur mobile, où toute la navigation tient sur une ligne qui défile. */
+const SHORT_NAMES: Record<string, string> = { "amerique-du-sud": "Am. du Sud", "moyen-orient": "Moyen-Orient" };
+
 export default function Header() {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -31,7 +34,7 @@ export default function Header() {
       </Link>
 
       <nav className={styles.zones}>
-        {ZONES.map((zone) => {
+        {ZONES.filter((zone) => zone.active).map((zone) => {
           const isActive = pathname?.startsWith(`/zones/${zone.slug}`);
           return (
             <Link
@@ -47,7 +50,14 @@ export default function Header() {
                 window.dispatchEvent(new CustomEvent(FOCUS_ZONE_EVENT, { detail: { zone: zone.slug } }));
               }}
             >
-              {zone.name}
+              {SHORT_NAMES[zone.slug] ? (
+                <>
+                  <span className={styles.longName}>{zone.name}</span>
+                  <span className={styles.shortName}>{SHORT_NAMES[zone.slug]}</span>
+                </>
+              ) : (
+                zone.name
+              )}
             </Link>
           );
         })}
@@ -72,11 +82,11 @@ export default function Header() {
           <span className={styles.iconGlyph}>&#9776;</span>
           <span className={styles.zoneLabel}>Menu</span>
         </button>
-        <button type="button" className={`${styles.iconBtn} ${styles.desktopOnly}`} aria-label="À propos">
+        <button type="button" className={`${styles.iconBtn} ${styles.compactOnMobile}`} aria-label="À propos">
           <span className={styles.iconGlyph}>?</span>
           <span className={styles.zoneLabel}>A propos</span>
         </button>
-        <Link href="/mon-espace" className={`${styles.iconBtn} ${styles.desktopOnly}`} aria-label="Log in">
+        <Link href="/mon-espace" className={`${styles.iconBtn} ${styles.compactOnMobile}`} aria-label="Log in">
           <span className={styles.iconGlyph}>&#128100;</span>
           <span className={styles.zoneLabel}>Log In</span>
         </Link>

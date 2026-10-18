@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { zoneHomeHref } from "@/lib/homeZones";
-import { ZONES } from "@/lib/zones";
+import { TRACKING_ENABLED, ZONES } from "@/lib/zones";
 import styles from "./ZonesGrid.module.css";
 
 export default function ZonesGrid() {
@@ -15,6 +15,7 @@ export default function ZonesGrid() {
           <span className={styles.name}>{zone.name}</span>
         </Link>
       ))}
+      {TRACKING_ENABLED && (
       <Link href="/zones/tracking" className={styles.zone}>
         <span className={styles.hexTracking}>
           <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -24,6 +25,7 @@ export default function ZonesGrid() {
         </span>
         <span className={styles.name}>Tracking</span>
       </Link>
+      )}
     </div>
   );
 }

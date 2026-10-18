@@ -15,6 +15,8 @@
 // Extending this list is just appending an object — no code changes
 // needed elsewhere.
 
+import { TRACKING_ENABLED } from "../zones";
+
 export type InputType =
   | "keyword"
   | "name"
@@ -462,8 +464,13 @@ export const CONNECTORS: Connector[] = [
   },
 ];
 
+/** Connecteurs visibles : le suivi navires interne disparaît tant que Tracking dort. */
+function visible(c: Connector): boolean {
+  return TRACKING_ENABLED || c.id !== "equinoxe-tracking";
+}
+
 export function connectorsForInputType(inputType: InputType): Connector[] {
-  return CONNECTORS.filter((c) => c.acceptedInputTypes.includes(inputType));
+  return CONNECTORS.filter((c) => visible(c) && c.acceptedInputTypes.includes(inputType));
 }
 
 export function buildConnectorUrl(connector: Connector, query: string): string {

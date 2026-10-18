@@ -5,7 +5,7 @@ import Link from "next/link";
 import { createPortal } from "react-dom";
 import { useHasMounted } from "@/lib/useHasMounted";
 import { zoneHomeHref } from "@/lib/homeZones";
-import { ZONES } from "@/lib/zones";
+import { TRACKING_ENABLED, ZONES } from "@/lib/zones";
 import styles from "./MobileDrawer.module.css";
 
 interface MobileDrawerProps {
@@ -55,9 +55,11 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
               {zone.name}
             </Link>
           ))}
-          <Link href="/zones/tracking" onClick={onClose} className={styles.link}>
-            Tracking
-          </Link>
+          {TRACKING_ENABLED && (
+            <Link href="/zones/tracking" onClick={onClose} className={styles.link}>
+              Tracking
+            </Link>
+          )}
           <Link href="/mon-espace" onClick={onClose} className={styles.link}>
             Mon espace
           </Link>

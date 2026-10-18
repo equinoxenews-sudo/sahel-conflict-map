@@ -114,13 +114,73 @@
   display: none;
 }
 
+.shortName {
+  display: none;
+}
+
+/* Écrans moyens, et téléphones (le site s'y affiche sur 980 px, app/layout.tsx) :
+   logo, navigation et icônes tiennent sur une seule ligne. */
+@media (max-width: 1240px) and (min-width: 901px) {
+  .header {
+    flex-wrap: nowrap;
+    gap: 12px;
+    padding: 10px 16px;
+  }
+
+  .logoImage {
+    height: 40px;
+  }
+
+  .zones {
+    flex-wrap: nowrap;
+    gap: 16px;
+  }
+
+  .zoneLink {
+    font-size: 13px;
+  }
+
+  .longName {
+    display: none;
+  }
+
+  .shortName {
+    display: inline;
+  }
+
+  .actions {
+    gap: 8px;
+    padding-left: 10px;
+  }
+
+  .iconGlyph {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+
+  .zoneLabel {
+    font-size: 9px;
+  }
+
+  .search input {
+    width: 104px;
+    padding: 7px 12px;
+  }
+}
+
 @media (max-width: 900px) {
+  /* Deux lignes : logo et icônes, puis toute la navigation sur une ligne qui défile
+     (hauteur totale = --mobile-header-h dans globals.css). */
   .header {
     position: sticky;
     top: 0;
     z-index: 1200;
-    padding: 10px 16px;
-    flex-wrap: nowrap;
+    height: var(--mobile-header-h);
+    padding: 8px 16px;
+    flex-wrap: wrap;
+    align-content: space-between;
+    row-gap: 6px;
   }
 
   .logoImage {
@@ -128,7 +188,45 @@
   }
 
   .zones {
+    order: 3;
+    flex: 0 0 100%;
+    flex-wrap: nowrap;
+    gap: 18px;
+    height: 22px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    /* Fondu à droite : indique qu'on peut faire défiler. */
+    mask-image: linear-gradient(to right, #000 88%, transparent);
+  }
+
+  .zones::-webkit-scrollbar {
     display: none;
+  }
+
+  .zoneLink {
+    font-size: 13px;
+    padding-bottom: 2px;
+  }
+
+  .longName {
+    display: none;
+  }
+
+  .shortName {
+    display: inline;
+  }
+
+  .compactOnMobile .zoneLabel {
+    display: none;
+  }
+
+  .compactOnMobile .iconGlyph,
+  .mobileMenuBtn .iconGlyph,
+  .mobileSearchBtn .iconGlyph {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
   }
 
   .desktopOnly {

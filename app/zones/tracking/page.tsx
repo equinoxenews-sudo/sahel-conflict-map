@@ -1,6 +1,8 @@
+import { redirect } from "next/navigation";
 import Header from "@/components/equinoxe/Header";
 import TrackingView from "@/components/equinoxe/TrackingView";
 import { supabase } from "@/lib/supabaseClient";
+import { TRACKING_ENABLED } from "@/lib/zones";
 import type { VesselPosition } from "@/types/vessel";
 import styles from "./page.module.css";
 
@@ -27,6 +29,8 @@ async function getVesselPositions(): Promise<VesselPosition[]> {
 }
 
 export default async function TrackingPage() {
+  // En sommeil (lib/zones.ts) : la page renvoie vers l'accueil.
+  if (!TRACKING_ENABLED) redirect("/");
   const vessels = await getVesselPositions();
 
   return (

@@ -30,7 +30,8 @@
   /* Fixed mobile chrome heights — shared by the compact header, the
      bottom nav, and anything that needs to size itself against them
      (the fixed-fullscreen globe, the floating LATEST card). */
-  --mobile-header-h: 54px;
+  /* En-tête mobile sur deux lignes (logo + icônes, puis navigation) : components/equinoxe/Header.module.css. */
+  --mobile-header-h: 84px;
   --mobile-nav-h: 60px;
 }
 

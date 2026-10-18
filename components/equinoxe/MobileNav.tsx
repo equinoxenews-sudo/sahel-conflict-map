@@ -2,9 +2,10 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { ReactElement } from "react";
+import { TRACKING_ENABLED } from "@/lib/zones";
 import styles from "./MobileNav.module.css";
 
-type NavKey = "accueil" | "actualites" | "zones" | "tracking" | "espace";
+type NavKey = "accueil" | "actualites" | "zones" | "tracking" | "investigation" | "espace";
 
 const ICONS: Record<NavKey, ReactElement> = {
   accueil: (
@@ -34,6 +35,12 @@ const ICONS: Record<NavKey, ReactElement> = {
       <path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3" />
     </svg>
   ),
+  investigation: (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <circle cx="10.5" cy="10.5" r="6" />
+      <path d="M15 15l5.5 5.5" />
+    </svg>
+  ),
   espace: (
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
       <circle cx="12" cy="8" r="3.5" />
@@ -46,7 +53,8 @@ const ITEMS: { key: NavKey; label: string }[] = [
   { key: "accueil", label: "Accueil" },
   { key: "actualites", label: "Actualités" },
   { key: "zones", label: "Zones" },
-  { key: "tracking", label: "Suivi" },
+  // Tracking en sommeil (lib/zones.ts) : Investigation prend sa place.
+  ...(TRACKING_ENABLED ? [{ key: "tracking" as const, label: "Suivi" }] : [{ key: "investigation" as const, label: "Investigation" }]),
   { key: "espace", label: "Mon espace" },
 ];
 
@@ -59,6 +67,7 @@ export default function MobileNav() {
 
   function isActive(key: NavKey) {
     if (key === "tracking") return pathname === "/zones/tracking";
+    if (key === "investigation") return pathname?.startsWith("/investigation") ?? false;
     if (key === "espace") return pathname === "/mon-espace";
     if (!isHome) return false;
     return homeTab === key;
@@ -67,6 +76,10 @@ export default function MobileNav() {
   function handleClick(key: NavKey) {
     if (key === "tracking") {
       router.push("/zones/tracking");
+      return;
+    }
+    if (key === "investigation") {
+      router.push("/investigation");
       return;
     }
     if (key === "espace") {
