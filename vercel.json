@@ -21,10 +21,6 @@
       "schedule": "0 6 * * *"
     },
     {
-      "path": "/api/sync-vessels",
-      "schedule": "0 7 * * *"
-    },
-    {
       "path": "/api/cron/dispatch/zone-synthesis.yml",
       "schedule": "0 8 * * *"
     }
