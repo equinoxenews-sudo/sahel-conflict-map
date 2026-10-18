@@ -281,17 +281,113 @@ function volcanoName(title: string): string {
   return `${name} volcan`;
 }
 
-/** Icône de volcan pour le globe : cône sombre, cratère en lave, panache. */
-const VOLCANO_ICON =
-  "data:image/svg+xml;charset=utf-8," +
-  encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-      <path d="M12 9c-1-3 1-6 4-6 2-2 6-1 6 2 3 0 4 3 2 5-1 2-4 2-5 1-2 1-5 1-7-2z" fill="#c9ced4" stroke="#ffffff" stroke-width="1"/>
-      <path d="M2 30 12 12h8l10 18z" fill="#8b5a32" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/>
-      <path d="M12 12h8l-2 4-2-2-2 3z" fill="#ff5a1f" stroke="#1b1b1b" stroke-width="1" stroke-linejoin="round"/>
-      <path d="M16 14v8M14 16l-2 6" stroke="#ff8a1f" stroke-width="1.6" stroke-linecap="round"/>
-    </svg>`,
-  );
+// --- Épingles illustrées (volcans, lancements, inondations, feux, tempêtes, avions) ----
+
+type PinKind = "volcano" | "launch" | "flood" | "wildfire" | "storm" | "aircraft";
+
+/** Couleur de l'anneau lumineux de chaque épingle (modèle validé par Nicolas, 18/10/2026). */
+const PIN_COLORS: Record<PinKind, string> = {
+  volcano: "#ff3b2f",
+  launch: "#f5b301",
+  flood: "#2f8cff",
+  wildfire: "#ff7a1a",
+  storm: "#a64dff",
+  aircraft: "#2ee66b",
+};
+
+const PIN_OF_CATEGORY: Record<NaturalEventCategory, PinKind> = {
+  volcanoes: "volcano",
+  floods: "flood",
+  wildfires: "wildfire",
+  severeStorms: "storm",
+};
+
+const pinPhotos: Partial<Record<PinKind, HTMLImageElement>> = {};
+
+/** Charge les six photos (public/equinoxe/markers) ; une photo manquante laisse l'anneau seul. */
+function loadPinPhotos(): Promise<void> {
+  return Promise.all(
+    (Object.keys(PIN_COLORS) as PinKind[]).map(
+      (kind) =>
+        new Promise<void>((resolve) => {
+          if (pinPhotos[kind]) return resolve();
+          const img = new Image();
+          img.onload = () => {
+            pinPhotos[kind] = img;
+            resolve();
+          };
+          img.onerror = () => resolve();
+          img.src = `/equinoxe/markers/${kind}.webp`;
+        }),
+    ),
+  ).then(() => undefined);
+}
+
+const pinCanvases = new Map<PinKind, HTMLCanvasElement>();
+
+/** Épingle ronde : photo de la catégorie, anneau lumineux coloré, pointe vers le lieu. */
+function pinMarker(kind: PinKind): HTMLCanvasElement {
+  const cached = pinCanvases.get(kind);
+  if (cached) return cached;
+  const W = 96;
+  const H = 120;
+  const cx = W / 2;
+  const cy = 46;
+  const r = 36;
+  const color = PIN_COLORS[kind];
+  const canvas = document.createElement("canvas");
+  canvas.width = W;
+  canvas.height = H;
+  const ctx = canvas.getContext("2d")!;
+  // Halo et pointe (lumineux).
+  ctx.shadowColor = color;
+  ctx.shadowBlur = 14;
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(cx - 11, cy + r - 2);
+  ctx.lineTo(cx + 11, cy + r - 2);
+  ctx.lineTo(cx, H - 6);
+  ctx.closePath();
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = color;
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+  // Photo recadrée dans le cercle.
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx, cy, r - 3, 0, Math.PI * 2);
+  ctx.clip();
+  ctx.fillStyle = "#0b1220";
+  ctx.fillRect(cx - r, cy - r, r * 2, r * 2);
+  const photo = pinPhotos[kind];
+  if (photo) {
+    // La photo d'origine porte son propre anneau : on garde le centre (85 %).
+    const crop = Math.min(photo.naturalWidth, photo.naturalHeight) * 0.85;
+    ctx.drawImage(photo, (photo.naturalWidth - crop) / 2, (photo.naturalHeight - crop) / 2, crop, crop, cx - r, cy - r, r * 2, r * 2);
+  }
+  ctx.restore();
+  // Anneau net par-dessus la photo.
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = color;
+  ctx.stroke();
+  pinCanvases.set(kind, canvas);
+  return canvas;
+}
+
+/** Billboard Cesium d'une épingle, de largeur `width` pixels, la pointe sur le lieu. */
+function pinBillboard(Cesium: typeof CesiumNS, kind: PinKind, width: number): CesiumNS.BillboardGraphics.ConstructorOptions {
+  return {
+    image: pinMarker(kind),
+    width: Math.round(width),
+    height: Math.round(width * 1.25),
+    verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+  };
+}
 
 const ALERT_LABELS: Record<string, string> = {
   green: "Verte (impact limité)",
@@ -302,13 +398,6 @@ const ALERT_LABELS: Record<string, string> = {
 function formatDay(value: string): string {
   return new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value));
 }
-
-const NATURAL_EVENT_COLORS: Record<NaturalEventCategory, string> = {
-  wildfires: "#ff6d00",
-  severeStorms: "#29b6f6",
-  volcanoes: "#e53935",
-  floods: "#8d6e63",
-};
 
 const NATURAL_EVENT_LAYER: Record<NaturalEventCategory, LayerKey> = {
   wildfires: "wildfires",
@@ -814,6 +903,11 @@ export default function Globe3D({
         if (disposed) return;
       }
 
+      // Photos des épingles (volcans, lancements, inondations, feux, tempêtes, avions) : six
+      // petites images locales, chargées avant de construire les couches.
+      await loadPinPhotos();
+      if (disposed) return;
+
       const countryDataSource = await Cesium.GeoJsonDataSource.load(
         "/data/world-countries.geo.json",
         { fill: Cesium.Color.WHITE.withAlpha(0.05) }
@@ -913,7 +1007,7 @@ export default function Globe3D({
         };
         aircraftSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(a.lon, a.lat, (a.altitude ?? 0) * 0.3048),
-          point: { pixelSize: 6, color: Cesium.Color.LIME, outlineColor: Cesium.Color.BLACK, outlineWidth: 1 },
+          billboard: pinBillboard(Cesium, "aircraft", 30),
           properties: { popup: JSON.stringify(popup) },
         });
       }
@@ -1057,27 +1151,10 @@ export default function Globe3D({
           wikiPhotoOnly: evt.category === "volcanoes",
         };
         const alertScale = evt.alert?.toLowerCase() === "red" ? 1.6 : evt.alert?.toLowerCase() === "orange" ? 1.3 : 1;
-        const volcano = evt.category === "volcanoes";
         naturalEventSources[layerKey].entities.add({
           position: Cesium.Cartesian3.fromDegrees(evt.lon, evt.lat, 0),
-          // Volcans : icône de volcan (plus grande si l'alerte est élevée) ; autres : point coloré.
-          ...(volcano
-            ? {
-                billboard: {
-                  image: VOLCANO_ICON,
-                  width: Math.round(30 * alertScale),
-                  height: Math.round(30 * alertScale),
-                  verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
-                },
-              }
-            : {
-                point: {
-                  pixelSize: (evt.category === "wildfires" ? 6 : 9) * alertScale,
-                  color: Cesium.Color.fromCssColorString(NATURAL_EVENT_COLORS[evt.category]),
-                  outlineColor: Cesium.Color.BLACK,
-                  outlineWidth: 1,
-                },
-              }),
+          // Épingle illustrée, plus grande si l'alerte est élevée ; les feux (très nombreux) en plus petit.
+          billboard: pinBillboard(Cesium, PIN_OF_CATEGORY[evt.category], (evt.category === "wildfires" ? 24 : 32) * alertScale),
           properties: {
             popup: JSON.stringify(popup),
             eventTime: evt.date ? new Date(evt.date).getTime() : undefined,
@@ -1112,15 +1189,7 @@ export default function Globe3D({
         };
         launchSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(l.lon, l.lat, 0),
-          point: {
-            pixelSize: 8,
-            // À venir : point blanc cerclé d'orange ; effectué : point orange plein (échec : rouge).
-            color: l.past
-              ? Cesium.Color.fromCssColorString(l.statusName?.startsWith("Échec") ? "#d94a4a" : "#ff9800")
-              : Cesium.Color.WHITE,
-            outlineColor: Cesium.Color.fromCssColorString("#ff6d00"),
-            outlineWidth: 2,
-          },
+          billboard: pinBillboard(Cesium, "launch", 34),
           properties: { popup: JSON.stringify(popup), eventTime: l.net ? Date.parse(l.net) : undefined },
         });
       }
