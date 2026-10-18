@@ -81,6 +81,8 @@ export const LAYER_DEFAULTS: Record<LayerKey, boolean> = {
 export interface EntityPopupField {
   label: string;
   value: string;
+  /** Pastille de couleur affichée avant la valeur (ex. couleur du niveau de confiance). */
+  dotColor?: string;
 }
 
 export interface EntityPopupData {

@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import type * as CesiumNS from "cesium";
 import { RISK_COLORS, type CountryRisk } from "@/lib/countryRisk";
 import type { MilitaryAircraft } from "@/lib/layers/aircraft";
+import { confidenceColor } from "@/lib/confidence";
 import type { AnalystEvent } from "@/lib/layers/analystEvents";
 import type { Earthquake } from "@/lib/layers/earthquakes";
 import type { Launch } from "@/lib/layers/launches";
@@ -146,7 +147,8 @@ const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
 /** Hauteur / largeur d'un hexagone à pointe en haut. */
 const HEX_RATIO = 2 / Math.sqrt(3);
 const HEX_PX = 96;
-const HEX_BORDER = "#e0b44c";
+// Liseré blanc fin (demande de Nicolas, 18/10/2026).
+const HEX_BORDER = "#ffffff";
 
 function hexPath(ctx: CanvasRenderingContext2D, w: number, h: number, inset: number): void {
   const cx = w / 2;
@@ -176,8 +178,8 @@ function hexCanvas(draw?: (ctx: CanvasRenderingContext2D, w: number, h: number) 
   ctx.fillRect(0, 0, w, h);
   draw?.(ctx, w, h);
   ctx.restore();
-  hexPath(ctx, w, h, 4);
-  ctx.lineWidth = 7;
+  hexPath(ctx, w, h, 2);
+  ctx.lineWidth = 3;
   ctx.strokeStyle = HEX_BORDER;
   ctx.stroke();
   return canvas;
@@ -924,7 +926,7 @@ export default function Globe3D({
             ...(where ? [{ label: "Lieu", value: ev.precision === "capitale" ? `${where} (national)` : where }] : []),
             { label: "Publié", value: formatDateTime(ev.publishedAt) },
             ...(ev.confidenceLabel
-              ? [{ label: "Confiance", value: `${ev.confidenceLabel}${ev.confidence != null ? ` (${ev.confidence} %)` : ""}${ev.claimedBy ? ` — revendiqué par ${ev.claimedBy}` : ""}` }]
+              ? [{ label: "Confiance", value: `${ev.confidenceLabel}${ev.confidence != null ? ` (${ev.confidence} %)` : ""}${ev.claimedBy ? ` — revendiqué par ${ev.claimedBy}` : ""}`, dotColor: confidenceColor(ev.confidenceLabel) }]
               : []),
           ],
           href: `/briefs/${ev.id}`,

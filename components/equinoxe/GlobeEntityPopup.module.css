@@ -63,6 +63,19 @@
   color: var(--text-primary);
   margin: 0 0 8px;
   line-height: 1.35;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* Pastille de couleur avant une valeur (niveau de confiance). */
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 6px;
+  border-radius: 50%;
+  vertical-align: 0;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.35);
 }
 
 .fields {

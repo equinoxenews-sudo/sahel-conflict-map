@@ -87,7 +87,7 @@ interface GlobeEntityPopupProps {
 // matches this site's floating glass-card style.
 export default function GlobeEntityPopup({ data, x, y, onClose }: GlobeEntityPopupProps) {
   return (
-    <div className={styles.popup} style={{ left: x, top: y }}>
+    <div className={styles.popup} style={{ left: x, top: y }} lang="fr">
       <div className={styles.header}>
         <span className={styles.badge}>{data.badge}</span>
         <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Fermer">
@@ -111,7 +111,10 @@ export default function GlobeEntityPopup({ data, x, y, onClose }: GlobeEntityPop
           {data.fields.map((field) => (
             <div key={field.label} className={styles.field}>
               <dt className={styles.fieldLabel}>{field.label}</dt>
-              <dd className={styles.fieldValue}>{field.value}</dd>
+              <dd className={styles.fieldValue}>
+                {field.dotColor ? <span className={styles.dot} style={{ background: field.dotColor }} aria-hidden="true" /> : null}
+                {field.value}
+              </dd>
             </div>
           ))}
         </dl>

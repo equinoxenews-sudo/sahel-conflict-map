@@ -69,7 +69,7 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
         </BackLink>
       </div>
 
-      <article className={styles.article}>
+      <article className={styles.article} lang="fr">
         {brief.image_url ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={brief.image_url} referrerPolicy="no-referrer" alt="" className={styles.image} />

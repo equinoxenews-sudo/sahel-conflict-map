@@ -72,6 +72,8 @@
   font-size: 28px;
   line-height: 1.25;
   margin: 0 0 20px;
+  text-align: justify;
+  hyphens: auto;
 }
 
 .body {
@@ -97,6 +99,8 @@
   line-height: 1.7;
   color: var(--text-primary);
   margin: 0 0 14px;
+  text-align: justify;
+  hyphens: auto;
 }
 
 .paragraph:last-child {
