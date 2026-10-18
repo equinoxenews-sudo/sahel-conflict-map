@@ -6,6 +6,7 @@ import { RISK_COLORS, type CountryRisk } from "@/lib/countryRisk";
 import type { MilitaryAircraft } from "@/lib/layers/aircraft";
 import { confidenceColor } from "@/lib/confidence";
 import type { AnalystEvent } from "@/lib/layers/analystEvents";
+import { eventTone, type EventTone } from "@/lib/layers/analystRisk";
 import type { Earthquake } from "@/lib/layers/earthquakes";
 import type { Launch } from "@/lib/layers/launches";
 import type { NaturalEvent, NaturalEventCategory } from "@/lib/layers/naturalEvents";
@@ -156,83 +157,53 @@ const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
   droughts: "SÉCHERESSE",
 };
 
-// --- Vignettes hexagonales des événements des analystes --------------------------------
+// --- Points lumineux des événements des analystes ---------------------------------------
 
-/** Hauteur / largeur d'un hexagone à pointe en haut. */
-const HEX_RATIO = 2 / Math.sqrt(3);
-const HEX_PX = 96;
-// Liseré blanc fin (demande de Nicolas, 18/10/2026).
-const HEX_BORDER = "#ffffff";
+/** Couleur de chaque type de point (voir eventTone). */
+const TONE_COLOR: Record<EventTone, string> = {
+  red: "#ff3b30",
+  orange: "#ff9500",
+  yellow: "#ffd60a",
+  green: "#34c759",
+  blue: "#2f8cff",
+};
+const DOT_PX = 64;
 
-function hexPath(ctx: CanvasRenderingContext2D, w: number, h: number, inset: number): void {
-  const cx = w / 2;
-  const r = h / 2 - inset;
-  ctx.beginPath();
-  for (let i = 0; i < 6; i++) {
-    const a = Math.PI / 6 + (i * Math.PI) / 3 - Math.PI / 2;
-    const x = cx + r * Math.cos(a);
-    const y = h / 2 + r * Math.sin(a);
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  }
-  ctx.closePath();
-}
-
-function hexCanvas(draw?: (ctx: CanvasRenderingContext2D, w: number, h: number) => void): HTMLCanvasElement {
-  const w = HEX_PX;
-  const h = Math.round(HEX_PX * HEX_RATIO);
+const dotCanvases = new Map<EventTone, HTMLCanvasElement>();
+/** Point lumineux : cœur clair, couleur vive, halo qui s'estompe (style « lumières de la nuit »). */
+function glowDot(tone: EventTone): HTMLCanvasElement {
+  const cached = dotCanvases.get(tone);
+  if (cached) return cached;
   const canvas = document.createElement("canvas");
-  canvas.width = w;
-  canvas.height = h;
+  canvas.width = DOT_PX;
+  canvas.height = DOT_PX;
   const ctx = canvas.getContext("2d")!;
-  ctx.save();
-  hexPath(ctx, w, h, 4);
-  ctx.clip();
-  ctx.fillStyle = "#101c2c";
-  ctx.fillRect(0, 0, w, h);
-  draw?.(ctx, w, h);
-  ctx.restore();
-  hexPath(ctx, w, h, 2);
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = HEX_BORDER;
-  ctx.stroke();
+  const c = DOT_PX / 2;
+  const color = TONE_COLOR[tone];
+  const halo = ctx.createRadialGradient(c, c, 0, c, c, c);
+  halo.addColorStop(0, `${color}ff`);
+  halo.addColorStop(0.18, `${color}e6`);
+  halo.addColorStop(0.4, `${color}55`);
+  halo.addColorStop(1, `${color}00`);
+  ctx.fillStyle = halo;
+  ctx.fillRect(0, 0, DOT_PX, DOT_PX);
+  // Cœur presque blanc : le point reste visible même sur un pays coloré.
+  const core = ctx.createRadialGradient(c, c, 0, c, c, DOT_PX * 0.12);
+  core.addColorStop(0, "rgba(255,255,255,0.95)");
+  core.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = core;
+  ctx.fillRect(0, 0, DOT_PX, DOT_PX);
+  dotCanvases.set(tone, canvas);
   return canvas;
 }
 
-let placeholder: HTMLCanvasElement | null = null;
-/** Hexagone doré uni, en attendant la vignette (ou si elle ne se charge pas). */
-function hexagonPlaceholder(): HTMLCanvasElement {
-  placeholder ??= hexCanvas((ctx, w, h) => {
-    ctx.fillStyle = "rgba(224, 180, 76, 0.35)";
-    ctx.fillRect(0, 0, w, h);
-  });
-  return placeholder;
-}
-
-const thumbnails = new Map<string, Promise<HTMLCanvasElement>>();
-/** Vignette de l'article recadrée dans l'hexagone. Images d'autres sites relayées par
- *  /api/thumb (le moteur 3D refuse les images sans autorisation CORS). */
-function hexagonThumbnail(src: string): Promise<HTMLCanvasElement> {
-  const cached = thumbnails.get(src);
-  if (cached) return cached;
-  const promise = new Promise<HTMLCanvasElement>((resolve) => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () =>
-      resolve(
-        hexCanvas((ctx, w, h) => {
-          // Recadrage « cover » : l'image remplit l'hexagone sans déformation.
-          const scale = Math.max(w / img.naturalWidth, h / img.naturalHeight);
-          const dw = img.naturalWidth * scale;
-          const dh = img.naturalHeight * scale;
-          ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
-        }),
-      );
-    img.onerror = () => resolve(hexagonPlaceholder());
-    img.src = src.startsWith("/") ? src : `/api/thumb?url=${encodeURIComponent(src)}`;
-  });
-  thumbnails.set(src, promise);
-  return promise;
+/** Durée d'un clignotement (lent), en millisecondes. */
+const BLINK_MS = 2600;
+/** Intensité du point à l'instant présent (entre 0,35 et 1), décalée par événement pour que
+ *  les points ne clignotent pas tous ensemble. */
+function blinkLevel(phase: number): number {
+  const t = ((performance.now() / BLINK_MS + phase) % 1) * 2 * Math.PI;
+  return 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t));
 }
 
 /**
@@ -246,7 +217,7 @@ function eventOffsets(events: { lat: number; lon: number }[], size: number): [nu
     const n = seen.get(key) ?? 0;
     seen.set(key, n + 1);
     if (n === 0) return [0, 0];
-    // Couronne k (1, 2, …) : 6k places, rayon k × la largeur d'un hexagone.
+    // Couronne k (1, 2, …) : 6k places, rayon k × la largeur d'un point.
     let ring = 1;
     let rest = n - 1;
     while (rest >= 6 * ring) {
@@ -694,7 +665,7 @@ export default function Globe3D({
         const direct = currentViewer.scene.pick(position);
         const directEntity =
           Cesium.defined(direct) && direct.id instanceof Cesium.Entity ? direct.id : null;
-        // Marqueurs illustrés (hexagones d'articles, icônes) : des billboards, prioritaires eux aussi.
+        // Marqueurs illustrés (points d'articles, icônes) : des billboards, prioritaires eux aussi.
         const isMarker = (e: CesiumNS.Entity | null) => Boolean(e?.point || e?.polyline || e?.billboard);
         if (isMarker(directEntity)) return directEntity;
 
@@ -1039,13 +1010,12 @@ export default function Globe3D({
       }
       layerSources.vessels = vesselSource;
 
-      // Événements des analystes : hexagone portant la vignette de l'article, liseré doré
-      // (couleur du site), taille unique. La vignette est chargée après coup (relais
-      // /api/thumb) ; en attendant ou à défaut, un hexagone doré uni. Plusieurs événements au
-      // même endroit (une capitale, souvent) sont écartés en couronne autour du point.
+      // Événements des analystes : point lumineux qui clignote lentement, coloré selon la
+      // nature de l'article (voir eventTone). Plusieurs événements au même endroit (une
+      // capitale, souvent) sont écartés en couronne autour du point.
       const eventSource = new Cesium.CustomDataSource("events");
-      const EVENT_HEX = 36;
-      const spreadOffsets = eventOffsets(analystEvents, EVENT_HEX);
+      const EVENT_DOT = 22;
+      const spreadOffsets = eventOffsets(analystEvents, EVENT_DOT * 0.6);
       for (const [index, ev] of analystEvents.entries()) {
         const where = [ev.place, ev.country].filter(Boolean).join(", ");
         const popup: EntityPopupData = {
@@ -1063,12 +1033,16 @@ export default function Globe3D({
           brief: { zone: ev.zone, id: ev.id, title: ev.title, imageUrl: ev.imageUrl ?? null, publishedAt: ev.publishedAt, veracity: ev.confidenceLabel },
         };
         const [dx, dy] = spreadOffsets[index];
-        const entity = eventSource.entities.add({
+        // Phase propre à chaque événement (tirée de son numéro) : clignotements désynchronisés.
+        const phase = ((ev.id * 0.618034) % 1 + 1) % 1;
+        const size = ev.importance === "high" ? EVENT_DOT * 1.25 : EVENT_DOT;
+        eventSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(ev.lon, ev.lat, 0),
           billboard: {
-            image: hexagonPlaceholder(),
-            width: EVENT_HEX,
-            height: Math.round(EVENT_HEX * HEX_RATIO),
+            image: glowDot(eventTone(ev)),
+            width: size,
+            height: size,
+            color: new Cesium.CallbackProperty(() => Cesium.Color.WHITE.withAlpha(blinkLevel(phase)), false),
             // Décalage en pixels d'écran : la couronne garde le même écart à tous les zooms.
             pixelOffset: new Cesium.Cartesian2(dx, dy),
             verticalOrigin: Cesium.VerticalOrigin.CENTER,
@@ -1077,13 +1051,6 @@ export default function Globe3D({
           },
           properties: { popup: JSON.stringify(popup), eventTime: Date.parse(ev.publishedAt) },
         });
-        if (ev.imageUrl) {
-          void hexagonThumbnail(ev.imageUrl).then((canvas) => {
-            if (disposed || !viewer || !entity.billboard) return;
-            entity.billboard.image = new Cesium.ConstantProperty(canvas);
-            viewer.scene.requestRender();
-          });
-        }
       }
       layerSources.events = eventSource;
 
@@ -1392,7 +1359,7 @@ export default function Globe3D({
     }
     // Le globe ne se redessine plus en continu : on le demande après un changement de couche,
     // puis encore quelques fois, le temps que les images des marqueurs (ronds illustrés,
-    // hexagones) soient chargées sur la carte graphique ; sinon elles n'apparaissent qu'au
+    // points d'articles) soient chargées sur la carte graphique ; sinon elles n'apparaissent qu'au
     // prochain mouvement du globe.
     const viewer = viewerRef.current;
     if (!viewer) return;
@@ -1404,6 +1371,18 @@ export default function Globe3D({
     );
     return () => timers.forEach((t) => window.clearTimeout(t));
   }, [enabledLayers, dateRange]);
+
+  // Clignotement des points d'événements : le globe ne se redessine que sur demande, on le
+  // demande donc une dizaine de fois par seconde tant que la couche est affichée (rien si
+  // l'utilisateur a réduit les animations, ni quand l'onglet est caché).
+  useEffect(() => {
+    if (!enabledLayers.events || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      const viewer = viewerRef.current;
+      if (viewer && !viewer.isDestroyed() && !document.hidden) viewer.scene.requestRender();
+    }, 100);
+    return () => window.clearInterval(id);
+  }, [enabledLayers.events]);
 
   // Mise au point sur une zone : la caméra vole vers elle ; sans zone, elle revient à la vue
   // d'ensemble. Le premier rendu (aucune zone) ne bouge pas la caméra.
