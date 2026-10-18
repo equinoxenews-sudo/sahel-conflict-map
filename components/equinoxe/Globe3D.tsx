@@ -269,6 +269,18 @@ function satelliteColor(fn: string): string {
   return "#b388ff";
 }
 
+/** Icône de volcan pour le globe : cône sombre, cratère en lave, panache. */
+const VOLCANO_ICON =
+  "data:image/svg+xml;charset=utf-8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+      <path d="M12 9c-1-3 1-6 4-6 2-2 6-1 6 2 3 0 4 3 2 5-1 2-4 2-5 1-2 1-5 1-7-2z" fill="#c9ced4" stroke="#ffffff" stroke-width="1"/>
+      <path d="M2 30 12 12h8l10 18z" fill="#8b5a32" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M12 12h8l-2 4-2-2-2 3z" fill="#ff5a1f" stroke="#1b1b1b" stroke-width="1" stroke-linejoin="round"/>
+      <path d="M16 14v8M14 16l-2 6" stroke="#ff8a1f" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>`,
+  );
+
 const ALERT_LABELS: Record<string, string> = {
   green: "Verte (impact limité)",
   orange: "Orange (impact modéré)",
@@ -1030,14 +1042,27 @@ export default function Globe3D({
           links: evt.links,
         };
         const alertScale = evt.alert?.toLowerCase() === "red" ? 1.6 : evt.alert?.toLowerCase() === "orange" ? 1.3 : 1;
+        const volcano = evt.category === "volcanoes";
         naturalEventSources[layerKey].entities.add({
           position: Cesium.Cartesian3.fromDegrees(evt.lon, evt.lat, 0),
-          point: {
-            pixelSize: (evt.category === "wildfires" ? 6 : 9) * alertScale,
-            color: Cesium.Color.fromCssColorString(NATURAL_EVENT_COLORS[evt.category]),
-            outlineColor: Cesium.Color.BLACK,
-            outlineWidth: 1,
-          },
+          // Volcans : icône de volcan (plus grande si l'alerte est élevée) ; autres : point coloré.
+          ...(volcano
+            ? {
+                billboard: {
+                  image: VOLCANO_ICON,
+                  width: Math.round(30 * alertScale),
+                  height: Math.round(30 * alertScale),
+                  verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+                },
+              }
+            : {
+                point: {
+                  pixelSize: (evt.category === "wildfires" ? 6 : 9) * alertScale,
+                  color: Cesium.Color.fromCssColorString(NATURAL_EVENT_COLORS[evt.category]),
+                  outlineColor: Cesium.Color.BLACK,
+                  outlineWidth: 1,
+                },
+              }),
           properties: {
             popup: JSON.stringify(popup),
             eventTime: evt.date ? new Date(evt.date).getTime() : undefined,
