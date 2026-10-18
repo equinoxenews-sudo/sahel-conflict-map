@@ -344,6 +344,14 @@ export function findCountryByLabel(label: string): { iso2: string; name: string 
   return FLAG_BY_LABEL.get(normalizeCountryLabel(label)) ?? null;
 }
 
+/** Code ISO 3 (clé du fond de carte du globe) d'un pays désigné par un libellé courant. */
+export function findIso3ByLabel(label: string): { iso3: string; name: string } | null {
+  const found = findCountryByLabel(label);
+  if (!found) return null;
+  const profile = Object.values(COUNTRY_PROFILES).find((p) => p.name === found.name);
+  return profile?.iso3 ? { iso3: profile.iso3, name: profile.name } : null;
+}
+
 /** Nom et capitale d'un pays désigné par un libellé courant (« RDC », « Burkina Faso »…),
  *  pour placer sur la carte une information d'ordre national. null si inconnu. */
 export function findCapitalByLabel(label: string): { country: string; capital: string } | null {

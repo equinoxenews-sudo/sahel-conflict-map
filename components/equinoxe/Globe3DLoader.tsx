@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import type { CountryRisk } from "@/lib/countryRisk";
 import type { MilitaryAircraft } from "@/lib/layers/aircraft";
+import type { AnalystEvent } from "@/lib/layers/analystEvents";
 import type { Earthquake } from "@/lib/layers/earthquakes";
 import type { Launch } from "@/lib/layers/launches";
 import type { NaturalEvent } from "@/lib/layers/naturalEvents";
@@ -21,6 +22,7 @@ interface Globe3DLoaderProps {
   satellites: SatellitePosition[];
   vessels: VesselPosition[];
   earthquakes: Earthquake[];
+  analystEvents: AnalystEvent[];
   naturalEvents: NaturalEvent[];
   launches: Launch[];
   dateRange: GlobeDateRange | null;

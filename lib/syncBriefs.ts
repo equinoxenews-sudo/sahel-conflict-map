@@ -9,7 +9,7 @@ import { mapWithConcurrency } from "./gdelt";
 import { locateBrief } from "./geocode";
 import { isSportsTitle } from "./sportsFilter";
 import { getSupabaseAdmin } from "./supabaseAdmin";
-import { MODEL, synthesizeBriefs, type PreviousBrief, type SourceArticle } from "./synthesizeBriefs";
+import { MODEL, TIMEOUT_MS, synthesizeBriefs, type PreviousBrief, type SourceArticle } from "./synthesizeBriefs";
 import { channelNote } from "./telegramChannels";
 import { getZone } from "./zones";
 import { activeDirective, directiveKeywords, directivePrompt, prioritize, type ZoneDirective } from "./zoneDirectives";
@@ -26,7 +26,9 @@ const SUMMARY_FETCH_CONCURRENCY = 6;
 // messages Telegram récents de la zone. La route dispose alors de 300 s.
 const ANALYST_BATCH = 8;
 const ANALYST_MAX_BATCHES = 3;
-const ANALYST_TIME_BUDGET_MS = 200_000;
+/** Un nouveau lot ne démarre que si ce temps n'est pas écoulé : ce budget + un lot complet
+ *  (rédaction, TIMEOUT_MS, et téléchargement des pages) restent sous les 300 s de la route. */
+const ANALYST_TIME_BUDGET_MS = 300_000 - TIMEOUT_MS - 45_000;
 const TELEGRAM_PER_BATCH = 15;
 const TELEGRAM_PROMPT_CHARS = 700;
 const TELEGRAM_MAX_AGE_HOURS = 72;

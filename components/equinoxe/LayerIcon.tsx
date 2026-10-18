@@ -90,6 +90,13 @@ export default function LayerIcon({ layerKey, color }: LayerIconProps) {
           <path d="M9 13l1.5-2.5L12 13l1-1.5L15 13" />
         </svg>
       );
+    case "events":
+      return (
+        <svg {...common}>
+          <path d="M12 21s-6.5-6.2-6.5-11.2a6.5 6.5 0 0 1 13 0C18.5 14.8 12 21 12 21z" />
+          <circle cx="12" cy="9.8" r="2.3" />
+        </svg>
+      );
     case "dayNight":
       return (
         <svg {...common}>

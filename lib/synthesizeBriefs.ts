@@ -13,7 +13,10 @@ export const MODEL = process.env.BRIEFS_MODEL?.trim() || "claude-haiku-4-5-20251
 const MAX_TOKENS = 6000;
 /** Un message Telegram seul ne fait une synthèse que s'il traite le sujet de façon conséquente. */
 export const TELEGRAM_STANDALONE_MIN_CHARS = 600;
-const TIMEOUT_MS = 50000;
+// Délai de rédaction d'un lot. Le format « analyste » (confiance, lieu, doute) allonge les
+// réponses : à 50 s, toutes les zones ont été coupées le 18/10/2026. 120 s laissent la
+// marge voulue, et lib/syncBriefs.ts n'ouvre un lot que s'il peut finir avant les 300 s de la route.
+export const TIMEOUT_MS = 120_000;
 
 export interface SourceArticle {
   title: string;

@@ -11,6 +11,7 @@ import ZonesGrid from "@/components/equinoxe/ZonesGrid";
 import { CESIUM_CDN_ORIGIN, CESIUM_SCRIPT_URL, CESIUM_STYLE_URL, TILES_ORIGIN } from "@/lib/cesiumCdn";
 import { computeCountryRiskFromEvents } from "@/lib/computeCountryRisk";
 import { fetchMilitaryAircraft } from "@/lib/layers/aircraft";
+import { countryRiskFromAnalystEvents, fetchAnalystEvents } from "@/lib/layers/analystEvents";
 import { fetchEarthquakes } from "@/lib/layers/earthquakes";
 import { fetchUpcomingLaunches } from "@/lib/layers/launches";
 import { fetchNaturalEvents } from "@/lib/layers/naturalEvents";
@@ -117,9 +118,10 @@ export default async function Home() {
   preload(CESIUM_SCRIPT_URL, { as: "script" });
   preload(CESIUM_STYLE_URL, { as: "style" });
 
-  const [countryRisk, briefs, gdeltStatus, vessels, aircraft, satellites, earthquakes, naturalEvents, launches] =
+  const [gdeltRisk, analystEvents, briefs, gdeltStatus, vessels, aircraft, satellites, earthquakes, naturalEvents, launches] =
     await Promise.all([
       computeCountryRiskFromEvents(),
+      fetchAnalystEvents(),
       getHomeBriefs(),
       getGdeltStatus(),
       getVesselPositions(),
@@ -130,6 +132,11 @@ export default async function Home() {
       fetchUpcomingLaunches(),
     ]);
   const articles = briefs.length === 0 ? await getHomeArticles() : [];
+  // Couleurs des pays : d'après les événements des analystes (gravité, confiance, fraîcheur).
+  // GDELT ne sert plus que de secours si les événements manquent (base injoignable, début de mois…).
+  const analystRisk = countryRiskFromAnalystEvents(analystEvents);
+  const useAnalysts = Object.keys(analystRisk).length >= 5;
+  const countryRisk = useAnalysts ? analystRisk : gdeltRisk;
 
   const latestBrief = briefs[0];
   const latestArticle = articles[0];
@@ -164,6 +171,8 @@ export default async function Home() {
             satellites={satellites}
             vessels={vessels}
             earthquakes={earthquakes}
+            analystEvents={analystEvents}
+            riskSource={useAnalysts ? "analystes" : "gdelt"}
             naturalEvents={naturalEvents}
             launches={launches}
             gdeltStatus={gdeltStatus}

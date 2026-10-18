@@ -1,5 +1,6 @@
 export type LayerKey =
   | "risk"
+  | "events"
   | "aircraft"
   | "satellites"
   | "vessels"
@@ -15,6 +16,7 @@ export type LayerKey =
 
 export const LAYER_LABELS: Record<LayerKey, string> = {
   risk: "Pays en crise",
+  events: "Événements analysés",
   aircraft: "Avions militaires",
   satellites: "Satellites",
   vessels: "Navires",
@@ -31,6 +33,7 @@ export const LAYER_LABELS: Record<LayerKey, string> = {
 
 export const LAYER_ORDER: LayerKey[] = [
   "risk",
+  "events",
   "aircraft",
   "satellites",
   "vessels",
@@ -50,6 +53,8 @@ export const LAYER_ORDER: LayerKey[] = [
 // the globe isn't cluttered on first load.
 export const LAYER_DEFAULTS: Record<LayerKey, boolean> = {
   risk: true,
+  // Les articles géolocalisés des analystes : le cœur éditorial du site, visible d'emblée.
+  events: true,
   aircraft: false,
   satellites: false,
   vessels: false,
@@ -83,4 +88,6 @@ export interface EntityPopupData {
   badge: string;
   title: string;
   fields: EntityPopupField[];
+  /** Lien vers la page complète (article d'analyste). */
+  href?: string;
 }

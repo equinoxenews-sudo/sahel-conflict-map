@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import type { CountryRisk } from "@/lib/countryRisk";
 import type { MilitaryAircraft } from "@/lib/layers/aircraft";
+import type { AnalystEvent } from "@/lib/layers/analystEvents";
 import type { Earthquake } from "@/lib/layers/earthquakes";
 import type { Launch } from "@/lib/layers/launches";
 import type { NaturalEvent } from "@/lib/layers/naturalEvents";
@@ -28,6 +29,10 @@ interface GlobeWithLayersProps {
   satellites: SatellitePosition[];
   vessels: VesselPosition[];
   earthquakes: Earthquake[];
+  /** Articles géolocalisés des analystes (30 derniers jours). */
+  analystEvents: AnalystEvent[];
+  /** Source des couleurs de risque : événements des analystes, ou GDELT en secours. */
+  riskSource: "analystes" | "gdelt";
   naturalEvents: NaturalEvent[];
   launches: Launch[];
   gdeltStatus: { hoursSinceSuccess: number | null; stale: boolean };
@@ -41,6 +46,8 @@ export default function GlobeWithLayers({
   satellites,
   vessels,
   earthquakes,
+  analystEvents,
+  riskSource,
   naturalEvents,
   launches,
   gdeltStatus,
@@ -107,6 +114,7 @@ export default function GlobeWithLayers({
       // Chargés à la première activation de la couche (voir Globe3D) : pas de compte à l'avance.
       cables: 0,
       earthquakes: earthquakes.length,
+      events: analystEvents.length,
       wildfires: naturalEvents.filter((e) => e.category === "wildfires").length,
       storms: naturalEvents.filter((e) => e.category === "severeStorms").length,
       volcanoes: naturalEvents.filter((e) => e.category === "volcanoes").length,
@@ -115,7 +123,7 @@ export default function GlobeWithLayers({
       nightLights: 0,
       dayNight: 0,
     }),
-    [countryRisk, aircraft, satellites, vessels, earthquakes, naturalEvents, launches]
+    [countryRisk, aircraft, satellites, vessels, earthquakes, analystEvents, naturalEvents, launches]
   );
 
   function toggleLayer(key: LayerKey) {
@@ -146,6 +154,7 @@ export default function GlobeWithLayers({
             satellites={satellites}
             vessels={vessels}
             earthquakes={earthquakes}
+            analystEvents={analystEvents}
             naturalEvents={naturalEvents}
             launches={launches}
             dateRange={dateRange}
@@ -169,10 +178,12 @@ export default function GlobeWithLayers({
 
         <div className={focusedZone ? `${styles.legendBar} ${styles.legendBarHidden}` : styles.legendBar} data-intro-hide>
           <span className={styles.disclaimer}>
-            Calculé à partir des événements recensés sur chaque zone (90 derniers jours) — cliquez
-            sur une zone du menu pour une analyse détaillée
+            {riskSource === "analystes"
+              ? "Couleurs calculées à partir des événements analysés (30 derniers jours : gravité, indice de confiance, fraîcheur)"
+              : "Calculé à partir des événements recensés sur chaque zone (90 derniers jours)"}{" "}
+            — cliquez sur une zone du menu pour une analyse détaillée
           </span>
-          {gdeltStatus.stale && gdeltStatus.hoursSinceSuccess != null ? (
+          {riskSource === "gdelt" && gdeltStatus.stale && gdeltStatus.hoursSinceSuccess != null ? (
             <span className={styles.staleWarning}>
               ⚠ Données non rafraîchies depuis {Math.floor(gdeltStatus.hoursSinceSuccess)}h
             </span>

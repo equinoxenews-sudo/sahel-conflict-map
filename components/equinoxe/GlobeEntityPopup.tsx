@@ -32,6 +32,11 @@ export default function GlobeEntityPopup({ data, x, y, onClose }: GlobeEntityPop
           ))}
         </dl>
       ) : null}
+      {data.href ? (
+        <a className={styles.link} href={data.href}>
+          Lire l’article →
+        </a>
+      ) : null}
     </div>
   );
 }

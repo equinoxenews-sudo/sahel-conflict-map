@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import type * as CesiumNS from "cesium";
 import { RISK_COLORS, type CountryRisk } from "@/lib/countryRisk";
 import type { MilitaryAircraft } from "@/lib/layers/aircraft";
+import type { AnalystEvent } from "@/lib/layers/analystEvents";
 import type { Earthquake } from "@/lib/layers/earthquakes";
 import type { Launch } from "@/lib/layers/launches";
 import type { NaturalEvent, NaturalEventCategory } from "@/lib/layers/naturalEvents";
@@ -235,6 +236,7 @@ interface Globe3DProps {
   satellites: SatellitePosition[];
   vessels: VesselPosition[];
   earthquakes: Earthquake[];
+  analystEvents: AnalystEvent[];
   naturalEvents: NaturalEvent[];
   launches: Launch[];
   dateRange: GlobeDateRange | null;
@@ -252,6 +254,7 @@ export default function Globe3D({
   satellites,
   vessels,
   earthquakes,
+  analystEvents,
   naturalEvents,
   launches,
   dateRange,
@@ -762,6 +765,38 @@ export default function Globe3D({
         });
       }
       layerSources.vessels = vesselSource;
+
+      // Événements des analystes : points dorés (couleur du site, distincte des pays colorés),
+      // taille selon la gravité, opacité selon l'indice de confiance.
+      const eventSource = new Cesium.CustomDataSource("events");
+      for (const ev of analystEvents) {
+        const where = [ev.place, ev.country].filter(Boolean).join(", ");
+        const popup: EntityPopupData = {
+          layerKey: "events",
+          badge: ev.importance === "high" ? "ÉVÉNEMENT MAJEUR" : "ÉVÉNEMENT",
+          title: ev.title,
+          fields: [
+            ...(where ? [{ label: "Lieu", value: ev.precision === "capitale" ? `${where} (national)` : where }] : []),
+            { label: "Publié", value: formatDateTime(ev.publishedAt) },
+            ...(ev.confidenceLabel
+              ? [{ label: "Confiance", value: `${ev.confidenceLabel}${ev.confidence != null ? ` (${ev.confidence} %)` : ""}${ev.claimedBy ? ` — revendiqué par ${ev.claimedBy}` : ""}` }]
+              : []),
+          ],
+          href: `/briefs/${ev.id}`,
+        };
+        const alpha = 0.45 + 0.55 * Math.min(1, Math.max(0, (ev.confidence ?? 55) / 100));
+        eventSource.entities.add({
+          position: Cesium.Cartesian3.fromDegrees(ev.lon, ev.lat, 0),
+          point: {
+            pixelSize: ev.importance === "high" ? 12 : ev.importance === "low" ? 7 : 9,
+            color: Cesium.Color.fromCssColorString("#e0b44c").withAlpha(alpha),
+            outlineColor: Cesium.Color.WHITE.withAlpha(0.9),
+            outlineWidth: 1.5,
+          },
+          properties: { popup: JSON.stringify(popup), eventTime: Date.parse(ev.publishedAt) },
+        });
+      }
+      layerSources.events = eventSource;
 
       const earthquakeSource = new Cesium.CustomDataSource("earthquakes");
       for (const eq of earthquakes) {

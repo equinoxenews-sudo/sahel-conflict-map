@@ -88,3 +88,16 @@
   color: var(--text-primary);
   text-align: right;
 }
+
+.link {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-gold-bright);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
