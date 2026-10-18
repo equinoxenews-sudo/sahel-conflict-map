@@ -218,12 +218,14 @@ const shared: {
   onZonePick: Globe3DProps["onZonePick"];
   enabledLayers: Record<LayerKey, boolean> | null;
   nightLights: boolean;
+  dayNight: boolean;
 } = {
   onEntitySelect: () => {},
   focusZone: null,
   onZonePick: () => {},
   enabledLayers: null,
   nightLights: true,
+  dayNight: true,
 };
 
 interface Globe3DProps {
@@ -272,6 +274,13 @@ export default function Globe3D({
   useEffect(() => {
     shared.enabledLayers = enabledLayers;
     shared.nightLights = enabledLayers.nightLights;
+    shared.dayNight = enabledLayers.dayNight;
+    // Jour / nuit : l'éclairage solaire de Cesium, coupé ou rétabli sans reconstruire le globe.
+    const viewer = viewerRef.current;
+    if (viewer && !viewer.isDestroyed()) {
+      viewer.scene.globe.enableLighting = enabledLayers.dayNight;
+      viewer.scene.requestRender();
+    }
   }, [enabledLayers]);
 
   // Heavy one-time setup: the Cesium Viewer itself, the country-risk
@@ -562,7 +571,8 @@ export default function Globe3D({
 
       // Day/night shading — the sun-relative lighting that gives the
       // globe a more dramatic, "real satellite" look (matches paraxis.app).
-      viewer.scene.globe.enableLighting = true;
+      // L'introduction se joue toujours de nuit ; ensuite, le réglage « Jour / nuit » décide.
+      viewer.scene.globe.enableLighting = introMode || shared.dayNight;
       // Réglages de la nuit de Cesium (par défaut : éclairage 1e7 → 2e7 m, nuit 1e7 → 5e7 m) :
       //  - éclairage : plein au-delà de lightingFadeInDistance, absent en dessous de
       //    lightingFadeOutDistance (de près, tout est éclairé, on lit la carte) ;
@@ -888,6 +898,7 @@ export default function Globe3D({
           finished = true;
           introPending = false;
           boundariesLayer.show = true;
+          if (viewer) viewer.scene.globe.enableLighting = shared.dayNight;
           // La nuit s'adoucit en douceur jusqu'au réglage habituel de l'accueil (carte lisible).
           const from = performance.now();
           const soften = (now: number) => {

@@ -10,7 +10,8 @@ export type LayerKey =
   | "volcanoes"
   | "floods"
   | "launches"
-  | "nightLights";
+  | "nightLights"
+  | "dayNight";
 
 export const LAYER_LABELS: Record<LayerKey, string> = {
   risk: "Pays en crise",
@@ -25,6 +26,7 @@ export const LAYER_LABELS: Record<LayerKey, string> = {
   floods: "Inondations",
   launches: "Lancements",
   nightLights: "Lumières des villes",
+  dayNight: "Jour / nuit",
 };
 
 export const LAYER_ORDER: LayerKey[] = [
@@ -40,6 +42,7 @@ export const LAYER_ORDER: LayerKey[] = [
   "floods",
   "launches",
   "nightLights",
+  "dayNight",
 ];
 
 // Only "risk" (the country-crisis overlay) is on by default — it's the
@@ -60,6 +63,9 @@ export const LAYER_DEFAULTS: Record<LayerKey, boolean> = {
   // Réglage d'affichage (pas une donnée) : les lumières des villes côté nuit. Décochées,
   // le globe reste lisible de près, même la nuit.
   nightLights: true,
+  // Réglage d'affichage : l'ombre de la nuit selon la position réelle du soleil. Décochée,
+  // tout le globe est éclairé comme en plein jour (et les lumières des villes s'effacent).
+  dayNight: true,
 };
 
 // The click-to-info-bubble payload attached to every globe entity (see

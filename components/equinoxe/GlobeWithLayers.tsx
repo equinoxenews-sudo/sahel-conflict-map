@@ -113,6 +113,7 @@ export default function GlobeWithLayers({
       floods: naturalEvents.filter((e) => e.category === "floods").length,
       launches: launches.length,
       nightLights: 0,
+      dayNight: 0,
     }),
     [countryRisk, aircraft, satellites, vessels, earthquakes, naturalEvents, launches]
   );
