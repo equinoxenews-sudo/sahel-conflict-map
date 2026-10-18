@@ -324,12 +324,29 @@ const COUNTRY_ALIASES: Record<string, string> = {
   "emirats arabes unis": "Émirats arabes unis",
   "royaume uni": "Royaume-Uni",
   "timor leste": "Timor oriental",
+  usa: "États-Unis",
+  "etats unis d'amerique": "États-Unis",
+};
+
+const FLAG_ONLY_COUNTRIES: Record<string, string> = {
+  "États-Unis": "US",
+  Inde: "IN",
+  Australie: "AU",
+  Canada: "CA",
+  Mexique: "MX",
+  Pakistan: "PK",
+  "Nouvelle-Zélande": "NZ",
 };
 
 const FLAG_BY_LABEL: Map<string, { iso2: string; name: string }> = (() => {
   const byName = new Map<string, { iso2: string; name: string }>();
   for (const profile of Object.values(COUNTRY_PROFILES)) {
     if (profile.iso2) byName.set(normalizeCountryLabel(profile.name), { iso2: profile.iso2, name: profile.name });
+  }
+  // Grands pays souvent cités sans fiche pays sur le site : drapeau seulement.
+  for (const [name, iso2] of Object.entries(FLAG_ONLY_COUNTRIES)) {
+    const key = normalizeCountryLabel(name);
+    if (!byName.has(key)) byName.set(key, { iso2, name });
   }
   for (const [alias, name] of Object.entries(COUNTRY_ALIASES)) {
     const target = byName.get(normalizeCountryLabel(name));
