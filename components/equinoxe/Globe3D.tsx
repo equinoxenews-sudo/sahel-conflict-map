@@ -219,6 +219,30 @@ function hexagonThumbnail(src: string): Promise<HTMLCanvasElement> {
   return promise;
 }
 
+/**
+ * Décalage à l'écran (pixels) de chaque événement : le premier d'un même lieu reste au
+ * centre, les suivants se répartissent en couronnes (6 puis 12, 18…) autour de lui.
+ */
+function eventOffsets(events: { lat: number; lon: number }[], size: number): [number, number][] {
+  const seen = new Map<string, number>();
+  return events.map((e) => {
+    const key = `${e.lat.toFixed(2)},${e.lon.toFixed(2)}`;
+    const n = seen.get(key) ?? 0;
+    seen.set(key, n + 1);
+    if (n === 0) return [0, 0];
+    // Couronne k (1, 2, …) : 6k places, rayon k × la largeur d'un hexagone.
+    let ring = 1;
+    let rest = n - 1;
+    while (rest >= 6 * ring) {
+      rest -= 6 * ring;
+      ring += 1;
+    }
+    const angle = (rest / (6 * ring)) * 2 * Math.PI - Math.PI / 2;
+    const radius = ring * size * 0.95;
+    return [Math.round(radius * Math.cos(angle)), Math.round(radius * Math.sin(angle))];
+  });
+}
+
 /** Couleur d'un satellite selon sa fonction. */
 function satelliteColor(fn: string): string {
   if (fn.startsWith("Navigation")) return "#35b779";
@@ -884,10 +908,13 @@ export default function Globe3D({
       layerSources.vessels = vesselSource;
 
       // Événements des analystes : hexagone portant la vignette de l'article, liseré doré
-      // (couleur du site), plus grand pour un événement majeur. La vignette est chargée après
-      // coup (relais /api/thumb) ; en attendant ou à défaut, un hexagone doré uni.
+      // (couleur du site), taille unique. La vignette est chargée après coup (relais
+      // /api/thumb) ; en attendant ou à défaut, un hexagone doré uni. Plusieurs événements au
+      // même endroit (une capitale, souvent) sont écartés en couronne autour du point.
       const eventSource = new Cesium.CustomDataSource("events");
-      for (const ev of analystEvents) {
+      const EVENT_HEX = 36;
+      const spreadOffsets = eventOffsets(analystEvents, EVENT_HEX);
+      for (const [index, ev] of analystEvents.entries()) {
         const where = [ev.place, ev.country].filter(Boolean).join(", ");
         const popup: EntityPopupData = {
           layerKey: "events",
@@ -902,13 +929,15 @@ export default function Globe3D({
           ],
           href: `/briefs/${ev.id}`,
         };
-        const size = ev.importance === "high" ? 44 : ev.importance === "low" ? 30 : 36;
+        const [dx, dy] = spreadOffsets[index];
         const entity = eventSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(ev.lon, ev.lat, 0),
           billboard: {
             image: hexagonPlaceholder(),
-            width: size,
-            height: Math.round(size * HEX_RATIO),
+            width: EVENT_HEX,
+            height: Math.round(EVENT_HEX * HEX_RATIO),
+            // Décalage en pixels d'écran : la couronne garde le même écart à tous les zooms.
+            pixelOffset: new Cesium.Cartesian2(dx, dy),
             verticalOrigin: Cesium.VerticalOrigin.CENTER,
             // Toujours lisible au-dessus des pays colorés, même au bord du globe.
             eyeOffset: new Cesium.Cartesian3(0, 0, -50),
