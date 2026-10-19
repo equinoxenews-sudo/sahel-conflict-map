@@ -35,6 +35,13 @@ import { SYNTHESIS_ALLOWED_DOMAINS } from "../lib/synthesisSources";
 // Modèle des points de situation, distinct de la synthèse quotidienne : Opus par défaut
 // (décision de Nicolas, 17/10/2026). Modifiable sans redéploiement : variable PSIT_MODEL.
 const PSIT_MODEL = process.env.PSIT_MODEL?.trim() || "claude-opus-5-5";
+// Limite de sortie propre aux points de situation : Opus écrit plus long que Haiku, et une réponse
+// coupée donne un JSON invalide (le 19/10/2026, trois zones ont échoué à 4 000 jetons).
+const PSIT_MAX_TOKENS = 8000;
+// Seconde tentative après une réponse inexploitable : on demande plus court et un JSON strict.
+const CONCISE_RETRY = `
+
+IMPORTANT : ta réponse précédente était coupée ou n'était pas un JSON valide. Recommence en étant plus concis : 8 événements au maximum, text de 25 mots maximum, conclusion de 50 mots maximum par paragraphe. JSON strictement valide : échappe les guillemets doubles à l'intérieur des textes (ou utilise des guillemets français « »), aucune virgule finale.`;
 import { ZONES, getZone } from "../lib/zones";
 
 const DEFAULT_WINDOW_DAYS = 7;
@@ -101,11 +108,22 @@ async function draftZone(zoneSlug: string, apiKey: string): Promise<"créé" | "
   let content;
   for (let attempt = 1; ; attempt++) {
     try {
-      const result = await callSynthesisModel(apiKey, prompt, false, SYNTHESIS_ALLOWED_DOMAINS, 0, PSIT_MODEL);
+      const result = await callSynthesisModel(
+        apiKey,
+        attempt === 1 ? prompt : prompt + CONCISE_RETRY,
+        false,
+        SYNTHESIS_ALLOWED_DOMAINS,
+        0,
+        PSIT_MODEL,
+        PSIT_MAX_TOKENS
+      );
       try {
         content = parseSituationReport(result.text, briefs, zoneSlug);
       } catch (parseError) {
-        await recordUsage({ job: "situation-report", zoneSlug, model: PSIT_MODEL, usage: result.usage, ok: false, note: "réponse inexploitable" });
+        // De quoi comprendre l'échec dans le journal : réponse coupée (limite de jetons) ou mal formée.
+        const detail = `arrêt : ${result.stopReason ?? "inconnu"}, ${result.usage.outputTokens} jetons produits sur ${PSIT_MAX_TOKENS} autorisés`;
+        console.warn(`  ${zoneName} : réponse inexploitable (${detail}). Fin de la réponse : …${result.text.slice(-200).replace(/\s+/g, " ")}`);
+        await recordUsage({ job: "situation-report", zoneSlug, model: PSIT_MODEL, usage: result.usage, ok: false, note: `réponse inexploitable (${detail})` });
         throw parseError;
       }
       await recordUsage({ job: "situation-report", zoneSlug, model: PSIT_MODEL, usage: result.usage, note: `${briefs.length} synthèses lues` });
