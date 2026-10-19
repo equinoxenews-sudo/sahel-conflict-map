@@ -47,15 +47,28 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # Le point de situation est rédigé par Opus : un second passage coûte cher. Le passage de secours ne
-          # relance donc rien dès qu'un lancement a eu lieu aujourd'hui, réussi, en cours OU ÉCHOUÉ (un échec est
-          # signalé par le HQ et Telegram, et se relance à la main : Run workflow, force). Il ne part que si
-          # aucun lancement n'a eu lieu du tout. En cas d'erreur de lecture, on ne saute rien.
+          # Le point de situation est rédigé par Opus : un passage coûte cher. Le passage de secours ne part
+          # donc que si c'est utile :
+          #  - rien n'a été lancé aujourd'hui : il rédige tout ;
+          #  - un seul lancement a eu lieu et il a ÉCHOUÉ (même en partie) : une seule relance, et le script
+          #    ne rédige alors que les zones sans brouillon de moins de 12 h (les zones déjà passées sont
+          #    ignorées, sans appel IA) ;
+          #  - un lancement a réussi ou est en cours, ou une relance a déjà eu lieu : il ne fait rien.
+          # En cas d'erreur de lecture, on ne saute rien.
           today=$(date -u +%F)
-          n=$(gh api "repos/${{ github.repository }}/actions/workflows/situation-report.yml/runs?created=>=$today&per_page=30" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }}) | select(.event == "workflow_dispatch") | select(.conclusion != "cancelled")] | length' 2>/dev/null) || n=0
-          if [ "$n" -gt 0 ]; then
+          res=$(gh api "repos/${{ github.repository }}/actions/workflows/situation-report.yml/runs?created=>=$today&per_page=30" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }}) | select(.conclusion != "cancelled")] | "\(length) \([.[] | select(.status != "completed" or .conclusion == "success")] | length)"' 2>/dev/null) || res="0 0"
+          total=${res%% *}
+          good=${res##* }
+          case "$total" in ''|*[!0-9]*) total=0 ;; esac
+          case "$good" in ''|*[!0-9]*) good=0 ;; esac
+          if [ "$good" -gt 0 ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "::notice::Un lancement a déjà eu lieu aujourd'hui (réussi, en cours ou échoué) : passage de secours ignoré pour ne pas payer deux fois. En cas d'échec, relancer à la main (Run workflow, force)."
+            echo "::notice::Un lancement a déjà réussi ou est en cours aujourd'hui : passage de secours ignoré."
+          elif [ "$total" -ge 2 ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::Une relance a déjà eu lieu aujourd'hui : pas de seconde relance automatique (relancer à la main : Run workflow, force)."
+          elif [ "$total" -eq 1 ]; then
+            echo "::notice::Le lancement du jour a échoué : relance unique, limitée aux zones sans brouillon récent."
           fi
 
       - name: Vérifier les secrets
