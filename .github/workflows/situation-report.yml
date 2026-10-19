@@ -47,12 +47,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # En cas d'erreur de lecture, on ne saute rien : mieux vaut un doublon qu'un jour sans synthèse.
+          # Le point de situation est rédigé par Opus : un second passage coûte cher. Le passage de secours ne
+          # relance donc rien dès qu'un lancement a eu lieu aujourd'hui, réussi, en cours OU ÉCHOUÉ (un échec est
+          # signalé par le HQ et Telegram, et se relance à la main : Run workflow, force). Il ne part que si
+          # aucun lancement n'a eu lieu du tout. En cas d'erreur de lecture, on ne saute rien.
           today=$(date -u +%F)
-          n=$(gh api "repos/${{ github.repository }}/actions/workflows/situation-report.yml/runs?created=>=$today&per_page=30" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }}) | select(.event == "workflow_dispatch") | select(.status != "completed" or .conclusion == "success")] | length' 2>/dev/null) || n=0
+          n=$(gh api "repos/${{ github.repository }}/actions/workflows/situation-report.yml/runs?created=>=$today&per_page=30" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }}) | select(.event == "workflow_dispatch") | select(.conclusion != "cancelled")] | length' 2>/dev/null) || n=0
           if [ "$n" -gt 0 ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "::notice::Déjà lancé aujourd'hui (cron Vercel ou lancement manuel) : passage planifié ignoré."
+            echo "::notice::Un lancement a déjà eu lieu aujourd'hui (réussi, en cours ou échoué) : passage de secours ignoré pour ne pas payer deux fois. En cas d'échec, relancer à la main (Run workflow, force)."
           fi
 
       - name: Vérifier les secrets
