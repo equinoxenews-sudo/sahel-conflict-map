@@ -171,3 +171,44 @@ export function sharedValueLabel(shared: SharedValue): string {
       return "Même identifiant";
   }
 }
+
+/** Nom de l'identifiant « immatriculation » : plaque ou numéro d'enregistrement d'un véhicule, d'un navire, d'un aéronef. */
+export const REGISTRATION_LABEL = "Immatriculation";
+
+/** Noms d'identifiants courants, proposés d'un clic quand on ajoute un identifiant. */
+export const IDENTIFIER_PRESETS = [
+  REGISTRATION_LABEL,
+  "N° de série",
+  "N° de châssis",
+  "MMSI",
+  "N° IMO",
+  "Indicatif d'appel",
+  "Code ICAO",
+];
+
+const isRegistration = (attribute: EntityAttribute) =>
+  attribute.kind === "identifier" && /immatricul/i.test(attribute.label ?? "");
+
+/** La première immatriculation d'une fiche (un identifiant nommé « Immatriculation »), s'il y en a une. */
+export function findRegistration(attributes: EntityAttribute[]): EntityAttribute | undefined {
+  return attributes.find(isRegistration);
+}
+
+/**
+ * Fixe l'immatriculation d'une fiche : modifie l'identifiant existant (son statut et sa source sont conservés),
+ * en crée un s'il n'y en a pas, ou le retire quand la valeur est vidée. Les autres coordonnées ne bougent pas.
+ */
+export function withRegistration(
+  attributes: EntityAttribute[],
+  value: string,
+  newId: () => string = () => crypto.randomUUID()
+): EntityAttribute[] {
+  const existing = findRegistration(attributes);
+  if (existing) {
+    return value.trim() === ""
+      ? attributes.filter((attribute) => attribute !== existing)
+      : attributes.map((attribute) => (attribute === existing ? { ...attribute, value } : attribute));
+  }
+  if (value.trim() === "") return attributes;
+  return [...attributes, { id: newId(), kind: "identifier", label: REGISTRATION_LABEL, value, status: "documented" }];
+}

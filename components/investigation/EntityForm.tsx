@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { FLAG_COUNTRIES } from "@/lib/countryFlagIndex";
+import { findRegistration, withRegistration } from "@/lib/investigation/attributes";
 import { deleteImage } from "@/lib/investigation/imageStore";
 import {
   ENTITY_TYPE_LABELS,
@@ -137,6 +138,18 @@ export default function EntityForm({ initial, submitLabel, sources = [], onSubmi
         <span className={styles.label}>Sous le nom</span>
         <input className={styles.control} value={role} onChange={(e) => setRole(e.target.value)} placeholder={ROLE_PLACEHOLDER[type]} />
       </label>
+
+      {type === "equipment" ? (
+        <label className={styles.field}>
+          <span className={styles.label}>Immatriculation</span>
+          <input
+            className={styles.control}
+            value={findRegistration(attributes)?.value ?? ""}
+            onChange={(e) => setAttributes(withRegistration(attributes, e.target.value))}
+            placeholder="ex : plaque, n° d'enregistrement, indicatif (facultatif)"
+          />
+        </label>
+      ) : null}
 
       <div className={styles.row}>
         <label className={`${styles.field} ${styles.grow}`}>

@@ -1,7 +1,7 @@
 "use client";
 
 import { FLAG_COUNTRIES } from "@/lib/countryFlagIndex";
-import { SOCIAL_PLATFORMS } from "@/lib/investigation/attributes";
+import { IDENTIFIER_PRESETS, SOCIAL_PLATFORMS } from "@/lib/investigation/attributes";
 import {
   ATTRIBUTE_KIND_LABELS,
   RELATION_STATUS_LABELS,
@@ -111,13 +111,27 @@ export default function AttributesEditor({ value, onChange, sources, single = fa
           </div>
 
           {attribute.kind === "identifier" ? (
-            <input
-              className={styles.control}
-              value={attribute.label ?? ""}
-              onChange={(e) => patch(attribute.id, { label: e.target.value })}
-              placeholder="Nom de l'identifiant (ex : Immatriculation, N° de série)"
-              aria-label="Nom de l'identifiant"
-            />
+            <>
+              <input
+                className={styles.control}
+                value={attribute.label ?? ""}
+                onChange={(e) => patch(attribute.id, { label: e.target.value })}
+                placeholder="Nom de l'identifiant (ex : Immatriculation, N° de série)"
+                aria-label="Nom de l'identifiant"
+              />
+              <div className={styles.presets} role="group" aria-label="Noms d'identifiants courants">
+                {IDENTIFIER_PRESETS.map((preset) => (
+                  <button
+                    key={preset}
+                    type="button"
+                    className={attribute.label === preset ? `${styles.preset} ${styles.presetOn}` : styles.preset}
+                    onClick={() => patch(attribute.id, { label: preset })}
+                  >
+                    {preset}
+                  </button>
+                ))}
+              </div>
+            </>
           ) : null}
 
           <div className={styles.row}>

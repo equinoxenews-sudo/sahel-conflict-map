@@ -44,6 +44,33 @@
   flex: 0 0 38%;
 }
 
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.preset {
+  padding: 3px 9px;
+  border: 1px solid var(--border-glass);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.preset:hover {
+  border-color: var(--accent-gold);
+}
+
+.presetOn {
+  border-color: var(--accent-gold);
+  background: rgba(213, 166, 64, 0.14);
+  color: var(--accent-gold-bright);
+}
+
 .remove {
   flex: 0 0 auto;
   width: 28px;
