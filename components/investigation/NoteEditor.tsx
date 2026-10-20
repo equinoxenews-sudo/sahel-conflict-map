@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { countryOf } from "./EntityNode";
 import { attributeLink, groupAttributes } from "@/lib/investigation/attributes";
-import { useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
+import { useDossier, useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
 import { attributeLabel, renameNote } from "@/lib/investigation/fiches";
 import { extractCitationIds, stripCitations } from "@/lib/investigation/citations";
 import {
@@ -35,6 +35,7 @@ import LinkPicker from "./LinkPicker";
 import NoteSources from "./NoteSources";
 import SelectionMenu from "./SelectionMenu";
 import EntityForm, { entityPatchFromValues } from "./EntityForm";
+import ExportFichePanel from "./ExportFichePanel";
 import EntityTypeIcon from "./EntityTypeIcon";
 import HexFlag from "./HexFlag";
 import NoteRenderer from "./NoteRenderer";
@@ -236,6 +237,8 @@ export default function NoteEditor({
   onDeleted,
 }: NoteEditorProps) {
   const storage = useInvestigationStorage();
+  const dossier = useDossier(note.dossierId);
+  const [showExport, setShowExport] = useState(false);
   const entity = note.entityId ? (entities.find((e) => e.id === note.entityId) ?? null) : null;
   // Page d'une coordonnée : l'entité propriétaire et la coordonnée concernée.
   const attributeEntity = note.attributeRef ? (entities.find((e) => e.id === note.attributeRef?.entityId) ?? null) : null;
@@ -464,7 +467,29 @@ export default function NoteEditor({
           <LockIcon locked={locked} size={16} />
           <span>{locked ? "Fermée" : "Ouverte"}</span>
         </button>
+        <button
+          type="button"
+          className={showExport ? `${styles.lockBtn} ${styles.lockBtnOn}` : styles.lockBtn}
+          aria-pressed={showExport}
+          title="Exporter cette fiche en image PNG (pour une diapo ou un rapport)"
+          onClick={() => setShowExport((value) => !value)}
+        >
+          <span>Exporter en image</span>
+        </button>
       </div>
+      {showExport ? (
+        <ExportFichePanel
+          note={note}
+          body={body}
+          entity={entity}
+          entities={entities}
+          relations={relations}
+          sources={sources}
+          dossierName={dossier?.name ?? "Dossier"}
+          resolve={resolve}
+          onClose={() => setShowExport(false)}
+        />
+      ) : null}
 
       {entity ? (
         editingEntity && !locked ? (
