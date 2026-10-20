@@ -16,7 +16,7 @@ import { fetchEarthquakes } from "@/lib/layers/earthquakes";
 import { fetchUpcomingLaunches } from "@/lib/layers/launches";
 import { fetchNaturalEvents } from "@/lib/layers/naturalEvents";
 import { fetchSatellitePositions } from "@/lib/layers/satellites";
-import { groupBriefsByZone } from "@/lib/homeZones";
+import { groupBriefsByZone, zoneBriefsSince } from "@/lib/homeZones";
 import { supabase } from "@/lib/supabaseClient";
 import { isSportsTitle } from "@/lib/sportsFilter";
 import type { Article } from "@/types/article";
@@ -44,6 +44,30 @@ async function getHomeBriefs(): Promise<ZoneBrief[]> {
 
     // Synthèses de sport créées avant le filtre : masquées à l'affichage.
     return (data ?? []).filter((brief) => !isSportsTitle(brief.title));
+  } catch (err) {
+    console.error("Failed to reach Supabase:", err);
+    return [];
+  }
+}
+
+// Articles des cinq zones pour le bandeau d'une zone : les cinq derniers jours, quelle que soit
+// l'activité du jour (au-delà : page Actualités de la zone). Colonnes réduites : la liste part
+// dans la page, pas la synthèse complète.
+async function getZoneBriefRows(): Promise<
+  { id: number; zone_slug: string; title: string; image_url: string | null; published_at: string | null; veracity: string | null }[]
+> {
+  try {
+    const { data, error } = await supabase
+      .from("zone_briefs")
+      .select("id, zone_slug, title, image_url, published_at, veracity")
+      .gte("published_at", zoneBriefsSince())
+      .order("published_at", { ascending: false })
+      .limit(1000);
+    if (error) {
+      console.error("Failed to load zone briefs:", error.message);
+      return [];
+    }
+    return data ?? [];
   } catch (err) {
     console.error("Failed to reach Supabase:", err);
     return [];
@@ -118,11 +142,12 @@ export default async function Home() {
   preload(CESIUM_SCRIPT_URL, { as: "script" });
   preload(CESIUM_STYLE_URL, { as: "style" });
 
-  const [gdeltRisk, analystEvents, briefs, gdeltStatus, vessels, aircraft, satellites, earthquakes, naturalEvents, launches] =
+  const [gdeltRisk, analystEvents, briefs, zoneBriefRows, gdeltStatus, vessels, aircraft, satellites, earthquakes, naturalEvents, launches] =
     await Promise.all([
       computeCountryRiskFromEvents(),
       fetchAnalystEvents(),
       getHomeBriefs(),
+      getZoneBriefRows(),
       getGdeltStatus(),
       getVesselPositions(),
       fetchMilitaryAircraft(),
@@ -176,7 +201,7 @@ export default async function Home() {
             naturalEvents={naturalEvents}
             launches={launches}
             gdeltStatus={gdeltStatus}
-            zoneBriefs={groupBriefsByZone(briefs)}
+            zoneBriefs={groupBriefsByZone(zoneBriefRows)}
           />
         }
       />

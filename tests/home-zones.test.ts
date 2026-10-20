@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { groupBriefsByZone, HOME_NO_INTRO_HREF, ISO3_TO_ZONE, isHomeZone, ZONE_GLOBE_VIEWS, ZONE_ORDER, zoneHomeHref } from "../lib/homeZones";
+import { groupBriefsByZone, HOME_NO_INTRO_HREF, ISO3_TO_ZONE, isHomeZone, ZONE_BRIEF_DAYS, ZONE_GLOBE_VIEWS, ZONE_ORDER, zoneBriefsSince, zoneHomeHref } from "../lib/homeZones";
 import { ZONE_COUNTRIES } from "../lib/zoneCountries";
 
 test("Les cinq zones de l'accueil ont une vue de caméra et des pays", () => {
@@ -21,7 +21,7 @@ test("Un pays n'appartient qu'à une seule zone", () => {
   assert.equal(ISO3_TO_ZONE.USA, undefined);
 });
 
-test("Derniers articles : regroupés par zone, huit au plus, sport écarté", () => {
+test("Articles des cinq jours : regroupés par zone, tous gardés jusqu'au plafond, sport écarté", () => {
   const row = (id: number, zone: string, title: string) => ({
     id,
     zone_slug: zone,
@@ -37,7 +37,8 @@ test("Derniers articles : regroupés par zone, huit au plus, sport écarté", ()
     row(102, "zone-inconnue", "Ignoré"),
   ];
   const grouped = groupBriefsByZone(rows);
-  assert.equal(grouped.afrique.length, 8);
+  assert.equal(grouped.afrique.length, 12);
+  assert.equal(groupBriefsByZone(rows, 8).afrique.length, 8);
   assert.deepEqual(grouped.europe.map((b) => b.id), [100]);
   assert.equal(grouped["moyen-orient"].length, 0);
 });
@@ -46,4 +47,10 @@ test("Les retours vers l'accueil n'ont ni page intermédiaire ni introduction", 
   assert.equal(zoneHomeHref("europe"), "/?zone=europe&intro=0");
   assert.equal(zoneHomeHref("tracking"), HOME_NO_INTRO_HREF);
   assert.equal(HOME_NO_INTRO_HREF, "/?intro=0");
+});
+
+test("La fenêtre des articles d'une zone commence cinq jours avant maintenant", () => {
+  const now = Date.parse("2026-10-20T12:00:00Z");
+  assert.equal(zoneBriefsSince(now), "2026-10-15T12:00:00.000Z");
+  assert.equal(ZONE_BRIEF_DAYS, 5);
 });

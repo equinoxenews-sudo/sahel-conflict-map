@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef } from "react";
-import { ZONE_LABELS, type ZoneBriefCard, type ZoneSlug } from "@/lib/homeZones";
+import { ZONE_BRIEF_DAYS, ZONE_LABELS, type ZoneBriefCard, type ZoneSlug } from "@/lib/homeZones";
 import styles from "./ZoneCarousel.module.css";
 import { briefImageSrc } from "@/lib/imageUrls";
 import { setHoveredBrief } from "@/lib/briefHover";
@@ -18,7 +18,7 @@ interface ZoneCarouselProps {
   highlightId?: number | null;
 }
 
-// Les derniers articles de la zone, en défilement horizontal.
+// Les articles des cinq derniers jours de la zone, en défilement horizontal ; l'historique complet est dans Actualités.
 export default function ZoneCarousel({ zone, briefs, variant, highlightId = null }: ZoneCarouselProps) {
   const scroller = useRef<HTMLUListElement>(null);
 
@@ -38,11 +38,14 @@ export default function ZoneCarousel({ zone, briefs, variant, highlightId = null
   }
 
   return (
-    <section className={`${styles.carousel} ${variant === "dock" ? styles.dock : styles.inline}`} aria-label={`Derniers articles — ${ZONE_LABELS[zone]}`}>
+    <section className={`${styles.carousel} ${variant === "dock" ? styles.dock : styles.inline}`} aria-label={`Articles des ${ZONE_BRIEF_DAYS} derniers jours — ${ZONE_LABELS[zone]}`}>
       <div className={styles.head}>
-        <h3 className={styles.title}>Derniers articles · {ZONE_LABELS[zone]}</h3>
+        <h3 className={styles.title}>
+          {ZONE_BRIEF_DAYS} derniers jours · {ZONE_LABELS[zone]}
+          {briefs.length > 0 ? ` (${briefs.length})` : ""}
+        </h3>
         <Link href={`/zones/${zone}/actualite`} className={styles.all}>
-          Tout voir →
+          Historique complet →
         </Link>
         <div className={styles.arrows}>
           <button type="button" className={styles.arrow} onClick={() => scrollBy(-1)} aria-label="Articles précédents">
@@ -55,7 +58,7 @@ export default function ZoneCarousel({ zone, briefs, variant, highlightId = null
       </div>
 
       {briefs.length === 0 ? (
-        <p className={styles.empty}>Aucun article récent pour cette zone.</p>
+        <p className={styles.empty}>Aucun article ces {ZONE_BRIEF_DAYS} derniers jours : l&apos;historique complet est dans Actualités.</p>
       ) : (
         <ul className={styles.track} ref={scroller}>
           {briefs.map((brief) => (

@@ -58,7 +58,15 @@ export interface ZoneBriefCard {
 
 export type ZoneBriefsByZone = Record<ZoneSlug, ZoneBriefCard[]>;
 
-const PER_ZONE = 8;
+/** Profondeur du bandeau d'articles d'une zone : les cinq derniers jours (au-delà, on passe par Actualités). */
+export const ZONE_BRIEF_DAYS = 5;
+/** Plafond par zone : borne la taille de la page, même un jour de forte activité. */
+export const ZONE_BRIEFS_MAX = 80;
+
+/** Début de la fenêtre de cinq jours (ISO) pour la requête des articles des zones. */
+export function zoneBriefsSince(now = Date.now()): string {
+  return new Date(now - ZONE_BRIEF_DAYS * 86_400_000).toISOString();
+}
 
 /** Regroupe des synthèses déjà triées de la plus récente à la plus ancienne. */
 export function groupBriefsByZone(
@@ -70,11 +78,12 @@ export function groupBriefsByZone(
     published_at: string | null;
     veracity: string | null;
   }[],
+  perZone: number = ZONE_BRIEFS_MAX,
 ): ZoneBriefsByZone {
   const grouped = Object.fromEntries(ZONE_ORDER.map((zone) => [zone, [] as ZoneBriefCard[]])) as ZoneBriefsByZone;
   for (const row of rows) {
     const list = grouped[row.zone_slug as ZoneSlug];
-    if (!list || list.length >= PER_ZONE || isSportsTitle(row.title)) continue;
+    if (!list || list.length >= perZone || isSportsTitle(row.title)) continue;
     list.push({
       id: row.id,
       title: row.title,

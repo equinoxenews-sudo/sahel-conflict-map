@@ -8,11 +8,12 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 // de forêt/tempêtes/volcans/inondations, lancements) — wide enough to
 // hold a EONET "open" event's recent history and Launch Library's
 // upcoming window without being so wide the handles are hard to place.
-// Décision de Nicolas (18/10/2026) : deux mois d'historique, un mois à venir (lancements),
-// et une semaine sélectionnée par défaut. Un événement sorti de la période disparaît.
+// Décision de Nicolas : deux mois d'historique, un mois à venir (lancements), et cinq jours
+// sélectionnés par défaut (20/10/2026, comme le bandeau d'articles d'une zone ; une semaine
+// auparavant). Un événement sorti de la période disparaît.
 const PAST_DAYS = 60;
 const FUTURE_DAYS = 30;
-const DEFAULT_DAYS = 7;
+const DEFAULT_DAYS = 5;
 const MIN_RANGE_MS = DAY_MS;
 
 export interface GlobeDateRange {
@@ -45,7 +46,7 @@ export default function GlobeTimeRange({ onChange }: GlobeTimeRangeProps) {
   }, []);
   const totalMs = bounds.end - bounds.start;
 
-  // Par défaut : les 7 derniers jours, jusqu'à la fin de la journée en cours.
+  // Par défaut : les 5 derniers jours, jusqu'à la fin de la journée en cours.
   const [selStart, setSelStart] = useState(() => {
     const d = new Date(bounds.start + PAST_DAYS * DAY_MS - (DEFAULT_DAYS - 1) * DAY_MS);
     d.setHours(0, 0, 0, 0);
