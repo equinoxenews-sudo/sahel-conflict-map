@@ -5,11 +5,13 @@ import {
   CloudError,
   deleteCloud,
   listCloud,
+  listCloudVersions,
   pullDossier,
   pushDossier,
   unlockCloud,
   type CloudDossier,
   type CloudErrorCode,
+  type CloudVersion,
 } from "@/lib/investigation/cloudSync";
 import { useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
 import styles from "./CloudSyncPanel.module.css";
@@ -45,6 +47,7 @@ export default function CloudSyncPanel() {
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState<{ id: string; label: string } | null>(null);
   const [version, setVersion] = useState(0);
+  const [history, setHistory] = useState<{ id: string; versions: CloudVersion[] } | null>(null);
 
   // Les dossiers de cet appareil : relus à chaque ouverture et après une récupération.
   const rows = useMemo<Row[]>(() => {
@@ -155,6 +158,40 @@ export default function CloudSyncPanel() {
     }
   }
 
+  async function handleHistory(row: Row) {
+    if (history?.id === row.id) {
+      setHistory(null);
+      return;
+    }
+    setMessage(null);
+    setBusy({ id: row.id, label: "Historique…" });
+    try {
+      setHistory({ id: row.id, versions: await listCloudVersions(row.id) });
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Historique indisponible.");
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function handleRestoreVersion(row: Row, target: CloudVersion) {
+    const when = dateFormat.format(new Date(target.createdAt));
+    if (!window.confirm(`Remplacer la version de « ${row.name} » sur cet appareil par la version en ligne du ${when} ?
+
+La version actuelle de cet appareil est d'abord mise de côté (onglet Sauvegardes du dossier). Elle sera ensuite renvoyée en ligne comme nouvelle version.`)) return;
+    setMessage(null);
+    setBusy({ id: row.id, label: "Récupération…" });
+    try {
+      await pullDossier(storage, row.id, undefined, target.uploadId);
+      setVersion((value) => value + 1);
+      setMessage(`« ${row.name} » est revenu à la version du ${when}.`);
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Récupération impossible.");
+    } finally {
+      setBusy(null);
+    }
+  }
+
   async function handleDeleteRemote(row: Row) {
     if (!row.remote) return;
     if (!window.confirm(`Supprimer la copie en ligne de « ${row.name} » ? (Le dossier reste sur les appareils où il est.)`)) return;
@@ -184,8 +221,8 @@ export default function CloudSyncPanel() {
       {open ? (
         <div className={styles.body}>
           <p className={styles.intro}>
-            Tes dossiers vivent dans ce navigateur. Pour les retrouver sur un autre appareil, envoie-les en ligne ici,
-            puis récupère-les depuis l&apos;autre appareil. Les copies en ligne sont protégées par le mot de passe
+            Tes dossiers vivent dans ce navigateur et sont copiés en ligne automatiquement. Ici, tu peux forcer un envoi,
+            les récupérer sur un autre appareil ou revenir à une version plus ancienne. Les copies en ligne sont protégées par le mot de passe
             d&apos;administration.
           </p>
 
@@ -247,11 +284,33 @@ export default function CloudSyncPanel() {
                           </button>
                         ) : null}
                         {row.remote ? (
+                          <button type="button" className={styles.ghost} disabled={busy !== null} onClick={() => void handleHistory(row)}>
+                            {history?.id === row.id ? "Masquer l'historique" : "Historique"}
+                          </button>
+                        ) : null}
+                        {row.remote ? (
                           <button type="button" className={styles.ghost} disabled={busy !== null} onClick={() => void handleDeleteRemote(row)}>
                             Retirer d&apos;en ligne
                           </button>
                         ) : null}
                       </div>
+                      {history?.id === row.id ? (
+                        <ul className={styles.list}>
+                          {history.versions.map((entry) => (
+                            <li key={entry.uploadId} className={styles.row}>
+                              <span className={styles.detail}>
+                                {dateFormat.format(new Date(entry.createdAt))}
+                                {entry.current ? " · version actuelle" : ""}
+                              </span>
+                              {entry.current ? null : (
+                                <button type="button" className={styles.button} disabled={busy !== null} onClick={() => void handleRestoreVersion(row, entry)}>
+                                  Revenir à cette version
+                                </button>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
                     </li>
                   );
                 })}

@@ -10,6 +10,7 @@ import {
   type LayerOperation,
 } from "@/lib/investigation/shapes";
 import type { GraphShape, ShapeKind } from "@/lib/investigation/types";
+import CustomColorInput from "./CustomColorInput";
 import styles from "./GraphToolbox.module.css";
 
 export type ColorTarget = "fill" | "stroke" | "text";
@@ -173,7 +174,7 @@ function ColorRow({
           />
         ))}
         <label className={styles.custom} title="Autre couleur">
-          <input type="color" value={value ?? "#c89b3c"} onChange={(event) => onChange(event.target.value)} aria-label={`${label} : couleur personnalisée`} />
+          <CustomColorInput value={value} onCommit={onChange} label={`${label} : couleur personnalisée`} />
         </label>
       </div>
       {active ? <span className={styles.hint}>Clique sur une forme du graphe pour copier sa couleur.</span> : null}

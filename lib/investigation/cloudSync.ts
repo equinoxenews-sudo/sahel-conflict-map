@@ -3,6 +3,8 @@
 // « envoyer » en dépose une copie sur le serveur (protégée par le mot de passe), « récupérer »
 // la rapatrie sur un autre appareil. Un dossier est découpé en morceaux : la limite d'une requête
 // sur l'hébergeur est de 4,5 Mo, et les images (en data URL) pèsent vite plusieurs Mo.
+import { dossierContentCount, dossierSignature, saveSyncBase } from "./autoSave";
+import { saveBackup, type BackupMeta } from "./backups";
 import type { InvestigationStorage } from "./storage";
 
 export interface CloudDossier {
@@ -93,6 +95,7 @@ export async function pushDossier(
   const dossier = data.dossiers.find((d) => d.id === dossierId);
   if (!dossier) throw new CloudError("Dossier introuvable sur cet appareil.", "error");
 
+  const signature = dossierSignature(data, dossierId);
   const json = await storage.exportDossier(dossierId);
   const chunks = splitIntoChunks(json);
   const uploadId = crypto.randomUUID().replace(/-/g, "");
@@ -115,23 +118,70 @@ export async function pushDossier(
       noteCount: data.notes.filter((n) => n.dossierId === dossierId).length,
     }),
   });
+  saveSyncBase(dossierId, { signature, remoteUploadedAt: meta.uploadedAt });
   return meta;
 }
 
-/** Rapatrie un dossier en ligne : il remplace la version de cet appareil portant le même identifiant. */
+export interface CloudVersion {
+  uploadId: string;
+  createdAt: string;
+  current: boolean;
+}
+
+export async function listCloudVersions(dossierId: string): Promise<CloudVersion[]> {
+  const { versions } = await call<{ versions: CloudVersion[] }>(`/api/investigation/cloud/${encodeURIComponent(dossierId)}?versions=1`);
+  return versions;
+}
+
+/**
+ * Rapatrie un dossier en ligne : il remplace la version de cet appareil portant le même identifiant.
+ * Sans `uploadId`, c'est la version courante ; avec, une version plus ancienne de l'historique.
+ */
 export async function pullDossier(
   storage: InvestigationStorage,
   dossierId: string,
   onProgress?: (done: number, total: number) => void,
+  uploadId?: string,
 ): Promise<void> {
   const base = `/api/investigation/cloud/${encodeURIComponent(dossierId)}`;
-  const { meta } = await call<{ meta: CloudDossier }>(base);
+  const { meta } = await call<{ meta: CloudDossier }>(uploadId ? `${base}?upload=${encodeURIComponent(uploadId)}` : base);
   const parts: string[] = [];
   for (let seq = 0; seq < meta.chunkCount; seq++) {
     onProgress?.(seq, meta.chunkCount);
-    const chunk = await call<{ data: string }>(`${base}?seq=${seq}`);
+    const chunk = await call<{ data: string }>(`${base}?${uploadId ? `upload=${encodeURIComponent(uploadId)}&` : ""}seq=${seq}`);
     parts.push(chunk.data);
   }
   onProgress?.(meta.chunkCount, meta.chunkCount);
+  await backupLocalCopy(storage, dossierId);
   await storage.importDossier(parts.join(""), { keepIds: true });
+  if (!uploadId) {
+    // Cet appareil repart de la copie en ligne : la prochaine sauvegarde automatique ne verra pas de conflit.
+    saveSyncBase(dossierId, { signature: dossierSignature(storage.load(), dossierId), remoteUploadedAt: meta.uploadedAt });
+  }
+}
+
+/** Avant qu'une copie en ligne ne remplace celle de cet appareil, celle-ci est mise de côté (sauvegardes du dossier). */
+async function backupLocalCopy(storage: InvestigationStorage, dossierId: string): Promise<void> {
+  const data = storage.load();
+  const dossier = data.dossiers.find((item) => item.id === dossierId);
+  if (!dossier || dossierContentCount(data, dossierId) === 0) return;
+  const count = (items: { dossierId: string }[]) => items.filter((item) => item.dossierId === dossierId).length;
+  try {
+    const json = await storage.exportDossier(dossierId);
+    const meta: BackupMeta = {
+      id: crypto.randomUUID(),
+      dossierId,
+      dossierName: dossier.name,
+      createdAt: new Date().toISOString(),
+      kind: "before-restore",
+      entities: count(data.entities),
+      relations: count(data.relations),
+      notes: count(data.notes),
+      sources: count(data.sources),
+      bytes: json.length,
+    };
+    await saveBackup(meta, json);
+  } catch {
+    // IndexedDB indisponible : on ne bloque pas la récupération, l'utilisateur l'a demandée.
+  }
 }

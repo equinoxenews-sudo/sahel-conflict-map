@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import Header from "@/components/equinoxe/Header";
+import CloudAutoSave from "./CloudAutoSave";
 import styles from "./InvestigationShell.module.css";
 
 interface NavItem {
@@ -27,10 +28,12 @@ export default function InvestigationShell({ children }: { children: ReactNode }
       <Header />
 
       <div className={styles.banner}>
-        <strong>Données enregistrées sur cet appareil.</strong> Vos dossiers vivent dans ce navigateur et ne
-        sont envoyés à un serveur que si vous le demandez (« Synchronisation entre appareils », protégée par
-        mot de passe). Exportez-les en JSON pour les sauvegarder ou les transférer.
+        <strong>Dossiers enregistrés dans ce navigateur et copiés en ligne automatiquement</strong> (protégés par mot de
+        passe), images et documents compris, quelques instants après chaque modification. Exportez en JSON pour garder
+        aussi une copie de votre côté.
       </div>
+
+      <CloudAutoSave />
 
       <nav className={styles.subnav}>
         {NAV_ITEMS.map((item) => (

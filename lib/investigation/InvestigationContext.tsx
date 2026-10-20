@@ -46,6 +46,10 @@ export function useInvestigationStorage(): InvestigationStorage {
   return useInvestigationContext().storage;
 }
 
+export function useInvestigationData() {
+  return useInvestigationContext().data;
+}
+
 export function useDossiers() {
   return useInvestigationContext().data.dossiers;
 }

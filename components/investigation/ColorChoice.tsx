@@ -1,6 +1,7 @@
 "use client";
 
 import { PALETTE } from "@/lib/investigation/shapes";
+import CustomColorInput from "./CustomColorInput";
 import styles from "./ColorChoice.module.css";
 
 interface ColorChoiceProps {
@@ -40,7 +41,7 @@ export default function ColorChoice({ label, value, onChange, disabled = false }
           />
         ))}
         <label className={styles.custom} title="Autre couleur">
-          <input type="color" value={value ?? "#c89b3c"} onChange={(event) => onChange(event.target.value)} aria-label={`${label} : couleur libre`} />
+          <CustomColorInput value={value} onCommit={onChange} label={`${label} : couleur libre`} />
         </label>
       </div>
     </fieldset>

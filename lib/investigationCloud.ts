@@ -1,6 +1,7 @@
 // Copie en ligne des dossiers d'investigation (serveur uniquement, clé de service).
 // Voir supabase/add-investigation-cloud.sql. L'accès est vérifié par les routes API
 // (cookie d'administration) : ce module ne fait aucun contrôle d'accès lui-même.
+import { selectVersionsToKeep } from "./investigationVersions";
 import { getSupabaseAdmin } from "./supabaseAdmin";
 
 export interface CloudDossierMeta {
@@ -129,24 +130,17 @@ export async function commitCloudUpload(input: CommitInput): Promise<CloudDossie
     .single();
   if (upsertError) throw new Error(upsertError.message);
 
-  // Nettoyage : on garde la version qui vient d'être validée ET la précédente (filet de sécurité
-  // contre un envoi par erreur) ; les versions plus anciennes et les envois abandonnés sont retirés.
-  const { data: versions } = await admin
-    .from("investigation_cloud_chunks")
-    .select("upload_id, created_at")
-    .eq("dossier_id", input.dossierId)
-    .eq("seq", 0);
-  const ranked = ((versions ?? []) as { upload_id: string; created_at: string }[])
-    .filter((row) => row.upload_id !== input.uploadId)
-    .sort((a, b) => b.created_at.localeCompare(a.created_at));
-  const keepPrevious = ranked[0]?.upload_id;
-  let cleanup = admin
-    .from("investigation_cloud_chunks")
-    .delete()
-    .eq("dossier_id", input.dossierId)
-    .neq("upload_id", input.uploadId);
-  if (keepPrevious) cleanup = cleanup.neq("upload_id", keepPrevious);
-  await cleanup;
+  // Nettoyage : on garde la version validée et un historique éclairci (les plus récentes + la dernière de
+  // chaque jour récent, voir investigationVersions.ts) ; le reste et les envois abandonnés sont retirés.
+  const versions = await listCloudVersions(input.dossierId);
+  const keep = selectVersionsToKeep(
+    versions.map((row) => ({ upload_id: row.uploadId, created_at: row.createdAt })),
+    input.uploadId,
+  );
+  const drop = versions.map((row) => row.uploadId).filter((id) => !keep.has(id));
+  if (drop.length > 0) {
+    await admin.from("investigation_cloud_chunks").delete().eq("dossier_id", input.dossierId).in("upload_id", drop);
+  }
   return toMeta(saved as MetaRow);
 }
 
@@ -156,4 +150,34 @@ export async function deleteCloudDossier(dossierId: string): Promise<void> {
   if (chunkError) throw new Error(chunkError.message);
   const { error } = await admin.from("investigation_cloud").delete().eq("dossier_id", dossierId);
   if (error) throw new Error(error.message);
+}
+
+export interface CloudVersion {
+  uploadId: string;
+  createdAt: string;
+  chunkCount: number;
+  current: boolean;
+}
+
+/** Les versions complètes d'un dossier (une ligne par envoi), de la plus récente à la plus ancienne. */
+export async function listCloudVersions(dossierId: string): Promise<{ uploadId: string; createdAt: string }[]> {
+  const { data, error } = await getSupabaseAdmin()
+    .from("investigation_cloud_chunks")
+    .select("upload_id, created_at")
+    .eq("dossier_id", dossierId)
+    .eq("seq", 0);
+  if (error) throw new Error(error.message);
+  return ((data ?? []) as { upload_id: string; created_at: string }[])
+    .map((row) => ({ uploadId: row.upload_id, createdAt: row.created_at }))
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export async function getCloudVersionChunkCount(dossierId: string, uploadId: string): Promise<number> {
+  const { count, error } = await getSupabaseAdmin()
+    .from("investigation_cloud_chunks")
+    .select("seq", { count: "exact", head: true })
+    .eq("dossier_id", dossierId)
+    .eq("upload_id", uploadId);
+  if (error) throw new Error(error.message);
+  return count ?? 0;
 }

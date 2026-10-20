@@ -5,7 +5,9 @@ import {
   deleteCloudDossier,
   getCloudChunk,
   getCloudMeta,
+  getCloudVersionChunkCount,
   isValidDossierId,
+  listCloudVersions,
   MAX_CHUNK_CHARS,
   putCloudChunk,
 } from "@/lib/investigationCloud";
@@ -31,9 +33,32 @@ export async function GET(request: Request, context: Context) {
   const checked = await guard(context);
   if (checked instanceof NextResponse) return checked;
   try {
+    const params = new URL(request.url).searchParams;
     const found = await getCloudMeta(checked.id);
     if (!found) return NextResponse.json({ error: "Dossier introuvable en ligne." }, { status: 404 });
-    const seqParam = new URL(request.url).searchParams.get("seq");
+
+    // Historique : ?versions=1 liste les versions conservées ; ?upload=ID[&seq=n] lit l'une d'elles.
+    if (params.get("versions") !== null) {
+      const versions = await listCloudVersions(checked.id);
+      return NextResponse.json({
+        versions: versions.map((version) => ({ ...version, current: version.uploadId === found.uploadId })),
+      });
+    }
+    const upload = params.get("upload");
+    if (upload !== null) {
+      if (!UPLOAD_ID_PATTERN.test(upload)) return NextResponse.json({ error: "Version invalide." }, { status: 400 });
+      const total = await getCloudVersionChunkCount(checked.id, upload);
+      if (total === 0) return NextResponse.json({ error: "Version introuvable." }, { status: 404 });
+      const part = params.get("seq");
+      if (part === null) return NextResponse.json({ meta: { chunkCount: total } });
+      const index = Number(part);
+      if (!Number.isInteger(index) || index < 0 || index >= total) return NextResponse.json({ error: "Morceau inexistant." }, { status: 400 });
+      const chunk = await getCloudChunk(checked.id, upload, index);
+      if (chunk === null) return NextResponse.json({ error: "Morceau manquant : version incomplète." }, { status: 500 });
+      return NextResponse.json({ seq: index, data: chunk });
+    }
+
+    const seqParam = params.get("seq");
     if (seqParam === null) return NextResponse.json({ meta: found.meta });
     const seq = Number(seqParam);
     if (!Number.isInteger(seq) || seq < 0 || seq >= found.meta.chunkCount) {
