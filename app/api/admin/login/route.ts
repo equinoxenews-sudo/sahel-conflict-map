@@ -8,6 +8,8 @@ export async function POST(request: Request) {
   const body = (await request.json().catch(() => null)) as { password?: unknown } | null;
   const token = tokenForPassword(body?.password);
   if (!token) {
+    // Un mot de passe faux fait attendre : on ne peut pas enchaîner des essais à toute vitesse.
+    await new Promise((resolve) => setTimeout(resolve, 900));
     return NextResponse.json({ error: "Mot de passe incorrect." }, { status: 401 });
   }
   const response = NextResponse.json({ ok: true });
