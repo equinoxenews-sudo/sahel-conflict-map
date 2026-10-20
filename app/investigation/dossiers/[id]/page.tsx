@@ -37,6 +37,23 @@ export default function DossierWorkspacePage() {
   // le graphe affiché à côté du texte, et la fiche sur laquelle le centrer.
   const [activeNoteId, setActiveNoteId] = useState<string | null>(null);
   const [showGraph, setShowGraph] = useState(false);
+  // Le graphe à côté du texte : fermé à la main, il le reste quand on ouvre une autre fiche.
+  const GRAPH_PREF = "equinoxe-notes-graph";
+  const graphPref = () => {
+    try {
+      return window.localStorage.getItem(GRAPH_PREF);
+    } catch {
+      return null;
+    }
+  };
+  function changeShowGraph(show: boolean) {
+    setShowGraph(show);
+    try {
+      window.localStorage.setItem(GRAPH_PREF, show ? "shown" : "hidden");
+    } catch {
+      // stockage indisponible : le choix vaut pour cette session
+    }
+  }
   const [focus, setFocus] = useState<{ entityId: string; nonce: number } | null>(null);
 
   // « Ouvrir la fiche » depuis le graphe : crée la fiche texte si besoin et passe
@@ -45,7 +62,7 @@ export default function DossierWorkspacePage() {
     const entity = entities.find((e) => e.id === entityId);
     if (!entity) return;
     setActiveNoteId(ensureFiche(storage, notes, entity).id);
-    setShowGraph(true);
+    if (graphPref() !== "hidden") setShowGraph(true);
     setTab("notes");
   }
 
@@ -55,13 +72,13 @@ export default function DossierWorkspacePage() {
     const attribute = entity?.attributes?.find((a) => a.id === attributeId);
     if (!entity || !attribute) return;
     setActiveNoteId(ensureAttributePage(storage, notes, entity, attribute).id);
-    setShowGraph(true);
+    if (graphPref() !== "hidden") setShowGraph(true);
     setTab("notes");
   }
 
   // « Voir dans le graphe » depuis une fiche : ouvre le graphe à droite et le centre sur la carte.
   function showInGraph(entityId: string) {
-    setShowGraph(true);
+    changeShowGraph(true);
     setFocus((current) => ({ entityId, nonce: (current?.nonce ?? 0) + 1 }));
   }
 
@@ -110,7 +127,7 @@ export default function DossierWorkspacePage() {
           activeNoteId={activeNoteId}
           onActiveNoteChange={setActiveNoteId}
           showGraph={showGraph}
-          onShowGraphChange={setShowGraph}
+          onShowGraphChange={changeShowGraph}
           focusRequest={focus}
           onShowInGraph={showInGraph}
           onOpenFiche={openFiche}

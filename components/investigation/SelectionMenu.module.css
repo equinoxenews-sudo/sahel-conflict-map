@@ -1,0 +1,35 @@
+.menu {
+  position: fixed;
+  z-index: 80;
+  min-width: 250px;
+  padding: 5px;
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  background: rgba(14, 20, 34, 0.98);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+.item {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.item:hover {
+  background: rgba(213, 166, 64, 0.16);
+  color: var(--accent-gold-bright);
+}
+
+.separator {
+  height: 1px;
+  margin: 4px 6px;
+  background: var(--border-glass);
+}

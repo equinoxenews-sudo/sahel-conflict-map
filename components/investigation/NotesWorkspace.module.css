@@ -1202,3 +1202,98 @@ button.attrChip:hover {
 .refMissing {
   color: #ffb4b4;
 }
+
+/* Image seule sur sa ligne : figure en bloc, jamais coincée à côté du texte. */
+.figureBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 12px 0;
+}
+
+.figureBlock .figureButton {
+  max-width: 100%;
+}
+
+.figureBlock .figureImage {
+  width: auto;
+  height: auto;
+  max-height: 78vh;
+}
+
+.figureBlock[data-size="s"] .figureButton {
+  max-width: min(100%, 260px);
+}
+
+.figureBlock[data-size="m"] .figureButton {
+  max-width: min(100%, 460px);
+}
+
+.figureBlock[data-size="l"] .figureButton {
+  max-width: min(100%, 780px);
+}
+
+.figureBlock[data-size="full"] .figureButton,
+.figureBlock[data-size="full"] .figureImage {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Taille d'une image, réglée depuis la galerie de la note. */
+.thumbCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sizeBtns {
+  display: flex;
+  gap: 2px;
+}
+
+.sizeBtn {
+  flex: 1;
+  padding: 2px 0;
+  border: 1px solid var(--border-glass);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 10.5px;
+  cursor: pointer;
+}
+
+.sizeBtn:hover {
+  border-color: var(--accent-gold);
+}
+
+.sizeBtnOn {
+  border-color: var(--accent-gold);
+  background: rgba(213, 166, 64, 0.16);
+  color: var(--accent-gold-bright);
+}
+
+/* Fermer le graphe, de l'intérieur de son volet. */
+.right {
+  position: relative;
+}
+
+.closeGraph {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 5;
+  padding: 4px 10px;
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  background: rgba(14, 20, 34, 0.92);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.closeGraph:hover {
+  border-color: var(--accent-gold);
+}

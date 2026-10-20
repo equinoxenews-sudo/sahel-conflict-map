@@ -69,6 +69,22 @@ export default function NotesWorkspace({
   const [pendingName, setPendingName] = useState("");
   const [chooser, setChooser] = useState<{ target: string; entities: InvestigationEntity[] } | null>(null);
   const [ratio, setRatio] = useState(0.55);
+  // Liste masquée : on se concentre sur la fiche ouverte (choix gardé dans ce navigateur).
+  const [listHidden, setListHidden] = useState(() => {
+    try {
+      return window.localStorage.getItem("equinoxe-notes-list-hidden") === "1";
+    } catch {
+      return false;
+    }
+  });
+  function changeListHidden(hidden: boolean) {
+    setListHidden(hidden);
+    try {
+      window.localStorage.setItem("equinoxe-notes-list-hidden", hidden ? "1" : "0");
+    } catch {
+      // stockage indisponible : le choix vaut pour cette session
+    }
+  }
   const panes = useRef<HTMLDivElement>(null);
 
   const activeNote = notes.find((note) => note.id === activeNoteId) ?? null;
@@ -212,6 +228,9 @@ export default function NotesWorkspace({
       <div className={styles.topBar}>
         <span className={styles.topTitle}>Notes &amp; fiches</span>
         <div className={styles.topActions}>
+          <button type="button" className={styles.ghost} onClick={() => changeListHidden(!listHidden)} title="Masquer ou afficher la liste des fiches et des notes">
+            {listHidden ? "Afficher la liste" : "Masquer la liste"}
+          </button>
           <button type="button" className={showGraph ? styles.gold : styles.ghost} onClick={() => onShowGraphChange(!showGraph)}>
             {showGraph ? "Masquer le graphe" : "Afficher le graphe à droite"}
           </button>
@@ -225,6 +244,7 @@ export default function NotesWorkspace({
 
       <div className={styles.panes} ref={panes}>
         <div className={styles.left} style={showGraph ? { flex: `0 0 ${ratio * 100}%` } : undefined}>
+          {listHidden ? null : (
           <aside className={styles.sidebar}>
             <div className={styles.sideHeader}>
               <input
@@ -329,6 +349,7 @@ export default function NotesWorkspace({
               {notes.length > 0 && fiches.length + free.length + loosePages.length === 0 ? <p className={styles.hint}>Aucun résultat.</p> : null}
             </div>
           </aside>
+          )}
 
           <section className={styles.editorPane}>
             {activeNote ? (
@@ -362,6 +383,9 @@ export default function NotesWorkspace({
           <>
             <div className={styles.divider} onPointerDown={startResize} role="separator" aria-orientation="vertical" title="Glisser pour redimensionner" />
             <div className={styles.right}>
+              <button type="button" className={styles.closeGraph} onClick={() => onShowGraphChange(false)} title="Fermer le graphe et se concentrer sur les fiches">
+                ✕ Fermer le graphe
+              </button>
               <EntityGraphPanel dossierId={dossierId} compact onOpenFiche={onOpenFiche} onOpenAttribute={onOpenAttribute} focusRequest={focusRequest} />
             </div>
           </>

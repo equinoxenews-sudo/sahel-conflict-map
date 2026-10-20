@@ -4,9 +4,46 @@
 
 const IMAGE_REF = /!\[[^\]\n]*\]\(img:([\w-]+)\)/g;
 
+export type ImageSize = "s" | "m" | "l" | "full";
+
+export const IMAGE_SIZES: ImageSize[] = ["s", "m", "l", "full"];
+
+export const IMAGE_SIZE_LABELS: Record<ImageSize, string> = {
+  s: "Petite",
+  m: "Moyenne",
+  l: "Grande",
+  full: "Pleine largeur",
+};
+
+// La taille d'affichage se note à la fin de la légende : ![légende|m](img:ID). Sans suffixe : grande.
+const SIZE_SUFFIX = /\|(s|m|l|full)$/;
+
+/** Légende et taille d'une image d'après le texte entre crochets de son repère. */
+export function parseImageAlt(alt: string): { caption: string; size: ImageSize } {
+  const match = alt.match(SIZE_SUFFIX);
+  return { caption: (match ? alt.slice(0, match.index) : alt).trim(), size: match ? (match[1] as ImageSize) : "l" };
+}
+
 /** Texte à insérer pour une image importée. */
-export function imageToken(id: string, caption = ""): string {
-  return `![${caption.replace(/[\]\n]/g, " ").trim()}](img:${id})`;
+export function imageToken(id: string, caption = "", size: ImageSize = "l"): string {
+  const clean = caption.replace(/[\]\n|]/g, " ").trim();
+  return `![${clean}${size === "l" ? "" : `|${size}`}](img:${id})`;
+}
+
+/** Taille d'affichage d'une image du texte (grande par défaut, y compris si l'image est introuvable). */
+export function imageSizeOf(body: string, id: string): ImageSize {
+  const safeId = id.replace(/[^\w-]/g, "");
+  const match = body.match(new RegExp(`!\\[([^\\]\\n]*)\\]\\(img:${safeId}\\)`));
+  return match ? parseImageAlt(match[1]).size : "l";
+}
+
+/** Change la taille d'affichage d'une image (toutes ses occurrences dans le texte). */
+export function setImageSize(body: string, id: string, size: ImageSize): string {
+  const safeId = id.replace(/[^\w-]/g, "");
+  return body.replace(new RegExp(`(!\\[)([^\\]\\n]*)(\\]\\(img:${safeId}\\))`, "g"), (_whole, start: string, alt: string, end: string) => {
+    const { caption } = parseImageAlt(alt);
+    return `${start}${caption}${size === "l" ? "" : `|${size}`}${end}`;
+  });
 }
 
 /** Identifiants des images citées dans un texte, sans doublon. */

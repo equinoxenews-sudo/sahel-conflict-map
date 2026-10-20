@@ -6,7 +6,9 @@ const DB_NAME = "equinoxe-investigation-images";
 const STORE = "images";
 const MAX_SIDE_PX = 512;
 /** Captures d'écran et documents : assez grands pour rester lisibles (texte, détails). */
-export const NOTE_IMAGE_MAX_SIDE = 1600;
+export const NOTE_IMAGE_MAX_SIDE = 2400;
+/** Qualité d'encodage des images des notes : plus fine que celle des pastilles (le texte des captures doit rester lisible). */
+export const NOTE_IMAGE_QUALITY = 0.93;
 const MAX_INPUT_BYTES = 15 * 1024 * 1024;
 const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/webp", "image/gif"];
 
@@ -71,7 +73,7 @@ export function revokeImageUrl(id: string): void {
 export class ImageFileError extends Error {}
 
 /** Réduit une image importée (côté navigateur) avant de la stocker. */
-export async function prepareImage(file: Blob, maxSide: number = MAX_SIDE_PX): Promise<Blob> {
+export async function prepareImage(file: Blob, maxSide: number = MAX_SIDE_PX, quality = 0.86): Promise<Blob> {
   if (!ACCEPTED_TYPES.includes(file.type)) {
     throw new ImageFileError("Format non pris en charge : utilise une image PNG, JPEG, WebP ou GIF.");
   }
@@ -88,9 +90,9 @@ export async function prepareImage(file: Blob, maxSide: number = MAX_SIDE_PX): P
   bitmap.close();
 
   // WebP conserve la transparence des logos ; repli JPEG si le navigateur ne l'encode pas.
-  const webp = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/webp", 0.86));
+  const webp = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/webp", quality));
   if (webp && webp.type === "image/webp") return webp;
-  const jpeg = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.88));
+  const jpeg = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", Math.min(0.95, quality + 0.02)));
   if (!jpeg) throw new ImageFileError("Impossible de convertir cette image.");
   return jpeg;
 }

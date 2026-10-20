@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { citationNumbers } from "@/lib/investigation/citations";
+import { parseImageAlt } from "@/lib/investigation/imageRefs";
 import type { Source } from "@/lib/investigation/types";
 import { parseBlocks, parseInline, type WikiResolution } from "@/lib/investigation/wikilinks";
 import SourceFileChip from "./SourceFileChip";
@@ -33,20 +34,23 @@ const LINK_HINT: Record<WikiResolution["kind"], string> = {
 
 type Zoom = (image: { url: string; alt: string }) => void;
 
-// Image du texte : miniature cliquable (capture d'écran, photo), légende dessous.
-function NoteImage({ id, alt, onZoom }: { id: string; alt: string; onZoom: Zoom }) {
+// Image du texte : cliquable pour l'agrandir (image à sa définition d'origine), légende dessous. Seule sur
+// sa ligne, c'est une figure en bloc dont la taille se règle (S, M, grande, pleine largeur) ; au milieu d'une
+// phrase, c'est une vignette dans le texte.
+function NoteImage({ id, alt, onZoom, block = false }: { id: string; alt: string; onZoom: Zoom; block?: boolean }) {
   const url = useEntityImage(id);
+  const { caption, size } = parseImageAlt(alt);
   return (
-    <span className={styles.figure}>
+    <span className={block ? styles.figureBlock : styles.figure} data-size={block ? size : undefined}>
       {url ? (
-        <button type="button" className={styles.figureButton} onClick={() => onZoom({ url, alt })} title="Agrandir">
+        <button type="button" className={styles.figureButton} onClick={() => onZoom({ url, alt: caption })} title="Agrandir">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={url} alt={alt} className={styles.figureImage} />
+          <img src={url} alt={caption} className={styles.figureImage} />
         </button>
       ) : (
         <span className={styles.figureMissing}>Image introuvable (supprimée ou non importée)</span>
       )}
-      {alt ? <span className={styles.figureCaption}>{alt}</span> : null}
+      {caption ? <span className={styles.figureCaption}>{caption}</span> : null}
     </span>
   );
 }
@@ -178,6 +182,8 @@ export default function NoteRenderer({ body, resolve, onLink, sources = [] }: No
             return <blockquote key={index}>{inline(block.text)}</blockquote>;
           case "rule":
             return <hr key={index} />;
+          case "image":
+            return <NoteImage key={index} id={block.id} alt={block.alt} onZoom={setZoomed} block />;
           case "paragraph":
             return <p key={index}>{inline(block.text)}</p>;
         }

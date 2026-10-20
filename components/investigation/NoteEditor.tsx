@@ -6,8 +6,18 @@ import { attributeLink, groupAttributes } from "@/lib/investigation/attributes";
 import { useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
 import { attributeLabel, renameNote } from "@/lib/investigation/fiches";
 import { citationToken, insertInline } from "@/lib/investigation/citations";
-import { extractImageIds, imageToken, insertTokenAt, removeImageToken } from "@/lib/investigation/imageRefs";
-import { deleteImage, ImageFileError, NOTE_IMAGE_MAX_SIDE, prepareImage, putImage } from "@/lib/investigation/imageStore";
+import {
+  IMAGE_SIZES,
+  IMAGE_SIZE_LABELS,
+  extractImageIds,
+  imageSizeOf,
+  imageToken,
+  insertTokenAt,
+  removeImageToken,
+  setImageSize,
+} from "@/lib/investigation/imageRefs";
+import { linkSelection } from "@/lib/investigation/selectionLink";
+import { deleteImage, ImageFileError, NOTE_IMAGE_MAX_SIDE, NOTE_IMAGE_QUALITY, prepareImage, putImage } from "@/lib/investigation/imageStore";
 import {
   CLAIM_TYPE_LABELS,
   ENTITY_TYPE_LABELS,
@@ -22,6 +32,8 @@ import { findBacklinks, normalizeKey, resolveWikiLink } from "@/lib/investigatio
 import AttributeIcon from "./AttributeIcon";
 import AttributesEditor from "./AttributesEditor";
 import CitePicker from "./CitePicker";
+import LinkPicker from "./LinkPicker";
+import SelectionMenu from "./SelectionMenu";
 import EntityForm, { entityPatchFromValues } from "./EntityForm";
 import EntityTypeIcon from "./EntityTypeIcon";
 import HexFlag from "./HexFlag";
@@ -246,6 +258,10 @@ export default function NoteEditor({
   const [importing, setImporting] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
   const [citeOpen, setCiteOpen] = useState(false);
+  // Passage sélectionné : menu du clic droit et sélecteur « Renvoyer vers… ».
+  const [menu, setMenu] = useState<{ x: number; y: number; start: number; end: number } | null>(null);
+  const [linking, setLinking] = useState<{ start: number; end: number } | null>(null);
+  const [hasSelection, setHasSelection] = useState(false);
   // Images importées pendant cette ouverture : celles qui ne sont finalement plus
   // citées dans le texte sont supprimées de la mémoire du navigateur.
   const sessionImages = useRef<string[]>([]);
@@ -284,7 +300,7 @@ export default function NoteEditor({
     let working = latestBody.current;
     try {
       for (const file of images) {
-        const id = await putImage(await prepareImage(file, NOTE_IMAGE_MAX_SIDE));
+        const id = await putImage(await prepareImage(file, NOTE_IMAGE_MAX_SIDE, NOTE_IMAGE_QUALITY));
         sessionImages.current.push(id);
         const caption = pasted
           ? `Capture du ${new Intl.DateTimeFormat("fr-FR").format(new Date())}`
@@ -307,7 +323,8 @@ export default function NoteEditor({
   // rejoint les « Sources liées » de la note.
   function insertCitation(sourceId: string) {
     const el = textarea.current;
-    const cursor = mode === "edit" && el ? el.selectionStart : latestBody.current.length;
+    // La citation se place à la fin du passage sélectionné, sinon au curseur.
+    const cursor = mode === "edit" && el ? el.selectionEnd : latestBody.current.length;
     const inserted = insertInline(latestBody.current, cursor, citationToken(sourceId));
     latestBody.current = inserted.text;
     setBody(inserted.text);
@@ -319,6 +336,40 @@ export default function NoteEditor({
       el?.focus();
       el?.setSelectionRange(inserted.next, inserted.next);
     });
+  }
+
+  // Renvoyer vers une fiche : le passage sélectionné devient un lien [[Fiche|passage]], cliquable en lecture.
+  function openLinkPicker() {
+    const el = textarea.current;
+    if (!el || el.selectionStart === el.selectionEnd) return;
+    setMenu(null);
+    setLinking({ start: el.selectionStart, end: el.selectionEnd });
+  }
+
+  function applyLink(label: string) {
+    if (!linking) return;
+    const result = linkSelection(latestBody.current, linking.start, linking.end, label);
+    setLinking(null);
+    if (!result) return;
+    latestBody.current = result.text;
+    setBody(result.text);
+    const el = textarea.current;
+    requestAnimationFrame(() => {
+      el?.focus();
+      el?.setSelectionRange(result.next, result.next);
+    });
+  }
+
+  function copySelection(cut: boolean) {
+    const range = menu;
+    if (!range) return;
+    const text = latestBody.current.slice(range.start, range.end);
+    void navigator.clipboard?.writeText(text).catch(() => undefined);
+    if (cut) {
+      const next = latestBody.current.slice(0, range.start) + latestBody.current.slice(range.end);
+      latestBody.current = next;
+      setBody(next);
+    }
   }
 
   function removeImage(id: string) {
@@ -484,6 +535,9 @@ export default function NoteEditor({
         <button type="button" className={citeOpen ? `${styles.gold}` : styles.ghost} onClick={() => setCiteOpen((open) => !open)} aria-expanded={citeOpen}>
           + Citer une source
         </button>
+        <button type="button" className={styles.ghost} onClick={openLinkPicker} disabled={!hasSelection} title="Sélectionne un passage du texte, puis renvoie-le vers une fiche (ou clic droit sur la sélection)">
+          🔗 Lier la sélection
+        </button>
         <span className={styles.imageHint}>ou colle une capture d&apos;écran (Ctrl+V) / glisse un fichier dans la note</span>
         <input
           ref={fileInput}
@@ -500,6 +554,29 @@ export default function NoteEditor({
       </div>
       )}
       {citeOpen && !locked ? <CitePicker dossierId={note.dossierId} sources={sources} onPick={insertCitation} onClose={() => setCiteOpen(false)} /> : null}
+      {linking && !locked ? (
+        <LinkPicker
+          selected={latestBody.current.slice(linking.start, linking.end).trim()}
+          notes={notes}
+          entities={entities}
+          currentNoteId={note.id}
+          onPick={applyLink}
+          onClose={() => setLinking(null)}
+        />
+      ) : null}
+      {menu && !locked ? (
+        <SelectionMenu
+          x={menu.x}
+          y={menu.y}
+          onClose={() => setMenu(null)}
+          items={[
+            { label: "🔗 Renvoyer vers une fiche ou une note…", onClick: () => setLinking({ start: menu.start, end: menu.end }) },
+            { label: "📎 Citer une source ici…", onClick: () => setCiteOpen(true) },
+            { label: "Copier", onClick: () => copySelection(false), separated: true },
+            { label: "Couper", onClick: () => copySelection(true) },
+          ]}
+        />
+      ) : null}
       {imageError ? <p className={styles.imageError}>{imageError}</p> : null}
 
       <div
@@ -531,6 +608,13 @@ export default function NoteEditor({
                 void addImageFiles(files, true);
               }}
               onClick={(e) => handleBodyChange(body, e.currentTarget.selectionStart)}
+              onSelect={(e) => setHasSelection(e.currentTarget.selectionStart !== e.currentTarget.selectionEnd)}
+              onContextMenu={(e) => {
+                const el = e.currentTarget;
+                if (el.selectionStart === el.selectionEnd) return; // sans sélection : le menu habituel du navigateur
+                e.preventDefault();
+                setMenu({ x: e.clientX, y: e.clientY, start: el.selectionStart, end: el.selectionEnd });
+              }}
               onBlur={() => window.setTimeout(() => setSuggest(null), 120)}
               spellCheck
               autoFocus={!body.trim()}
@@ -579,7 +663,24 @@ export default function NoteEditor({
           <span className={styles.backTitle}>Images de cette note ({extractImageIds(body).length})</span>
           <div className={styles.thumbs}>
             {extractImageIds(body).map((id) => (
-              <GalleryThumb key={id} id={id} onRemove={locked ? undefined : () => removeImage(id)} />
+              <div key={id} className={styles.thumbCell}>
+                <GalleryThumb id={id} onRemove={locked ? undefined : () => removeImage(id)} />
+                {locked ? null : (
+                  <div className={styles.sizeBtns} role="group" aria-label="Taille d'affichage de l'image">
+                    {IMAGE_SIZES.map((size) => (
+                      <button
+                        key={size}
+                        type="button"
+                        className={imageSizeOf(body, id) === size ? `${styles.sizeBtn} ${styles.sizeBtnOn}` : styles.sizeBtn}
+                        title={`${IMAGE_SIZE_LABELS[size]} dans le texte`}
+                        onClick={() => setBody((current) => setImageSize(current, id, size))}
+                      >
+                        {size === "full" ? "Plein" : size.toUpperCase()}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
         </div>

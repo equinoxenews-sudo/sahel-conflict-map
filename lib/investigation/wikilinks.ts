@@ -123,6 +123,7 @@ export type Block =
   | { type: "list"; ordered: boolean; items: string[] }
   | { type: "quote"; text: string }
   | { type: "rule" }
+  | { type: "image"; id: string; alt: string }
   | { type: "paragraph"; text: string };
 
 export function parseBlocks(body: string): Block[] {
@@ -140,8 +141,14 @@ export function parseBlocks(body: string): Block[] {
     const bullet = line.match(/^\s*[-*]\s+(.+)$/);
     const numbered = line.match(/^\s*\d+[.)]\s+(.+)$/);
     const quote = line.match(/^>\s?(.*)$/);
+    // Une image seule sur sa ligne est une figure à part entière (le texte ne coule plus autour).
+    const image = line.match(/^\s*!\[([^\]\n]*)\]\(img:([\w-]+)\)\s*$/);
 
     if (!line.trim()) flush();
+    else if (image) {
+      flush();
+      blocks.push({ type: "image", id: image[2], alt: image[1] });
+    }
     else if (/^\s*(---+|\*\*\*+)\s*$/.test(line)) {
       flush();
       blocks.push({ type: "rule" });
