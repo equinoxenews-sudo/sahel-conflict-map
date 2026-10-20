@@ -168,8 +168,36 @@
   gap: 8px;
 }
 
+.columns {
+  display: grid;
+  grid-template-columns: 46% 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.noSource {
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
 .footer {
-  margin-top: 6px;
+  margin-top: auto;
+  padding-top: 6px;
   font-size: 12px;
   color: var(--text-secondary);
 }

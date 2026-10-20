@@ -9,6 +9,16 @@ export interface FicheExportOptions {
 
 export const SHEET_WIDTH = 920;
 
+/** Format de la feuille : hauteur selon le contenu, portrait (rapport A4) ou paysage (diapo 16:9, en deux colonnes). */
+export type FicheLayout = "auto" | "portrait" | "landscape";
+
+/** Largeur et hauteur minimale de la feuille (la hauteur grandit si le contenu est plus long). */
+export function sheetSize(layout: FicheLayout): { width: number; minHeight: number } {
+  if (layout === "landscape") return { width: 1600, minHeight: 900 };
+  if (layout === "portrait") return { width: SHEET_WIDTH, minHeight: Math.round(SHEET_WIDTH * Math.SQRT2) };
+  return { width: SHEET_WIDTH, minHeight: 0 };
+}
+
 export const SHEET_BACKGROUND = { dark: "#0b1220", light: "#ffffff" } as const;
 
 const TRANSPARENT_PIXEL = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";

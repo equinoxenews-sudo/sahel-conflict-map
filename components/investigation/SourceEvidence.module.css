@@ -1,0 +1,61 @@
+.ref {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-glass);
+  border-left: 3px solid var(--accent-gold);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  font-size: 14px;
+}
+
+.badge {
+  flex: none;
+  padding: 2px 8px;
+  border: 1px solid var(--accent-gold);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--accent-gold-bright);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.title {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.url {
+  font-size: 12.5px;
+  color: var(--accent-gold-bright);
+  word-break: break-all;
+}
+
+.file {
+  font-size: 12.5px;
+  color: var(--text-primary);
+}
+
+.thumb {
+  max-width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+  align-self: flex-start;
+  margin-top: 4px;
+  border: 1px solid var(--border-glass);
+  border-radius: 6px;
+}
+
+.meta {
+  font-size: 12px;
+  color: var(--text-secondary);
+}

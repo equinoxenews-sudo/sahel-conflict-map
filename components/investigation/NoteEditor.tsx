@@ -17,6 +17,7 @@ import {
   setImageSize,
 } from "@/lib/investigation/imageRefs";
 import { linkSelection } from "@/lib/investigation/selectionLink";
+import { formatSelection, type FormatKind } from "@/lib/investigation/textFormat";
 import { deleteImage, ImageFileError, NOTE_IMAGE_MAX_SIDE, NOTE_IMAGE_QUALITY, prepareImage, putImage } from "@/lib/investigation/imageStore";
 import {
   CLAIM_TYPE_LABELS,
@@ -35,6 +36,7 @@ import LinkPicker from "./LinkPicker";
 import NoteSources from "./NoteSources";
 import SelectionMenu from "./SelectionMenu";
 import EntityForm, { entityPatchFromValues } from "./EntityForm";
+import FormatBar from "./FormatBar";
 import ExportFichePanel from "./ExportFichePanel";
 import EntityTypeIcon from "./EntityTypeIcon";
 import HexFlag from "./HexFlag";
@@ -406,7 +408,26 @@ export default function NoteEditor({
     });
   }
 
+  // Met en forme le passage sélectionné (gras, italique, surligné, couleur) ; la sélection reste sur le passage.
+  function applyFormat(kind: FormatKind, color?: string) {
+    const el = textarea.current;
+    if (!el) return;
+    const result = formatSelection(latestBody.current, el.selectionStart, el.selectionEnd, kind, color);
+    if (!result) return;
+    latestBody.current = result.text;
+    setBody(result.text);
+    requestAnimationFrame(() => {
+      el.focus();
+      el.setSelectionRange(result.start, result.end);
+    });
+  }
+
   function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if ((event.ctrlKey || event.metaKey) && !event.altKey && !event.shiftKey && (event.key === "b" || event.key === "i")) {
+      event.preventDefault();
+      applyFormat(event.key === "b" ? "bold" : "italic");
+      return;
+    }
     if (!suggest || suggestions.length === 0) return;
     if (event.key === "ArrowDown") {
       event.preventDefault();
@@ -535,6 +556,7 @@ export default function NoteEditor({
         />
       ) : null}
 
+      {locked ? null : <FormatBar hasSelection={hasSelection} onFormat={applyFormat} />}
       {locked ? null : (
       <div className={styles.imageBar}>
         <button type="button" className={styles.ghost} onClick={() => fileInput.current?.click()} disabled={importing}>
@@ -574,7 +596,10 @@ export default function NoteEditor({
           y={menu.y}
           onClose={() => setMenu(null)}
           items={[
-            { label: "🔗 Renvoyer vers une fiche ou une note…", onClick: () => setLinking({ start: menu.start, end: menu.end }) },
+            { label: "Gras", onClick: () => applyFormat("bold") },
+            { label: "Italique", onClick: () => applyFormat("italic") },
+            { label: "Surligner", onClick: () => applyFormat("mark") },
+            { label: "🔗 Renvoyer vers une fiche ou une note…", onClick: () => setLinking({ start: menu.start, end: menu.end }), separated: true },
             { label: "Copier", onClick: () => copySelection(false), separated: true },
             { label: "Couper", onClick: () => copySelection(true) },
           ]}

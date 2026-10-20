@@ -63,6 +63,10 @@ function Inline({
   numbers,
   sourceById,
 }: { text: string; onZoom: Zoom; numbers: Map<string, number>; sourceById: Map<string, Source> } & Pick<NoteRendererProps, "resolve" | "onLink">) {
+  // Un passage mis en forme peut en contenir d'autres (gras + couleur + surlignage) : on le relit.
+  const nested = (inner: string) => (
+    <Inline text={inner} resolve={resolve} onLink={onLink} onZoom={onZoom} numbers={numbers} sourceById={sourceById} />
+  );
   return (
     <>
       {parseInline(text).map((token, index) => {
@@ -70,9 +74,27 @@ function Inline({
           case "text":
             return <span key={index}>{token.text}</span>;
           case "bold":
-            return <strong key={index}>{token.text}</strong>;
+            return <strong key={index}>{nested(token.text)}</strong>;
           case "italic":
-            return <em key={index}>{token.text}</em>;
+            return <em key={index}>{nested(token.text)}</em>;
+          case "bolditalic":
+            return (
+              <strong key={index}>
+                <em>{nested(token.text)}</em>
+              </strong>
+            );
+          case "mark":
+            return (
+              <mark key={index} className={styles.mark}>
+                {nested(token.text)}
+              </mark>
+            );
+          case "color":
+            return (
+              <span key={index} style={{ color: token.color }}>
+                {nested(token.text)}
+              </span>
+            );
           case "code":
             return (
               <code key={index} className={styles.code}>
@@ -151,7 +173,7 @@ export default function NoteRenderer({ body, resolve, onLink, sources = [] }: No
   );
 
   return (
-    <div className={styles.rendered}>
+    <div className={styles.rendered} lang="fr">
       {zoomed ? (
         <div className={styles.lightbox} onClick={() => setZoomed(null)} role="dialog" aria-label="Image agrandie">
           {/* eslint-disable-next-line @next/next/no-img-element */}

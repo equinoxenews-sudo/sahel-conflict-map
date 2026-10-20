@@ -517,6 +517,23 @@
   margin: 0 0 0.9em;
 }
 
+/* Texte justifié (césure automatique en français). */
+.rendered p,
+.rendered li,
+.rendered blockquote {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+.mark {
+  padding: 0 2px;
+  border-radius: 3px;
+  background: rgba(255, 214, 10, 0.38);
+  color: inherit;
+}
+
 .rendered ul,
 .rendered ol {
   padding-left: 1.4em;

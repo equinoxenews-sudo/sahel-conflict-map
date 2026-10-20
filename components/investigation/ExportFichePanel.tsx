@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { ExportQuality } from "@/lib/investigation/exportImage";
-import { ficheFileName, renderFichePng } from "@/lib/investigation/exportFiche";
+import { ficheFileName, renderFichePng, type FicheLayout } from "@/lib/investigation/exportFiche";
 import type { InvestigationEntity, Note, Relation, Source } from "@/lib/investigation/types";
 import type { WikiResolution } from "@/lib/investigation/wikilinks";
 import { useHasMounted } from "@/lib/useHasMounted";
@@ -29,6 +29,7 @@ export default function ExportFichePanel({ note, body, entity, entities, relatio
   const sheet = useRef<HTMLDivElement>(null);
   const [background, setBackground] = useState<"dark" | "light">("dark");
   const [quality, setQuality] = useState<ExportQuality>(3);
+  const [layout, setLayout] = useState<FicheLayout>("auto");
   const [maskContacts, setMaskContacts] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ kind: "ok" | "error"; text: string } | null>(null);
@@ -88,6 +89,14 @@ export default function ExportFichePanel({ note, body, entity, entities, relatio
           </select>
         </label>
         <label className={styles.option}>
+          Format
+          <select className={styles.control} value={layout} onChange={(e) => setLayout(e.target.value as FicheLayout)}>
+            <option value="auto">Hauteur selon le contenu</option>
+            <option value="portrait">Portrait (A4)</option>
+            <option value="landscape">Paysage (diapo 16:9, deux colonnes)</option>
+          </select>
+        </label>
+        <label className={styles.option}>
           Netteté
           <select className={styles.control} value={quality} onChange={(e) => setQuality(Number(e.target.value) as ExportQuality)}>
             <option value={2}>Écran (×2)</option>
@@ -133,6 +142,7 @@ export default function ExportFichePanel({ note, body, entity, entities, relatio
                 dossierName={dossierName}
                 resolve={resolve}
                 background={background}
+                layout={layout}
                 maskContacts={maskContacts}
               />
             </div>,
