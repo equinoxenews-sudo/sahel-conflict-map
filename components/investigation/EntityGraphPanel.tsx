@@ -519,6 +519,9 @@ export default function EntityGraphPanel({
     }
     setPipetteTarget(null);
     setSelected({ kind: "entity", id: node.id });
+    // Graphe à côté des notes : cliquer une fiche qui a déjà sa page l'ouvre directement dans la liste.
+    // (Une fiche sans page n'en crée pas d'office : le panneau propose « Créer la fiche ».)
+    if (compact && onOpenFiche && notes.some((note) => note.entityId === node.id)) onOpenFiche(node.id);
   };
 
   const handleEdgeClick: EdgeMouseHandler = (_evt, edge) => {
