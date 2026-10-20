@@ -20,6 +20,7 @@ import {
   ENTITY_TYPE_LABELS,
   RELATION_STATUS_LABELS,
   type AnchorId,
+  type EntityType,
   type GraphShape,
   type InvestigationEntity,
   type LineStyle,
@@ -52,6 +53,17 @@ import { freePosition } from "@/lib/investigation/layout";
 import type { InvestigationData } from "@/lib/investigation/types";
 import { renameNote } from "@/lib/investigation/fiches";
 import { computeTreeLayout, type Positions } from "@/lib/investigation/autoLayout";
+import {
+  SHAPES_FILTER,
+  edgeHidden,
+  entityHidden,
+  filterRows,
+  filterStorageKey,
+  parseHidden,
+  serializeHidden,
+  toggleHidden,
+  type FilterKey,
+} from "@/lib/investigation/graphFilter";
 import { pushLimited, sameGraph, sliceOf, type GraphSlice } from "@/lib/investigation/graphHistory";
 import { findDuplicateCandidates } from "@/lib/investigation/duplicates";
 import { planEntityMerge, type MergeChoices } from "@/lib/investigation/merge";
@@ -78,6 +90,7 @@ import EntityNode, {
   type EntityFlowNode,
 } from "./EntityNode";
 import LockIcon from "./LockIcon";
+import GraphFilters from "./GraphFilters";
 import GraphToolbox, { type ColorTarget } from "./GraphToolbox";
 import ShapeNode, { ShapeActionsContext, type ShapeFlowNode } from "./ShapeNode";
 import HexFlag from "./HexFlag";
@@ -362,6 +375,23 @@ function EntityDetails({
   );
 }
 
+function safeRead(key: string): string | null {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function safeWrite(key: string, value: string | null): void {
+  try {
+    if (value === null) window.localStorage.removeItem(key);
+    else window.localStorage.setItem(key, value);
+  } catch {
+    // stockage indisponible : le filtre ne sera simplement pas mémorisé
+  }
+}
+
 export default function EntityGraphPanel({
   dossierId,
   onOpenFiche,
@@ -412,6 +442,40 @@ export default function EntityGraphPanel({
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  // Couches : catégories masquées (réglage de vue, mémorisé par dossier ; rien n'est déplacé ni modifié).
+  const [hiddenKinds, setHiddenKinds] = useState<Set<FilterKey>>(() =>
+    typeof window === "undefined" ? new Set() : parseHidden(safeRead(filterStorageKey(dossierId)))
+  );
+  const entityTypeById = useMemo(() => new Map(entities.map((entity) => [entity.id, entity.type])), [entities]);
+  const filterList = useMemo(
+    () => filterRows(entities.map((entity) => entity.type), shapes.length, Object.keys(ENTITY_TYPE_LABELS) as EntityType[]),
+    [entities, shapes.length]
+  );
+  const shownNodes = useMemo(
+    () =>
+      hiddenKinds.size === 0
+        ? nodes
+        : nodes.map((node) =>
+            (node.type === "shape" ? hiddenKinds.has(SHAPES_FILTER) : entityHidden(hiddenKinds, entityTypeById.get(node.id))) ? { ...node, hidden: true } : node
+          ),
+    [nodes, hiddenKinds, entityTypeById]
+  );
+  const shownEdges = useMemo(
+    () => (hiddenKinds.size === 0 ? edges : edges.map((edge) => (edgeHidden(hiddenKinds, entityTypeById, edge.source, edge.target) ? { ...edge, hidden: true } : edge))),
+    [edges, hiddenKinds, entityTypeById]
+  );
+  function changeHiddenKinds(next: Set<FilterKey>) {
+    setHiddenKinds(next);
+    safeWrite(filterStorageKey(dossierId), next.size === 0 ? null : serializeHidden(next));
+    // Une fiche ou une forme qui disparaît ne reste pas sélectionnée.
+    setSelected((current) => {
+      if (!current) return current;
+      if (current.kind === "shape") return next.has(SHAPES_FILTER) ? null : current;
+      if (current.kind === "entity") return entityHidden(next, entityTypeById.get(current.id)) ? null : current;
+      return current;
+    });
+  }
 
   // React Flow owns node/edge arrays locally for drag performance; this
   // resyncs them whenever the underlying entities/relations change (add,
@@ -705,7 +769,7 @@ export default function EntityGraphPanel({
     if (!flow || entities.length === 0) return;
     const measured = new Map(flow.getNodes().map((n) => [n.id, n.measured]));
     // Avec une sélection, seules ces fiches sont rangées ; le reste du graphe ne bouge pas.
-    const nodes = entities.filter((entity) => !organizeScope || organizeScope.has(entity.id)).map((entity) => ({
+    const nodes = entities.filter((entity) => !entityHidden(hiddenKinds, entity.type) && (!organizeScope || organizeScope.has(entity.id))).map((entity) => ({
       id: entity.id,
       x: entity.position.x,
       y: entity.position.y,
@@ -1028,8 +1092,8 @@ export default function EntityGraphPanel({
             <ActiveAnchorsContext.Provider value={activeAnchors}>
             <ShapeActionsContext.Provider value={updateShapeFromNode}>
             <ReactFlow
-              nodes={nodes}
-              edges={edges}
+              nodes={shownNodes}
+              edges={shownEdges}
               onNodesChange={onNodesChange}
               onEdgesChange={onEdgesChange}
               onNodeDragStop={handleNodeDragStop}
@@ -1075,6 +1139,16 @@ export default function EntityGraphPanel({
                   />
                 ) : null}
               </Panel>
+              {filterList.length > 1 ? (
+                <Panel position="top-right">
+                  <GraphFilters
+                    rows={filterList}
+                    hidden={hiddenKinds}
+                    onToggle={(key) => changeHiddenKinds(toggleHidden(hiddenKinds, key))}
+                    onShowAll={() => changeHiddenKinds(new Set())}
+                  />
+                </Panel>
+              ) : null}
               <Panel position="bottom-center" className={styles.legend}>
                 <span className={styles.legendItem}>
                   <svg width="30" height="8" aria-hidden>
