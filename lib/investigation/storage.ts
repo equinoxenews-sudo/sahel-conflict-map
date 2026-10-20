@@ -11,6 +11,7 @@ import {
   emptyInvestigationData,
 } from "./types";
 import { extractImageIds, replaceImageIds } from "./imageRefs";
+import { applyGraphSlice, type GraphSlice } from "./graphHistory";
 import type { MergePlan } from "./merge";
 import { applyEntityMerge } from "./mergeData";
 import { replaceCitationIds } from "./citations";
@@ -84,6 +85,8 @@ export interface InvestigationStorage {
   mergeEntities(primaryId: string, secondaryId: string, plan: MergePlan): { before: InvestigationData; after: InvestigationData } | null;
   /** Annule une fusion : rétablit `before` si rien n'a changé depuis `after`. Renvoie false sinon. */
   restoreSnapshot(before: InvestigationData, after: InvestigationData): boolean;
+  /** Annuler / rétablir dans le graphe : remet les fiches, relations et formes du dossier dans l'état de l'instantané. */
+  restoreGraph(dossierId: string, slice: GraphSlice): void;
   /** JSON du dossier ; les images importées y sont incluses (en data URL) pour qu'un export les emporte. */
   exportDossier(dossierId: string, options?: { includeFiles?: boolean }): Promise<string>;
   /** Returns the imported dossier's id. Par défaut les identifiants sont régénérés (le dossier arrive en
@@ -296,6 +299,15 @@ export function createLocalStorageEngine(): InvestigationStorage {
         data.notes = merged.notes;
       });
       return { before, after: cached };
+    },
+
+    restoreGraph(dossierId, slice) {
+      const latest = readLatest();
+      const base = latest ? latest.data : cached;
+      const next = applyGraphSlice(base, dossierId, slice);
+      lastRaw = writeRaw(next);
+      cached = next;
+      emit();
     },
 
     restoreSnapshot(before, after) {

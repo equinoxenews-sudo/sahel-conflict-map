@@ -52,6 +52,7 @@ import { freePosition } from "@/lib/investigation/layout";
 import type { InvestigationData } from "@/lib/investigation/types";
 import { renameNote } from "@/lib/investigation/fiches";
 import { computeTreeLayout, type Positions } from "@/lib/investigation/autoLayout";
+import { pushLimited, sameGraph, sliceOf, type GraphSlice } from "@/lib/investigation/graphHistory";
 import { findDuplicateCandidates } from "@/lib/investigation/duplicates";
 import { planEntityMerge, type MergeChoices } from "@/lib/investigation/merge";
 import {
@@ -434,6 +435,61 @@ export default function EntityGraphPanel({
     [selectedShapeId, initialNodes, setNodes]
   );
   useEffect(() => setEdges(initialEdges), [initialEdges, setEdges]);
+
+  // Historique du graphe : chaque série de modifications (fiches, relations, formes, déplacements) est un pas
+  // d'annulation ; des changements rapprochés (frappe, rafale de couleurs) n'en font qu'un.
+  const undoStack = useRef<GraphSlice[]>([]);
+  const redoStack = useRef<GraphSlice[]>([]);
+  const lastSlice = useRef<GraphSlice | null>(null);
+  const lastChangeAt = useRef(0);
+  const restoring = useRef(false);
+  const [historySize, setHistorySize] = useState({ undo: 0, redo: 0 });
+  useEffect(() => {
+    const current = sliceOf(entities, relations, shapes, notes);
+    const previous = lastSlice.current;
+    lastSlice.current = current;
+    if (!previous) return;
+    if (restoring.current) {
+      restoring.current = false;
+      return;
+    }
+    if (sameGraph(previous, current)) return;
+    const now = Date.now();
+    if (now - lastChangeAt.current > 800) undoStack.current = pushLimited(undoStack.current, previous);
+    lastChangeAt.current = now;
+    redoStack.current = [];
+    setHistorySize({ undo: undoStack.current.length, redo: 0 });
+  }, [entities, relations, shapes, notes]);
+
+  function stepHistory(direction: "undo" | "redo") {
+    const from = direction === "undo" ? undoStack : redoStack;
+    const to = direction === "undo" ? redoStack : undoStack;
+    const target = from.current[from.current.length - 1];
+    const current = lastSlice.current;
+    if (!target || !current) return;
+    from.current = from.current.slice(0, -1);
+    to.current = pushLimited(to.current, current);
+    restoring.current = true;
+    lastChangeAt.current = 0;
+    storage.restoreGraph(dossierId, target);
+    setSelected(null);
+    setHistorySize({ undo: undoStack.current.length, redo: redoStack.current.length });
+  }
+
+  // Ctrl+Z / Ctrl+Y (ou Ctrl+Maj+Z) hors saisie de texte.
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (!(event.ctrlKey || event.metaKey) || event.altKey) return;
+      const key = event.key.toLowerCase();
+      if (key !== "z" && key !== "y") return;
+      const target = event.target as HTMLElement | null;
+      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.tagName === "SELECT" || target.isContentEditable)) return;
+      event.preventDefault();
+      stepHistory(key === "y" || event.shiftKey ? "redo" : "undo");
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
 
   const handleNodeDragStop: OnNodeDrag = (_evt, node) => {
     if (node.type === "shape") storage.updateShape(node.id, { position: node.position });
@@ -828,6 +884,24 @@ export default function EntityGraphPanel({
           title={fullscreen ? "Quitter le plein écran (Échap)" : "Agrandir le graphe sur tout l'écran"}
         >
           {fullscreen ? "⤫ Quitter le plein écran" : "⛶ Plein écran"}
+        </button>
+        <button
+          type="button"
+          className={styles.toolbarBtn}
+          onClick={() => stepHistory("undo")}
+          disabled={historySize.undo === 0}
+          title="Annuler la dernière modification du graphe (Ctrl+Z)"
+        >
+          ↶ Retour
+        </button>
+        <button
+          type="button"
+          className={styles.toolbarBtn}
+          onClick={() => stepHistory("redo")}
+          disabled={historySize.redo === 0}
+          title="Rétablir la modification annulée (Ctrl+Y)"
+        >
+          ↷ Rétablir
         </button>
         {entities.length > 0 ? (
           <button type="button" className={styles.toolbarBtn} onClick={() => setShowExport((value) => !value)}>

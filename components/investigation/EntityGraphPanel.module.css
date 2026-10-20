@@ -24,6 +24,15 @@
   border-color: var(--accent-gold);
 }
 
+.toolbarBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.toolbarBtn:disabled:hover {
+  border-color: var(--border-glass);
+}
+
 .toolsPanel {
   display: flex;
   flex-direction: column;
