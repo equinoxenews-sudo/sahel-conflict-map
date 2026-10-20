@@ -17,6 +17,7 @@ import {
   setImageSize,
 } from "@/lib/investigation/imageRefs";
 import { linkSelection } from "@/lib/investigation/selectionLink";
+import { DEFAULT_HIGHLIGHT } from "@/lib/investigation/richText";
 import { formatSelection, type FormatKind } from "@/lib/investigation/textFormat";
 import { deleteImage, ImageFileError, NOTE_IMAGE_MAX_SIDE, NOTE_IMAGE_QUALITY, prepareImage, putImage } from "@/lib/investigation/imageStore";
 import {
@@ -36,7 +37,10 @@ import LinkPicker from "./LinkPicker";
 import NoteSources from "./NoteSources";
 import SelectionMenu from "./SelectionMenu";
 import EntityForm, { entityPatchFromValues } from "./EntityForm";
+import type { Editor } from "@tiptap/core";
 import FormatBar from "./FormatBar";
+import RichNoteEditor, { type SuggestRequest } from "./richEditor/RichNoteEditor";
+import RichToolbar from "./richEditor/RichToolbar";
 import ExportFichePanel from "./ExportFichePanel";
 import EntityTypeIcon from "./EntityTypeIcon";
 import HexFlag from "./HexFlag";
@@ -258,7 +262,17 @@ export default function NoteEditor({
   // Cadenas ouvert = édition (texte, modification, suppression) ; fermé = lecture seule.
   const mode: "edit" | "read" = locked ? "read" : "edit";
   const [editingEntity, setEditingEntity] = useState(false);
-  const [suggest, setSuggest] = useState<{ query: string; start: number } | null>(null);
+  const [suggest, setSuggest] = useState<{ query: string; start: number; to?: number } | null>(null);
+  // Éditeur de texte riche (par défaut) ou texte brut (secours) ; le choix est mémorisé sur cet appareil.
+  const [rawMode, setRawMode] = useState(() => {
+    try {
+      return typeof window !== "undefined" && window.localStorage.getItem("equinoxe-note-raw") === "1";
+    } catch {
+      return false; // stockage indisponible : éditeur riche
+    }
+  });
+  const [richEditor, setRichEditor] = useState<Editor | null>(null);
+  const richActive = !rawMode && !locked;
   const [activeSuggestion, setActiveSuggestion] = useState(0);
   const textarea = useRef<HTMLTextAreaElement>(null);
   const [imageError, setImageError] = useState<string | null>(null);
@@ -319,6 +333,11 @@ export default function NoteEditor({
         const caption = pasted
           ? `Capture du ${new Intl.DateTimeFormat("fr-FR").format(new Date())}`
           : file.name.replace(/\.[^.]+$/, "");
+        if (richActive && richEditor) {
+          // Éditeur riche : l'image se pose à l'endroit du curseur, en bloc, sans rien écrire dans le texte.
+          richEditor.chain().focus().insertContent({ type: "imageBlock", attrs: { id, caption, size: "l" } }).run();
+          continue;
+        }
         const token = imageToken(id, caption);
         const insertAt = cursor;
         const inserted = insertTokenAt(working, insertAt, token);
@@ -335,6 +354,13 @@ export default function NoteEditor({
 
   // Renvoyer vers une fiche : le passage sélectionné devient un lien [[Fiche|passage]], cliquable en lecture.
   function openLinkPicker() {
+    if (richActive && richEditor) {
+      const { from, to } = richEditor.state.selection;
+      if (from === to) return;
+      setMenu(null);
+      setLinking({ start: from, end: to });
+      return;
+    }
     const el = textarea.current;
     if (!el || el.selectionStart === el.selectionEnd) return;
     setMenu(null);
@@ -343,6 +369,17 @@ export default function NoteEditor({
 
   function applyLink(label: string) {
     if (!linking) return;
+    if (richActive && richEditor) {
+      // Les espaces de bord de la sélection (un double-clic prend souvent l'espace suivant) restent dans le texte.
+      const raw = richEditor.state.doc.textBetween(linking.start, linking.end, " ");
+      const shown = raw.trim();
+      const from = linking.start + (raw.length - raw.trimStart().length);
+      const to = linking.end - (raw.length - raw.trimEnd().length);
+      setLinking(null);
+      if (!shown) return;
+      richEditor.chain().focus().insertContentAt({ from, to }, { type: "wikiLink", attrs: { target: label, display: shown } }).run();
+      return;
+    }
     const result = linkSelection(latestBody.current, linking.start, linking.end, label);
     setLinking(null);
     if (!result) return;
@@ -358,6 +395,12 @@ export default function NoteEditor({
   function copySelection(cut: boolean) {
     const range = menu;
     if (!range) return;
+    if (richActive && richEditor) {
+      const copied = richEditor.state.doc.textBetween(range.start, range.end, "\n");
+      void navigator.clipboard?.writeText(copied).catch(() => undefined);
+      if (cut) richEditor.chain().focus().deleteRange({ from: range.start, to: range.end }).run();
+      return;
+    }
     const text = latestBody.current.slice(range.start, range.end);
     void navigator.clipboard?.writeText(text).catch(() => undefined);
     if (cut) {
@@ -395,6 +438,18 @@ export default function NoteEditor({
   }
 
   function applySuggestion(label: string) {
+    if (richActive && richEditor && suggest) {
+      richEditor
+        .chain()
+        .focus()
+        .insertContentAt({ from: suggest.start, to: suggest.to ?? richEditor.state.selection.from }, [
+          { type: "wikiLink", attrs: { target: label, display: label } },
+          { type: "text", text: " " },
+        ])
+        .run();
+      setSuggest(null);
+      return;
+    }
     const el = textarea.current;
     if (!suggest || !el) return;
     const caret = el.selectionStart;
@@ -410,6 +465,15 @@ export default function NoteEditor({
 
   // Met en forme le passage sélectionné (gras, italique, surligné, couleur) ; la sélection reste sur le passage.
   function applyFormat(kind: FormatKind, color?: string) {
+    if (richActive && richEditor) {
+      const chain = richEditor.chain().focus();
+      if (kind === "bold") chain.toggleBold().run();
+      else if (kind === "italic") chain.toggleItalic().run();
+      else if (kind === "mark") (richEditor.isActive("highlight") ? chain.unsetHighlight() : chain.setHighlight({ color: DEFAULT_HIGHLIGHT })).run();
+      else if (kind === "color" && color) chain.setColor(color).run();
+      else if (kind === "clear") chain.unsetAllMarks().run();
+      return;
+    }
     const el = textarea.current;
     if (!el) return;
     const result = formatSelection(latestBody.current, el.selectionStart, el.selectionEnd, kind, color);
@@ -428,19 +492,32 @@ export default function NoteEditor({
       applyFormat(event.key === "b" ? "bold" : "italic");
       return;
     }
-    if (!suggest || suggestions.length === 0) return;
+    handleSuggestKey(event);
+  }
+
+  // Liste de suggestions « [[ » : flèches, Entrée ou Tab pour choisir, Échap pour fermer. Renvoie vrai si la touche a servi.
+  function handleSuggestKey(event: { key: string; preventDefault: () => void }): boolean {
+    if (!suggest || suggestions.length === 0) return false;
     if (event.key === "ArrowDown") {
       event.preventDefault();
       setActiveSuggestion((i) => (i + 1) % suggestions.length);
-    } else if (event.key === "ArrowUp") {
+      return true;
+    }
+    if (event.key === "ArrowUp") {
       event.preventDefault();
       setActiveSuggestion((i) => (i - 1 + suggestions.length) % suggestions.length);
-    } else if (event.key === "Enter" || event.key === "Tab") {
-      event.preventDefault();
-      applySuggestion(suggestions[activeSuggestion].label);
-    } else if (event.key === "Escape") {
-      setSuggest(null);
+      return true;
     }
+    if (event.key === "Enter" || event.key === "Tab") {
+      event.preventDefault();
+      applySuggestion(suggestions[Math.min(activeSuggestion, suggestions.length - 1)].label);
+      return true;
+    }
+    if (event.key === "Escape") {
+      setSuggest(null);
+      return true;
+    }
+    return false;
   }
 
   function toggleLock() {
@@ -556,7 +633,13 @@ export default function NoteEditor({
         />
       ) : null}
 
-      {locked ? null : <FormatBar hasSelection={hasSelection} onFormat={applyFormat} />}
+      {locked ? null : richActive ? (
+        richEditor ? (
+          <RichToolbar editor={richEditor} />
+        ) : null
+      ) : (
+        <FormatBar hasSelection={hasSelection} onFormat={applyFormat} />
+      )}
       {locked ? null : (
       <div className={styles.imageBar}>
         <button type="button" className={styles.ghost} onClick={() => fileInput.current?.click()} disabled={importing}>
@@ -564,6 +647,25 @@ export default function NoteEditor({
         </button>
         <button type="button" className={styles.ghost} onClick={openLinkPicker} disabled={!hasSelection} title="Sélectionne un passage du texte, puis renvoie-le vers une fiche (ou clic droit sur la sélection)">
           🔗 Lier la sélection
+        </button>
+        <button
+          type="button"
+          className={styles.ghost}
+          aria-pressed={rawMode}
+          title={rawMode ? "Revenir à l'éditeur de texte riche" : "Mode secours : voir et modifier le texte brut, avec ses marques"}
+          onClick={() => {
+            const next = !rawMode;
+            setRawMode(next);
+            setSuggest(null);
+            setHasSelection(false);
+            try {
+              window.localStorage.setItem("equinoxe-note-raw", next ? "1" : "0");
+            } catch {
+              // stockage indisponible : le choix vaut pour cette ouverture seulement
+            }
+          }}
+        >
+          {rawMode ? "Éditeur riche" : "Texte brut"}
         </button>
         <span className={styles.imageHint}>ou colle une capture d&apos;écran (Ctrl+V) / glisse un fichier dans la note</span>
         <input
@@ -582,7 +684,11 @@ export default function NoteEditor({
       )}
       {linking && !locked ? (
         <LinkPicker
-          selected={latestBody.current.slice(linking.start, linking.end).trim()}
+          selected={
+            richActive && richEditor
+              ? richEditor.state.doc.textBetween(linking.start, linking.end, " ").trim()
+              : latestBody.current.slice(linking.start, linking.end).trim()
+          }
           notes={notes}
           entities={entities}
           currentNoteId={note.id}
@@ -613,6 +719,7 @@ export default function NoteEditor({
           if ([...event.dataTransfer.items].some((item) => item.kind === "file")) event.preventDefault();
         }}
         onDrop={(event) => {
+          if (richActive) return;
           const files = [...event.dataTransfer.files];
           if (files.some((file) => file.type.startsWith("image/"))) {
             event.preventDefault();
@@ -620,7 +727,50 @@ export default function NoteEditor({
           }
         }}
       >
-        {mode === "edit" ? (
+        {mode === "edit" && richActive ? (
+          <div className={styles.textareaWrap}>
+            <RichNoteEditor
+              value={body}
+              onChange={setBody}
+              resolve={resolve}
+              onLinkClick={onLinkClick}
+              onSuggest={(request: SuggestRequest | null) => {
+                if (!request) {
+                  setSuggest((current) => (current ? null : current));
+                  return;
+                }
+                setSuggest({ query: request.query, start: request.from, to: request.to });
+                setActiveSuggestion(0);
+              }}
+              onSuggestKey={(event) => handleSuggestKey(event)}
+              onSelectionChange={setHasSelection}
+              onContextMenu={({ x, y, from, to }) => setMenu({ x, y, start: from, end: to })}
+              onPasteImages={(files) => void addImageFiles(files, true)}
+              onReady={setRichEditor}
+            />
+            {suggest && suggestions.length > 0 ? (
+              <ul className={styles.suggestions} role="listbox">
+                {suggestions.map((suggestion, index) => (
+                  <li key={suggestion.label}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={index === activeSuggestion}
+                      className={index === activeSuggestion ? `${styles.suggestion} ${styles.suggestionOn}` : styles.suggestion}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        applySuggestion(suggestion.label);
+                      }}
+                    >
+                      <span>{suggestion.label}</span>
+                      <span className={styles.suggestionHint}>{suggestion.hint}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ) : mode === "edit" ? (
           <div className={styles.textareaWrap}>
             <textarea
               ref={textarea}
@@ -674,7 +824,7 @@ export default function NoteEditor({
         )}
       </div>
 
-      {mode === "edit" && extractImageIds(body).length > 0 ? (
+      {mode === "edit" && rawMode && extractImageIds(body).length > 0 ? (
         <div className={styles.livePreview}>
           <span className={styles.backTitle}>Aperçu, comme dans la note fermée</span>
           <p className={styles.imageHint}>

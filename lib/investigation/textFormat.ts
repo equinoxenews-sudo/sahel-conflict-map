@@ -82,7 +82,7 @@ function stripFormatting(piece: string): string {
   let current = piece;
   for (let pass = 0; pass < 6; pass++) {
     const next = current
-      .replace(/\{\{#[0-9a-fA-F]{6}\|(.*?)\}\}/g, "$1")
+      .replace(/\{\{~?#[0-9a-fA-F]{6}\|(.*?)\}\}/g, "$1")
       .replace(/==(.+?)==/g, "$1")
       .replace(/\*\*\*(.+?)\*\*\*/g, "$1")
       .replace(/\*\*(.+?)\*\*/g, "$1")

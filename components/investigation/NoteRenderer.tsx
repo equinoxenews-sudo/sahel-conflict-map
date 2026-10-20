@@ -89,6 +89,12 @@ function Inline({
                 {nested(token.text)}
               </mark>
             );
+          case "highlight":
+            return (
+              <mark key={index} className={styles.mark} style={{ background: `${token.color}66` }}>
+                {nested(token.text)}
+              </mark>
+            );
           case "color":
             return (
               <span key={index} style={{ color: token.color }}>

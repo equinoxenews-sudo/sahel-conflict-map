@@ -1,0 +1,229 @@
+/* Surface de l'éditeur de texte riche d'une fiche. La mise en page du texte (titres, listes, citations, justifié)
+   reprend celle de la lecture (.rendered dans NotesWorkspace.module.css) pour que l'écran de saisie et la fiche
+   fermée se ressemblent. */
+.surface {
+  min-height: 260px;
+  padding: 14px 16px;
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  background: var(--bg-panel-alt);
+  cursor: text;
+}
+
+.surface:focus-within {
+  border-color: var(--accent-gold);
+}
+
+.surface :global(.ProseMirror) {
+  min-height: 230px;
+  outline: none;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.surface :global(.ProseMirror p) {
+  margin: 0 0 0.9em;
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+.surface :global(.ProseMirror h1),
+.surface :global(.ProseMirror h2),
+.surface :global(.ProseMirror h3) {
+  margin: 1.1em 0 0.4em;
+  line-height: 1.3;
+}
+
+.surface :global(.ProseMirror h1) {
+  font-size: 21px;
+}
+
+.surface :global(.ProseMirror h2) {
+  font-size: 18px;
+}
+
+.surface :global(.ProseMirror h3) {
+  font-size: 16px;
+  color: var(--accent-gold-bright);
+}
+
+.surface :global(.ProseMirror ul),
+.surface :global(.ProseMirror ol) {
+  margin: 0 0 0.9em;
+  padding-left: 1.4em;
+}
+
+.surface :global(.ProseMirror li p) {
+  margin: 0;
+}
+
+.surface :global(.ProseMirror blockquote) {
+  margin: 0 0 0.9em;
+  padding: 4px 14px;
+  border-left: 3px solid var(--accent-gold);
+  color: var(--text-secondary);
+}
+
+.surface :global(.ProseMirror hr) {
+  margin: 1.2em 0;
+  border: none;
+  border-top: 1px solid var(--border-glass);
+}
+
+.surface :global(.ProseMirror code) {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.92em;
+}
+
+.surface :global(.ProseMirror a) {
+  color: var(--accent-gold-bright);
+  text-decoration: underline;
+}
+
+.surface :global(.ProseMirror mark) {
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+.surface :global(.ProseMirror p.is-editor-empty:first-child::before) {
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.inlineAtom {
+  display: inline;
+}
+
+.imageBlock {
+  margin: 0.6em 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+
+.imageBlockSelected {
+  border-color: var(--accent-gold);
+}
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding-right: 8px;
+  margin-right: 2px;
+  border-right: 1px solid var(--border-glass);
+}
+
+.group:last-child {
+  border-right: none;
+}
+
+.btn {
+  min-width: 32px;
+  padding: 5px 9px;
+  border: 1px solid var(--border-glass);
+  border-radius: 6px;
+  background: var(--bg-panel-alt);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--accent-gold);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.btnOn {
+  border-color: var(--accent-gold);
+  background: rgba(213, 166, 64, 0.18);
+  color: var(--accent-gold-bright);
+}
+
+.select {
+  padding: 5px 8px;
+  border: 1px solid var(--border-glass);
+  border-radius: 6px;
+  background: var(--bg-panel-alt);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 13px;
+}
+
+.pop {
+  position: relative;
+  display: inline-flex;
+}
+
+.palette {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 30;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  width: max-content;
+  max-width: 260px;
+  padding: 8px;
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  background: var(--bg-panel);
+}
+
+.swatch {
+  width: 22px;
+  height: 22px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.swatch:hover {
+  border-color: var(--text-primary);
+}
+
+.swatchNone {
+  background:
+    linear-gradient(135deg, transparent 45%, #e5484d 45%, #e5484d 55%, transparent 55%),
+    var(--bg-panel-alt);
+  border-color: var(--border-glass);
+}
+
+.customColor {
+  width: 28px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--border-glass);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sample {
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+.colorA {
+  font-weight: 700;
+}

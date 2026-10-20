@@ -93,6 +93,8 @@ export type InlineToken =
   | { type: "mark"; text: string }
   /** Coloré : {{#rrggbb|texte}}. */
   | { type: "color"; color: string; text: string }
+  /** Surligné en couleur : {{~#rrggbb|texte}} (sans couleur, ==texte== est jaune). */
+  | { type: "highlight"; color: string; text: string }
   | { type: "code"; text: string }
   | { type: "image"; id: string; alt: string }
   | { type: "link"; label: string; url: string }
@@ -101,10 +103,10 @@ export type InlineToken =
 
 // Ordre des groupes : 1-2 lien [[…]] ; 3-4 image ![légende](img:ID) ; 5-6 lien [texte](adresse) ;
 // 7 gras ; 8 italique ; 9 code ; 10 adresse nue ; 11 citation d'une source [^ID] ; 12 gras et italique ;
-// 13 surligné ; 14-15 couleur (code, texte). Les textes mis en forme sont relus récursivement à l'affichage :
+// 13 surligné ; 14-16 couleur (« ~ » si surlignage, code, texte). Les textes mis en forme sont relus récursivement à l'affichage :
 // un passage peut être à la fois en gras, coloré et surligné.
 const INLINE =
-  /\[\[([^\]|\n]+)(?:\|([^\]\n]+))?\]\]|!\[([^\]\n]*)\]\(img:([\w-]+)\)|\[([^\]\n]+)\]\((https?:\/\/[^)\s]+)\)|\*\*([^*\n]+)\*\*|\*([^*\n]+)\*|`([^`\n]+)`|(https?:\/\/[^\s<>\])]+)|\[\^([\w-]+)\]|\*\*\*([^*\n]+)\*\*\*|==([^=\n]+)==|\{\{(#[0-9a-fA-F]{6})\|([^\n]+?)\}\}/g;
+  /\[\[([^\]|\n]+)(?:\|([^\]\n]+))?\]\]|!\[([^\]\n]*)\]\(img:([\w-]+)\)|\[([^\]\n]+)\]\((https?:\/\/[^)\s]+)\)|\*\*([^*\n]+)\*\*|\*([^*\n]+)\*|`([^`\n]+)`|(https?:\/\/[^\s<>\])]+)|\[\^([\w-]+)\]|\*\*\*([^*\n]+)\*\*\*|==([^=\n]+)==|\{\{(~?)(#[0-9a-fA-F]{6})\|([^\n]+?)\}\}/g;
 
 export function parseInline(text: string): InlineToken[] {
   const tokens: InlineToken[] = [];
@@ -121,7 +123,7 @@ export function parseInline(text: string): InlineToken[] {
     else if (match[11] !== undefined) tokens.push({ type: "cite", id: match[11] });
     else if (match[12] !== undefined) tokens.push({ type: "bolditalic", text: match[12] });
     else if (match[13] !== undefined) tokens.push({ type: "mark", text: match[13] });
-    else if (match[15] !== undefined) tokens.push({ type: "color", color: match[14], text: match[15] });
+    else if (match[16] !== undefined) tokens.push({ type: match[14] ? "highlight" : "color", color: match[15], text: match[16] });
     else tokens.push({ type: "url", url: match[10] });
     last = index + match[0].length;
   }
