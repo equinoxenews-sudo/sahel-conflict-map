@@ -18,7 +18,45 @@ export interface ExportFrame {
   pixelRatio: number;
 }
 
-const MAX_CANVAS_PX = 7000;
+/** Plus grand côté, et surface totale, d'un canevas : au-delà, les navigateurs refusent de dessiner. */
+const MAX_CANVAS_PX = 9000;
+const MAX_CANVAS_AREA = 50_000_000;
+
+/** Netteté de l'image : ×2 écran, ×3 diaporama, ×4 impression. */
+export type ExportQuality = 2 | 3 | 4;
+
+/** Cadrage : tout le graphe, tout le graphe au format diapositive 16:9, ou la partie affichée à l'écran. */
+export type ExportCrop = "all" | "slide" | "view";
+
+/** Netteté réellement appliquée : celle demandée, réduite pour que le canevas reste dans les limites. */
+export function fitPixelRatio(width: number, height: number, preferredRatio: number): number {
+  const bySide = MAX_CANVAS_PX / Math.max(width, height);
+  const byArea = Math.sqrt(MAX_CANVAS_AREA / Math.max(1, width * height));
+  return Math.max(0.25, Math.min(preferredRatio, bySide, byArea));
+}
+
+/** Agrandit un cadre, graphe centré, jusqu'au rapport largeur/hauteur voulu. */
+export function fitAspect(frame: ExportFrame, aspect = 16 / 9, preferredRatio = 2, extraHeight = 0): ExportFrame {
+  let { minX, minY, width, height } = frame;
+  // `extraHeight` : bandeau ajouté sous ou sur le graphe, compté dans le rapport de l'image finale.
+  if (width / (height + extraHeight) < aspect) {
+    const wider = Math.ceil((height + extraHeight) * aspect);
+    minX -= (wider - width) / 2;
+    width = wider;
+  } else {
+    const taller = Math.ceil(width / aspect) - extraHeight;
+    minY -= (taller - height) / 2;
+    height = taller;
+  }
+  return { minX, minY, width, height, pixelRatio: fitPixelRatio(width, height, preferredRatio) };
+}
+
+/** Cadre exact d'une zone du graphe (la partie visible à l'écran), sans marge. */
+export function frameOfRect(rect: Rect, preferredRatio = 2): ExportFrame {
+  const width = Math.max(1, Math.ceil(rect.width));
+  const height = Math.max(1, Math.ceil(rect.height));
+  return { minX: rect.x, minY: rect.y, width, height, pixelRatio: fitPixelRatio(width, height, preferredRatio) };
+}
 
 /** Cadre englobant toutes les fiches, avec une marge, et la netteté qui tient dans un canevas. */
 export function exportFrame(
@@ -33,11 +71,7 @@ export function exportFrame(
   const maxY = Math.max(...rects.map((r) => r.y + r.height)) + padding;
   const width = Math.ceil(maxX - minX);
   const height = Math.ceil(maxY - minY);
-  const pixelRatio = Math.max(
-    0.25,
-    Math.min(preferredRatio, MAX_CANVAS_PX / Math.max(width, height)),
-  );
-  return { minX, minY, width, height, pixelRatio };
+  return { minX, minY, width, height, pixelRatio: fitPixelRatio(width, height, preferredRatio) };
 }
 
 export interface ExportOptions {
@@ -47,6 +81,24 @@ export interface ExportOptions {
   /** Ajoute un bandeau (titre du dossier, date) et la légende des traits. */
   caption: boolean;
   title: string;
+  /** Netteté demandée (réduite automatiquement si l'image serait trop grande). */
+  quality?: ExportQuality;
+  crop?: ExportCrop;
+}
+
+/** Partie du graphe visible à l'écran, en coordonnées du graphe (d'après la translation et l'échelle de la vue). */
+export function visibleRect(container: HTMLElement, viewport: HTMLElement): Rect | null {
+  const match = /translate\(\s*(-?[\d.]+)px,\s*(-?[\d.]+)px\)\s*scale\(\s*(-?[\d.]+)\s*\)/.exec(viewport.style.transform);
+  if (!match) return null;
+  const scale = Number(match[3]);
+  // Graphe non affiché (onglet masqué, taille nulle) : pas de partie visible à lire, on exporte tout.
+  if (!scale || container.clientWidth === 0 || container.clientHeight === 0) return null;
+  return {
+    x: -Number(match[1]) / scale,
+    y: -Number(match[2]) / scale,
+    width: container.clientWidth / scale,
+    height: container.clientHeight / scale,
+  };
 }
 
 export const MASK_CLASS = "eq-export-mask";
@@ -62,6 +114,8 @@ const TRANSPARENT_PIXEL =
   "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
 const EXPORT_TIMEOUT_MS = 40_000;
+/** Hauteur du bandeau (titre, date, légende), en pixels avant netteté. */
+const CAPTION_HEIGHT = 86;
 
 /** Une opération qui n'aboutit pas ne doit jamais laisser l'écran bloqué sans explication. */
 function withTimeout<T>(
@@ -125,6 +179,10 @@ export async function renderGraphPng(
     await nextFrame();
     await nextFrame();
 
+    // La partie affichée à l'écran est lue avant que le rendu ne touche à la transformation de la vue.
+    const shown = options.crop === "view" ? visibleRect(container, viewport) : null;
+    const preferred = options.quality ?? 2;
+
     // Cadre d'après la position et la taille réelles des cartes dans la page.
     const rects = nodeElements.map((element) => {
       const match = /translate\(\s*(-?[\d.]+)px,\s*(-?[\d.]+)px\)/.exec(
@@ -137,18 +195,19 @@ export async function renderGraphPng(
         height: element.offsetHeight,
       };
     });
-    const frame = exportFrame(rects);
-    if (!frame) throw new Error("Rien à exporter.");
+    const all = exportFrame(rects, 60, preferred);
+    if (!all) throw new Error("Rien à exporter.");
+    const frame = options.crop === "view" && shown ? frameOfRect(shown, preferred) : options.crop === "slide" ? fitAspect(all, 16 / 9, preferred, options.caption ? CAPTION_HEIGHT : 0) : all;
 
     const { toPng } = await import("html-to-image");
     const colors = COLORS[options.background];
-    const graphUrl = await withTimeout(
+    const render = (pixelRatio: number) =>
       toPng(viewport, {
         // Le graphe n'utilise que des polices système : inutile d'aller chercher et d'intégrer celles du site.
         skipFonts: true,
         width: frame.width,
         height: frame.height,
-        pixelRatio: frame.pixelRatio,
+        pixelRatio,
         backgroundColor: colors.background,
         // Une image externe inaccessible (protection du site d'origine) ne fait pas échouer l'export.
         imagePlaceholder: TRANSPARENT_PIXEL,
@@ -157,14 +216,20 @@ export async function renderGraphPng(
           height: `${frame.height}px`,
           transform: `translate(${-frame.minX}px, ${-frame.minY}px) scale(1)`,
         },
-      }),
-      EXPORT_TIMEOUT_MS,
-      "L'export prend trop de temps : essaie avec « Masquer les coordonnées », ou sur un graphe moins chargé.",
-    );
-    const graph = await loadImage(graphUrl);
+      });
+    let ratio = frame.pixelRatio;
+    const timeoutMessage = "L'export prend trop de temps : essaie avec « Masquer les coordonnées », une netteté plus basse, ou un graphe moins chargé.";
+    let graph: HTMLImageElement;
+    try {
+      graph = await loadImage(await withTimeout(render(ratio), EXPORT_TIMEOUT_MS, timeoutMessage));
+    } catch (failure) {
+      // Un appareil (téléphone surtout) peut refuser une image trop grande : une seconde tentative, deux fois moins nette.
+      if (failure instanceof Error && failure.message === timeoutMessage) throw failure;
+      ratio = Math.max(0.25, ratio / 2);
+      graph = await loadImage(await withTimeout(render(ratio), EXPORT_TIMEOUT_MS, timeoutMessage));
+    }
 
-    const ratio = frame.pixelRatio;
-    const headerHeight = options.caption ? Math.round(86 * ratio) : 0;
+    const headerHeight = options.caption ? Math.round(CAPTION_HEIGHT * ratio) : 0;
     const canvas = document.createElement("canvas");
     canvas.width = graph.width;
     canvas.height = graph.height + headerHeight;

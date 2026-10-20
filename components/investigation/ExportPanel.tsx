@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { renderGraphPng, type ExportOptions } from "@/lib/investigation/exportImage";
+import { renderGraphPng, type ExportCrop, type ExportOptions, type ExportQuality } from "@/lib/investigation/exportImage";
 import styles from "./ExportPanel.module.css";
 
 interface ExportPanelProps {
@@ -21,12 +21,14 @@ function fileName(dossierName: string): string {
   return `${base || "graphe"}-${new Date().toISOString().slice(0, 10)}.png`;
 }
 
-// Export du graphe en image : le graphe entier, cadré, en haute définition, avec
-// en option un bandeau (titre, date, légende) et sans les coordonnées personnelles.
+// Export du graphe en image : le graphe entier, la partie affichée ou un cadrage de diapo 16:9, avec une netteté
+// au choix, en option un bandeau (titre, date, légende) et sans les coordonnées personnelles.
 export default function ExportPanel({ getContainer, dossierName, onClose }: ExportPanelProps) {
   const [background, setBackground] = useState<ExportOptions["background"]>("dark");
   const [maskContacts, setMaskContacts] = useState(false);
   const [caption, setCaption] = useState(true);
+  const [quality, setQuality] = useState<ExportQuality>(3);
+  const [crop, setCrop] = useState<ExportCrop>("all");
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ kind: "ok" | "error"; text: string } | null>(null);
 
@@ -37,7 +39,7 @@ export default function ExportPanel({ getContainer, dossierName, onClose }: Expo
       return null;
     }
     try {
-      return await renderGraphPng(container, { background, maskContacts, caption, title: dossierName });
+      return await renderGraphPng(container, { background, maskContacts, caption, title: dossierName, quality, crop });
     } catch (error) {
       setMessage({ kind: "error", text: error instanceof Error ? error.message : "Export impossible." });
       return null;
@@ -85,6 +87,22 @@ export default function ExportPanel({ getContainer, dossierName, onClose }: Expo
             <option value="light">Blanc (pour imprimer)</option>
           </select>
         </label>
+        <label className={styles.option}>
+          Cadrage
+          <select className={styles.control} value={crop} onChange={(e) => setCrop(e.target.value as ExportCrop)}>
+            <option value="all">Tout le graphe</option>
+            <option value="slide">Tout le graphe, format diapo 16:9</option>
+            <option value="view">Ce qui est affiché à l&apos;écran</option>
+          </select>
+        </label>
+        <label className={styles.option}>
+          Netteté
+          <select className={styles.control} value={quality} onChange={(e) => setQuality(Number(e.target.value) as ExportQuality)}>
+            <option value={2}>Écran (×2)</option>
+            <option value={3}>Diaporama (×3)</option>
+            <option value={4}>Impression (×4)</option>
+          </select>
+        </label>
         <label className={styles.check}>
           <input type="checkbox" checked={caption} onChange={(e) => setCaption(e.target.checked)} />
           Titre, date et légende
@@ -107,7 +125,9 @@ export default function ExportPanel({ getContainer, dossierName, onClose }: Expo
         {message ? <span className={message.kind === "ok" ? styles.ok : styles.error}>{message.text}</span> : null}
       </div>
       <p className={styles.note}>
-        Le graphe entier est exporté. Les images référencées par une adresse web externe peuvent manquer si leur site les protège ; les images
+        Pour une diapositive : « Format diapo 16:9 » remplit toute la diapo ; pour des fiches plus grandes et lisibles, zoome sur la partie à
+        montrer dans le graphe puis choisis « Ce qui est affiché à l&apos;écran ». Une netteté plus haute donne une image plus lourde (réduite
+        automatiquement si le navigateur ne peut pas la dessiner). Les images référencées par une adresse web externe peuvent manquer si leur site les protège ; les images
         importées depuis ton ordinateur sont toujours incluses.
       </p>
     </div>
