@@ -1,7 +1,7 @@
 "use client";
 
 import { NodeResizer, type Node, type NodeProps } from "@xyflow/react";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type SVGProps } from "react";
 import type { GraphShape } from "@/lib/investigation/types";
 import styles from "./ShapeNode.module.css";
 
@@ -15,33 +15,66 @@ export const ShapeActionsContext = createContext<((id: string, patch: Partial<Gr
 /** En dessous de cette taille, une ligne ou une flèche est horizontale (ou verticale) : pas de diagonale. */
 const FLAT = 16;
 
+function drawShape(shape: GraphShape, width: number, height: number, half: number, extra: SVGProps<SVGElement>) {
+  switch (shape.kind) {
+    case "rect":
+      return <rect x={half} y={half} width={Math.max(0, width - half * 2)} height={Math.max(0, height - half * 2)} rx={3} {...(extra as SVGProps<SVGRectElement>)} />;
+    case "roundRect":
+      return (
+        <rect
+          x={half}
+          y={half}
+          width={Math.max(0, width - half * 2)}
+          height={Math.max(0, height - half * 2)}
+          rx={Math.min(22, width / 4, height / 2)}
+          {...(extra as SVGProps<SVGRectElement>)}
+        />
+      );
+    case "ellipse":
+      return (
+        <ellipse
+          cx={width / 2}
+          cy={height / 2}
+          rx={Math.max(0, width / 2 - half)}
+          ry={Math.max(0, height / 2 - half)}
+          {...(extra as SVGProps<SVGEllipseElement>)}
+        />
+      );
+    case "triangle":
+      return <polygon points={`${width / 2},${half} ${width - half},${height - half} ${half},${height - half}`} {...(extra as SVGProps<SVGPolygonElement>)} />;
+    case "diamond":
+      return (
+        <polygon
+          points={`${width / 2},${half} ${width - half},${height / 2} ${width / 2},${height - half} ${half},${height / 2}`}
+          {...(extra as SVGProps<SVGPolygonElement>)}
+        />
+      );
+    default:
+      return null;
+  }
+}
+
 function Geometry({ shape, width, height }: { shape: GraphShape; width: number; height: number }) {
   const strokeWidth = shape.stroke ? (shape.strokeWidth ?? 2) : 0;
   const half = strokeWidth / 2;
-  const fill = shape.fill ?? "none";
-  const common = {
-    fill,
+  const painted = {
+    fill: shape.fill ?? "none",
     fillOpacity: shape.fill ? (shape.fillOpacity ?? 1) : undefined,
     stroke: shape.stroke ?? "none",
     strokeWidth,
     strokeLinejoin: "round" as const,
     className: styles.paint,
   };
-
-  switch (shape.kind) {
-    case "rect":
-      return <rect x={half} y={half} width={Math.max(0, width - strokeWidth)} height={Math.max(0, height - strokeWidth)} rx={3} {...common} />;
-    case "roundRect":
-      return <rect x={half} y={half} width={Math.max(0, width - strokeWidth)} height={Math.max(0, height - strokeWidth)} rx={Math.min(22, width / 4, height / 2)} {...common} />;
-    case "ellipse":
-      return <ellipse cx={width / 2} cy={height / 2} rx={Math.max(0, (width - strokeWidth) / 2)} ry={Math.max(0, (height - strokeWidth) / 2)} {...common} />;
-    case "triangle":
-      return <polygon points={`${width / 2},${half} ${width - half},${height - half} ${half},${height - half}`} {...common} />;
-    case "diamond":
-      return <polygon points={`${width / 2},${half} ${width - half},${height / 2} ${width / 2},${height - half} ${half},${height / 2}`} {...common} />;
-    default:
-      return null;
-  }
+  // Zone de clic élargie autour du contour : une forme creuse, dont le trait ne fait que 2 px, se saisit
+  // quand même sans viser au pixel près (sa surface reste traversée par la souris : les fiches dessous
+  // restent accessibles).
+  const hit = { fill: "none", stroke: "transparent", strokeWidth: Math.max(16, strokeWidth + 12), className: styles.hit };
+  return (
+    <>
+      {drawShape(shape, width, height, half, hit)}
+      {drawShape(shape, width, height, half, painted)}
+    </>
+  );
 }
 
 function LineGeometry({ shape, width, height }: { shape: GraphShape; width: number; height: number }) {

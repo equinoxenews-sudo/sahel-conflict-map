@@ -211,7 +211,25 @@ export default function GraphToolbox({
         <>
           <span className={styles.title}>{SHAPE_LABELS[selected.kind]}</span>
 
-          {locked ? <p className={styles.note}>Forme verrouillée : rouvre le cadenas pour la modifier.</p> : null}
+          <div className={styles.actionsTop}>
+            <button type="button" className={styles.action} onClick={() => onChange({ locked: !locked })}>
+              {locked ? "🔒 Rouvrir" : "🔓 Verrouiller"}
+            </button>
+            <button type="button" className={styles.action} onClick={onDuplicate}>
+              Dupliquer
+            </button>
+            <button
+              type="button"
+              className={`${styles.action} ${styles.danger}`}
+              onClick={onDelete}
+              disabled={locked}
+              title="Supprimer la forme (touche Suppr)"
+            >
+              Supprimer
+            </button>
+          </div>
+
+          {locked ? <p className={styles.note}>Forme verrouillée : rouvre le cadenas pour la modifier ou la supprimer.</p> : null}
 
           <fieldset className={styles.group} disabled={locked}>
             {hasFill(selected.kind) ? (
@@ -305,17 +323,6 @@ export default function GraphToolbox({
             </button>
           </div>
 
-          <div className={styles.layers}>
-            <button type="button" className={styles.action} onClick={() => onChange({ locked: !locked })}>
-              {locked ? "🔒 Déverrouiller" : "🔓 Verrouiller"}
-            </button>
-            <button type="button" className={styles.action} onClick={onDuplicate}>
-              Dupliquer
-            </button>
-            <button type="button" className={`${styles.action} ${styles.danger}`} onClick={onDelete} disabled={locked}>
-              Supprimer
-            </button>
-          </div>
         </>
       ) : (
         <p className={styles.note}>Ajoute une forme, ou clique sur une forme du graphe pour la modifier.</p>

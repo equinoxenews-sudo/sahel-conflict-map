@@ -115,6 +115,7 @@ export default function DossierWorkspacePage() {
           onShowInGraph={showInGraph}
           onOpenFiche={openFiche}
           onOpenAttribute={openAttribute}
+          onClose={() => setTab("graphe")}
         />
       )}
     </div>

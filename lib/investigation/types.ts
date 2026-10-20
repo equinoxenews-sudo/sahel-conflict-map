@@ -195,6 +195,8 @@ export interface Note {
   attributeRef?: { entityId: string; attributeId: string };
   /** Cadenas fermé : la note est enregistrée et protégée contre les modifications. */
   locked?: boolean;
+  /** Place dans la liste des fiches ou des notes (ordre choisi à la main) ; absent = ordre alphabétique. */
+  sortOrder?: number;
   createdAt: string;
   updatedAt: string;
 }

@@ -9,6 +9,7 @@ import {
   useRelations,
   useSources,
 } from "@/lib/investigation/InvestigationContext";
+import { moveNote, sortNotes } from "@/lib/investigation/noteOrder";
 import { ENTITY_TYPE_LABELS, type EntityType, type InvestigationEntity } from "@/lib/investigation/types";
 import { normalizeKey, resolveWikiLink, uniqueTitle } from "@/lib/investigation/wikilinks";
 import EntityGraphPanel from "./EntityGraphPanel";
@@ -26,6 +27,8 @@ interface NotesWorkspaceProps {
   onShowInGraph: (entityId: string) => void;
   onOpenFiche: (entityId: string) => void;
   onOpenAttribute: (entityId: string, attributeId: string) => void;
+  /** Ferme l'espace Notes & fiches et revient au graphe. */
+  onClose?: () => void;
 }
 
 const FICHE_TYPES: EntityType[] = ["person", "organization", "location", "building", "equipment", "event", "document", "account"];
@@ -52,6 +55,7 @@ export default function NotesWorkspace({
   onShowInGraph,
   onOpenFiche,
   onOpenAttribute,
+  onClose,
 }: NotesWorkspaceProps) {
   const storage = useInvestigationStorage();
   const notes = useNotes(dossierId);
@@ -86,11 +90,11 @@ export default function NotesWorkspace({
     }
     // Une fiche reste visible si l'une de ses pages de coordonnées correspond à la recherche.
     const ficheNotes = notes
-      .filter((note) => note.entityId && (visible.includes(note) || children.has(note.entityId)))
-      .sort(byTitle);
+      .filter((note) => note.entityId && (visible.includes(note) || children.has(note.entityId)));
+    // Ordre choisi à la main (flèches), sinon alphabétique.
     return {
-      fiches: ficheNotes,
-      free: visible.filter((note) => !note.entityId && !note.attributeRef),
+      fiches: sortNotes(ficheNotes),
+      free: sortNotes(visible.filter((note) => !note.entityId && !note.attributeRef)),
       childrenOf: children,
       loosePages: pages.filter((page) => !ficheEntityIds.has(page.attributeRef?.entityId ?? "")),
     };
@@ -159,18 +163,45 @@ export default function NotesWorkspace({
     );
   }
 
-  function renderItem(note: (typeof notes)[number]) {
+  // Monter ou descendre une fiche ou une note dans sa liste (pas pendant une recherche : la liste est filtrée).
+  function renderItem(note: (typeof notes)[number], group: typeof notes) {
     const entity = note.entityId ? entities.find((e) => e.id === note.entityId) : undefined;
+    const index = group.findIndex((candidate) => candidate.id === note.id);
+    const canReorder = query.trim() === "" && group.length > 1;
     return (
       <li key={note.id}>
-        <button
-          type="button"
-          className={note.id === activeNoteId ? `${styles.item} ${styles.itemOn}` : styles.item}
-          onClick={() => onActiveNoteChange(note.id)}
-        >
-          <span className={styles.itemIcon}>{entity ? <EntityTypeIcon type={entity.type} size={18} /> : <DocumentIcon />}</span>
-          <span className={styles.itemTitle}>{note.title}</span>
-        </button>
+        <div className={styles.row}>
+          <button
+            type="button"
+            className={note.id === activeNoteId ? `${styles.item} ${styles.itemOn}` : styles.item}
+            onClick={() => onActiveNoteChange(note.id)}
+          >
+            <span className={styles.itemIcon}>{entity ? <EntityTypeIcon type={entity.type} size={18} /> : <DocumentIcon />}</span>
+            <span className={styles.itemTitle}>{note.title}</span>
+          </button>
+          {canReorder ? (
+            <span className={styles.reorder}>
+              <button
+                type="button"
+                aria-label={`Monter « ${note.title} »`}
+                title="Monter"
+                disabled={index <= 0}
+                onClick={() => storage.setNoteOrders(moveNote(group, note.id, -1))}
+              >
+                ↑
+              </button>
+              <button
+                type="button"
+                aria-label={`Descendre « ${note.title} »`}
+                title="Descendre"
+                disabled={index === group.length - 1}
+                onClick={() => storage.setNoteOrders(moveNote(group, note.id, 1))}
+              >
+                ↓
+              </button>
+            </span>
+          ) : null}
+        </div>
         {entity && childrenOf.get(entity.id) ? <ul className={styles.children}>{childrenOf.get(entity.id)?.map(renderPage)}</ul> : null}
       </li>
     );
@@ -180,9 +211,16 @@ export default function NotesWorkspace({
     <div className={styles.workspace}>
       <div className={styles.topBar}>
         <span className={styles.topTitle}>Notes &amp; fiches</span>
-        <button type="button" className={showGraph ? styles.gold : styles.ghost} onClick={() => onShowGraphChange(!showGraph)}>
-          {showGraph ? "Masquer le graphe" : "Afficher le graphe à droite"}
-        </button>
+        <div className={styles.topActions}>
+          <button type="button" className={showGraph ? styles.gold : styles.ghost} onClick={() => onShowGraphChange(!showGraph)}>
+            {showGraph ? "Masquer le graphe" : "Afficher le graphe à droite"}
+          </button>
+          {onClose ? (
+            <button type="button" className={styles.ghost} onClick={onClose} title="Fermer Notes & fiches et revenir au graphe">
+              ✕ Fermer — retour au graphe
+            </button>
+          ) : null}
+        </div>
       </div>
 
       <div className={styles.panes} ref={panes}>
@@ -272,7 +310,7 @@ export default function NotesWorkspace({
               {fiches.length > 0 ? (
                 <>
                   <span className={styles.groupTitle}>Fiches ({fiches.length})</span>
-                  <ul>{fiches.map(renderItem)}</ul>
+                  <ul>{fiches.map((note) => renderItem(note, fiches))}</ul>
                 </>
               ) : null}
               {loosePages.length > 0 ? (
@@ -284,7 +322,7 @@ export default function NotesWorkspace({
               {free.length > 0 ? (
                 <>
                   <span className={styles.groupTitle}>Notes ({free.length})</span>
-                  <ul>{free.map(renderItem)}</ul>
+                  <ul>{free.map((note) => renderItem(note, free))}</ul>
                 </>
               ) : null}
               {notes.length === 0 ? <p className={styles.hint}>Aucune note. Clique sur + pour écrire une note libre ou créer une fiche.</p> : null}

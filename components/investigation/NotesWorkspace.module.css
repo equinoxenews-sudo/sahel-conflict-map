@@ -13,6 +13,66 @@
   gap: 12px;
 }
 
+.topActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+/* Ligne d'une fiche ou d'une note : le titre, et les flèches pour la monter ou la descendre. */
+.row {
+  position: relative;
+}
+
+.row .item {
+  padding-right: 52px;
+}
+
+.reorder {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  display: none;
+  gap: 2px;
+  transform: translateY(-50%);
+}
+
+.row:hover .reorder,
+.row:focus-within .reorder {
+  display: flex;
+}
+
+@media (hover: none) {
+  .reorder {
+    display: flex;
+  }
+}
+
+.reorder button {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid var(--border-glass);
+  border-radius: 5px;
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.reorder button:hover:not(:disabled) {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold-bright);
+}
+
+.reorder button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
 .topTitle {
   font-size: 12px;
   font-weight: 700;

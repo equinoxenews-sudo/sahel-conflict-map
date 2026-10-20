@@ -193,6 +193,12 @@
   resize: vertical;
 }
 
+.actionsTop {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
 .layers {
   display: grid;
   grid-template-columns: 1fr 1fr;

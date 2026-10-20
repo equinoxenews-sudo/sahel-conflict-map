@@ -453,6 +453,7 @@ export default function EntityGraphPanel({
         return;
       }
       setSelected({ kind: "shape", id: node.id });
+      setToolsOpen(true);
       return;
     }
     setPipetteTarget(null);

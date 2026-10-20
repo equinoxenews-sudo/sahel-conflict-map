@@ -61,6 +61,8 @@ export interface InvestigationStorage {
   addNote(input: Omit<Note, "id" | "createdAt" | "updatedAt">): Note;
   updateNote(id: string, patch: Partial<Omit<Note, "id" | "dossierId" | "createdAt">>): void;
   deleteNote(id: string): void;
+  /** Fixe l'ordre de la liste des notes et fiches (ordre manuel) sans changer leur date de modification. */
+  setNoteOrders(orders: Record<string, number>): void;
 
   addCanvasCard(input: Omit<CanvasCard, "id">): CanvasCard;
   updateCanvasCard(id: string, patch: Partial<Omit<CanvasCard, "id" | "dossierId">>): void;
@@ -388,6 +390,11 @@ export function createLocalStorageEngine(): InvestigationStorage {
       if (note) discardImages(extractImageIds(note.body));
       mutate((data) => {
         data.notes = data.notes.filter((n) => n.id !== id);
+      });
+    },
+    setNoteOrders(orders) {
+      mutate((data) => {
+        data.notes = data.notes.map((n) => (n.id in orders ? { ...n, sortOrder: orders[n.id] } : n));
       });
     },
 
