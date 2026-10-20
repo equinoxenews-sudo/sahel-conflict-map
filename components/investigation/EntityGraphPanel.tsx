@@ -694,10 +694,15 @@ export default function EntityGraphPanel({
 
   // Range le graphe en arbre selon les relations hiérarchiques. Les positions d'avant sont
   // gardées pour « Annuler la mise en page » : le placement manuel a de la valeur.
+  // Fiches sélectionnées dans le graphe (au moins deux : cadre de sélection ou Maj+clic).
+  const selectedEntityIds = nodes.filter((node) => node.type === "entityCard" && node.selected).map((node) => node.id);
+  const organizeScope = selectedEntityIds.length >= 2 ? new Set(selectedEntityIds) : null;
+
   function organize() {
     if (!flow || entities.length === 0) return;
     const measured = new Map(flow.getNodes().map((n) => [n.id, n.measured]));
-    const nodes = entities.map((entity) => ({
+    // Avec une sélection, seules ces fiches sont rangées ; le reste du graphe ne bouge pas.
+    const nodes = entities.filter((entity) => !organizeScope || organizeScope.has(entity.id)).map((entity) => ({
       id: entity.id,
       x: entity.position.x,
       y: entity.position.y,
@@ -714,9 +719,11 @@ export default function EntityGraphPanel({
       .filter((relation) => !isDuplicateRelation(relation) && !hierarchyOf(relation))
       .map((relation) => ({ a: relation.sourceEntityId, b: relation.targetEntityId }));
     const positions = computeTreeLayout(nodes, hierarchy, lateral, { direction: layoutDirection });
+    // Les fiches hors de la sélection gardent leur place.
+    for (const entity of entities) if (!(entity.id in positions)) positions[entity.id] = entity.position;
     setLayoutUndo(Object.fromEntries(entities.map((entity) => [entity.id, entity.position])));
     storage.setEntityPositions(positions);
-    window.setTimeout(() => void flow.fitView({ duration: 500, padding: 0.15 }), 80);
+    if (!organizeScope) window.setTimeout(() => void flow.fitView({ duration: 500, padding: 0.15 }), 80);
   }
 
   function undoLayout() {
@@ -844,8 +851,17 @@ export default function EntityGraphPanel({
         ) : null}
         {entities.length > 1 ? (
           <>
-            <button type="button" className={styles.toolbarBtn} onClick={organize} title="Range les fiches en arbre selon les relations hiérarchiques ; les fiches épinglées ne bougent pas">
-              Organiser
+            <button
+              type="button"
+              className={styles.toolbarBtn}
+              onClick={organize}
+              title={
+                organizeScope
+                  ? "Range seulement les fiches sélectionnées ; les autres ne bougent pas"
+                  : "Range toutes les fiches en arbre selon les relations hiérarchiques ; les fiches épinglées ne bougent pas. Astuce : sélectionne quelques fiches (cadre de sélection ou Maj+clic) pour ne ranger qu'elles. Retour annule."
+              }
+            >
+              {organizeScope ? `Organiser la sélection (${organizeScope.size})` : "Organiser"}
             </button>
             <select
               className={styles.layoutSelect}

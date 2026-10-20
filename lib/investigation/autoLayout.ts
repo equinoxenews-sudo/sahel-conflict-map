@@ -138,5 +138,20 @@ export function computeTreeLayout(
     // Une fiche épinglée garde sa position exacte.
     positions[node.id] = node.pinned || !box ? { x: node.x, y: node.y } : { x: Math.round(box.x + shift.x), y: Math.round(box.y + shift.y) };
   }
+
+  // 5. Une fiche épinglée ne bouge pas : aucune autre ne doit atterrir dessus (on la décale à côté).
+  const fixed = nodes.filter((node) => node.pinned);
+  if (fixed.length > 0) {
+    for (const node of nodes) {
+      if (node.pinned) continue;
+      const position = positions[node.id];
+      const box: Box = { x: position.x, y: position.y, width: node.width, height: node.height };
+      for (let guard = 0; guard < 200 && fixed.some((other) => overlaps(box, other, gapX / 2)); guard++) {
+        if (options.direction === "TB") box.x += node.width + gapX;
+        else box.y += node.height + gapY;
+      }
+      positions[node.id] = { x: Math.round(box.x), y: Math.round(box.y) };
+    }
+  }
   return positions;
 }

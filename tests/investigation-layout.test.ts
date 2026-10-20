@@ -63,3 +63,20 @@ test("Un cycle de hiérarchie ne bloque pas la mise en page", () => {
 test("Sans fiche ni lien : rien ne casse", () => {
   assert.deepEqual(computeTreeLayout([], [], [], { direction: "TB" }), {});
 });
+
+test("Une fiche épinglée garde sa place et aucune autre n'atterrit dessus", () => {
+  // « boss » est la racine, « a » son enfant : l'arbre voudrait mettre « a » sous « boss », là où « pin » est épinglée.
+  const nodes = [node("boss", 0, 0), node("a", 0, 500), node("pin", 0, 0, { pinned: true })];
+  const positions = computeTreeLayout(nodes, [{ parent: "boss", child: "a" }], [], { direction: "TB" });
+  assert.deepEqual(positions.pin, { x: 0, y: 0 });
+  assert.ok(!overlap(positions.boss, positions.pin));
+  assert.ok(!overlap(positions.a, positions.pin));
+});
+
+test("Ranger seulement une sélection : le résultat ne contient que ces fiches, près de leur angle actuel", () => {
+  const nodes = [node("a", 400, 300), node("b", 900, 900), node("c", 400, 700)];
+  const positions = computeTreeLayout(nodes, [{ parent: "a", child: "b" }], [{ a: "a", b: "c" }], { direction: "TB" });
+  assert.deepEqual(Object.keys(positions).sort(), ["a", "b", "c"]);
+  assert.equal(Math.min(...Object.values(positions).map((p) => p.x)), 400);
+  assert.equal(Math.min(...Object.values(positions).map((p) => p.y)), 300);
+});
