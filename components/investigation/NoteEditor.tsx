@@ -624,6 +624,17 @@ export default function NoteEditor({
         )}
       </div>
 
+      {mode === "edit" && extractImageIds(body).length > 0 ? (
+        <div className={styles.livePreview}>
+          <span className={styles.backTitle}>Aperçu, comme dans la note fermée</span>
+          <p className={styles.imageHint}>
+            Dans le texte ci-dessus, une ligne « ![légende](img:…) » est une image : elle s&apos;affiche ici. Ne la modifie pas à la main ; la taille
+            et la suppression se règlent dans « Images de cette note », plus bas.
+          </p>
+          <NoteRenderer body={body} resolve={resolve} onLink={onLinkClick} sources={sources} />
+        </div>
+      ) : null}
+
       {entity ? (
         <RelationsSection
           entity={entity}

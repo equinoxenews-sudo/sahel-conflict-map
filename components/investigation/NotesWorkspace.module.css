@@ -998,6 +998,19 @@ button.attrChip:hover {
   color: var(--status-critical);
 }
 
+.livePreview {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px dashed var(--border-glass);
+  border-radius: 8px;
+}
+
+.livePreview .imageHint {
+  margin: 0;
+}
+
 .gallery {
   display: flex;
   flex-direction: column;
