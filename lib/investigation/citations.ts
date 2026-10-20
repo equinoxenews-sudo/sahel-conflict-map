@@ -32,3 +32,8 @@ export function insertInline(text: string, position: number, token: string): { t
   const at = Math.max(0, Math.min(position, text.length));
   return { text: text.slice(0, at) + token + text.slice(at), next: at + token.length };
 }
+
+/** Le texte sans les repères de citation [^ID] (les sources sont désormais dans l'encart « Sources » de la fiche). */
+export function stripCitations(body: string): string {
+  return body.replace(CITATION, "");
+}

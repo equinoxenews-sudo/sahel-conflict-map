@@ -4,7 +4,9 @@ import { useState } from "react";
 import { useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
 import { phraseFrom } from "@/lib/investigation/relationTypes";
 import { RELATION_STATUS_LABELS, type InvestigationEntity, type Relation, type Source } from "@/lib/investigation/types";
+import CitePicker from "./CitePicker";
 import RelationForm, { type RelationFormValues } from "./RelationForm";
+import SourceReference from "./SourceReference";
 import styles from "./NotesWorkspace.module.css";
 
 interface RelationsSectionProps {
@@ -46,6 +48,7 @@ export default function RelationsSection({
   const storage = useInvestigationStorage();
   const [adding, setAdding] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [pickingId, setPickingId] = useState<string | null>(null);
 
   const mine = relations.filter((relation) => relation.sourceEntityId === entity.id || relation.targetEntityId === entity.id);
 
@@ -115,8 +118,34 @@ export default function RelationsSection({
               </span>
               <span className={styles.relationMeta}>
                 {RELATION_STATUS_LABELS[relation.status]}
-                {relation.period ? ` · ${relation.period}` : ""} · confiance {relation.confidence} %{source ? ` · ${source.title}` : ""}
+                {relation.period ? ` · ${relation.period}` : ""} · confiance {relation.confidence} %
               </span>
+              {/* Source qui justifie le lien : un lien (URL), un document PDF ou une image. */}
+              <div className={styles.relationSource}>
+                {source ? (
+                  <SourceReference
+                    source={source}
+                    onRemove={readOnly ? undefined : () => storage.updateRelation(relation.id, { justifyingSourceId: null })}
+                  />
+                ) : readOnly ? null : (
+                  <button type="button" className={styles.linkBtn} onClick={() => setPickingId(pickingId === relation.id ? null : relation.id)}>
+                    + Ajouter une source (lien, document ou image)
+                  </button>
+                )}
+                {pickingId === relation.id && !readOnly ? (
+                  <CitePicker
+                    heading="Source de cette relation"
+                    submitLabel="Créer et utiliser"
+                    dossierId={entity.dossierId}
+                    sources={sources}
+                    onPick={(sourceId) => {
+                      storage.updateRelation(relation.id, { justifyingSourceId: sourceId });
+                      setPickingId(null);
+                    }}
+                    onClose={() => setPickingId(null)}
+                  />
+                ) : null}
+              </div>
               <span className={styles.relationActions}>
                 <button type="button" className={styles.linkBtn} onClick={() => onShowInGraph(entity.id)}>
                   graphe

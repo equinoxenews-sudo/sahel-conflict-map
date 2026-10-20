@@ -109,6 +109,8 @@ export interface InvestigationEntity {
   attributesCollapsed?: boolean;
   /** Cadenas fermé : la fiche est enregistrée et protégée (ni déplacée, ni modifiée, ni supprimée). */
   locked?: boolean;
+  /** Couleur du contour de la carte sur le graphe (#rrggbb) ; absente = or. */
+  borderColor?: string;
 }
 
 export type AttributeKind = "email" | "phone" | "social" | "website" | "location" | "identifier";
@@ -178,6 +180,8 @@ export interface Relation {
   typeKey?: string;
   /** Le trait du graphe affiche la lecture inverse du type (« est dirigé par » au lieu de « dirige »). */
   labelInverse?: boolean;
+  /** Couleur du trait de la relation sur le graphe (#rrggbb) ; absente = or (orange pour un doublon possible). */
+  lineColor?: string;
   /** Point d'ancrage du trait sur la fiche source ; absent = choisi automatiquement. */
   sourceAnchor?: AnchorId;
   /** Point d'ancrage du trait sur la fiche cible ; absent = choisi automatiquement. */

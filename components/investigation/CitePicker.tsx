@@ -7,6 +7,10 @@ import type { Source } from "@/lib/investigation/types";
 import styles from "./CitePicker.module.css";
 
 interface CitePickerProps {
+  /** Titre du panneau (par défaut « Ajouter une source »). */
+  heading?: string;
+  /** Texte du bouton de création (par défaut « Créer et ajouter »). */
+  submitLabel?: string;
   dossierId: string;
   sources: Source[];
   /** Une source est choisie (ou vient d'être créée) : la référence s'insère dans le texte. */
@@ -22,9 +26,8 @@ function host(url: string): string {
   }
 }
 
-// Citer une source dans le texte : on choisit une source du dossier, ou on en crée une sur place
-// (adresse URL et/ou document PDF, JPG, PNG). Un repère [n] est inséré à l'endroit du curseur.
-export default function CitePicker({ dossierId, sources, onPick, onClose }: CitePickerProps) {
+// Choisir une source du dossier, ou en créer une sur place (adresse URL et/ou document PDF, JPG, PNG).
+export default function CitePicker({ heading = "Ajouter une source", submitLabel = "Créer et ajouter", dossierId, sources, onPick, onClose }: CitePickerProps) {
   const storage = useInvestigationStorage();
   const [query, setQuery] = useState("");
   const [title, setTitle] = useState("");
@@ -79,9 +82,9 @@ export default function CitePicker({ dossierId, sources, onPick, onClose }: Cite
   }
 
   return (
-    <div className={styles.picker} role="dialog" aria-label="Citer une source">
+    <div className={styles.picker} role="dialog" aria-label={heading}>
       <div className={styles.head}>
-        <strong>Citer une source</strong>
+        <strong>{heading}</strong>
         <button type="button" className={styles.close} onClick={onClose} aria-label="Fermer">
           ×
         </button>
@@ -120,7 +123,7 @@ export default function CitePicker({ dossierId, sources, onPick, onClose }: Cite
         </label>
         {error ? <p className={styles.error}>{error}</p> : null}
         <button type="submit" className={styles.submit} disabled={busy}>
-          {busy ? "Enregistrement…" : "Ajouter et citer"}
+          {busy ? "Enregistrement…" : submitLabel}
         </button>
       </form>
     </div>

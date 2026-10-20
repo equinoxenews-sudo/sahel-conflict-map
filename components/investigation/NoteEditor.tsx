@@ -5,7 +5,7 @@ import { countryOf } from "./EntityNode";
 import { attributeLink, groupAttributes } from "@/lib/investigation/attributes";
 import { useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
 import { attributeLabel, renameNote } from "@/lib/investigation/fiches";
-import { citationToken, insertInline } from "@/lib/investigation/citations";
+import { extractCitationIds, stripCitations } from "@/lib/investigation/citations";
 import {
   IMAGE_SIZES,
   IMAGE_SIZE_LABELS,
@@ -31,8 +31,8 @@ import {
 import { findBacklinks, normalizeKey, resolveWikiLink } from "@/lib/investigation/wikilinks";
 import AttributeIcon from "./AttributeIcon";
 import AttributesEditor from "./AttributesEditor";
-import CitePicker from "./CitePicker";
 import LinkPicker from "./LinkPicker";
+import NoteSources from "./NoteSources";
 import SelectionMenu from "./SelectionMenu";
 import EntityForm, { entityPatchFromValues } from "./EntityForm";
 import EntityTypeIcon from "./EntityTypeIcon";
@@ -245,7 +245,9 @@ export default function NoteEditor({
   // ailleurs, par exemple le renommage de l'entité dans le graphe).
   const [editedTitle, setEditedTitle] = useState<string | null>(null);
   const title = editedTitle ?? note.title;
-  const [body, setBody] = useState(note.body);
+  // Anciens repères de citation [^ID] : retirés du texte à l'ouverture (les sources sont dans l'encart « Sources »).
+  const lockedAtOpen = entity ? entity.locked === true : note.locked === true;
+  const [body, setBody] = useState(() => (lockedAtOpen ? note.body : stripCitations(note.body)));
   // Cadenas : celui de l'entité pour une fiche du graphe (le même que sur sa carte), sinon celui de la note.
   const locked = entity ? entity.locked === true : note.locked === true;
   // Cadenas ouvert = édition (texte, modification, suppression) ; fermé = lecture seule.
@@ -257,7 +259,6 @@ export default function NoteEditor({
   const [imageError, setImageError] = useState<string | null>(null);
   const [importing, setImporting] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
-  const [citeOpen, setCiteOpen] = useState(false);
   // Passage sélectionné : menu du clic droit et sélecteur « Renvoyer vers… ».
   const [menu, setMenu] = useState<{ x: number; y: number; start: number; end: number } | null>(null);
   const [linking, setLinking] = useState<{ start: number; end: number } | null>(null);
@@ -265,6 +266,14 @@ export default function NoteEditor({
   // Images importées pendant cette ouverture : celles qui ne sont finalement plus
   // citées dans le texte sont supprimées de la mémoire du navigateur.
   const sessionImages = useRef<string[]>([]);
+
+  // Les sources que le texte citait rejoignent l'encart « Sources » de la fiche (une seule fois, à l'ouverture).
+  useEffect(() => {
+    if (lockedAtOpen) return;
+    const missing = extractCitationIds(note.body).filter((id) => !note.linkedSourceIds.includes(id));
+    if (missing.length > 0) storage.updateNote(note.id, { linkedSourceIds: [...note.linkedSourceIds, ...missing] });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Enregistrement différé du texte, et à la fermeture de la note.
   useEffect(() => {
@@ -317,25 +326,6 @@ export default function NoteEditor({
     } finally {
       setImporting(false);
     }
-  }
-
-  // Cite une source à l'endroit du curseur : repère [^ID] dans le texte (numéroté [n] en lecture), et la source
-  // rejoint les « Sources liées » de la note.
-  function insertCitation(sourceId: string) {
-    const el = textarea.current;
-    // La citation se place à la fin du passage sélectionné, sinon au curseur.
-    const cursor = mode === "edit" && el ? el.selectionEnd : latestBody.current.length;
-    const inserted = insertInline(latestBody.current, cursor, citationToken(sourceId));
-    latestBody.current = inserted.text;
-    setBody(inserted.text);
-    if (!note.linkedSourceIds.includes(sourceId)) {
-      storage.updateNote(note.id, { linkedSourceIds: [...note.linkedSourceIds, sourceId] });
-    }
-    setCiteOpen(false);
-    requestAnimationFrame(() => {
-      el?.focus();
-      el?.setSelectionRange(inserted.next, inserted.next);
-    });
   }
 
   // Renvoyer vers une fiche : le passage sélectionné devient un lien [[Fiche|passage]], cliquable en lecture.
@@ -448,13 +438,6 @@ export default function NoteEditor({
     setEditedTitle(null);
   }
 
-  function toggleSource(sourceId: string) {
-    const linked = note.linkedSourceIds.includes(sourceId)
-      ? note.linkedSourceIds.filter((id) => id !== sourceId)
-      : [...note.linkedSourceIds, sourceId];
-    storage.updateNote(note.id, { linkedSourceIds: linked });
-  }
-
   return (
     <div className={styles.editor}>
       <div className={styles.editorTop}>
@@ -532,9 +515,6 @@ export default function NoteEditor({
         <button type="button" className={styles.ghost} onClick={() => fileInput.current?.click()} disabled={importing}>
           {importing ? "Import…" : "+ Ajouter une image"}
         </button>
-        <button type="button" className={citeOpen ? `${styles.gold}` : styles.ghost} onClick={() => setCiteOpen((open) => !open)} aria-expanded={citeOpen}>
-          + Citer une source
-        </button>
         <button type="button" className={styles.ghost} onClick={openLinkPicker} disabled={!hasSelection} title="Sélectionne un passage du texte, puis renvoie-le vers une fiche (ou clic droit sur la sélection)">
           🔗 Lier la sélection
         </button>
@@ -553,7 +533,6 @@ export default function NoteEditor({
         />
       </div>
       )}
-      {citeOpen && !locked ? <CitePicker dossierId={note.dossierId} sources={sources} onPick={insertCitation} onClose={() => setCiteOpen(false)} /> : null}
       {linking && !locked ? (
         <LinkPicker
           selected={latestBody.current.slice(linking.start, linking.end).trim()}
@@ -571,7 +550,6 @@ export default function NoteEditor({
           onClose={() => setMenu(null)}
           items={[
             { label: "🔗 Renvoyer vers une fiche ou une note…", onClick: () => setLinking({ start: menu.start, end: menu.end }) },
-            { label: "📎 Citer une source ici…", onClick: () => setCiteOpen(true) },
             { label: "Copier", onClick: () => copySelection(false), separated: true },
             { label: "Couper", onClick: () => copySelection(true) },
           ]}
@@ -658,6 +636,8 @@ export default function NoteEditor({
         />
       ) : null}
 
+      <NoteSources note={note} sources={sources} readOnly={locked} />
+
       {extractImageIds(body).length > 0 ? (
         <div className={styles.gallery}>
           <span className={styles.backTitle}>Images de cette note ({extractImageIds(body).length})</span>
@@ -704,19 +684,6 @@ export default function NoteEditor({
                 ))}
               </select>
             </label>
-            {sources.length > 0 ? (
-              <div className={styles.propRow}>
-                <span>Sources liées</span>
-                <div className={styles.sourceList}>
-                  {sources.map((source) => (
-                    <label key={source.id} className={styles.sourceItem}>
-                      <input type="checkbox" checked={note.linkedSourceIds.includes(source.id)} onChange={() => toggleSource(source.id)} />
-                      {source.title}
-                    </label>
-                  ))}
-                </div>
-              </div>
-            ) : null}
           </div>
         </details>
 

@@ -1297,3 +1297,11 @@ button.attrChip:hover {
 .closeGraph:hover {
   border-color: var(--accent-gold);
 }
+
+/* Encart « Source » sous une relation de la fiche. */
+.relationSource {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

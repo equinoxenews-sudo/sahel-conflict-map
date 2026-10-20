@@ -234,3 +234,25 @@
 .filesWarn {
   color: #ffd98a;
 }
+
+.cardActions {
+  display: flex;
+  gap: 8px;
+}
+
+.editBtn {
+  padding: 4px 12px;
+  border: 1px solid var(--border-glass);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.editBtn:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold-bright);
+}

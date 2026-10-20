@@ -12,6 +12,7 @@ import {
   putFile,
   validateProofFile,
 } from "@/lib/investigation/fileStore";
+import SourceEditForm from "./SourceEditForm";
 import SourceFileChip from "./SourceFileChip";
 import styles from "./SourcesPanel.module.css";
 
@@ -42,6 +43,7 @@ export default function SourcesPanel({ dossierId }: SourcesPanelProps) {
   const storage = useInvestigationStorage();
   const [form, setForm] = useState(emptyForm);
   const [filter, setFilter] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [proof, setProof] = useState<File | null>(null);
   const [proofError, setProofError] = useState<string | null>(null);
   const proofInput = useRef<HTMLInputElement>(null);
@@ -259,7 +261,18 @@ export default function SourcesPanel({ dossierId }: SourcesPanelProps) {
         <div className={styles.emptyState}>Aucune source pour l&apos;instant.</div>
       ) : (
         <div className={styles.list}>
-          {sorted.map((s) => (
+          {sorted.map((s) =>
+            editingId === s.id ? (
+              <SourceEditForm
+                key={s.id}
+                source={s}
+                onCancel={() => setEditingId(null)}
+                onSave={(patch) => {
+                  storage.updateSource(s.id, patch);
+                  setEditingId(null);
+                }}
+              />
+            ) : (
             <div key={s.id} className={styles.sourceCard}>
               <div className={styles.sourceHead}>
                 <div>
@@ -311,11 +324,17 @@ export default function SourcesPanel({ dossierId }: SourcesPanelProps) {
                   </label>
                 )}
               </div>
-              <button type="button" className={styles.deleteBtn} onClick={() => storage.deleteSource(s.id)}>
-                Supprimer
-              </button>
+              <div className={styles.cardActions}>
+                <button type="button" className={styles.editBtn} onClick={() => setEditingId(s.id)}>
+                  Modifier
+                </button>
+                <button type="button" className={styles.deleteBtn} onClick={() => storage.deleteSource(s.id)}>
+                  Supprimer
+                </button>
+              </div>
             </div>
-          ))}
+            )
+          )}
         </div>
       )}
     </div>

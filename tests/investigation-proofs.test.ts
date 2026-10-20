@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { citationNumbers, citationToken, extractCitationIds, insertInline, replaceCitationIds } from "../lib/investigation/citations";
+import { citationNumbers, citationToken, extractCitationIds, insertInline, replaceCitationIds, stripCitations } from "../lib/investigation/citations";
 import { formatFileSize, PROOF_MAX_BYTES, proofMime, validateProofFile } from "../lib/investigation/fileStore";
 import { parseInline } from "../lib/investigation/wikilinks";
 
@@ -65,4 +65,10 @@ test("taille lisible", () => {
   assert.equal(formatFileSize(500), "500 o");
   assert.equal(formatFileSize(2048), "2 Ko");
   assert.equal(formatFileSize(1.5 * 1024 * 1024), "1,5 Mo");
+});
+
+test("les anciens repères de citation se retirent du texte sans toucher au reste", () => {
+  const body = `${citationToken(A)}En 2023, les dossiers sont déposés à Tanguiéta${citationToken(B)}. Suite [[Fiche]] **gras**.`;
+  assert.equal(stripCitations(body), "En 2023, les dossiers sont déposés à Tanguiéta. Suite [[Fiche]] **gras**.");
+  assert.equal(stripCitations("Aucun repère ici"), "Aucun repère ici");
 });

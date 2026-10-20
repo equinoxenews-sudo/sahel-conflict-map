@@ -1,7 +1,7 @@
 "use client";
 
 import { Handle, Position, type Node, type NodeProps } from "@xyflow/react";
-import { createContext, useContext } from "react";
+import { createContext, useContext, type CSSProperties } from "react";
 import { FLAG_COUNTRIES } from "@/lib/countryFlagIndex";
 import { attributeLink, groupAttributes } from "@/lib/investigation/attributes";
 import { ANCHOR_IDS, sideOf } from "@/lib/investigation/anchors";
@@ -123,7 +123,10 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
   const canToggle = attributeCount > 0 && onToggleAttributes !== undefined;
 
   return (
-    <div className={selected ? `${styles.node} ${styles.selected}` : styles.node}>
+    <div
+      className={selected ? `${styles.node} ${styles.selected}` : styles.node}
+      style={entity.borderColor ? ({ "--node-border": entity.borderColor } as CSSProperties) : undefined}
+    >
       <div className={styles.head}>
         {/* Huit points d'ancrage (coins et milieux des côtés), comme les poignées d'une forme
             PowerPoint : une relation en choisit un au départ et un à l'arrivée. */}

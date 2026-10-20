@@ -46,6 +46,8 @@ import {
   type SharedValue,
 } from "@/lib/investigation/attributes";
 import AttributeIcon from "./AttributeIcon";
+import ColorChoice from "./ColorChoice";
+import SourceReference from "./SourceReference";
 import { freePosition } from "@/lib/investigation/layout";
 import type { InvestigationData } from "@/lib/investigation/types";
 import { renameNote } from "@/lib/investigation/fiches";
@@ -191,7 +193,7 @@ function relationsToEdges(relations: Relation[]): Edge[] {
       // Un doublon possible est orange : à examiner, jamais fusionné automatiquement.
       // Pointillés écrits explicitement (en plus de l'animation) : ils survivent à l'export en image.
       style: {
-        stroke: duplicate ? "var(--status-danger)" : "var(--accent-gold)",
+        stroke: r.lineColor ?? (duplicate ? "var(--status-danger)" : "var(--accent-gold)"),
         strokeWidth: 1.6,
         ...(duplicate || r.status === "hypothesis" ? { strokeDasharray: "6 4" } : {}),
       },
@@ -211,6 +213,7 @@ function EntityDetails({
   hasFiche,
   onTogglePin,
   onToggleLock,
+  onChangeBorderColor,
   mergeCandidates,
   onMergeWith,
   onOpenFiche,
@@ -221,6 +224,7 @@ function EntityDetails({
   hasFiche: boolean;
   onTogglePin: () => void;
   onToggleLock: () => void;
+  onChangeBorderColor: (color: string | undefined) => void;
   mergeCandidates: InvestigationEntity[];
   onMergeWith: (otherId: string) => void;
   onOpenAttribute?: (attributeId: string) => void;
@@ -316,6 +320,7 @@ function EntityDetails({
           {hasFiche ? "Ouvrir la fiche" : "Créer la fiche"}
         </button>
       ) : null}
+      <ColorChoice label="Couleur du contour" value={entity.borderColor} onChange={onChangeBorderColor} disabled={entity.locked === true} />
       <button type="button" className={styles.editBtn} onClick={onToggleLock}>
         <LockIcon locked={entity.locked === true} />{" "}
         {entity.locked ? "Fiche fermée — rouvrir pour modifier" : "Fiche ouverte — fermer et enregistrer"}
@@ -1019,6 +1024,7 @@ export default function EntityGraphPanel({
                   hasFiche={ficheEntityIds.has(selectedEntity.id)}
                   onTogglePin={() => storage.updateEntity(selectedEntity.id, { pinned: !selectedEntity.pinned })}
                   onToggleLock={() => storage.updateEntity(selectedEntity.id, { locked: selectedEntity.locked !== true })}
+                  onChangeBorderColor={(color) => storage.updateEntity(selectedEntity.id, { borderColor: color })}
                   mergeCandidates={entities.filter((e) => e.id !== selectedEntity.id)}
                   onMergeWith={(otherId) => setMerging({ primaryId: selectedEntity.id, secondaryId: otherId })}
                   onOpenAttribute={onOpenAttribute ? (attributeId) => onOpenAttribute(selectedEntity.id, attributeId) : undefined}
@@ -1079,10 +1085,16 @@ export default function EntityGraphPanel({
                   </div>
                   <div className={styles.detailRow}>
                     <span className={styles.detailLabel}>Source justificative</span>
-                    <span className={styles.detailValue}>
-                      {sources.find((s) => s.id === selectedRelation.justifyingSourceId)?.title ?? "Aucune"}
-                    </span>
+                    {(() => {
+                      const justifying = sources.find((s) => s.id === selectedRelation.justifyingSourceId);
+                      return justifying ? <SourceReference source={justifying} /> : <span className={styles.detailValue}>Aucune (à ajouter depuis la fiche, section Relations)</span>;
+                    })()}
                   </div>
+                  <ColorChoice
+                    label="Couleur du trait"
+                    value={selectedRelation.lineColor}
+                    onChange={(color) => storage.updateRelation(selectedRelation.id, { lineColor: color })}
+                  />
                   <div className={styles.detailRow}>
                     <span className={styles.detailLabel}>Tracé du trait</span>
                     <RelationRouting
