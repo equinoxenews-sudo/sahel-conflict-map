@@ -84,7 +84,9 @@ export default function DossierBackup({ dossierId, dossierName, className }: Dos
 
   const snapshot = useCallback(
     async (kind: BackupKind): Promise<{ meta: BackupMeta; json: string }> => {
-      const json = await storage.exportDossier(dossierId);
+      // Les sauvegardes automatiques gardent la liste des documents sans les recopier : seules la sauvegarde
+      // manuelle (et sa copie avant restauration) les emportent, pour ne pas multiplier les mégaoctets.
+      const json = await storage.exportDossier(dossierId, { includeFiles: kind !== "auto" });
       const meta: BackupMeta = {
         id: crypto.randomUUID(),
         dossierId,

@@ -90,12 +90,13 @@ export type InlineToken =
   | { type: "code"; text: string }
   | { type: "image"; id: string; alt: string }
   | { type: "link"; label: string; url: string }
-  | { type: "url"; url: string };
+  | { type: "url"; url: string }
+  | { type: "cite"; id: string };
 
 // Ordre des groupes : 1-2 lien [[…]] ; 3-4 image ![légende](img:ID) ; 5-6 lien [texte](adresse) ;
-// 7 gras ; 8 italique ; 9 code ; 10 adresse nue.
+// 7 gras ; 8 italique ; 9 code ; 10 adresse nue ; 11 citation d'une source [^ID].
 const INLINE =
-  /\[\[([^\]|\n]+)(?:\|([^\]\n]+))?\]\]|!\[([^\]\n]*)\]\(img:([\w-]+)\)|\[([^\]\n]+)\]\((https?:\/\/[^)\s]+)\)|\*\*([^*\n]+)\*\*|\*([^*\n]+)\*|`([^`\n]+)`|(https?:\/\/[^\s<>\])]+)/g;
+  /\[\[([^\]|\n]+)(?:\|([^\]\n]+))?\]\]|!\[([^\]\n]*)\]\(img:([\w-]+)\)|\[([^\]\n]+)\]\((https?:\/\/[^)\s]+)\)|\*\*([^*\n]+)\*\*|\*([^*\n]+)\*|`([^`\n]+)`|(https?:\/\/[^\s<>\])]+)|\[\^([\w-]+)\]/g;
 
 export function parseInline(text: string): InlineToken[] {
   const tokens: InlineToken[] = [];
@@ -109,6 +110,7 @@ export function parseInline(text: string): InlineToken[] {
     else if (match[7] !== undefined) tokens.push({ type: "bold", text: match[7] });
     else if (match[8] !== undefined) tokens.push({ type: "italic", text: match[8] });
     else if (match[9] !== undefined) tokens.push({ type: "code", text: match[9] });
+    else if (match[11] !== undefined) tokens.push({ type: "cite", id: match[11] });
     else tokens.push({ type: "url", url: match[10] });
     last = index + match[0].length;
   }

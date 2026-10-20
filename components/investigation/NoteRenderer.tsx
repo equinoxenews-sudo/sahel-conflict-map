@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { citationNumbers } from "@/lib/investigation/citations";
+import type { Source } from "@/lib/investigation/types";
 import { parseBlocks, parseInline, type WikiResolution } from "@/lib/investigation/wikilinks";
+import SourceFileChip from "./SourceFileChip";
 import { useEntityImage } from "./useEntityImage";
 import styles from "./NotesWorkspace.module.css";
 
@@ -9,6 +12,16 @@ interface NoteRendererProps {
   body: string;
   resolve: (target: string) => WikiResolution;
   onLink: (target: string) => void;
+  /** Sources du dossier : elles donnent leur titre, leur adresse et leur document aux repères [n]. */
+  sources?: Source[];
+}
+
+function host(url: string): string {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
 }
 
 const LINK_HINT: Record<WikiResolution["kind"], string> = {
@@ -38,7 +51,14 @@ function NoteImage({ id, alt, onZoom }: { id: string; alt: string; onZoom: Zoom 
   );
 }
 
-function Inline({ text, resolve, onLink, onZoom }: { text: string; onZoom: Zoom } & Omit<NoteRendererProps, "body">) {
+function Inline({
+  text,
+  resolve,
+  onLink,
+  onZoom,
+  numbers,
+  sourceById,
+}: { text: string; onZoom: Zoom; numbers: Map<string, number>; sourceById: Map<string, Source> } & Pick<NoteRendererProps, "resolve" | "onLink">) {
   return (
     <>
       {parseInline(text).map((token, index) => {
@@ -63,6 +83,25 @@ function Inline({ text, resolve, onLink, onZoom }: { text: string; onZoom: Zoom 
                 {token.label}
               </a>
             );
+          case "cite": {
+            const number = numbers.get(token.id) ?? 0;
+            const source = sourceById.get(token.id);
+            return (
+              <sup key={index} className={styles.citeWrap}>
+                <a
+                  href={`#ref-${number}`}
+                  className={source ? styles.cite : `${styles.cite} ${styles.citeMissing}`}
+                  title={source ? source.title : "Source supprimée"}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    document.getElementById(`ref-${number}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+                  }}
+                >
+                  [{number}]
+                </a>
+              </sup>
+            );
+          }
           case "url":
             return (
               <a key={index} href={token.url} target="_blank" rel="noopener noreferrer" className={styles.extLink}>
@@ -89,7 +128,7 @@ function Inline({ text, resolve, onLink, onZoom }: { text: string; onZoom: Zoom 
 // Lecture d'une note : sous-ensemble de Markdown (titres, listes, citations,
 // gras, italique, code, adresses) et liens [[…]] cliquables. Aucun HTML brut
 // n'est interprété : le texte ne produit que des éléments React.
-export default function NoteRenderer({ body, resolve, onLink }: NoteRendererProps) {
+export default function NoteRenderer({ body, resolve, onLink, sources = [] }: NoteRendererProps) {
   const [zoomed, setZoomed] = useState<{ url: string; alt: string } | null>(null);
 
   useEffect(() => {
@@ -101,7 +140,11 @@ export default function NoteRenderer({ body, resolve, onLink }: NoteRendererProp
 
   const blocks = parseBlocks(body);
   if (blocks.length === 0) return <p className={styles.emptyBody}>Note vide. Passe en mode édition pour écrire.</p>;
-  const inline = (text: string) => <Inline text={text} resolve={resolve} onLink={onLink} onZoom={setZoomed} />;
+  const numbers = citationNumbers(body);
+  const sourceById = new Map(sources.map((source) => [source.id, source]));
+  const inline = (text: string) => (
+    <Inline text={text} resolve={resolve} onLink={onLink} onZoom={setZoomed} numbers={numbers} sourceById={sourceById} />
+  );
 
   return (
     <div className={styles.rendered}>
@@ -139,6 +182,37 @@ export default function NoteRenderer({ body, resolve, onLink }: NoteRendererProp
             return <p key={index}>{inline(block.text)}</p>;
         }
       })}
+      {numbers.size > 0 ? (
+        <section className={styles.references} aria-label="Références">
+          <h4 className={styles.referencesTitle}>Références</h4>
+          <ol className={styles.referenceList}>
+            {[...numbers.entries()].map(([id, number]) => {
+              const source = sourceById.get(id);
+              return (
+                <li key={id} id={`ref-${number}`} className={styles.reference}>
+                  <span className={styles.refNumber}>[{number}]</span>
+                  {source ? (
+                    <span className={styles.refBody}>
+                      <span className={styles.refTitle}>{source.title}</span>
+                      {source.url ? (
+                        <a href={source.url} target="_blank" rel="noopener noreferrer" className={styles.extLink}>
+                          {host(source.url)}
+                        </a>
+                      ) : null}
+                      {source.file ? <SourceFileChip file={source.file} /> : null}
+                      <span className={styles.refMeta}>
+                        Fiabilité {source.reliability}/5{source.publishedAt ? ` · publié le ${source.publishedAt}` : ""}
+                      </span>
+                    </span>
+                  ) : (
+                    <span className={styles.refMissing}>Source supprimée du dossier.</span>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      ) : null}
     </div>
   );
 }

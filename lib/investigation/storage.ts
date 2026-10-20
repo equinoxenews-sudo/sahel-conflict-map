@@ -13,6 +13,8 @@ import {
 import { extractImageIds, replaceImageIds } from "./imageRefs";
 import type { MergePlan } from "./merge";
 import { applyEntityMerge } from "./mergeData";
+import { replaceCitationIds } from "./citations";
+import { deleteFile, getFile, putFile } from "./fileStore";
 import { blobToDataUrl, dataUrlToBlob, deleteImage, getImage, putImage } from "./imageStore";
 
 const STORAGE_KEY = "equinoxe-investigation-v1";
@@ -83,7 +85,7 @@ export interface InvestigationStorage {
   /** Annule une fusion : rétablit `before` si rien n'a changé depuis `after`. Renvoie false sinon. */
   restoreSnapshot(before: InvestigationData, after: InvestigationData): boolean;
   /** JSON du dossier ; les images importées y sont incluses (en data URL) pour qu'un export les emporte. */
-  exportDossier(dossierId: string): Promise<string>;
+  exportDossier(dossierId: string, options?: { includeFiles?: boolean }): Promise<string>;
   /** Returns the imported dossier's id. Par défaut les identifiants sont régénérés (le dossier arrive en
    * copie « (importé) »). Avec `keepIds`, le dossier garde ses identifiants et REMPLACE celui qui porte le
    * même identifiant (récupération depuis la copie en ligne). */
@@ -93,12 +95,19 @@ export interface InvestigationStorage {
 /** Fichier d'export : le dossier plus ses images importées, par identifiant. */
 interface ExportBundle extends InvestigationData {
   images?: Record<string, string>;
+  /** Documents-preuves des sources, par identifiant de fichier (data URL). Absents d'une sauvegarde automatique. */
+  files?: Record<string, string>;
 }
 
 // Le stockage des images est asynchrone et indépendant de localStorage : une
 // erreur de suppression ne doit jamais bloquer la mise à jour des données.
 function discardImages(ids: (string | undefined)[]): void {
   for (const id of ids) if (id) void deleteImage(id).catch(() => undefined);
+}
+
+// Même principe pour les documents-preuves des sources.
+function discardFiles(ids: (string | undefined)[]): void {
+  for (const id of ids) if (id) void deleteFile(id).catch(() => undefined);
 }
 
 type Listener = () => void;
@@ -252,6 +261,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
     },
 
     deleteDossier(id) {
+      discardFiles(cached.sources.filter((s) => s.dossierId === id).map((s) => s.file?.id));
       discardImages([
         ...cached.entities.filter((e) => e.dossierId === id).map((e) => e.imageId),
         ...cached.notes.filter((n) => n.dossierId === id).flatMap((n) => extractImageIds(n.body)),
@@ -310,6 +320,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
       });
     },
     deleteSource(id) {
+      discardFiles([cached.sources.find((s) => s.id === id)?.file?.id]);
       mutate((data) => {
         data.sources = data.sources.filter((s) => s.id !== id);
       });
@@ -453,7 +464,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
       });
     },
 
-    async exportDossier(dossierId) {
+    async exportDossier(dossierId, options) {
       // Les données les plus récentes du navigateur : un onglet resté ouvert ne doit pas envoyer une version périmée.
       const data = readLatest()?.data ?? cached;
       const entities = data.entities.filter((e) => e.dossierId === dossierId);
@@ -464,9 +475,19 @@ export function createLocalStorageEngine(): InvestigationStorage {
         const blob = await getImage(imageId).catch(() => null);
         if (blob) images[imageId] = await blobToDataUrl(blob);
       }
+      // Documents-preuves : emportés dans l'export, sauf demande contraire (sauvegardes automatiques).
+      const files: Record<string, string> = {};
+      if (options?.includeFiles !== false) {
+        for (const source of data.sources.filter((s) => s.dossierId === dossierId)) {
+          if (!source.file) continue;
+          const blob = await getFile(source.file.id).catch(() => null);
+          if (blob) files[source.file.id] = await blobToDataUrl(blob);
+        }
+      }
       const bundle: ExportBundle = {
         version: 1,
         images,
+        files,
         dossiers: data.dossiers.filter((d) => d.id === dossierId),
         sources: data.sources.filter((s) => s.dossierId === dossierId),
         entities,
@@ -492,6 +513,15 @@ export function createLocalStorageEngine(): InvestigationStorage {
           // image illisible : la fiche s'importe sans elle
         }
       }
+      // Documents-preuves du fichier : même traitement que les images (nouvel identifiant, sauf récupération en ligne).
+      const fileIdMap = new Map<string, string>();
+      for (const [oldId, dataUrl] of Object.entries(parsed.files ?? {})) {
+        try {
+          fileIdMap.set(oldId, await putFile(await dataUrlToBlob(dataUrl), keep ? oldId : undefined));
+        } catch {
+          // document illisible : la source s'importe sans lui
+        }
+      }
       const [importedDossier] = parsed.dossiers;
       const newDossierId = keep && importedDossier ? importedDossier.id : newId();
       const entityIdMap = new Map<string, string>();
@@ -511,7 +541,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
       const newSources: Source[] = (parsed.sources ?? []).map((s) => {
         const id = mint(s.id);
         sourceIdMap.set(s.id, id);
-        return { ...s, id, dossierId: newDossierId };
+        return { ...s, id, dossierId: newDossierId, ...(s.file ? { file: { ...s.file, id: fileIdMap.get(s.file.id) ?? s.file.id } } : {}) };
       });
       const newEntities: InvestigationEntity[] = (parsed.entities ?? []).map((e) => {
         const id = mint(e.id);
@@ -557,7 +587,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
         linkedEntityIds: n.linkedEntityIds.map((id) => entityIdMap.get(id)).filter((id): id is string => !!id),
         entityId: n.entityId ? entityIdMap.get(n.entityId) : undefined,
         attributeRef: remapAttributeRef(n.attributeRef, entityIdMap, attributeIdMap),
-        body: replaceImageIds(n.body, imageIdMap),
+        body: replaceCitationIds(replaceImageIds(n.body, imageIdMap), sourceIdMap),
       }));
       const newCanvasCards: CanvasCard[] = (parsed.canvasCards ?? []).map((c) => {
         const id = mint(c.id);

@@ -5,6 +5,7 @@ import { countryOf } from "./EntityNode";
 import { attributeLink, groupAttributes } from "@/lib/investigation/attributes";
 import { useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
 import { attributeLabel, renameNote } from "@/lib/investigation/fiches";
+import { citationToken, insertInline } from "@/lib/investigation/citations";
 import { extractImageIds, imageToken, insertTokenAt, removeImageToken } from "@/lib/investigation/imageRefs";
 import { deleteImage, ImageFileError, NOTE_IMAGE_MAX_SIDE, prepareImage, putImage } from "@/lib/investigation/imageStore";
 import {
@@ -20,6 +21,7 @@ import {
 import { findBacklinks, normalizeKey, resolveWikiLink } from "@/lib/investigation/wikilinks";
 import AttributeIcon from "./AttributeIcon";
 import AttributesEditor from "./AttributesEditor";
+import CitePicker from "./CitePicker";
 import EntityForm, { entityPatchFromValues } from "./EntityForm";
 import EntityTypeIcon from "./EntityTypeIcon";
 import HexFlag from "./HexFlag";
@@ -243,6 +245,7 @@ export default function NoteEditor({
   const [imageError, setImageError] = useState<string | null>(null);
   const [importing, setImporting] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
+  const [citeOpen, setCiteOpen] = useState(false);
   // Images importées pendant cette ouverture : celles qui ne sont finalement plus
   // citées dans le texte sont supprimées de la mémoire du navigateur.
   const sessionImages = useRef<string[]>([]);
@@ -298,6 +301,24 @@ export default function NoteEditor({
     } finally {
       setImporting(false);
     }
+  }
+
+  // Cite une source à l'endroit du curseur : repère [^ID] dans le texte (numéroté [n] en lecture), et la source
+  // rejoint les « Sources liées » de la note.
+  function insertCitation(sourceId: string) {
+    const el = textarea.current;
+    const cursor = mode === "edit" && el ? el.selectionStart : latestBody.current.length;
+    const inserted = insertInline(latestBody.current, cursor, citationToken(sourceId));
+    latestBody.current = inserted.text;
+    setBody(inserted.text);
+    if (!note.linkedSourceIds.includes(sourceId)) {
+      storage.updateNote(note.id, { linkedSourceIds: [...note.linkedSourceIds, sourceId] });
+    }
+    setCiteOpen(false);
+    requestAnimationFrame(() => {
+      el?.focus();
+      el?.setSelectionRange(inserted.next, inserted.next);
+    });
   }
 
   function removeImage(id: string) {
@@ -460,6 +481,9 @@ export default function NoteEditor({
         <button type="button" className={styles.ghost} onClick={() => fileInput.current?.click()} disabled={importing}>
           {importing ? "Import…" : "+ Ajouter une image"}
         </button>
+        <button type="button" className={citeOpen ? `${styles.gold}` : styles.ghost} onClick={() => setCiteOpen((open) => !open)} aria-expanded={citeOpen}>
+          + Citer une source
+        </button>
         <span className={styles.imageHint}>ou colle une capture d&apos;écran (Ctrl+V) / glisse un fichier dans la note</span>
         <input
           ref={fileInput}
@@ -475,6 +499,7 @@ export default function NoteEditor({
         />
       </div>
       )}
+      {citeOpen && !locked ? <CitePicker dossierId={note.dossierId} sources={sources} onPick={insertCitation} onClose={() => setCiteOpen(false)} /> : null}
       {imageError ? <p className={styles.imageError}>{imageError}</p> : null}
 
       <div
@@ -533,7 +558,7 @@ export default function NoteEditor({
             ) : null}
           </div>
         ) : (
-          <NoteRenderer body={body} resolve={resolve} onLink={onLinkClick} />
+          <NoteRenderer body={body} resolve={resolve} onLink={onLinkClick} sources={sources} />
         )}
       </div>
 

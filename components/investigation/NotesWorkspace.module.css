@@ -1125,3 +1125,80 @@ button.attrChip:hover {
 .linkBtn:hover {
   color: var(--accent-gold-bright);
 }
+
+/* Repères de citation [n] dans le texte et liste « Références » en bas de la note. */
+.citeWrap {
+  font-size: 0.75em;
+}
+
+.cite {
+  padding: 0 1px;
+  color: var(--accent-gold-bright);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cite:hover {
+  text-decoration: underline;
+}
+
+.citeMissing {
+  color: #ffb4b4;
+}
+
+.references {
+  margin-top: 1.6em;
+  padding-top: 0.8em;
+  border-top: 1px solid var(--border-glass);
+}
+
+.referencesTitle {
+  margin: 0 0 0.5em;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.rendered .referenceList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reference {
+  display: flex;
+  gap: 8px;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.refNumber {
+  flex: 0 0 auto;
+  color: var(--accent-gold-bright);
+  font-weight: 700;
+}
+
+.refBody {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  min-width: 0;
+}
+
+.refTitle {
+  color: var(--text-primary);
+}
+
+.refMeta {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.refMissing {
+  color: #ffb4b4;
+}

@@ -51,6 +51,14 @@ export interface Dossier {
   updatedAt: string;
 }
 
+/** Document joint à une source (PDF, photo, capture) : le fichier est dans IndexedDB (lib/investigation/fileStore.ts). */
+export interface SourceFile {
+  id: string;
+  name: string;
+  mime: string;
+  size: number;
+}
+
 export interface Source {
   id: string;
   dossierId: string;
@@ -64,6 +72,8 @@ export interface Source {
   reliability: 1 | 2 | 3 | 4 | 5;
   notes: string;
   claimType: ClaimType;
+  /** Document-preuve joint (la source peut n'avoir qu'un document, sans adresse : `url` est alors vide). */
+  file?: SourceFile;
   createdAt: string;
 }
 
