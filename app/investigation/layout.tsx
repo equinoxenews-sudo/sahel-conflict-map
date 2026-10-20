@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import InvestigationLogin from "@/components/investigation/InvestigationLogin";
 import InvestigationShell from "@/components/investigation/InvestigationShell";
-import { adminConfigured, isAdmin } from "@/lib/adminAuth";
+import { adminConfigured, privateAccessOpen } from "@/lib/adminAuth";
 import { InvestigationProvider } from "@/lib/investigation/InvestigationContext";
 
 export const metadata = {
@@ -11,13 +11,11 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
-// L'espace Investigation est protégé par le mot de passe du site (variable ADMIN_PASSWORD, la même que
+// L'espace Investigation est réservé au compte du site (identifiant Nicof + variable ADMIN_PASSWORD, comme
 // pour l'administration et la copie en ligne des dossiers) : un cookie httpOnly de sept jours. En production,
 // sans mot de passe configuré, l'accès reste fermé ; en développement local sans mot de passe, il est ouvert.
 export default async function InvestigationLayout({ children }: { children: ReactNode }) {
-  const configured = adminConfigured();
-  const open = (await isAdmin()) || (!configured && process.env.NODE_ENV !== "production");
-  if (!open) return <InvestigationLogin configured={configured} />;
+  if (!(await privateAccessOpen())) return <InvestigationLogin configured={adminConfigured()} />;
 
   return (
     <InvestigationProvider>

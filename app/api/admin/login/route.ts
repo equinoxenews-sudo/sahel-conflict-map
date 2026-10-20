@@ -1,18 +1,18 @@
 import { NextResponse } from "next/server";
-import { ADMIN_COOKIE, ADMIN_COOKIE_MAX_AGE, adminConfigured, tokenForPassword } from "@/lib/adminAuth";
+import { ADMIN_COOKIE, ADMIN_COOKIE_MAX_AGE, accountId, adminConfigured, tokenForCredentials } from "@/lib/adminAuth";
 
 export async function POST(request: Request) {
   if (!adminConfigured()) {
     return NextResponse.json({ error: "ADMIN_PASSWORD n'est pas configuré sur le serveur." }, { status: 503 });
   }
-  const body = (await request.json().catch(() => null)) as { password?: unknown } | null;
-  const token = tokenForPassword(body?.password);
+  const body = (await request.json().catch(() => null)) as { identifier?: unknown; password?: unknown } | null;
+  const token = tokenForCredentials(body?.identifier, body?.password);
   if (!token) {
-    // Un mot de passe faux fait attendre : on ne peut pas enchaîner des essais à toute vitesse.
+    // Un identifiant ou un mot de passe faux fait attendre : on ne peut pas enchaîner des essais à toute vitesse.
     await new Promise((resolve) => setTimeout(resolve, 900));
-    return NextResponse.json({ error: "Mot de passe incorrect." }, { status: 401 });
+    return NextResponse.json({ error: "Identifiant ou mot de passe incorrect." }, { status: 401 });
   }
-  const response = NextResponse.json({ ok: true });
+  const response = NextResponse.json({ ok: true, user: accountId() });
   response.cookies.set(ADMIN_COOKIE, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

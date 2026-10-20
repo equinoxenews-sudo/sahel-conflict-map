@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { logout } from "@/lib/session";
 import styles from "./Admin.module.css";
 
 export default function AdminLogout() {
@@ -10,7 +11,7 @@ export default function AdminLogout() {
       type="button"
       className={styles.secondary}
       onClick={async () => {
-        await fetch("/api/admin/logout", { method: "POST" });
+        await logout();
         router.refresh();
       }}
     >

@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import { useHasMounted } from "@/lib/useHasMounted";
 import { zoneHomeHref } from "@/lib/homeZones";
+import { logout, openLogin, useSession } from "@/lib/session";
 import { TRACKING_ENABLED, ZONES } from "@/lib/zones";
 import styles from "./MobileDrawer.module.css";
 
@@ -18,6 +20,8 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
   // z-index, which caps how high anything nested inside it (this drawer)
   // can ever rank against siblings outside Header, like the bottom nav.
   const mounted = useHasMounted();
+  const { user } = useSession();
+  const router = useRouter();
   if (!open || !mounted) return null;
 
   return createPortal(
@@ -60,21 +64,47 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
               Tracking
             </Link>
           )}
-          <Link href="/mon-espace" onClick={onClose} className={styles.link}>
-            Mon espace
-          </Link>
-          <Link href="/investigation" onClick={onClose} className={styles.link}>
-            Investigation
-          </Link>
+          {user ? (
+            <>
+              <Link href="/mon-espace" onClick={onClose} className={styles.link}>
+                Mon espace
+              </Link>
+              <Link href="/investigation" onClick={onClose} className={styles.link}>
+                Investigation
+              </Link>
+            </>
+          ) : null}
         </nav>
 
         <div className={styles.divider} />
 
         <nav className={styles.links}>
           <span className={styles.linkDisabled}>Paramètres</span>
-          <Link href="/mon-espace" onClick={onClose} className={styles.link}>
-            Log In
-          </Link>
+          {user ? (
+            <button
+              type="button"
+              className={styles.link}
+              onClick={async () => {
+                onClose();
+                await logout();
+                router.push("/");
+                router.refresh();
+              }}
+            >
+              Se déconnecter ({user})
+            </button>
+          ) : (
+            <button
+              type="button"
+              className={styles.link}
+              onClick={() => {
+                onClose();
+                openLogin();
+              }}
+            >
+              Log In
+            </button>
+          )}
         </nav>
       </div>
     </div>,

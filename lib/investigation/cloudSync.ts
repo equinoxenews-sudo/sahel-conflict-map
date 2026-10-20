@@ -60,22 +60,6 @@ async function call<T>(path: string, init?: RequestInit): Promise<T> {
   return body;
 }
 
-export async function unlockCloud(password: string): Promise<void> {
-  let response: Response;
-  try {
-    response = await fetch("/api/admin/login", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ password }),
-    });
-  } catch {
-    throw new CloudError("Connexion impossible : vérifie ta connexion Internet.", "error");
-  }
-  if (response.ok) return;
-  const body = (await response.json().catch(() => ({}))) as { error?: string };
-  throw new CloudError(body.error ?? "Mot de passe incorrect.", response.status === 503 ? "not_configured" : "locked");
-}
-
 export async function listCloud(): Promise<CloudDossier[]> {
   const { dossiers } = await call<{ dossiers: CloudDossier[] }>("/api/investigation/cloud");
   return dossiers;

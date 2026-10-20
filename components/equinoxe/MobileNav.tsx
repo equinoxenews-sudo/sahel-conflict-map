@@ -2,10 +2,11 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { ReactElement } from "react";
+import { openLogin, useSession } from "@/lib/session";
 import { TRACKING_ENABLED } from "@/lib/zones";
 import styles from "./MobileNav.module.css";
 
-type NavKey = "accueil" | "actualites" | "zones" | "tracking" | "investigation" | "espace";
+type NavKey = "accueil" | "actualites" | "zones" | "tracking" | "investigation" | "espace" | "connexion";
 
 const ICONS: Record<NavKey, ReactElement> = {
   accueil: (
@@ -41,6 +42,12 @@ const ICONS: Record<NavKey, ReactElement> = {
       <path d="M15 15l5.5 5.5" />
     </svg>
   ),
+  connexion: (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <circle cx="12" cy="8" r="3.5" />
+      <path d="M4.5 20c1.5-4 4.2-6 7.5-6s6 2 7.5 6" />
+    </svg>
+  ),
   espace: (
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8">
       <circle cx="12" cy="8" r="3.5" />
@@ -49,19 +56,28 @@ const ICONS: Record<NavKey, ReactElement> = {
   ),
 };
 
-const ITEMS: { key: NavKey; label: string }[] = [
+const PUBLIC_ITEMS: { key: NavKey; label: string }[] = [
   { key: "accueil", label: "Accueil" },
   { key: "actualites", label: "Actualités" },
   { key: "zones", label: "Zones" },
-  // Tracking en sommeil (lib/zones.ts) : Investigation prend sa place.
-  ...(TRACKING_ENABLED ? [{ key: "tracking" as const, label: "Suivi" }] : [{ key: "investigation" as const, label: "Investigation" }]),
+  ...(TRACKING_ENABLED ? [{ key: "tracking" as const, label: "Suivi" }] : []),
+];
+
+// « Investigation » et « Mon espace » n'existent qu'une fois connecté ; avant, « Log in » prend leur place.
+// (Tracking en sommeil, voir lib/zones.ts : Investigation prend sa place dans la barre.)
+const PRIVATE_ITEMS: { key: NavKey; label: string }[] = [
+  ...(TRACKING_ENABLED ? [] : [{ key: "investigation" as const, label: "Investigation" }]),
   { key: "espace", label: "Mon espace" },
 ];
+
+const LOGIN_ITEM: { key: NavKey; label: string } = { key: "connexion", label: "Log in" };
 
 export default function MobileNav() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { user } = useSession();
+  const items = user ? [...PUBLIC_ITEMS, ...PRIVATE_ITEMS] : [...PUBLIC_ITEMS, LOGIN_ITEM];
   const isHome = pathname === "/";
   const homeTab = searchParams.get("tab") ?? "accueil";
 
@@ -69,6 +85,7 @@ export default function MobileNav() {
     if (key === "tracking") return pathname === "/zones/tracking";
     if (key === "investigation") return pathname?.startsWith("/investigation") ?? false;
     if (key === "espace") return pathname === "/mon-espace";
+    if (key === "connexion") return false;
     if (!isHome) return false;
     return homeTab === key;
   }
@@ -86,13 +103,17 @@ export default function MobileNav() {
       router.push("/mon-espace");
       return;
     }
+    if (key === "connexion") {
+      openLogin();
+      return;
+    }
     const target = key === "accueil" ? "/" : `/?tab=${key}`;
     router.push(target);
   }
 
   return (
     <nav className={styles.nav} data-intro-hide>
-      {ITEMS.map((item) => {
+      {items.map((item) => {
         const active = isActive(item.key);
         return (
           <button

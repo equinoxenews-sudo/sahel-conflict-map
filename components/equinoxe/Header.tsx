@@ -2,9 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FOCUS_ZONE_EVENT, ZONE_FOCUSED_EVENT, isHomeZone, zoneHomeHref } from "@/lib/homeZones";
+import { logout, openLogin, useSession } from "@/lib/session";
 import { ZONES } from "@/lib/zones";
 import styles from "./Header.module.css";
 import MobileDrawer from "./MobileDrawer";
@@ -15,6 +16,8 @@ const SHORT_NAMES: Record<string, string> = { "amerique-du-sud": "Am. du Sud", "
 export default function Header() {
   const pathname = usePathname();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { user } = useSession();
+  const router = useRouter();
   // Zone au centre du globe d'accueil (signalée par le globe) : surlignée comme une page active.
   const [globeZone, setGlobeZone] = useState<string | null>(null);
   useEffect(() => {
@@ -69,15 +72,19 @@ export default function Header() {
             </Link>
           );
         })}
-        <Link href="/mon-espace" className={styles.zoneLink}>
-          Mon espace
-        </Link>
-        <Link
-          href="/investigation"
-          className={pathname?.startsWith("/investigation") ? `${styles.zoneLink} ${styles.zoneLinkActive}` : styles.zoneLink}
-        >
-          Investigation
-        </Link>
+        {user ? (
+          <>
+            <Link href="/mon-espace" className={styles.zoneLink}>
+              Mon espace
+            </Link>
+            <Link
+              href="/investigation"
+              className={pathname?.startsWith("/investigation") ? `${styles.zoneLink} ${styles.zoneLinkActive}` : styles.zoneLink}
+            >
+              Investigation
+            </Link>
+          </>
+        ) : null}
       </nav>
 
       <div className={styles.actions}>
@@ -94,10 +101,28 @@ export default function Header() {
           <span className={styles.iconGlyph}>?</span>
           <span className={styles.zoneLabel}>A propos</span>
         </button>
-        <Link href="/mon-espace" className={`${styles.iconBtn} ${styles.compactOnMobile}`} aria-label="Log in">
-          <span className={styles.iconGlyph}>&#128100;</span>
-          <span className={styles.zoneLabel}>Log In</span>
-        </Link>
+        {user ? (
+          <button
+            type="button"
+            className={`${styles.iconBtn} ${styles.compactOnMobile}`}
+            aria-label={`Connecté : ${user}. Se déconnecter`}
+            title="Se déconnecter"
+            onClick={async () => {
+              if (!window.confirm(`Se déconnecter (${user}) ?`)) return;
+              await logout();
+              if (pathname?.startsWith("/investigation") || pathname?.startsWith("/mon-espace")) router.push("/");
+              else router.refresh();
+            }}
+          >
+            <span className={styles.iconGlyph}>&#128100;</span>
+            <span className={styles.zoneLabel}>{user}</span>
+          </button>
+        ) : (
+          <button type="button" className={`${styles.iconBtn} ${styles.compactOnMobile}`} aria-label="Log in" onClick={openLogin}>
+            <span className={styles.iconGlyph}>&#128100;</span>
+            <span className={styles.zoneLabel}>Log In</span>
+          </button>
+        )}
         <div className={`${styles.search} ${styles.desktopOnly}`}>
           <input type="search" placeholder="Rechercher" disabled />
         </div>

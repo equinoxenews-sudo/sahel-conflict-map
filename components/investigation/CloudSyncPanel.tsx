@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   CloudError,
   deleteCloud,
@@ -8,7 +8,6 @@ import {
   listCloudVersions,
   pullDossier,
   pushDossier,
-  unlockCloud,
   type CloudDossier,
   type CloudErrorCode,
   type CloudVersion,
@@ -44,7 +43,6 @@ export default function CloudSyncPanel() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState<string | null>(null);
   const [remote, setRemote] = useState<CloudDossier[]>([]);
-  const [password, setPassword] = useState("");
   const [busy, setBusy] = useState<{ id: string; label: string } | null>(null);
   const [version, setVersion] = useState(0);
   const [history, setHistory] = useState<{ id: string; versions: CloudVersion[] } | null>(null);
@@ -94,18 +92,6 @@ export default function CloudSyncPanel() {
       return () => window.clearTimeout(timer);
     }
   }, [open, status, refresh]);
-
-  async function handleUnlock(event: FormEvent) {
-    event.preventDefault();
-    setMessage(null);
-    try {
-      await unlockCloud(password);
-      setPassword("");
-      await refresh();
-    } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Mot de passe incorrect.");
-    }
-  }
 
   async function handlePush(row: Row) {
     if (!row.local) return;
@@ -229,25 +215,12 @@ La version actuelle de cet appareil est d'abord mise de côté (onglet Sauvegard
           {status === "loading" || status === "idle" ? <p className={styles.note}>Connexion…</p> : null}
 
           {status === "locked" ? (
-            <form className={styles.unlock} onSubmit={handleUnlock}>
-              <input
-                className={styles.input}
-                type="password"
-                autoComplete="current-password"
-                placeholder="Mot de passe"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
-              <button type="submit" className={styles.primary} disabled={!password}>
-                Déverrouiller
-              </button>
-            </form>
+            <p className={styles.error}>Session expirée : recharge la page pour te reconnecter avec ton identifiant et ton mot de passe.</p>
           ) : null}
 
           {status === "not_configured" || status === "no_tables" || status === "error" ? (
             <p className={styles.error}>{message}</p>
           ) : null}
-          {status === "locked" && message ? <p className={styles.error}>{message}</p> : null}
 
           {status === "ready" ? (
             <>
