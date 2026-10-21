@@ -364,7 +364,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 280px;
+  min-width: 120px;
   overflow: hidden;
   border: 2.5px solid var(--node-border, var(--accent-gold));
   border-radius: 10px;
@@ -372,6 +372,7 @@
 }
 
 .pictureFrame {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -383,7 +384,6 @@
   display: block;
   width: 100%;
   height: auto;
-  max-height: 260px;
   object-fit: contain;
   user-select: none;
   pointer-events: none;
@@ -403,4 +403,32 @@
   flex-direction: column;
   gap: 2px;
   padding: 9px 40px 10px 14px;
+}
+
+/* Poignée en bas à droite de l'image : glisser pour agrandir ou réduire (visible au survol et quand la fiche est sélectionnée). */
+.resizeHandle {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  z-index: 3;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--accent-gold);
+  border-radius: 4px;
+  background:
+    linear-gradient(135deg, transparent 45%, var(--accent-gold) 45%, var(--accent-gold) 55%, transparent 55%),
+    var(--bg-primary);
+  cursor: nwse-resize;
+  opacity: 0;
+  transition: opacity 120ms ease;
+  touch-action: none;
+}
+
+.node:hover .resizeHandle,
+.selected .resizeHandle {
+  opacity: 0.95;
+}
+
+:global(.eq-exporting) .resizeHandle {
+  display: none;
 }

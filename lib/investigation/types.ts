@@ -100,6 +100,8 @@ export interface InvestigationEntity {
   countryIso2?: string;
   /** Libellé affiché à côté du drapeau (« Béninois ») ; à défaut, le nom du pays. */
   countryLabel?: string;
+  /** Largeur de la carte d'une fiche de type Image, en pixels du graphe (défaut : IMAGE_CARD_WIDTH). */
+  imageWidth?: number;
   /** Image importée depuis l'ordinateur : clé dans IndexedDB (lib/investigation/imageStore.ts). */
   imageId?: string;
   /** Image désignée par une adresse web ; l'image importée est prioritaire. */

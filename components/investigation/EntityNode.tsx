@@ -1,10 +1,11 @@
 "use client";
 
-import { Handle, Position, type Node, type NodeProps } from "@xyflow/react";
-import { createContext, useContext, type CSSProperties } from "react";
+import { Handle, Position, useStore, type Node, type NodeProps } from "@xyflow/react";
+import { createContext, useContext, useState, type CSSProperties, type PointerEvent as ReactPointerEvent } from "react";
 import { FLAG_COUNTRIES } from "@/lib/countryFlagIndex";
 import { attributeLink, groupAttributes } from "@/lib/investigation/attributes";
 import { ANCHOR_IDS, sideOf } from "@/lib/investigation/anchors";
+import { clampImageWidth } from "@/lib/investigation/shapes";
 import { ENTITY_TYPE_LABELS, type AnchorId, type EntityAttribute, type InvestigationEntity } from "@/lib/investigation/types";
 import AttributeIcon from "./AttributeIcon";
 import EntityTypeIcon from "./EntityTypeIcon";
@@ -27,6 +28,8 @@ export const ToggleAttributesContext = createContext<((entityId: string, collaps
 /** Ferme ou ouvre le cadenas d'une fiche. Absent = pas de cadenas sur les cartes. */
 export const ToggleLockContext = createContext<((entityId: string, locked: boolean) => void) | undefined>(undefined);
 /** Points d'ancrage utilisés par la relation sélectionnée, par fiche : mis en évidence sur les cartes. */
+/** Change la largeur d'une fiche de type Image. Absent = pas de poignée de redimensionnement. */
+export const ResizeImageContext = createContext<((entityId: string, width: number) => void) | undefined>(undefined);
 export const ActiveAnchorsContext = createContext<Record<string, AnchorId[]>>({});
 export type EntityFlowNode = Node<EntityNodeData, "entityCard">;
 
@@ -122,6 +125,31 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
   const collapsed = entity.attributesCollapsed === true && attributeCount > 0;
   const canToggle = attributeCount > 0 && onToggleAttributes !== undefined;
   const isPicture = entity.type === "image";
+  const onResizeImage = useContext(ResizeImageContext);
+  const zoom = useStore((state) => state.transform[2]);
+  // Largeur pendant le glissement de la poignée ; enregistrée seulement quand on relâche.
+  const [dragWidth, setDragWidth] = useState<number | null>(null);
+  const pictureWidth = dragWidth ?? clampImageWidth(entity.imageWidth);
+
+  function startResize(event: ReactPointerEvent<HTMLSpanElement>) {
+    if (!onResizeImage) return;
+    event.stopPropagation();
+    event.preventDefault();
+    const startX = event.clientX;
+    const startWidth = pictureWidth;
+    const widthAt = (clientX: number) => clampImageWidth(startWidth + (clientX - startX) / (zoom || 1));
+    const move = (moveEvent: PointerEvent) => setDragWidth(widthAt(moveEvent.clientX));
+    const finish = (upEvent: PointerEvent) => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", finish);
+      window.removeEventListener("pointercancel", finish);
+      setDragWidth(null);
+      onResizeImage(entity.id, widthAt(upEvent.clientX));
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", finish);
+    window.addEventListener("pointercancel", finish);
+  }
 
   return (
     <div
@@ -143,7 +171,7 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
 
         {isPicture ? (
           // Image posée dans le graphe : l'image en grand, puis titre, description et pays dessous.
-          <div className={styles.picture}>
+          <div className={styles.picture} style={{ width: pictureWidth }}>
             <div className={styles.pictureFrame}>
               {image ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -153,6 +181,18 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
                   <EntityTypeIcon type="image" size={40} />
                 </span>
               )}
+              {onResizeImage && !locked ? (
+                <span
+                  className={`${styles.resizeHandle} nodrag nopan`}
+                  role="slider"
+                  aria-label="Taille de l'image"
+                  aria-valuemin={120}
+                  aria-valuemax={1200}
+                  aria-valuenow={pictureWidth}
+                  title="Glisser pour agrandir ou réduire l'image"
+                  onPointerDown={startResize}
+                />
+              ) : null}
             </div>
             <div className={styles.pictureInfo}>
               <span className={styles.type}>

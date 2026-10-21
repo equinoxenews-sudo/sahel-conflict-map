@@ -79,3 +79,12 @@ test("forme neuve : centrée, avec le style de son type", () => {
   assert.equal(arrow.fill, undefined);
   assert.ok(arrow.stroke);
 });
+
+test("largeur d'une carte image : bornée et arrondie, défaut si absente", async () => {
+  const { clampImageWidth, IMAGE_CARD_MAX, IMAGE_CARD_MIN, IMAGE_CARD_WIDTH } = await import("../lib/investigation/shapes");
+  assert.equal(clampImageWidth(undefined), IMAGE_CARD_WIDTH);
+  assert.equal(clampImageWidth(Number.NaN), IMAGE_CARD_WIDTH);
+  assert.equal(clampImageWidth(10), IMAGE_CARD_MIN);
+  assert.equal(clampImageWidth(99999), IMAGE_CARD_MAX);
+  assert.equal(clampImageWidth(333.6), 334);
+});

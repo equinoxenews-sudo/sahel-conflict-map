@@ -38,7 +38,7 @@ import {
   useShapes,
   useSources,
 } from "@/lib/investigation/InvestigationContext";
-import { frontZ, newShape, reorderShape, type LayerOperation } from "@/lib/investigation/shapes";
+import { frontZ, newShape, reorderShape, type LayerOperation, IMAGE_CARD_MAX, IMAGE_CARD_MIN, clampImageWidth } from "@/lib/investigation/shapes";
 import {
   attributeLink,
   findSharedValues,
@@ -87,6 +87,7 @@ import EntityNode, {
   countryOf,
   OpenAttributeContext,
   ToggleAttributesContext,
+  ResizeImageContext,
   ToggleLockContext,
   type EntityFlowNode,
 } from "./EntityNode";
@@ -229,6 +230,7 @@ function EntityDetails({
   onTogglePin,
   onToggleLock,
   onChangeBorderColor,
+  onChangeImageWidth,
   mergeCandidates,
   onMergeWith,
   onOpenFiche,
@@ -240,6 +242,7 @@ function EntityDetails({
   onTogglePin: () => void;
   onToggleLock: () => void;
   onChangeBorderColor: (color: string | undefined) => void;
+  onChangeImageWidth: (width: number) => void;
   mergeCandidates: InvestigationEntity[];
   onMergeWith: (otherId: string) => void;
   onOpenAttribute?: (attributeId: string) => void;
@@ -334,6 +337,20 @@ function EntityDetails({
         <button type="button" className={styles.ficheBtn} onClick={onOpenFiche}>
           {hasFiche ? "Ouvrir la fiche" : "Créer la fiche"}
         </button>
+      ) : null}
+      {entity.type === "image" ? (
+        <label className={styles.imageSize}>
+          <span>Taille de l&apos;image : {clampImageWidth(entity.imageWidth)} px</span>
+          <input
+            type="range"
+            min={IMAGE_CARD_MIN}
+            max={IMAGE_CARD_MAX}
+            step={10}
+            value={clampImageWidth(entity.imageWidth)}
+            disabled={entity.locked === true}
+            onChange={(event) => onChangeImageWidth(Number(event.target.value))}
+          />
+        </label>
       ) : null}
       <ColorChoice label="Couleur du contour" value={entity.borderColor} onChange={onChangeBorderColor} disabled={entity.locked === true} />
       <button type="button" className={styles.editBtn} onClick={onToggleLock}>
@@ -895,6 +912,7 @@ export default function EntityGraphPanel({
     (entityId: string, collapsed: boolean) => storage.updateEntity(entityId, { attributesCollapsed: collapsed }),
     [storage],
   );
+  const resizeImage = useCallback((entityId: string, width: number) => storage.updateEntity(entityId, { imageWidth: width }), [storage]);
   const toggleLock = useCallback(
     (entityId: string, locked: boolean) => storage.updateEntity(entityId, { locked }),
     [storage],
@@ -1167,6 +1185,7 @@ export default function EntityGraphPanel({
           >
             <OpenAttributeContext.Provider value={onOpenAttribute}>
             <ToggleAttributesContext.Provider value={toggleAttributes}>
+            <ResizeImageContext.Provider value={resizeImage}>
             <ToggleLockContext.Provider value={toggleLock}>
             <ActiveAnchorsContext.Provider value={activeAnchors}>
             <ShapeActionsContext.Provider value={updateShapeFromNode}>
@@ -1246,6 +1265,7 @@ export default function EntityGraphPanel({
             </ShapeActionsContext.Provider>
             </ActiveAnchorsContext.Provider>
             </ToggleLockContext.Provider>
+            </ResizeImageContext.Provider>
             </ToggleAttributesContext.Provider>
             </OpenAttributeContext.Provider>
           </div>
@@ -1271,6 +1291,7 @@ export default function EntityGraphPanel({
                   onTogglePin={() => storage.updateEntity(selectedEntity.id, { pinned: !selectedEntity.pinned })}
                   onToggleLock={() => storage.updateEntity(selectedEntity.id, { locked: selectedEntity.locked !== true })}
                   onChangeBorderColor={(color) => storage.updateEntity(selectedEntity.id, { borderColor: color })}
+                  onChangeImageWidth={(width) => storage.updateEntity(selectedEntity.id, { imageWidth: clampImageWidth(width) })}
                   mergeCandidates={entities.filter((e) => e.id !== selectedEntity.id)}
                   onMergeWith={(otherId) => setMerging({ primaryId: selectedEntity.id, secondaryId: otherId })}
                   onOpenAttribute={onOpenAttribute ? (attributeId) => onOpenAttribute(selectedEntity.id, attributeId) : undefined}

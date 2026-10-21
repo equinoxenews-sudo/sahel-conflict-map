@@ -119,3 +119,14 @@ export function reorderShape(shapes: GraphShape[], id: string, operation: LayerO
 export function frontZ(shapes: GraphShape[]): number {
   return shapes.reduce((max, shape) => Math.max(max, shape.z), 0) + 1;
 }
+
+/** Largeur par défaut, minimale et maximale de la carte d'une image posée dans le graphe (pixels du graphe). */
+export const IMAGE_CARD_WIDTH = 280;
+export const IMAGE_CARD_MIN = 120;
+export const IMAGE_CARD_MAX = 1200;
+
+/** Largeur retenue pour une carte image : bornée, arrondie ; une valeur absente ou illisible donne la largeur par défaut. */
+export function clampImageWidth(value: number | undefined): number {
+  if (typeof value !== "number" || !Number.isFinite(value)) return IMAGE_CARD_WIDTH;
+  return Math.round(Math.min(IMAGE_CARD_MAX, Math.max(IMAGE_CARD_MIN, value)));
+}
