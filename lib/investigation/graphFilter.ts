@@ -8,7 +8,7 @@ export type FilterKey = EntityType | "shapes";
 
 export const SHAPES_FILTER = "shapes" as const;
 
-const VALID_ENTITY_TYPES: readonly string[] = ["person", "organization", "location", "building", "equipment", "event", "document", "account", "image"];
+const VALID_ENTITY_TYPES: readonly string[] = ["person", "organization", "company", "location", "building", "equipment", "event", "document", "account", "image"];
 
 export function filterStorageKey(dossierId: string): string {
   return `equinoxe-investigation-graph-filter:${dossierId}`;

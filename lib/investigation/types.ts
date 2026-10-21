@@ -5,6 +5,8 @@
 export type EntityType =
   | "person"
   | "organization"
+  /** Entreprise (société, groupe, sous-traitant) : distincte d'une organisation (ONG, ministère, unité). */
+  | "company"
   | "location"
   | "building"
   | "equipment"
@@ -17,6 +19,7 @@ export type EntityType =
 export const ENTITY_TYPE_LABELS: Record<EntityType, string> = {
   person: "Personne",
   organization: "Organisation",
+  company: "Entreprise",
   location: "Lieu",
   building: "Édifice",
   equipment: "Matériel",

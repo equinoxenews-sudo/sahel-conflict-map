@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { type FilterKey, type FilterRow, SHAPES_FILTER } from "@/lib/investigation/graphFilter";
 import { ENTITY_TYPE_LABELS } from "@/lib/investigation/types";
+import EntityTypeIcon from "./EntityTypeIcon";
 import styles from "./GraphFilters.module.css";
 
 interface GraphFiltersProps {
@@ -35,6 +36,14 @@ export default function GraphFilters({ rows, hidden, onToggle, onShowAll }: Grap
           {rows.map((row) => (
             <label key={row.key} className={styles.row}>
               <input type="checkbox" checked={!hidden.has(row.key)} onChange={() => onToggle(row.key)} />
+              {row.key === SHAPES_FILTER ? (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+                  <rect x="4" y="5" width="9" height="8" rx="1" />
+                  <circle cx="16" cy="15" r="4.5" />
+                </svg>
+              ) : (
+                <EntityTypeIcon type={row.key} size={14} />
+              )}
               <span className={styles.name}>{labelOf(row.key)}</span>
               <span className={styles.count}>{row.count}</span>
             </label>

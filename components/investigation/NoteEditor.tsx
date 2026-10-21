@@ -43,6 +43,7 @@ import RichNoteEditor, { type SuggestRequest } from "./richEditor/RichNoteEditor
 import RichToolbar from "./richEditor/RichToolbar";
 import ExportFichePanel from "./ExportFichePanel";
 import EntityTypeIcon from "./EntityTypeIcon";
+import EntityTypeLabel from "./EntityTypeLabel";
 import HexFlag from "./HexFlag";
 import NoteRenderer from "./NoteRenderer";
 import RelationsSection from "./RelationsSection";
@@ -103,7 +104,9 @@ function FicheHeader({
           )}
         </span>
         <div className={styles.ficheText}>
-          <span className={styles.ficheType}>{ENTITY_TYPE_LABELS[entity.type].toUpperCase()}</span>
+          <span className={styles.ficheType}>
+            <EntityTypeLabel type={entity.type} upper size={14} />
+          </span>
           {entity.role ? <span>{entity.role}</span> : null}
           {country ? (
             <span className={styles.ficheCountry}>

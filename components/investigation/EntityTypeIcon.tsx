@@ -14,6 +14,12 @@ const PATHS: Record<EntityType, React.ReactNode> = {
       <path d="M9 11.5h1.5M13.5 11.5H15M9 15.5h1.5M13.5 15.5H15" />
     </>
   ),
+  company: (
+    <>
+      <rect x="3.5" y="8.5" width="17" height="11" rx="2" />
+      <path d="M9 8.5V6.7A1.7 1.7 0 0 1 10.7 5h2.6A1.7 1.7 0 0 1 15 6.7v1.8M3.5 13.5h17M10.5 13.5v1.8h3v-1.8" />
+    </>
+  ),
   location: (
     <>
       <path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" />

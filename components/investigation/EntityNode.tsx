@@ -6,9 +6,10 @@ import { FLAG_COUNTRIES } from "@/lib/countryFlagIndex";
 import { attributeLink, groupAttributes } from "@/lib/investigation/attributes";
 import { ANCHOR_IDS, sideOf } from "@/lib/investigation/anchors";
 import { clampImageWidth } from "@/lib/investigation/shapes";
-import { ENTITY_TYPE_LABELS, type AnchorId, type EntityAttribute, type InvestigationEntity } from "@/lib/investigation/types";
+import { type AnchorId, type EntityAttribute, type InvestigationEntity } from "@/lib/investigation/types";
 import AttributeIcon from "./AttributeIcon";
 import EntityTypeIcon from "./EntityTypeIcon";
+import EntityTypeLabel from "./EntityTypeLabel";
 import HexFlag from "./HexFlag";
 import LockIcon from "./LockIcon";
 import { useEntityImage } from "./useEntityImage";
@@ -196,7 +197,7 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
             </div>
             <div className={styles.pictureInfo}>
               <span className={styles.type}>
-                {ENTITY_TYPE_LABELS.image.toUpperCase()}
+                <EntityTypeLabel type="image" upper size={12} />
                 {entity.pinned ? (
                   <span className={styles.pin} title="Position épinglée : la mise en page automatique ne la déplace pas">
                     {" "}
@@ -241,7 +242,7 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
 
         <div className={canToggle ? `${styles.card} ${styles.cardWithToggle}` : styles.card}>
           <span className={styles.type}>
-            {ENTITY_TYPE_LABELS[entity.type].toUpperCase()}
+            <EntityTypeLabel type={entity.type} upper size={12} />
             {entity.pinned ? (
               <span className={styles.pin} title="Position épinglée : la mise en page automatique ne la déplace pas">
                 {" "}

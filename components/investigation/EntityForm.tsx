@@ -13,6 +13,7 @@ import {
 } from "@/lib/investigation/types";
 import AttributesEditor from "./AttributesEditor";
 import ColorChoice from "./ColorChoice";
+import EntityTypeIcon from "./EntityTypeIcon";
 import ImagePicker, { type PickedImage } from "./ImagePicker";
 import styles from "./EntityForm.module.css";
 
@@ -61,6 +62,7 @@ interface EntityFormProps {
 const ROLE_PLACEHOLDER: Record<EntityType, string> = {
   person: "Fonction (ex : Parc Manager)",
   organization: "Nature (ex : ONG, ministère, unité)",
+  company: "Secteur (ex : sécurité privée, transport, mine, BTP)",
   location: "Précision (ex : ville, région, site)",
   building: "Nature (ex : base, entrepôt, siège)",
   equipment: "Modèle ou catégorie (ex : drone, véhicule blindé)",
@@ -126,7 +128,9 @@ export default function EntityForm({ initial, submitLabel, sources = [], onSubmi
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.row}>
         <label className={styles.field}>
-          <span className={styles.label}>Type</span>
+          <span className={styles.label} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            Type <EntityTypeIcon type={type} size={14} />
+          </span>
           <select className={styles.control} value={type} onChange={(e) => setType(e.target.value as EntityType)}>
             {(Object.keys(ENTITY_TYPE_LABELS) as EntityType[]).map((key) => (
               <option key={key} value={key}>

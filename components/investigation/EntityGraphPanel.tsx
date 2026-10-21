@@ -92,6 +92,7 @@ import EntityNode, {
   type EntityFlowNode,
 } from "./EntityNode";
 import LockIcon from "./LockIcon";
+import EntityTypeLabel from "./EntityTypeLabel";
 import GraphFilters from "./GraphFilters";
 import GraphToolbox, { type ColorTarget } from "./GraphToolbox";
 import ShapeNode, { ShapeActionsContext, type ShapeFlowNode } from "./ShapeNode";
@@ -265,7 +266,9 @@ function EntityDetails({
       <span className={styles.detailTitle}>{entity.name}</span>
       <div className={styles.detailRow}>
         <span className={styles.detailLabel}>Type</span>
-        <span className={styles.detailValue}>{ENTITY_TYPE_LABELS[entity.type]}</span>
+        <span className={styles.detailValue}>
+          <EntityTypeLabel type={entity.type} size={15} />
+        </span>
       </div>
       {entity.role ? (
         <div className={styles.detailRow}>

@@ -4,11 +4,12 @@ import { forwardRef } from "react";
 import { groupAttributes } from "@/lib/investigation/attributes";
 import { sheetSize, type FicheLayout } from "@/lib/investigation/exportFiche";
 import { phraseFrom } from "@/lib/investigation/relationTypes";
-import { ENTITY_TYPE_LABELS, RELATION_STATUS_LABELS, type InvestigationEntity, type Note, type Relation, type Source } from "@/lib/investigation/types";
+import { RELATION_STATUS_LABELS, type InvestigationEntity, type Note, type Relation, type Source } from "@/lib/investigation/types";
 import type { WikiResolution } from "@/lib/investigation/wikilinks";
 import AttributeIcon from "./AttributeIcon";
 import { countryOf } from "./EntityNode";
 import EntityTypeIcon from "./EntityTypeIcon";
+import EntityTypeLabel from "./EntityTypeLabel";
 import HexFlag from "./HexFlag";
 import NoteRenderer from "./NoteRenderer";
 import SourceEvidence from "./SourceEvidence";
@@ -65,7 +66,9 @@ const FicheSheet = forwardRef<HTMLDivElement, FicheSheetProps>(function FicheShe
         )}
       </span>
       <div className={styles.headerText}>
-        <span className={styles.type}>{ENTITY_TYPE_LABELS[entity.type].toUpperCase()}</span>
+        <span className={styles.type}>
+          <EntityTypeLabel type={entity.type} upper size={13} />
+        </span>
         {entity.role ? <span className={styles.role}>{entity.role}</span> : null}
         {country ? (
           <span className={styles.country}>
