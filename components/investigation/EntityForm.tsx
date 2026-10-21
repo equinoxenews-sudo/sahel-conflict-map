@@ -12,6 +12,7 @@ import {
   type Source,
 } from "@/lib/investigation/types";
 import AttributesEditor from "./AttributesEditor";
+import ColorChoice from "./ColorChoice";
 import ImagePicker, { type PickedImage } from "./ImagePicker";
 import styles from "./EntityForm.module.css";
 
@@ -26,6 +27,8 @@ export interface EntityFormValues {
   imageId?: string;
   imageUrl?: string;
   attributes: EntityAttribute[];
+  /** Couleur du contour de la carte (#rrggbb) ; absente = couleur d'origine (or). */
+  borderColor?: string;
 }
 
 /** Champs d'une entité à enregistrer d'après le formulaire (vide = champ retiré). */
@@ -41,6 +44,7 @@ export function entityPatchFromValues(values: EntityFormValues) {
     imageId: values.imageId,
     imageUrl: values.imageUrl,
     attributes: values.attributes.length > 0 ? values.attributes : undefined,
+    borderColor: values.borderColor,
   };
 }
 
@@ -75,6 +79,7 @@ export default function EntityForm({ initial, submitLabel, sources = [], onSubmi
   const [aliases, setAliases] = useState(initial?.aliases.join(", ") ?? "");
   const [notes, setNotes] = useState(initial?.notes ?? "");
   const [attributes, setAttributes] = useState<EntityAttribute[]>(initial?.attributes ?? []);
+  const [borderColor, setBorderColor] = useState<string | undefined>(initial?.borderColor);
   const [image, setImage] = useState<PickedImage>({ imageId: initial?.imageId, imageUrl: initial?.imageUrl });
 
   // Images importées pendant la saisie : celles qu'on n'enregistre finalement
@@ -109,6 +114,7 @@ export default function EntityForm({ initial, submitLabel, sources = [], onSubmi
       notes: notes.trim(),
       imageId: image.imageId,
       imageUrl: image.imageUrl,
+      borderColor,
       // Une ligne sans valeur n'est pas une coordonnée : elle n'est pas enregistrée.
       attributes: attributes
         .filter((attribute) => attribute.value.trim() !== "")
@@ -180,6 +186,8 @@ export default function EntityForm({ initial, submitLabel, sources = [], onSubmi
         <span className={styles.label}>Image</span>
         <ImagePicker value={image} onChange={setImage} onCreated={(id) => createdImages.current.push(id)} large={type === "image"} />
       </div>
+
+      <ColorChoice label="Couleur du contour" value={borderColor} onChange={setBorderColor} />
 
       <div className={styles.field}>
         <span className={styles.label}>Coordonnées</span>

@@ -790,6 +790,7 @@ export default function EntityGraphPanel({
       imageId: values.imageId,
       imageUrl: values.imageUrl,
       attributes: values.attributes.length > 0 ? values.attributes : undefined,
+      borderColor: values.borderColor,
       position: freePosition(entities.map((entity) => entity.position)),
     });
     setShowEntityForm(false);
@@ -810,6 +811,7 @@ export default function EntityGraphPanel({
       imageId: values.imageId,
       imageUrl: values.imageUrl,
       attributes: values.attributes.length > 0 ? values.attributes : undefined,
+      borderColor: values.borderColor,
     });
     setEditingEntityId(null);
   }
