@@ -31,7 +31,7 @@ interface NotesWorkspaceProps {
   onClose?: () => void;
 }
 
-const FICHE_TYPES: EntityType[] = ["person", "organization", "location", "building", "equipment", "event", "document", "account"];
+const FICHE_TYPES: EntityType[] = ["person", "organization", "location", "building", "equipment", "event", "document", "account", "image"];
 
 function DocumentIcon() {
   return (

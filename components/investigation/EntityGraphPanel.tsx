@@ -28,6 +28,7 @@ import {
   type ShapeKind,
 } from "@/lib/investigation/types";
 import { LINE_STYLES, LINE_STYLE_LABELS } from "@/lib/investigation/anchors";
+import { ImageFileError, NOTE_IMAGE_MAX_SIDE, NOTE_IMAGE_QUALITY, prepareImage, putImage } from "@/lib/investigation/imageStore";
 import {
   useDossier,
   useEntities,
@@ -654,6 +655,43 @@ export default function EntityGraphPanel({
     const created = storage.addShape(newShape(kind, dossierId, center, frontZ(shapes)));
     setSelected({ kind: "shape", id: created.id });
   }
+  // Images posées directement dans le graphe (bouton, ou glisser-déposer d'un fichier PNG / JPEG) : chacune devient une
+  // fiche de type « Image », avec contour, points de liaison, titre, description et pays comme une entité.
+  const imageInput = useRef<HTMLInputElement>(null);
+  const [imageError, setImageError] = useState<string | null>(null);
+  async function addImageEntities(files: File[], at?: { x: number; y: number }) {
+    const images = files.filter((file) => file.type.startsWith("image/"));
+    if (images.length === 0) return;
+    setImageError(null);
+    const rect = canvasRef.current?.getBoundingClientRect();
+    const origin =
+      at ??
+      (flow && rect ? flow.screenToFlowPosition({ x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }) : { x: 0, y: 0 });
+    let firstId: string | null = null;
+    try {
+      for (const [index, file] of images.entries()) {
+        const imageId = await putImage(await prepareImage(file, NOTE_IMAGE_MAX_SIDE, NOTE_IMAGE_QUALITY));
+        const created = storage.addEntity({
+          dossierId,
+          type: "image",
+          name: file.name.replace(/\.[^.]+$/, "").trim() || "Image",
+          aliases: [],
+          notes: "",
+          imageId,
+          // La carte est posée autour du point visé (centre de la vue ou point de dépôt), les suivantes en cascade.
+          position: { x: Math.round(origin.x - 140 + index * 40), y: Math.round(origin.y - 120 + index * 40) },
+        });
+        firstId ??= created.id;
+      }
+    } catch (error) {
+      setImageError(error instanceof ImageFileError ? error.message : "Impossible d'importer cette image.");
+    }
+    // La première image s'ouvre en modification : titre, description, pays.
+    if (firstId) {
+      setSelected({ kind: "entity", id: firstId });
+      setEditingEntityId(firstId);
+    }
+  }
   function changeSelectedShape(patch: Partial<GraphShape>) {
     if (selectedShape) storage.updateShape(selectedShape.id, patch);
   }
@@ -890,6 +928,26 @@ export default function EntityGraphPanel({
         <button
           type="button"
           className={styles.toolbarBtn}
+          onClick={() => imageInput.current?.click()}
+          title="Poser une image (PNG, JPEG) dans le graphe : elle devient une fiche avec contour, points de liaison, titre, description et pays"
+        >
+          + Ajouter une image
+        </button>
+        <input
+          ref={imageInput}
+          type="file"
+          accept="image/png,image/jpeg,image/webp"
+          multiple
+          hidden
+          onChange={(event) => {
+            const files = [...(event.target.files ?? [])];
+            event.target.value = "";
+            void addImageEntities(files);
+          }}
+        />
+        <button
+          type="button"
+          className={styles.toolbarBtn}
           onClick={() => setShowRelationForm((v) => !v)}
           disabled={entities.length < 2}
           title={entities.length < 2 ? "Ajoutez au moins deux entités d'abord" : undefined}
@@ -1006,6 +1064,15 @@ export default function EntityGraphPanel({
         />
       ) : null}
 
+      {imageError ? (
+        <div className={styles.notice} role="alert">
+          <span>{imageError}</span>
+          <button type="button" className={styles.noticeBtn} onClick={() => setImageError(null)} aria-label="Fermer">
+            ×
+          </button>
+        </div>
+      ) : null}
+
       {layoutUndo ? (
         <div className={styles.notice} role="status">
           <span>Mise en page appliquée.</span>
@@ -1085,7 +1152,19 @@ export default function EntityGraphPanel({
         </div>
       ) : (
         <div className={compact ? `${styles.body} ${styles.bodyCompact}` : styles.body}>
-          <div ref={canvasRef} className={compact ? `${styles.canvasWrap} ${styles.canvasCompact}` : styles.canvasWrap}>
+          <div
+            ref={canvasRef}
+            className={compact ? `${styles.canvasWrap} ${styles.canvasCompact}` : styles.canvasWrap}
+            onDragOver={(event) => {
+              if ([...event.dataTransfer.items].some((item) => item.kind === "file")) event.preventDefault();
+            }}
+            onDrop={(event) => {
+              const files = [...event.dataTransfer.files].filter((file) => file.type.startsWith("image/"));
+              if (files.length === 0) return;
+              event.preventDefault();
+              void addImageEntities(files, flow ? flow.screenToFlowPosition({ x: event.clientX, y: event.clientY }) : undefined);
+            }}
+          >
             <OpenAttributeContext.Provider value={onOpenAttribute}>
             <ToggleAttributesContext.Provider value={toggleAttributes}>
             <ToggleLockContext.Provider value={toggleLock}>

@@ -121,13 +121,14 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
   const attributeCount = entity.attributes?.length ?? 0;
   const collapsed = entity.attributesCollapsed === true && attributeCount > 0;
   const canToggle = attributeCount > 0 && onToggleAttributes !== undefined;
+  const isPicture = entity.type === "image";
 
   return (
     <div
       className={selected ? `${styles.node} ${styles.selected}` : styles.node}
       style={entity.borderColor ? ({ "--node-border": entity.borderColor } as CSSProperties) : undefined}
     >
-      <div className={styles.head}>
+      <div className={isPicture ? `${styles.head} ${styles.pictureHead}` : styles.head}>
         {/* Huit points d'ancrage (coins et milieux des côtés), comme les poignées d'une forme
             PowerPoint : une relation en choisit un au départ et un à l'arrivée. */}
         {ANCHOR_IDS.map((anchor) => {
@@ -140,6 +141,55 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
           );
         })}
 
+        {isPicture ? (
+          // Image posée dans le graphe : l'image en grand, puis titre, description et pays dessous.
+          <div className={styles.picture}>
+            <div className={styles.pictureFrame}>
+              {image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={image} alt={entity.name} className={styles.pictureImage} referrerPolicy="no-referrer" draggable={false} />
+              ) : (
+                <span className={styles.pictureEmpty}>
+                  <EntityTypeIcon type="image" size={40} />
+                </span>
+              )}
+            </div>
+            <div className={styles.pictureInfo}>
+              <span className={styles.type}>
+                {ENTITY_TYPE_LABELS.image.toUpperCase()}
+                {entity.pinned ? (
+                  <span className={styles.pin} title="Position épinglée : la mise en page automatique ne la déplace pas">
+                    {" "}
+                    📌
+                  </span>
+                ) : null}
+              </span>
+              {onToggleLock ? (
+                <button
+                  type="button"
+                  className={`${styles.lockBtn} ${locked ? styles.lockBtnOn : ""} nodrag`}
+                  aria-pressed={locked}
+                  title={locked ? "Fermée : cliquer pour la rouvrir et la modifier" : "Ouverte : cliquer pour la fermer (protégée, ni déplacée ni modifiée)"}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    onToggleLock(entity.id, !locked);
+                  }}
+                >
+                  <LockIcon locked={locked} />
+                </button>
+              ) : null}
+              <span className={styles.name}>{entity.name}</span>
+              {entity.role ? <span className={styles.role}>{entity.role}</span> : null}
+              {country ? (
+                <span className={styles.country}>
+                  {country.label}
+                  <HexFlag iso2={country.iso2} name={country.name} />
+                </span>
+              ) : null}
+            </div>
+          </div>
+        ) : (
+          <>
         <div className={styles.avatar}>
           {image ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -203,6 +253,8 @@ export default function EntityNode({ data, selected }: NodeProps<EntityFlowNode>
             </button>
           ) : null}
         </div>
+          </>
+        )}
       </div>
 
       {groups.length > 0 && !collapsed ? (

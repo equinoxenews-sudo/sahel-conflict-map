@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { ImageFileError, prepareImage, putImage } from "@/lib/investigation/imageStore";
+import { ImageFileError, NOTE_IMAGE_MAX_SIDE, NOTE_IMAGE_QUALITY, prepareImage, putImage } from "@/lib/investigation/imageStore";
 import { useEntityImage } from "./useEntityImage";
 import styles from "./ImagePicker.module.css";
 
@@ -11,6 +11,8 @@ export interface PickedImage {
 }
 
 interface ImagePickerProps {
+  /** Image de grande taille (une image du graphe) : définition élevée au lieu d'une pastille réduite. */
+  large?: boolean;
   value: PickedImage;
   onChange: (next: PickedImage) => void;
   /** Appelé pour chaque image importée : le formulaire peut ainsi nettoyer celles qu'il n'enregistre pas. */
@@ -30,7 +32,7 @@ function asWebAddress(text: string): string | null {
 // (ou glisser une image depuis une page web), la coller (Ctrl+V), ou saisir son
 // adresse. Un fichier est réduit et stocké localement ; une adresse reste une
 // simple référence (le site d'origine peut la retirer ou la bloquer).
-export default function ImagePicker({ value, onChange, onCreated }: ImagePickerProps) {
+export default function ImagePicker({ value, onChange, onCreated, large = false }: ImagePickerProps) {
   const fileInput = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -42,7 +44,7 @@ export default function ImagePicker({ value, onChange, onCreated }: ImagePickerP
     setBusy(true);
     setError(null);
     try {
-      const imageId = await putImage(await prepareImage(file));
+      const imageId = await putImage(large ? await prepareImage(file, NOTE_IMAGE_MAX_SIDE, NOTE_IMAGE_QUALITY) : await prepareImage(file));
       onCreated?.(imageId);
       onChange({ imageId, imageUrl: undefined });
     } catch (err) {

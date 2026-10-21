@@ -45,6 +45,13 @@ const PATHS: Record<EntityType, React.ReactNode> = {
       <path d="M13.5 3.5v4h4M9 12h6M9 15.5h6" />
     </>
   ),
+  image: (
+    <>
+      <rect x="3.5" y="5" width="17" height="14" rx="2" />
+      <circle cx="9" cy="10" r="1.6" />
+      <path d="m4 17.5 5-4.5 3.5 3 3-2.5 4.5 4" />
+    </>
+  ),
   account: (
     <>
       <circle cx="12" cy="12" r="3.2" />

@@ -63,6 +63,7 @@ const ROLE_PLACEHOLDER: Record<EntityType, string> = {
   event: "Date ou lieu",
   document: "Nature du document",
   account: "Plateforme",
+  image: "Description (ex : lieu, date, ce que montre l'image)",
 };
 
 export default function EntityForm({ initial, submitLabel, sources = [], onSubmit, onCancel }: EntityFormProps) {
@@ -129,13 +130,13 @@ export default function EntityForm({ initial, submitLabel, sources = [], onSubmi
           </select>
         </label>
         <label className={`${styles.field} ${styles.grow}`}>
-          <span className={styles.label}>Nom</span>
+          <span className={styles.label}>{type === "image" ? "Titre" : "Nom"}</span>
           <input className={styles.control} value={name} onChange={(e) => setName(e.target.value)} required autoFocus />
         </label>
       </div>
 
       <label className={styles.field}>
-        <span className={styles.label}>Sous le nom</span>
+        <span className={styles.label}>{type === "image" ? "Description" : "Sous le nom"}</span>
         <input className={styles.control} value={role} onChange={(e) => setRole(e.target.value)} placeholder={ROLE_PLACEHOLDER[type]} />
       </label>
 
@@ -177,7 +178,7 @@ export default function EntityForm({ initial, submitLabel, sources = [], onSubmi
 
       <div className={styles.field}>
         <span className={styles.label}>Image</span>
-        <ImagePicker value={image} onChange={setImage} onCreated={(id) => createdImages.current.push(id)} />
+        <ImagePicker value={image} onChange={setImage} onCreated={(id) => createdImages.current.push(id)} large={type === "image"} />
       </div>
 
       <div className={styles.field}>

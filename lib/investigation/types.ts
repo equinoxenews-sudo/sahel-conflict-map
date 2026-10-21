@@ -10,7 +10,9 @@ export type EntityType =
   | "equipment"
   | "event"
   | "document"
-  | "account";
+  | "account"
+  /** Une image posée dans le graphe (photo, capture, document scanné) : une fiche à part entière, avec contour, points de liaison, titre, description et pays. */
+  | "image";
 
 export const ENTITY_TYPE_LABELS: Record<EntityType, string> = {
   person: "Personne",
@@ -21,6 +23,7 @@ export const ENTITY_TYPE_LABELS: Record<EntityType, string> = {
   event: "Événement",
   document: "Document",
   account: "Compte public",
+  image: "Image",
 };
 
 export type RelationStatus = "documented" | "hypothesis";
