@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   deleteBackup,
   getBackupJson,
@@ -62,6 +62,31 @@ export default function DossierBackup({ dossierId, dossierName, className }: Dos
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const wrap = useRef<HTMLDivElement>(null);
+
+  // Le message de confirmation s'efface tout seul.
+  useEffect(() => {
+    if (!message) return;
+    const timer = window.setTimeout(() => setMessage(null), 6000);
+    return () => window.clearTimeout(timer);
+  }, [message]);
+
+  // La liste se ferme avec Échap ou d'un clic à côté.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    const onDown = (event: MouseEvent) => {
+      if (wrap.current && !wrap.current.contains(event.target as Node)) setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onDown);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onDown);
+    };
+  }, [open]);
 
   const refresh = useCallback(async () => {
     try {
@@ -133,10 +158,8 @@ export default function DossierBackup({ dossierId, dossierName, className }: Dos
       downloadJson(json, fileName(dossierName, meta.createdAt));
       await refresh();
       setMessage(`Sauvegardé à ${timeFormat.format(new Date(meta.createdAt))} — ${meta.entities} fiche(s), ${meta.notes} note(s). Fichier téléchargé.`);
-      setOpen(true);
     } catch (error) {
       setMessage(error instanceof Error ? `Sauvegarde impossible : ${error.message}` : "Sauvegarde impossible.");
-      setOpen(true);
     } finally {
       setBusy(false);
     }
@@ -176,7 +199,7 @@ export default function DossierBackup({ dossierId, dossierName, className }: Dos
   }
 
   return (
-    <div className={styles.wrap}>
+    <div className={styles.wrap} ref={wrap}>
       <div className={styles.buttons}>
         <button type="button" className={`${className ?? ""} ${styles.save}`} disabled={busy} onClick={() => void handleSave()}>
           {busy ? "Sauvegarde…" : "Sauvegarder"}
@@ -194,8 +217,20 @@ export default function DossierBackup({ dossierId, dossierName, className }: Dos
         </button>
       </div>
 
+      {!open && message ? (
+        <p className={styles.toast} role="status">
+          {message}
+        </p>
+      ) : null}
+
       {open ? (
         <div className={styles.panel}>
+          <div className={styles.panelHead}>
+            <span className={styles.panelTitle}>Sauvegardes du dossier</span>
+            <button type="button" className={styles.close} aria-label="Fermer la liste des sauvegardes" onClick={() => setOpen(false)}>
+              ×
+            </button>
+          </div>
           {message ? <p className={styles.message}>{message}</p> : null}
           {backups.length === 0 ? (
             <p className={styles.empty}>
