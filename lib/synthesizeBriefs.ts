@@ -2,7 +2,7 @@ import {
   eventTypePromptList, isEventTypeKey, isImportanceKey, isThemeKey, MAX_SECONDARY_THEMES, themePromptList,
   type EventTypeKey, type ImportanceKey, type ThemeKey,
 } from "./themes";
-import { usageFromResponse, type AiUsage } from "./aiBudget";
+import { meetsImportance, usageFromResponse, type AiUsage } from "./aiBudget";
 import { isValidVeracity, type Veracity } from "./veracity";
 import { CONFIDENCE_LEVELS, normalizeConfidence, type Confidence } from "./confidence";
 
@@ -278,6 +278,21 @@ class SynthesisFormatError extends Error {}
 
 const MIN_RETRY_BUDGET_MS = 15000;
 
+/** Consigne ajoutée quand le budget du mois est tendu : moins de synthèses, les plus importantes d'abord (moins de jetons en sortie). */
+function importanceRule(minImportance: "medium" | "high" | null): string {
+  if (!minImportance) return "";
+  const keep = minImportance === "high" ? "UNIQUEMENT les synthèses d'importance high" : "UNIQUEMENT les synthèses d'importance high ou medium";
+  return `
+
+BUDGET SERRÉ CE MOIS-CI : publie ${keep}. N'écris pas du tout les synthèses de moindre importance (omets-les) : un lot vide est une réponse valide. Une reprise d'un événement déjà publié (existingBriefId renseigné) reste autorisée.`;
+}
+
+/** Filtre de sécurité : écarte les NOUVELLES synthèses sous le seuil (les mises à jour d'un article déjà publié passent). */
+export function keepImportant(briefs: SynthesizedBrief[], minImportance: "medium" | "high" | null): SynthesizedBrief[] {
+  if (!minImportance) return briefs;
+  return briefs.filter((brief) => brief.existingBriefId != null || meetsImportance(brief.importance, minImportance));
+}
+
 /**
  * Groups a batch of real OSINT articles into a handful of AI-written
  * pieces, each citing the source articles it draws on. Length adapts to
@@ -296,7 +311,9 @@ export async function synthesizeBriefs(
   /** Analystes V2 : indice de confiance, lieu, règles Telegram. */
   analyst = false,
   /** Consigne du jour de Nicolas pour la zone (lib/zoneDirectives.ts), déjà mise en forme. */
-  directive = ""
+  directive = "",
+  /** Mode budget tendu ou critique : seules les nouvelles synthèses de cette importance (ou plus) sont publiées. */
+  minImportance: "medium" | "high" | null = null
 ): Promise<SynthesizedBrief[]> {
   // Une clé collée dans un tableau de bord avec un espace, un retour à la
   // ligne ou des guillemets est refusée (401) : on la nettoie.
@@ -321,7 +338,7 @@ export async function synthesizeBriefs(
         body: JSON.stringify({
           model: MODEL,
           max_tokens: MAX_TOKENS,
-          messages: [{ role: "user", content: buildPrompt(zoneName, articles, previous, analyst) + directive }],
+          messages: [{ role: "user", content: buildPrompt(zoneName, articles, previous, analyst) + directive + importanceRule(minImportance) }],
         }),
         signal: controller.signal,
       });
@@ -333,7 +350,7 @@ export async function synthesizeBriefs(
       const data = (await res.json()) as { content?: { type: string; text?: string }[] };
       onUsage?.(usageFromResponse(data));
       const text = data.content?.find((block) => block.type === "text")?.text ?? "";
-      return parseResponse(text, articles, previous, true, analyst);
+      return keepImportant(parseResponse(text, articles, previous, true, analyst), minImportance);
     } catch (err) {
       const canRetry =
         err instanceof SynthesisFormatError && attempt === 1 && deadline - Date.now() >= MIN_RETRY_BUDGET_MS;

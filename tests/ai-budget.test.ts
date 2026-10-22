@@ -2,11 +2,15 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   addUsage,
-  budgetLevel,
+  budgetMode,
+  decideJob,
   decideWebSearch,
   estimateCostUsd,
-  jobAllowed,
-  limitsFromEnv,
+  meetsImportance,
+  MODE_POLICIES,
+  monthlyBudgetFromEnv,
+  projectMonthUsd,
+  rulesForMode,
   shouldGenerateBriefs,
   usageFromResponse,
   webPolicyFromEnv,
@@ -26,22 +30,112 @@ test("L'utilisation est lue dans la réponse de l'API, valeurs absentes à zéro
   assert.deepEqual(addUsage(usage, usage), { inputTokens: 240, outputTokens: 160, webSearches: 4 });
 });
 
-test("Seuils : avertissement à 15 $, suspension à 25 $, arrêt total à 35 $", () => {
-  const limits = limitsFromEnv({});
-  assert.deepEqual(limits, { warn: 15, stop: 25, hard: 35 });
-  assert.equal(budgetLevel(14.99, limits), "ok");
-  assert.equal(budgetLevel(15, limits), "warn");
-  assert.equal(budgetLevel(25, limits), "stop");
-  assert.equal(budgetLevel(35, limits), "hard");
-  assert.deepEqual(limitsFromEnv({ AI_BUDGET_STOP_USD: "20" }), { warn: 15, stop: 20, hard: 35 });
+// Budget : 40 € hors taxes ≈ 46 $ de crédits. On juge le rythme de la dépense, pas un chiffre atteint.
+const BUDGET = 46;
+const EUR = 1.15; // dollars par euro, taux de référence du budget
+
+test("Budget mensuel : 46 $ par défaut, réglable par AI_BUDGET_MONTHLY_USD", () => {
+  assert.equal(monthlyBudgetFromEnv({}), 46);
+  assert.equal(monthlyBudgetFromEnv({ AI_BUDGET_MONTHLY_USD: "60" }), 60);
+  assert.equal(monthlyBudgetFromEnv({ AI_BUDGET_MONTHLY_USD: "abc" }), 46);
+  assert.equal(monthlyBudgetFromEnv({ AI_BUDGET_MONTHLY_USD: "0" }), 46);
 });
 
-test("Au seuil de suspension, seules les synthèses du jour continuent", () => {
-  assert.equal(jobAllowed("zone-synthesis", "warn"), true);
-  assert.equal(jobAllowed("zone-synthesis", "stop"), false);
-  assert.equal(jobAllowed("situation-report", "stop"), false);
-  assert.equal(jobAllowed("sync-briefs", "stop"), true);
-  assert.equal(jobAllowed("sync-briefs", "hard"), false);
+test("Projection : déjà dépensé + rythme des 7 derniers jours × jours restants", () => {
+  // 7 jours à 1,2 $ par jour, 23e jour d'un mois de 31 jours
+  assert.ok(Math.abs(projectMonthUsd({ spentUsd: 28.75, recentUsd: 8.4, dayOfMonth: 23, daysInMonth: 31 }) - (28.75 + 1.2 * 8)) < 1e-9);
+  // en début de mois, la fenêtre est celle des jours écoulés
+  assert.equal(projectMonthUsd({ spentUsd: 10, recentUsd: 10, dayOfMonth: 4, daysInMonth: 30 }), 10 + 2.5 * 26);
+  // dernier jour du mois : rien ne s'ajoute
+  assert.equal(projectMonthUsd({ spentUsd: 20, recentUsd: 7, dayOfMonth: 30, daysInMonth: 30 }), 20);
+});
+
+test("25 € dépensés le 23 du mois : tout va bien, aucune restriction", () => {
+  const spentUsd = 25 * EUR;
+  const projectedUsd = projectMonthUsd({ spentUsd, recentUsd: 7 * 1.2 * EUR, dayOfMonth: 23, daysInMonth: 31 });
+  assert.equal(budgetMode({ spentUsd, projectedUsd, dayOfMonth: 23, budgetUsd: BUDGET }), "normal");
+});
+
+test("10 € dépensés en 4 jours : mode critique tout de suite", () => {
+  const spentUsd = 10 * EUR;
+  const projectedUsd = projectMonthUsd({ spentUsd, recentUsd: spentUsd, dayOfMonth: 4, daysInMonth: 31 });
+  assert.equal(budgetMode({ spentUsd, projectedUsd, dayOfMonth: 4, budgetUsd: BUDGET }), "critical");
+});
+
+test("Jusqu'au budget : normal ; de 100 % à 140 % : tendu ; au-delà de 140 % : critique", () => {
+  const mode = (projectedUsd: number) => budgetMode({ spentUsd: 10, projectedUsd, dayOfMonth: 15, budgetUsd: BUDGET });
+  assert.equal(mode(46), "normal");
+  assert.equal(mode(46.5), "tight");
+  assert.equal(mode(64), "tight");
+  assert.equal(mode(65), "critical");
+});
+
+test("Avant le 3e jour du mois, pas de jugement ; budget presque épuisé : dernier recours", () => {
+  assert.equal(budgetMode({ spentUsd: 3, projectedUsd: 500, dayOfMonth: 2, budgetUsd: BUDGET }), "normal");
+  assert.equal(budgetMode({ spentUsd: 3, projectedUsd: 500, dayOfMonth: 3, budgetUsd: BUDGET }), "critical");
+  assert.equal(budgetMode({ spentUsd: 0.95 * BUDGET, projectedUsd: 47, dayOfMonth: 28, budgetUsd: BUDGET }), "exhausted");
+  assert.equal(budgetMode({ spentUsd: 0.95 * BUDGET, projectedUsd: 47, dayOfMonth: 1, budgetUsd: BUDGET }), "exhausted");
+});
+
+test("Articles : seuils relevés, moins de lots, importance minimale selon le mode", () => {
+  assert.deepEqual(MODE_POLICIES.normal.articles, { minNew: 3, maxAgeHours: 36, maxBatches: 3, minImportance: "low" });
+  assert.deepEqual(MODE_POLICIES.tight.articles, { minNew: 4, maxAgeHours: 48, maxBatches: 2, minImportance: "medium" });
+  assert.deepEqual(MODE_POLICIES.critical.articles, { minNew: 5, maxAgeHours: 72, maxBatches: 1, minImportance: "high" });
+  assert.equal(meetsImportance("high", "high"), true);
+  assert.equal(meetsImportance("medium", "high"), false);
+  assert.equal(meetsImportance("medium", "medium"), true);
+  assert.equal(meetsImportance("low", "medium"), false);
+  assert.equal(meetsImportance(null, "medium"), true);
+  assert.equal(meetsImportance("low", "low"), true);
+});
+
+test("Les règles de génération ne sont jamais abaissées par le mode, et un événement grave passe toujours", () => {
+  const base = { minNew: 3, maxAgeHours: 36 };
+  assert.deepEqual(rulesForMode(base, MODE_POLICIES.normal), base);
+  assert.deepEqual(rulesForMode(base, MODE_POLICIES.critical), { minNew: 5, maxAgeHours: 72 });
+  assert.deepEqual(rulesForMode({ minNew: 9, maxAgeHours: 100 }, MODE_POLICIES.tight), { minNew: 9, maxAgeHours: 100 });
+  const now = new Date("2026-10-22T06:00:00Z");
+  const four = Array.from({ length: 4 }, (_, i) => ({ title: `Visite ${i}`, publishedAt: now.toISOString() }));
+  assert.equal(shouldGenerateBriefs(four, now, rulesForMode(base, MODE_POLICIES.critical)).generate, false);
+  assert.equal(shouldGenerateBriefs(four, now, rulesForMode(base, MODE_POLICIES.normal)).generate, true);
+  assert.equal(shouldGenerateBriefs([{ title: "Attentat à Niamey", publishedAt: now.toISOString() }], now, rulesForMode(base, MODE_POLICIES.exhausted)).generate, true);
+});
+
+test("Points de situation : lundi et jeudi sauf en critique (lundi seul) et budget épuisé", () => {
+  const monday = new Date("2026-10-19T05:00:00Z");
+  const thursday = new Date("2026-10-22T05:00:00Z");
+  const tuesday = new Date("2026-10-20T05:00:00Z");
+  for (const mode of ["normal", "tight"] as const) {
+    assert.equal(decideJob("situation-report", MODE_POLICIES[mode], monday).allowed, true);
+    assert.equal(decideJob("situation-report", MODE_POLICIES[mode], thursday).allowed, true);
+    // un lancement manuel un autre jour reste possible : le rythme est celui du planificateur
+    assert.equal(decideJob("situation-report", MODE_POLICIES[mode], tuesday).allowed, true);
+  }
+  assert.equal(decideJob("situation-report", MODE_POLICIES.critical, monday).allowed, true);
+  assert.equal(decideJob("situation-report", MODE_POLICIES.critical, thursday).allowed, false);
+  assert.equal(decideJob("situation-report", MODE_POLICIES.exhausted, monday).allowed, false);
+});
+
+test("Synthèses de zone : tous les jours en normal, tous les 3 jours en tendu et en critique", () => {
+  const now = new Date("2026-10-22T08:00:00Z");
+  const hoursAgo = (h: number) => new Date(now.getTime() - h * 3_600_000);
+  assert.equal(decideJob("zone-synthesis", MODE_POLICIES.normal, now, hoursAgo(24)).allowed, true);
+  for (const mode of ["tight", "critical"] as const) {
+    assert.equal(decideJob("zone-synthesis", MODE_POLICIES[mode], now, hoursAgo(24)).allowed, false);
+    assert.equal(decideJob("zone-synthesis", MODE_POLICIES[mode], now, hoursAgo(48)).allowed, false);
+    // trois jours à l'heure près : le cron de Vercel part à ±59 min
+    assert.equal(decideJob("zone-synthesis", MODE_POLICIES[mode], now, hoursAgo(71)).allowed, true);
+    assert.equal(decideJob("zone-synthesis", MODE_POLICIES[mode], now, hoursAgo(80)).allowed, true);
+    assert.equal(decideJob("zone-synthesis", MODE_POLICIES[mode], now, null).allowed, true);
+  }
+  assert.equal(decideJob("zone-synthesis", MODE_POLICIES.exhausted, now, null).allowed, false);
+});
+
+test("Les articles tournent dans tous les modes", () => {
+  const now = new Date("2026-10-22T06:00:00Z");
+  for (const mode of ["normal", "tight", "critical", "exhausted"] as const) {
+    assert.equal(decideJob("sync-briefs", MODE_POLICIES[mode], now).allowed, true);
+  }
 });
 
 test("Rotation : une zone par jour, rien le lundi ni le dimanche", () => {

@@ -42,9 +42,7 @@ jobs:
       SYNTHESIS_MODEL: ${{ vars.SYNTHESIS_MODEL }}
       FORCE: ${{ inputs.force }}
       ZONE_INPUT: ${{ inputs.zone }}
-      AI_BUDGET_WARN_USD: ${{ vars.AI_BUDGET_WARN_USD }}
-      AI_BUDGET_STOP_USD: ${{ vars.AI_BUDGET_STOP_USD }}
-      AI_BUDGET_HARD_USD: ${{ vars.AI_BUDGET_HARD_USD }}
+      AI_BUDGET_MONTHLY_USD: ${{ vars.AI_BUDGET_MONTHLY_USD }}
       AI_WEB_SEARCH_MONTHLY_CAP: ${{ vars.AI_WEB_SEARCH_MONTHLY_CAP }}
       AI_WEB_SEARCHES_PER_RUN: ${{ vars.AI_WEB_SEARCHES_PER_RUN }}
     steps:

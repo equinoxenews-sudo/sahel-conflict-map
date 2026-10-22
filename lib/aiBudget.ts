@@ -1,4 +1,4 @@
-// Maîtrise des dépenses de l'API Anthropic : estimation du coût, seuils d'alerte,
+// Maîtrise des dépenses de l'API Anthropic : estimation du coût, mode du mois (rythme de la dépense),
 // rotation des synthèses de zone, politique de recherche web et décision de générer.
 // Module pur (aucun accès réseau ni base) : les règles sont déterministes et testées.
 // Le suivi des appels est dans lib/aiUsage.ts.
@@ -80,48 +80,157 @@ export function estimateCostUsd(usage: AiUsage, pricing: Pricing = DEFAULT_PRICI
   );
 }
 
-// --- Seuils de budget ---------------------------------------------------------------
+// --- Mode du mois : on regarde le RYTHME de la dépense, pas un chiffre atteint -----------
+//
+// Décision de Nicolas (22/10/2026) : 40 € par mois hors taxes pour Équinoxe (48 € avec la TVA), en plus
+// de l'abonnement Claude Pro. Atteindre 25 € le 23 du mois est normal ; en dépenser 10 en quatre jours ne
+// l'est pas. On projette donc la dépense de fin de mois d'après le rythme des sept derniers jours, et on
+// restreint seulement si cette projection dépasse le budget. Priorités : 1) les articles, 2) les points de
+// situation, 3) les synthèses de zone.
 
 export type AiJob = "sync-briefs" | "zone-synthesis" | "situation-report";
 
-/** Traitements sans lesquels le site n'affiche plus rien de nouveau : suspendus en dernier. */
-export const ESSENTIAL_JOBS: readonly AiJob[] = ["sync-briefs"];
+/** Budget mensuel en dollars de crédits (40 € hors taxes ≈ 46 $ au taux de référence). Réglable : AI_BUDGET_MONTHLY_USD. */
+export const DEFAULT_MONTHLY_BUDGET_USD = 46;
 
-export interface BudgetLimits {
-  /** Avertissement (annotation dans les journaux). */
-  warn: number;
-  /** Suspension des traitements non essentiels. */
-  stop: number;
-  /** Arrêt de tous les traitements IA : filet contre un emballement. */
-  hard: number;
+export function monthlyBudgetFromEnv(env: Record<string, string | undefined> = process.env): number {
+  const value = numberFrom(env.AI_BUDGET_MONTHLY_USD, DEFAULT_MONTHLY_BUDGET_USD);
+  return value > 0 ? value : DEFAULT_MONTHLY_BUDGET_USD;
 }
 
-// Relevés le 17/10/2026 (décision de Nicolas) pour les analystes de zone : le plafond
-// mensuel visé est 35-40 €, et Elisa (ÉQUINOXE HQ) rend compte de la consommation.
-export const DEFAULT_LIMITS: BudgetLimits = { warn: 15, stop: 25, hard: 35 };
+export type BudgetMode = "normal" | "tight" | "critical" | "exhausted";
 
-export function limitsFromEnv(env: Record<string, string | undefined> = process.env): BudgetLimits {
-  return {
-    warn: numberFrom(env.AI_BUDGET_WARN_USD, DEFAULT_LIMITS.warn),
-    stop: numberFrom(env.AI_BUDGET_STOP_USD, DEFAULT_LIMITS.stop),
-    hard: numberFrom(env.AI_BUDGET_HARD_USD, DEFAULT_LIMITS.hard),
+export const MODE_LABELS: Record<BudgetMode, string> = {
+  normal: "normal",
+  tight: "tendu",
+  critical: "critique",
+  exhausted: "épuisé",
+};
+
+/** Dépense de fin de mois attendue : déjà dépensé + rythme des sept derniers jours × jours restants. */
+export function projectMonthUsd(input: { spentUsd: number; recentUsd: number; dayOfMonth: number; daysInMonth: number }): number {
+  const window = Math.max(1, Math.min(7, input.dayOfMonth));
+  const pace = input.recentUsd / window;
+  return input.spentUsd + pace * Math.max(0, input.daysInMonth - input.dayOfMonth);
+}
+
+/** Tendu : la projection dépasse le budget. Critique : elle le dépasse de plus de 40 %. */
+export const TIGHT_RATIO = 1;
+export const CRITICAL_RATIO = 1.4;
+/** Dernier recours : au-delà de cette part du budget réellement dépensée, seul le minimum d'articles continue. */
+export const EXHAUSTED_SHARE = 0.95;
+/** Avant ce jour du mois, trop peu de données pour juger : mode normal (sauf budget épuisé). */
+export const MIN_DAYS_TO_JUDGE = 3;
+
+export function budgetMode(input: { spentUsd: number; projectedUsd: number; dayOfMonth: number; budgetUsd: number }): BudgetMode {
+  if (input.spentUsd >= input.budgetUsd * EXHAUSTED_SHARE) return "exhausted";
+  if (input.dayOfMonth < MIN_DAYS_TO_JUDGE) return "normal";
+  const ratio = input.projectedUsd / input.budgetUsd;
+  if (ratio > CRITICAL_RATIO) return "critical";
+  if (ratio > TIGHT_RATIO) return "tight";
+  return "normal";
+}
+
+export type ImportanceFloor = "low" | "medium" | "high";
+
+const IMPORTANCE_RANK: Record<string, number> = { low: 0, medium: 1, high: 2 };
+
+/** Une synthèse d'importance `importance` passe-t-elle le seuil ? (importance inconnue = moyenne) */
+export function meetsImportance(importance: string | null | undefined, floor: ImportanceFloor): boolean {
+  return (IMPORTANCE_RANK[importance ?? "medium"] ?? 1) >= IMPORTANCE_RANK[floor];
+}
+
+export interface ModePolicy {
+  mode: BudgetMode;
+  articles: {
+    /** Nombre d'articles en attente à partir duquel une zone est rédigée (un événement grave suffit toujours). */
+    minNew: number;
+    /** Ancienneté (heures) au-delà de laquelle un article isolé déclenche quand même la rédaction. */
+    maxAgeHours: number;
+    /** Lots de 5 articles au plus par zone et par passage. */
+    maxBatches: number;
+    /** Importance minimale des nouvelles synthèses publiées. */
+    minImportance: ImportanceFloor;
   };
+  /** Jours (0 = dimanche) où un point de situation peut partir ; null = aucune restriction. */
+  psitWeekdays: number[] | null;
+  /** Synthèses de zone : intervalle minimal entre deux passages qui ont appelé le modèle ; 0 = aucun. */
+  synthesisIntervalDays: number;
+  synthesisEnabled: boolean;
 }
 
-export type BudgetLevel = "ok" | "warn" | "stop" | "hard";
+export const MODE_POLICIES: Record<BudgetMode, ModePolicy> = {
+  normal: {
+    mode: "normal",
+    articles: { minNew: 3, maxAgeHours: 36, maxBatches: 3, minImportance: "low" },
+    psitWeekdays: null,
+    synthesisIntervalDays: 0,
+    synthesisEnabled: true,
+  },
+  tight: {
+    mode: "tight",
+    articles: { minNew: 4, maxAgeHours: 48, maxBatches: 2, minImportance: "medium" },
+    psitWeekdays: null,
+    synthesisIntervalDays: 3,
+    synthesisEnabled: true,
+  },
+  critical: {
+    mode: "critical",
+    articles: { minNew: 5, maxAgeHours: 72, maxBatches: 1, minImportance: "high" },
+    psitWeekdays: [1],
+    synthesisIntervalDays: 3,
+    synthesisEnabled: true,
+  },
+  exhausted: {
+    mode: "exhausted",
+    articles: { minNew: 99, maxAgeHours: 24 * 365, maxBatches: 1, minImportance: "high" },
+    psitWeekdays: [],
+    synthesisIntervalDays: 0,
+    synthesisEnabled: false,
+  },
+};
 
-export function budgetLevel(spentUsd: number, limits: BudgetLimits = DEFAULT_LIMITS): BudgetLevel {
-  if (spentUsd >= limits.hard) return "hard";
-  if (spentUsd >= limits.stop) return "stop";
-  if (spentUsd >= limits.warn) return "warn";
-  return "ok";
+export interface JobDecision {
+  allowed: boolean;
+  reason: string;
 }
 
-/** Un traitement peut-il tourner au niveau de budget atteint ? */
-export function jobAllowed(job: AiJob, level: BudgetLevel): boolean {
-  if (level === "hard") return false;
-  if (level === "stop") return ESSENTIAL_JOBS.includes(job);
-  return true;
+/** Tolérance sur « tous les 3 jours » : le cron de Vercel part à ±59 min près. */
+const INTERVAL_TOLERANCE_HOURS = 2;
+
+/** Un traitement peut-il tourner dans ce mode ? `lastSynthesisAt` : dernier passage de synthèse de zone qui a appelé le modèle. */
+export function decideJob(job: AiJob, policy: ModePolicy, now: Date, lastSynthesisAt: Date | null = null): JobDecision {
+  if (job === "sync-briefs") return { allowed: true, reason: "les articles sont la priorité : ils tournent dans tous les modes (seuils relevés si le budget l'exige)" };
+  if (job === "situation-report") {
+    if (policy.psitWeekdays === null) return { allowed: true, reason: "point de situation autorisé" };
+    if (policy.psitWeekdays.includes(now.getUTCDay())) return { allowed: true, reason: "jour de point de situation de ce mode" };
+    return {
+      allowed: false,
+      reason:
+        policy.psitWeekdays.length === 0
+          ? "budget épuisé : plus de point de situation ce mois-ci (lancement manuel « force » possible)"
+          : "mode critique : un seul point de situation par semaine, le lundi (lancement manuel « force » possible)",
+    };
+  }
+  if (!policy.synthesisEnabled) return { allowed: false, reason: "budget épuisé : synthèses de zone suspendues (lancement manuel « force » possible)" };
+  if (policy.synthesisIntervalDays > 0 && lastSynthesisAt) {
+    const hours = (now.getTime() - lastSynthesisAt.getTime()) / 3_600_000;
+    if (hours < policy.synthesisIntervalDays * 24 - INTERVAL_TOLERANCE_HOURS) {
+      return {
+        allowed: false,
+        reason: `mode ${MODE_LABELS[policy.mode]} : une mise à jour des synthèses tous les ${policy.synthesisIntervalDays} jours (dernière il y a ${Math.round(hours)} h)`,
+      };
+    }
+  }
+  return { allowed: true, reason: "synthèse de zone autorisée" };
+}
+
+/** Règles de génération des articles, relevées selon le mode (jamais abaissées sous les réglages d'environnement). */
+export function rulesForMode(rules: GenerationRules, policy: ModePolicy): GenerationRules {
+  return {
+    minNew: Math.max(rules.minNew, policy.articles.minNew),
+    maxAgeHours: Math.max(rules.maxAgeHours, policy.articles.maxAgeHours),
+  };
 }
 
 // --- Rotation des synthèses de zone ------------------------------------------------

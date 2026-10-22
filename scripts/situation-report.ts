@@ -185,8 +185,8 @@ async function main() {
   const targets = onlyZone ? zoneSlugs.filter((s) => s === onlyZone) : zoneSlugs;
   if (targets.length === 0) throw new Error(`Zone inconnue : ${onlyZone}`);
 
-  const budget = await checkBudget("situation-report");
-  if (budget.level !== "ok") {
+  const budget = await checkBudget("situation-report", { force });
+  if (budget.mode !== "normal" || !budget.allowed) {
     console.log(budget.message);
     if (process.env.GITHUB_ACTIONS) console.log(`::notice title=Budget IA::${budget.message}`);
   } else console.log(budget.message);

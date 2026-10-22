@@ -1,4 +1,4 @@
-import { shouldGenerateBriefs, generationRulesFromEnv } from "./aiBudget";
+import { shouldGenerateBriefs, generationRulesFromEnv, rulesForMode, type ModePolicy } from "./aiBudget";
 import { checkBudget, recordUsage } from "./aiUsage";
 import { isAnalystV2Zone } from "./analystZones";
 import { holdForReview, reviewsReady } from "./briefReviews";
@@ -116,6 +116,7 @@ async function briefBatch(
   limit: number,
   telegramExclude: Set<number>,
   directive: ZoneDirective | null = null,
+  policy: ModePolicy | null = null,
 ): Promise<BatchResult> {
   const keywords = directive ? directiveKeywords(directive.text) : [];
   const supabase = getSupabaseAdmin();
@@ -161,7 +162,7 @@ async function briefBatch(
     const decision = shouldGenerateBriefs(
       articles.map((article) => ({ title: article.title, publishedAt: article.published_at })),
       new Date(),
-      generationRulesFromEnv(),
+      policy ? rulesForMode(generationRulesFromEnv(), policy) : generationRulesFromEnv(),
     );
     if (!decision.generate) {
       console.log(`Brief sync ${zoneSlug} : report — ${decision.reason}`);
@@ -214,7 +215,7 @@ async function briefBatch(
       job: "sync-briefs", zoneSlug, model: MODEL, usage,
       note: `${pendingPress.length} articles${analyst ? ` + ${pendingTelegram.length} Telegram` : ""}`,
     });
-  }, analyst, directivePrompt(directive));
+  }, analyst, directivePrompt(directive), policy && policy.articles.minImportance !== "low" ? policy.articles.minImportance : null);
 
   const { data: recentImages, error: imageError } = await supabase.from("zone_briefs")
     .select("image_url").order("published_at", { ascending: false }).limit(100);
@@ -293,9 +294,9 @@ async function briefBatch(
   return { zoneSlug, articleCount: articles.length, briefCount: briefs.length - held, telegramUsed, held };
 }
 
-async function briefZone(zoneSlug: string): Promise<BatchResult> {
+async function briefZone(zoneSlug: string, policy: ModePolicy | null = null): Promise<BatchResult> {
   const analyst = isAnalystV2Zone(zoneSlug) && (await analystSchemaReady());
-  if (!analyst) return briefBatch(zoneSlug, false, ARTICLES_PER_ZONE, new Set());
+  if (!analyst) return briefBatch(zoneSlug, false, ARTICLES_PER_ZONE, new Set(), null, policy);
   const directive = await activeDirective(zoneSlug);
 
   // Plusieurs lots tant qu'il reste des articles, dans la limite du temps et du
@@ -303,8 +304,9 @@ async function briefZone(zoneSlug: string): Promise<BatchResult> {
   const started = Date.now();
   const seenTelegram = new Set<number>();
   const total: BatchResult = { zoneSlug, articleCount: 0, briefCount: 0, telegramUsed: 0 };
-  for (let batch = 0; batch < ANALYST_MAX_BATCHES && Date.now() - started < ANALYST_TIME_BUDGET_MS; batch++) {
-    const r = await briefBatch(zoneSlug, true, ANALYST_BATCH, seenTelegram, directive);
+  const maxBatches = policy ? Math.min(ANALYST_MAX_BATCHES, policy.articles.maxBatches) : ANALYST_MAX_BATCHES;
+  for (let batch = 0; batch < maxBatches && Date.now() - started < ANALYST_TIME_BUDGET_MS; batch++) {
+    const r = await briefBatch(zoneSlug, true, ANALYST_BATCH, seenTelegram, directive, policy);
     total.articleCount += r.articleCount;
     total.briefCount += r.briefCount;
     total.telegramUsed += r.telegramUsed;
@@ -341,7 +343,7 @@ export async function syncBriefs(onlyZone?: string) {
     console.warn(budget.message);
     return { summary: {}, errors: {}, skipped: budget.message };
   }
-  if (budget.level !== "ok") console.warn(budget.message);
+  console.log(budget.message);
 
   const allZoneSlugs = Object.keys(ZONE_KEYWORDS);
   if (onlyZone && !allZoneSlugs.includes(onlyZone)) throw new Error(`Zone inconnue : ${onlyZone}`);
@@ -350,7 +352,7 @@ export async function syncBriefs(onlyZone?: string) {
   const results = await Promise.allSettled(zoneSlugs.map(async (zoneSlug) => {
     const startedAt = Date.now();
     try {
-      return await briefZone(zoneSlug);
+      return await briefZone(zoneSlug, budget.policy);
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       throw new Error(`${message} (après ${Math.round((Date.now() - startedAt) / 1000)} s)`);
@@ -370,5 +372,5 @@ export async function syncBriefs(onlyZone?: string) {
     }
   });
 
-  return { summary, errors, ...(budget.level !== "ok" ? { budget: budget.message } : {}) };
+  return { summary, errors, ...(budget.mode !== "normal" ? { budget: budget.message } : {}) };
 }

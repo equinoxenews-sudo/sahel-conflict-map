@@ -210,8 +210,8 @@ async function main() {
   const targets = zoneArg && zoneArg !== "all" ? zoneSlugs.filter((s) => s === zoneArg) : zoneSlugs;
   if (targets.length === 0) throw new Error(`Zone inconnue : ${zoneArg}`);
 
-  const budget = await checkBudget("zone-synthesis");
-  if (budget.level !== "ok") notice("Budget IA", budget.message);
+  const budget = await checkBudget("zone-synthesis", { force });
+  if (budget.mode !== "normal" || !budget.allowed) notice("Budget IA", budget.message);
   else console.log(budget.message);
   if (!budget.allowed) return;
 

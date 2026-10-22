@@ -34,9 +34,7 @@ jobs:
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       PSIT_MODEL: ${{ vars.PSIT_MODEL }}
       FORCE: ${{ inputs.force }}
-      AI_BUDGET_WARN_USD: ${{ vars.AI_BUDGET_WARN_USD }}
-      AI_BUDGET_STOP_USD: ${{ vars.AI_BUDGET_STOP_USD }}
-      AI_BUDGET_HARD_USD: ${{ vars.AI_BUDGET_HARD_USD }}
+      AI_BUDGET_MONTHLY_USD: ${{ vars.AI_BUDGET_MONTHLY_USD }}
     steps:
       # Le cron de Vercel lance ce workflow à l'heure (route /api/cron/dispatch). La
       # planification ci-dessus reste en secours : si un lancement de la journée existe
