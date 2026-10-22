@@ -4,7 +4,8 @@
   background: var(--bg-panel);
   border-bottom: 1px solid var(--border-subtle);
   overflow: hidden;
-  height: 32px;
+  /* Le bandeau grandit avec la largeur de l'écran (tailles d'origine en dessous de ~1400 px). */
+  height: clamp(32px, 2.2vw, 46px);
 }
 
 .badge {
@@ -13,10 +14,10 @@
   flex-shrink: 0;
   background: var(--status-critical);
   color: var(--text-primary);
-  font-size: 10px;
+  font-size: clamp(10px, 0.68vw, 13px);
   font-weight: 700;
   letter-spacing: 1px;
-  padding: 0 12px;
+  padding: 0 clamp(12px, 0.9vw, 18px);
   height: 100%;
   display: flex;
   align-items: center;
@@ -45,16 +46,16 @@
   display: inline-flex;
   align-items: center;
   color: var(--text-secondary);
-  font-size: 11px;
+  font-size: clamp(11px, 0.78vw, 15px);
   letter-spacing: 0.3px;
-  padding: 0 20px;
+  padding: 0 clamp(20px, 1.4vw, 28px);
 }
 
 .flag {
   display: inline-flex;
   align-items: center;
-  margin-right: 8px;
-  font-size: 13px;
+  margin-right: clamp(6px, 0.45vw, 9px);
+  font-size: clamp(13px, 0.95vw, 19px);
 }
 
 .dot {
