@@ -4,7 +4,7 @@
   justify-content: space-between;
   gap: 16px;
   /* Bandeau, logo et navigation grandissent avec la largeur de l'écran (valeurs d'origine en dessous de ~1400 px). */
-  padding: clamp(14px, 1.1vw, 22px) clamp(24px, 1.7vw, 36px);
+  padding: clamp(6px, 0.45vw, 10px) clamp(24px, 1.7vw, 36px);
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border-subtle);
   flex-wrap: wrap;
