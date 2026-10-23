@@ -65,7 +65,7 @@ export default function ZoneCarousel({ zone, briefs, variant, highlightId = null
             <li key={brief.id} className={styles.item} data-brief-id={brief.id}>
               <Link
                 href={`/briefs/${brief.id}`}
-                // Survol : le point de l'événement grossit sur le globe et cesse de clignoter.
+                // Survol : le point de l'événement grossit sur le globe et son anneau se marque.
                 onMouseEnter={() => setHoveredBrief(brief.id)}
                 onMouseLeave={() => setHoveredBrief(null)}
                 onFocus={() => setHoveredBrief(brief.id)}

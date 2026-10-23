@@ -164,7 +164,7 @@ const DOT_COLOR = "#ff3b30";
 const DOT_PX = 64;
 
 let dotCanvas: HTMLCanvasElement | null = null;
-/** Point lumineux : cœur clair, rouge vif, halo qui s'estompe (style « lumières de la nuit »). */
+/** Point d'événement au repos : disque rouge net (bord franc) avec un petit halo serré, toujours allumé. */
 function glowDot(): HTMLCanvasElement {
   if (dotCanvas) return dotCanvas;
   const canvas = document.createElement("canvas");
@@ -172,30 +172,52 @@ function glowDot(): HTMLCanvasElement {
   canvas.height = DOT_PX;
   const ctx = canvas.getContext("2d")!;
   const c = DOT_PX / 2;
-  const halo = ctx.createRadialGradient(c, c, 0, c, c, c);
-  halo.addColorStop(0, `${DOT_COLOR}ff`);
-  halo.addColorStop(0.18, `${DOT_COLOR}e6`);
-  halo.addColorStop(0.4, `${DOT_COLOR}55`);
+  const discR = DOT_PX * 0.24;
+  const halo = ctx.createRadialGradient(c, c, 0, c, c, discR * 1.6);
+  halo.addColorStop(0, `${DOT_COLOR}88`);
   halo.addColorStop(1, `${DOT_COLOR}00`);
   ctx.fillStyle = halo;
   ctx.fillRect(0, 0, DOT_PX, DOT_PX);
-  // Cœur presque blanc : le point reste visible même sur un pays coloré.
-  const core = ctx.createRadialGradient(c, c, 0, c, c, DOT_PX * 0.12);
-  core.addColorStop(0, "rgba(255,255,255,0.95)");
-  core.addColorStop(1, "rgba(255,255,255,0)");
-  ctx.fillStyle = core;
-  ctx.fillRect(0, 0, DOT_PX, DOT_PX);
+  // Disque plein au bord net, avec un léger éclat au centre : lisible sur un pays coloré comme sur la mer.
+  const disc = ctx.createRadialGradient(c, c, 0, c, c, discR);
+  disc.addColorStop(0, "#ff8a80");
+  disc.addColorStop(1, DOT_COLOR);
+  ctx.beginPath();
+  ctx.arc(c, c, discR, 0, Math.PI * 2);
+  ctx.fillStyle = disc;
+  ctx.fill();
   dotCanvas = canvas;
   return canvas;
 }
 
-/** Durée d'un clignotement (lent), en millisecondes. */
-const BLINK_MS = 2600;
-/** Intensité du point à l'instant présent (entre 0,35 et 1), décalée par événement pour que
- *  les points ne clignotent pas tous ensemble. */
-function blinkLevel(phase: number): number {
-  const t = ((performance.now() / BLINK_MS + phase) % 1) * 2 * Math.PI;
-  return 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(t));
+const RING_PX = 128;
+let ringCanvas: HTMLCanvasElement | null = null;
+/** Anneau fin et doux, qui s'élargit autour du point (effet radar) : le pic est à 72 % du rayon de l'image. */
+function pingRing(): HTMLCanvasElement {
+  if (ringCanvas) return ringCanvas;
+  const canvas = document.createElement("canvas");
+  canvas.width = RING_PX;
+  canvas.height = RING_PX;
+  const ctx = canvas.getContext("2d")!;
+  const c = RING_PX / 2;
+  const ring = ctx.createRadialGradient(c, c, 0, c, c, c);
+  ring.addColorStop(0, `${DOT_COLOR}00`);
+  ring.addColorStop(0.62, `${DOT_COLOR}00`);
+  ring.addColorStop(0.72, `${DOT_COLOR}ff`);
+  ring.addColorStop(0.86, `${DOT_COLOR}59`);
+  ring.addColorStop(1, `${DOT_COLOR}00`);
+  ctx.fillStyle = ring;
+  ctx.fillRect(0, 0, RING_PX, RING_PX);
+  ringCanvas = canvas;
+  return canvas;
+}
+
+/** Durée d'un cycle de l'anneau (s'élargit en s'estompant, puis repart), en millisecondes. */
+const PING_MS = 1400;
+/** Avancement de l'anneau d'un événement (0 → 1, puis recommence). La phase propre à chaque événement
+ *  évite que tous les points ne « battent » ensemble. */
+function pingProgress(phase: number): number {
+  return (performance.now() / PING_MS + phase) % 1;
 }
 
 /**
@@ -1002,9 +1024,10 @@ export default function Globe3D({
       }
       layerSources.vessels = vesselSource;
 
-      // Événements des analystes : point rouge lumineux qui clignote lentement. Plusieurs
-      // événements au même endroit (une capitale, souvent) sont écartés en couronne autour du point.
+      // Événements des analystes : point rouge net et fixe, avec un anneau qui s'élargit en s'estompant.
+      // Plusieurs événements au même endroit (une capitale, souvent) sont écartés en couronne autour du point.
       const eventSource = new Cesium.CustomDataSource("events");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const EVENT_DOT = 22;
       const spreadOffsets = eventOffsets(analystEvents, EVENT_DOT * 0.6);
       for (const [index, ev] of analystEvents.entries()) {
@@ -1024,28 +1047,50 @@ export default function Globe3D({
           brief: { zone: ev.zone, id: ev.id, title: ev.title, imageUrl: ev.imageUrl ?? null, publishedAt: ev.publishedAt, veracity: ev.confidenceLabel },
         };
         const [dx, dy] = spreadOffsets[index];
-        // Phase propre à chaque événement (tirée de son numéro) : clignotements désynchronisés.
+        // Phase propre à chaque événement (tirée de son numéro) : les anneaux ne partent pas tous ensemble.
         const phase = ((ev.id * 0.618034) % 1 + 1) % 1;
         const size = ev.importance === "high" ? EVENT_DOT * 1.25 : EVENT_DOT;
+        const properties = { popup: JSON.stringify(popup), eventTime: Date.parse(ev.publishedAt) };
+        // Anneau qui s'élargit en s'estompant autour du point (coupé si les animations sont réduites).
+        // Il porte les mêmes informations que le point : un clic sur l'anneau ouvre la même bulle,
+        // et le filtre de dates le masque avec lui.
+        eventSource.entities.add({
+          position: Cesium.Cartesian3.fromDegrees(ev.lon, ev.lat, 0),
+          billboard: {
+            image: pingRing(),
+            width: size * 3.2,
+            height: size * 3.2,
+            // Article survolé dans le bandeau : anneau plus marqué et partant du point agrandi.
+            color: new Cesium.CallbackProperty(() => {
+              if (reduceMotion) return Cesium.Color.WHITE.withAlpha(0);
+              const hovered = getHoveredBrief() === ev.id;
+              return Cesium.Color.WHITE.withAlpha((1 - pingProgress(phase)) * (hovered ? 0.9 : 0.5));
+            }, false),
+            scale: new Cesium.CallbackProperty(
+              () => (0.3 + 0.5 * pingProgress(phase)) * (getHoveredBrief() === ev.id ? 2.6 : 1),
+              false,
+            ),
+            pixelOffset: new Cesium.Cartesian2(dx, dy),
+            verticalOrigin: Cesium.VerticalOrigin.CENTER,
+            eyeOffset: new Cesium.Cartesian3(0, 0, -49),
+          },
+          properties,
+        });
         eventSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(ev.lon, ev.lat, 0),
           billboard: {
             image: glowDot(),
             width: size,
             height: size,
-            // Article survolé dans le bandeau : point plus gros, allumé en continu.
-            color: new Cesium.CallbackProperty(
-              () => Cesium.Color.WHITE.withAlpha(getHoveredBrief() === ev.id ? 1 : blinkLevel(phase)),
-              false,
-            ),
+            // Article survolé dans le bandeau : point plus gros.
             scale: new Cesium.CallbackProperty(() => (getHoveredBrief() === ev.id ? 2.6 : 1), false),
             // Décalage en pixels d'écran : la couronne garde le même écart à tous les zooms.
             pixelOffset: new Cesium.Cartesian2(dx, dy),
             verticalOrigin: Cesium.VerticalOrigin.CENTER,
-            // Toujours lisible au-dessus des pays colorés, même au bord du globe.
+            // Toujours lisible au-dessus des pays colorés, même au bord du globe ; le point passe devant son anneau.
             eyeOffset: new Cesium.Cartesian3(0, 0, -50),
           },
-          properties: { popup: JSON.stringify(popup), eventTime: Date.parse(ev.publishedAt) },
+          properties,
         });
       }
       layerSources.events = eventSource;
@@ -1368,20 +1413,20 @@ export default function Globe3D({
     return () => timers.forEach((t) => window.clearTimeout(t));
   }, [enabledLayers, dateRange]);
 
-  // Clignotement des points d'événements : le globe ne se redessine que sur demande, on le
-  // demande donc une dizaine de fois par seconde tant que la couche est affichée (rien si
-  // l'utilisateur a réduit les animations, ni quand l'onglet est caché).
+  // Anneaux qui s'élargissent autour des points d'événements : le globe ne se redessine que sur
+  // demande, on le demande donc une vingtaine de fois par seconde tant que la couche est affichée
+  // (rien si l'utilisateur a réduit les animations, ni quand l'onglet est caché).
   useEffect(() => {
     if (!enabledLayers.events || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = window.setInterval(() => {
       const viewer = viewerRef.current;
       if (viewer && !viewer.isDestroyed() && !document.hidden) viewer.scene.requestRender();
-    }, 100);
+    }, 50);
     return () => window.clearInterval(id);
   }, [enabledLayers.events]);
 
-  // Survol d'un article du bandeau : redessin immédiat (sans attendre le clignotement, coupé
-  // si l'utilisateur a réduit les animations).
+  // Survol d'un article du bandeau : redessin immédiat (sans attendre l'image suivante de l'anneau,
+  // coupée si l'utilisateur a réduit les animations).
   useEffect(
     () =>
       onHoveredBrief(() => {

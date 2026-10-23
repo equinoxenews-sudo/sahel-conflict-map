@@ -1,5 +1,5 @@
 // Article survolé dans le bandeau des derniers articles : le globe grossit le point de
-// l'événement correspondant et arrête son clignotement. Simple valeur partagée avec
+// l'événement correspondant et marque son anneau. Simple valeur partagée avec
 // abonnement, le bandeau et le globe étant éloignés dans l'arbre des composants.
 
 let hovered: number | null = null;
