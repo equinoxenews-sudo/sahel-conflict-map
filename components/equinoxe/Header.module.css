@@ -19,7 +19,7 @@
 }
 
 .logoImage {
-  height: clamp(56px, 4.2vw, 82px);
+  height: clamp(54px, 3.4vw, 66px);
   width: auto;
 }
 
@@ -59,7 +59,7 @@ a.zoneLink:has(.zoneHex) {
 }
 
 .zoneHex {
-  width: clamp(24px, 1.7vw, 34px);
+  width: clamp(24px, 1.4vw, 28px);
   height: auto;
   flex: none;
   opacity: 0.85;
