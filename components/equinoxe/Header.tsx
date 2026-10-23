@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FOCUS_ZONE_EVENT, ZONE_FOCUSED_EVENT, isHomeZone, zoneHomeHref } from "@/lib/homeZones";
+import { openSearch } from "@/lib/searchUi";
 import { logout, openLogin, useSession } from "@/lib/session";
 import { ZONES } from "@/lib/zones";
 import styles from "./Header.module.css";
@@ -97,10 +98,14 @@ export default function Header() {
           <span className={styles.iconGlyph}>&#9776;</span>
           <span className={styles.zoneLabel}>Menu</span>
         </button>
-        <button type="button" className={`${styles.iconBtn} ${styles.compactOnMobile}`} aria-label="À propos">
+        <Link
+          href="/a-propos"
+          className={`${styles.iconBtn} ${styles.compactOnMobile} ${pathname === "/a-propos" ? styles.iconBtnActive : ""}`}
+          aria-label="À propos"
+        >
           <span className={styles.iconGlyph}>?</span>
           <span className={styles.zoneLabel}>A propos</span>
-        </button>
+        </Link>
         {user ? (
           <button
             type="button"
@@ -124,9 +129,11 @@ export default function Header() {
           </button>
         )}
         <div className={`${styles.search} ${styles.desktopOnly}`}>
-          <input type="search" placeholder="Rechercher" disabled />
+          <button type="button" aria-label="Rechercher" onClick={() => openSearch()}>
+            Rechercher
+          </button>
         </div>
-        <button type="button" className={`${styles.iconBtn} ${styles.mobileSearchBtn}`} aria-label="Rechercher">
+        <button type="button" className={`${styles.iconBtn} ${styles.mobileSearchBtn}`} aria-label="Rechercher" onClick={() => openSearch()}>
           <span className={styles.iconGlyph}>
             <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="11" cy="11" r="7" />

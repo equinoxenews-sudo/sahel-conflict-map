@@ -2,11 +2,20 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
   background: var(--bg-glass);
   backdrop-filter: blur(6px);
   border: 1px solid var(--border-glass);
   border-radius: 10px;
   padding: 10px 14px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.box:hover {
+  border-color: var(--accent-gold);
 }
 
 .icon {
@@ -15,17 +24,13 @@
   display: flex;
 }
 
-.input {
+.placeholder {
   flex: 1;
-  background: none;
-  border: none;
-  outline: none;
-  color: var(--text-primary);
-  font: inherit;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 13px;
-}
-
-.input::placeholder {
   color: var(--text-secondary);
 }
 

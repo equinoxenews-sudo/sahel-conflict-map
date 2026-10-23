@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import { useHasMounted } from "@/lib/useHasMounted";
 import { zoneHomeHref } from "@/lib/homeZones";
+import { openSearch } from "@/lib/searchUi";
 import { logout, openLogin, useSession } from "@/lib/session";
 import { TRACKING_ENABLED, ZONES } from "@/lib/zones";
 import styles from "./MobileDrawer.module.css";
@@ -79,6 +80,19 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
         <div className={styles.divider} />
 
         <nav className={styles.links}>
+          <button
+            type="button"
+            className={styles.link}
+            onClick={() => {
+              onClose();
+              openSearch();
+            }}
+          >
+            Rechercher
+          </button>
+          <Link href="/a-propos" onClick={onClose} className={styles.link}>
+            À propos
+          </Link>
           <span className={styles.linkDisabled}>Paramètres</span>
           {user ? (
             <button

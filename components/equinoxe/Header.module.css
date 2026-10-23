@@ -129,18 +129,28 @@ a.zoneLink:has(.zoneHex) {
   border-color: var(--accent-gold);
 }
 
-.search input {
+/* Ouvre la fenêtre « Recherche globale » (components/search/SearchDialog.tsx). */
+.search button {
   background: var(--bg-panel);
   border: 1px solid var(--border-glass);
-  color: var(--text-primary);
+  color: var(--text-secondary);
   border-radius: 999px;
   padding: 8px 16px;
+  font: inherit;
   font-size: clamp(13px, 0.8vw, 15px);
+  text-align: left;
   width: clamp(110px, 7vw, 150px);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
 }
 
-.search input::placeholder {
-  color: var(--text-secondary);
+.search button:hover {
+  border-color: var(--accent-gold);
+}
+
+.iconBtnActive .iconGlyph {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold-bright);
 }
 
 .mobileMenuBtn,
@@ -203,7 +213,7 @@ a.zoneLink:has(.zoneHex) {
     font-size: 11px;
   }
 
-  .search input {
+  .search button {
     width: 150px;
     padding: 10px 16px;
     font-size: 15px;
