@@ -215,7 +215,12 @@ async function briefBatch(
       job: "sync-briefs", zoneSlug, model: MODEL, usage,
       note: `${pendingPress.length} articles${analyst ? ` + ${pendingTelegram.length} Telegram` : ""}`,
     });
-  }, analyst, directivePrompt(directive), policy && policy.articles.minImportance !== "low" ? policy.articles.minImportance : null);
+  }, analyst, directivePrompt(directive), policy && policy.articles.minImportance !== "low" ? policy.articles.minImportance : null, (usage, elapsedMs) => {
+    void recordUsage({
+      job: "sync-briefs", zoneSlug, model: MODEL, usage, ok: false,
+      note: `coupé par le délai après ${Math.round(elapsedMs / 1000)} s (entrée estimée, sortie inconnue) : ${pendingPress.length} articles`,
+    });
+  });
 
   const { data: recentImages, error: imageError } = await supabase.from("zone_briefs")
     .select("image_url").order("published_at", { ascending: false }).limit(100);

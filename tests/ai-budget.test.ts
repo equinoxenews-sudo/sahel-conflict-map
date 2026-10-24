@@ -6,6 +6,7 @@ import {
   decideJob,
   decideWebSearch,
   estimateCostUsd,
+  estimateInputTokens,
   meetsImportance,
   MODE_POLICIES,
   monthlyBudgetFromEnv,
@@ -198,4 +199,10 @@ test("Coût estimé au tarif du modèle réellement utilisé", async () => {
   // Modèle inconnu : tarif par défaut (Haiku 4.5) ; variable d'environnement prioritaire.
   assert.equal(estimateCostUsd(usage, pricingFromEnv({}, "inconnu")), 6);
   assert.equal(estimateCostUsd(usage, pricingFromEnv({ AI_PRICE_INPUT_PER_MTOK: "3" }, "claude-opus-5-5")), 23);
+});
+
+test("jetons d'entrée estimés d'après la longueur du texte (appel coupé sans décompte)", () => {
+  assert.equal(estimateInputTokens(0), 0);
+  assert.equal(estimateInputTokens(3500), 1000);
+  assert.equal(estimateInputTokens(70_000), 20_000);
 });

@@ -72,6 +72,14 @@ export function pricingFromEnv(env: Record<string, string | undefined> = process
   };
 }
 
+/**
+ * Jetons d'entrée estimés d'un texte français (environ 3,5 caractères par jeton). Sert quand l'API n'a pas
+ * répondu (appel coupé par le délai) : l'entrée a été envoyée, donc facturée, mais aucun décompte n'est revenu.
+ */
+export function estimateInputTokens(chars: number): number {
+  return Math.max(0, Math.ceil(chars / 3.5));
+}
+
 export function estimateCostUsd(usage: AiUsage, pricing: Pricing = DEFAULT_PRICING): number {
   return (
     (usage.inputTokens / 1_000_000) * pricing.inputPerMillionTokens +

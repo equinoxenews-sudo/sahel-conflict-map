@@ -2,7 +2,7 @@ import {
   eventTypePromptList, isEventTypeKey, isImportanceKey, isThemeKey, MAX_SECONDARY_THEMES, themePromptList,
   type EventTypeKey, type ImportanceKey, type ThemeKey,
 } from "./themes";
-import { meetsImportance, usageFromResponse, type AiUsage } from "./aiBudget";
+import { estimateInputTokens, meetsImportance, usageFromResponse, type AiUsage } from "./aiBudget";
 import { isValidVeracity, type Veracity } from "./veracity";
 import { CONFIDENCE_LEVELS, normalizeConfidence, type Confidence } from "./confidence";
 
@@ -313,7 +313,9 @@ export async function synthesizeBriefs(
   /** Consigne du jour de Nicolas pour la zone (lib/zoneDirectives.ts), déjà mise en forme. */
   directive = "",
   /** Mode budget tendu ou critique : seules les nouvelles synthèses de cette importance (ou plus) sont publiées. */
-  minImportance: "medium" | "high" | null = null
+  minImportance: "medium" | "high" | null = null,
+  /** Appel coupé par le délai : reçoit les jetons d'entrée estimés (déjà envoyés, donc facturés) et la durée écoulée. */
+  onAbort?: (usage: AiUsage, elapsedMs: number) => void
 ): Promise<SynthesizedBrief[]> {
   // Une clé collée dans un tableau de bord avec un espace, un retour à la
   // ligne ou des guillemets est refusée (401) : on la nettoie.
@@ -321,7 +323,9 @@ export async function synthesizeBriefs(
   if (articles.length === 0) return [];
   if (!apiKey) throw new Error("ANTHROPIC_API_KEY absent : aucun article acquitté");
 
-  const deadline = Date.now() + TIMEOUT_MS;
+  const started = Date.now();
+  const deadline = started + TIMEOUT_MS;
+  const prompt = buildPrompt(zoneName, articles, previous, analyst) + directive + importanceRule(minImportance);
 
   for (let attempt = 1; ; attempt++) {
     const controller = new AbortController();
@@ -338,7 +342,7 @@ export async function synthesizeBriefs(
         body: JSON.stringify({
           model: MODEL,
           max_tokens: MAX_TOKENS,
-          messages: [{ role: "user", content: buildPrompt(zoneName, articles, previous, analyst) + directive + importanceRule(minImportance) }],
+          messages: [{ role: "user", content: prompt }],
         }),
         signal: controller.signal,
       });
@@ -355,6 +359,11 @@ export async function synthesizeBriefs(
       const canRetry =
         err instanceof SynthesisFormatError && attempt === 1 && deadline - Date.now() >= MIN_RETRY_BUDGET_MS;
       console.error(`Failed to synthesize briefs (attempt ${attempt}):`, err);
+      // Coupé par le délai : la requête est partie, l'entrée est facturée même sans réponse. On la note au journal
+      // (sinon le budget ne voit pas cette dépense, visible seulement dans la Console).
+      if (controller.signal.aborted) {
+        onAbort?.({ inputTokens: estimateInputTokens(prompt.length), outputTokens: 0, webSearches: 0 }, Date.now() - started);
+      }
       if (!canRetry) throw err;
     } finally {
       clearTimeout(timeoutId);

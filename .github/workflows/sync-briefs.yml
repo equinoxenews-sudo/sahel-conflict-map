@@ -89,6 +89,12 @@ jobs:
               echo "$body"
               # Annotation lisible sur la page de l'exécution, sans ouvrir les journaux.
               echo "::error title=Synthèses $zone (essai $attempt)::$(echo "$body" | tr -d '[:cntrl:]' | head -c 400)"
+              # Appel coupé par le délai : la requête est déjà partie et facturée, et le même lot serait
+              # coupé de la même façon. Pas de nouvel essai tout de suite ; la zone reprend au prochain passage.
+              if echo "$body" | grep -q "was aborted"; then
+                echo "::warning title=Synthèses $zone::Appel coupé par le délai : pas de nouvel essai immédiat, lot repris au prochain passage."
+                break
+              fi
             done
             [ "$ok" = 1 ] || failed=1
           done

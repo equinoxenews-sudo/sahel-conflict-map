@@ -57,7 +57,7 @@ test("Les anciennes catégories ACLED sont converties en thématique et type d'�
  assert.equal(resolveTheme({ category: null, primary_theme: null }), null);
 });
 
-import { synthesizeBriefs } from "../lib/synthesizeBriefs";
+import { synthesizeBriefs, TIMEOUT_MS } from "../lib/synthesizeBriefs";
 import { chooseBriefImage } from "../lib/briefImages";
 import { existsSync } from "node:fs";
 import { ZONE_HERO_IMAGES } from "../lib/zoneHeroImages";
@@ -84,4 +84,28 @@ test("Les échecs API ne sont pas des lots traités vides", async (t) => {
  assert.deepEqual(await synthesizeBriefs("Afrique", sources), []);
  mock.mock.mockImplementation(async () => new Response(JSON.stringify({ content: [{ type: "text", text: "invalide" }] }), { status: 200 }));
  await assert.rejects(synthesizeBriefs("Afrique", sources));
+});
+
+test("Un appel coupé par le délai est signalé avec ses jetons d'entrée estimés, un refus rapide non", async (t) => {
+ const oldKey = process.env.ANTHROPIC_API_KEY;
+ process.env.ANTHROPIC_API_KEY = "test-only";
+ t.after(() => { if (oldKey === undefined) delete process.env.ANTHROPIC_API_KEY; else process.env.ANTHROPIC_API_KEY = oldKey; });
+ t.mock.timers.enable({ apis: ["setTimeout"] });
+ // Réponse qui n'arrive jamais : seule l'annulation du délai la fait échouer, comme sur le réseau.
+ t.mock.method(globalThis, "fetch", (_url: unknown, init?: RequestInit) =>
+  new Promise<Response>((_resolve, reject) => {
+   init?.signal?.addEventListener("abort", () => reject(new DOMException("This operation was aborted", "AbortError")));
+  })
+ );
+ const aborted: { inputTokens: number; elapsedMs: number }[] = [];
+ const pending = synthesizeBriefs("Afrique", sources, [], undefined, true, "", null, (usage, elapsedMs) => aborted.push({ inputTokens: usage.inputTokens, elapsedMs }));
+ const rejected = assert.rejects(pending, /aborted/);
+ t.mock.timers.tick(TIMEOUT_MS + 1000);
+ await rejected;
+ assert.equal(aborted.length, 1);
+ assert.ok(aborted[0].inputTokens > 100);
+ // Une erreur HTTP rapide (503) n'est pas un appel coupé : rien n'est signalé.
+ t.mock.method(globalThis, "fetch", async () => new Response("{}", { status: 503 }));
+ await assert.rejects(synthesizeBriefs("Afrique", sources, [], undefined, true, "", null, (usage, elapsedMs) => aborted.push({ inputTokens: usage.inputTokens, elapsedMs })));
+ assert.equal(aborted.length, 1);
 });
