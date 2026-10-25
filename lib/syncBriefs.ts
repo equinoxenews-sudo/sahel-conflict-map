@@ -10,7 +10,7 @@ import { mapWithConcurrency } from "./gdelt";
 import { locateBrief } from "./geocode";
 import { isSportsTitle } from "./sportsFilter";
 import { getSupabaseAdmin } from "./supabaseAdmin";
-import { MODEL, TIMEOUT_MS, synthesizeBriefs, type PreviousBrief, type SourceArticle } from "./synthesizeBriefs";
+import { MODEL, TIMEOUT_MS, synthesizeBriefs, type CallFailure, type CallMeta, type PreviousBrief, type SourceArticle } from "./synthesizeBriefs";
 import { channelNote } from "./telegramChannels";
 import { getZone } from "./zones";
 import { activeDirective, directiveKeywords, directivePrompt, prioritize, type ZoneDirective } from "./zoneDirectives";
@@ -108,6 +108,25 @@ function telegramSource(p: StoredTelegramPost): SourceArticle {
     publishedAt: p.published_at,
     telegram: { channel: p.channel, note: channelNote(p.channel) },
   };
+}
+
+const seconds = (ms: number) => `${Math.round(ms / 1000)} s`;
+
+/** Ligne de journal d'un appel réussi : lot, durée, fin de génération (« max_tokens » = réponse tronquée), requête. */
+function callNote(batch: string, meta: CallMeta): string {
+  return [batch, seconds(meta.durationMs), `fin ${meta.stopReason ?? "?"}`, meta.attempt > 1 ? `appel ${meta.attempt}` : null, meta.requestId]
+    .filter(Boolean).join(" · ");
+}
+
+/** Ligne de journal d'un appel sans résultat : refus de l'API (rien de facturé) ou coupure par le délai (entrée estimée). */
+function failureNote(batch: string, failure: CallFailure): string {
+  const what = failure.kind === "aborted"
+    ? "coupé par le délai (entrée estimée, sortie inconnue)"
+    : `refus HTTP ${failure.status}${failure.errorType ? ` ${failure.errorType}` : ""}${failure.errorKind === "spend_limit" ? " (plafond de dépenses)" : ""}`;
+  return [
+    what, batch, seconds(failure.durationMs), failure.attempt > 1 ? `appel ${failure.attempt}` : null, failure.requestId,
+    failure.retryInMs !== null ? `nouvel essai dans ${seconds(failure.retryInMs)}` : null,
+  ].filter(Boolean).join(" · ");
 }
 
 async function briefBatch(
@@ -210,15 +229,16 @@ async function briefBatch(
   // La presse d'abord : les messages Telegram suivent, en complément.
   const pendingSources = [...pendingPress, ...pendingTelegram];
   const zoneName = getZone(zoneSlug)?.name ?? zoneSlug;
-  const briefs = await synthesizeBriefs(zoneName, pendingSources, previous, (usage) => {
+  const batchLabel = `${pendingPress.length} articles${analyst ? ` + ${pendingTelegram.length} Telegram` : ""}`;
+  const briefs = await synthesizeBriefs(zoneName, pendingSources, previous, (usage, meta) => {
     void recordUsage({
       job: "sync-briefs", zoneSlug, model: MODEL, usage,
-      note: `${pendingPress.length} articles${analyst ? ` + ${pendingTelegram.length} Telegram` : ""}`,
+      note: callNote(batchLabel, meta),
     });
-  }, analyst, directivePrompt(directive), policy && policy.articles.minImportance !== "low" ? policy.articles.minImportance : null, (usage, elapsedMs) => {
+  }, analyst, directivePrompt(directive), policy && policy.articles.minImportance !== "low" ? policy.articles.minImportance : null, (failure) => {
     void recordUsage({
-      job: "sync-briefs", zoneSlug, model: MODEL, usage, ok: false,
-      note: `coupé par le délai après ${Math.round(elapsedMs / 1000)} s (entrée estimée, sortie inconnue) : ${pendingPress.length} articles`,
+      job: "sync-briefs", zoneSlug, model: MODEL, usage: failure.usage, ok: false,
+      note: failureNote(batchLabel, failure),
     });
   });
 

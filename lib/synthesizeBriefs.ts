@@ -3,6 +3,10 @@ import {
   type EventTypeKey, type ImportanceKey, type ThemeKey,
 } from "./themes";
 import { estimateInputTokens, meetsImportance, usageFromResponse, type AiUsage } from "./aiBudget";
+import {
+  AnthropicApiError, classifyApiError, describeApiError, parseRetryAfter, retryDelayMs,
+  type ApiErrorInfo, type ApiErrorKind,
+} from "./anthropicErrors";
 import { isValidVeracity, type Veracity } from "./veracity";
 import { CONFIDENCE_LEVELS, normalizeConfidence, type Confidence } from "./confidence";
 
@@ -277,6 +281,55 @@ export function parseResponse(
 class SynthesisFormatError extends Error {}
 
 const MIN_RETRY_BUDGET_MS = 15000;
+/** Après une pause sur erreur passagère (429/529), il doit rester au moins ce temps pour rédiger : sinon on n'attend pas. */
+const MIN_BUDGET_AFTER_WAIT_MS = 90_000;
+
+const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+/** Mesures d'un appel terminé : durée, fin de génération, identifiant de requête. */
+export interface CallMeta {
+  /** Numéro de l'appel dans ce lot (1, puis 2 ou 3 après une reprise). */
+  attempt: number;
+  durationMs: number;
+  /** end_turn, max_tokens… : « max_tokens » signale une réponse tronquée. */
+  stopReason: string | null;
+  requestId: string | null;
+}
+
+/** Appel qui n'a rien produit : refus de l'API (429, 529…) ou coupure par le délai. */
+export interface CallFailure {
+  kind: "http" | "aborted";
+  attempt: number;
+  durationMs: number;
+  status: number | null;
+  errorType: string | null;
+  errorKind: ApiErrorKind | null;
+  requestId: string | null;
+  /** Coupure : jetons d'entrée estimés (envoyés, donc facturés). Refus : zéro. */
+  usage: AiUsage;
+  /** Pause avant la reprise prévue, ou null si le lot n'est pas retenté. */
+  retryInMs: number | null;
+}
+
+/** Corps d'une erreur de l'API : `{ "error": { "type", "message" } }`. */
+async function readApiError(res: Response): Promise<ApiErrorInfo> {
+  let type: string | null = null;
+  let message: string | null = null;
+  try {
+    const body = (await res.json()) as { error?: { type?: unknown; message?: unknown } };
+    if (typeof body?.error?.type === "string") type = body.error.type;
+    if (typeof body?.error?.message === "string") message = body.error.message;
+  } catch {
+    // Corps absent ou illisible : le statut suffit.
+  }
+  return {
+    status: res.status,
+    type,
+    message,
+    retryAfterMs: parseRetryAfter(res.headers.get("retry-after")),
+    requestId: res.headers.get("request-id"),
+  };
+}
 
 /** Consigne ajoutée quand le budget du mois est tendu : moins de synthèses, les plus importantes d'abord (moins de jetons en sortie). */
 function importanceRule(minImportance: "medium" | "high" | null): string {
@@ -306,16 +359,16 @@ export async function synthesizeBriefs(
   zoneName: string,
   articles: SourceArticle[],
   previous: PreviousBrief[] = [],
-  /** Reçoit les jetons consommés par chaque appel (suivi du budget, lib/aiUsage.ts). */
-  onUsage?: (usage: AiUsage) => void,
+  /** Reçoit les jetons consommés par chaque appel réussi, avec ses mesures (suivi du budget, lib/aiUsage.ts). */
+  onUsage?: (usage: AiUsage, meta: CallMeta) => void,
   /** Analystes V2 : indice de confiance, lieu, règles Telegram. */
   analyst = false,
   /** Consigne du jour de Nicolas pour la zone (lib/zoneDirectives.ts), déjà mise en forme. */
   directive = "",
   /** Mode budget tendu ou critique : seules les nouvelles synthèses de cette importance (ou plus) sont publiées. */
   minImportance: "medium" | "high" | null = null,
-  /** Appel coupé par le délai : reçoit les jetons d'entrée estimés (déjà envoyés, donc facturés) et la durée écoulée. */
-  onAbort?: (usage: AiUsage, elapsedMs: number) => void
+  /** Appel sans résultat (refus de l'API ou coupure par le délai) : à noter au journal, sans conséquence sur la rédaction. */
+  onFailure?: (failure: CallFailure) => void
 ): Promise<SynthesizedBrief[]> {
   // Une clé collée dans un tableau de bord avec un espace, un retour à la
   // ligne ou des guillemets est refusée (401) : on la nettoie.
@@ -327,9 +380,12 @@ export async function synthesizeBriefs(
   const deadline = started + TIMEOUT_MS;
   const prompt = buildPrompt(zoneName, articles, previous, analyst) + directive + importanceRule(minImportance);
 
+  let formatRetries = 0;
+  let httpRetries = 0;
   for (let attempt = 1; ; attempt++) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), Math.max(deadline - Date.now(), 1000));
+    const callStarted = Date.now();
 
     try {
       const res = await fetch(ANTHROPIC_API_URL, {
@@ -348,25 +404,57 @@ export async function synthesizeBriefs(
       });
 
       if (!res.ok) {
-        throw new Error(`Anthropic API error: ${res.status}`);
+        // Refus de l'API : rien n'est facturé. Une surcharge ou une limite de débit passagère se retente après
+        // une pause, à condition qu'il reste assez de temps pour rédiger ; un plafond de dépenses ne se retente pas.
+        const info = await readApiError(res);
+        const kind = classifyApiError(info.status, info.type, info.message);
+        const pause = retryDelayMs(kind, httpRetries + 1, info.retryAfterMs);
+        const retryInMs = pause !== null && deadline - Date.now() - pause >= MIN_BUDGET_AFTER_WAIT_MS ? pause : null;
+        const durationMs = Date.now() - callStarted;
+        onFailure?.({
+          kind: "http", attempt, durationMs, status: info.status, errorType: info.type, errorKind: kind,
+          requestId: info.requestId, usage: { inputTokens: 0, outputTokens: 0, webSearches: 0 }, retryInMs,
+        });
+        logCall({ attempt, outcome: "http_error", status: info.status, errorType: info.type, requestId: info.requestId, durationMs, retryInMs });
+        if (retryInMs === null) throw new AnthropicApiError(describeApiError(info, kind), info, kind);
+        httpRetries += 1;
+        clearTimeout(timeoutId);
+        await sleep(retryInMs);
+        continue;
       }
 
-      const data = (await res.json()) as { content?: { type: string; text?: string }[] };
-      onUsage?.(usageFromResponse(data));
+      const data = (await res.json()) as { content?: { type: string; text?: string }[]; stop_reason?: string | null };
+      const usage = usageFromResponse(data);
+      const meta: CallMeta = {
+        attempt, durationMs: Date.now() - callStarted, stopReason: data.stop_reason ?? null, requestId: res.headers.get("request-id"),
+      };
+      onUsage?.(usage, meta);
+      logCall({ attempt, outcome: "ok", status: res.status, requestId: meta.requestId, durationMs: meta.durationMs, stopReason: meta.stopReason, inputTokens: usage.inputTokens, outputTokens: usage.outputTokens });
       const text = data.content?.find((block) => block.type === "text")?.text ?? "";
       return keepImportant(parseResponse(text, articles, previous, true, analyst), minImportance);
     } catch (err) {
       const canRetry =
-        err instanceof SynthesisFormatError && attempt === 1 && deadline - Date.now() >= MIN_RETRY_BUDGET_MS;
+        err instanceof SynthesisFormatError && formatRetries === 0 && deadline - Date.now() >= MIN_RETRY_BUDGET_MS;
       console.error(`Failed to synthesize briefs (attempt ${attempt}):`, err);
       // Coupé par le délai : la requête est partie, l'entrée est facturée même sans réponse. On la note au journal
       // (sinon le budget ne voit pas cette dépense, visible seulement dans la Console).
       if (controller.signal.aborted) {
-        onAbort?.({ inputTokens: estimateInputTokens(prompt.length), outputTokens: 0, webSearches: 0 }, Date.now() - started);
+        const usage = { inputTokens: estimateInputTokens(prompt.length), outputTokens: 0, webSearches: 0 };
+        const durationMs = Date.now() - callStarted;
+        onFailure?.({
+          kind: "aborted", attempt, durationMs, status: null, errorType: null, errorKind: null, requestId: null, usage, retryInMs: null,
+        });
+        logCall({ attempt, outcome: "aborted", durationMs, inputTokensEstimated: usage.inputTokens });
       }
       if (!canRetry) throw err;
+      formatRetries += 1;
     } finally {
       clearTimeout(timeoutId);
     }
   }
+}
+
+/** Une ligne par appel dans les journaux du serveur (durée, jetons, fin de génération, identifiant de requête). */
+function logCall(fields: Record<string, unknown>): void {
+  console.log("[anthropic]", JSON.stringify({ model: MODEL, ...fields }));
 }
