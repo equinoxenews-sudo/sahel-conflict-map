@@ -1,14 +1,15 @@
 name: Point de situation (brouillons)
 
 # Les analystes de zone préparent le brouillon du point de situation de leur zone deux
-# fois par semaine : lundi et jeudi, vers 6 h - 7 h à Paris (cron Vercel 05:00 UTC à
-# ±59 min ; la planification ci-dessous reste en secours). Chaque édition couvre la
+# fois par semaine : lundi et jeudi, vers 7 h - 8 h à Paris en hiver (cron Vercel 06:00 UTC à
+# ±59 min ; la planification ci-dessous reste en secours). Horaires décalés d'une heure le
+# 25/10/2026 (heure d'hiver) : à ramener d'une heure plus tôt le 28/03/2027. Chaque édition couvre la
 # période depuis la précédente. Modèle dédié : Opus par défaut (variable PSIT_MODEL).
 # Les brouillons ne sont PAS publiés : relecture et publication par Nicolas depuis
 # /admin/situation (le HQ et Telegram signalent chaque brouillon prêt).
 on:
   schedule:
-    - cron: "10 5 * * 1,4"
+    - cron: "10 6 * * 1,4"
   workflow_dispatch:
     inputs:
       force:

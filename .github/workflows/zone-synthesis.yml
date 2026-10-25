@@ -1,15 +1,16 @@
 name: Synthèse de zone 9 h
 
 # Agent de synthèse politico-sécuritaire : chaque matin, les cinq zones (une synthèse par
-# analyste). Lancé à l'heure par le cron de Vercel (vercel.json, 08:00 UTC à ±59 min,
-# soit 9 h - 10 h à Paris en hiver, 10 h - 11 h en été) ; la planification ci-dessous
-# reste en secours et s'arrête si le passage du jour a déjà eu lieu.
+# analyste). Lancé à l'heure par le cron de Vercel (vercel.json, 09:00 UTC à ±59 min,
+# soit 10 h - 11 h à Paris en hiver, 11 h - 12 h en été) ; la planification ci-dessous
+# reste en secours et s'arrête si le passage du jour a déjà eu lieu. Décalé d'une heure
+# le 25/10/2026 (heure d'hiver) : à ramener à 08:00 UTC le 28/03/2027.
 # Une zone n'est régénérée que si de nouvelles synthèses Équinoxe sont arrivées (sauf
 # lancement manuel avec « force »). Recherche web désactivée par défaut (plafond mensuel :
 # variable AI_WEB_SEARCH_MONTHLY_CAP). Tourne ici plutôt que sur Vercel (durée).
 on:
   schedule:
-    - cron: "5 8 * * *"
+    - cron: "5 9 * * *"
   workflow_dispatch:
     inputs:
       zone:
