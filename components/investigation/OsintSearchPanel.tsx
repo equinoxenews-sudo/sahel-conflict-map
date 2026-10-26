@@ -34,7 +34,7 @@ export default function OsintSearchPanel() {
   const activeDossierId = selectedDossierId ?? dossiers[0]?.id ?? "";
 
   function handleSearch(newType: InputType, newQuery: string) {
-    router.push(`/investigation/recherche?type=${newType}&q=${encodeURIComponent(newQuery)}`);
+    router.push(`/mon-espace/investigation?type=${newType}&q=${encodeURIComponent(newQuery)}`);
   }
 
   function handleSave(connector: Connector) {
@@ -69,7 +69,7 @@ export default function OsintSearchPanel() {
         <div className={styles.controls}>
           <span className={styles.controlsLabel}>Enregistrer les sources dans :</span>
           {dossiers.length === 0 ? (
-            <Link href="/investigation/dossiers" className={styles.controlsLabel} style={{ color: "var(--accent-gold-bright)" }}>
+            <Link href="/mon-espace/notes" className={styles.controlsLabel} style={{ color: "var(--accent-gold-bright)" }}>
               Créer un dossier d&apos;abord →
             </Link>
           ) : (

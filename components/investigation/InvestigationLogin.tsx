@@ -13,7 +13,7 @@ interface InvestigationLoginProps {
 }
 
 // Écran d'accès à un espace privé (Investigation, Mon espace) : identifiant et mot de passe, puis la page se recharge ouverte.
-export default function InvestigationLogin({ configured, title = "Investigation" }: InvestigationLoginProps) {
+export default function InvestigationLogin({ configured, title = "Mon espace" }: InvestigationLoginProps) {
   const router = useRouter();
 
   return (

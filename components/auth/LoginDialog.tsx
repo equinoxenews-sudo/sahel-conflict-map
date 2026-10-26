@@ -42,7 +42,7 @@ export default function LoginDialog() {
           </button>
         </div>
         <LoginForm
-          hint="Donne accès à « Mon espace » et à « Investigation »."
+          hint="Donne accès à « Mon espace »."
           onSuccess={() => {
             setOpen(false);
             router.refresh();

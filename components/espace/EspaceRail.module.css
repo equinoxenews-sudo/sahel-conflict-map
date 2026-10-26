@@ -1,0 +1,117 @@
+/* Emplacement réservé dans la page : le menu s'agrandit PAR-DESSUS le contenu, sans le décaler. */
+.slot {
+  position: relative;
+  flex: 0 0 64px;
+  border-right: 1px solid var(--border-glass);
+}
+
+.rail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 56px;
+  padding: 2px 4px 12px 0;
+  background: var(--bg-primary);
+  overflow: hidden;
+  transition:
+    width 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.rail:hover,
+.rail:focus-within {
+  width: 212px;
+  border-radius: 0 12px 12px 0;
+  box-shadow: 8px 0 24px rgba(0, 0, 0, 0.45);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+/* Surbrillance au simple passage de la souris. */
+.item:hover,
+.item:focus-visible {
+  color: var(--text-primary);
+  border-color: rgba(224, 180, 76, 0.55);
+  background: rgba(224, 180, 76, 0.1);
+  outline: none;
+}
+
+/* Page ouverte : même doré que l'onglet de zone actif du bandeau. */
+.itemActive,
+.itemActive:hover {
+  color: var(--accent-gold-bright);
+  border-color: rgba(224, 180, 76, 0.65);
+  background: rgba(224, 180, 76, 0.14);
+}
+
+.icon {
+  display: flex;
+  flex: none;
+  width: 22px;
+  height: 22px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.rail:hover .label,
+.rail:focus-within .label {
+  opacity: 1;
+  transition-delay: 0.06s;
+}
+
+/* Fenêtre étroite : le menu passe en bande horizontale d'icônes au-dessus du contenu. */
+@media (max-width: 700px) {
+  .slot {
+    flex: none;
+    height: 56px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border-glass);
+  }
+
+  .rail,
+  .rail:hover,
+  .rail:focus-within {
+    position: static;
+    flex-direction: row;
+    width: auto;
+    padding: 0 0 8px;
+    overflow-x: auto;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .item {
+    padding: 0 12px;
+  }
+
+  .label {
+    display: none;
+  }
+}

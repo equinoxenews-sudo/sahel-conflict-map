@@ -26,7 +26,7 @@ export default function SearchBar({ initialType = "keyword", initialQuery = "", 
     if (onSearch) {
       onSearch(type, trimmed);
     } else {
-      router.push(`/investigation/recherche?type=${type}&q=${encodeURIComponent(trimmed)}`);
+      router.push(`/mon-espace/investigation?type=${type}&q=${encodeURIComponent(trimmed)}`);
     }
   }
 

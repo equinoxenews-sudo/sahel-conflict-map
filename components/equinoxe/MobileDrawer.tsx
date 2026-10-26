@@ -65,16 +65,9 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
               Tracking
             </Link>
           )}
-          {user ? (
-            <>
-              <Link href="/mon-espace" onClick={onClose} className={styles.link}>
-                Mon espace
-              </Link>
-              <Link href="/investigation" onClick={onClose} className={styles.link}>
-                Investigation
-              </Link>
-            </>
-          ) : null}
+          <Link href="/mon-espace" onClick={onClose} className={styles.link}>
+            Mon espace
+          </Link>
         </nav>
 
         <div className={styles.divider} />

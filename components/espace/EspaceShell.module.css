@@ -1,0 +1,32 @@
+.page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  gap: 24px;
+  padding: 24px 28px 48px 12px;
+}
+
+.railFallback {
+  flex: 0 0 64px;
+  border-right: 1px solid var(--border-glass);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 700px) {
+  .body {
+    flex-direction: column;
+    gap: 16px;
+    padding: 12px 14px 32px;
+  }
+}

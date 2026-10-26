@@ -1,0 +1,99 @@
+.wrap {
+  max-width: 1200px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.back {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--accent-gold-bright);
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.ghostBtn {
+  padding: 9px 14px;
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.ghostBtn:hover {
+  border-color: var(--accent-gold);
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0 16px;
+  border-bottom: 1px solid var(--border-glass);
+}
+
+.tab {
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tab:hover {
+  color: var(--text-primary);
+}
+
+.tabActive {
+  color: var(--accent-gold-bright);
+  background: rgba(213, 166, 64, 0.08);
+  border-color: var(--border-glass);
+}
+
+.notFound {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+/* Notes : plus large pour loger le texte et le graphe côte à côte. */
+.wrapWide {
+  max-width: 1760px;
+}
+
+/* Graphe : toute la largeur disponible. */
+.wrapFull {
+  max-width: none;
+}

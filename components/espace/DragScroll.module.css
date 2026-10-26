@@ -1,0 +1,33 @@
+.row {
+  display: flex;
+  gap: 14px;
+  padding: 4px 2px 14px;
+  overflow-x: auto;
+  cursor: grab;
+  /* Barre fine, discrète, dans la teinte du site : c'est le « bandeau » à tirer sous la rangée. */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(224, 180, 76, 0.55) var(--bg-panel);
+}
+
+.row::-webkit-scrollbar {
+  height: 8px;
+}
+
+.row::-webkit-scrollbar-track {
+  background: var(--bg-panel);
+  border-radius: 999px;
+}
+
+.row::-webkit-scrollbar-thumb {
+  background: rgba(224, 180, 76, 0.55);
+  border-radius: 999px;
+}
+
+.row::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold-bright);
+}
+
+.grabbing {
+  cursor: grabbing;
+  user-select: none;
+}

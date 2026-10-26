@@ -73,19 +73,13 @@ export default function Header() {
             </Link>
           );
         })}
-        {user ? (
-          <>
-            <Link href="/mon-espace" className={styles.zoneLink}>
-              Mon espace
-            </Link>
-            <Link
-              href="/investigation"
-              className={pathname?.startsWith("/investigation") ? `${styles.zoneLink} ${styles.zoneLinkActive}` : styles.zoneLink}
-            >
-              Investigation
-            </Link>
-          </>
-        ) : null}
+        {/* Toujours visible : connecté, le lien ouvre l'espace ; sinon la page de connexion s'affiche à sa place. */}
+        <Link
+          href="/mon-espace"
+          className={pathname?.startsWith("/mon-espace") ? `${styles.zoneLink} ${styles.zoneLinkActive}` : styles.zoneLink}
+        >
+          Mon espace
+        </Link>
       </nav>
 
       <div className={styles.actions}>
@@ -115,7 +109,7 @@ export default function Header() {
             onClick={async () => {
               if (!window.confirm(`Se déconnecter (${user}) ?`)) return;
               await logout();
-              if (pathname?.startsWith("/investigation") || pathname?.startsWith("/mon-espace")) router.push("/");
+              if (pathname?.startsWith("/mon-espace")) router.push("/");
               else router.refresh();
             }}
           >

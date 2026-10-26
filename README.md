@@ -2,7 +2,7 @@
 
 Site indépendant de veille géopolitique et d'analyse (OSINT) : globe interactif des événements, synthèses
 quotidiennes rédigées par des analystes de zone (IA, avec relecture humaine), points de situation, fiches pays,
-et un espace de travail privé « Investigation ». Cinq zones suivies : Afrique, Europe, Moyen-Orient, Indopacifique,
+et un espace privé « Mon espace » (dossiers, notes, graphes, recherche, supervision, suivi, outils). Cinq zones suivies : Afrique, Europe, Moyen-Orient, Indopacifique,
 Amérique du Sud.
 
 > Le dépôt s'appelle encore `sahel-conflict-map` : c'est le nom du projet d'origine (une carte des conflits du Sahel).
@@ -18,8 +18,8 @@ avant de coder.
 
 | Dossier | Contenu |
 |---|---|
-| `app/` | Pages (`/` accueil et globe, `/zones/[slug]/…`, `/briefs/[id]`, `/a-propos`, `/investigation`, `/mon-espace`, `/admin/situation`) et routes `app/api/*` (collecte, rédaction, recherche, session, cloud des dossiers). |
-| `components/` | Composants de l'interface, un dossier par domaine (`equinoxe/`, `investigation/`, `situation/`, `search/`…). |
+| `app/` | Pages (`/` accueil et globe, `/zones/[slug]/…`, `/briefs/[id]`, `/a-propos`, `/mon-espace/…` (menu, notes, graph, investigation, supervision, tracking, outils), `/admin/situation`) et routes `app/api/*` (collecte, rédaction, recherche, session, cloud des dossiers). |
+| `components/` | Composants de l'interface, un dossier par domaine (`equinoxe/`, `investigation/`, `situation/`, `search/`, `espace/`…). |
 | `lib/` | Logique métier : collecte (`sync*.ts`), rédaction (`synthesizeBriefs.ts`, `zoneSynthesis.ts`), budget IA (`aiBudget.ts`, `aiUsage.ts`), recherche (`search*.ts`), Investigation (`investigation/`). |
 | `scripts/` | Traitements lancés par GitHub Actions (`zone-synthesis.ts`, `situation-report.ts`, …) et outils de génération. |
 | `supabase/` | Schéma et migrations `add-*.sql` ; scripts ponctuels dans `archive/`. |

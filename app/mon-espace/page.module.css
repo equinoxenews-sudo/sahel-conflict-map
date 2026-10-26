@@ -1,7 +1,115 @@
-.main {
-  min-height: 100dvh;
-  background: #000;
-  color: #fff;
+.page {
   display: flex;
   flex-direction: column;
+  gap: 28px;
+  max-width: 1500px;
+}
+
+/* Bandeau du fil d'actualité OSINT / IA (contenu à brancher). */
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 110px;
+  justify-content: center;
+  padding: 18px 22px;
+  border: 1px dashed var(--border-glass);
+  border-radius: 12px;
+  background: var(--bg-panel);
+}
+
+.feedKicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--accent-gold-bright);
+}
+
+.feedText {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas:
+    "notes supervision"
+    "graph tracking";
+  gap: 30px 40px;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+/* Titre de rubrique, en pastille : un lien vers la page complète. */
+.blockTitle {
+  align-self: flex-start;
+  padding: 8px 20px;
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  background: var(--bg-panel-alt);
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-decoration: none;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.blockTitle:hover {
+  border-color: rgba(224, 180, 76, 0.6);
+  color: var(--accent-gold-bright);
+}
+
+.emptyTile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-height: 112px;
+  padding: 14px 18px;
+  border: 1px dashed var(--border-glass);
+  border-radius: 12px;
+  background: var(--bg-panel);
+}
+
+.emptyTitle {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.emptyHint {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.emptyLink {
+  align-self: flex-start;
+  font-size: 13px;
+  color: var(--accent-gold-bright);
+  text-decoration: none;
+}
+
+.emptyLink:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "notes"
+      "graph"
+      "supervision"
+      "tracking";
+  }
 }

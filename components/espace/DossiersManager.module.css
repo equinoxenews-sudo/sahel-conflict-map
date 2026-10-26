@@ -1,0 +1,138 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 1200px;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.intro {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+}
+
+.ghostBtn {
+  padding: 9px 14px;
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.ghostBtn:hover {
+  border-color: var(--accent-gold);
+}
+
+.newForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.input {
+  flex: 1;
+  min-width: 220px;
+  max-width: 460px;
+  padding: 9px 12px;
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  background: var(--bg-panel);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 13px;
+}
+
+.button {
+  padding: 9px 18px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent-gold);
+  color: var(--bg-primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--accent-gold-bright);
+}
+
+.button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 188px;
+}
+
+.cell > a {
+  flex: none;
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.smallBtn {
+  flex: 1;
+  padding: 5px 8px;
+  border: 1px solid var(--border-glass);
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.smallBtn:hover {
+  border-color: var(--accent-gold);
+  color: var(--text-primary);
+}
+
+.empty {
+  padding: 24px;
+  border: 1px dashed var(--border-glass);
+  border-radius: 10px;
+  background: var(--bg-panel);
+  color: var(--text-secondary);
+  font-size: 13px;
+  text-align: center;
+}
