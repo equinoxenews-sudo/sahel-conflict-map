@@ -3,6 +3,7 @@ import {
   type EventTypeKey, type ImportanceKey, type ThemeKey,
 } from "./themes";
 import { estimateInputTokens, meetsImportance, usageFromResponse, type AiUsage } from "./aiBudget";
+import { wellFormed } from "./wellFormed";
 import {
   AnthropicApiError, classifyApiError, describeApiError, parseRetryAfter, retryDelayMs,
   type ApiErrorInfo, type ApiErrorKind,
@@ -303,6 +304,8 @@ export interface CallFailure {
   durationMs: number;
   status: number | null;
   errorType: string | null;
+  /** Début du message d'erreur de l'API (200 caractères au plus) : c'est lui qui dit pourquoi une requête est refusée. */
+  errorMessage: string | null;
   errorKind: ApiErrorKind | null;
   requestId: string | null;
   /** Coupure : jetons d'entrée estimés (envoyés, donc facturés). Refus : zéro. */
@@ -378,7 +381,8 @@ export async function synthesizeBriefs(
 
   const started = Date.now();
   const deadline = started + TIMEOUT_MS;
-  const prompt = buildPrompt(zoneName, articles, previous, analyst) + directive + importanceRule(minImportance);
+  // Les textes sources sont coupés à longueur fixe : un emoji coupé en deux ferait refuser toute la requête (400).
+  const prompt = wellFormed(buildPrompt(zoneName, articles, previous, analyst) + directive + importanceRule(minImportance));
 
   let formatRetries = 0;
   let httpRetries = 0;
@@ -412,10 +416,10 @@ export async function synthesizeBriefs(
         const retryInMs = pause !== null && deadline - Date.now() - pause >= MIN_BUDGET_AFTER_WAIT_MS ? pause : null;
         const durationMs = Date.now() - callStarted;
         onFailure?.({
-          kind: "http", attempt, durationMs, status: info.status, errorType: info.type, errorKind: kind,
-          requestId: info.requestId, usage: { inputTokens: 0, outputTokens: 0, webSearches: 0 }, retryInMs,
+          kind: "http", attempt, durationMs, status: info.status, errorType: info.type, errorMessage: info.message?.slice(0, 200) ?? null,
+          errorKind: kind, requestId: info.requestId, usage: { inputTokens: 0, outputTokens: 0, webSearches: 0 }, retryInMs,
         });
-        logCall({ attempt, outcome: "http_error", status: info.status, errorType: info.type, requestId: info.requestId, durationMs, retryInMs });
+        logCall({ attempt, outcome: "http_error", status: info.status, errorType: info.type, errorMessage: info.message?.slice(0, 200) ?? null, requestId: info.requestId, durationMs, retryInMs });
         if (retryInMs === null) throw new AnthropicApiError(describeApiError(info, kind), info, kind);
         httpRetries += 1;
         clearTimeout(timeoutId);
@@ -442,7 +446,7 @@ export async function synthesizeBriefs(
         const usage = { inputTokens: estimateInputTokens(prompt.length), outputTokens: 0, webSearches: 0 };
         const durationMs = Date.now() - callStarted;
         onFailure?.({
-          kind: "aborted", attempt, durationMs, status: null, errorType: null, errorKind: null, requestId: null, usage, retryInMs: null,
+          kind: "aborted", attempt, durationMs, status: null, errorType: null, errorMessage: null, errorKind: null, requestId: null, usage, retryInMs: null,
         });
         logCall({ attempt, outcome: "aborted", durationMs, inputTokensEstimated: usage.inputTokens });
       }

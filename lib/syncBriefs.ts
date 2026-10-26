@@ -126,6 +126,7 @@ function failureNote(batch: string, failure: CallFailure): string {
   return [
     what, batch, seconds(failure.durationMs), failure.attempt > 1 ? `appel ${failure.attempt}` : null, failure.requestId,
     failure.retryInMs !== null ? `nouvel essai dans ${seconds(failure.retryInMs)}` : null,
+    failure.errorMessage ? `« ${failure.errorMessage} »` : null,
   ].filter(Boolean).join(" · ");
 }
 
