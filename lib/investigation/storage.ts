@@ -10,6 +10,7 @@ import {
   Source,
   emptyInvestigationData,
 } from "./types";
+import { isCoverImage } from "./cover";
 import { extractImageIds, replaceImageIds } from "./imageRefs";
 import { applyGraphSlice, type GraphSlice } from "./graphHistory";
 import type { MergePlan } from "./merge";
@@ -43,6 +44,8 @@ export interface InvestigationStorage {
 
   createDossier(name: string, description: string): Dossier;
   renameDossier(id: string, name: string, description: string): void;
+  /** Photo de présentation du dossier (data URL) ; `null` la retire. */
+  setDossierCover(id: string, cover: string | null): void;
   deleteDossier(id: string): void;
   /** « Ignorer » une paire de doublons possibles : elle n'est plus suggérée. */
   dismissDuplicate(dossierId: string, pairKey: string): void;
@@ -260,6 +263,18 @@ export function createLocalStorageEngine(): InvestigationStorage {
         data.dossiers = data.dossiers.map((d) =>
           d.id === id ? { ...d, name, description, updatedAt: nowIso() } : d
         );
+      });
+    },
+
+    setDossierCover(id, cover) {
+      mutate((data) => {
+        data.dossiers = data.dossiers.map((d) => {
+          if (d.id !== id) return d;
+          const next: Dossier = { ...d, updatedAt: nowIso() };
+          if (cover) next.coverImage = cover;
+          else delete next.coverImage;
+          return next;
+        });
       });
     },
 
@@ -545,6 +560,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
         id: newDossierId,
         name: importedDossier ? (keep ? importedDossier.name : `${importedDossier.name} (importé)`) : "Dossier importé",
         description: importedDossier?.description ?? "",
+        ...(isCoverImage(importedDossier?.coverImage) ? { coverImage: importedDossier.coverImage } : {}),
         createdAt: keep && importedDossier ? importedDossier.createdAt : nowIso(),
         updatedAt: keep && importedDossier ? importedDossier.updatedAt : nowIso(),
         ...(keep && importedDossier?.dismissedDuplicates ? { dismissedDuplicates: importedDossier.dismissedDuplicates } : {}),

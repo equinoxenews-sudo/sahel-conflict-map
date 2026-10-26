@@ -53,6 +53,8 @@ export interface Dossier {
   dismissedDuplicates?: string[];
   name: string;
   description: string;
+  /** Photo de présentation : petite image (data URL, voir lib/investigation/cover.ts) affichée sur la vignette du dossier. */
+  coverImage?: string;
   createdAt: string;
   updatedAt: string;
 }
