@@ -1,0 +1,35 @@
+name: Version de la semaine
+
+# Chaque dimanche soir, pose une étiquette « semaine-AAAA-Sss » sur la dernière version du site (branche main) : une
+# photo par semaine, pour pouvoir revoir l'évolution depuis le début. Ne déploie rien et ne modifie aucun fichier.
+# Pour revoir une semaine : git checkout semaine-2026-W40
+# Planification GitHub seulement (pas de cron Vercel) : une étiquette manquée un dimanche se rattrape en la lançant à la main.
+on:
+  schedule:
+    - cron: "0 21 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Poser l'étiquette de la semaine
+        run: |
+          tag="semaine-$(date -u +%G-W%V)"
+          if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            echo "$tag existe déjà : rien à faire."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "$tag"
+          git push origin "$tag"
+          echo "Étiquette $tag posée sur $(git rev-parse --short HEAD)."
