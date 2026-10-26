@@ -4,7 +4,7 @@ import { dispatchPlan } from "@/lib/syncPasses";
 
 export const maxDuration = 30;
 
-// Réveil ponctuel des traitements du matin. Les planifications de GitHub Actions partent
+// Réveil des traitements planifiés (matin et après-midi : docs/JOURNEE_TYPE.md). Les planifications de GitHub Actions partent
 // souvent avec 4 à 8 h de retard ; le cron de Vercel (vercel.json, ±59 min sur le plan
 // Hobby) appelle cette route, qui demande à GitHub de lancer le workflow tout de suite
 // (workflow_dispatch). Le traitement lui-même ne change pas : aucun appel IA ici.

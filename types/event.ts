@@ -1,6 +1,3 @@
-export const SAHEL_COUNTRIES = ["Mali", "Burkina Faso", "Niger", "Chad"] as const;
-export type SahelCountry = (typeof SAHEL_COUNTRIES)[number];
-
 export const EVENT_CATEGORIES = [
   "Battles",
   "Explosions/Remote violence",
@@ -24,7 +21,7 @@ export interface ConflictEvent {
   id: number;
   external_id: string;
   event_date: string;
-  country: SahelCountry | string;
+  country: string;
   latitude: number;
   longitude: number;
   category: EventCategory | string;

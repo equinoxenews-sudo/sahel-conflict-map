@@ -22,10 +22,6 @@ export const CONFIDENCE_LEVELS = [
 
 export type ConfidenceLabel = (typeof CONFIDENCE_LEVELS)[number]["label"];
 
-export function isConfidenceLabel(value: unknown): value is ConfidenceLabel {
-  return typeof value === "string" && CONFIDENCE_LEVELS.some((level) => level.label === value);
-}
-
 /** Étiquette correspondant à un pourcentage, hors « Revendiqué » (réservé aux
  *  revendications) : sans revendication, la tranche 60-70 % reste « Probable ». */
 export function labelForPercent(percent: number): ConfidenceLabel {

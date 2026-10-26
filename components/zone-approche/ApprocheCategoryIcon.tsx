@@ -18,7 +18,7 @@ const common = {
   "aria-hidden": true,
 };
 
-// Same hand-drawn line-icon language as ZoneCategoryIcon.tsx (shared
+// Same hand-drawn line-icon language as the zone icons (shared
 // stroke width/viewBox) — this page's 6 categories don't map 1:1 onto
 // that component's key set, so a couple of shapes are reused verbatim
 // (globe, shield, people, leaf) and two new ones added (bar chart,

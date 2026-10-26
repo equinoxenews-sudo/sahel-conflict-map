@@ -84,17 +84,7 @@ export function useNotes(dossierId: string) {
   return useMemo(() => data.notes.filter((n) => n.dossierId === dossierId), [data.notes, dossierId]);
 }
 
-export function useCanvasCards(dossierId: string) {
-  const { data } = useInvestigationContext();
-  return useMemo(() => data.canvasCards.filter((c) => c.dossierId === dossierId), [data.canvasCards, dossierId]);
-}
-
 export function useShapes(dossierId: string) {
   const { data } = useInvestigationContext();
   return useMemo(() => data.shapes.filter((s) => s.dossierId === dossierId), [data.shapes, dossierId]);
-}
-
-export function useCanvasLinks(dossierId: string) {
-  const { data } = useInvestigationContext();
-  return useMemo(() => data.canvasLinks.filter((l) => l.dossierId === dossierId), [data.canvasLinks, dossierId]);
 }

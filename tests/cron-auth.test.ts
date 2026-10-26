@@ -38,7 +38,7 @@ test("aucune route ne compare plus l'en-tête à « Bearer ${CRON_SECRET} » : t
   };
   walk("app/api");
   const protectedRoutes = routes.filter((file) => readFileSync(file, "utf8").includes("CRON_SECRET") || readFileSync(file, "utf8").includes("isAuthorizedCron"));
-  assert.ok(protectedRoutes.length >= 7, `routes protégées trouvées : ${protectedRoutes.length}`);
+  assert.ok(protectedRoutes.length >= 6, `routes protégées trouvées : ${protectedRoutes.length}`);
   for (const file of protectedRoutes) {
     const source = readFileSync(file, "utf8");
     assert.ok(!source.includes("`Bearer ${process.env.CRON_SECRET}`"), `${file} compare encore l'en-tête à la main`);

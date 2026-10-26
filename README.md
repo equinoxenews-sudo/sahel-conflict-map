@@ -1,72 +1,81 @@
-# Carte des conflits au Sahel
+# Équinoxe News
 
-Carte interactive (Leaflet) des événements de conflit au Mali, Burkina Faso, Niger et
-Tchad sur les 30 derniers jours, à partir des données [ACLED](https://acleddata.com/),
-stockées dans [Supabase](https://supabase.com/) et déployée sur [Vercel](https://vercel.com/).
+Site indépendant de veille géopolitique et d'analyse (OSINT) : globe interactif des événements, synthèses
+quotidiennes rédigées par des analystes de zone (IA, avec relecture humaine), points de situation, fiches pays,
+et un espace de travail privé « Investigation ». Cinq zones suivies : Afrique, Europe, Moyen-Orient, Indopacifique,
+Amérique du Sud.
 
-## Structure
+> Le dépôt s'appelle encore `sahel-conflict-map` : c'est le nom du projet d'origine (une carte des conflits du Sahel).
 
-- `app/page.tsx` — page principale (Server Component), charge les événements depuis Supabase.
-- `app/api/sync-acled/route.ts` — endpoint appelé par Vercel Cron pour rafraîchir les données.
-- `components/` — `MapView` (état des filtres), `Map` (Leaflet), `Filters`, `Legend`.
-- `lib/acled.ts` — appel paginé à l'API ACLED.
-- `lib/syncAcled.ts` — orchestration : ACLED → Supabase (upsert).
-- `lib/supabaseClient.ts` — client Supabase navigateur/lecture (clé `anon`).
-- `lib/supabaseAdmin.ts` — client Supabase serveur/écriture (clé `service_role`).
-- `scripts/fetch-acled.ts` — lance `syncAcled` en local (`npm run sync:acled`).
-- `supabase/schema.sql` — DDL de la table `conflict_events`.
-- `vercel.json` — planifie le cron quotidien vers `/api/sync-acled`.
+## Pile technique
 
-## 1. Configurer Supabase
+Next.js 16 (App Router) sur Vercel (plan Hobby) · Supabase (base, lecture publique protégée par RLS) · GitHub Actions
+(traitements longs) · API Anthropic (rédaction) · CesiumJS (globe) · React Flow et Tiptap (Investigation).
+`AGENTS.md` rappelle que cette version de Next.js diffère de celle que l'on connaît : lire `node_modules/next/dist/docs/`
+avant de coder.
 
-1. Créez un projet sur [supabase.com](https://supabase.com).
-2. Dans **SQL Editor**, exécutez le contenu de [`supabase/schema.sql`](./supabase/schema.sql).
-3. Dans **Project Settings → API**, récupérez `Project URL`, la clé `anon public` et la clé `service_role`.
+## Où est quoi
 
-## 2. Configurer l'accès ACLED
+| Dossier | Contenu |
+|---|---|
+| `app/` | Pages (`/` accueil et globe, `/zones/[slug]/…`, `/briefs/[id]`, `/a-propos`, `/investigation`, `/mon-espace`, `/admin/situation`) et routes `app/api/*` (collecte, rédaction, recherche, session, cloud des dossiers). |
+| `components/` | Composants de l'interface, un dossier par domaine (`equinoxe/`, `investigation/`, `situation/`, `search/`…). |
+| `lib/` | Logique métier : collecte (`sync*.ts`), rédaction (`synthesizeBriefs.ts`, `zoneSynthesis.ts`), budget IA (`aiBudget.ts`, `aiUsage.ts`), recherche (`search*.ts`), Investigation (`investigation/`). |
+| `scripts/` | Traitements lancés par GitHub Actions (`zone-synthesis.ts`, `situation-report.ts`, …) et outils de génération. |
+| `supabase/` | Schéma et migrations `add-*.sql` ; scripts ponctuels dans `archive/`. |
+| `.github/workflows/` | Les workflows planifiés (voir la journée type). |
+| `docs/` | `JOURNEE_TYPE.md` (toutes les automatisations), notes d'audit. |
+| `tests/` | Tests unitaires et de cohérence (horaires, routes, workflows). |
 
-1. Créez un compte **myACLED** sur [acleddata.com/user/register](https://acleddata.com/user/register).
-2. L'API utilise l'email et le mot de passe de ce compte pour obtenir un jeton OAuth
-   (`POST https://acleddata.com/oauth/token`, valable 24h) — il n'y a plus de "clé API"
-   statique à générer séparément. Voir [acleddata.com/api-documentation](https://acleddata.com/api-documentation/getting-started).
-3. `lib/acled.ts` gère l'authentification et la pagination par curseur (`cursor` /
-   `next_cursor`), le mode de pagination standard d'ACLED depuis le 1er octobre 2026.
+## Les automatisations
 
-> Si ACLED fait à nouveau évoluer son API après l'écriture de ce projet, seul
-> `lib/acled.ts` doit changer — `lib/syncAcled.ts` et le reste du projet n'en dépendent pas.
+Tout ce qui tourne chaque jour (collecte, synthèses, point de situation, passage de l'après-midi), leurs horaires,
+leurs dépendances et la marche à suivre aux changements d'heure sont décrits dans
+**[`docs/JOURNEE_TYPE.md`](./docs/JOURNEE_TYPE.md)**.
 
-## 3. Variables d'environnement
-
-Copiez `.env.local.example` vers `.env.local` et remplissez les valeurs :
+## Installer et lancer en local
 
 ```bash
-cp .env.local.example .env.local
-```
-
-| Variable | Description |
-| --- | --- |
-| `NEXT_PUBLIC_SUPABASE_URL` | URL du projet Supabase |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Clé publique, utilisée par la carte (lecture seule, RLS) |
-| `SUPABASE_SERVICE_ROLE_KEY` | Clé secrète, utilisée uniquement côté serveur pour l'ingestion |
-| `ACLED_EMAIL` / `ACLED_PASSWORD` | Identifiants du compte myACLED (OAuth) |
-| `CRON_SECRET` | Chaîne aléatoire ; protège `/api/sync-acled` contre les appels externes |
-
-## 4. Installer et lancer en local
-
-```bash
+cp .env.local.example .env.local   # puis remplir les valeurs (voir le fichier, tout y est commenté)
 npm install
-npm run sync:acled   # remplit Supabase avec les 30 derniers jours d'événements ACLED
-npm run dev           # http://localhost:3000
+npm run dev                         # http://localhost:3000
 ```
 
-## 5. Déployer sur Vercel
-
-1. Poussez le repo sur GitHub puis importez-le dans Vercel.
-2. Dans **Project Settings → Environment Variables**, ajoutez les mêmes variables que dans `.env.local`.
-3. Vercel détecte automatiquement `vercel.json` et planifie l'appel quotidien (3h UTC) à `/api/sync-acled`,
-   qui vérifie l'en-tête `Authorization: Bearer $CRON_SECRET` envoyé automatiquement par Vercel Cron.
-4. Pour forcer une synchronisation manuelle en production, appelez la route avec le même secret :
+Contrôles avant de pousser :
 
 ```bash
-curl -H "Authorization: Bearer <CRON_SECRET>" https://<votre-app>.vercel.app/api/sync-acled
+npx tsc --noEmit
+npm run lint
+npx tsx --test tests/*.test.ts
 ```
+
+Hors ligne, ou sans accès à Supabase, l'accueil s'affiche sans données et un build complet signale des échecs
+réseau : ce n'est pas bloquant, le build de Vercel dispose du réseau.
+
+## Base de données (Supabase)
+
+1. Créer un projet sur [supabase.com](https://supabase.com).
+2. Dans **SQL Editor**, exécuter `supabase/schema.sql` et `supabase/schema-articles.sql`, puis les fichiers
+   `supabase/add-*.sql` (écrits pour pouvoir être relancés sans danger).
+3. Dans **Project Settings → API**, récupérer l'URL du projet, la clé `anon` et la clé `service_role`.
+
+## Déploiement
+
+- **Vercel :** import du dépôt, mêmes variables que `.env.local`. `vercel.json` planifie les collectes et réveille
+  les workflows GitHub (route `/api/cron/dispatch`).
+- **GitHub :** secrets et variables listés en tête de `.env.local.example` ; les workflows épinglent
+  `ubuntu-24.04`.
+- Les routes planifiées exigent `Authorization: Bearer <CRON_SECRET>` et refusent tout si le secret est absent.
+
+Relancer un traitement à la main, par exemple la collecte :
+
+```bash
+curl -H "Authorization: Bearer <CRON_SECRET>" https://<votre-app>.vercel.app/api/sync-articles
+```
+
+## Données externes
+
+Flux RSS de médias, canaux Telegram publics, GDELT (ACLED a été retiré le 26/10/2026 : ses conditions d'usage ne
+permettent pas une exploitation commerciale), Banque mondiale
+(indicateurs des fiches pays), TeleGeography (câbles sous-marins, CC BY-SA 3.0), USGS, NASA EONET, GDACS,
+CelesTrak, Esri (fond de carte). Aucune donnée d'un dossier Investigation n'est dans le dépôt public.

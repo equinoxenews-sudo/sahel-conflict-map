@@ -1,12 +1,5 @@
 import { getSupabaseAdmin } from "./supabaseAdmin";
 
-export interface SyncStatus {
-  source: string;
-  last_success_at: string | null;
-  last_attempt_at: string;
-  last_error: string | null;
-  last_count: number | null;
-}
 
 /**
  * Records the outcome of a sync run — always writes `last_attempt_at`,

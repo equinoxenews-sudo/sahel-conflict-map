@@ -16,10 +16,6 @@ export function telegramChatId(): string | null {
   return process.env.TELEGRAM_CHAT_ID?.trim() || null;
 }
 
-export function telegramConfigured(): boolean {
-  return Boolean(token() && telegramChatId());
-}
-
 async function call<T>(method: string, body: Record<string, unknown>): Promise<T | null> {
   const t = token();
   if (!t) return null;

@@ -1,7 +1,7 @@
 name: Synthèses du jour
 
-# Remplace le cron Vercel de sync-briefs (le plan Hobby n'autorise qu'une
-# exécution par jour et à l'heure près). Deux passages par jour :
+# Lancé par le cron de Vercel (route /api/cron/dispatch, vercel.json) ; les planifications ci-dessous
+# ne sont que le secours. La journée complète est décrite dans docs/JOURNEE_TYPE.md. Deux passages par jour :
 #  - le matin (complet, jusqu'à 3 lots de 5 sources par zone) : 7 h 05 UTC = 8 h 05 à
 #    Paris en heure d'hiver (9 h 05 en été) ;
 #  - l'après-midi (léger, 1 lot par zone, pour borner le coût) : 12 h 05 UTC = 13 h 05 à

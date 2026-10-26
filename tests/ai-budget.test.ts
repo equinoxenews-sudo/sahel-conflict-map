@@ -15,7 +15,6 @@ import {
   shouldGenerateBriefs,
   usageFromResponse,
   webPolicyFromEnv,
-  zoneForWeekday,
 } from "../lib/aiBudget";
 
 test("Coût estimé : jetons d'entrée, de sortie et recherches web", () => {
@@ -137,16 +136,6 @@ test("Les articles tournent dans tous les modes", () => {
   for (const mode of ["normal", "tight", "critical", "exhausted"] as const) {
     assert.equal(decideJob("sync-briefs", MODE_POLICIES[mode], now).allowed, true);
   }
-});
-
-test("Rotation : une zone par jour, rien le lundi ni le dimanche", () => {
-  assert.equal(zoneForWeekday(2), "europe");
-  assert.equal(zoneForWeekday(3), "moyen-orient");
-  assert.equal(zoneForWeekday(4), "afrique");
-  assert.equal(zoneForWeekday(5), "indopacifique");
-  assert.equal(zoneForWeekday(6), "amerique-du-sud");
-  assert.equal(zoneForWeekday(1), null);
-  assert.equal(zoneForWeekday(0), null);
 });
 
 test("Recherche web : désactivée par défaut, même pour une information importante", () => {

@@ -243,20 +243,6 @@ export function rulesForMode(rules: GenerationRules, policy: ModePolicy): Genera
 
 // --- Rotation des synthèses de zone ------------------------------------------------
 
-/** Une zone par jour : mardi Europe … samedi Amérique du Sud. Lundi (points de
- * situation) et dimanche : aucune synthèse de zone. `weekday` : 0 = dimanche. */
-const ZONE_BY_WEEKDAY: Record<number, string> = {
-  2: "europe",
-  3: "moyen-orient",
-  4: "afrique",
-  5: "indopacifique",
-  6: "amerique-du-sud",
-};
-
-export function zoneForWeekday(weekday: number): string | null {
-  return ZONE_BY_WEEKDAY[weekday] ?? null;
-}
-
 // --- Recherche web --------------------------------------------------------------------
 
 export interface WebSearchPolicy {

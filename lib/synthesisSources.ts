@@ -26,5 +26,4 @@ export const SYNTHESIS_ALLOWED_DOMAINS = [
   "icrc.org",
   // Analyse de crise
   "crisisgroup.org",
-  "acleddata.com",
 ] as const;

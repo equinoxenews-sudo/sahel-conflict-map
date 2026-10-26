@@ -119,7 +119,7 @@ const SOURCE_FAMILIES: { title: string; text: string }[] = [
   },
   {
     title: "Événements géolocalisés",
-    text: "Bases ouvertes d'événements (ACLED, GDELT) pour situer les faits sur la carte. Elles sont en grande partie automatiques : un lieu ou une victime peut être mal attribué.",
+    text: "La base ouverte d'événements GDELT pour situer les faits sur la carte. Elle est en grande partie automatique : un lieu ou une victime peut être mal attribué.",
   },
   {
     title: "Institutions et données ouvertes",

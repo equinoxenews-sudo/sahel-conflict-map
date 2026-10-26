@@ -54,7 +54,7 @@ const STANDARD_CATEGORIES: ApprocheCategory[] = [
   },
 ];
 
-// Populated zone by zone, same pattern as lib/zoneHubContent.ts — a zone
+// Populated zone by zone — a zone
 // with no entry here just keeps the existing DocumentGrid behavior on its
 // Approche tab (see app/zones/[slug]/[tab]/page.tsx). Dossiers transversaux
 // are editorial picks (3 recurring cross-cutting themes per zone).
