@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isAuthorizedCron } from "@/lib/cronAuth";
 import { dispatchPlan } from "@/lib/syncPasses";
 
 export const maxDuration = 30;
@@ -14,7 +15,7 @@ export const maxDuration = 30;
 const REPO = process.env.GITHUB_REPOSITORY_SLUG?.trim() || "equinoxenews-sudo/sahel-conflict-map";
 
 export async function GET(request: Request, { params }: { params: Promise<{ workflow: string }> }) {
-  if (request.headers.get("authorization") !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!isAuthorizedCron(request.headers.get("authorization"))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   const { workflow: name } = await params;

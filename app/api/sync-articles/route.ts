@@ -1,5 +1,6 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
+import { isAuthorizedCron } from "@/lib/cronAuth";
 import { syncArticles } from "@/lib/syncArticles";
 import { syncTelegram } from "@/lib/syncTelegram";
 
@@ -9,8 +10,7 @@ export const maxDuration = 60;
 // "Authorization: Bearer $CRON_SECRET" when that env var is set, which we
 // verify here so the endpoint can't be triggered by anyone else.
 export async function GET(request: Request) {
-  const authHeader = request.headers.get("authorization");
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+  if (!isAuthorizedCron(request.headers.get("authorization"))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

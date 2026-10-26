@@ -39,7 +39,7 @@ concurrency:
 
 jobs:
   sync:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     env:
       SITE_URL: https://sahel-conflict-map.vercel.app
