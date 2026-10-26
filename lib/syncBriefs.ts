@@ -11,6 +11,7 @@ import { locateBrief } from "./geocode";
 import { isSportsTitle } from "./sportsFilter";
 import { getSupabaseAdmin } from "./supabaseAdmin";
 import { MODEL, TIMEOUT_MS, synthesizeBriefs, type CallFailure, type CallMeta, type PreviousBrief, type SourceArticle } from "./synthesizeBriefs";
+import { effectiveMaxBatches } from "./syncPasses";
 import { channelNote } from "./telegramChannels";
 import { getZone } from "./zones";
 import { activeDirective, directiveKeywords, directivePrompt, prioritize, type ZoneDirective } from "./zoneDirectives";
@@ -28,7 +29,7 @@ const SUMMARY_FETCH_CONCURRENCY = 6;
 // 5 sources par lot (au lieu de 8) : avec des articles de 150 à 400 mots, un lot de 8
 // pouvait dépasser deux minutes de rédaction et être coupé.
 const ANALYST_BATCH = 5;
-const ANALYST_MAX_BATCHES = 3;
+// Plafond de lots par zone : lib/syncPasses.ts (3 le matin, 1 l'après-midi, réduit selon le mode budget).
 /** Un nouveau lot ne démarre que si ce temps n'est pas écoulé : ce budget + un lot complet
  *  (rédaction, TIMEOUT_MS, et téléchargement des pages) restent sous les 300 s de la route. */
 const ANALYST_TIME_BUDGET_MS = 300_000 - TIMEOUT_MS - 45_000;
@@ -320,7 +321,7 @@ async function briefBatch(
   return { zoneSlug, articleCount: articles.length, briefCount: briefs.length - held, telegramUsed, held };
 }
 
-async function briefZone(zoneSlug: string, policy: ModePolicy | null = null): Promise<BatchResult> {
+async function briefZone(zoneSlug: string, policy: ModePolicy | null = null, passMaxBatches?: number): Promise<BatchResult> {
   const analyst = isAnalystV2Zone(zoneSlug) && (await analystSchemaReady());
   if (!analyst) return briefBatch(zoneSlug, false, ARTICLES_PER_ZONE, new Set(), null, policy);
   const directive = await activeDirective(zoneSlug);
@@ -330,7 +331,7 @@ async function briefZone(zoneSlug: string, policy: ModePolicy | null = null): Pr
   const started = Date.now();
   const seenTelegram = new Set<number>();
   const total: BatchResult = { zoneSlug, articleCount: 0, briefCount: 0, telegramUsed: 0 };
-  const maxBatches = policy ? Math.min(ANALYST_MAX_BATCHES, policy.articles.maxBatches) : ANALYST_MAX_BATCHES;
+  const maxBatches = effectiveMaxBatches(policy?.articles.maxBatches, passMaxBatches);
   for (let batch = 0; batch < maxBatches && Date.now() - started < ANALYST_TIME_BUDGET_MS; batch++) {
     const r = await briefBatch(zoneSlug, true, ANALYST_BATCH, seenTelegram, directive, policy);
     total.articleCount += r.articleCount;
@@ -354,7 +355,7 @@ async function briefZone(zoneSlug: string, policy: ModePolicy | null = null): Pr
  * it does not depend on GDELT DOC. Monitor execution time and API cost:
  * all zones run concurrently, but upstream latency can exceed the budget.
  */
-export async function syncBriefs(onlyZone?: string) {
+export async function syncBriefs(onlyZone?: string, options: { maxBatches?: number } = {}) {
   // Before source downloads or paid AI calls: explicit, actionable migration gate.
   const admin = getSupabaseAdmin();
   const { error: columnError } = await admin.from("zone_briefs").select("updated_at").limit(1);
@@ -378,7 +379,7 @@ export async function syncBriefs(onlyZone?: string) {
   const results = await Promise.allSettled(zoneSlugs.map(async (zoneSlug) => {
     const startedAt = Date.now();
     try {
-      return await briefZone(zoneSlug, budget.policy);
+      return await briefZone(zoneSlug, budget.policy, options.maxBatches);
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
       throw new Error(`${message} (après ${Math.round((Date.now() - startedAt) / 1000)} s)`);

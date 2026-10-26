@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { dispatchPlan } from "@/lib/syncPasses";
 
 export const maxDuration = 30;
 
@@ -9,17 +10,19 @@ export const maxDuration = 30;
 // La planification GitHub reste en secours : un passage déjà lancé dans la journée
 // la fait s'arrêter d'elle-même (étape « Déjà lancé aujourd'hui ? » des workflows).
 
-const ALLOWED = new Set(["sync-briefs.yml", "zone-synthesis.yml", "situation-report.yml"]);
+// Noms acceptés et paramètres de chaque lancement : lib/syncPasses.ts (dont le passage léger de l'après-midi).
 const REPO = process.env.GITHUB_REPOSITORY_SLUG?.trim() || "equinoxenews-sudo/sahel-conflict-map";
 
 export async function GET(request: Request, { params }: { params: Promise<{ workflow: string }> }) {
   if (request.headers.get("authorization") !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const { workflow } = await params;
-  if (!ALLOWED.has(workflow)) {
+  const { workflow: name } = await params;
+  const plan = dispatchPlan(name);
+  if (!plan) {
     return NextResponse.json({ error: "Workflow inconnu" }, { status: 404 });
   }
+  const { workflow } = plan;
   // Jeton GitHub à droits minimaux (ce dépôt, « Actions : lecture et écriture »), serveur uniquement.
   const token = process.env.GITHUB_DISPATCH_TOKEN?.trim();
   if (!token) {
@@ -36,7 +39,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ work
       "User-Agent": "equinoxe-cron",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ ref: "main" }),
+    body: JSON.stringify(plan.inputs ? { ref: "main", inputs: plan.inputs } : { ref: "main" }),
     cache: "no-store",
   });
   if (!res.ok) {

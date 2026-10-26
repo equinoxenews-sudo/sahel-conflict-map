@@ -1,15 +1,20 @@
 name: Synthèses du jour
 
 # Remplace le cron Vercel de sync-briefs (le plan Hobby n'autorise qu'une
-# exécution par jour et à l'heure près). Une seule exécution par jour pour
-# maîtriser le coût de l'API : 7 h 05 UTC = 8 h 05 à Paris en heure d'hiver (9 h 05
-# en été). Décalé d'une heure le 25/10/2026 : à ramener à 6 h 05 UTC le 28/03/2027.
+# exécution par jour et à l'heure près). Deux passages par jour :
+#  - le matin (complet, jusqu'à 3 lots de 5 sources par zone) : 7 h 05 UTC = 8 h 05 à
+#    Paris en heure d'hiver (9 h 05 en été) ;
+#  - l'après-midi (léger, 1 lot par zone, pour borner le coût) : 12 h 05 UTC = 13 h 05 à
+#    Paris en hiver (14 h 05 en été). Il recollecte les articles et messages Telegram arrivés
+#    depuis le matin et rédige ce qui est nouveau ; pas de synthèse de zone (workflow à part).
+# Décalés d'une heure le 25/10/2026 : à ramener d'une heure plus tôt le 28/03/2027.
 # Les 5 minutes évitent le pic de charge de GitHub à l'heure pile.
 # Une zone dont le lot d'articles est mince et récent est reportée sans appel au
 # modèle (règles dans lib/aiBudget.ts) ; ses articles restent en attente.
 on:
   schedule:
     - cron: "5 7 * * *"
+    - cron: "5 12 * * *"
   workflow_dispatch:
     inputs:
       zone:
@@ -17,6 +22,11 @@ on:
         type: choice
         default: toutes
         options: [toutes, afrique, europe, moyen-orient, indopacifique, amerique-du-sud]
+      passe:
+        description: "Passage : matin (complet, 3 lots par zone) ou après-midi (léger, 1 lot par zone)"
+        type: choice
+        default: matin
+        options: [matin, apres-midi]
 
 # Jamais deux exécutions en même temps (relance manuelle pendant un passage planifié).
 permissions:
@@ -34,11 +44,15 @@ jobs:
     env:
       SITE_URL: https://sahel-conflict-map.vercel.app
       CRON_SECRET: ${{ secrets.CRON_SECRET }}
+      # Passage : choisi au lancement manuel ou par le cron Vercel ; pour une planification GitHub,
+      # déduit de l'heure programmée (12 h 05 UTC = après-midi, sinon matin).
+      PASSE: ${{ inputs.passe || (github.event.schedule == '5 12 * * *' && 'apres-midi') || 'matin' }}
     steps:
       # Le cron de Vercel lance ce workflow à l'heure (route /api/cron/dispatch). La
-      # planification ci-dessus reste en secours : si un lancement de la journée existe
+      # planification ci-dessus reste en secours : si un lancement du même passage existe
       # déjà, ce passage planifié s'arrête, sans doublon ni coût IA supplémentaire.
-      - name: Déjà lancé aujourd'hui ?
+      # Le matin = lancements créés avant 10 h UTC ; l'après-midi = ceux créés ensuite.
+      - name: Déjà lancé pour ce passage ?
         id: guard
         if: github.event_name == 'schedule'
         env:
@@ -46,10 +60,15 @@ jobs:
         run: |
           # En cas d'erreur de lecture, on ne saute rien : mieux vaut un doublon qu'un jour sans synthèse.
           today=$(date -u +%F)
-          n=$(gh api "repos/${{ github.repository }}/actions/workflows/sync-briefs.yml/runs?created=>=$today&per_page=30" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }}) | select(.event == "workflow_dispatch") | select(.status != "completed" or .conclusion == "success")] | length' 2>/dev/null) || n=0
+          if [ "$PASSE" = "apres-midi" ]; then
+            window="${today}T10:00:00Z..${today}T23:59:59Z"
+          else
+            window="${today}T00:00:00Z..${today}T09:59:59Z"
+          fi
+          n=$(gh api "repos/${{ github.repository }}/actions/workflows/sync-briefs.yml/runs?created=$window&per_page=30" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }}) | select(.event == "workflow_dispatch") | select(.status != "completed" or .conclusion == "success")] | length' 2>/dev/null) || n=0
           if [ "$n" -gt 0 ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "::notice::Déjà lancé aujourd'hui (cron Vercel ou lancement manuel) : passage planifié ignoré."
+            echo "::notice::Passage « $PASSE » déjà lancé (cron Vercel ou lancement manuel) : passage planifié ignoré."
           fi
 
       - name: Vérifier le secret
@@ -75,6 +94,10 @@ jobs:
           # Lancement manuel : possibilité de ne relancer qu'une zone (choix « zone »).
           zones="afrique europe moyen-orient indopacifique amerique-du-sud"
           if [ -n "${{ inputs.zone }}" ] && [ "${{ inputs.zone }}" != "toutes" ]; then zones="${{ inputs.zone }}"; fi
+          # Passage de l'après-midi : un seul lot de 5 sources par zone (le reste attend le lendemain matin).
+          batches=""
+          if [ "$PASSE" = "apres-midi" ]; then batches="&batches=1"; fi
+          echo "Passage : $PASSE"
           for zone in $zones; do
             ok=0
             # Une zone qui échoue garde ses articles non traités : on réessaie une fois.
@@ -82,7 +105,7 @@ jobs:
               echo "== $zone (essai $attempt)"
               if body=$(curl -sS --max-time 310 --fail-with-body \
                 -H "Authorization: Bearer $CRON_SECRET" \
-                "$SITE_URL/api/sync-briefs?zone=$zone" 2>&1); then
+                "$SITE_URL/api/sync-briefs?zone=$zone$batches" 2>&1); then
                 echo "$body"
                 ok=1
                 break

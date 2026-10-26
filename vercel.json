@@ -21,6 +21,10 @@
       "schedule": "0 7 * * *"
     },
     {
+      "path": "/api/cron/dispatch/sync-briefs-apres-midi",
+      "schedule": "0 12 * * *"
+    },
+    {
       "path": "/api/cron/dispatch/zone-synthesis.yml",
       "schedule": "0 9 * * *"
     }

@@ -1,6 +1,7 @@
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 import { syncBriefs } from "@/lib/syncBriefs";
+import { parseBatchesLimit } from "@/lib/syncPasses";
 
 // 300 s (maximum du plan Hobby) : une zone « analyste » enchaîne jusqu'à 3 lots (lib/syncBriefs.ts).
 export const maxDuration = 300;
@@ -15,8 +16,10 @@ export async function GET(request: Request) {
   }
 
   try {
-    const zone = new URL(request.url).searchParams.get("zone") ?? undefined;
-    const { summary, errors } = await syncBriefs(zone);
+    const params = new URL(request.url).searchParams;
+    const zone = params.get("zone") ?? undefined;
+    // Passage léger de l'après-midi : « batches=1 » limite chaque zone à un lot (lib/syncPasses.ts).
+    const { summary, errors } = await syncBriefs(zone, { maxBatches: parseBatchesLimit(params.get("batches")) });
     // The homepage and zone pages are ISR-cached (revalidate = 3600) — mark
     // them stale so the very next visit picks up the new briefs instead of
     // waiting up to an hour.
