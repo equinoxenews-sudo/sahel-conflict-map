@@ -3,6 +3,7 @@ import ComingSoon from "@/components/espace/ComingSoon";
 export default function EspaceSupervisionPage() {
   return (
     <ComingSoon
+      section="supervision"
       title="Supervision"
       summary="Une veille sur mesure : vous décrivez ce que vous voulez suivre, l'IA met en place une surveillance strictement limitée à votre sujet."
       points={[

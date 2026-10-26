@@ -5,6 +5,7 @@ import CloudSyncPanel from "@/components/investigation/CloudSyncPanel";
 import type { DossierView } from "@/lib/espace";
 import { useDossiers, useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
 import { DossierTile } from "./DossierTile";
+import EspaceTitle from "./EspaceTitle";
 import styles from "./DossiersManager.module.css";
 
 interface DossiersManagerProps {
@@ -58,7 +59,7 @@ export default function DossiersManager({ view, title, intro }: DossiersManagerP
     <div className={styles.wrap}>
       <div className={styles.header}>
         <div className={styles.titleBlock}>
-          <h1 className={styles.title}>{title}</h1>
+          <EspaceTitle section={view === "graphe" ? "graph" : "notes"}>{title}</EspaceTitle>
           <p className={styles.intro}>{intro}</p>
         </div>
         <button type="button" className={styles.ghostBtn} onClick={() => fileInputRef.current?.click()}>

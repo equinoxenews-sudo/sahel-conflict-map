@@ -1,8 +1,15 @@
-/* Emplacement réservé dans la page : le menu s'agrandit PAR-DESSUS le contenu, sans le décaler. */
+/* Emplacement réservé dans la page : quand le menu se déploie, l'emplacement s'élargit avec lui et pousse le contenu
+   vers la droite au lieu de le recouvrir. */
 .slot {
   position: relative;
   flex: 0 0 64px;
   border-right: 1px solid var(--border-glass);
+  transition: flex-basis 0.18s ease;
+}
+
+.slot:hover,
+.slot:focus-within {
+  flex-basis: 220px;
 }
 
 .rail {
@@ -88,7 +95,9 @@
 
 /* Fenêtre étroite : le menu passe en bande horizontale d'icônes au-dessus du contenu. */
 @media (max-width: 700px) {
-  .slot {
+  .slot,
+  .slot:hover,
+  .slot:focus-within {
     flex: none;
     height: 56px;
     border-right: 0;

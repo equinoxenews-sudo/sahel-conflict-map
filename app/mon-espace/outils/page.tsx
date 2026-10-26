@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import EspaceTitle from "@/components/espace/EspaceTitle";
 import OsintMap from "@/components/espace/OsintMap";
 import DomainLinksPanel from "@/components/investigation/toolbox/DomainLinksPanel";
 import ExifTool from "@/components/investigation/toolbox/ExifTool";
@@ -22,7 +23,9 @@ export default function EspaceOutilsPage() {
 
   return (
     <div className={styles.wrap}>
-      <h1 className={styles.title}>Outils</h1>
+      <div className={styles.title}>
+        <EspaceTitle section="outils">Outils</EspaceTitle>
+      </div>
       <div className={styles.tabs} role="tablist">
         {TABS.map((t) => (
           <button
