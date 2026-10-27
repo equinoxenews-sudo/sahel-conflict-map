@@ -43,9 +43,12 @@ export default function DeleteDossierDialog({ dossier, onCancel, onConfirm }: De
           Supprimer le dossier « {dossier.name} » ?
         </h2>
         <p className={styles.lead}>
-          Tout son contenu sera effacé de cet appareil : <strong>{counts.join(", ")}</strong>, ainsi que la carte du graphe.
+          Tout son contenu sera effacé : <strong>{counts.join(", ")}</strong>, ainsi que la carte du graphe.
         </p>
-        <p className={styles.warning}>Cette action est définitive. Pense à exporter le dossier avant si tu veux en garder une trace.</p>
+        <p className={styles.warning}>
+          Sa copie en ligne est supprimée aussi : le dossier ne reviendra pas sur tes autres appareils. Cette action est définitive.
+          Pense à exporter le dossier avant si tu veux en garder une trace.
+        </p>
         <div className={styles.actions}>
           <button type="button" ref={cancelRef} className={styles.cancel} onClick={onCancel}>
             Annuler

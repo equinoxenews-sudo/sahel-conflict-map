@@ -22,7 +22,11 @@ test("un changement local sur une copie en ligne que cet appareil connaît s'env
 test("une copie en ligne plus récente que celle dont on est parti n'est jamais écrasée", () => {
   const moved = { ...REMOTE, uploadedAt: "2026-10-20T12:30:00.000Z" };
   assert.equal(decideAutoSave({ signature: "sig-b", contentCount: 9, base: BASE, remote: moved }), "conflict");
-  assert.equal(decideAutoSave({ signature: "sig-a", contentCount: 9, base: BASE, remote: moved }), "conflict");
+});
+
+test("un appareil qui n'a rien changé depuis la dernière synchronisation récupère la copie en ligne plus récente", () => {
+  const moved = { ...REMOTE, uploadedAt: "2026-10-20T12:30:00.000Z" };
+  assert.equal(decideAutoSave({ signature: "sig-a", contentCount: 9, base: BASE, remote: moved }), "pull");
 });
 
 test("une copie en ligne jamais vue par cet appareil demande avant tout envoi", () => {
@@ -31,6 +35,10 @@ test("une copie en ligne jamais vue par cet appareil demande avant tout envoi", 
 
 test("un dossier absent en ligne est envoyé", () => {
   assert.equal(decideAutoSave({ signature: "sig-b", contentCount: 2, base: undefined, remote: undefined }), "push");
+});
+
+test("un dossier déjà synchronisé puis supprimé en ligne n'est pas remis en ligne", () => {
+  assert.equal(decideAutoSave({ signature: "sig-b", contentCount: 4, base: BASE, remote: undefined }), "skip");
 });
 
 test("un dossier vide ici ne remplace jamais une copie en ligne pleine", () => {

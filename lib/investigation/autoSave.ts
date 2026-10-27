@@ -1,6 +1,7 @@
 // Décisions de la sauvegarde en ligne automatique des dossiers. Pas d'accès réseau ici : des fonctions
 // pures (testables) que le composant CloudAutoSave appelle. Règle d'or : on n'écrase JAMAIS une copie en
-// ligne plus récente que celle dont cet appareil est parti, ni une copie pleine par un dossier vide.
+// ligne plus récente que celle dont cet appareil est parti, ni une copie pleine par un dossier vide. Un dossier
+// que cet appareil n'a pas modifié depuis la dernière synchronisation se met à jour tout seul, sans question.
 import type { InvestigationData } from "./types";
 
 /** Ce que cet appareil sait de la dernière synchronisation d'un dossier. */
@@ -24,7 +25,9 @@ export type AutoSaveDecision =
   | "skip"
   /** Envoyer la version de cet appareil. */
   | "push"
-  /** Une version en ligne plus récente existe : demander avant de toucher à quoi que ce soit. */
+  /** Cet appareil n'a rien changé depuis la dernière synchronisation et la copie en ligne a avancé : la récupérer. */
+  | "pull"
+  /** Une version en ligne plus récente existe et cet appareil a aussi changé : demander avant de toucher à quoi que ce soit. */
   | "conflict"
   /** Le dossier est vide ici alors qu'il est plein en ligne : ne rien envoyer. */
   | "protect";
@@ -73,10 +76,17 @@ export function decideAutoSave(input: {
   const { signature, contentCount, base, remote } = input;
   const remoteHasContent = remote ? remote.entityCount + remote.noteCount > 0 : false;
   if (contentCount === 0 && remoteHasContent) return "protect";
-  if (!remote) return "push";
+  if (!remote) {
+    // Déjà synchronisé un jour mais plus en ligne : la copie a été supprimée (depuis un autre appareil ou ici). On ne la
+    // remet pas en ligne : elle réapparaîtrait partout. Un dossier jamais envoyé, lui, part.
+    return base ? "skip" : "push";
+  }
   const remoteMoved = base?.remoteUploadedAt !== remote.uploadedAt;
   if (remoteMoved) {
-    // Une copie en ligne que cet appareil n'a jamais vue (autre appareil, autre navigateur) : jamais écrasée sans accord.
+    // Cet appareil est reparti de la copie en ligne et n'a rien changé depuis : il suffit de la récupérer.
+    if (base && base.signature === signature) return "pull";
+    // Une copie en ligne que cet appareil n'a jamais vue (autre appareil, autre navigateur) ou modifiée des deux côtés :
+    // jamais écrasée sans accord.
     return "conflict";
   }
   return base && base.signature === signature ? "skip" : "push";

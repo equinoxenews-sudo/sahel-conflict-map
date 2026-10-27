@@ -15,7 +15,7 @@ import styles from "./CloudAutoSave.module.css";
 
 /** Délai après la dernière modification avant l'envoi : une rafale de changements ne fait qu'un envoi. */
 const SAVE_DELAY_MS = 45_000;
-const FIRST_CHECK_MS = 3_000;
+const FIRST_CHECK_MS = 1_500;
 
 type Status =
   | { kind: "checking" }
@@ -35,8 +35,10 @@ const timeFormat = new Intl.DateTimeFormat("fr-FR", { hour: "2-digit", minute: "
 const dateTimeFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
 // Sauvegarde en ligne automatique des dossiers (même copie que « Synchronisation entre appareils »).
-// Elle n'écrase jamais une copie en ligne plus récente que celle dont cet appareil est parti, ni une
-// copie pleine par un dossier vide : dans ces cas elle demande, et ne touche à rien d'ici là.
+// Les dossiers du compte se retrouvent tout seuls sur n'importe quel appareil : à l'ouverture, ceux qui sont en ligne
+// et absents ici sont récupérés, et ceux que cet appareil n'a pas modifiés sont mis à jour. Elle n'écrase jamais une
+// copie en ligne plus récente que celle dont cet appareil est parti si cet appareil a lui aussi changé, ni une copie
+// pleine par un dossier vide : dans ces cas elle demande, et ne touche à rien d'ici là.
 export default function CloudAutoSave() {
   const storage = useInvestigationStorage();
   const data = useInvestigationData();
@@ -84,6 +86,15 @@ export default function CloudAutoSave() {
           remote: info,
         });
         if (decision === "conflict" && info) nextConflicts.push({ id: dossier.id, name: dossier.name, remote: info });
+        if (decision === "pull") {
+          setStatus({ kind: "saving", name: dossier.name });
+          try {
+            await pullDossier(storage, dossier.id);
+            saved = true;
+          } catch {
+            // Récupération impossible pour l'instant : le dossier reste tel quel et sera retenté à la prochaine vérification.
+          }
+        }
         if (decision === "push") {
           setStatus({ kind: "saving", name: dossier.name });
           try {
@@ -97,7 +108,19 @@ export default function CloudAutoSave() {
       }
       const ignored = readIgnoredRemote();
       setConflicts(nextConflicts.filter((conflict) => !dismissed.current.has(conflict.id)));
-      setMissing(remote.filter((item) => !snapshot.dossiers.some((dossier) => dossier.id === item.id) && !ignored.includes(item.id)));
+      // Dossiers en ligne absents de cet appareil : récupérés sans rien demander. Ceux qui échouent restent proposés à la main.
+      const stillMissing: CloudDossier[] = [];
+      for (const item of remote) {
+        if (snapshot.dossiers.some((dossier) => dossier.id === item.id) || ignored.includes(item.id)) continue;
+        setStatus({ kind: "saving", name: item.name });
+        try {
+          await pullDossier(storage, item.id);
+          saved = true;
+        } catch {
+          stillMissing.push(item);
+        }
+      }
+      setMissing(stillMissing);
       if (nextConflicts.length > 0) setStatus({ kind: "pending" });
       else if (saved || snapshot.dossiers.length > 0) setStatus((current) => (saved || current.kind !== "saved" ? { kind: "saved", at: new Date() } : current));
       else setStatus({ kind: "saved", at: new Date() });

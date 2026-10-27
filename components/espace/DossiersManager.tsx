@@ -3,6 +3,8 @@
 import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import CloudSyncPanel from "@/components/investigation/CloudSyncPanel";
 import type { DossierView } from "@/lib/espace";
+import { ignoreRemoteDossier } from "@/lib/investigation/autoSave";
+import { deleteCloud } from "@/lib/investigation/cloudSync";
 import { coverFromFile } from "@/lib/investigation/cover";
 import { ImageFileError } from "@/lib/investigation/imageStore";
 import { useDossiers, useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
@@ -47,7 +49,13 @@ export default function DossiersManager({ view, title, intro }: DossiersManagerP
   }
 
   function confirmDelete() {
-    if (toDelete) storage.deleteDossier(toDelete.id);
+    if (toDelete) {
+      const id = toDelete.id;
+      storage.deleteDossier(id);
+      // La copie en ligne part aussi : sinon la sauvegarde automatique remettrait le dossier sur cet appareil. Si elle ne
+      // peut pas être supprimée maintenant (hors connexion), le dossier n'est plus proposé ici.
+      void deleteCloud(id).catch(() => ignoreRemoteDossier(id));
+    }
     setToDelete(null);
   }
 
