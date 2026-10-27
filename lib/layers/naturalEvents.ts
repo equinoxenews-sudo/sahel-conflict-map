@@ -147,11 +147,17 @@ async function fetchGdacsType(type: GdacsType, from: string, to: string): Promis
   const out: NaturalEvent[] = [];
   // Pages lues quatre par quatre (les feux en comptent une quinzaine sur deux mois).
   const pages = Array.from({ length: GDACS_MAX_PAGES[type] }, (_, i) => i + 1);
-  const results = await mapWithConcurrency(pages, 4, (page) =>
-    getJson<{ features?: GdacsFeature[] }>(
+  // Une page sans réponse (GDACS en panne ou très lent) arrête la lecture des suivantes : sinon quinze pages à 15 s de
+  // délai dépassent à elles seules la minute accordée à la construction de la page d'accueil, et le déploiement échoue.
+  let sourceDown = false;
+  const results = await mapWithConcurrency(pages, 4, async (page) => {
+    if (sourceDown) return null;
+    const data = await getJson<{ features?: GdacsFeature[] }>(
       `https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?eventlist=${type}&fromDate=${from}&toDate=${to}&alertlevel=green;orange;red&pagesize=${GDACS_PAGE}&pagenumber=${page}`,
-    ),
-  );
+    );
+    if (data === null) sourceDown = true;
+    return data;
+  });
   for (const data of results) {
     const features = data?.features ?? [];
     for (const f of features) {
