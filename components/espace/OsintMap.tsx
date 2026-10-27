@@ -205,84 +205,86 @@ export default function OsintMap() {
         </button>
       </div>
 
-      <div
-        ref={viewport}
-        className={grabbing ? `${styles.canvas} ${styles.grabbing}` : styles.canvas}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={endDrag}
-        onPointerCancel={endDrag}
-        onPointerLeave={endDrag}
-      >
-        {failed && <p className={styles.state}>La carte des outils n&apos;a pas pu être chargée. Rechargez la page.</p>}
-        {!root && !failed && <p className={styles.state}>Chargement de la carte des outils…</p>}
-        {layout && (
-          <svg width={layout.width} height={layout.height} role="tree" aria-label="Carte des outils OSINT">
-            <g>
-              {layout.links.map((link) => (
-                <path
-                  key={link.id}
-                  className={styles.link}
-                  d={`M${link.x1},${link.y1} C${(link.x1 + link.x2) / 2},${link.y1} ${(link.x1 + link.x2) / 2},${link.y2} ${link.x2},${link.y2}`}
-                />
-              ))}
-            </g>
-            {layout.nodes.map((item) => {
-              const isFolder = item.hasChildren;
-              const label = shortLabel(item.node.name);
-              const isSelected = item.id === selectedId;
-              const isHit = hitIds.has(item.id);
-              const dim = item.node.status === "down" || item.node.status === "defunct" || item.node.deprecated;
-              const labelWidth = label.length * CHAR_WIDTH + 16;
-              const cls = [
-                styles.node,
-                isFolder ? styles.folder : styles.tool,
-                item.expanded ? styles.open : "",
-                isSelected ? styles.selected : "",
-                isHit ? styles.hit : "",
-                dim ? styles.dim : "",
-              ]
-                .filter(Boolean)
-                .join(" ");
-              return (
-                <g
-                  key={item.id}
-                  data-node
-                  className={cls}
-                  transform={`translate(${item.x},${item.y})`}
-                  role="treeitem"
-                  tabIndex={0}
-                  aria-expanded={isFolder ? item.expanded : undefined}
-                  aria-selected={isSelected}
-                  onClick={() => activate(item.id, item.node)}
-                  onKeyDown={(event) => onNodeKey(event, item.id, item.node)}
-                >
-                  <title>{displayName(item.node.name)}</title>
-                  <rect className={styles.hitArea} x={isFolder ? -labelWidth - 12 : -8} y={-10} width={labelWidth + 22} height={20} rx={6} />
-                  <circle className={styles.dot} r={isFolder ? 5.5 : 4} />
-                  <text className={styles.label} x={isFolder ? -11 : 11} dy="0.33em" textAnchor={isFolder ? "end" : "start"}>
-                    {label}
-                  </text>
-                </g>
-              );
-            })}
-          </svg>
-        )}
-      </div>
+      <div className={styles.stage}>
+        <div
+          ref={viewport}
+          className={grabbing ? `${styles.canvas} ${styles.grabbing}` : styles.canvas}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onPointerLeave={endDrag}
+        >
+          {failed && <p className={styles.state}>La carte des outils n&apos;a pas pu être chargée. Rechargez la page.</p>}
+          {!root && !failed && <p className={styles.state}>Chargement de la carte des outils…</p>}
+          {layout && (
+            <svg width={layout.width} height={layout.height} role="tree" aria-label="Carte des outils OSINT">
+              <g>
+                {layout.links.map((link) => (
+                  <path
+                    key={link.id}
+                    className={styles.link}
+                    d={`M${link.x1},${link.y1} C${(link.x1 + link.x2) / 2},${link.y1} ${(link.x1 + link.x2) / 2},${link.y2} ${link.x2},${link.y2}`}
+                  />
+                ))}
+              </g>
+              {layout.nodes.map((item) => {
+                const isFolder = item.hasChildren;
+                const label = shortLabel(item.node.name);
+                const isSelected = item.id === selectedId;
+                const isHit = hitIds.has(item.id);
+                const dim = item.node.status === "down" || item.node.status === "defunct" || item.node.deprecated;
+                const labelWidth = label.length * CHAR_WIDTH + 16;
+                const cls = [
+                  styles.node,
+                  isFolder ? styles.folder : styles.tool,
+                  item.expanded ? styles.open : "",
+                  isSelected ? styles.selected : "",
+                  isHit ? styles.hit : "",
+                  dim ? styles.dim : "",
+                ]
+                  .filter(Boolean)
+                  .join(" ");
+                return (
+                  <g
+                    key={item.id}
+                    data-node
+                    className={cls}
+                    transform={`translate(${item.x},${item.y})`}
+                    role="treeitem"
+                    tabIndex={0}
+                    aria-expanded={isFolder ? item.expanded : undefined}
+                    aria-selected={isSelected}
+                    onClick={() => activate(item.id, item.node)}
+                    onKeyDown={(event) => onNodeKey(event, item.id, item.node)}
+                  >
+                    <title>{displayName(item.node.name)}</title>
+                    <rect className={styles.hitArea} x={isFolder ? -labelWidth - 12 : -8} y={-10} width={labelWidth + 22} height={20} rx={6} />
+                    <circle className={styles.dot} r={isFolder ? 5.5 : 4} />
+                    <text className={styles.label} x={isFolder ? -11 : 11} dy="0.33em" textAnchor={isFolder ? "end" : "start"}>
+                      {label}
+                    </text>
+                  </g>
+                );
+              })}
+            </svg>
+          )}
+        </div>
 
-      <section className={styles.panel} aria-live="polite">
-        <h2 className={styles.panelKicker}>Explication rapide de l&apos;outil</h2>
-        {!selected || !root || !selectedId ? (
-          <p className={styles.hint}>
-            Cliquez sur une catégorie pour la déplier, ou sur un outil pour lire à quoi il sert et comment l&apos;utiliser. Tirez la
-            carte à la souris pour vous déplacer.
-          </p>
-        ) : selected.type === "folder" ? (
-          <FolderPanel root={root} id={selectedId} node={selected} />
-        ) : (
-          <ToolPanel root={root} id={selectedId} node={selected} translations={translations} />
-        )}
-      </section>
+        <section className={styles.panel} aria-live="polite">
+          <h2 className={styles.panelKicker}>Explication rapide de l&apos;outil</h2>
+          {!selected || !root || !selectedId ? (
+            <p className={styles.hint}>
+              Cliquez sur une catégorie pour la déplier, ou sur un outil pour lire à quoi il sert et comment l&apos;utiliser. Tirez la
+              carte à la souris pour vous déplacer.
+            </p>
+          ) : selected.type === "folder" ? (
+            <FolderPanel root={root} id={selectedId} node={selected} />
+          ) : (
+            <ToolPanel root={root} id={selectedId} node={selected} translations={translations} />
+          )}
+        </section>
+      </div>
 
       <p className={styles.credit}>
         Données : <a href="https://osintframework.com" target="_blank" rel="noopener noreferrer">OSINT Framework</a> (licence MIT, © 2017
