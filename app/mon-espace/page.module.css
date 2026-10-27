@@ -49,6 +49,8 @@
   justify-content: center;
   gap: 8px;
   min-height: 112px;
+  /* Même décalage que la rangée des dossiers (DragScroll : 4px 2px), pour que les quatre rubriques s'alignent. */
+  margin: 4px 2px 0;
   padding: 14px 18px;
   border: 1px dashed var(--border-glass);
   border-radius: 12px;
