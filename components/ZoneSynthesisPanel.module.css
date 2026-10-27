@@ -45,38 +45,6 @@
   white-space: nowrap;
 }
 
-/* Sujets du jour : une ligne chacun, en casse normale (une longue ligne en capitales
-   séparée par des « / » se lisait mal, surtout sur téléphone). */
-.topics {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 0;
-  padding: 0 0 10px;
-  list-style: none;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.topic {
-  position: relative;
-  padding-left: 16px;
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--text-primary);
-}
-
-.topic::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.5em;
-  width: 7px;
-  height: 7px;
-  border-radius: 2px;
-  background: var(--accent-gold);
-}
-
 .section {
   display: flex;
   flex-direction: column;

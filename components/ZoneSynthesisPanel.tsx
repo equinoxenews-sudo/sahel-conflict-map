@@ -1,12 +1,17 @@
 import { stripMarkup } from "@/lib/citationTags";
+import { flagsInText } from "@/lib/flagMentions";
 import { headlineTopics } from "@/lib/headline";
 import type { ZoneSynthesis } from "@/lib/zoneSynthesis";
+import SynthesisTopics from "./SynthesisTopics";
 import styles from "./ZoneSynthesisPanel.module.css";
 
 interface ZoneSynthesisPanelProps {
   zoneName: string;
   synthesis: ZoneSynthesis | null;
 }
+
+/** Drapeaux au plus par sujet (comme le bandeau LATEST). */
+const MAX_FLAGS = 3;
 
 const updatedAtFormat = new Intl.DateTimeFormat("fr-FR", {
   day: "numeric",
@@ -43,13 +48,7 @@ export default function ZoneSynthesisPanel({ zoneName, synthesis }: ZoneSynthesi
         <h2 className={styles.title}>Synthèse — {zoneName}</h2>
         <span className={styles.meta}>Mise à jour le {updatedAtFormat.format(new Date(synthesis.generated_at))}</span>
       </div>
-      <ul className={styles.topics}>
-        {headlineTopics(synthesis.headline).map((topic) => (
-          <li key={topic} className={styles.topic}>
-            {topic}
-          </li>
-        ))}
-      </ul>
+      <SynthesisTopics topics={headlineTopics(synthesis.headline).map((text) => ({ text, flags: flagsInText(text, MAX_FLAGS) }))} />
       <div className={styles.sections}>
         {synthesis.sections.map((section) => (
           <div key={section.heading} className={styles.section}>

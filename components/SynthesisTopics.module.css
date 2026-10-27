@@ -1,0 +1,78 @@
+.wrapper {
+  overflow: hidden;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+}
+
+.scrolling {
+  will-change: transform;
+  animation: scroll 30s linear infinite;
+}
+
+.scrolling:hover {
+  animation-play-state: paused;
+}
+
+.set {
+  display: flex;
+  flex: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topic {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 28px 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+
+/* La même puce dorée devant chaque sujet : elle sert aussi de séparateur. */
+.topic::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-top: -3.5px;
+  border-radius: 2px;
+  background: var(--accent-gold);
+}
+
+.flag {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 6px;
+  font-size: 16px;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wrapper {
+    overflow-x: auto;
+  }
+
+  .scrolling {
+    animation: none;
+  }
+}
