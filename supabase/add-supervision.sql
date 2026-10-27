@@ -14,6 +14,10 @@ create table if not exists accounts (
                  check (tier in ('owner', 'plus', 'intelligence', 'pro', 'enterprise')),
   timezone       text not null default 'Europe/Paris',
   disabled       boolean not null default false,
+  -- Prévus pour l'inscription libre à venir (adresse de contact, dernière connexion, acceptation des conditions).
+  email          text,
+  last_login_at  timestamptz,
+  terms_accepted_at timestamptz,
   created_at     timestamptz not null default now()
 );
 alter table accounts enable row level security;
@@ -138,4 +142,13 @@ alter table supervision_runs enable row level security;
 -- 8. Coût IA par compte : deux colonnes optionnelles sur le journal existant (les anciens enregistrements restent valides).
 alter table ai_usage add column if not exists owner_id text;
 alter table ai_usage add column if not exists supervision_id uuid;
+-- Réservation de budget : une ligne « reserved » (coût maximal estimé) est écrite AVANT l'appel, puis remplacée par le
+-- coût réel (« done ») ; deux traitements simultanés ne peuvent donc pas dépasser ensemble le plafond du compte.
+alter table ai_usage add column if not exists status text not null default 'done';
 create index if not exists ai_usage_owner_idx on ai_usage (owner_id, created_at);
+
+-- 9. Cloisonnement des dossiers d'Investigation (Notes, Graph) par compte. Les dossiers existants deviennent ceux du
+--    compte fondateur « nicof » (valeur par défaut de l'identifiant Nicof ; si ADMIN_USER est réglé autrement, dis-le-moi).
+--    Les morceaux (investigation_cloud_chunks) ne sont lus qu'après vérification du propriétaire du dossier.
+alter table investigation_cloud add column if not exists owner_id text not null default 'nicof';
+create index if not exists investigation_cloud_owner_idx on investigation_cloud (owner_id);
