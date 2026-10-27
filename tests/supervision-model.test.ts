@@ -72,7 +72,11 @@ test("sans calendrier ni sources, des valeurs par défaut sûres s'appliquent", 
   const checked = validateSupervisionInput({ ...VALID, sources: undefined, schedule: { dailyHour: 99, weeklyDay: "lundi" } });
   assert.ok(checked.ok);
   if (!checked.ok) return;
-  assert.deepEqual(checked.value.sources, [{ type: "gdelt", ref: "", enabled: true }]);
+  assert.deepEqual(checked.value.sources, [
+    { type: "gdelt", ref: "", enabled: true },
+    { type: "rss", ref: "", enabled: true },
+    { type: "telegram", ref: "", enabled: true },
+  ]);
   assert.deepEqual(checked.value.schedule, { dailyHour: 8, weeklyDay: 1 });
 });
 

@@ -21,7 +21,10 @@ export type SourceType = "gdelt" | "rss" | "telegram";
 
 export interface SourceSpec {
   type: SourceType;
-  /** Adresse du flux, identifiant du canal… ; vide pour GDELT (interrogé avec les critères). */
+  /**
+   * « gdelt » : événements GDELT déjà collectés par Équinoxe (ref vide). « rss » et « telegram » : ref vide = les flux et
+   * canaux d'Équinoxe ; sinon l'adresse d'un flux ou l'identifiant d'un canal public ajouté par l'utilisateur.
+   */
   ref: string;
   enabled: boolean;
 }
@@ -70,8 +73,12 @@ export const STATUSES: readonly Status[] = ["draft", "active", "paused", "archiv
 
 export const DEFAULT_SCHEDULE: Schedule = { dailyHour: 8, weeklyDay: 1 };
 
-/** Sources de départ d'une veille : GDELT, interrogé avec les critères ; les flux et canaux se choisissent ensuite. */
-export const DEFAULT_SOURCES: SourceSpec[] = [{ type: "gdelt", ref: "", enabled: true }];
+/** Sources de départ d'une veille : événements GDELT, flux d'Équinoxe et canaux Telegram d'Équinoxe ; l'utilisateur en ajoute. */
+export const DEFAULT_SOURCES: SourceSpec[] = [
+  { type: "gdelt", ref: "", enabled: true },
+  { type: "rss", ref: "", enabled: true },
+  { type: "telegram", ref: "", enabled: true },
+];
 
 // --- Offres ---------------------------------------------------------------------------------------------------------
 
@@ -180,11 +187,11 @@ function validateSources(raw: unknown, errors: string[]): SourceSpec[] {
       continue;
     }
     const ref = text(source.ref, LIMITS.refMax);
-    if (source.type === "rss" && !/^https?:\/\//i.test(ref)) {
+    if (source.type === "rss" && ref !== "" && !/^https?:\/\//i.test(ref)) {
       errors.push("Sources : un flux RSS doit être une adresse http(s).");
       continue;
     }
-    if (source.type === "telegram" && !/^[A-Za-z0-9_]{4,64}$/.test(ref)) {
+    if (source.type === "telegram" && ref !== "" && !/^[A-Za-z0-9_]{4,64}$/.test(ref)) {
       errors.push("Sources : un canal Telegram s'écrit sans « @ » ni adresse (lettres, chiffres, souligné).");
       continue;
     }

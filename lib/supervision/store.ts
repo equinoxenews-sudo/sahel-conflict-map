@@ -67,6 +67,19 @@ export async function listSupervisions(ownerId: string): Promise<Supervision[]> 
   return ((data ?? []) as Row[]).map(toSupervision);
 }
 
+/**
+ * Veilles actives à collecter. RÉSERVÉ au traitement de collecte (GitHub Actions ou déclenchement par le propriétaire) : il
+ * lit les veilles de tous les comptes pour partager les téléchargements. `ownerId` ou `id` restreignent la lecture.
+ */
+export async function listActiveForCollection(filter: { ownerId?: string; id?: string } = {}): Promise<Supervision[]> {
+  let query = getSupabaseAdmin().from("supervisions").select(COLUMNS).eq("status", "active");
+  if (filter.ownerId) query = query.eq("owner_id", filter.ownerId);
+  if (filter.id) query = query.eq("id", filter.id);
+  const { data, error } = await query;
+  if (error) fail(error);
+  return ((data ?? []) as Row[]).map(toSupervision);
+}
+
 export async function getSupervision(ownerId: string, id: string): Promise<Supervision | null> {
   const { data, error } = await getSupabaseAdmin().from("supervisions").select(COLUMNS).eq("owner_id", ownerId).eq("id", id).maybeSingle();
   if (error) fail(error);
