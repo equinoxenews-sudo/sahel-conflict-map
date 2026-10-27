@@ -32,6 +32,8 @@ const SLOTS: { value: Slot; label: string }[] = [
 ];
 
 const PAGE_SIZE = 30;
+/** Pastilles de catégorie affichées sur une carte de synthèse. */
+const MAX_THEME_CHIPS = 3;
 
 const parisHour = new Intl.DateTimeFormat("fr-FR", { hour: "numeric", hourCycle: "h23", timeZone: "Europe/Paris" });
 
@@ -198,39 +200,44 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
         {useBriefs
           ? filteredBriefs.slice(0, visible).map((b) => {
               const veracity = isValidVeracity(b.veracity) ? b.veracity : null;
-              const primaryTheme = resolveTheme(b);
+              // Jusqu'à trois catégories : la thématique principale puis les secondaires.
+              const themes = [...new Set([resolveTheme(b), ...(b.secondary_themes ?? [])])].filter(isThemeKey).slice(0, MAX_THEME_CHIPS);
               const isGenericImage = b.image_url?.startsWith("/equinoxe/hero-") ?? false;
               return (
-                <Link key={b.id} href={`/briefs/${b.id}`} className={styles.newsItem}>
-                  {b.image_url ? (
-                    <span className={styles.newsImageWrap}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={briefImageSrc(b.image_url)} referrerPolicy="no-referrer" alt="" className={styles.newsImage} />
-                      {isGenericImage ? (
-                        <span className={styles.genericTag} title="Illustration générique de la zone — ne représente pas cet événement précis">
-                          Illustration
-                        </span>
-                      ) : null}
-                    </span>
-                  ) : null}
-                  <div className={styles.newsItemBody}>
-                    <div className={styles.newsHeader}>
-                      <span className={styles.newsMeta}>
-                        <span className={styles.newsDate}>{formatDate(b.published_at)}</span>
-                        {primaryTheme && isThemeKey(primaryTheme) ? (
-                          <span className={styles.themeTag}>{themeShortLabel(primaryTheme)}</span>
+                <Link key={b.id} href={`/briefs/${b.id}`} className={`${styles.newsItem} ${styles.briefCard}`}>
+                  <div className={styles.briefMedia}>
+                    {b.image_url ? (
+                      <span className={styles.newsImageWrap}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={briefImageSrc(b.image_url)} referrerPolicy="no-referrer" alt="" className={styles.briefImage} />
+                        {isGenericImage ? (
+                          <span className={styles.genericTag} title="Illustration générique de la zone — ne représente pas cet événement précis">
+                            Illustration
+                          </span>
                         ) : null}
                       </span>
-                      {b.confidence == null ? (
-                        <span
-                          className={styles.veracityBadge}
-                          style={{ backgroundColor: veracity ? VERACITY_COLORS[veracity] : "#8b96a5" }}
-                        >
-                          {veracity ?? "Non évalué"}
-                        </span>
-                      ) : null}
+                    ) : null}
+                    <h2 className={styles.briefTitle}>{b.title}</h2>
+                  </div>
+                  <div className={styles.newsItemBody}>
+                    <div className={styles.newsHeader}>
+                      <span className={styles.chips}>
+                        {themes.map((key) => (
+                          <span key={key} className={styles.chip}>
+                            {themeShortLabel(key)}
+                          </span>
+                        ))}
+                      </span>
+                      <span className={styles.newsDate}>{formatDate(b.published_at)}</span>
                     </div>
-                    <h2 className={styles.newsTitle}>{b.title}</h2>
+                    {b.confidence == null ? (
+                      <span
+                        className={styles.veracityBadge}
+                        style={{ backgroundColor: veracity ? VERACITY_COLORS[veracity] : "#8b96a5" }}
+                      >
+                        {veracity ?? "Non évalué"}
+                      </span>
+                    ) : null}
                     {b.confidence != null && b.confidence_label ? (
                       <ConfidenceBar
                         compact
