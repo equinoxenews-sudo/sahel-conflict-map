@@ -82,7 +82,7 @@ test("la consigne contient les articles numérotés, sans plus de 380 caractère
   const prompt = buildPickPrompt([candidate(1, { excerpt: "x".repeat(2000) }), candidate(2)]);
   assert.ok(prompt.includes('"id":1') && prompt.includes('"id":2'));
   assert.ok(!prompt.includes("x".repeat(381)));
-  assert.ok(prompt.includes(`au plus ${MAX_PICKS} articles`));
+  assert.ok(prompt.includes(`Choisis ${MAX_PICKS} articles`));
 });
 
 test("la réponse du modèle est vérifiée : numéro connu, textes non vides, pas de doublon, plafond respecté", () => {
