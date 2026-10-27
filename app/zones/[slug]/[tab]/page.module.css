@@ -58,6 +58,7 @@
   flex: 1;
   min-width: 0;
   min-height: 0;
+  overflow-y: auto;
 }
 
 .synthesis {
@@ -65,7 +66,6 @@
   flex-direction: column;
   flex: 0 0 auto;
   min-height: 130px;
-  max-height: 42%;
 }
 
 .synthesis > * {
@@ -75,7 +75,8 @@
 .mapArea {
   flex: 1;
   min-width: 0;
-  min-height: 0;
+  /* La synthèse s'affiche en entier ; la carte prend le reste, sans devenir minuscule. */
+  min-height: 280px;
   border: 1px solid var(--border-subtle);
 }
 

@@ -78,6 +78,7 @@ export default function Header() {
           href="/mon-espace"
           className={pathname?.startsWith("/mon-espace") ? `${styles.zoneLink} ${styles.zoneLinkActive}` : styles.zoneLink}
         >
+          <Image src="/equinoxe/logo-espace.svg" alt="" width={24} height={28} unoptimized className={styles.zoneHex} aria-hidden="true" />
           Mon espace
         </Link>
       </nav>

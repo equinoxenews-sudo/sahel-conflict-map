@@ -5,6 +5,7 @@ import HexFlag from "@/components/investigation/HexFlag";
 import { flagsInText } from "@/lib/flagMentions";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { DEFAULT_PERIOD, PERIODS, periodCutoff, useZonePeriod, type Period } from "./ZonePeriod";
 import { formatDate } from "@/lib/formatDate";
 import {
   EVENT_TYPES, isThemeKey, resolveEventType, resolveTheme, THEMES, themeShortLabel,
@@ -16,15 +17,7 @@ import type { ZoneBrief } from "@/types/brief";
 import styles from "./ZoneNewsList.module.css";
 import { briefImageSrc } from "@/lib/imageUrls";
 
-type Period = "all" | "day" | "week" | "month" | "quarter";
 type Slot = "all" | "morning" | "afternoon" | "evening";
-
-const PERIODS: { value: Period; label: string; days: number | null }[] = [
-  { value: "all", label: "Toute la période (3 mois)", days: null },
-  { value: "day", label: "24 dernières heures", days: 1 },
-  { value: "week", label: "7 derniers jours", days: 7 },
-  { value: "month", label: "30 derniers jours", days: 30 },
-];
 
 const SLOTS: { value: Slot; label: string }[] = [
   { value: "all", label: "Tous les créneaux" },
@@ -61,12 +54,10 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
   const [query, setQuery] = useState("");
   const [theme, setTheme] = useState("all");
   const [eventType, setEventType] = useState("all");
-  const [period, setPeriod] = useState<Period>("all");
   const [slot, setSlot] = useState<Slot>("all");
   const [visible, setVisible] = useState(PAGE_SIZE);
-  // Captured once per mount (useMemo must stay pure); minutes of drift are
-  // immaterial for "24 dernières heures" style windows.
-  const [now] = useState(() => Date.now());
+  // La période est partagée avec la carte (ZonePeriodProvider) ; `now` est pris une fois (useMemo reste pur).
+  const { period, setPeriod, now } = useZonePeriod();
   const useBriefs = briefs.length > 0;
   const useRealArticles = !useBriefs && articles.length > 0;
 
@@ -87,8 +78,7 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
 
   const filteredBriefs = useMemo(() => {
     const words = normalize(query).split(/\s+/).filter(Boolean);
-    const days = PERIODS.find((p) => p.value === period)?.days ?? null;
-    const cutoff = days === null ? null : now - days * 86400000;
+    const cutoff = periodCutoff(period, now);
     return briefs.filter((b) => {
       if (theme !== "all" && resolveTheme(b) !== theme && !b.secondary_themes?.includes(theme)) return false;
       if (eventType !== "all" && resolveEventType(b) !== eventType) return false;
@@ -102,13 +92,13 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
     });
   }, [briefs, query, theme, eventType, period, slot, now]);
 
-  const hasFilter = query !== "" || theme !== "all" || eventType !== "all" || period !== "all" || slot !== "all";
+  const hasFilter = query !== "" || theme !== "all" || eventType !== "all" || period !== DEFAULT_PERIOD || slot !== "all";
 
   function resetFilters() {
     setQuery("");
     setTheme("all");
     setEventType("all");
-    setPeriod("all");
+    setPeriod(DEFAULT_PERIOD);
     setSlot("all");
     setVisible(PAGE_SIZE);
   }

@@ -1,4 +1,6 @@
 .wrapper {
+  /* Jamais écrasé par la hauteur du panneau : la ligne reste entière. */
+  flex-shrink: 0;
   overflow: hidden;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--border-subtle);

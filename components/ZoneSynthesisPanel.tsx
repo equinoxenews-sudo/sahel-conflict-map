@@ -2,6 +2,7 @@ import { stripMarkup } from "@/lib/citationTags";
 import { flagsInText } from "@/lib/flagMentions";
 import { headlineTopics } from "@/lib/headline";
 import type { ZoneSynthesis } from "@/lib/zoneSynthesis";
+import SynthesisSectionIcon from "./SynthesisSectionIcon";
 import SynthesisTopics from "./SynthesisTopics";
 import styles from "./ZoneSynthesisPanel.module.css";
 
@@ -52,7 +53,10 @@ export default function ZoneSynthesisPanel({ zoneName, synthesis }: ZoneSynthesi
       <div className={styles.sections}>
         {synthesis.sections.map((section) => (
           <div key={section.heading} className={styles.section}>
-            <h3 className={styles.sectionHeading}>{section.heading}</h3>
+            <h3 className={styles.sectionHeading}>
+              <SynthesisSectionIcon heading={section.heading} className={styles.sectionIcon} />
+              {section.heading}
+            </h3>
             <p className={styles.sectionText}>{stripMarkup(section.body)}</p>
           </div>
         ))}

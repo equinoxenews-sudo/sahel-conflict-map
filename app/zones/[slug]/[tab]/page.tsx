@@ -5,6 +5,7 @@ import Header from "@/components/equinoxe/Header";
 import BriefMapView from "@/components/BriefMapView";
 import MapView from "@/components/MapView";
 import ZoneNewsList from "@/components/ZoneNewsList";
+import { ZonePeriodProvider } from "@/components/ZonePeriod";
 import ZoneSynthesisPanel from "@/components/ZoneSynthesisPanel";
 import ZoneApprochePage from "@/components/zone-approche/ZoneApprochePage";
 import { isAnalystV2Zone } from "@/lib/analystZones";
@@ -76,24 +77,26 @@ export default async function ZoneTabPage({
       </div>
 
       {isLiveActualite ? (
-        <div className={styles.splitLayout}>
-          <div className={styles.newsList}>
-            <ZoneNewsList briefs={briefs} articles={articles} newsItems={newsItems} />
-          </div>
-          <div className={styles.rightColumn}>
-            <div className={styles.synthesis}>
-              <ZoneSynthesisPanel zoneName={zone.name} synthesis={synthesis} />
+        <ZonePeriodProvider>
+          <div className={styles.splitLayout}>
+            <div className={styles.newsList}>
+              <ZoneNewsList briefs={briefs} articles={articles} newsItems={newsItems} />
             </div>
-            <div className={styles.mapArea}>
-              {/* Zones « analyste » : la carte montre les articles de l'analyste (GDELT et ACLED retirés). */}
-              {isAnalystV2Zone(zone.slug) ? (
-                <BriefMapView briefs={briefs} zoneSlug={zone.slug} />
-              ) : (
-                <MapView events={await getZoneEvents(zone.countries)} zoneSlug={zone.slug} />
-              )}
+            <div className={styles.rightColumn}>
+              <div className={styles.synthesis}>
+                <ZoneSynthesisPanel zoneName={zone.name} synthesis={synthesis} />
+              </div>
+              <div className={styles.mapArea}>
+                {/* Zones « analyste » : la carte montre les articles de l'analyste (GDELT et ACLED retirés). */}
+                {isAnalystV2Zone(zone.slug) ? (
+                  <BriefMapView briefs={briefs} zoneSlug={zone.slug} />
+                ) : (
+                  <MapView events={await getZoneEvents(zone.countries)} zoneSlug={zone.slug} />
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </ZonePeriodProvider>
       ) : isApproche && approcheContent && approcheMap ? (
         <ZoneApprochePage zoneSlug={zone.slug} content={approcheContent} map={approcheMap} />
       ) : isApproche ? (

@@ -5,22 +5,28 @@
   padding: 14px 16px;
   border: 1px solid var(--border-subtle);
   background: var(--bg-panel);
-  overflow-y: auto;
 }
 
+.panel > * {
+  flex-shrink: 0;
+}
+
+/* Titre centré et en évidence, la date de mise à jour juste dessous. */
 .header {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 6px;
+  text-align: center;
 }
 
 .title {
   margin: 0;
-  font-size: 12px;
-  letter-spacing: 1.5px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .status {
@@ -40,8 +46,13 @@
 }
 
 .meta {
-  font-size: 10px;
-  color: var(--text-secondary);
+  padding: 3px 12px;
+  border: 1px solid rgba(224, 180, 76, 0.55);
+  border-radius: 999px;
+  background: rgba(224, 180, 76, 0.12);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-gold-bright);
   white-space: nowrap;
 }
 
@@ -52,11 +63,18 @@
 }
 
 .sectionHeading {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   margin: 0;
   font-size: 11px;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--accent-gold-bright);
+}
+
+.sectionIcon {
+  flex: none;
 }
 
 .sources {
