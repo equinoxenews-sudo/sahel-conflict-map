@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 const SHOWN = 20;
 
 // Veille OSINT et IA du Menu de « Mon espace » : les articles choisis chaque dimanche (scripts/veille-osint.ts).
-// Réservé au compte connecté.
+// Classés par date de parution de l'article, du plus récent (à gauche) au plus ancien. Réservé au compte connecté.
 export async function GET() {
   if (!(await privateAccessOpen())) {
     return NextResponse.json({ error: "Connexion requise.", code: "locked" }, { status: 401 });
@@ -18,8 +18,8 @@ export async function GET() {
     const { data, error } = await getSupabaseAdmin()
       .from("veille_osint")
       .select("id, url, source_name, title_fr, summary_fr, image_url, published_at, picked_at")
-      .order("picked_at", { ascending: false })
       .order("published_at", { ascending: false })
+      .order("picked_at", { ascending: false })
       .limit(SHOWN);
     if (error) throw new Error(error.message);
     const items = (data ?? []).flatMap((row) => {
