@@ -16,6 +16,10 @@ on:
         description: "Lancer même si le budget IA du mois est tendu"
         type: boolean
         default: false
+      jours:
+        description: "Période lue, en jours (8 par défaut ; 30 pour remplir un carrousel vide)"
+        type: string
+        default: "8"
 
 permissions:
   actions: read
@@ -35,6 +39,7 @@ jobs:
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       SYNTHESIS_MODEL: ${{ vars.SYNTHESIS_MODEL }}
       FORCE: ${{ inputs.force }}
+      DAYS: ${{ inputs.jours }}
       AI_BUDGET_MONTHLY_USD: ${{ vars.AI_BUDGET_MONTHLY_USD }}
     steps:
       # Le cron de Vercel lance ce workflow à l'heure (route /api/cron/dispatch). La planification ci-dessus reste en

@@ -24,11 +24,14 @@ import { checkBudget, recordUsage } from "../lib/aiUsage";
 import { fetchFeed } from "../lib/rss";
 import { getSupabaseAdmin } from "../lib/supabaseAdmin";
 import { MODEL } from "../lib/synthesizeBriefs";
-import { MAX_PICKS, VEILLE_SOURCES, buildPickPrompt, parsePicks, safeHttpUrl, selectCandidates, type Candidate } from "../lib/veilleOsint";
+import { MAX_PICKS, VEILLE_SOURCES, WINDOW_DAYS, buildPickPrompt, parsePicks, safeHttpUrl, selectCandidates, type Candidate } from "../lib/veilleOsint";
 
 const args = process.argv.slice(2);
 const force = args.includes("--force") || process.env.FORCE === "true";
 const dryRun = args.includes("--dry-run");
+// Période lue : 8 jours par défaut ; --days=30 (ou DAYS, saisi au lancement manuel du workflow) pour remplir un carrousel vide.
+const daysArg = args.find((arg) => arg.startsWith("--days="))?.slice("--days=".length) ?? process.env.DAYS;
+const windowDays = daysArg && /^\d+$/.test(daysArg) ? Math.min(60, Math.max(1, Number(daysArg))) : WINDOW_DAYS;
 /** En dessous, l'extrait du flux est trop court pour résumer l'article. */
 const THIN_EXCERPT_CHARS = 150;
 
@@ -71,8 +74,8 @@ async function main() {
     );
   }
 
-  console.log("Veille OSINT et IA — lecture des flux :");
-  const candidates = selectCandidates(await collectCandidates(), (known ?? []).map((row: { url: string }) => row.url), new Date());
+  console.log(`Veille OSINT et IA — lecture des flux (articles des ${windowDays} derniers jours) :`);
+  const candidates = selectCandidates(await collectCandidates(), (known ?? []).map((row: { url: string }) => row.url), new Date(), windowDays);
   if (candidates.length === 0) {
     notice("Veille OSINT", "Aucun nouvel article cette semaine : rien à publier.");
     return;

@@ -76,9 +76,9 @@ export function safeHttpUrl(raw: string | null | undefined): string | null {
  * Candidats de la semaine : publiés dans la fenêtre, pas déjà connus, sans doublon, les plus récents d'abord, avec un
  * plafond par source puis un plafond total.
  */
-export function selectCandidates(items: readonly Candidate[], knownUrls: Iterable<string>, now: Date): Candidate[] {
+export function selectCandidates(items: readonly Candidate[], knownUrls: Iterable<string>, now: Date, windowDays: number = WINDOW_DAYS): Candidate[] {
   const known = new Set([...knownUrls].map(canonicalUrl));
-  const oldest = now.getTime() - WINDOW_DAYS * 86_400_000;
+  const oldest = now.getTime() - windowDays * 86_400_000;
   const newest = now.getTime() + 86_400_000;
   const perSource = new Map<string, number>();
   const out: Candidate[] = [];
