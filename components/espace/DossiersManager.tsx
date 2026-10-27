@@ -6,6 +6,8 @@ import type { DossierView } from "@/lib/espace";
 import { coverFromFile } from "@/lib/investigation/cover";
 import { ImageFileError } from "@/lib/investigation/imageStore";
 import { useDossiers, useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
+import type { Dossier } from "@/lib/investigation/types";
+import DeleteDossierDialog from "./DeleteDossierDialog";
 import { DossierTile } from "./DossierTile";
 import EspaceTitle from "./EspaceTitle";
 import styles from "./DossiersManager.module.css";
@@ -23,6 +25,7 @@ export default function DossiersManager({ view, title, intro }: DossiersManagerP
   const dossiers = useDossiers();
   const storage = useInvestigationStorage();
   const [name, setName] = useState("");
+  const [toDelete, setToDelete] = useState<Dossier | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
   const coverTarget = useRef<string | null>(null);
@@ -41,9 +44,9 @@ export default function DossiersManager({ view, title, intro }: DossiersManagerP
     storage.renameDossier(id, next.trim(), currentDesc);
   }
 
-  function handleDelete(id: string, dossierName: string) {
-    if (!window.confirm(`Supprimer le dossier « ${dossierName} » et tout son contenu (sources, entités, notes) ?`)) return;
-    storage.deleteDossier(id);
+  function confirmDelete() {
+    if (toDelete) storage.deleteDossier(toDelete.id);
+    setToDelete(null);
   }
 
   function handleCoverClick(id: string) {
@@ -117,7 +120,7 @@ export default function DossiersManager({ view, title, intro }: DossiersManagerP
                 <button type="button" className={styles.smallBtn} onClick={() => handleRename(dossier.id, dossier.name, dossier.description)}>
                   Renommer
                 </button>
-                <button type="button" className={styles.smallBtn} onClick={() => handleDelete(dossier.id, dossier.name)}>
+                <button type="button" className={styles.smallBtn} onClick={() => setToDelete(dossier)}>
                   Supprimer
                 </button>
               </div>
@@ -137,6 +140,8 @@ export default function DossiersManager({ view, title, intro }: DossiersManagerP
           ))}
         </div>
       )}
+
+      {toDelete && <DeleteDossierDialog dossier={toDelete} onCancel={() => setToDelete(null)} onConfirm={confirmDelete} />}
     </div>
   );
 }
