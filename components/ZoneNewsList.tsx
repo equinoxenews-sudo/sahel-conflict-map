@@ -1,6 +1,8 @@
 "use client";
 
 import ConfidenceBar from "./ConfidenceBar";
+import HexFlag from "@/components/investigation/HexFlag";
+import { flagsInText } from "@/lib/flagMentions";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { formatDate } from "@/lib/formatDate";
@@ -203,24 +205,23 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
               // Jusqu'à trois catégories : la thématique principale puis les secondaires.
               const themes = [...new Set([resolveTheme(b), ...(b.secondary_themes ?? [])])].filter(isThemeKey).slice(0, MAX_THEME_CHIPS);
               const isGenericImage = b.image_url?.startsWith("/equinoxe/hero-") ?? false;
+              // Drapeau du pays cité dans le titre (comme le bandeau), à défaut celui du lieu de la synthèse.
+              const flag = flagsInText(b.title, 1)[0] ?? flagsInText(b.place_country ?? "", 1)[0];
               return (
-                <Link key={b.id} href={`/briefs/${b.id}`} className={`${styles.newsItem} ${styles.briefCard}`}>
-                  <div className={styles.briefMedia}>
-                    {b.image_url ? (
-                      <span className={styles.newsImageWrap}>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={briefImageSrc(b.image_url)} referrerPolicy="no-referrer" alt="" className={styles.briefImage} />
-                        {isGenericImage ? (
-                          <span className={styles.genericTag} title="Illustration générique de la zone — ne représente pas cet événement précis">
-                            Illustration
-                          </span>
-                        ) : null}
-                      </span>
-                    ) : null}
-                    <h2 className={styles.briefTitle}>{b.title}</h2>
-                  </div>
+                <Link key={b.id} href={`/briefs/${b.id}`} className={`${styles.newsItem} ${styles.briefCard}`} title={formatDate(b.published_at)}>
+                  {b.image_url ? (
+                    <span className={`${styles.newsImageWrap} ${styles.briefMedia}`}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={briefImageSrc(b.image_url)} referrerPolicy="no-referrer" alt="" className={styles.briefImage} />
+                      {isGenericImage ? (
+                        <span className={styles.genericTag} title="Illustration générique de la zone — ne représente pas cet événement précis">
+                          Illustration
+                        </span>
+                      ) : null}
+                    </span>
+                  ) : null}
                   <div className={styles.newsItemBody}>
-                    <div className={styles.newsHeader}>
+                    <div className={styles.briefTop}>
                       <span className={styles.chips}>
                         {themes.map((key) => (
                           <span key={key} className={styles.chip}>
@@ -228,26 +229,32 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
                           </span>
                         ))}
                       </span>
-                      <span className={styles.newsDate}>{formatDate(b.published_at)}</span>
+                      {b.confidence != null && b.confidence_label ? (
+                        <ConfidenceBar
+                          card
+                          percent={b.confidence}
+                          label={b.confidence_label}
+                          sourceCount={b.source_count ?? b.source_urls.length}
+                        />
+                      ) : (
+                        <span
+                          className={styles.veracityBadge}
+                          style={{ backgroundColor: veracity ? VERACITY_COLORS[veracity] : "#8b96a5" }}
+                        >
+                          {veracity ?? "Non évalué"}
+                        </span>
+                      )}
                     </div>
-                    {b.confidence == null ? (
-                      <span
-                        className={styles.veracityBadge}
-                        style={{ backgroundColor: veracity ? VERACITY_COLORS[veracity] : "#8b96a5" }}
-                      >
-                        {veracity ?? "Non évalué"}
-                      </span>
-                    ) : null}
-                    {b.confidence != null && b.confidence_label ? (
-                      <ConfidenceBar
-                        compact
-                        percent={b.confidence}
-                        label={b.confidence_label}
-                        sourceCount={b.source_count ?? b.source_urls.length}
-                        claimedBy={b.claimed_by}
-                      />
-                    ) : null}
-                    <p className={styles.newsSummary}>{b.summary}</p>
+                    <div className={styles.briefHead}>
+                      {flag ? (
+                        <span className={styles.briefFlag}>
+                          <HexFlag iso2={flag.iso2} name={flag.name} />
+                        </span>
+                      ) : null}
+                      <h2 className={styles.briefTitle}>{b.title}</h2>
+                    </div>
+                    {b.claimed_by ? <p className={styles.briefClaim}>Revendiqué par {b.claimed_by}</p> : null}
+                    <p className={styles.briefSummary}>{b.summary}</p>
                   </div>
                 </Link>
               );

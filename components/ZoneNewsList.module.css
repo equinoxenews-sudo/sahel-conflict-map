@@ -82,52 +82,52 @@
   color: var(--text-primary);
 }
 
-/* Carte d'une synthèse : à gauche l'image et le titre dessous, à droite les catégories, l'indicateur et le résumé. */
-.briefCard {
-  gap: 12px;
-  padding: 10px;
-  border-radius: 10px;
+/* Carte d'une synthèse : cadre doré ; à gauche l'image ; à droite catégories et indicateur de confiance en haut, puis le
+   drapeau et le titre, puis le résumé. */
+.newsItem.briefCard {
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border: 2px solid var(--accent-gold-bright);
+  border-radius: 16px;
+}
+
+a.newsItem.briefCard:hover {
+  border-color: #fff;
 }
 
 .briefMedia {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 0 0 148px;
-  min-width: 0;
+  flex: 0 0 150px;
 }
 
 .briefImage {
   display: block;
-  width: 100%;
-  height: 92px;
+  width: 150px;
+  height: 96px;
   object-fit: cover;
   border-radius: 8px;
 }
 
-.briefTitle {
-  margin: 0;
-  font-size: 12.5px;
-  font-weight: 700;
-  line-height: 1.3;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+.briefTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px 12px;
 }
 
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
+  gap: 6px;
   min-width: 0;
 }
 
 .chip {
-  padding: 2px 8px;
+  padding: 3px 9px;
   border: 1px solid var(--accent-gold);
   border-radius: 6px;
-  font-size: 9px;
+  font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -135,18 +135,48 @@
   white-space: nowrap;
 }
 
-.briefCard .newsHeader {
-  align-items: flex-start;
-  margin-bottom: 2px;
+.briefHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0 4px;
 }
 
-.briefCard .newsDate {
+/* Le drapeau hexagonal se dimensionne par la taille de police. */
+.briefFlag {
   flex-shrink: 0;
-  padding-top: 2px;
+  font-size: 34px;
+  line-height: 1;
 }
 
-.briefCard .newsSummary {
-  -webkit-line-clamp: 4;
+.briefTitle {
+  margin: 0;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.briefClaim {
+  margin: 0 0 4px;
+  font-size: 11.5px;
+  color: var(--accent-gold-bright);
+}
+
+.briefSummary {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .list {
@@ -194,13 +224,6 @@ a.newsItem:hover {
 .newsItemBody {
   min-width: 0;
   flex: 1;
-}
-
-.newsHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
 }
 
 .newsDate {
@@ -259,8 +282,9 @@ a.newsItem:hover {
 }
 
 @media (max-width: 520px) {
-  .briefCard {
+  .newsItem.briefCard {
     flex-direction: column;
+    align-items: stretch;
   }
 
   .briefMedia {
@@ -268,6 +292,7 @@ a.newsItem:hover {
   }
 
   .briefImage {
+    width: 100%;
     height: 140px;
   }
 }

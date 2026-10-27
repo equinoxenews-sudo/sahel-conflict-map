@@ -71,3 +71,40 @@
   top: -3px;
   height: 10px;
 }
+
+/* Version « carte d'actualité » : une ligne (sources, étiquette) au-dessus d'une petite barre en dégradé. */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.cardHead {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.cardBar {
+  position: relative;
+  width: 150px;
+  height: 6px;
+  border: 1px solid #e0b44c;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #e0261c 0%, #e8832a 30%, #e6d84a 62%, #4cc05a 86%, #35b34f 100%);
+}
+
+.cardMarker {
+  position: absolute;
+  top: -5px;
+  width: 3px;
+  height: 14px;
+  margin-left: -1px;
+  background: #ffffff;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px #0b1220;
+}
