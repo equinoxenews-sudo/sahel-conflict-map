@@ -52,7 +52,8 @@
 }
 
 .cancel,
-.danger {
+.danger,
+.plain {
   padding: 9px 16px;
   border-radius: 8px;
   font: inherit;
@@ -65,6 +66,17 @@
   border: 1px solid var(--accent-gold);
   background: rgba(224, 180, 76, 0.14);
   color: var(--accent-gold-bright);
+}
+
+.plain {
+  border: 1px solid var(--border-glass);
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.plain:hover {
+  border-color: var(--accent-gold);
+  color: var(--text-primary);
 }
 
 .danger {

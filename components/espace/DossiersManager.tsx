@@ -7,6 +7,7 @@ import { coverFromFile } from "@/lib/investigation/cover";
 import { ImageFileError } from "@/lib/investigation/imageStore";
 import { useDossiers, useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
 import type { Dossier } from "@/lib/investigation/types";
+import CoverDialog from "./CoverDialog";
 import DeleteDossierDialog from "./DeleteDossierDialog";
 import { DossierTile } from "./DossierTile";
 import EspaceTitle from "./EspaceTitle";
@@ -26,6 +27,7 @@ export default function DossiersManager({ view, title, intro }: DossiersManagerP
   const storage = useInvestigationStorage();
   const [name, setName] = useState("");
   const [toDelete, setToDelete] = useState<Dossier | null>(null);
+  const [coverFor, setCoverFor] = useState<Dossier | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
   const coverTarget = useRef<string | null>(null);
@@ -126,19 +128,33 @@ export default function DossiersManager({ view, title, intro }: DossiersManagerP
               </div>
               {view === "notes" && (
                 <div className={styles.actions}>
-                  <button type="button" className={styles.smallBtn} onClick={() => handleCoverClick(dossier.id)}>
-                    {dossier.coverImage ? "Changer photo" : "Ajouter une photo"}
+                  <button
+                    type="button"
+                    className={styles.smallBtn}
+                    onClick={() => (dossier.coverImage ? setCoverFor(dossier) : handleCoverClick(dossier.id))}
+                  >
+                    {dossier.coverImage ? "Modifier la photo" : "Ajouter une photo"}
                   </button>
-                  {dossier.coverImage && (
-                    <button type="button" className={styles.smallBtn} onClick={() => storage.setDossierCover(dossier.id, null)}>
-                      Retirer
-                    </button>
-                  )}
                 </div>
               )}
             </div>
           ))}
         </div>
+      )}
+
+      {coverFor && (
+        <CoverDialog
+          dossier={coverFor}
+          onCancel={() => setCoverFor(null)}
+          onChange={() => {
+            handleCoverClick(coverFor.id);
+            setCoverFor(null);
+          }}
+          onRemove={() => {
+            storage.setDossierCover(coverFor.id, null);
+            setCoverFor(null);
+          }}
+        />
       )}
 
       {toDelete && <DeleteDossierDialog dossier={toDelete} onCancel={() => setToDelete(null)} onConfirm={confirmDelete} />}
