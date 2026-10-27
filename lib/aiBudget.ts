@@ -96,7 +96,7 @@ export function estimateCostUsd(usage: AiUsage, pricing: Pricing = DEFAULT_PRICI
 // restreint seulement si cette projection dépasse le budget. Priorités : 1) les articles, 2) les points de
 // situation, 3) les synthèses de zone.
 
-export type AiJob = "sync-briefs" | "zone-synthesis" | "situation-report";
+export type AiJob = "sync-briefs" | "zone-synthesis" | "situation-report" | "veille-osint";
 
 /** Budget mensuel en dollars de crédits (40 € hors taxes ≈ 46 $ au taux de référence). Réglable : AI_BUDGET_MONTHLY_USD. */
 export const DEFAULT_MONTHLY_BUDGET_USD = 46;
@@ -209,6 +209,11 @@ const INTERVAL_TOLERANCE_HOURS = 2;
 /** Un traitement peut-il tourner dans ce mode ? `lastSynthesisAt` : dernier passage de synthèse de zone qui a appelé le modèle. */
 export function decideJob(job: AiJob, policy: ModePolicy, now: Date, lastSynthesisAt: Date | null = null): JobDecision {
   if (job === "sync-briefs") return { allowed: true, reason: "les articles sont la priorité : ils tournent dans tous les modes (seuils relevés si le budget l'exige)" };
+  if (job === "veille-osint") {
+    // Quelques centimes par semaine, mais dernier dans l'ordre des priorités : suspendue seulement quand le budget est épuisé.
+    if (policy.mode === "exhausted") return { allowed: false, reason: "budget épuisé : veille OSINT suspendue (lancement manuel « force » possible)" };
+    return { allowed: true, reason: "veille OSINT autorisée" };
+  }
   if (job === "situation-report") {
     if (policy.psitWeekdays === null) return { allowed: true, reason: "point de situation autorisé" };
     if (policy.psitWeekdays.includes(now.getUTCDay())) return { allowed: true, reason: "jour de point de situation de ce mode" };

@@ -15,6 +15,7 @@ Le plan Hobby de Vercel lance chaque cron **dans les 59 minutes** qui suivent l'
 | 07:00 | 08 h (09 h) | Vercel, puis GitHub | **Synthèses du jour, passage du matin** : recollecte, puis jusqu'à 3 lots de 5 articles par zone | collecte, API Anthropic |
 | 09:00 | 10 h (11 h) | Vercel, puis GitHub | **Synthèse de zone** (une par zone, seulement s'il y a de nouvelles synthèses) | synthèses du matin |
 | 12:00 | 13 h (14 h) | Vercel, puis GitHub | **Synthèses du jour, passage de l'après-midi** : recollecte, 1 lot de 5 articles par zone, pas de synthèse de zone | — |
+| 18:00, dimanche | 19 h (20 h) | Vercel, puis GitHub | **Veille OSINT et IA** : choix de 5 articles au plus parmi 4 sources, titre et résumé en français (Haiku, un seul appel, quelques centimes) | — |
 | 1er du mois, 05:00 | 06 h (07 h) | GitHub | Indicateurs des fiches pays (Banque mondiale) | — |
 
 **Secours GitHub.** Chaque workflow a aussi une planification propre (`10 6` pour le point de situation, `5 7`, `5 9`,
@@ -33,7 +34,8 @@ Vercel cron ──► /api/cron/dispatch/<nom> ──► GitHub : workflow_dispa
 ```
 
 Les noms reconnus par la route de réveil : `sync-briefs.yml`, `sync-briefs-apres-midi`, `zone-synthesis.yml`,
-`situation-report.yml` (liste dans `lib/syncPasses.ts`).
+`situation-report.yml`, `veille-osint.yml` (liste dans `lib/syncPasses.ts`). La veille OSINT (dimanche) lit les flux de
+`lib/veilleOsint.ts`, appelle le modèle une fois (`scripts/veille-osint.ts`) et écrit dans la table `veille_osint`.
 
 ## Ce qu'il faut savoir
 
@@ -61,8 +63,8 @@ Les noms reconnus par la route de réveil : `sync-briefs.yml`, `sync-briefs-apre
 Au passage à l'heure d'hiver, tout décaler de **+1 h UTC** ; au retour de l'heure d'été (dimanche 28/03/2027),
 ramener tout **1 h plus tôt**. À modifier ensemble :
 
-1. `vercel.json` : les 6 horaires (la collecte ACLED a été arrêtée et supprimée le 26/10/2026).
-2. Les lignes `cron:` des workflows `sync-briefs.yml` (2), `zone-synthesis.yml` et `situation-report.yml`.
+1. `vercel.json` : les 7 horaires (la collecte ACLED a été arrêtée et supprimée le 26/10/2026).
+2. Les lignes `cron:` des workflows `sync-briefs.yml` (2), `zone-synthesis.yml`, `situation-report.yml` et `veille-osint.yml`.
 3. Le tableau ci-dessus et les commentaires d'en-tête des workflows.
 
 Le test `tests/schedules.test.ts` échoue si un horaire de secours ne correspond plus à celui de Vercel ou si le

@@ -22,6 +22,7 @@ const PLANS: Record<string, DispatchPlan> = {
   "sync-briefs-apres-midi": { workflow: "sync-briefs.yml", inputs: { passe: "apres-midi" } },
   "zone-synthesis.yml": { workflow: "zone-synthesis.yml" },
   "situation-report.yml": { workflow: "situation-report.yml" },
+  "veille-osint.yml": { workflow: "veille-osint.yml" },
 };
 
 export function dispatchPlan(name: string): DispatchPlan | null {

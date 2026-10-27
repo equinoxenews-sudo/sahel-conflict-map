@@ -1,0 +1,80 @@
+name: Veille OSINT et IA
+
+# Chaque dimanche soir, choisit les articles de la semaine (Bellingcat, The OSINT Newsletter, IntelTechniques, Project OSINT)
+# et les publie dans Mon espace > Menu avec titre et résumé en français (scripts/veille-osint.ts). Un seul appel au modèle
+# le moins cher : quelques centimes par semaine.
+# Lancé à l'heure par le cron de Vercel (vercel.json, 18:00 UTC à ±59 min, soit 19 h - 20 h à Paris en hiver, 20 h - 21 h en été) ;
+# la planification ci-dessous reste en secours et s'arrête si le passage du jour a déjà eu lieu. Au passage à l'heure d'été
+# (28/03/2027) : ramener le cron à 17:00 UTC (et le secours à `5 17`). Sans nouvel article, ou sans article jugé utile,
+# rien n'est publié.
+on:
+  schedule:
+    - cron: "5 18 * * 0"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Lancer même si le budget IA du mois est tendu"
+        type: boolean
+        default: false
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: veille-osint
+  cancel-in-progress: false
+
+jobs:
+  veille:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      SYNTHESIS_MODEL: ${{ vars.SYNTHESIS_MODEL }}
+      FORCE: ${{ inputs.force }}
+      AI_BUDGET_MONTHLY_USD: ${{ vars.AI_BUDGET_MONTHLY_USD }}
+    steps:
+      # Le cron de Vercel lance ce workflow à l'heure (route /api/cron/dispatch). La planification ci-dessus reste en
+      # secours : si un lancement de la journée existe déjà, ce passage planifié s'arrête, sans doublon ni coût IA.
+      - name: Déjà lancé aujourd'hui ?
+        id: guard
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # En cas d'erreur de lecture, on ne saute rien : mieux vaut un doublon qu'une semaine sans veille.
+          today=$(date -u +%F)
+          n=$(gh api "repos/${{ github.repository }}/actions/workflows/veille-osint.yml/runs?created=>=$today&per_page=30" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }}) | select(.event == "workflow_dispatch") | select(.status != "completed" or .conclusion == "success")] | length' 2>/dev/null) || n=0
+          if [ "$n" -gt 0 ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::Déjà lancé aujourd'hui (cron Vercel ou lancement manuel) : passage planifié ignoré."
+          fi
+
+      - name: Vérifier les secrets
+        if: steps.guard.outputs.skip != 'true'
+        run: |
+          for name in ANTHROPIC_API_KEY SUPABASE_SERVICE_ROLE_KEY NEXT_PUBLIC_SUPABASE_URL; do
+            if [ -z "${!name}" ]; then
+              echo "Secret $name absent : Settings > Secrets and variables > Actions"
+              exit 1
+            fi
+          done
+
+      - uses: actions/checkout@v4
+        if: steps.guard.outputs.skip != 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.guard.outputs.skip != 'true'
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+        if: steps.guard.outputs.skip != 'true'
+
+      - name: Choisir et publier les articles de la semaine
+        if: steps.guard.outputs.skip != 'true'
+        run: npx tsx scripts/veille-osint.ts

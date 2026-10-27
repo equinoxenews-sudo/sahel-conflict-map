@@ -79,7 +79,7 @@ function extractMeta(html: string, patterns: RegExp[]): string | null {
   return null;
 }
 
-function decodeHtmlEntities(text: string): string {
+export function decodeHtmlEntities(text: string): string {
   return text
     .replace(/&quot;/g, '"')
     .replace(/&apos;/g, "'")

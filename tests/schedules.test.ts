@@ -39,7 +39,7 @@ test("chaque cron de réveil a un secours GitHub à la même heure (quelques min
 });
 
 test("aucune planification de secours n'est orpheline : chacune correspond à un cron de réveil", () => {
-  for (const file of ["sync-briefs.yml", "zone-synthesis.yml", "situation-report.yml"]) {
+  for (const file of ["sync-briefs.yml", "zone-synthesis.yml", "situation-report.yml", "veille-osint.yml"]) {
     for (const backup of workflowSchedules(file)) {
       const owner = dispatchCrons.find((c) => {
         const plan = dispatchPlan(c.path.split("/").pop()!);

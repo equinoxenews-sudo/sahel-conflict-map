@@ -1,4 +1,5 @@
 import { XMLParser } from "fast-xml-parser";
+import { decodeHtmlEntities } from "./articleSummary";
 import { normalizeImageUrl } from "./imageUrls";
 
 export interface FeedItem {
@@ -8,9 +9,12 @@ export interface FeedItem {
   publishedAt: string | null;
   /** Image fournie par le flux lui-même (media:content, enclosure, <img> du résumé). */
   imageUrl: string | null;
+  /** Début du résumé ou du texte fourni par le flux, en texte brut (vide si le flux n'en donne pas). */
+  excerpt: string;
 }
 
 const FETCH_TIMEOUT_MS = 8000;
+const EXCERPT_MAX_CHARS = 600;
 
 const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_" });
 
@@ -52,7 +56,17 @@ function linkOf(value: unknown): string {
   return "";
 }
 
-const IMAGE_EXT = /\.(jpe?g|png|webp|avif)(\?|#|$)/i;
+/** Texte brut d'un extrait HTML : balises retirées, entités décodées, espaces réduits, coupé à `max` caractères au dernier mot entier. */
+export function plainExcerpt(html: string, max: number = EXCERPT_MAX_CHARS): string {
+  const text = decodeHtmlEntities(html.replace(/<(script|style)[^>]*>[\s\S]*?<\/\1>/gi, " ").replace(/<[^>]+>/g, " "))
+    .replace(/\s+/g, " ")
+    .trim();
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  return `${cut.slice(0, Math.max(cut.lastIndexOf(" "), max * 0.6)).trimEnd()}…`;
+}
+
+const IMAGE_EXT =/\.(jpe?g|png|webp|avif)(\?|#|$)/i;
 
 interface ImageCandidate {
   url: string;
@@ -145,7 +159,8 @@ export async function fetchFeed(url: string): Promise<FeedItem[]> {
         const title = textOf(record.title).trim();
         const link = linkOf(record.link).trim();
         const publishedAt = parseDate(record.pubDate ?? record.published ?? record.updated);
-        return { title, url: link, domain: getDomain(link), publishedAt, imageUrl: imageOfFeedItem(record, link) };
+        const excerpt = plainExcerpt(textOf(record.description) || textOf(record.summary) || textOf(record["content:encoded"]) || textOf(record.content));
+        return { title, url: link, domain: getDomain(link), publishedAt, imageUrl: imageOfFeedItem(record, link), excerpt };
       })
       .filter((item) => item.title && item.url);
   } catch (err) {

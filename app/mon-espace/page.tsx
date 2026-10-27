@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import DragScroll from "@/components/espace/DragScroll";
 import { DossierTile, NewDossierTile } from "@/components/espace/DossierTile";
+import VeilleCarousel from "@/components/espace/VeilleCarousel";
 import { ESPACE_ROOT } from "@/lib/espace";
 import { useDossiers } from "@/lib/investigation/InvestigationContext";
 import styles from "./page.module.css";
@@ -19,19 +20,14 @@ function Block({ title, href, area, children }: { title: string; href: string; a
   );
 }
 
-// MENU : la vue d'ensemble de l'espace. En haut, le fil d'actualité OSINT et IA (à brancher) ; dessous, un aperçu
+// MENU : la vue d'ensemble de l'espace. En haut, la veille OSINT et IA (une vignette par article, mise à jour chaque dimanche soir) ; dessous, un aperçu
 // des dossiers de l'abonné, de sa supervision et de son suivi.
 export default function EspaceMenuPage() {
   const dossiers = [...useDossiers()].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
 
   return (
     <div className={styles.page}>
-      <section className={styles.feed} aria-label="Actualité OSINT et IA">
-        <span className={styles.feedKicker}>Fil d&apos;actualité · OSINT et intelligence artificielle</span>
-        <p className={styles.feedText}>
-          Les nouveautés sur l&apos;OSINT et l&apos;IA apparaîtront ici. Ce fil sera branché prochainement.
-        </p>
-      </section>
+      <VeilleCarousel />
 
       <div className={styles.grid}>
         <Block title="Mes notes" href={`${ESPACE_ROOT}/notes`} area="notes">

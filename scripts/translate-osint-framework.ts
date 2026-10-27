@@ -7,12 +7,11 @@
 // de 20, avec le modèle des synthèses du jour (Haiku) : de l'ordre de 1 $ en tout, affiché à la fin (estimation).
 import fs from "node:fs";
 import path from "node:path";
-import { estimateCostUsd, pricingFromEnv, usageFromResponse, type AiUsage } from "../lib/aiBudget";
-import { classifyApiError, parseRetryAfter, retryDelayMs } from "../lib/anthropicErrors";
+import { estimateCostUsd, pricingFromEnv, type AiUsage } from "../lib/aiBudget";
+import { callAnthropic } from "../lib/anthropicCall";
 import type { OsintNode, OsintTranslations } from "../lib/osintFramework";
 import { buildTranslationPrompt, chunk, collectToTranslate, numberBatch, parseTranslationBatch } from "../lib/osintTranslate";
 import { MODEL } from "../lib/synthesizeBriefs";
-import { wellFormed } from "../lib/wellFormed";
 
 const DATA = path.join(process.cwd(), "public", "data", "osint-framework.json");
 const OUT = path.join(process.cwd(), "public", "data", "osint-framework.fr.json");
@@ -23,36 +22,15 @@ const CALL_TIMEOUT_MS = 180_000;
 const limitArg = process.argv.find((arg) => arg.startsWith("--limit="));
 const LIMIT = limitArg ? Math.max(1, Number(limitArg.slice("--limit=".length)) || 0) : Infinity;
 
-const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
-
-async function callModel(apiKey: string, prompt: string): Promise<{ text: string; usage: AiUsage }> {
-  for (let retry = 1; ; retry++) {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "x-api-key": apiKey, "anthropic-version": "2023-06-01", "content-type": "application/json" },
-      body: JSON.stringify({ model: MODEL, max_tokens: MAX_TOKENS, messages: [{ role: "user", content: wellFormed(prompt) }] }),
-      signal: AbortSignal.timeout(CALL_TIMEOUT_MS),
-    });
-    if (res.ok) {
-      const data = (await res.json()) as { content?: { type: string; text?: string }[] };
-      return { text: data.content?.find((block) => block.type === "text")?.text ?? "", usage: usageFromResponse(data) };
-    }
-    // Refus passager (surcharge, limite de débit) : on attend un peu puis on réessaie, deux fois au plus.
-    let type: string | null = null;
-    let message: string | null = null;
-    try {
-      const body = (await res.json()) as { error?: { type?: string; message?: string } };
-      type = body.error?.type ?? null;
-      message = body.error?.message ?? null;
-    } catch {
-      // corps illisible : le statut suffit
-    }
-    const kind = classifyApiError(res.status, type, message);
-    const pause = retryDelayMs(kind, retry, parseRetryAfter(res.headers.get("retry-after")));
-    if (pause === null) throw new Error(`API Anthropic : ${res.status}${type ? ` (${type})` : ""}${kind === "spend_limit" ? " — plafond de dépenses ou crédit épuisé" : ""}`);
-    console.warn(`  refus ${res.status} (${kind}), nouvel essai dans ${Math.round(pause / 1000)} s`);
-    await sleep(pause);
-  }
+function callModel(apiKey: string, prompt: string) {
+  return callAnthropic({
+    apiKey,
+    model: MODEL,
+    prompt,
+    maxTokens: MAX_TOKENS,
+    timeoutMs: CALL_TIMEOUT_MS,
+    onRetry: (status, kind, pause) => console.warn(`  refus ${status} (${kind}), nouvel essai dans ${Math.round(pause / 1000)} s`),
+  });
 }
 
 async function main() {
