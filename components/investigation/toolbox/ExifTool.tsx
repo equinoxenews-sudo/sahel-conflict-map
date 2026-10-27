@@ -20,9 +20,22 @@ export default function ExifTool() {
   const [status, setStatus] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  // Numéro de la lecture en cours : retirer l'image (ou en choisir une autre) rend caduque celle qui tourne encore.
+  const run = useRef(0);
+
+  function clear() {
+    run.current += 1;
+    if (imageUrl) URL.revokeObjectURL(imageUrl);
+    setImageUrl(null);
+    setResult(null);
+    setStatus(null);
+    if (inputRef.current) inputRef.current.value = "";
+  }
 
   async function handleFile(file: File) {
     if (!file.type.startsWith("image/")) return;
+    const mine = ++run.current;
+    if (imageUrl) URL.revokeObjectURL(imageUrl);
     setImageUrl(URL.createObjectURL(file));
     setResult(null);
     setStatus("Lecture des métadonnées...");
@@ -33,10 +46,11 @@ export default function ExifTool() {
         parse(file).catch(() => null),
         gps(file).catch(() => null),
       ]);
+      if (mine !== run.current) return;
       setResult({ tags: tags ?? {}, gpsCoords: gpsCoords ?? null });
       setStatus(null);
     } catch {
-      setStatus("Impossible de lire les métadonnées de cette image.");
+      if (mine === run.current) setStatus("Impossible de lire les métadonnées de cette image.");
     }
   }
 
@@ -80,6 +94,11 @@ export default function ExifTool() {
       {/* next/image can't take a blob: URL without a custom loader — plain img is correct here. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {imageUrl && <img src={imageUrl} alt="Aperçu" className={styles.preview} />}
+      {imageUrl && (
+        <button type="button" className={styles.actionBtn} onClick={clear}>
+          Retirer l&apos;image
+        </button>
+      )}
       {status && <span className={styles.status}>{status}</span>}
 
       {result && (

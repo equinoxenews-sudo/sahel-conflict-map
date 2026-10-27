@@ -9,9 +9,22 @@ export default function OcrTool() {
   const [status, setStatus] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  // Numéro de la lecture en cours : retirer l'image (ou en choisir une autre) rend caduque celle qui tourne encore.
+  const run = useRef(0);
+
+  function clear() {
+    run.current += 1;
+    if (imageUrl) URL.revokeObjectURL(imageUrl);
+    setImageUrl(null);
+    setText("");
+    setStatus(null);
+    if (inputRef.current) inputRef.current.value = "";
+  }
 
   async function handleFile(file: File) {
     if (!file.type.startsWith("image/")) return;
+    const mine = ++run.current;
+    if (imageUrl) URL.revokeObjectURL(imageUrl);
     setImageUrl(URL.createObjectURL(file));
     setText("");
     setStatus("Chargement du moteur OCR...");
@@ -33,10 +46,11 @@ export default function OcrTool() {
       const {
         data: { text: recognized },
       } = await worker.recognize(file);
+      if (mine !== run.current) return;
       setText(recognized.trim());
       setStatus(recognized.trim() ? null : "Aucun texte détecté dans cette image.");
     } catch {
-      setStatus("Échec de la reconnaissance — image illisible ou format non supporté.");
+      if (mine === run.current) setStatus("Échec de la reconnaissance — image illisible ou format non supporté.");
     } finally {
       await worker.terminate();
     }
@@ -81,6 +95,11 @@ export default function OcrTool() {
       {/* next/image can't take a blob: URL without a custom loader — plain img is correct here. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       {imageUrl && <img src={imageUrl} alt="Aperçu" className={styles.preview} />}
+      {imageUrl && (
+        <button type="button" className={styles.actionBtn} onClick={clear}>
+          Retirer l&apos;image
+        </button>
+      )}
       {status && <span className={styles.status}>{status}</span>}
       {text && (
         <>
