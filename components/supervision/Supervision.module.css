@@ -427,3 +427,240 @@
   flex-wrap: wrap;
   gap: 10px;
 }
+
+/* Tableau de bord (Vue générale) : bandeau, puis résumé et carte à gauche, flux à droite. */
+.banner {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  overflow: hidden;
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  background: var(--bg-panel);
+}
+
+.bannerBadge {
+  flex-shrink: 0;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  background: var(--status-critical, #c0392b);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.bannerEmpty {
+  padding: 0 14px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.bannerWrap {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.bannerTrack {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  animation: bannerScroll 60s linear infinite;
+}
+
+.bannerTrack:hover {
+  animation-play-state: paused;
+}
+
+.bannerItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.bannerItem a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.bannerItem a:hover {
+  text-decoration: underline;
+}
+
+.bannerItem em {
+  font-style: normal;
+  font-size: 11.5px;
+  color: var(--accent-gold-bright);
+}
+
+.bannerAlert {
+  color: #f08a80;
+}
+
+.bannerDot {
+  margin-left: 16px;
+  color: var(--accent-gold);
+}
+
+@keyframes bannerScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bannerWrap {
+    overflow-x: auto;
+  }
+
+  .bannerTrack {
+    animation: none;
+  }
+}
+
+.dash {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.dashLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+  background: var(--bg-panel);
+  min-width: 0;
+}
+
+.dashMap {
+  position: relative;
+  height: 420px;
+  border: 1px solid var(--border-glass);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.dashRight {
+  position: sticky;
+  top: 12px;
+  max-height: calc(100vh - 40px);
+}
+
+.feedScroll {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+  padding-right: 4px;
+  overflow-y: auto;
+}
+
+.reportBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reportSummaryCompact {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Carte d'une publication, dans le style des cartes d'Actualité. */
+.newsCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  border: 2px solid var(--accent-gold-bright);
+  border-radius: 16px;
+  background: var(--bg-panel);
+  flex-shrink: 0;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.chipGold,
+.chipWarn {
+  padding: 2px 9px;
+  border: 1px solid var(--accent-gold);
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--accent-gold-bright);
+}
+
+.chipWarn {
+  border-color: rgba(240, 195, 106, 0.5);
+  color: #f0c36a;
+}
+
+.chipDate {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.newsTitle {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.newsTitle a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.newsTitle a:hover {
+  text-decoration: underline;
+}
+
+.newsSource {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1000px) {
+  .dash {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashRight {
+    position: static;
+    max-height: none;
+  }
+
+  .dashMap {
+    height: 320px;
+  }
+}

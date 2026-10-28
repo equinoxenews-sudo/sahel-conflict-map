@@ -4,31 +4,24 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { formatDate } from "@/lib/formatDate";
 import { describeZone } from "@/lib/supervision/describe";
-import { themeShortLabel } from "@/lib/themes";
 import type { Supervision } from "@/lib/supervision/model";
 import type { ResultItem, Results } from "@/lib/supervision/results";
+import { themeShortLabel } from "@/lib/themes";
 import { loadResults, runCollection, sendFeedback, writeReport } from "./api";
+import SupervisionBanner, { type Alert } from "./SupervisionBanner";
+import SupervisionItemCard, { SOURCE_LABELS } from "./SupervisionItemCard";
+import SupervisionReport from "./SupervisionReport";
 import styles from "./Supervision.module.css";
 
 const SupervisionMap = dynamic(() => import("./SupervisionMap"), { ssr: false });
 
-type Tab = "overview" | "map" | "feed" | "analysis" | "settings";
+type Tab = "overview" | "feed" | "analysis" | "settings";
 
 const TABS: { key: Tab; label: string }[] = [
   { key: "overview", label: "Vue générale" },
-  { key: "map", label: "Carte" },
   { key: "feed", label: "Flux" },
   { key: "analysis", label: "Analyses" },
   { key: "settings", label: "Paramètres" },
-];
-
-const SOURCE_LABELS: Record<string, string> = { rss: "Presse", telegram: "Telegram", gdelt: "GDELT", zone_brief: "Équinoxe" };
-
-const FEEDBACK: { kind: string; label: string }[] = [
-  { kind: "relevant", label: "Pertinent" },
-  { kind: "irrelevant", label: "Non pertinent" },
-  { kind: "duplicate", label: "Doublon" },
-  { kind: "wrong_location", label: "Lieu incorrect" },
 ];
 
 interface Props {
@@ -48,6 +41,7 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
   const [writing, setWriting] = useState(false);
   const [periodDays, setPeriodDays] = useState(7);
   const [sourceFilter, setSourceFilter] = useState("all");
+  const [locatedOnly, setLocatedOnly] = useState(false);
   // Instant pris à l'ouverture (un rendu pur ne lit pas l'horloge).
   const [now] = useState(() => Date.now());
 
@@ -119,15 +113,42 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
 
   const items = useMemo(() => results?.items ?? [], [results]);
   const inPeriod = useMemo(() => items.filter((item) => !item.publishedAt || now - Date.parse(item.publishedAt) <= periodDays * 86_400_000), [items, periodDays, now]);
-  const shown = useMemo(() => inPeriod.filter((item) => sourceFilter === "all" || item.sourceKind === sourceFilter), [inPeriod, sourceFilter]);
+  const shown = useMemo(
+    () => inPeriod.filter((item) => (sourceFilter === "all" || item.sourceKind === sourceFilter) && (!locatedOnly || item.latitude != null)),
+    [inPeriod, sourceFilter, locatedOnly],
+  );
   const locatedCount = inPeriod.filter((item) => item.latitude != null && item.longitude != null).length;
-  const byKind = useMemo(() => {
-    const counts = new Map<string, number>();
-    for (const item of inPeriod) counts.set(item.sourceKind, (counts.get(item.sourceKind) ?? 0) + 1);
-    return [...counts.entries()];
-  }, [inPeriod]);
   const run = results?.lastRun ?? null;
   const report = results?.report ?? null;
+
+  // Alertes de la veille, affichées dans le bandeau : ce qui demande l'attention, jamais caché.
+  const alerts: Alert[] = [];
+  if (supervision.status !== "active") alerts.push({ text: "La veille n'est pas active : aucune collecte tant qu'elle n'est pas activée." });
+  if (run?.status === "error") alerts.push({ text: `La dernière collecte a échoué${run.error ? ` : ${run.error}` : "."}` });
+  const locateNote = (run?.stats as { located?: { note?: string | null } } | undefined)?.located?.note;
+  if (locateNote) alerts.push({ text: `Localisation : ${locateNote}` });
+  if (report?.content.status === "budget") alerts.push({ text: report.content.message });
+  if (run?.status === "ok" && items.length > 0 && items.every((item) => item.publishedAt && now - Date.parse(item.publishedAt) > 48 * 3_600_000)) {
+    alerts.push({ text: "Aucune nouvelle publication retenue depuis 48 heures." });
+  }
+
+  const sourceFilterSelect = (
+    <select className={styles.select} value={sourceFilter} onChange={(event) => setSourceFilter(event.target.value)} aria-label="Source">
+      <option value="all">Toutes les sources</option>
+      {Object.entries(SOURCE_LABELS).map(([key, label]) => (
+        <option key={key} value={key}>
+          {label}
+        </option>
+      ))}
+    </select>
+  );
+  const periodSelect = (
+    <select className={styles.select} value={periodDays} onChange={(event) => setPeriodDays(Number(event.target.value))} aria-label="Période">
+      <option value={1}>24 dernières heures</option>
+      <option value={7}>7 derniers jours</option>
+      <option value={30}>30 derniers jours</option>
+    </select>
+  );
 
   return (
     <div className={styles.wrap}>
@@ -158,100 +179,72 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
         ))}
       </div>
 
-      {tab !== "settings" && tab !== "analysis" ? (
-        <div className={styles.filters}>
-          <select className={styles.select} value={periodDays} onChange={(event) => setPeriodDays(Number(event.target.value))} aria-label="Période">
-            <option value={1}>24 dernières heures</option>
-            <option value={7}>7 derniers jours</option>
-            <option value={30}>30 derniers jours</option>
-          </select>
-          {tab === "feed" ? (
-            <select className={styles.select} value={sourceFilter} onChange={(event) => setSourceFilter(event.target.value)} aria-label="Source">
-              <option value="all">Toutes les sources</option>
-              {Object.entries(SOURCE_LABELS).map(([key, label]) => (
-                <option key={key} value={key}>
-                  {label}
-                </option>
-              ))}
-            </select>
-          ) : null}
-        </div>
-      ) : null}
-
       {tab === "overview" ? (
         <>
-          <div className={styles.stats}>
-            <div className={styles.stat}>
-              <span className={styles.statValue}>{inPeriod.length}</span>
-              <span className={styles.statLabel}>publications retenues</span>
+          <SupervisionBanner items={items} alerts={alerts} />
+          <div className={styles.dash}>
+            <div className={styles.dashLeft}>
+              <section className={styles.panel}>
+                <h3 className={styles.sectionTitle}>Résumé du jour</h3>
+                <span className={styles.note}>Résumé quotidien prévu à {String(supervision.schedule.dailyHour).padStart(2, "0")} h (heure indicative, comme réglé dans les paramètres).</span>
+                <SupervisionReport report={report} items={items} compact />
+                <div className={styles.actions}>
+                  <button type="button" className={styles.button} onClick={() => void writeDaily()} disabled={writing || items.length === 0}>
+                    {writing ? "Rédaction en cours…" : "Rédiger la synthèse maintenant"}
+                  </button>
+                </div>
+              </section>
+              <section className={styles.panel}>
+                <h3 className={styles.sectionTitle}>Carte de la zone</h3>
+                <div className={styles.dashMap}>
+                  <SupervisionMap zone={supervision.zone} items={inPeriod} />
+                </div>
+                <p className={styles.meta}>
+                  {locatedCount} publication(s) placée(s) sur {inPeriod.length}. Les autres n&apos;ont pas de lieu connu : elles restent dans le flux, jamais devinées. Les événements GDELT sont extraits automatiquement : leur lieu peut être faux.
+                </p>
+              </section>
             </div>
-            <div className={styles.stat}>
-              <span className={styles.statValue}>{locatedCount}</span>
-              <span className={styles.statLabel}>placées sur la carte</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.statValue}>{inPeriod.length - locatedCount}</span>
-              <span className={styles.statLabel}>sans lieu connu (dans le flux)</span>
-            </div>
-            <div className={styles.stat}>
-              <span className={styles.statValue}>{results?.hidden ?? 0}</span>
-              <span className={styles.statLabel}>masquées par vos retours</span>
-            </div>
-          </div>
-          <p className={styles.meta}>
-            {run
-              ? `Dernière collecte : ${formatDate(run.startedAt)} · ${run.status === "ok" ? "réussie" : run.status === "running" ? "en cours" : "en erreur"}${run.error ? ` — ${run.error}` : ""}.`
-              : supervision.status === "active"
-                ? "Aucune collecte pour l'instant : lancez-la, ou attendez le passage automatique."
-                : "La veille n'est pas active : activez-la pour lancer la collecte."}
-          </p>
-          {byKind.length > 0 ? (
-            <p className={styles.meta}>Répartition : {byKind.map(([kind, count]) => `${SOURCE_LABELS[kind] ?? kind} ${count}`).join(" · ")}.</p>
-          ) : null}
-          <p className={styles.meta}>
-            Les publications sont rattachées à la veille par mots-clés et par zone, sans IA. Une publication sans lieu connu apparaît dans le flux mais pas sur la carte : le lieu n&apos;est jamais deviné.
-          </p>
-        </>
-      ) : null}
 
-      {tab === "map" ? (
-        <>
-          <div className={styles.detailMap}>
-            <SupervisionMap zone={supervision.zone} items={inPeriod} />
+            <section className={`${styles.panel} ${styles.dashRight}`}>
+              <div className={styles.filters}>
+                {periodSelect}
+                {sourceFilterSelect}
+                <label className={styles.note}>
+                  <input type="checkbox" checked={locatedOnly} onChange={(event) => setLocatedOnly(event.target.checked)} /> Placées seulement
+                </label>
+              </div>
+              <span className={styles.note}>
+                {shown.length} publication{shown.length > 1 ? "s" : ""}
+                {results?.hidden ? ` · ${results.hidden} masquée(s) par vos retours` : ""}
+                {run ? ` · dernière collecte ${formatDate(run.startedAt)}` : ""}
+              </span>
+              <div className={styles.feedScroll}>
+                {shown.length === 0 ? <div className={styles.empty}>Aucune publication sur cette période. Lancez la collecte ou élargissez la période.</div> : null}
+                {shown.map((item) => (
+                  <SupervisionItemCard key={item.id} item={item} onFeedback={(entry, kind) => void give(entry, kind)} />
+                ))}
+              </div>
+            </section>
           </div>
-          <p className={styles.meta}>
-            {locatedCount} publication(s) placée(s) ; {inPeriod.length - locatedCount} sans lieu connu (voir l&apos;onglet Flux). Couleurs : Équinoxe doré, GDELT orange, presse vert, Telegram bleu. Les événements GDELT sont extraits automatiquement : leur lieu peut être faux.
-          </p>
         </>
       ) : null}
 
       {tab === "feed" ? (
-        <div className={styles.feed}>
-          {shown.length === 0 ? <div className={styles.empty}>Aucune publication sur cette période. Lancez la collecte ou élargissez la période.</div> : null}
-          {shown.map((item) => (
-            <article key={item.id} className={styles.item}>
-              <h3 className={styles.itemTitle}>
-                <a href={item.url} target={item.url.startsWith("/") ? undefined : "_blank"} rel="noopener noreferrer">
-                  {item.title}
-                </a>
-              </h3>
-              <div className={styles.itemMeta}>
-                <span>{item.publishedAt ? formatDate(item.publishedAt) : "Date inconnue"}</span>
-                <span>{item.sourceName ?? SOURCE_LABELS[item.sourceKind]}</span>
-                {item.latitude == null ? <span className={styles.unlocated}>Lieu inconnu</span> : <span>{item.geoPlace ?? "Lieu"} · {item.geoPrecision === "exact" ? "précis" : "approximatif"}</span>}
-              </div>
-              {item.excerpt ? <p className={styles.excerpt}>{item.excerpt}</p> : null}
-              {item.reason ? <span className={styles.reason}>{item.reason}</span> : null}
-              <div className={styles.feedbackRow}>
-                {FEEDBACK.map((entry) => (
-                  <button key={entry.kind} type="button" className={item.feedback === entry.kind ? `${styles.feedbackBtn} ${styles.feedbackOn}` : styles.feedbackBtn} onClick={() => void give(item, entry.kind)}>
-                    {entry.label}
-                  </button>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
+        <>
+          <div className={styles.filters}>
+            {periodSelect}
+            {sourceFilterSelect}
+            <label className={styles.note}>
+              <input type="checkbox" checked={locatedOnly} onChange={(event) => setLocatedOnly(event.target.checked)} /> Placées seulement
+            </label>
+          </div>
+          <div className={styles.feed}>
+            {shown.length === 0 ? <div className={styles.empty}>Aucune publication sur cette période. Lancez la collecte ou élargissez la période.</div> : null}
+            {shown.map((item) => (
+              <SupervisionItemCard key={item.id} item={item} onFeedback={(entry, kind) => void give(entry, kind)} />
+            ))}
+          </div>
+        </>
       ) : null}
 
       {tab === "analysis" ? (
@@ -262,42 +255,7 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
             </button>
             <span className={styles.note}>Un appel à l&apos;IA (Haiku), environ 0,005 $, compté dans le budget du compte.</span>
           </div>
-          {report ? (
-            <article className={styles.item}>
-              <div className={styles.itemMeta}>
-                <span>Synthèse du {formatDate(report.day)}</span>
-                <span>rédigée le {formatDate(report.createdAt)}</span>
-                {report.costUsd > 0 ? <span>coût IA : {report.costUsd.toFixed(4)} $</span> : null}
-              </div>
-              {report.content.status === "ok" ? (
-                <>
-                  <p className={styles.itemTitle}>{report.content.summary}</p>
-                  {report.content.points.map((point, index) => (
-                    <p key={index} className={styles.excerpt}>
-                      <strong>{point.kind === "hypothese" ? "Lecture prudente · " : "Rapporté · "}</strong>
-                      {point.text}{" "}
-                      {point.itemIds.map((id) => {
-                        const source = items.find((entry) => entry.id === id);
-                        return source ? (
-                          <a key={id} href={source.url} target={source.url.startsWith("/") ? undefined : "_blank"} rel="noopener noreferrer" title={source.title}>
-                            [{source.sourceName ?? "source"}]
-                          </a>
-                        ) : null;
-                      })}
-                    </p>
-                  ))}
-                  {report.content.uncertainties.length > 0 ? <p className={styles.reason}>Incertitudes : {report.content.uncertainties.join(" · ")}</p> : null}
-                  <p className={styles.meta}>Synthèse générée par IA à partir des publications retenues ; à recouper avec les sources citées.</p>
-                </>
-              ) : (
-                <p className={styles.excerpt}>{report.content.message}</p>
-              )}
-            </article>
-          ) : (
-            <div className={styles.empty}>
-              Aucune synthèse pour l&apos;instant. Lancez la collecte, puis cliquez sur « Rédiger la synthèse du jour » : elle n&apos;est rédigée qu&apos;à partir des publications retenues, avec leurs références, et le site n&apos;invente rien.
-            </div>
-          )}
+          <SupervisionReport report={report} items={items} />
         </div>
       ) : null}
 

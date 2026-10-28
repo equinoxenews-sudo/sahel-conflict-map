@@ -30,15 +30,25 @@ function Frame({ zone, points }: { zone: Zone | null; points: [number, number][]
   const map = useMap();
   const key = zone?.kind === "circle" ? `${zone.lat},${zone.lon},${zone.radiusKm}` : "none";
   useEffect(() => {
-    const id = requestAnimationFrame(() => {
+    // La carte est chargée après coup : à ce moment son conteneur peut encore être à la taille zéro. On recadre donc après un
+    // court délai, et une seconde fois dès que Leaflet constate un changement de taille.
+    const fit = () => {
       map.invalidateSize();
       if (zone?.kind === "circle") {
-        map.fitBounds(L.circle([zone.lat, zone.lon], { radius: zone.radiusKm * 1000 }).getBounds(), { padding: [30, 30], animate: false });
+        // Emprise du cercle calculée à la main (un cercle Leaflet ne la donne qu'une fois posé sur une carte).
+        const dLat = zone.radiusKm / 110.57;
+        const dLon = zone.radiusKm / (111.32 * Math.max(0.2, Math.cos((zone.lat * Math.PI) / 180)));
+        map.fitBounds(L.latLngBounds([zone.lat - dLat, zone.lon - dLon], [zone.lat + dLat, zone.lon + dLon]), { padding: [30, 30], animate: false });
       } else if (points.length > 0) {
         map.fitBounds(points, { padding: [50, 50], maxZoom: 6, animate: false });
       }
-    });
-    return () => cancelAnimationFrame(id);
+    };
+    const id = window.setTimeout(fit, 150);
+    map.once("resize", fit);
+    return () => {
+      window.clearTimeout(id);
+      map.off("resize", fit);
+    };
     // Le cadrage ne suit que la zone choisie : un point ajouté ne doit pas faire sauter la carte sous les doigts.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map, key]);
