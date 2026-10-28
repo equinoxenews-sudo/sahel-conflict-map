@@ -44,6 +44,23 @@ function normalize(text: string): string {
   return text.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 }
 
+/** Image d'une synthèse ; si elle ne se charge pas (adresse expirée, site qui refuse l'affichage), elle disparaît sans laisser d'icône cassée. */
+function BriefImage({ url, generic }: { url: string | null; generic: boolean }) {
+  const [failed, setFailed] = useState(false);
+  if (!url || failed) return null;
+  return (
+    <span className={`${styles.newsImageWrap} ${styles.briefMedia}`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={briefImageSrc(url)} referrerPolicy="no-referrer" alt="" className={styles.briefImage} onError={() => setFailed(true)} />
+      {generic ? (
+        <span className={styles.genericTag} title="Illustration générique de la zone — ne représente pas cet événement précis">
+          Illustration
+        </span>
+      ) : null}
+    </span>
+  );
+}
+
 interface ZoneNewsListProps {
   briefs: ZoneBrief[];
   articles: Article[];
@@ -199,17 +216,7 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
               const flag = flagsInText(b.title, 1)[0] ?? flagsInText(b.place_country ?? "", 1)[0];
               return (
                 <Link key={b.id} href={`/briefs/${b.id}`} className={`${styles.newsItem} ${styles.briefCard}`} title={formatDate(b.published_at)}>
-                  {b.image_url ? (
-                    <span className={`${styles.newsImageWrap} ${styles.briefMedia}`}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={briefImageSrc(b.image_url)} referrerPolicy="no-referrer" alt="" className={styles.briefImage} />
-                      {isGenericImage ? (
-                        <span className={styles.genericTag} title="Illustration générique de la zone — ne représente pas cet événement précis">
-                          Illustration
-                        </span>
-                      ) : null}
-                    </span>
-                  ) : null}
+                  <BriefImage url={b.image_url} generic={isGenericImage} />
                   <div className={styles.newsItemBody}>
                     <div className={styles.briefTop}>
                       <span className={styles.chips}>

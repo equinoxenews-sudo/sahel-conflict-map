@@ -4,6 +4,7 @@ import {
 } from "./themes";
 import { estimateInputTokens, meetsImportance, usageFromResponse, type AiUsage } from "./aiBudget";
 import { wellFormed } from "./wellFormed";
+import { findEnglishWord } from "./englishLeak";
 import {
   AnthropicApiError, classifyApiError, describeApiError, parseRetryAfter, retryDelayMs,
   type ApiErrorInfo, type ApiErrorKind,
@@ -124,7 +125,7 @@ Classe chaque synthèse avec : primaryTheme = le sujet dominant, EXACTEMENT une 
 
 Évalue aussi la véracité de l'information rapportée, dans EXACTEMENT une de ces catégories : Confirmé (fait établi par une source officielle ou indépendante, sans contestation) ; Très probable (fortement étayé par les sources mais sans confirmation officielle formelle) ; Revendiqué (annoncé par une partie prenante — acteur, gouvernement, groupe armé — sans confirmation indépendante) ; Possible (plausible mais fragmentaire, ni confirmé ni revendiqué formellement) ; Peu probable (contesté, démenti par une partie ou reposant sur des éléments faibles) ; Non confirmé (aucune source indépendante ou officielle ne l'a confirmé à ce stade). En cas de doute entre deux catégories, choisis la plus prudente.
 
-Règles strictes : n'utilise QUE les informations présentes dans les textes ci-dessus. N'invente aucun fait, aucune citation, aucun chiffre, aucune date qui n'y figure pas explicitement — étoffer veut dire exploiter tout le texte source fourni et l'éclairer par le contexte (brèves précédentes, faits durables et notoires), jamais ajouter un fait nouveau, un chiffre ou une citation qui n'y figure pas. Rédaction neutre, factuelle et journalistique en français.
+Règles strictes : n'utilise QUE les informations présentes dans les textes ci-dessus. N'invente aucun fait, aucune citation, aucun chiffre, aucune date qui n'y figure pas explicitement — étoffer veut dire exploiter tout le texte source fourni et l'éclairer par le contexte (brèves précédentes, faits durables et notoires), jamais ajouter un fait nouveau, un chiffre ou une citation qui n'y figure pas. Rédaction neutre, factuelle et journalistique en français. Le titre, l'accroche, les intertitres et le texte sont ENTIÈREMENT en français : traduis les mots et tournures anglais des sources (par exemple « deepening » devient « approfondissement », « amid » devient « dans un contexte de »). Seuls les noms propres, les sigles et les noms d'organisations ou de médias restent dans leur langue d'origine.
 
 ${analyst ? analystRules() : ""}
 
@@ -229,6 +230,8 @@ export function parseResponse(
     const sources = (indexes as number[]).map((index) => articles[index]);
     // Telegram ne fait pas une information à lui seul (sauf exceptions encadrées).
     if (analyst && !telegramOnlyGroupAllowed(sources)) continue;
+    // Un titre ou une accroche qui garde un mot anglais n'est jamais publié : les sources restent à traiter au prochain passage.
+    if (findEnglishWord(title) || findEnglishWord(excerpt)) continue;
     const old = existingBriefId == null ? undefined : previous.find((brief) => brief.id === existingBriefId);
     if (existingBriefId != null && (!old || usedPreviousIds.has(old.id))) continue;
     const citations = new Map<string, string>();
