@@ -212,50 +212,12 @@ function pingRing(): HTMLCanvasElement {
   return canvas;
 }
 
-/** À partir de ce nombre d'événements proches à l'écran, ils se regroupent en un seul point plus gros. */
+/** À partir de ce nombre d'événements proches à l'écran, ils se regroupent en un seul point un peu plus gros. */
 const CLUSTER_MIN_EVENTS = 6;
 /** Distance à l'écran (pixels) en dessous de laquelle des événements se regroupent. */
-const CLUSTER_PIXEL_RANGE = 48;
-
-const clusterCanvases = new Map<number, HTMLCanvasElement>();
-/** Diamètre d'un point de regroupement : il grossit avec le nombre d'événements, sans jamais envahir l'écran. */
-function clusterSize(count: number): number {
-  return Math.round(Math.min(92, 40 + 9 * Math.sqrt(count)));
-}
-/** Point de regroupement : disque rouge avec un halo, et le nombre d'événements au centre. */
-function clusterDot(count: number): HTMLCanvasElement {
-  const cached = clusterCanvases.get(count);
-  if (cached) return cached;
-  const px = clusterSize(count) * 2;
-  const canvas = document.createElement("canvas");
-  canvas.width = px;
-  canvas.height = px;
-  const ctx = canvas.getContext("2d")!;
-  const c = px / 2;
-  const discR = px * 0.3;
-  const halo = ctx.createRadialGradient(c, c, discR * 0.6, c, c, c);
-  halo.addColorStop(0, `${DOT_COLOR}aa`);
-  halo.addColorStop(1, `${DOT_COLOR}00`);
-  ctx.fillStyle = halo;
-  ctx.fillRect(0, 0, px, px);
-  const disc = ctx.createRadialGradient(c, c, 0, c, c, discR);
-  disc.addColorStop(0, "#ff8a80");
-  disc.addColorStop(1, DOT_COLOR);
-  ctx.beginPath();
-  ctx.arc(c, c, discR, 0, Math.PI * 2);
-  ctx.fillStyle = disc;
-  ctx.fill();
-  ctx.lineWidth = Math.max(2, px * 0.025);
-  ctx.strokeStyle = "rgba(255,255,255,0.85)";
-  ctx.stroke();
-  ctx.fillStyle = "#ffffff";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.font = `700 ${Math.round(discR * (count >= 100 ? 0.8 : 1))}px sans-serif`;
-  ctx.fillText(String(count), c, c + discR * 0.05);
-  clusterCanvases.set(count, canvas);
-  return canvas;
-}
+const CLUSTER_PIXEL_RANGE = 40;
+/** Un regroupement est un point d'événement ordinaire, deux fois plus gros. */
+const CLUSTER_SCALE = 2;
 
 /** Durée d'un cycle de l'anneau (s'élargit en s'estompant, puis repart), en millisecondes. */
 const PING_MS = 1400;
@@ -1101,28 +1063,27 @@ export default function Globe3D({
       // Événements des analystes : point rouge net et fixe, avec un anneau qui s'élargit en s'estompant.
       // Plusieurs événements au même endroit (une capitale, souvent) sont écartés en couronne autour du point.
       const eventSource = new Cesium.CustomDataSource("events");
+      const EVENT_DOT = 22;
       // Regroupement : trop de points d'un coup saturent le globe. À partir de CLUSTER_MIN_EVENTS événements proches à
       // l'écran, un seul point plus gros les remplace (avec leur nombre) ; en zoomant, ils se séparent peu à peu.
       // Chaque événement compte deux entités (anneau et point), d'où le facteur 2.
       eventSource.clustering.enabled = true;
       eventSource.clustering.pixelRange = CLUSTER_PIXEL_RANGE;
       eventSource.clustering.minimumClusterSize = CLUSTER_MIN_EVENTS * 2;
-      eventSource.clustering.clusterEvent.addEventListener((clustered, cluster) => {
-        const count = Math.max(1, Math.round(clustered.length / 2));
-        const size = clusterSize(count);
+      eventSource.clustering.clusterEvent.addEventListener((_clustered, cluster) => {
         cluster.label.show = false;
         cluster.point.show = false;
         cluster.billboard.show = true;
         cluster.billboard.id = cluster.label.id;
-        // Cesium accepte un canvas comme image ; ses types, pour un regroupement, ne prévoient qu'une adresse.
-        cluster.billboard.image = clusterDot(count) as unknown as string;
-        cluster.billboard.width = size * 2;
-        cluster.billboard.height = size * 2;
+        // Le même point rouge que les événements isolés, deux fois plus gros, sans chiffre. Cesium accepte un canvas
+        // comme image ; ses types, pour un regroupement, ne prévoient qu'une adresse.
+        cluster.billboard.image = glowDot() as unknown as string;
+        cluster.billboard.width = EVENT_DOT * CLUSTER_SCALE;
+        cluster.billboard.height = EVENT_DOT * CLUSTER_SCALE;
         cluster.billboard.verticalOrigin = Cesium.VerticalOrigin.CENTER;
-        cluster.billboard.eyeOffset = new Cesium.Cartesian3(0, 0, -60);
+        cluster.billboard.eyeOffset = new Cesium.Cartesian3(0, 0, -50);
       });
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const EVENT_DOT = 22;
       const spreadOffsets = eventOffsets(analystEvents, EVENT_DOT * 0.6);
       for (const [index, ev] of analystEvents.entries()) {
         const where = [ev.place, ev.country].filter(Boolean).join(", ");
