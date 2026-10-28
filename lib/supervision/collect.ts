@@ -3,7 +3,7 @@ import { fetchFeed } from "../rss";
 import { ZONE_RSS_FEEDS } from "../rssFeeds";
 import { getSupabaseAdmin } from "../supabaseAdmin";
 import { fetchChannel } from "../telegram";
-import { countryNames } from "./geo";
+import { countryNames, foldName } from "./geo";
 import { matchCandidate } from "./match";
 import { placeWordsFor } from "./nearby";
 import { allWorldCountryFeatures } from "../worldGeo";
@@ -198,10 +198,15 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
         failures.push("fond de carte des pays illisible : filtre de lieu désactivé");
       }
       const seen = new Set<string>();
+      // Le même article arrive souvent par plusieurs flux (média, Google Actualités) avec des adresses différentes : on
+      // le reconnaît aussi à son titre normalisé.
+      const seenTitles = new Set<string>();
       const kept: { item: SourcedItem; score: number; reason: string }[] = [];
       for (const item of pool) {
-        if (seen.has(item.row.url_canonical) || !recent(item, since)) continue;
+        const titleKey = foldName(item.row.title).slice(0, 90);
+        if (seen.has(item.row.url_canonical) || (titleKey.length >= 25 && seenTitles.has(titleKey)) || !recent(item, since)) continue;
         seen.add(item.row.url_canonical);
+        seenTitles.add(titleKey);
         const result = matchCandidate(item, supervision.zone, supervision.criteria, names, placeWords);
         if (result.matched) kept.push({ item, score: result.score, reason: result.reason });
       }

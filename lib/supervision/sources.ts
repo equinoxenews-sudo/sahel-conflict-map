@@ -50,16 +50,30 @@ function wrap(row: ItemRow, country: string | null = null): SourcedItem {
   return { title: row.title, excerpt: row.excerpt, latitude: row.latitude, longitude: row.longitude, country, row };
 }
 
+/**
+ * Google Actualités (news.google.com) ajoute « - Éditeur » à la fin du titre et ne donne comme résumé que ce même titre :
+ * on retrouve l'éditeur dans le titre, et on n'affiche pas un résumé qui répète le titre.
+ */
+export function splitGoogleNewsTitle(title: string): { title: string; publisher: string | null } {
+  const index = title.lastIndexOf(" - ");
+  if (index <= 0 || index >= title.length - 3) return { title, publisher: null };
+  const publisher = title.slice(index + 3).trim();
+  return publisher.length > 0 && publisher.length <= 60 ? { title: title.slice(0, index).trim(), publisher } : { title, publisher: null };
+}
+
 export function fromFeedItem(item: FeedItem): SourcedItem | null {
   if (!item.url || !item.title.trim()) return null;
+  const google = item.domain === "news.google.com";
+  const split = google ? splitGoogleNewsTitle(item.title.trim()) : { title: item.title.trim(), publisher: null };
+  const repeatsTitle = google && (!item.excerpt || item.excerpt.replace(/\s+/g, " ").trim().startsWith(split.title.slice(0, 40)));
   return wrap({
     url_canonical: canonicalUrl(item.url),
     url: item.url,
-    title: clip(item.title, TITLE_MAX),
-    excerpt: item.excerpt ? clip(item.excerpt, EXCERPT_MAX) : null,
+    title: clip(split.title, TITLE_MAX),
+    excerpt: item.excerpt && !repeatsTitle ? clip(item.excerpt, EXCERPT_MAX) : null,
     language: null,
     source_kind: "rss",
-    source_name: item.domain || null,
+    source_name: split.publisher ? `${split.publisher} (via Google Actualités)` : item.domain || null,
     published_at: isoOrNull(item.publishedAt),
     ...NO_PLACE,
   });

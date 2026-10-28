@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { fromBrief, fromFeedItem, fromGdeltEvent, fromTelegramRow } from "../lib/supervision/sources";
+import { fromBrief, fromFeedItem, fromGdeltEvent, fromTelegramRow, splitGoogleNewsTitle } from "../lib/supervision/sources";
 
 test("un article de flux devient une publication sans lieu inventé", () => {
   const item = fromFeedItem({ title: "  Attaque   près de Kidal ", url: "https://Exemple.org/a/?utm_source=x", domain: "exemple.org", publishedAt: "2026-11-01T10:00:00Z", imageUrl: null, excerpt: "Des tirs." });
@@ -41,4 +41,21 @@ test("une synthèse dont la position est la capitale n'est jamais placée sur la
   assert.equal(city?.latitude, 36.75);
   assert.equal(city?.row.url, "/briefs/5");
   assert.equal(city?.row.url_canonical, "equinoxe:brief:5");
+});
+
+test("Google Actualités : l'éditeur est retrouvé dans le titre et un résumé qui répète le titre disparaît", () => {
+  const item = fromFeedItem({
+    title: "Attaque du JNIM dans l'Alibori - Banouto",
+    url: "https://news.google.com/rss/articles/CBMiX",
+    domain: "news.google.com",
+    publishedAt: "2026-11-01T10:00:00Z",
+    imageUrl: null,
+    excerpt: "Attaque du JNIM dans l'Alibori Banouto",
+  });
+  assert.ok(item);
+  assert.equal(item.row.title, "Attaque du JNIM dans l'Alibori");
+  assert.equal(item.row.source_name, "Banouto (via Google Actualités)");
+  assert.equal(item.row.excerpt, null);
+  assert.deepEqual(splitGoogleNewsTitle("Sans éditeur"), { title: "Sans éditeur", publisher: null });
+  assert.deepEqual(splitGoogleNewsTitle("Un titre - avec tiret - et un éditeur"), { title: "Un titre - avec tiret", publisher: "et un éditeur" });
 });
