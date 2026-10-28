@@ -1,5 +1,6 @@
 import type { Supervision, SupervisionInput } from "@/lib/supervision/model";
 import type { Results } from "@/lib/supervision/results";
+import type { ReportContent } from "@/lib/supervision/synthesis";
 
 // Appels des routes /api/supervision depuis le navigateur. Toute erreur du serveur devient un message lisible.
 
@@ -37,5 +38,6 @@ export const setStatus = (id: string, status: "active" | "paused" | "archived") 
 export const deleteSupervision = (id: string) => call<{ ok: true }>(`/api/supervision/${id}`, { method: "DELETE" });
 export const loadResults = (id: string) => call<{ supervision: Supervision; results: Results }>(`/api/supervision/${id}/results`);
 export const runCollection = (id: string) => call<{ summary: { matched: number; error: string | null } }>(`/api/supervision/${id}/run`, { method: "POST" });
+export const writeReport = (id: string) => call<{ report: ReportContent }>(`/api/supervision/${id}/report`, { method: "POST" });
 export const sendFeedback = (id: string, targetId: number, kind: string) =>
   call<{ ok: true }>(`/api/supervision/${id}/feedback`, { method: "POST", body: JSON.stringify({ targetType: "item", targetId: String(targetId), kind }) });

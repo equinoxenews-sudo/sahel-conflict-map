@@ -1,4 +1,5 @@
 import { getSupabaseAdmin } from "../supabaseAdmin";
+import type { ReportContent } from "./synthesis";
 import { SupervisionError } from "./store";
 
 // Résultats d'une veille : les publications retenues avec la raison, l'état du dernier passage et les retours de
@@ -33,9 +34,18 @@ export interface RunInfo {
   stats: Record<string, unknown>;
 }
 
+export interface ReportView {
+  day: string;
+  content: ReportContent;
+  createdAt: string;
+  costUsd: number;
+}
+
 export interface Results {
   items: ResultItem[];
   lastRun: RunInfo | null;
+  /** Dernière synthèse quotidienne, si elle a été rédigée. */
+  report: ReportView | null;
   /** Publications masquées par un retour « non pertinent » ou « doublon ». */
   hidden: number;
 }
@@ -124,8 +134,24 @@ export async function loadResults(ownerId: string, supervisionId: string, sinceD
   return {
     items: items.slice(0, MAX_ITEMS),
     hidden,
+    report: await loadLatestReport(ownerId, supervisionId),
     lastRun: run ? { startedAt: run.started_at, finishedAt: run.finished_at, status: run.status, error: run.error, stats: run.stats ?? {} } : null,
   };
+}
+
+/** La synthèse quotidienne la plus récente d'une veille. */
+export async function loadLatestReport(ownerId: string, supervisionId: string): Promise<ReportView | null> {
+  const { data, error } = await getSupabaseAdmin()
+    .from("supervision_reports")
+    .select("period_start, content, created_at, cost_usd")
+    .eq("owner_id", ownerId)
+    .eq("supervision_id", supervisionId)
+    .eq("kind", "daily")
+    .order("period_start", { ascending: false })
+    .limit(1);
+  if (error) return null;
+  const row = (data ?? [])[0] as { period_start: string; content: ReportContent; created_at: string; cost_usd: number | string } | undefined;
+  return row ? { day: row.period_start, content: row.content, createdAt: row.created_at, costUsd: Number(row.cost_usd || 0) } : null;
 }
 
 export async function addFeedback(ownerId: string, supervisionId: string, input: { targetType: "item" | "event" | "report"; targetId: string; kind: FeedbackKind; comment?: string }): Promise<void> {

@@ -7,7 +7,7 @@ import { describeZone } from "@/lib/supervision/describe";
 import { themeShortLabel } from "@/lib/themes";
 import type { Supervision } from "@/lib/supervision/model";
 import type { ResultItem, Results } from "@/lib/supervision/results";
-import { loadResults, runCollection, sendFeedback } from "./api";
+import { loadResults, runCollection, sendFeedback, writeReport } from "./api";
 import styles from "./Supervision.module.css";
 
 const SupervisionMap = dynamic(() => import("./SupervisionMap"), { ssr: false });
@@ -45,6 +45,7 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
   const [results, setResults] = useState<Results | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
+  const [writing, setWriting] = useState(false);
   const [periodDays, setPeriodDays] = useState(7);
   const [sourceFilter, setSourceFilter] = useState("all");
   // Instant pris à l'ouverture (un rendu pur ne lit pas l'horloge).
@@ -86,6 +87,19 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
     }
   }
 
+  async function writeDaily() {
+    setWriting(true);
+    setError(null);
+    try {
+      await writeReport(supervision.id);
+      await refresh();
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : "Rédaction impossible.");
+    } finally {
+      setWriting(false);
+    }
+  }
+
   async function give(item: ResultItem, kind: string) {
     try {
       await sendFeedback(supervision.id, item.id, kind);
@@ -113,6 +127,7 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
     return [...counts.entries()];
   }, [inPeriod]);
   const run = results?.lastRun ?? null;
+  const report = results?.report ?? null;
 
   return (
     <div className={styles.wrap}>
@@ -240,8 +255,49 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
       ) : null}
 
       {tab === "analysis" ? (
-        <div className={styles.empty}>
-          La synthèse quotidienne et le rapport hebdomadaire arrivent dans une prochaine étape. Rien n&apos;est affiché tant qu&apos;aucun n&apos;a été rédigé à partir des publications retenues : le site n&apos;invente pas de synthèse.
+        <div className={styles.feed}>
+          <div className={styles.actions}>
+            <button type="button" className={styles.primary} onClick={() => void writeDaily()} disabled={writing || items.length === 0}>
+              {writing ? "Rédaction en cours…" : "Rédiger la synthèse du jour"}
+            </button>
+            <span className={styles.note}>Un appel à l&apos;IA (Haiku), environ 0,005 $, compté dans le budget du compte.</span>
+          </div>
+          {report ? (
+            <article className={styles.item}>
+              <div className={styles.itemMeta}>
+                <span>Synthèse du {formatDate(report.day)}</span>
+                <span>rédigée le {formatDate(report.createdAt)}</span>
+                {report.costUsd > 0 ? <span>coût IA : {report.costUsd.toFixed(4)} $</span> : null}
+              </div>
+              {report.content.status === "ok" ? (
+                <>
+                  <p className={styles.itemTitle}>{report.content.summary}</p>
+                  {report.content.points.map((point, index) => (
+                    <p key={index} className={styles.excerpt}>
+                      <strong>{point.kind === "hypothese" ? "Lecture prudente · " : "Rapporté · "}</strong>
+                      {point.text}{" "}
+                      {point.itemIds.map((id) => {
+                        const source = items.find((entry) => entry.id === id);
+                        return source ? (
+                          <a key={id} href={source.url} target={source.url.startsWith("/") ? undefined : "_blank"} rel="noopener noreferrer" title={source.title}>
+                            [{source.sourceName ?? "source"}]
+                          </a>
+                        ) : null;
+                      })}
+                    </p>
+                  ))}
+                  {report.content.uncertainties.length > 0 ? <p className={styles.reason}>Incertitudes : {report.content.uncertainties.join(" · ")}</p> : null}
+                  <p className={styles.meta}>Synthèse générée par IA à partir des publications retenues ; à recouper avec les sources citées.</p>
+                </>
+              ) : (
+                <p className={styles.excerpt}>{report.content.message}</p>
+              )}
+            </article>
+          ) : (
+            <div className={styles.empty}>
+              Aucune synthèse pour l&apos;instant. Lancez la collecte, puis cliquez sur « Rédiger la synthèse du jour » : elle n&apos;est rédigée qu&apos;à partir des publications retenues, avec leurs références, et le site n&apos;invente rien.
+            </div>
+          )}
         </div>
       ) : null}
 
