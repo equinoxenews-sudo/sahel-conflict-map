@@ -34,9 +34,12 @@ interface Props {
   supervision: Supervision;
   onBack: () => void;
   onEdit: () => void;
+  /** Active la veille (si l'offre le permet) : le parent affiche l'erreur éventuelle. */
+  onActivate: () => void;
+  busy: boolean;
 }
 
-export default function SupervisionDetail({ supervision, onBack, onEdit }: Props) {
+export default function SupervisionDetail({ supervision, onBack, onEdit, onActivate, busy }: Props) {
   const [tab, setTab] = useState<Tab>("overview");
   const [results, setResults] = useState<Results | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -122,7 +125,11 @@ export default function SupervisionDetail({ supervision, onBack, onEdit }: Props
           <button type="button" className={styles.primary} onClick={() => void collect()} disabled={running}>
             {running ? "Collecte en cours…" : "Lancer la collecte"}
           </button>
-        ) : null}
+        ) : (
+          <button type="button" className={styles.primary} onClick={onActivate} disabled={busy}>
+            Activer la veille
+          </button>
+        )}
       </div>
 
       {error ? <div className={styles.error}>{error}</div> : null}

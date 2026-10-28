@@ -117,7 +117,18 @@ export default function SupervisionApp() {
 
   const current = view.kind === "detail" ? find(view.id) : null;
   if (view.kind === "detail" && current) {
-    return <SupervisionDetail supervision={current} onBack={() => setView({ kind: "list" })} onEdit={() => setView({ kind: "edit", id: current.id })} />;
+    return (
+      <>
+        {error ? <div className={styles.error}>{error}</div> : null}
+        <SupervisionDetail
+          supervision={current}
+          onBack={() => setView({ kind: "list" })}
+          onEdit={() => setView({ kind: "edit", id: current.id })}
+          onActivate={() => void changeStatus(current, "active")}
+          busy={busy}
+        />
+      </>
+    );
   }
 
   return (
