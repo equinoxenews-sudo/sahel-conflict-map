@@ -1,4 +1,6 @@
 import { LAYER_LABELS, LAYER_ORDER, type LayerKey } from "@/lib/layers/types";
+import { LEVEL_DISPLAY_COLORS, LEVEL_LABELS } from "@/lib/travelAdvisories";
+import { Fragment } from "react";
 import LayerIcon from "./LayerIcon";
 import styles from "./LayersPanel.module.css";
 
@@ -22,8 +24,8 @@ export default function LayersPanel({ enabled, counts, onToggle }: LayersPanelPr
           const isOn = enabled[key];
           const count = counts[key];
           return (
+            <Fragment key={key}>
             <label
-              key={key}
               className={styles.item}
               title={count > 0 ? `${count} élément(s)` : undefined}
             >
@@ -41,6 +43,20 @@ export default function LayersPanel({ enabled, counts, onToggle }: LayersPanelPr
                 <span className={styles.toggleThumb} />
               </span>
             </label>
+            {key === "advisories" && isOn ? (
+              <div className={styles.legend}>
+                {(["red", "orange", "yellow"] as const).map((level) => (
+                  <span key={level} className={styles.legendItem}>
+                    <i style={{ background: LEVEL_DISPLAY_COLORS[level] }} />
+                    {LEVEL_LABELS[level]}
+                  </span>
+                ))}
+                <span className={styles.legendNote}>
+                  Pas de couleur : vigilance normale. Rayures : zones plus graves dans le pays. Source : France Diplomatie, Licence Ouverte 2.0.
+                </span>
+              </div>
+            ) : null}
+            </Fragment>
           );
         })}
       </div>

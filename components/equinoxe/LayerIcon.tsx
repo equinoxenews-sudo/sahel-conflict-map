@@ -112,6 +112,14 @@ export default function LayerIcon({ layerKey, color }: LayerIconProps) {
           <circle cx="18" cy="12.5" r="0.7" fill="currentColor" stroke="none" />
         </svg>
       );
+    case "advisories":
+      // Un bouclier : les conseils de sécurité aux voyageurs.
+      return (
+        <svg {...common}>
+          <path d="M12 3l7 3v5c0 5-3.2 8.6-7 10-3.8-1.4-7-5-7-10V6z" />
+          <path d="M9 12l2 2 4-4" />
+        </svg>
+      );
     case "droughts":
       return (
         <svg {...common}>

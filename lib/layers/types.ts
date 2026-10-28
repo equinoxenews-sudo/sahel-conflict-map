@@ -1,5 +1,6 @@
 export type LayerKey =
   | "risk"
+  | "advisories"
   | "events"
   | "aircraft"
   | "satellites"
@@ -17,6 +18,7 @@ export type LayerKey =
 
 export const LAYER_LABELS: Record<LayerKey, string> = {
   risk: "Pays en crise",
+  advisories: "Conseils aux voyageurs",
   events: "Événements analysés",
   aircraft: "Avions militaires",
   satellites: "Satellites",
@@ -35,6 +37,7 @@ export const LAYER_LABELS: Record<LayerKey, string> = {
 
 export const LAYER_ORDER: LayerKey[] = [
   "risk",
+  "advisories",
   "events",
   "aircraft",
   "satellites",
@@ -56,6 +59,8 @@ export const LAYER_ORDER: LayerKey[] = [
 // the globe isn't cluttered on first load.
 export const LAYER_DEFAULTS: Record<LayerKey, boolean> = {
   risk: true,
+  // Niveaux des conseils aux voyageurs de France Diplomatie : à cocher, pas affichés d'emblée.
+  advisories: false,
   // Les articles géolocalisés des analystes : le cœur éditorial du site, visible d'emblée.
   events: true,
   aircraft: false,

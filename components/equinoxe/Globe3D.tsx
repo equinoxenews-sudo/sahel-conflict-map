@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import type * as CesiumNS from "cesium";
 import { RISK_COLORS, type CountryRisk } from "@/lib/countryRisk";
+import { LEVEL_DISPLAY_COLORS, LEVEL_LABELS, thinRing, type AdvisoryFile } from "@/lib/travelAdvisories";
 import type { MilitaryAircraft } from "@/lib/layers/aircraft";
 import { confidenceColor } from "@/lib/confidence";
 import type { AnalystEvent } from "@/lib/layers/analystEvents";
@@ -410,6 +411,76 @@ async function loadCableSource(Cesium: typeof CesiumNS): Promise<CesiumNS.GeoJso
         ...(Number.isFinite(km) && km > 0 ? [{ label: "Longueur", value: `≈ ${Math.round(km).toLocaleString("fr-FR")} km` }] : []),
         { label: "Source", value: "TeleGeography · CC BY-SA 3.0" },
       ],
+    };
+    entity.properties = new Cesium.PropertyBag({ popup: JSON.stringify(popup) });
+  }
+  return source;
+}
+
+const ADVISORIES_URL = "/data/travel-advisories.json";
+const WORLD_URL = "/data/world-countries.geo.json";
+// Au-delà, Cesium plante au remplissage (Russie, Antarctique) : les contours sont allégés avant le chargement.
+const ADVISORY_MAX_RING_POINTS = 280;
+
+// Construit la couche des conseils aux voyageurs de France Diplomatie : chaque pays est rempli de la couleur de son
+// niveau (vert = vigilance normale = rien), en rayures quand il mêle des zones plus graves. Données :
+// public/data/travel-advisories.json (scripts/gen-travel-advisories.ts), Licence Ouverte Etalab 2.0.
+async function loadAdvisorySource(Cesium: typeof CesiumNS): Promise<CesiumNS.GeoJsonDataSource> {
+  const [advisoryFile, world] = await Promise.all([
+    fetch(ADVISORIES_URL).then((r) => {
+      if (!r.ok) throw new Error(`${r.status} ${ADVISORIES_URL}`);
+      return r.json() as Promise<AdvisoryFile>;
+    }),
+    fetch(WORLD_URL).then((r) => {
+      if (!r.ok) throw new Error(`${r.status} ${WORLD_URL}`);
+      return r.json() as Promise<{ features: { id: string; geometry: { type: string; coordinates: number[][][] | number[][][][] } }[] }>;
+    }),
+  ]);
+  const byIso3 = new Map(advisoryFile.advisories.filter((a) => a.level !== "green" || a.worst !== "green").map((a) => [a.iso3, a]));
+  const features = world.features
+    .filter((f) => byIso3.has(f.id))
+    .map((f) => {
+      const thin = (rings: number[][][]) => rings.map((ring) => thinRing(ring, ADVISORY_MAX_RING_POINTS));
+      const coordinates =
+        f.geometry.type === "Polygon"
+          ? thin(f.geometry.coordinates as number[][][])
+          : (f.geometry.coordinates as number[][][][]).map(thin);
+      return { type: "Feature", id: f.id, properties: {}, geometry: { type: f.geometry.type, coordinates } };
+    });
+  const source = await Cesium.GeoJsonDataSource.load(
+    { type: "FeatureCollection", features },
+    { credit: "Conseils aux voyageurs : France Diplomatie (Licence Ouverte 2.0)" }
+  );
+  const alpha = 0.5;
+  for (const entity of source.entities.values) {
+    const advisory = byIso3.get(String(entity.id));
+    if (!advisory || !entity.polygon) continue;
+    const main = Cesium.Color.fromCssColorString(LEVEL_DISPLAY_COLORS[advisory.level]).withAlpha(alpha);
+    const worst = Cesium.Color.fromCssColorString(LEVEL_DISPLAY_COLORS[advisory.worst]).withAlpha(alpha);
+    // Un pays vert avec une zone plus grave : rayures vert-transparent / niveau le plus grave.
+    entity.polygon.material = advisory.partial
+      ? new Cesium.StripeMaterialProperty({
+          evenColor: advisory.level === "green" ? Cesium.Color.TRANSPARENT : main,
+          oddColor: worst,
+          repeat: 24,
+          orientation: Cesium.StripeOrientation.HORIZONTAL,
+        })
+      : new Cesium.ColorMaterialProperty(main);
+    entity.polygon.outline = new Cesium.ConstantProperty(false);
+    const popup: EntityPopupData = {
+      layerKey: "advisories",
+      badge: "CONSEILS AUX VOYAGEURS",
+      title: advisory.name,
+      flagIso2: advisory.iso2,
+      fields: [
+        { label: "Niveau", value: LEVEL_LABELS[advisory.level] },
+        ...(advisory.partial ? [{ label: "Zones plus graves", value: LEVEL_LABELS[advisory.worst] }] : []),
+        ...(advisory.summary ? [{ label: "Zones", value: advisory.summary }] : []),
+        ...(advisory.mapDate ? [{ label: "Carte du", value: advisory.mapDate.split("-").reverse().join("/") }] : []),
+        { label: "Source", value: "France Diplomatie · Licence Ouverte 2.0" },
+      ],
+      href: advisory.url,
+      hrefLabel: "Voir la fiche complète du ministère →",
     };
     entity.properties = new Cesium.PropertyBag({ popup: JSON.stringify(popup) });
   }
@@ -1488,6 +1559,39 @@ export default function Globe3D({
       if (timer !== undefined) window.clearTimeout(timer);
     };
   }, [enabledLayers.cables]);
+
+  // Conseils aux voyageurs : même principe que les câbles, chargés à la première activation de la couche.
+  useEffect(() => {
+    if (!enabledLayers.advisories) return;
+    let cancelled = false;
+    let timer: number | undefined;
+    let tries = 0;
+    const attempt = () => {
+      if (cancelled) return;
+      const viewer = viewerRef.current;
+      const Cesium = window.Cesium;
+      const sources = dataSourcesRef.current;
+      if (!viewer || viewer.isDestroyed() || !Cesium || !sources.risk) {
+        if (++tries < 40) timer = window.setTimeout(attempt, 500);
+        return;
+      }
+      if (sources.advisories) return;
+      void loadAdvisorySource(Cesium)
+        .then((source) => {
+          if (!source || cancelled || viewer.isDestroyed() || viewerRef.current !== viewer) return;
+          source.show = shared.enabledLayers?.advisories ?? true;
+          viewer.dataSources.add(source);
+          dataSourcesRef.current.advisories = source;
+          viewer.scene.requestRender();
+        })
+        .catch((err) => console.error("Conseils aux voyageurs : chargement impossible", err));
+    };
+    attempt();
+    return () => {
+      cancelled = true;
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
+  }, [enabledLayers.advisories]);
 
   function handleZoomIn() {
     const viewer = viewerRef.current;

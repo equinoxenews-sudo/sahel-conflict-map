@@ -135,6 +135,8 @@ export default function GlobeWithLayers({
   const counts = useMemo<Record<LayerKey, number>>(
     () => ({
       risk: Object.keys(countryRisk).length,
+      // Chargés à la première activation de la couche (voir Globe3D) : pas de compte à l'avance.
+      advisories: 0,
       aircraft: aircraft.length,
       satellites: satellites.length,
       vessels: vessels.length,
