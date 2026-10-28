@@ -212,51 +212,6 @@ function pingRing(): HTMLCanvasElement {
   return canvas;
 }
 
-/** À partir de ce nombre d'événements proches à l'écran, ils se regroupent en un seul point plus gros. */
-const CLUSTER_MIN_EVENTS = 6;
-/** Distance à l'écran (pixels) en dessous de laquelle des événements se regroupent. */
-const CLUSTER_PIXEL_RANGE = 48;
-
-const clusterCanvases = new Map<number, HTMLCanvasElement>();
-/** Diamètre d'un point de regroupement : il grossit avec le nombre d'événements, sans jamais envahir l'écran. */
-function clusterSize(count: number): number {
-  return Math.round(Math.min(92, 40 + 9 * Math.sqrt(count)));
-}
-/** Point de regroupement : disque rouge avec un halo, et le nombre d'événements au centre. */
-function clusterDot(count: number): HTMLCanvasElement {
-  const cached = clusterCanvases.get(count);
-  if (cached) return cached;
-  const px = clusterSize(count) * 2;
-  const canvas = document.createElement("canvas");
-  canvas.width = px;
-  canvas.height = px;
-  const ctx = canvas.getContext("2d")!;
-  const c = px / 2;
-  const discR = px * 0.3;
-  const halo = ctx.createRadialGradient(c, c, discR * 0.6, c, c, c);
-  halo.addColorStop(0, `${DOT_COLOR}aa`);
-  halo.addColorStop(1, `${DOT_COLOR}00`);
-  ctx.fillStyle = halo;
-  ctx.fillRect(0, 0, px, px);
-  const disc = ctx.createRadialGradient(c, c, 0, c, c, discR);
-  disc.addColorStop(0, "#ff8a80");
-  disc.addColorStop(1, DOT_COLOR);
-  ctx.beginPath();
-  ctx.arc(c, c, discR, 0, Math.PI * 2);
-  ctx.fillStyle = disc;
-  ctx.fill();
-  ctx.lineWidth = Math.max(2, px * 0.025);
-  ctx.strokeStyle = "rgba(255,255,255,0.85)";
-  ctx.stroke();
-  ctx.fillStyle = "#ffffff";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.font = `700 ${Math.round(discR * (count >= 100 ? 0.8 : 1))}px sans-serif`;
-  ctx.fillText(String(count), c, c + discR * 0.05);
-  clusterCanvases.set(count, canvas);
-  return canvas;
-}
-
 /** Durée d'un cycle de l'anneau (s'élargit en s'estompant, puis repart), en millisecondes. */
 const PING_MS = 1400;
 /** Avancement de l'anneau d'un événement (0 → 1, puis recommence). La phase propre à chaque événement
@@ -748,37 +703,8 @@ export default function Globe3D({
         return directEntity;
       }
 
-      // Un regroupement d'événements : `pick` renvoie alors la liste de ses entités. Le clic zoome sur eux.
-      function clusteredEntitiesAt(position: CesiumNS.Cartesian2): CesiumNS.Entity[] | null {
-        const currentViewer = viewer;
-        if (!currentViewer) return null;
-        const spots: [number, number][] = [[0, 0], [6, 0], [-6, 0], [0, 6], [0, -6], [12, 0], [-12, 0], [0, 12], [0, -12]];
-        for (const [dx, dy] of spots) {
-          const picked = currentViewer.scene.pick(new Cesium.Cartesian2(position.x + dx, position.y + dy));
-          if (Cesium.defined(picked) && Array.isArray(picked.id)) return picked.id as CesiumNS.Entity[];
-        }
-        return null;
-      }
-
       clickHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
       clickHandler.setInputAction((click: CesiumNS.ScreenSpaceEventHandler.PositionedEvent) => {
-        const cluster = clusteredEntitiesAt(click.position);
-        if (cluster && viewer) {
-          const now = viewer.clock.currentTime;
-          const points = cluster.flatMap((entity) => {
-            const where = entity.position?.getValue(now);
-            return where ? [where] : [];
-          });
-          if (points.length > 0) {
-            shared.onEntitySelect(null, null);
-            const sphere = Cesium.BoundingSphere.fromPoints(points);
-            viewer.camera.flyToBoundingSphere(sphere, {
-              duration: 0.9,
-              offset: new Cesium.HeadingPitchRange(viewer.camera.heading, -Math.PI / 2.6, Math.max(sphere.radius * 3.2, 350_000)),
-            });
-            return;
-          }
-        }
         const entity = pickPointNear(click.position);
         const raw = entity?.properties?.popup?.getValue();
         if (entity && typeof raw === "string") {
@@ -1101,26 +1027,6 @@ export default function Globe3D({
       // Événements des analystes : point rouge net et fixe, avec un anneau qui s'élargit en s'estompant.
       // Plusieurs événements au même endroit (une capitale, souvent) sont écartés en couronne autour du point.
       const eventSource = new Cesium.CustomDataSource("events");
-      // Regroupement : trop de points d'un coup saturent le globe. À partir de CLUSTER_MIN_EVENTS événements proches à
-      // l'écran, un seul point plus gros les remplace (avec leur nombre) ; en zoomant, ils se séparent peu à peu.
-      // Chaque événement compte deux entités (anneau et point), d'où le facteur 2.
-      eventSource.clustering.enabled = true;
-      eventSource.clustering.pixelRange = CLUSTER_PIXEL_RANGE;
-      eventSource.clustering.minimumClusterSize = CLUSTER_MIN_EVENTS * 2;
-      eventSource.clustering.clusterEvent.addEventListener((clustered, cluster) => {
-        const count = Math.max(1, Math.round(clustered.length / 2));
-        const size = clusterSize(count);
-        cluster.label.show = false;
-        cluster.point.show = false;
-        cluster.billboard.show = true;
-        cluster.billboard.id = cluster.label.id;
-        // Cesium accepte un canvas comme image ; ses types, pour un regroupement, ne prévoient qu'une adresse.
-        cluster.billboard.image = clusterDot(count) as unknown as string;
-        cluster.billboard.width = size * 2;
-        cluster.billboard.height = size * 2;
-        cluster.billboard.verticalOrigin = Cesium.VerticalOrigin.CENTER;
-        cluster.billboard.eyeOffset = new Cesium.Cartesian3(0, 0, -60);
-      });
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const EVENT_DOT = 22;
       const spreadOffsets = eventOffsets(analystEvents, EVENT_DOT * 0.6);
