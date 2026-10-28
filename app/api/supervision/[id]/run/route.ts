@@ -5,7 +5,7 @@ import { supervisionFailure } from "@/lib/supervision/http";
 import { getSupervision } from "@/lib/supervision/store";
 
 export const dynamic = "force-dynamic";
-export const maxDuration = 60;
+export const maxDuration = 120;
 
 type Context = { params: Promise<{ id: string }> };
 

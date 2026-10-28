@@ -102,7 +102,7 @@ async function loadFeeds(urls: string[]): Promise<Map<string, SourcedItem[]>> {
 
 /** Publications de canaux Telegram publics ajoutés par l'utilisateur, par identifiant de canal. */
 async function loadChannels(handles: string[]): Promise<Map<string, SourcedItem[]>> {
-  const batches = await mapWithConcurrency(handles, 3, async (handle) => {
+  const batches = await mapWithConcurrency(handles, 6, async (handle) => {
     const posts = await fetchChannel(handle);
     return [handle, posts.flatMap((post) => fromTelegramRow({ channel: post.channel, url: post.url, text: post.text, published_at: post.publishedAt }) ?? [])] as const;
   });

@@ -65,7 +65,7 @@ export const LIMITS = {
   maxCountries: 12,
   maxTerms: 30,
   termMax: 80,
-  maxSources: 20,
+  maxSources: 40,
   refMax: 300,
 } as const;
 
