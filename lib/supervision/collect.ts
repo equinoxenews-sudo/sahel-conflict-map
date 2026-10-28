@@ -4,7 +4,7 @@ import { ZONE_RSS_FEEDS } from "../rssFeeds";
 import { getSupabaseAdmin } from "../supabaseAdmin";
 import { fetchChannel } from "../telegram";
 import { countryNames, foldName } from "./geo";
-import { locateMatchedItems } from "./locate";
+import { curateMatches, type CurateSummary } from "./curate";
 import { matchCandidate } from "./match";
 import { placeWordsFor } from "./nearby";
 import { allWorldCountryFeatures } from "../worldGeo";
@@ -38,8 +38,8 @@ export interface CollectSummary {
   ownerId: string;
   fetched: { rss: number; telegram: number; events: number; briefs: number };
   matched: number;
-  /** Publications dont le lieu a été précisé / écartées parce que leur lieu est hors zone (voir locate.ts). */
-  located: { asked: number; placed: number; excluded: number; note: string | null };
+  /** Tri éditorial par l'IA : publications jugées, gardées, écartées (hors sujet ou hors zone), placées (voir curate.ts). */
+  curated: CurateSummary;
   error: string | null;
 }
 
@@ -79,7 +79,7 @@ async function loadBriefs(db: Db, now: number): Promise<SourcedItem[]> {
     (from, to) =>
       db
         .from("zone_briefs")
-        .select("id, title, summary, published_at, latitude, longitude, place_name, place_country, geo_precision, confidence")
+        .select("id, title, summary, published_at, latitude, longitude, place_name, place_country, geo_precision, confidence, image_url")
         .gte("published_at", sinceIso(now))
         .order("published_at", { ascending: false })
         .range(from, to),
@@ -91,7 +91,7 @@ async function loadBriefs(db: Db, now: number): Promise<SourcedItem[]> {
 async function loadStoredTelegram(db: Db, now: number): Promise<SourcedItem[]> {
   const rows = await readAll<TelegramRow>(
     (from, to) =>
-      db.from("telegram_posts").select("channel, url, text, published_at").gte("created_at", sinceIso(now)).order("created_at", { ascending: false }).range(from, to),
+      db.from("telegram_posts").select("channel, url, text, published_at, image_url").gte("created_at", sinceIso(now)).order("created_at", { ascending: false }).range(from, to),
     3000,
   );
   return rows.flatMap((row) => fromTelegramRow(row) ?? []);
@@ -107,7 +107,7 @@ async function loadFeeds(urls: string[]): Promise<Map<string, SourcedItem[]>> {
 async function loadChannels(handles: string[]): Promise<Map<string, SourcedItem[]>> {
   const batches = await mapWithConcurrency(handles, 6, async (handle) => {
     const posts = await fetchChannel(handle);
-    return [handle, posts.flatMap((post) => fromTelegramRow({ channel: post.channel, url: post.url, text: post.text, published_at: post.publishedAt }) ?? [])] as const;
+    return [handle, posts.flatMap((post) => fromTelegramRow({ channel: post.channel, url: post.url, text: post.text, published_at: post.publishedAt, image_url: post.imageUrl }) ?? [])] as const;
   });
   return new Map(batches);
 }
@@ -172,7 +172,7 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
       ownerId: supervision.ownerId,
       fetched: { rss: 0, telegram: 0, events: 0, briefs: briefs.length },
       matched: 0,
-      located: { asked: 0, placed: 0, excluded: 0, note: null },
+      curated: { asked: 0, kept: 0, dropped: 0, placed: 0, note: null },
       error: null,
     };
     try {
@@ -217,18 +217,18 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
       // Un lieu déjà précisé lors d'un passage précédent s'applique tout de suite : une publication placée hors zone ne revient pas.
       kept = await applyStoredPlaces(db, supervision, kept, names, placeWords);
       await store(db, supervision, kept);
-      summary.located = await locateMatchedItems(supervision, new Date(now));
-      summary.matched = Math.max(0, kept.length - summary.located.excluded);
+      summary.curated = await curateMatches(supervision, new Date(now));
+      summary.matched = await countKept(db, supervision.id);
       await db.from("supervisions").update({ last_run_at: new Date(now).toISOString() }).eq("id", supervision.id);
     } catch (error) {
       summary.error = error instanceof Error ? error.message : String(error);
     }
-    const note = [summary.error, summary.located.note, ...failures].filter(Boolean).join(" | ") || null;
+    const note = [summary.error, summary.curated.note, ...failures].filter(Boolean).join(" | ") || null;
     const runId = runIds.get(supervision.id);
     if (runId !== undefined) {
       await db
         .from("supervision_runs")
-        .update({ finished_at: new Date().toISOString(), status: summary.error ? "error" : "ok", stats: { fetched: summary.fetched, matched: summary.matched, located: summary.located }, error: note })
+        .update({ finished_at: new Date().toISOString(), status: summary.error ? "error" : "ok", stats: { fetched: summary.fetched, matched: summary.matched, curated: summary.curated }, error: note })
         .eq("id", runId);
     }
     summaries.push(summary);
@@ -272,13 +272,24 @@ async function applyStoredPlaces(db: Db, supervision: Supervision, kept: Kept[],
   return refined;
 }
 
+/** Nombre de publications gardées pour la veille (après tri). */
+async function countKept(db: Db, supervisionId: string): Promise<number> {
+  const { count } = await db.from("supervision_matches").select("item_id", { count: "exact", head: true }).eq("supervision_id", supervisionId).eq("verdict", "keep");
+  return count ?? 0;
+}
+
 /** Range les publications retenues (partagées) puis les rattache à la veille, sans jamais créer de doublon. */
 async function store(db: Db, supervision: Supervision, kept: { item: SourcedItem; score: number; reason: string }[]): Promise<void> {
   if (kept.length === 0) return;
   const rows: ItemRow[] = kept.map(({ item }) => item.row);
   for (let start = 0; start < rows.length; start += CHUNK) {
-    // Une publication déjà connue garde son état (lieu éventuellement précisé depuis).
-    const { error } = await db.from("supervision_items").upsert(rows.slice(start, start + CHUNK), { onConflict: "url_canonical", ignoreDuplicates: true });
+    // Une publication déjà connue garde son état (lieu et tri éditorial éventuellement précisés depuis).
+    const chunk = rows.slice(start, start + CHUNK);
+    let { error } = await db.from("supervision_items").upsert(chunk, { onConflict: "url_canonical", ignoreDuplicates: true });
+    if (error && /image_url|schema cache|column/i.test(error.message)) {
+      // Colonnes du tri éditorial pas encore ajoutées (supabase/add-supervision-curation.sql) : on enregistre sans l'image.
+      ({ error } = await db.from("supervision_items").upsert(chunk.map(({ image_url: _image, ...rest }) => rest), { onConflict: "url_canonical", ignoreDuplicates: true }));
+    }
     if (error) throw new Error(`enregistrement des publications : ${error.message}`);
   }
   const ids = new Map<string, number>();
@@ -293,7 +304,8 @@ async function store(db: Db, supervision: Supervision, kept: { item: SourcedItem
     return itemId === undefined ? [] : [{ supervision_id: supervision.id, owner_id: supervision.ownerId, item_id: itemId, score, reason }];
   });
   for (let start = 0; start < matches.length; start += CHUNK) {
-    const { error } = await db.from("supervision_matches").upsert(matches.slice(start, start + CHUNK), { onConflict: "supervision_id,item_id" });
+    // Un rattachement déjà connu n'est pas touché : une publication écartée par le tri ne revient pas à chaque collecte.
+    const { error } = await db.from("supervision_matches").upsert(matches.slice(start, start + CHUNK), { onConflict: "supervision_id,item_id", ignoreDuplicates: true });
     if (error) throw new Error(`rattachement à la veille : ${error.message}`);
   }
 }

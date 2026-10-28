@@ -23,6 +23,8 @@ export interface ItemRow {
   geo_place: string | null;
   geo_confidence: number | null;
   geo_checked: boolean;
+  /** Image fournie par la source elle-même (flux, message Telegram, synthèse) ; jamais générée ni cherchée ailleurs. */
+  image_url: string | null;
 }
 
 /** Une publication prête à être comparée aux veilles, avec le pays dont elle parle quand la source le dit. */
@@ -45,6 +47,10 @@ function isoOrNull(value: string | null | undefined): string | null {
 }
 
 const NO_PLACE = { latitude: null, longitude: null, geo_precision: "aucune" as const, geo_place: null, geo_confidence: null, geo_checked: false };
+
+function imageOrNull(value: string | null | undefined): string | null {
+  return value && /^https?:\/\//i.test(value) ? value : null;
+}
 
 function wrap(row: ItemRow, country: string | null = null): SourcedItem {
   return { title: row.title, excerpt: row.excerpt, latitude: row.latitude, longitude: row.longitude, country, row };
@@ -75,6 +81,7 @@ export function fromFeedItem(item: FeedItem): SourcedItem | null {
     source_kind: "rss",
     source_name: split.publisher ? `${split.publisher} (via Google Actualités)` : item.domain || null,
     published_at: isoOrNull(item.publishedAt),
+    image_url: imageOrNull(item.imageUrl),
     ...NO_PLACE,
   });
 }
@@ -84,6 +91,7 @@ export interface TelegramRow {
   url: string;
   text: string;
   published_at: string | null;
+  image_url?: string | null;
 }
 
 export function fromTelegramRow(row: TelegramRow): SourcedItem | null {
@@ -99,6 +107,7 @@ export function fromTelegramRow(row: TelegramRow): SourcedItem | null {
     source_kind: "telegram",
     source_name: `Telegram · ${row.channel}`,
     published_at: isoOrNull(row.published_at),
+    image_url: imageOrNull(row.image_url),
     ...NO_PLACE,
   });
 }
@@ -145,6 +154,7 @@ export function fromGdeltEvent(row: GdeltEventRow): SourcedItem | null {
       geo_place: row.country,
       geo_confidence: 40,
       geo_checked: true,
+      image_url: null,
     },
     row.country,
   );
@@ -161,6 +171,7 @@ export interface BriefRow {
   place_country: string | null;
   geo_precision: string | null;
   confidence: number | null;
+  image_url?: string | null;
 }
 
 /** Synthèse d'un analyste Équinoxe : déjà localisée (ville citée, à défaut capitale marquée comme telle). */
@@ -185,6 +196,7 @@ export function fromBrief(row: BriefRow): SourcedItem | null {
       geo_place: row.place_name,
       geo_confidence: usable ? row.confidence : null,
       geo_checked: true,
+      image_url: imageOrNull(row.image_url),
     },
     row.place_country,
   );

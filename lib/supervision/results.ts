@@ -22,6 +22,17 @@ export interface ResultItem {
   geoPlace: string | null;
   score: number;
   reason: string | null;
+  /** Image fournie par la source elle-même. */
+  imageUrl: string | null;
+  /** Titre et résumé rédigés en français par le tri éditorial (null : on affiche le titre d'origine). */
+  titleFr: string | null;
+  summaryFr: string | null;
+  themes: string[];
+  country: string | null;
+  /** 0-100 : pertinence pour la veille d'après le tri éditorial ; null si la publication n'a pas encore été triée. */
+  relevance: number | null;
+  judged: boolean;
+  judgeNote: string | null;
   /** Retour déjà donné par l'utilisateur sur cette publication (le plus récent). */
   feedback: FeedbackKind | null;
 }
@@ -55,6 +66,10 @@ const MAX_ITEMS = 300;
 interface MatchRow {
   score: number;
   reason: string | null;
+  verdict?: string | null;
+  relevance?: number | null;
+  judged?: boolean | null;
+  judge_note?: string | null;
   supervision_items: {
     id: number;
     url: string;
@@ -67,17 +82,23 @@ interface MatchRow {
     longitude: number | null;
     geo_precision: string | null;
     geo_place: string | null;
+    image_url?: string | null;
+    title_fr?: string | null;
+    summary_fr?: string | null;
+    themes?: string[] | null;
+    country?: string | null;
   } | null;
 }
 
 export async function loadResults(ownerId: string, supervisionId: string, sinceDays?: number): Promise<Results> {
   const db = getSupabaseAdmin();
-  const { data, error } = await db
-    .from("supervision_matches")
-    .select("score, reason, supervision_items(id, url, title, excerpt, source_kind, source_name, published_at, latitude, longitude, geo_precision, geo_place)")
-    .eq("owner_id", ownerId)
-    .eq("supervision_id", supervisionId)
-    .limit(2000);
+  const base = "id, url, title, excerpt, source_kind, source_name, published_at, latitude, longitude, geo_precision, geo_place";
+  const query = (select: string) => db.from("supervision_matches").select(select).eq("owner_id", ownerId).eq("supervision_id", supervisionId).limit(2000);
+  let { data, error } = await query(`score, reason, verdict, relevance, judged, judge_note, supervision_items(${base}, image_url, title_fr, summary_fr, themes, country)`);
+  if (error && /column|schema cache/i.test(error.message)) {
+    // Colonnes du tri éditorial pas encore ajoutées (supabase/add-supervision-curation.sql) : résultats sans tri.
+    ({ data, error } = await query(`score, reason, supervision_items(${base})`));
+  }
   if (error) throw new SupervisionError(error.message, "error");
 
   const { data: feedbackRows, error: feedbackError } = await db
@@ -98,7 +119,7 @@ export async function loadResults(ownerId: string, supervisionId: string, sinceD
   const items: ResultItem[] = [];
   for (const row of (data ?? []) as unknown as MatchRow[]) {
     const item = row.supervision_items;
-    if (!item) continue;
+    if (!item || row.verdict === "drop") continue;
     const feedback = latest.get(String(item.id)) ?? null;
     if (feedback === "irrelevant" || feedback === "duplicate") {
       hidden += 1;
@@ -119,6 +140,14 @@ export async function loadResults(ownerId: string, supervisionId: string, sinceD
       geoPlace: item.geo_place,
       score: row.score,
       reason: row.reason,
+      imageUrl: item.image_url ?? null,
+      titleFr: item.title_fr ?? null,
+      summaryFr: item.summary_fr ?? null,
+      themes: item.themes ?? [],
+      country: item.country ?? null,
+      relevance: row.judged ? (row.relevance ?? null) : null,
+      judged: row.judged === true,
+      judgeNote: row.judge_note ?? null,
       feedback,
     });
   }

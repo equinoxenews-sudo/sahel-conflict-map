@@ -55,16 +55,29 @@ export function touchesCircle(feature: WorldGeoFeature, lat: number, lon: number
   return false;
 }
 
+function wordsOf(feature: WorldGeoFeature): string[] {
+  const words: string[] = [];
+  if (feature.properties?.name) words.push(foldName(feature.properties.name));
+  const french = COUNTRY_PROFILES_LIST.find((profile) => profile.iso3 === feature.id)?.name;
+  if (french) words.push(foldName(french));
+  return words.filter(Boolean);
+}
+
+/** Noms (français et anglais, normalisés) du ou des pays qui CONTIENNENT un point (le pays du centre d'une zone). */
+export function homeCountryWords(features: readonly WorldGeoFeature[], lat: number, lon: number): Set<string> {
+  const words = new Set<string>();
+  for (const feature of features) {
+    if (polygons(feature).some((polygon) => polygon[0] && pointInRing(lat, lon, polygon[0]))) wordsOf(feature).forEach((word) => words.add(word));
+  }
+  return words;
+}
+
 /** Noms (français et anglais, normalisés) des pays qui touchent un cercle. */
 export function countryWordsNearCircle(features: readonly WorldGeoFeature[], lat: number, lon: number, radiusKm: number): Set<string> {
   const words = new Set<string>();
   for (const feature of features) {
-    if (!touchesCircle(feature, lat, lon, radiusKm)) continue;
-    if (feature.properties?.name) words.add(foldName(feature.properties.name));
-    const french = COUNTRY_PROFILES_LIST.find((profile) => profile.iso3 === feature.id)?.name;
-    if (french) words.add(foldName(french));
+    if (touchesCircle(feature, lat, lon, radiusKm)) wordsOf(feature).forEach((word) => words.add(word));
   }
-  words.delete("");
   return words;
 }
 

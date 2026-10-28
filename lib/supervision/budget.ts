@@ -65,7 +65,7 @@ export async function reserveBudget(input: {
   ownerId: string;
   tier: Tier;
   supervisionId: string | null;
-  job: "supervision-daily" | "supervision-weekly" | "supervision-geo";
+  job: "supervision-daily" | "supervision-weekly" | "supervision-geo" | "supervision-curate";
   model: string;
   estimateUsd: number;
   now?: Date;
