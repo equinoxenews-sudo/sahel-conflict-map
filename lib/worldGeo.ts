@@ -23,3 +23,8 @@ function load(): Map<string, WorldGeoFeature> {
 export function getWorldCountryFeature(iso3: string): WorldGeoFeature | undefined {
   return load().get(iso3);
 }
+
+/** Tous les pays du fond de carte (pour les calculs de zone). */
+export function allWorldCountryFeatures(): WorldGeoFeature[] {
+  return [...load().values()];
+}

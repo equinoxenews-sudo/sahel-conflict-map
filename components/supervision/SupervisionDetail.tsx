@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { formatDate } from "@/lib/formatDate";
 import { describeZone } from "@/lib/supervision/describe";
+import { themeShortLabel } from "@/lib/themes";
 import type { Supervision } from "@/lib/supervision/model";
 import type { ResultItem, Results } from "@/lib/supervision/results";
 import { loadResults, runCollection, sendFeedback } from "./api";
@@ -249,7 +250,7 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
           <h3 className={styles.sectionTitle}>Paramètres de la veille</h3>
           <p className={styles.meta}>Zone : {describeZone(supervision.zone)}</p>
           <p className={styles.meta}>
-            Thèmes : {supervision.criteria.themes.join(", ") || "—"} · Entités : {supervision.criteria.entities.join(", ") || "—"} · Mots-clés : {supervision.criteria.keywords.join(", ") || "—"} · Exclusions : {supervision.criteria.exclusions.join(", ") || "—"}
+            Thèmes : {supervision.criteria.themes.map((theme) => themeShortLabel(theme)).join(", ") || "—"} · Entités : {supervision.criteria.entities.join(", ") || "—"} · Mots-clés : {supervision.criteria.keywords.join(", ") || "—"} · Exclusions : {supervision.criteria.exclusions.join(", ") || "—"}
           </p>
           <p className={styles.meta}>
             Sources : {supervision.sources.filter((source) => source.enabled).map((source) => (source.ref ? `${source.type} (${source.ref})` : source.type)).join(", ") || "—"}

@@ -5,6 +5,8 @@ import { getSupabaseAdmin } from "../supabaseAdmin";
 import { fetchChannel } from "../telegram";
 import { countryNames } from "./geo";
 import { matchCandidate } from "./match";
+import { placeWordsFor } from "./nearby";
+import { allWorldCountryFeatures } from "../worldGeo";
 import type { Supervision } from "./model";
 import {
   fromBrief,
@@ -187,12 +189,20 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
       }
 
       const names = supervision.zone.kind === "countries" ? countryNames(supervision.zone.codes) : undefined;
+      // Pays qui touchent la zone : une publication sans lieu doit en citer un (sinon elle parle d'ailleurs).
+      let placeWords: Set<string> | null = null;
+      try {
+        placeWords = placeWordsFor(supervision.zone, allWorldCountryFeatures(), names);
+      } catch {
+        // Fond de carte illisible : on retombe sur le comportement sans filtre de lieu, signalé dans le journal.
+        failures.push("fond de carte des pays illisible : filtre de lieu désactivé");
+      }
       const seen = new Set<string>();
       const kept: { item: SourcedItem; score: number; reason: string }[] = [];
       for (const item of pool) {
         if (seen.has(item.row.url_canonical) || !recent(item, since)) continue;
         seen.add(item.row.url_canonical);
-        const result = matchCandidate(item, supervision.zone, supervision.criteria, names);
+        const result = matchCandidate(item, supervision.zone, supervision.criteria, names, placeWords);
         if (result.matched) kept.push({ item, score: result.score, reason: result.reason });
       }
       summary.matched = kept.length;

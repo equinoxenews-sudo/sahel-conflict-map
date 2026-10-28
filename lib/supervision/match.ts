@@ -34,7 +34,12 @@ function contains(text: string, term: string): boolean {
   return folded.length > 0 && text.includes(` ${folded} `);
 }
 
-export function matchCandidate(candidate: Candidate, zone: Zone, criteria: Criteria, names?: Set<string>): MatchResult {
+/**
+ * `names` : noms des pays d'une zone « pays » (jugement sur le pays d'une publication). `placeWords` : mots de lieu que le
+ * texte d'une publication SANS coordonnées doit citer pour concerner la zone (pays qui touchent le cercle, ou pays de la
+ * zone) ; sans eux, une publication sans lieu serait retenue dès qu'elle cite un mot-clé, même si elle parle d'ailleurs.
+ */
+export function matchCandidate(candidate: Candidate, zone: Zone, criteria: Criteria, names?: Set<string>, placeWords?: Set<string> | null): MatchResult {
   const text = haystack(candidate);
 
   const excluded = criteria.exclusions.find((term) => contains(text, term));
@@ -55,7 +60,12 @@ export function matchCandidate(candidate: Candidate, zone: Zone, criteria: Crite
 
   if (needsTerms) {
     if (terms.length === 0) return { matched: false, score: 0, reason: "Aucun mot-clé ni entité", terms: [], unlocated: false };
-    const why = `Cite : ${terms.map((term) => `« ${term} »`).join(", ")}`;
+    let why = `Cite : ${terms.map((term) => `« ${term} »`).join(", ")}`;
+    if (!located && placeWords && placeWords.size > 0) {
+      const place = [...placeWords].find((word) => text.includes(` ${word} `));
+      if (!place) return { matched: false, score: 0, reason: "Ne cite aucun pays de la zone", terms, unlocated: true };
+      why += ` · cite « ${place} »`;
+    }
     return { matched: true, score, reason: insideReason ? `${why} · ${insideReason}` : why, terms, unlocated: !located };
   }
 
