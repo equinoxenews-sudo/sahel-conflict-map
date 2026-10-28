@@ -52,7 +52,20 @@ export interface ReportView {
   costUsd: number;
 }
 
+/** Une publication écartée par le tri éditorial, avec la raison : pour vérifier que le tri n'est pas trop sévère. */
+export interface DroppedItem {
+  id: number;
+  url: string;
+  title: string;
+  titleFr: string | null;
+  sourceName: string | null;
+  publishedAt: string | null;
+  note: string | null;
+}
+
 export interface Results {
+  /** Publications écartées par le tri (les plus récentes d'abord, 80 au plus). */
+  dropped: DroppedItem[];
   items: ResultItem[];
   lastRun: RunInfo | null;
   /** Dernière synthèse quotidienne, si elle a été rédigée. */
@@ -116,10 +129,15 @@ export async function loadResults(ownerId: string, supervisionId: string, sinceD
 
   const cutoff = sinceDays ? Date.now() - sinceDays * 86_400_000 : null;
   let hidden = 0;
+  const dropped: DroppedItem[] = [];
   const items: ResultItem[] = [];
   for (const row of (data ?? []) as unknown as MatchRow[]) {
     const item = row.supervision_items;
-    if (!item || row.verdict === "drop") continue;
+    if (!item) continue;
+    if (row.verdict === "drop") {
+      dropped.push({ id: item.id, url: item.url, title: item.title, titleFr: item.title_fr ?? null, sourceName: item.source_name, publishedAt: item.published_at, note: row.judge_note ?? null });
+      continue;
+    }
     const feedback = latest.get(String(item.id)) ?? null;
     if (feedback === "irrelevant" || feedback === "duplicate") {
       hidden += 1;
@@ -163,6 +181,7 @@ export async function loadResults(ownerId: string, supervisionId: string, sinceD
   return {
     items: items.slice(0, MAX_ITEMS),
     hidden,
+    dropped: dropped.sort((a, b) => Date.parse(b.publishedAt ?? "0") - Date.parse(a.publishedAt ?? "0")).slice(0, 80),
     report: await loadLatestReport(ownerId, supervisionId),
     lastRun: run ? { startedAt: run.started_at, finishedAt: run.finished_at, status: run.status, error: run.error, stats: run.stats ?? {} } : null,
   };

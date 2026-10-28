@@ -42,6 +42,7 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
   const [periodDays, setPeriodDays] = useState(7);
   const [sourceFilter, setSourceFilter] = useState("all");
   const [locatedOnly, setLocatedOnly] = useState(false);
+  const [showDropped, setShowDropped] = useState(false);
   // Instant pris à l'ouverture (un rendu pur ne lit pas l'horloge).
   const [now] = useState(() => Date.now());
 
@@ -120,6 +121,7 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
   const locatedCount = inPeriod.filter((item) => item.latitude != null && item.longitude != null).length;
   const run = results?.lastRun ?? null;
   const report = results?.report ?? null;
+  const dropped = results?.dropped ?? [];
 
   // Alertes de la veille, affichées dans le bandeau : ce qui demande l'attention, jamais caché.
   const alerts: Alert[] = [];
@@ -216,6 +218,7 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
               <span className={styles.note}>
                 {shown.length} publication{shown.length > 1 ? "s" : ""}
                 {results?.hidden ? ` · ${results.hidden} masquée(s) par vos retours` : ""}
+                {dropped.length > 0 ? ` · ${dropped.length} écartée(s) par le tri (voir l'onglet Flux)` : ""}
                 {run ? ` · dernière collecte ${formatDate(run.startedAt)}` : ""}
               </span>
               <div className={styles.feedScroll}>
@@ -243,6 +246,28 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
             {shown.map((item) => (
               <SupervisionItemCard key={item.id} item={item} onFeedback={(entry, kind) => void give(entry, kind)} />
             ))}
+          </div>
+          <div className={styles.section}>
+            <button type="button" className={styles.ghost} onClick={() => setShowDropped((current) => !current)}>
+              {showDropped ? "▾" : "▸"} Écartées par le tri ({dropped.length}) — pour vérifier qu&apos;il n&apos;est pas trop sévère
+            </button>
+            {showDropped ? (
+              dropped.length === 0 ? (
+                <p className={styles.meta}>Rien d&apos;écarté pour l&apos;instant.</p>
+              ) : (
+                dropped.map((entry) => (
+                  <div key={entry.id} className={styles.itemMeta}>
+                    <span>
+                      <a href={entry.url} target={entry.url.startsWith("/") ? undefined : "_blank"} rel="noopener noreferrer">
+                        {entry.titleFr ?? entry.title}
+                      </a>
+                    </span>
+                    <span>{entry.sourceName ?? ""}</span>
+                    <span className={styles.reason}>{entry.note ?? "écartée"}</span>
+                  </div>
+                ))
+              )
+            ) : null}
           </div>
         </>
       ) : null}
