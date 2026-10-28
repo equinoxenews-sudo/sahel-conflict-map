@@ -43,6 +43,11 @@ async function nominatim(query: string): Promise<{ lat: number; lon: number; lab
   }
 }
 
+/** Cherche un lieu (« Niamana, Burkina Faso ») sur OpenStreetMap, avec le même cache et le même rythme que le reste du site. */
+export function lookupPlace(query: string): Promise<{ lat: number; lon: number; label: string } | null> {
+  return nominatim(query);
+}
+
 /**
  * Place une synthèse : ville si elle est donnée et trouvée, sinon capitale du pays.
  * null si le pays n'est pas identifiable : la synthèse reste publiée, hors carte.

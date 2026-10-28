@@ -4,6 +4,7 @@ import { ZONE_RSS_FEEDS } from "../rssFeeds";
 import { getSupabaseAdmin } from "../supabaseAdmin";
 import { fetchChannel } from "../telegram";
 import { countryNames, foldName } from "./geo";
+import { locateMatchedItems } from "./locate";
 import { matchCandidate } from "./match";
 import { placeWordsFor } from "./nearby";
 import { allWorldCountryFeatures } from "../worldGeo";
@@ -37,6 +38,8 @@ export interface CollectSummary {
   ownerId: string;
   fetched: { rss: number; telegram: number; events: number; briefs: number };
   matched: number;
+  /** Publications dont le lieu a été précisé / écartées parce que leur lieu est hors zone (voir locate.ts). */
+  located: { asked: number; placed: number; excluded: number; note: string | null };
   error: string | null;
 }
 
@@ -169,6 +172,7 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
       ownerId: supervision.ownerId,
       fetched: { rss: 0, telegram: 0, events: 0, briefs: briefs.length },
       matched: 0,
+      located: { asked: 0, placed: 0, excluded: 0, note: null },
       error: null,
     };
     try {
@@ -201,7 +205,7 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
       // Le même article arrive souvent par plusieurs flux (média, Google Actualités) avec des adresses différentes : on
       // le reconnaît aussi à son titre normalisé.
       const seenTitles = new Set<string>();
-      const kept: { item: SourcedItem; score: number; reason: string }[] = [];
+      let kept: { item: SourcedItem; score: number; reason: string }[] = [];
       for (const item of pool) {
         const titleKey = foldName(item.row.title).slice(0, 90);
         if (seen.has(item.row.url_canonical) || (titleKey.length >= 25 && seenTitles.has(titleKey)) || !recent(item, since)) continue;
@@ -210,23 +214,62 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
         const result = matchCandidate(item, supervision.zone, supervision.criteria, names, placeWords);
         if (result.matched) kept.push({ item, score: result.score, reason: result.reason });
       }
-      summary.matched = kept.length;
+      // Un lieu déjà précisé lors d'un passage précédent s'applique tout de suite : une publication placée hors zone ne revient pas.
+      kept = await applyStoredPlaces(db, supervision, kept, names, placeWords);
       await store(db, supervision, kept);
+      summary.located = await locateMatchedItems(supervision, new Date(now));
+      summary.matched = Math.max(0, kept.length - summary.located.excluded);
       await db.from("supervisions").update({ last_run_at: new Date(now).toISOString() }).eq("id", supervision.id);
     } catch (error) {
       summary.error = error instanceof Error ? error.message : String(error);
     }
-    const note = [summary.error, ...failures].filter(Boolean).join(" | ") || null;
+    const note = [summary.error, summary.located.note, ...failures].filter(Boolean).join(" | ") || null;
     const runId = runIds.get(supervision.id);
     if (runId !== undefined) {
       await db
         .from("supervision_runs")
-        .update({ finished_at: new Date().toISOString(), status: summary.error ? "error" : "ok", stats: { fetched: summary.fetched, matched: summary.matched }, error: note })
+        .update({ finished_at: new Date().toISOString(), status: summary.error ? "error" : "ok", stats: { fetched: summary.fetched, matched: summary.matched, located: summary.located }, error: note })
         .eq("id", runId);
     }
     summaries.push(summary);
   }
   return summaries;
+}
+
+type Kept = { item: SourcedItem; score: number; reason: string };
+
+/**
+ * Applique aux publications retenues le lieu déjà précisé lors d'un passage précédent (table supervision_items), puis
+ * refait la correspondance : une publication dont le lieu connu est hors zone est écartée au lieu de revenir à chaque collecte.
+ */
+async function applyStoredPlaces(db: Db, supervision: Supervision, kept: Kept[], names: Set<string> | undefined, placeWords: Set<string> | null): Promise<Kept[]> {
+  const known = new Map<string, { latitude: number | null; longitude: number | null; geo_precision: ItemRow["geo_precision"]; geo_place: string | null }>();
+  const canonicals = kept.map(({ item }) => item.row.url_canonical);
+  for (let start = 0; start < canonicals.length; start += CHUNK) {
+    const { data, error } = await db
+      .from("supervision_items")
+      .select("url_canonical, latitude, longitude, geo_precision, geo_place, geo_checked")
+      .in("url_canonical", canonicals.slice(start, start + CHUNK))
+      .eq("geo_checked", true);
+    if (error) throw new Error(`lecture des lieux connus : ${error.message}`);
+    for (const row of (data ?? []) as { url_canonical: string; latitude: number | null; longitude: number | null; geo_precision: ItemRow["geo_precision"]; geo_place: string | null }[]) {
+      known.set(row.url_canonical, row);
+    }
+  }
+  const refined: Kept[] = [];
+  for (const entry of kept) {
+    const place = known.get(entry.item.row.url_canonical);
+    if (!place) {
+      refined.push(entry);
+      continue;
+    }
+    entry.item.latitude = place.latitude;
+    entry.item.longitude = place.longitude;
+    Object.assign(entry.item.row, { latitude: place.latitude, longitude: place.longitude, geo_precision: place.geo_precision, geo_place: place.geo_place, geo_checked: true });
+    const result = matchCandidate(entry.item, supervision.zone, supervision.criteria, names, placeWords);
+    if (result.matched) refined.push({ item: entry.item, score: result.score, reason: result.reason });
+  }
+  return refined;
 }
 
 /** Range les publications retenues (partagées) puis les rattache à la veille, sans jamais créer de doublon. */
