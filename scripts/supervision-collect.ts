@@ -14,7 +14,7 @@ async function main() {
   for (const summary of summaries) {
     const f = summary.fetched;
     console.log(
-      `${summary.supervisionId} (${summary.ownerId}) : ${summary.matched} retenue(s) sur flux ${f.rss}, Telegram ${f.telegram}, événements ${f.events}, synthèses ${f.briefs} ; lieux : ${summary.located.placed} précisé(s), ${summary.located.excluded} écartée(s) hors zone` +
+      `${summary.supervisionId} (${summary.ownerId}) : ${summary.matched} retenue(s) sur flux ${f.rss}, Telegram ${f.telegram}, événements ${f.events}, synthèses ${f.briefs} ; tri : ${summary.curated.kept} gardée(s), ${summary.curated.dropped} écartée(s), ${summary.curated.placed} placée(s)` +
         (summary.error ? ` — ERREUR : ${summary.error}` : ""),
     );
   }

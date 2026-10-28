@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  max-width: 1500px;
+  width: 100%;
 }
 
 .intro {
@@ -591,8 +591,8 @@
 /* Carte d'une publication, dans le style des cartes d'Actualité. */
 .newsCard {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 14px;
   padding: 12px 14px;
   border: 2px solid var(--accent-gold-bright);
   border-radius: 16px;
@@ -662,5 +662,106 @@
 
   .dashMap {
     height: 320px;
+  }
+}
+
+/* Carte d'une publication avec image, thèmes, pertinence, drapeau (style des cartes d'Actualité). */
+.photoWrap {
+  flex: 0 0 140px;
+  align-self: center;
+}
+
+.photo {
+  display: block;
+  width: 140px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.newsBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.newsTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px 12px;
+}
+
+.newsHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.newsFlag {
+  flex-shrink: 0;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.newsFoot {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.relBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.relHead {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.relBar {
+  position: relative;
+  width: 130px;
+  height: 6px;
+  border: 1px solid #e0b44c;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #e0261c 0%, #e8832a 30%, #e6d84a 62%, #4cc05a 86%, #35b34f 100%);
+}
+
+.relMarker {
+  position: absolute;
+  top: -5px;
+  width: 3px;
+  height: 14px;
+  margin-left: -1px;
+  background: #fff;
+  border-radius: 1px;
+  box-shadow: 0 0 0 1px #0b1220;
+}
+
+@media (max-width: 560px) {
+  .newsCard {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .photoWrap {
+    flex: none;
+  }
+
+  .photo {
+    width: 100%;
+    height: 150px;
   }
 }

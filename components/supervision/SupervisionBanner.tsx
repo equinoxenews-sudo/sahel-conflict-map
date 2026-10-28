@@ -24,7 +24,7 @@ export default function SupervisionBanner({ items, alerts }: Props) {
   const latest = [...items].sort((a, b) => Date.parse(b.publishedAt ?? "0") - Date.parse(a.publishedAt ?? "0")).slice(0, MAX_ITEMS);
   const entries = [
     ...alerts.map((alert) => ({ key: `a-${alert.text}`, alert: true, text: alert.text, href: null as string | null, meta: "" })),
-    ...latest.map((item) => ({ key: `i-${item.id}`, alert: false, text: item.title, href: item.url, meta: `${SOURCE_LABELS[item.sourceKind] ?? item.sourceKind}${item.publishedAt ? ` · ${formatDate(item.publishedAt)}` : ""}` })),
+    ...latest.map((item) => ({ key: `i-${item.id}`, alert: false, text: item.titleFr ?? item.title, href: item.url, meta: `${SOURCE_LABELS[item.sourceKind] ?? item.sourceKind}${item.publishedAt ? ` · ${formatDate(item.publishedAt)}` : ""}` })),
   ];
   const width = entries.reduce((sum, entry) => sum + entry.text.length * 7 + 120, 0);
   const duration = Math.max(25, Math.round(width / SPEED_PX_PER_S));

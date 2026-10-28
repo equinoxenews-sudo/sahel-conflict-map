@@ -288,7 +288,11 @@ async function store(db: Db, supervision: Supervision, kept: { item: SourcedItem
     let { error } = await db.from("supervision_items").upsert(chunk, { onConflict: "url_canonical", ignoreDuplicates: true });
     if (error && /image_url|schema cache|column/i.test(error.message)) {
       // Colonnes du tri éditorial pas encore ajoutées (supabase/add-supervision-curation.sql) : on enregistre sans l'image.
-      ({ error } = await db.from("supervision_items").upsert(chunk.map(({ image_url: _image, ...rest }) => rest), { onConflict: "url_canonical", ignoreDuplicates: true }));
+      ({ error } = await db.from("supervision_items").upsert(chunk.map((row) => {
+        const copy: Record<string, unknown> = { ...row };
+        delete copy.image_url;
+        return copy;
+      }), { onConflict: "url_canonical", ignoreDuplicates: true }));
     }
     if (error) throw new Error(`enregistrement des publications : ${error.message}`);
   }

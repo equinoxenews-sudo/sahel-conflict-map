@@ -41,8 +41,8 @@ export function buildDailyPrompt(supervision: Pick<Supervision, "name" | "userRe
     id: item.id,
     date: item.publishedAt ? item.publishedAt.slice(0, 10) : "date inconnue",
     source: item.sourceName ?? item.sourceKind,
-    titre: item.title,
-    extrait: (item.excerpt ?? "").slice(0, EXCERPT_FOR_PROMPT),
+    titre: item.titleFr ?? item.title,
+    extrait: (item.summaryFr ?? item.excerpt ?? "").slice(0, EXCERPT_FOR_PROMPT),
     lieu: item.latitude != null ? (item.geoPlace ?? "localisé") : "non localisé",
   }));
   return `Tu rédiges la synthèse quotidienne d'une veille personnalisée d'Équinoxe News, un site français de géopolitique et d'OSINT.

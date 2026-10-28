@@ -125,8 +125,8 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
   const alerts: Alert[] = [];
   if (supervision.status !== "active") alerts.push({ text: "La veille n'est pas active : aucune collecte tant qu'elle n'est pas activée." });
   if (run?.status === "error") alerts.push({ text: `La dernière collecte a échoué${run.error ? ` : ${run.error}` : "."}` });
-  const locateNote = (run?.stats as { located?: { note?: string | null } } | undefined)?.located?.note;
-  if (locateNote) alerts.push({ text: `Localisation : ${locateNote}` });
+  const curated = (run?.stats as { curated?: { note?: string | null; asked?: number; kept?: number; dropped?: number; placed?: number } } | undefined)?.curated;
+  if (curated?.note) alerts.push({ text: `Tri des publications : ${curated.note}` });
   if (report?.content.status === "budget") alerts.push({ text: report.content.message });
   if (run?.status === "ok" && items.length > 0 && items.every((item) => item.publishedAt && now - Date.parse(item.publishedAt) > 48 * 3_600_000)) {
     alerts.push({ text: "Aucune nouvelle publication retenue depuis 48 heures." });
@@ -181,7 +181,7 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
 
       {tab === "overview" ? (
         <>
-          <SupervisionBanner items={items} alerts={alerts} />
+          <SupervisionBanner items={inPeriod} alerts={alerts} />
           <div className={styles.dash}>
             <div className={styles.dashLeft}>
               <section className={styles.panel}>
