@@ -3,6 +3,9 @@ import fs from "node:fs";
 import test from "node:test";
 import { containsDemo, demoEnabled, getDemoModules, mergeModules, parseDemoFile } from "../lib/approche/demo";
 import { MapLayerSchema } from "../lib/approche/modules";
+import { ICON_PATHS, iconForKind } from "../lib/approche/icons";
+import { iconForMetric, iconForTopic } from "../lib/approche/metricIcons";
+import { displayable } from "../lib/approche/media";
 import { formatDate, formatValue, formatWithUnit } from "../lib/approche/formatters";
 import { getApprocheData, listApprocheCountries } from "../lib/approche/repository";
 import { tabHref, validateTab } from "../lib/approche/tabs";
@@ -319,4 +322,49 @@ test("une carte refuse une coordonnée impossible et une couleur mal formée", (
   assert.equal(MapLayerSchema.safeParse({ id: "l", title: "t", theme: "defense", color: "#e0b44c", features: [feature] }).success, false);
   assert.equal(MapLayerSchema.safeParse({ id: "l", title: "t", theme: "defense", color: "rouge", features: [{ ...feature, lat: 10 }] }).success, false);
   assert.equal(MapLayerSchema.safeParse({ id: "l", title: "t", theme: "defense", color: "#e0b44c", features: [{ ...feature, lat: 10 }] }).success, true);
+});
+
+// --- Médias, licences d'images, icônes (refonte visuelle) ---
+
+test("une image à licence non confirmée n'est jamais affichée en production, seulement en démonstration", () => {
+  const asset = { id: "a", path: "/x.webp", alt: "x", licenseStatus: "to_confirm" as const, focal: { x: 50, y: 50 }, subject: "" };
+  assert.equal(displayable(asset, false), false);
+  assert.equal(displayable(asset, true), true);
+  assert.equal(displayable({ ...asset, licenseStatus: "cleared" }, false), true);
+  assert.equal(displayable({ ...asset, licenseStatus: "unknown" }, false), false);
+  assert.equal(displayable(null, true), false);
+});
+
+test("une fiche réelle qui renvoie à une image sans licence confirmée est refusée", () => {
+  const asset = { id: "img", path: "/x.webp", alt: "x", licenseStatus: "to_confirm", focal: { x: 50, y: 50 }, subject: "" };
+  assert.ok(moduleProblems({ media: { assets: [asset] } }).some((problem) => problem.includes("image sans licence confirmée")));
+  assert.deepEqual(moduleProblems({ media: { assets: [{ ...asset, licenseStatus: "cleared" }] } }), []);
+});
+
+test("les images de démonstration sont déclarées à confirmer et existent sur le disque", () => {
+  const { modules } = parseDemoFile(demoRaw());
+  const assets = modules.media?.assets ?? [];
+  assert.ok(assets.length >= 3);
+  for (const asset of assets) {
+    assert.equal(asset.licenseStatus, "to_confirm", asset.id);
+    assert.ok(fs.existsSync(`public${asset.path}`), asset.path);
+  }
+  assert.ok(assets.some((asset) => asset.id === modules.hero?.imageId), "l'image du bandeau existe dans le catalogue");
+});
+
+test("la fiche France réelle ne contient aucune image : en production, un visuel neutre s'affiche", () => {
+  assert.equal(france().modules.media, undefined);
+  assert.equal(france().modules.hero, undefined);
+});
+
+test("les pictogrammes existent pour chaque type d'objet de carte et sujet courant", () => {
+  assert.equal(iconForKind("Port"), "anchor");
+  assert.equal(iconForKind("Base permanente"), "flag");
+  assert.equal(iconForKind("Ambassade"), "building");
+  assert.equal(iconForKind("Inconnu", "dot"), "dot");
+  assert.equal(iconForTopic("Aéronautique et spatial"), "plane");
+  assert.equal(iconForTopic("Armée de l'Air et de l'Espace"), "plane");
+  assert.equal(iconForTopic("Quelque chose"), "factory");
+  assert.equal(iconForMetric("demography.population"), "users");
+  for (const name of ["users", "coins", "plane", "atom", "anchor", "shield", "handshake", "target", "radar"]) assert.ok(ICON_PATHS[name], name);
 });

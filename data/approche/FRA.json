@@ -834,6 +834,11 @@
         "note": "Plan applicable depuis le 22 juin 2026, avec trois stades : vigilance, vigilance renforcée, alerte attentat. Posture de l'été-automne 2026 : vigilance renforcée.",
         "sourceIds": [
           "S16-SGDSN-VIGIPIRATE"
+        ],
+        "stages": [
+          "Vigilance",
+          "Vigilance renforcée",
+          "Alerte attentat"
         ]
       }
     }

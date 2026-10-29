@@ -1,19 +1,23 @@
 import type { ReactNode } from "react";
 import { containsDemo } from "@/lib/approche/demo";
+import { iconForMetric } from "@/lib/approche/metricIcons";
 import type { Item, Kpi } from "@/lib/approche/modules";
 import type { MetricView, SourceView } from "@/lib/approche/view";
 import { DemoTag } from "./DemoBanner";
 import Detail from "./Detail";
+import Icon from "./Icon";
 import MetricCard from "./MetricCard";
+import Visual, { type MediaMap } from "./Visual";
 import styles from "./Approche.module.css";
 
 export type SourceMap = Record<string, SourceView>;
 
-/** Titre de section avec l'indicateur discret « démo » quand le contenu l'est. */
-export function SectionHeading({ id, children, data }: { id: string; children: ReactNode; data?: unknown }) {
+/** Titre de section avec pictogramme et l'indicateur discret « démo » quand le contenu l'est. */
+export function SectionHeading({ id, children, data, icon }: { id: string; children: ReactNode; data?: unknown; icon?: string }) {
   return (
     <h2 id={id} className={styles.sectionTitle}>
-      {children} <DemoTag show={containsDemo(data)} />
+      {icon ? <Icon name={icon} size={20} /> : null}
+      <span>{children}</span> <DemoTag show={containsDemo(data)} />
     </h2>
   );
 }
@@ -44,28 +48,38 @@ export function SourceList({ ids, sources, demo }: { ids: string[]; sources: Sou
   );
 }
 
-/** Carte cliquable d'un élément éditorial : titre, résumé, étiquettes ; le détail et les sources s'ouvrent au clic. */
-export function ItemCard({ item, sources, extra, className }: { item: Item; sources: SourceMap; extra?: ReactNode; className?: string }) {
+export interface VisualOptions {
+  media: MediaMap;
+  demoActive: boolean;
+  icon: string;
+  hue?: number;
+}
+
+/** Carte cliquable d'un élément éditorial : (image), titre, résumé, étiquettes ; le détail et les sources s'ouvrent au clic. */
+export function ItemCard({ item, sources, extra, className, visual }: { item: Item; sources: SourceMap; extra?: ReactNode; className?: string; visual?: VisualOptions }) {
+  const asset = visual && item.imageId ? visual.media[item.imageId] : null;
   return (
     <Detail
       title={item.title}
-      className={className ?? styles.itemCard}
+      className={className ?? (visual ? styles.mediaCard : styles.itemCard)}
       trigger={
         <>
-          <span className={styles.itemTitle}>
-            {item.title}
+          {visual ? <Visual asset={asset} demoActive={visual.demoActive} icon={visual.icon} hue={visual.hue} className={styles.mediaCardImage} sizes="(max-width: 860px) 100vw, 25vw" /> : null}
+          <span className={visual ? styles.mediaCardBody : styles.itemBody}>
+            <span className={styles.itemTitle}>{item.title}</span>
+            {item.summary ? <span className={styles.itemSummary}>{item.summary}</span> : null}
+            {item.date || item.status ? <span className={styles.itemMeta}>{[item.date, item.status].filter(Boolean).join(" · ")}</span> : null}
+            {item.tags.length > 0 ? (
+              <span className={styles.tagRow}>
+                {item.tags.map((tag) => (
+                  <span key={tag} className={styles.tag}>
+                    {tag}
+                  </span>
+                ))}
+              </span>
+            ) : null}
+            {visual ? <span className={styles.sourceHint}>Voir le détail ›</span> : null}
           </span>
-          {item.summary ? <span className={styles.itemSummary}>{item.summary}</span> : null}
-          {item.date || item.status ? <span className={styles.itemMeta}>{[item.date, item.status].filter(Boolean).join(" · ")}</span> : null}
-          {item.tags.length > 0 ? (
-            <span className={styles.tagRow}>
-              {item.tags.map((tag) => (
-                <span key={tag} className={styles.tag}>
-                  {tag}
-                </span>
-              ))}
-            </span>
-          ) : null}
         </>
       }
     >
@@ -83,6 +97,64 @@ export function ItemCard({ item, sources, extra, className }: { item: Item; sour
   );
 }
 
+/** Ligne d'une liste (atout, risque, mission…) avec pictogramme : un clic ouvre le détail et les sources. */
+export function IconRow({ item, sources, icon, tone }: { item: Item; sources: SourceMap; icon: string; tone?: "good" | "warn" | "bad" | "info" }) {
+  return (
+    <Detail
+      title={item.title}
+      className={styles.iconRow}
+      trigger={
+        <>
+          <span className={`${styles.iconBubble} ${tone ? styles[`tone_${tone}`] : ""}`}>
+            <Icon name={icon} size={15} />
+          </span>
+          <span className={styles.iconRowText}>
+            <span className={styles.itemTitle}>{item.title}</span>
+            {item.summary ? <span className={styles.itemSummary}>{item.summary}</span> : null}
+          </span>
+        </>
+      }
+    >
+      {item.summary ? <p>{item.summary}</p> : null}
+      <SourceList ids={item.sourceIds} sources={sources} demo={item.demo} />
+    </Detail>
+  );
+}
+
+const STATUS_CLASS: Record<string, string> = { "réalisé": "statusDone", "en cours": "statusNow", "annoncé": "statusAnnounced", "prévu": "statusPlanned" };
+
+/**
+ * Chronologie graphique : axe horizontal sur ordinateur, vertical sur mobile ; chaque jalon ouvre son détail et ses sources.
+ * Un jalon futur porte son statut (« annoncé », « prévu ») et n'est jamais présenté comme un fait.
+ */
+export function Timeline({ items, sources }: { items: Item[]; sources: SourceMap }) {
+  return (
+    <ol className={styles.tl}>
+      {items.map((entry) => (
+        <li key={entry.id} className={styles.tlItem}>
+          <span className={styles.tlDot} aria-hidden />
+          <span className={styles.tlDate}>{entry.date}</span>
+          <Detail
+            title={entry.title}
+            className={styles.tlCard}
+            trigger={
+              <>
+                <span className={styles.itemTitle}>{entry.title}</span>
+                {entry.summary ? <span className={styles.itemSummary}>{entry.summary}</span> : null}
+                {entry.status ? <span className={`${styles.status} ${styles[STATUS_CLASS[entry.status] ?? "statusPlanned"]}`}>{entry.status}</span> : null}
+              </>
+            }
+          >
+            {entry.date ? <p className={styles.cardNote}>{entry.date}{entry.status ? ` · ${entry.status}` : ""}</p> : null}
+            {entry.summary ? <p>{entry.summary}</p> : null}
+            <SourceList ids={entry.sourceIds} sources={sources} demo={entry.demo} />
+          </Detail>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 /** Tuile de chiffre clé d'un module : renvoie à l'observation sourcée quand elle existe, sinon affiche le texte déclaré. */
 export function KpiTile({ kpi, metrics, sources }: { kpi: Kpi; metrics: Map<string, MetricView>; sources: SourceMap }) {
   const metric = kpi.observationKey ? (metrics.get(kpi.observationKey) ?? null) : null;
@@ -95,6 +167,7 @@ export function KpiTile({ kpi, metrics, sources }: { kpi: Kpi; metrics: Map<stri
       trigger={
         <>
           <span className={styles.tileLabel}>
+            <Icon name={iconForMetric(kpi.label)} size={15} />
             {kpi.label}
           </span>
           <span className={styles.tileValue}>

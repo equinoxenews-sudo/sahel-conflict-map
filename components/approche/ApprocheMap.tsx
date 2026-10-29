@@ -1,9 +1,12 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { iconForKind } from "@/lib/approche/icons";
 import type { MapModule } from "@/lib/approche/modules";
 import type { SourceView } from "@/lib/approche/view";
+import Icon from "./Icon";
+import { useFullscreenSupport } from "./useFullscreenSupport";
 import styles from "./Approche.module.css";
 
 // Leaflet touche `window` : la carte elle-même n'est jamais rendue côté serveur et ne se charge qu'à l'affichage de la rubrique.
@@ -17,7 +20,6 @@ export interface MapListItem {
   date?: string | null;
   layerId?: string | null;
   featureId?: string | null;
-  demo?: boolean;
 }
 
 interface ApprocheMapProps {
@@ -29,12 +31,21 @@ interface ApprocheMapProps {
   height?: number;
 }
 
-// Carte thématique réutilisable pour tous les pays : couches sélectionnables avec légende, fiche détaillée au clic sur un objet,
-// zoom, déplacement et réinitialisation. Les couches viennent des données (`MapModule`), jamais du code.
-export default function ApprocheMap({ map, sources = {}, list, height = 440 }: ApprocheMapProps) {
+// Carte thématique réutilisable pour tous les pays : couches sélectionnables avec légende, marqueurs à pictogrammes, fiche détaillée
+// au clic, zoom, déplacement, recentrage et plein écran. Les couches viennent des données (`MapModule`), jamais du code.
+export default function ApprocheMap({ map, sources = {}, list, height = 460 }: ApprocheMapProps) {
   const [active, setActive] = useState<Set<string>>(() => new Set(map.layers.map((layer) => layer.id)));
   const [selected, setSelected] = useState<{ layerId: string; featureId: string } | null>(null);
   const [resetToken, setResetToken] = useState(0);
+  const [fullscreen, setFullscreen] = useState(false);
+  const canFullscreen = useFullscreenSupport();
+  const frame = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onChange = () => setFullscreen(document.fullscreenElement === frame.current);
+    document.addEventListener("fullscreenchange", onChange);
+    return () => document.removeEventListener("fullscreenchange", onChange);
+  }, []);
 
   const visible = useMemo(() => map.layers.filter((layer) => active.has(layer.id)), [map.layers, active]);
   const selection = useMemo(() => {
@@ -59,24 +70,56 @@ export default function ApprocheMap({ map, sources = {}, list, height = 440 }: A
     setSelected({ layerId, featureId });
   }
 
+  async function toggleFullscreen() {
+    if (document.fullscreenElement) await document.exitFullscreen();
+    else await frame.current?.requestFullscreen?.();
+  }
+
+
   return (
     <div className={styles.mapWrap}>
       <div className={styles.mapToolbar} role="group" aria-label="Couches de la carte">
         {map.layers.map((layer) => (
           <button key={layer.id} type="button" className={active.has(layer.id) ? `${styles.chip} ${styles.chipOn}` : styles.chip} aria-pressed={active.has(layer.id)} onClick={() => toggle(layer.id)}>
-            <i style={{ background: layer.color }} aria-hidden />
+            <i style={{ background: layer.color }} aria-hidden>
+              <Icon name={layer.icon ?? iconForKind(layer.title, "dot")} size={11} />
+            </i>
             {layer.title}
             <small>{layer.features.length}</small>
           </button>
         ))}
-        <button type="button" className={styles.chipGhost} onClick={() => { setSelected(null); setResetToken((value) => value + 1); }}>
-          Réinitialiser la vue
-        </button>
       </div>
 
       <div className={list ? styles.mapGridWithList : styles.mapGrid}>
-        <div className={styles.mapCanvas} style={{ height }}>
-          <LeafletMap layers={visible} view={map.view} selected={selection ? `${selection.layer.id}:${selection.feature.id}` : null} resetToken={resetToken} onSelect={select} />
+        <div ref={frame} className={fullscreen ? `${styles.mapCanvas} ${styles.mapFull}` : styles.mapCanvas} style={fullscreen ? undefined : { height }}>
+          <LeafletMap layers={visible} view={map.view} hub={map.hub} selected={selection ? `${selection.layer.id}:${selection.feature.id}` : null} resetToken={resetToken} onSelect={select} />
+          <div className={styles.mapControls}>
+            <button type="button" className={styles.mapButton} onClick={() => { setSelected(null); setResetToken((value) => value + 1); }} aria-label="Recentrer la carte" title="Recentrer">
+              <Icon name="target" size={16} />
+            </button>
+            {canFullscreen ? (
+              <button type="button" className={styles.mapButton} onClick={() => void toggleFullscreen()} aria-label={fullscreen ? "Quitter le plein écran" : "Afficher la carte en plein écran"} title={fullscreen ? "Quitter le plein écran" : "Plein écran"}>
+                <Icon name={fullscreen ? "check" : "map"} size={16} />
+              </button>
+            ) : null}
+          </div>
+          <div className={styles.mapLegend} aria-label="Légende">
+            {visible.map((layer) => (
+              <span key={layer.id}>
+                <i style={{ background: layer.color }} aria-hidden>
+                  <Icon name={layer.icon ?? iconForKind(layer.title, "dot")} size={10} />
+                </i>
+                {layer.title}
+              </span>
+            ))}
+          </div>
+          {fullscreen && selection ? (
+            <section className={styles.mapFloat} aria-live="polite">
+              <strong>{selection.feature.name}</strong>
+              <span>{selection.feature.kind}</span>
+              {selection.feature.summary ? <p>{selection.feature.summary}</p> : null}
+            </section>
+          ) : null}
         </div>
 
         {list ? (
@@ -85,16 +128,13 @@ export default function ApprocheMap({ map, sources = {}, list, height = 440 }: A
             <ul>
               {list.items.map((item) => {
                 const linked = item.layerId && item.featureId;
+                const isSelected = Boolean(linked && selected?.layerId === item.layerId && selected?.featureId === item.featureId);
                 return (
                   <li key={item.id}>
-                    <button type="button" disabled={!linked} onClick={() => linked && select(item.layerId as string, item.featureId as string)} className={styles.mapListItem}>
+                    <button type="button" disabled={!linked} onClick={() => linked && select(item.layerId as string, item.featureId as string)} className={isSelected ? `${styles.mapListItem} ${styles.mapListItemOn}` : styles.mapListItem} aria-pressed={isSelected}>
                       <strong>{item.title}</strong>
                       <span>{item.summary}</span>
-                      {item.status || item.date ? (
-                        <small>
-                          {[item.date, item.status].filter(Boolean).join(" · ")}
-                        </small>
-                      ) : null}
+                      {item.status || item.date ? <small>{[item.date, item.status].filter(Boolean).join(" · ")}</small> : null}
                     </button>
                   </li>
                 );
@@ -107,7 +147,9 @@ export default function ApprocheMap({ map, sources = {}, list, height = 440 }: A
       {selection ? (
         <section className={styles.mapSelection} aria-live="polite">
           <header>
-            <span className={styles.chipDot} style={{ background: selection.layer.color }} aria-hidden />
+            <span className={styles.selIcon} style={{ background: selection.layer.color }} aria-hidden>
+              <Icon name={selection.layer.icon ?? iconForKind(selection.feature.kind, iconForKind(selection.layer.title, "dot"))} size={15} />
+            </span>
             <strong>{selection.feature.name}</strong>
             <span className={styles.mapKind}>{selection.feature.kind}</span>
             {selection.feature.demo ? <span className={styles.demoTag}>démo</span> : null}
@@ -125,7 +167,7 @@ export default function ApprocheMap({ map, sources = {}, list, height = 440 }: A
                 <dd>{selection.feature.status}</dd>
               </>
             ) : null}
-            <dt>Coordonnées</dt>
+            <dt>Localisation</dt>
             <dd>
               {selection.feature.lat.toFixed(3)} ; {selection.feature.lon.toFixed(3)}
             </dd>
@@ -155,7 +197,7 @@ export default function ApprocheMap({ map, sources = {}, list, height = 440 }: A
           )}
         </section>
       ) : (
-        <p className={styles.cardNote}>Cliquez sur un point pour ouvrir sa fiche. Les boutons ci-dessus affichent ou masquent chaque couche.</p>
+        <p className={styles.cardNote}>Cliquez sur un marqueur pour ouvrir sa fiche. Les boutons ci-dessus affichent ou masquent chaque couche.</p>
       )}
 
       <p className={styles.mapCredit}>

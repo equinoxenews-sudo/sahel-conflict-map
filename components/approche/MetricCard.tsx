@@ -1,7 +1,10 @@
 "use client";
 
 import { useRef } from "react";
+import { iconForMetric } from "@/lib/approche/metricIcons";
 import type { MetricView } from "@/lib/approche/view";
+import Icon from "./Icon";
+import MetricDrawerBody from "./MetricDrawerBody";
 import Sparkline from "./Sparkline";
 import styles from "./Approche.module.css";
 
@@ -14,18 +17,24 @@ interface MetricCardProps {
   variant?: "tile" | "row";
   /** Valeur à afficher à la place de celle de l'observation (ex. une phrase d'appartenance). */
   display?: string;
+  /** Pictogramme ; par défaut déduit de la nature de la valeur. */
+  icon?: string;
 }
 
 // Un chiffre ou un fait, avec le tiroir de provenance qui s'ouvre au clic : valeur, unité, période, périmètre, méthode,
 // source(s) avec adresse exacte, licence, date de consultation et autres mesures du même sujet.
-export default function MetricCard({ label, metric, missing = "Donnée non disponible", variant = "tile", display }: MetricCardProps) {
+export default function MetricCard({ label, metric, missing = "Donnée non disponible", variant = "tile", display, icon }: MetricCardProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const id = `metric-${label.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}`;
+  const iconName = icon ?? iconForMetric(metric?.key ?? label);
 
   if (!metric) {
     return (
       <div className={variant === "tile" ? `${styles.tile} ${styles.tileMissing}` : `${styles.row} ${styles.rowMissing}`}>
-        <span className={styles.tileLabel}>{label}</span>
+        <span className={styles.tileLabel}>
+          <Icon name={iconName} size={15} />
+          {label}
+        </span>
         <span className={styles.missing}>{missing}</span>
       </div>
     );
@@ -35,7 +44,10 @@ export default function MetricCard({ label, metric, missing = "Donnée non dispo
   return (
     <>
       <button type="button" className={variant === "tile" ? styles.tile : styles.row} onClick={() => dialog.current?.showModal()} aria-haspopup="dialog" aria-label={`${label} : ${shown} ${metric.unit}, voir les sources`}>
-        <span className={styles.tileLabel}>{label}</span>
+        <span className={styles.tileLabel}>
+          <Icon name={iconName} size={15} />
+          {label}
+        </span>
         <span className={styles.tileValue}>
           {shown}
           {metric.unit ? <small> {metric.unit}</small> : null}
@@ -59,68 +71,7 @@ export default function MetricCard({ label, metric, missing = "Donnée non dispo
               ×
             </button>
           </header>
-          <p className={styles.drawerValue}>
-            {shown} {metric.unit}
-          </p>
-          <dl className={styles.drawerFacts}>
-            <dt>Période</dt>
-            <dd>{metric.period}</dd>
-            <dt>Périmètre</dt>
-            <dd>{metric.scope}</dd>
-            <dt>Nature</dt>
-            <dd>{metric.kind}</dd>
-            {metric.validFrom ? (
-              <>
-                <dt>En fonction depuis</dt>
-                <dd>{metric.validFrom}</dd>
-              </>
-            ) : null}
-            <dt>Dernière vérification</dt>
-            <dd>{metric.verifiedAt}</dd>
-          </dl>
-          <h4>Méthode</h4>
-          <p>{metric.methodology}</p>
-          <h4>Source{metric.sources.length > 1 ? "s" : ""}</h4>
-          <ul className={styles.drawerSources}>
-            {metric.sources.map((source) => (
-              <li key={source.id}>
-                <a href={source.url} target="_blank" rel="noopener noreferrer">
-                  {source.title}
-                </a>
-                <span>
-                  {source.publisher} · consultée le {source.accessedAt}
-                </span>
-                <span className={source.reuse === "allowed" ? styles.licenceOk : styles.licenceWarn}>
-                  {source.reuse === "unknown" ? "Licence de réutilisation non vérifiée" : source.license}
-                  {source.licenseUrl ? (
-                    <>
-                      {" · "}
-                      <a href={source.licenseUrl} target="_blank" rel="noopener noreferrer">
-                        conditions
-                      </a>
-                    </>
-                  ) : null}
-                </span>
-                {source.notes ? <span className={styles.sourceNotes}>{source.notes}</span> : null}
-              </li>
-            ))}
-          </ul>
-          {metric.others.length > 0 ? (
-            <>
-              <h4>Autres mesures du même sujet</h4>
-              <ul className={styles.drawerOthers}>
-                {metric.others.map((other) => (
-                  <li key={`${other.publisher}-${other.period}-${other.value}`}>
-                    <strong>
-                      {other.value} {other.unit}
-                    </strong>{" "}
-                    · {other.publisher} · {other.period} · {other.scope}
-                  </li>
-                ))}
-              </ul>
-              <p className={styles.drawerNote}>Ces mesures ont des définitions et des dates différentes : elles ne sont pas additionnées ni moyennées.</p>
-            </>
-          ) : null}
+          <MetricDrawerBody metric={metric} shown={shown} />
         </div>
       </dialog>
     </>

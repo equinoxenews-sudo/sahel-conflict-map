@@ -37,6 +37,8 @@ export const MapLayerSchema = z.object({
   id: text,
   title: text,
   theme: z.enum(MAP_THEMES),
+  /** Pictogramme des marqueurs (nom du jeu lib/approche/icons.ts) ; à défaut, déduit du type des objets. */
+  icon: z.string().nullable().optional(),
   /** Couleur de la légende (hexadécimal). */
   color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   description: z.string().default(""),
@@ -55,6 +57,8 @@ export const MapModuleSchema = z.object({
   title: text,
   /** Cartes proposées dans un onglet : `layers` sont les couches sélectionnables. */
   view: MapViewSchema,
+  /** Point d'attache (ex. la capitale) : une ligne le relie à l'objet sélectionné, jamais des centaines de courbes permanentes. */
+  hub: z.object({ name: text, lat: z.number().min(-90).max(90), lon: z.number().min(-180).max(180) }).nullable().optional(),
   layers: z.array(MapLayerSchema),
   note: z.string().default(""),
 });
@@ -71,6 +75,8 @@ export const ItemSchema = z.object({
   /** « prévu », « annoncé », « réalisé » pour un calendrier ; libre sinon. */
   status: z.string().nullable().optional(),
   url: z.string().url().nullable().optional(),
+  /** Photographie ou illustration (identifiant d'un média de `modules.media`) ; sans image, un visuel neutre est affiché. */
+  imageId: z.string().nullable().optional(),
   sourceIds,
   demo: demoFlag,
 });
@@ -89,6 +95,45 @@ export const KpiSchema = z.object({
   demo: demoFlag,
 });
 
+// --- Médias --------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Statut de la licence d'une image : seule une image « cleared » (licence lue, réutilisation commerciale permise, attribution
+ * conservée) s'affiche en production. « to_confirm » (fournie par le commanditaire, licence à confirmer) et « unknown » ne
+ * s'affichent qu'en mode démonstration (preview) ; une fiche réelle qui y renvoie est refusée à la publication.
+ */
+export const MEDIA_STATUS = ["cleared", "to_confirm", "unknown"] as const;
+
+export const MediaAssetSchema = z.object({
+  id: text,
+  /** Chemin sous /public (ex. /approche/demo/france-hero.webp). */
+  path: text,
+  alt: text,
+  author: z.string().nullable().optional(),
+  credit: z.string().nullable().optional(),
+  /** Adresse d'origine de l'image. */
+  sourceUrl: z.string().url().nullable().optional(),
+  license: z.string().nullable().optional(),
+  licenseStatus: z.enum(MEDIA_STATUS).default("unknown"),
+  /** Obligations d'attribution à reprendre dans la légende. */
+  obligations: z.string().nullable().optional(),
+  reviewedAt: z.string().nullable().optional(),
+  /** Point d'intérêt (0-100 %) pour le recadrage sur mobile. */
+  focal: z.object({ x: z.number().min(0).max(100), y: z.number().min(0).max(100) }).default({ x: 50, y: 50 }),
+  subject: z.string().default(""),
+});
+
+export const MediaModuleSchema = z.object({ assets: z.array(MediaAssetSchema).default([]) });
+
+/** En-tête du pays : image panoramique, phrase de positionnement et résumé (les badges viennent des observations vérifiées). */
+export const HeroModuleSchema = z.object({
+  imageId: z.string().nullable().optional(),
+  tagline: z.string().nullable().optional(),
+  summary: z.string().nullable().optional(),
+  /** Image d'ouverture de chaque onglet (clé = onglet : relations, economy, defense, issues, outlook) : identifiants de `modules.media`. */
+  bannerImages: z.record(z.string(), z.string()).default({}),
+});
+
 // --- Vue d'ensemble ---------------------------------------------------------------------------------------------------------
 
 export const OverviewModuleSchema = z.object({
@@ -96,6 +141,8 @@ export const OverviewModuleSchema = z.object({
   strengths: z.array(ItemSchema).default([]),
   challenges: z.array(ItemSchema).default([]),
   timeline: z.array(ItemSchema).default([]),
+  /** Territoires ultramarins ou éloignés, sur une carte secondaire (jamais fondus dans la carte principale). */
+  territories: MapModuleSchema.nullable().optional(),
 });
 
 // --- Économie ---------------------------------------------------------------------------------------------------------------
@@ -109,8 +156,10 @@ export const EconomyModuleSchema = z.object({
 // --- Relations --------------------------------------------------------------------------------------------------------------
 
 export const RelationsModuleSchema = z.object({
-  /** Carte du réseau diplomatique, des organisations ou des partenariats documentés. */
+  /** Carte du réseau diplomatique (ambassades, consulats, représentations), seulement si l'annuaire est réutilisable. */
   map: MapModuleSchema.nullable().optional(),
+  /** Seconde carte : zones de présence (faits géolocalisés et sourcés), jamais un gradient d'« influence ». */
+  presenceMap: MapModuleSchema.nullable().optional(),
 });
 
 // --- Défense et sécurité ----------------------------------------------------------------------------------------------------
@@ -135,6 +184,8 @@ export const ThreatPostureSchema = z.object({
   system: text,
   level: text,
   validFrom: z.string().nullable().optional(),
+  /** Stades du dispositif dans l'ordre, pour montrer le stade applicable. */
+  stages: z.array(z.string()).default([]),
   note: z.string().default(""),
   sourceIds,
   demo: demoFlag,
@@ -169,8 +220,11 @@ export const IssueSchema = ItemSchema.extend({
   situation: z.string().default(""),
   whyStrategic: z.string().default(""),
   actors: z.array(z.string()).default([]),
+  interests: z.array(z.string()).default([]),
+  recentDevelopments: z.array(z.string()).default([]),
   indicators: z.array(z.string()).default([]),
   uncertainties: z.array(z.string()).default([]),
+  updatedAt: z.string().nullable().optional(),
 });
 
 export const IssuesModuleSchema = z.object({
@@ -220,6 +274,8 @@ export const OutlookModuleSchema = z.object({
 // --- Ensemble ---------------------------------------------------------------------------------------------------------------
 
 export const ModulesSchema = z.object({
+  hero: HeroModuleSchema.nullable().optional(),
+  media: MediaModuleSchema.nullable().optional(),
   overview: OverviewModuleSchema.nullable().optional(),
   relations: RelationsModuleSchema.nullable().optional(),
   economy: EconomyModuleSchema.nullable().optional(),
@@ -249,5 +305,7 @@ export type Issue = z.infer<typeof IssueSchema>;
 export type Scenario = z.infer<typeof ScenarioSchema>;
 export type DemoFile = z.infer<typeof DemoFileSchema>;
 export type OverviewModule = z.infer<typeof OverviewModuleSchema>;
+export type MediaAsset = z.infer<typeof MediaAssetSchema>;
+export type HeroModule = z.infer<typeof HeroModuleSchema>;
 export type EconomyModule = z.infer<typeof EconomyModuleSchema>;
 export type RelationsModule = z.infer<typeof RelationsModuleSchema>;

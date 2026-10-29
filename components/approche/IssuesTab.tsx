@@ -1,21 +1,38 @@
+import { iconForTopic } from "@/lib/approche/metricIcons";
 import type { IssuesModule } from "@/lib/approche/modules";
 import type { MetricView } from "@/lib/approche/view";
 import ApprocheMap from "./ApprocheMap";
 import Detail from "./Detail";
-import { ItemCard, KpiTile, SectionHeading, SourceList, type SourceMap } from "./shared";
+import Icon from "./Icon";
+import { KpiTile, SectionHeading, SourceList, Timeline, type SourceMap } from "./shared";
+import Visual, { type MediaMap } from "./Visual";
 import styles from "./Approche.module.css";
 
 interface IssuesTabProps {
   issues: IssuesModule;
   metrics: Map<string, MetricView>;
   sources: SourceMap;
+  media: MediaMap;
+  demoActive: boolean;
 }
 
 const SCOPE_LABELS = { national: "National", european: "Européen", international: "International" } as const;
 
-const STATUS_CLASS: Record<string, string> = { réalisé: "statusDone", prévu: "statusPlanned", annoncé: "statusAnnounced" };
+function BulletBlock({ title, entries }: { title: string; entries: string[] }) {
+  if (entries.length === 0) return null;
+  return (
+    <>
+      <h4>{title}</h4>
+      <ul className={styles.bullets}>
+        {entries.map((entry) => (
+          <li key={entry}>{entry}</li>
+        ))}
+      </ul>
+    </>
+  );
+}
 
-export default function IssuesTab({ issues, metrics, sources }: IssuesTabProps) {
+export default function IssuesTab({ issues, metrics, sources, media, demoActive }: IssuesTabProps) {
   if (!issues.issues.length && !issues.calendar.length && !issues.map) {
     return (
       <section className={styles.card}>
@@ -37,7 +54,7 @@ export default function IssuesTab({ issues, metrics, sources }: IssuesTabProps) 
 
       {issues.issues.length > 0 ? (
         <section aria-labelledby="issues-title">
-          <SectionHeading id="issues-title" data={issues.issues}>
+          <SectionHeading id="issues-title" data={issues.issues} icon="target">
             Les {issues.issues.length} dossiers stratégiques
           </SectionHeading>
           <p className={styles.cardNote}>Ces dossiers sont des choix éditoriaux, révisables : leur ordre n&apos;est pas un classement objectif et « {issues.issues.length} » est un nombre de dossiers, pas un score.</p>
@@ -49,73 +66,49 @@ export default function IssuesTab({ issues, metrics, sources }: IssuesTabProps) 
                 className={styles.issueCard}
                 trigger={
                   <>
+                    <Visual asset={issue.imageId ? media[issue.imageId] : null} demoActive={demoActive} icon={iconForTopic(`${issue.title} ${issue.tags.join(" ")}`, "target")} hue={(index * 47 + 205) % 360} className={styles.issueImage} sizes="(max-width: 860px) 100vw, 20vw" />
                     <span className={styles.issueNumber}>{index + 1}</span>
-                    <span className={styles.itemTitle}>
-                      {issue.title}
-                    </span>
-                    <span className={styles.tagRow}>
-                      {issue.tags.map((tag) => (
-                        <span key={tag} className={styles.tag}>
-                          {tag}
-                        </span>
-                      ))}
-                    </span>
-                    <span className={styles.itemSummary}>{issue.summary}</span>
-                    {issue.scope.length > 0 ? (
-                      <span className={styles.tagRow} aria-label="Portée">
-                        {issue.scope.map((scope) => (
-                          <span key={scope} className={`${styles.tag} ${styles.tagScope}`}>
-                            {SCOPE_LABELS[scope]}
+                    <span className={styles.issueBody}>
+                      <span className={styles.itemTitle}>{issue.title}</span>
+                      <span className={styles.tagRow}>
+                        {issue.tags.map((tag) => (
+                          <span key={tag} className={styles.tag}>
+                            {tag}
                           </span>
                         ))}
                       </span>
-                    ) : null}
-                    {issue.horizon ? <span className={styles.itemMeta}>Horizon : {issue.horizon}</span> : null}
-                    <span className={styles.sourceHint}>Voir le dossier ›</span>
+                      <span className={styles.itemSummary}>{issue.summary}</span>
+                      {issue.scope.length > 0 ? (
+                        <span className={styles.tagRow} aria-label="Portée">
+                          {issue.scope.map((scope) => (
+                            <span key={scope} className={`${styles.tag} ${styles.tagScope}`}>
+                              {SCOPE_LABELS[scope]}
+                            </span>
+                          ))}
+                        </span>
+                      ) : null}
+                      {issue.horizon ? (
+                        <span className={styles.itemMeta}>
+                          <Icon name="clock" size={12} /> Horizon : {issue.horizon}
+                        </span>
+                      ) : null}
+                      <span className={styles.sourceHint}>Voir le dossier ›</span>
+                    </span>
                   </>
                 }
               >
                 <p>{issue.summary}</p>
-                <h4>Situation actuelle</h4>
+                {issue.updatedAt ? <p className={styles.cardNote}>Actualisé le {issue.updatedAt}</p> : null}
+                <h4>Contexte et situation actuelle</h4>
                 <p>{issue.situation || "À renseigner avec des faits sourcés."}</p>
-                <h4>Pourquoi c&apos;est stratégique (analyse)</h4>
+                <h4>Problématique : pourquoi c&apos;est stratégique (analyse)</h4>
                 <p>{issue.whyStrategic || "À renseigner : analyse attribuée et datée."}</p>
-                {issue.subthemes.length > 0 ? (
-                  <>
-                    <h4>Sous-thèmes</h4>
-                    <ul className={styles.bullets}>
-                      {issue.subthemes.map((theme) => (
-                        <li key={theme}>{theme}</li>
-                      ))}
-                    </ul>
-                  </>
-                ) : null}
-                {issue.actors.length > 0 ? (
-                  <>
-                    <h4>Acteurs concernés</h4>
-                    <p>{issue.actors.join(" · ")}</p>
-                  </>
-                ) : null}
-                {issue.indicators.length > 0 ? (
-                  <>
-                    <h4>Indicateurs de suivi</h4>
-                    <ul className={styles.bullets}>
-                      {issue.indicators.map((indicator) => (
-                        <li key={indicator}>{indicator}</li>
-                      ))}
-                    </ul>
-                  </>
-                ) : null}
-                {issue.uncertainties.length > 0 ? (
-                  <>
-                    <h4>Hypothèses et incertitudes</h4>
-                    <ul className={styles.bullets}>
-                      {issue.uncertainties.map((uncertainty) => (
-                        <li key={uncertainty}>{uncertainty}</li>
-                      ))}
-                    </ul>
-                  </>
-                ) : null}
+                <BulletBlock title="Sous-thèmes" entries={issue.subthemes} />
+                <BulletBlock title="Acteurs concernés" entries={issue.actors} />
+                <BulletBlock title="Intérêts en jeu" entries={issue.interests} />
+                <BulletBlock title="Évolutions récentes" entries={issue.recentDevelopments} />
+                <BulletBlock title="Indicateurs à surveiller" entries={issue.indicators} />
+                <BulletBlock title="Hypothèses et incertitudes" entries={issue.uncertainties} />
                 <SourceList ids={issue.sourceIds} sources={sources} demo={issue.demo} />
               </Detail>
             ))}
@@ -125,7 +118,7 @@ export default function IssuesTab({ issues, metrics, sources }: IssuesTabProps) 
 
       {issues.map ? (
         <section className={styles.card} aria-labelledby="interest-title">
-          <SectionHeading id="interest-title" data={issues.map}>
+          <SectionHeading id="interest-title" data={issues.map} icon="globe">
             Carte des intérêts stratégiques
           </SectionHeading>
           <ApprocheMap map={issues.map} sources={sources} />
@@ -134,32 +127,35 @@ export default function IssuesTab({ issues, metrics, sources }: IssuesTabProps) 
 
       {issues.calendar.length > 0 ? (
         <section className={styles.card} aria-labelledby="calendar-title">
-          <SectionHeading id="calendar-title" data={issues.calendar}>
+          <SectionHeading id="calendar-title" data={issues.calendar} icon="calendar">
             Calendrier des échéances
           </SectionHeading>
-          <ol className={styles.timeline}>
-            {issues.calendar.map((entry) => (
-              <li key={entry.id}>
-                <span className={styles.timelineDate}>{entry.date}</span>
-                <ItemCard item={{ ...entry, date: null, status: null }} sources={sources} className={styles.listButton} />
-                {entry.status ? <span className={`${styles.status} ${styles[STATUS_CLASS[entry.status] ?? "statusPlanned"]}`}>{entry.status}</span> : null}
-              </li>
-            ))}
-          </ol>
-          <p className={styles.cardNote}>Une échéance future est « prévue » ou « annoncée » avec sa source officielle ; seule une échéance passée est « réalisée ».</p>
+          <Timeline items={issues.calendar} sources={sources} />
+          <p className={styles.cardNote}>Réalisé, en cours, annoncé ou prévu : une échéance future n&apos;est jamais présentée comme certaine et cite sa source officielle.</p>
         </section>
       ) : null}
 
       <div className={styles.twoCols}>
         {issues.opportunities.length > 0 ? (
-          <section className={styles.card} aria-labelledby="opp-title">
-            <SectionHeading id="opp-title" data={issues.opportunities}>
+          <section className={`${styles.card} ${styles.panelGood}`} aria-labelledby="opp-title">
+            <SectionHeading id="opp-title" data={issues.opportunities} icon="trend">
               Opportunités
             </SectionHeading>
             <ul className={styles.plainList}>
               {issues.opportunities.map((entry) => (
                 <li key={entry.id}>
-                  <ItemCard item={{ ...entry, summary: "" }} sources={sources} className={styles.listButton} />
+                  <details className={styles.fold}>
+                    <summary>
+                      <span className={`${styles.iconBubble} ${styles.tone_good}`}>
+                        <Icon name={iconForTopic(entry.title, "trend")} size={15} />
+                      </span>
+                      <span className={styles.itemTitle}>{entry.title}</span>
+                    </summary>
+                    <div className={styles.foldBody}>
+                      {entry.summary ? <p>{entry.summary}</p> : null}
+                      <SourceList ids={entry.sourceIds} sources={sources} demo={entry.demo} />
+                    </div>
+                  </details>
                 </li>
               ))}
             </ul>
@@ -167,14 +163,25 @@ export default function IssuesTab({ issues, metrics, sources }: IssuesTabProps) 
           </section>
         ) : null}
         {issues.risks.length > 0 ? (
-          <section className={styles.card} aria-labelledby="risk-title">
-            <SectionHeading id="risk-title" data={issues.risks}>
+          <section className={`${styles.card} ${styles.panelBad}`} aria-labelledby="risk-title">
+            <SectionHeading id="risk-title" data={issues.risks} icon="warning">
               Risques et menaces
             </SectionHeading>
             <ul className={styles.plainList}>
               {issues.risks.map((entry) => (
                 <li key={entry.id}>
-                  <ItemCard item={{ ...entry, summary: "" }} sources={sources} className={styles.listButton} />
+                  <details className={styles.fold}>
+                    <summary>
+                      <span className={`${styles.iconBubble} ${styles.tone_bad}`}>
+                        <Icon name={iconForTopic(entry.title, "warning")} size={15} />
+                      </span>
+                      <span className={styles.itemTitle}>{entry.title}</span>
+                    </summary>
+                    <div className={styles.foldBody}>
+                      {entry.summary ? <p>{entry.summary}</p> : null}
+                      <SourceList ids={entry.sourceIds} sources={sources} demo={entry.demo} />
+                    </div>
+                  </details>
                 </li>
               ))}
             </ul>

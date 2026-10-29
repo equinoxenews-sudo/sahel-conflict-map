@@ -10,10 +10,10 @@ const CountryLeafletMap = dynamic(() => import("./CountryLeafletMap"), { ssr: fa
 
 export type { CountryMapData };
 
-export default function CountryMap({ data }: { data: CountryMapData }) {
+export default function CountryMap({ data, resetToken }: { data: CountryMapData; resetToken?: number }) {
   return (
     <div className={styles.mapBox}>
-      <CountryLeafletMap data={data} />
+      <CountryLeafletMap data={data} resetToken={resetToken} />
     </div>
   );
 }

@@ -3,6 +3,57 @@
   "countryCode": "FRA",
   "demo": true,
   "modules": {
+    "hero": {
+      "imageId": "france-hero",
+      "tagline": "Puissance européenne et acteur global",
+      "bannerImages": {
+        "economy": "france-port",
+        "defense": "france-rafale"
+      }
+    },
+    "media": {
+      "assets": [
+        {
+          "id": "france-hero",
+          "path": "/approche/demo/france-hero.webp",
+          "alt": "Panorama de Paris au crépuscule avec la tour Eiffel et la Seine",
+          "credit": "Photographie fournie par le commanditaire",
+          "licenseStatus": "to_confirm",
+          "license": "Licence à confirmer (réutilisation commerciale non vérifiée)",
+          "subject": "Paris",
+          "focal": {
+            "x": 35,
+            "y": 55
+          }
+        },
+        {
+          "id": "france-port",
+          "path": "/approche/demo/france-port.webp",
+          "alt": "Terminal à conteneurs avec portiques au lever du soleil",
+          "credit": "Photographie fournie par le commanditaire",
+          "licenseStatus": "to_confirm",
+          "license": "Licence à confirmer (réutilisation commerciale non vérifiée)",
+          "subject": "Port à conteneurs (illustration, pas un port français identifié)",
+          "focal": {
+            "x": 50,
+            "y": 55
+          }
+        },
+        {
+          "id": "france-rafale",
+          "path": "/approche/demo/france-rafale.webp",
+          "alt": "Avion de combat Rafale en vol au-dessus des nuages",
+          "credit": "Photographie fournie par le commanditaire",
+          "licenseStatus": "to_confirm",
+          "license": "Licence à confirmer (réutilisation commerciale non vérifiée)",
+          "subject": "Rafale",
+          "focal": {
+            "x": 45,
+            "y": 50
+          }
+        }
+      ]
+    },
     "overview": {
       "strengths": [
         {
@@ -80,6 +131,76 @@
           "tags": []
         }
       ],
+      "territories": {
+        "id": "outremer",
+        "title": "Territoires d'outre-mer (démonstration)",
+        "view": {
+          "lat": 0,
+          "lon": -10,
+          "zoom": 2
+        },
+        "note": "Territoires affichés séparément de la carte principale ; coordonnées indicatives.",
+        "layers": [
+          {
+            "id": "dom",
+            "title": "Territoires",
+            "theme": "interests",
+            "color": "#3d9be9",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "t1",
+                "name": "Territoire A",
+                "lat": 14.6,
+                "lon": -61.06,
+                "kind": "Territoire souverain",
+                "summary": "Territoire de démonstration."
+              },
+              {
+                "id": "t2",
+                "name": "Territoire B",
+                "lat": 4.93,
+                "lon": -52.33,
+                "kind": "Territoire souverain",
+                "summary": ""
+              },
+              {
+                "id": "t3",
+                "name": "Territoire C",
+                "lat": -20.88,
+                "lon": 55.45,
+                "kind": "Territoire souverain",
+                "summary": ""
+              },
+              {
+                "id": "t4",
+                "name": "Territoire D",
+                "lat": -12.78,
+                "lon": 45.23,
+                "kind": "Territoire souverain",
+                "summary": ""
+              },
+              {
+                "id": "t5",
+                "name": "Territoire E",
+                "lat": -22.27,
+                "lon": 166.45,
+                "kind": "Territoire souverain",
+                "summary": ""
+              },
+              {
+                "id": "t6",
+                "name": "Territoire F",
+                "lat": -17.55,
+                "lon": -149.56,
+                "kind": "Territoire souverain",
+                "summary": ""
+              }
+            ]
+          }
+        ]
+      },
       "timeline": [
         {
           "id": "tl-1",
@@ -126,6 +247,11 @@
           "lat": 22,
           "lon": 12,
           "zoom": 2
+        },
+        "hub": {
+          "name": "Capitale",
+          "lat": 48.8566,
+          "lon": 2.3522
         },
         "note": "Postes fictifs placés dans des capitales pour tester les filtres ; aucun décompte n'est repris de la maquette.",
         "layers": [
@@ -459,6 +585,174 @@
                 "lat": -1.27,
                 "lon": 36.81,
                 "kind": "Représentation permanente",
+                "summary": ""
+              }
+            ]
+          }
+        ]
+      },
+      "presenceMap": {
+        "id": "presence",
+        "title": "Zones de présence (démonstration)",
+        "view": {
+          "lat": 22,
+          "lon": 12,
+          "zoom": 2
+        },
+        "note": "Présences fictives par zone : en version réelle, seulement des faits vérifiés (ambassades, base publique, accord).",
+        "layers": [
+          {
+            "id": "europe",
+            "title": "Europe",
+            "theme": "interests",
+            "color": "#3d9be9",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "e1",
+                "name": "Bruxelles",
+                "lat": 50.85,
+                "lon": 4.35,
+                "kind": "Institutions européennes",
+                "summary": ""
+              },
+              {
+                "id": "e2",
+                "name": "Berlin",
+                "lat": 52.52,
+                "lon": 13.4,
+                "kind": "Partenariat",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "africa",
+            "title": "Afrique",
+            "theme": "interests",
+            "color": "#35b779",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "a1",
+                "name": "Dakar",
+                "lat": 14.7,
+                "lon": -17.45,
+                "kind": "Coopération",
+                "summary": ""
+              },
+              {
+                "id": "a2",
+                "name": "Nairobi",
+                "lat": -1.29,
+                "lon": 36.82,
+                "kind": "Coopération",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "middleeast",
+            "title": "Moyen-Orient",
+            "theme": "interests",
+            "color": "#d94a4a",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "m1",
+                "name": "Abou Dhabi",
+                "lat": 24.45,
+                "lon": 54.38,
+                "kind": "Partenariat",
+                "summary": ""
+              },
+              {
+                "id": "m2",
+                "name": "Le Caire",
+                "lat": 30.04,
+                "lon": 31.24,
+                "kind": "Partenariat",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "indopacific",
+            "title": "Indo-Pacifique",
+            "theme": "interests",
+            "color": "#e0b44c",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "i1",
+                "name": "Nouméa",
+                "lat": -22.27,
+                "lon": 166.45,
+                "kind": "Territoire",
+                "summary": ""
+              },
+              {
+                "id": "i2",
+                "name": "Canberra",
+                "lat": -35.3,
+                "lon": 149.13,
+                "kind": "Partenariat",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "americas",
+            "title": "Amériques",
+            "theme": "interests",
+            "color": "#9b6be8",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "u1",
+                "name": "Ottawa",
+                "lat": 45.42,
+                "lon": -75.7,
+                "kind": "Partenariat",
+                "summary": ""
+              },
+              {
+                "id": "u2",
+                "name": "Cayenne",
+                "lat": 4.93,
+                "lon": -52.33,
+                "kind": "Territoire",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "overseas",
+            "title": "Outre-mer",
+            "theme": "interests",
+            "color": "#8f9baa",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "o1",
+                "name": "Fort-de-France",
+                "lat": 14.6,
+                "lon": -61.06,
+                "kind": "Territoire",
+                "summary": ""
+              },
+              {
+                "id": "o2",
+                "name": "Saint-Denis",
+                "lat": -20.88,
+                "lon": 55.45,
+                "kind": "Territoire",
                 "summary": ""
               }
             ]
@@ -1007,6 +1301,7 @@
           "tags": [
             "Aviation"
           ],
+          "imageId": "france-rafale",
           "category": "Aviation"
         },
         {
@@ -1416,7 +1711,15 @@
           ],
           "uncertainties": [
             "Hypothèses et incertitudes à documenter."
-          ]
+          ],
+          "interests": [
+            "Intérêt de démonstration A",
+            "Intérêt de démonstration B"
+          ],
+          "recentDevelopments": [
+            "Évolution récente de démonstration (fait daté et source à fournir)"
+          ],
+          "updatedAt": "Date de démonstration"
         },
         {
           "id": "iss-2",
@@ -1446,7 +1749,15 @@
           ],
           "uncertainties": [
             "À documenter."
-          ]
+          ],
+          "interests": [
+            "Intérêt de démonstration A",
+            "Intérêt de démonstration B"
+          ],
+          "recentDevelopments": [
+            "Évolution récente de démonstration (fait daté et source à fournir)"
+          ],
+          "updatedAt": "Date de démonstration"
         },
         {
           "id": "iss-3",
@@ -1477,7 +1788,15 @@
           ],
           "uncertainties": [
             "À documenter."
-          ]
+          ],
+          "interests": [
+            "Intérêt de démonstration A",
+            "Intérêt de démonstration B"
+          ],
+          "recentDevelopments": [
+            "Évolution récente de démonstration (fait daté et source à fournir)"
+          ],
+          "updatedAt": "Date de démonstration"
         },
         {
           "id": "iss-4",
@@ -1508,7 +1827,15 @@
           ],
           "uncertainties": [
             "À documenter."
-          ]
+          ],
+          "interests": [
+            "Intérêt de démonstration A",
+            "Intérêt de démonstration B"
+          ],
+          "recentDevelopments": [
+            "Évolution récente de démonstration (fait daté et source à fournir)"
+          ],
+          "updatedAt": "Date de démonstration"
         },
         {
           "id": "iss-5",
@@ -1538,7 +1865,15 @@
           ],
           "uncertainties": [
             "À documenter."
-          ]
+          ],
+          "interests": [
+            "Intérêt de démonstration A",
+            "Intérêt de démonstration B"
+          ],
+          "recentDevelopments": [
+            "Évolution récente de démonstration (fait daté et source à fournir)"
+          ],
+          "updatedAt": "Date de démonstration"
         }
       ],
       "calendar": [
