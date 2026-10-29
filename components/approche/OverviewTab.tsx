@@ -4,7 +4,7 @@ import type { MetricView } from "@/lib/approche/view";
 import ApprocheMap from "./ApprocheMap";
 import CountryMapFrame from "./CountryMapFrame";
 import MetricCard from "./MetricCard";
-import { IconRow, SectionHeading, Timeline, type SourceMap } from "./shared";
+import { IconRow, KpiGrid, SectionHeading, Timeline, type SourceMap } from "./shared";
 import styles from "./Approche.module.css";
 
 interface OverviewTabProps {
@@ -29,14 +29,14 @@ export default function OverviewTab({ metrics, pending, map, module, sources }: 
         <h2 id="kpi-title" className={styles.srOnly}>
           Chiffres clés
         </h2>
-        <div className={styles.tiles}>
+        <KpiGrid>
           <MetricCard label="Population" metric={get("demography.population")} />
           <MetricCard label="PIB nominal" metric={get("economy.gdp_nominal_usd")} />
           <MetricCard label="PIB par habitant" metric={get("economy.gdp_per_capita_usd")} />
           <MetricCard label="Effectifs militaires" metric={null} missing="Onglet Défense" icon="shield" />
           <MetricCard label="Capitale" metric={get("identity.capital")} />
           <MetricCard label="Régime" metric={get("politics.regime")} />
-        </div>
+        </KpiGrid>
       </section>
 
       <div className={styles.twoCols}>
@@ -92,13 +92,13 @@ export default function OverviewTab({ metrics, pending, map, module, sources }: 
         <SectionHeading id="macro-title" icon="chart">
           Indicateurs clés
         </SectionHeading>
-        <div className={styles.tiles}>
+        <KpiGrid>
           <MetricCard label="Croissance du PIB réel" metric={get("economy.gdp_growth")} />
           <MetricCard label="Inflation (IPC)" metric={get("economy.inflation_cpi")} />
           <MetricCard label="Chômage (estimation OIT)" metric={get("labour.unemployment_ilo")} />
           <MetricCard label="Dette publique (% du PIB)" metric={get("economy.public_debt_gdp")} />
           <MetricCard label="Recherche et développement" metric={get("research.rd_gdp")} />
-        </div>
+        </KpiGrid>
       </section>
 
       {hasAnalysis ? (

@@ -3,13 +3,14 @@ import type { Observation } from "./schema";
 // Mise en forme française des observations. Le texte affiché vient toujours de l'observation (valeur, unité, période) :
 // aucun chiffre n'est écrit à la main dans les composants.
 
-const plain = (text: string) => text.replace(/[  ]/g, " ");
+// Le séparateur de milliers devient une espace insécable : un nombre n'est jamais coupé entre deux lignes.
+const plain = (text: string) => text.replace(/ /g, " ");
 
 function number(value: number, maximumFractionDigits: number): string {
   return plain(new Intl.NumberFormat("fr-FR", { maximumFractionDigits, minimumFractionDigits: 0 }).format(value));
 }
 
-/** « 68,7 millions », « 3,37 billions », « 48 986 » : valeur lisible d'une observation chiffrée, sans l'unité. */
+/** « 68,7 millions », « 3 366 Md », « 48 986 » : valeur lisible d'une observation chiffrée, sans l'unité. */
 export function formatValue(observation: Observation): string {
   const { value, unit } = observation;
   if (value === null) return "Donnée non disponible";
@@ -20,7 +21,8 @@ export function formatValue(observation: Observation): string {
     return number(Math.round(value / 1000) * 1000, 0);
   }
   if (unit === "USD" || unit === "EUR") {
-    if (value >= 1e12) return `${number(value / 1e12, 2)} billions`;
+    // « Md » (milliards) jusque dans les billions : « 3 366 Md » tient sur une ligne, « 3,37 billions » se coupait en deux.
+    if (value >= 1e12) return `${number(value / 1e9, 0)} Md`;
     if (value >= 1e9) return `${number(value / 1e9, value >= 1e11 ? 0 : 1)} Md`;
     return number(Math.round(value), 0);
   }
@@ -37,7 +39,7 @@ export function formatUnit(observation: Observation): string {
   return unit ?? "";
 }
 
-/** Valeur et unité sur une ligne : « 3,37 billions $ US ». */
+/** Valeur et unité sur une ligne : « 3 366 Md $ US ». */
 export function formatWithUnit(observation: Observation): string {
   const unit = formatUnit(observation);
   const value = formatValue(observation);

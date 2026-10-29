@@ -1,6 +1,7 @@
 import CountryFlag from "@/components/country-profile/CountryFlag";
 import type { HeroModule, MediaAsset } from "@/lib/approche/modules";
 import type { MetricView } from "@/lib/approche/view";
+import HeroSummary from "./HeroSummary";
 import OrgBadge from "./OrgBadge";
 import Visual from "./Visual";
 import styles from "./Approche.module.css";
@@ -48,7 +49,7 @@ export default function Hero({ name, officialName, iso2, region, hero, asset, de
           </div>
         </div>
         {hero?.tagline ? <p className={styles.heroTagline}>{hero.tagline}</p> : null}
-        {summary ? <p className={styles.dek}>{summary}</p> : null}
+        {summary ? <HeroSummary text={summary} /> : null}
         <div className={styles.badgeRow}>
           {BADGES.flatMap(({ key, label }) => {
             const metric = metrics.get(key);

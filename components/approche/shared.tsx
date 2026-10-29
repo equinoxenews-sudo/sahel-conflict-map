@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { Children, type ReactNode } from "react";
 import { containsDemo } from "@/lib/approche/demo";
 import { iconForMetric } from "@/lib/approche/metricIcons";
 import type { Item, Kpi } from "@/lib/approche/modules";
@@ -19,6 +19,25 @@ export function SectionHeading({ id, children, data, icon }: { id: string; child
       {icon ? <Icon name={icon} size={20} /> : null}
       <span>{children}</span> <DemoTag show={containsDemo(data)} />
     </h2>
+  );
+}
+
+/**
+ * Grille des chiffres clés, commune aux six onglets. La disposition suit la largeur de la grille (pas celle de l'écran) et le
+ * nombre de tuiles : 6 → 3×2, 5 → 3+2 sur une rangée équilibrée, 4 → 2×2 (4×1 en très large), 3 → 3×1 ; jamais une tuile orpheline.
+ */
+export function KpiGrid({ children }: { children: ReactNode }) {
+  const cells = Children.toArray(children);
+  return (
+    <div className={styles.kpiGrid}>
+      <div className={styles.kpiInner} data-count={cells.length}>
+        {cells.map((cell, index) => (
+          <div key={index} className={styles.kpiCell}>
+            {cell}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 

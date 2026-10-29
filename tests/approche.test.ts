@@ -175,7 +175,8 @@ test("mise en forme française des valeurs", () => {
   const population = observation({ key: "demography.population", value: 68720337, unit: "habitants" });
   assert.equal(formatValue(population), "68,7 millions");
   const gdp = observation({ key: "economy.gdp_nominal_usd", value: 3366315927447, unit: "USD" });
-  assert.equal(formatWithUnit(gdp), "3,37 billions $ US");
+  assert.equal(formatWithUnit(gdp), "3 366 Md $ US", "milliards plutôt que « billions », espaces insécables : le nombre ne se coupe pas");
+  assert.ok(!formatValue(gdp).includes(" "),"aucune espace sécable dans une valeur en milliards");
   const growth = observation({ key: "economy.gdp_growth", value: 0.84, unit: "%" });
   assert.equal(formatWithUnit(growth), "+0,8 %");
   assert.equal(formatValue(observation({ value: null })), "Donnée non disponible");
@@ -330,7 +331,8 @@ test("une image à licence non confirmée n'est jamais affichée en production, 
   const asset = { id: "a", path: "/x.webp", alt: "x", licenseStatus: "to_confirm" as const, focal: { x: 50, y: 50 }, subject: "" };
   assert.equal(displayable(asset, false), false);
   assert.equal(displayable(asset, true), true);
-  assert.equal(displayable({ ...asset, licenseStatus: "cleared" }, false), true);
+  assert.equal(displayable({ ...asset, licenseStatus: "cleared" }, false), false, "licence confirmée mais usage commercial non établi");
+  assert.equal(displayable({ ...asset, licenseStatus: "cleared", commercialReuseAllowed: true }, false), true);
   assert.equal(displayable({ ...asset, licenseStatus: "unknown" }, false), false);
   assert.equal(displayable(null, true), false);
 });
@@ -338,7 +340,8 @@ test("une image à licence non confirmée n'est jamais affichée en production, 
 test("une fiche réelle qui renvoie à une image sans licence confirmée est refusée", () => {
   const asset = { id: "img", path: "/x.webp", alt: "x", licenseStatus: "to_confirm", focal: { x: 50, y: 50 }, subject: "" };
   assert.ok(moduleProblems({ media: { assets: [asset] } }).some((problem) => problem.includes("image sans licence confirmée")));
-  assert.deepEqual(moduleProblems({ media: { assets: [{ ...asset, licenseStatus: "cleared" }] } }), []);
+  assert.ok(moduleProblems({ media: { assets: [{ ...asset, licenseStatus: "cleared" }] } }).some((problem) => problem.includes("réutilisation commerciale")));
+  assert.deepEqual(moduleProblems({ media: { assets: [{ ...asset, licenseStatus: "cleared", commercialReuseAllowed: true }] } }), []);
 });
 
 test("les images de démonstration sont déclarées à confirmer et existent sur le disque", () => {

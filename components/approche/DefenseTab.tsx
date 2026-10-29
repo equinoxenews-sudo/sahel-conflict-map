@@ -4,7 +4,7 @@ import type { MetricView } from "@/lib/approche/view";
 import ApprocheMap from "./ApprocheMap";
 import Detail from "./Detail";
 import Icon from "./Icon";
-import { IconRow, ItemCard, KpiTile, SectionHeading, SourceList, type SourceMap } from "./shared";
+import { IconRow, ItemCard, KpiGrid, KpiTile, SectionHeading, SourceList, type SourceMap } from "./shared";
 import type { MediaMap } from "./Visual";
 import styles from "./Approche.module.css";
 
@@ -44,11 +44,11 @@ export default function DefenseTab({ defense, metrics, sources, media, demoActiv
     <div className={styles.tabBody}>
       {defense.kpis.length > 0 ? (
         <section aria-label="Chiffres clés de défense">
-          <div className={styles.tiles}>
+          <KpiGrid>
             {defense.kpis.map((kpi) => (
               <KpiTile key={kpi.id} kpi={kpi} metrics={metrics} sources={sources} />
             ))}
-          </div>
+          </KpiGrid>
           <p className={styles.cardNote}>Les périmètres ne s&apos;additionnent pas : personnels d&apos;active, réservistes (opérationnels), civils et Gendarmerie sont comptés à part. Aucune donnée SIPRI n&apos;est utilisée (licence commerciale requise).</p>
         </section>
       ) : null}

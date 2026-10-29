@@ -4,7 +4,7 @@ import type { MetricView } from "@/lib/approche/view";
 import ApprocheMap from "./ApprocheMap";
 import Detail from "./Detail";
 import Icon from "./Icon";
-import { KpiTile, SectionHeading, SourceList, Timeline, type SourceMap } from "./shared";
+import { KpiGrid, KpiTile, SectionHeading, SourceList, Timeline, type SourceMap } from "./shared";
 import Visual, { type MediaMap } from "./Visual";
 import styles from "./Approche.module.css";
 
@@ -45,11 +45,11 @@ export default function IssuesTab({ issues, metrics, sources, media, demoActive 
   return (
     <div className={styles.tabBody}>
       {issues.kpis.length > 0 ? (
-        <div className={styles.tiles}>
+        <KpiGrid>
           {issues.kpis.map((kpi) => (
             <KpiTile key={kpi.id} kpi={kpi} metrics={metrics} sources={sources} />
           ))}
-        </div>
+        </KpiGrid>
       ) : null}
 
       {issues.issues.length > 0 ? (

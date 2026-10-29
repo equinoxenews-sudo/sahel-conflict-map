@@ -49,7 +49,10 @@ export function moduleProblems(value: unknown, path = "modules"): string[] {
   } else if (value && typeof value === "object") {
     const record = value as Record<string, unknown>;
     if (record.demo === true) problems.push(`${path} : contenu de démonstration dans une fiche réelle`);
-    if (typeof record.path === "string" && typeof record.licenseStatus === "string" && record.licenseStatus !== "cleared") problems.push(`${path} (${String(record.id)}) : image sans licence confirmée (${record.licenseStatus})`);
+    if (typeof record.path === "string" && typeof record.licenseStatus === "string") {
+      if (record.licenseStatus !== "cleared") problems.push(`${path} (${String(record.id)}) : image sans licence confirmée (${record.licenseStatus})`);
+      else if (record.commercialReuseAllowed !== true) problems.push(`${path} (${String(record.id)}) : image dont la réutilisation commerciale n'est pas expressément autorisée`);
+    }
     const sources = record.sourceIds;
     if (typeof record.id === "string" && Array.isArray(sources) && sources.length === 0 && !record.observationKey) problems.push(`${path} (${record.id}) : aucune source`);
     for (const [key, child] of Object.entries(record)) problems.push(...moduleProblems(child, `${path}.${key}`));

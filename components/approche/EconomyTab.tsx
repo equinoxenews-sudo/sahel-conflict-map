@@ -4,7 +4,7 @@ import type { MetricView } from "@/lib/approche/view";
 import ApprocheMap from "./ApprocheMap";
 import InteractiveDonut from "./InteractiveDonut";
 import MetricCard from "./MetricCard";
-import { ItemCard, SectionHeading, type SourceMap } from "./shared";
+import { ItemCard, KpiGrid, SectionHeading, type SourceMap } from "./shared";
 import type { MediaMap } from "./Visual";
 import styles from "./Approche.module.css";
 
@@ -65,14 +65,14 @@ export default function EconomyTab({ metrics, module, sources, media, demoActive
         <h2 id="eco-kpi-title" className={styles.srOnly}>
           Chiffres clés de l&apos;économie
         </h2>
-        <div className={styles.tiles}>
+        <KpiGrid>
           <MetricCard label="PIB nominal" metric={get("economy.gdp_nominal_usd")} />
           <MetricCard label="PIB par habitant" metric={get("economy.gdp_per_capita_usd")} />
           <MetricCard label="Croissance du PIB réel" metric={get("economy.gdp_growth")} />
           <MetricCard label="Dette publique (% du PIB)" metric={get("economy.public_debt_gdp")} />
           <MetricCard label="Inflation (IPC)" metric={get("economy.inflation_cpi")} />
           <MetricCard label="Chômage (estimation OIT)" metric={get("labour.unemployment_ilo")} />
-        </div>
+        </KpiGrid>
       </section>
 
       <section className={styles.card} aria-labelledby="structure-title">
@@ -142,11 +142,11 @@ export default function EconomyTab({ metrics, module, sources, media, demoActive
                   </div>
                 ) : null,
               )}
-              <div className={styles.tiles}>
+              <KpiGrid>
                 <MetricCard label="Solde net exportateur" metric={get("energy.electricity.net_exports")} />
                 <MetricCard label="Consommation (corrigée du climat)" metric={get("energy.electricity.consumption")} />
                 <MetricCard label="Dépendance aux importations d'énergie" metric={get("energy.import_dependency")} />
-              </div>
+              </KpiGrid>
             </div>
           </div>
         ) : (

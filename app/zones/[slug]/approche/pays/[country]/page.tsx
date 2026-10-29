@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import ApprocheCountryPage from "@/components/approche/ApprocheCountryPage";
 import CountryProfilePage from "@/components/country-profile/CountryProfilePage";
@@ -9,6 +9,10 @@ import { listApprocheCountries } from "@/lib/approche/repository";
 // Pré-rendue (ISR) : pour un pays migré vers le modèle sourcé (data/approche/), la page est construite au déploiement ;
 // les autres pays se construisent à la première visite, comme avant.
 export const revalidate = 3600;
+
+// Le site calcule ses pages sur 980 px de large sur téléphone (voir app/layout.tsx) ; les fiches pays sont des pages de lecture
+// conçues pour s'adapter à la largeur réelle de l'écran.
+export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
 type Params = { slug: string; country: string };
 

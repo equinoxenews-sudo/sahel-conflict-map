@@ -2289,3 +2289,163 @@ button.tile:hover {
     mask-image: none;
   }
 }
+
+/* ---- Audit visuel V2, lot A : chiffres clés réguliers, valeurs jamais coupées, panneaux à leur hauteur ---- */
+.twoCols,
+.threeCols {
+  align-items: start;
+}
+
+.kpiGrid {
+  container-type: inline-size;
+}
+
+.kpiInner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.kpiCell {
+  display: flex;
+  min-width: 0;
+}
+
+.kpiCell > .tile {
+  flex: 1;
+  min-width: 0;
+}
+
+.kpiInner > .kpiCell:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+@container (max-width: 299px) {
+  .kpiInner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@container (min-width: 560px) {
+  .kpiInner {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .kpiInner > .kpiCell:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+
+  .kpiInner[data-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kpiInner[data-count="3"],
+  .kpiInner[data-count="6"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .kpiInner[data-count="4"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .kpiInner[data-count="5"] {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .kpiInner[data-count="5"] > .kpiCell {
+    grid-column: span 2;
+  }
+
+  .kpiInner[data-count="5"] > .kpiCell:nth-child(n + 4) {
+    grid-column: span 3;
+  }
+}
+
+@container (min-width: 900px) {
+  .kpiInner[data-count="4"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Une valeur ne se coupe jamais au milieu d'un mot ni d'un nombre : l'unité passe à la ligne en entier si besoin. */
+.tileValue {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 6px;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+  font-size: clamp(20px, 2vw, 28px);
+}
+
+.tileValue small {
+  white-space: nowrap;
+}
+
+@container (max-width: 559px) {
+  .tileValue {
+    font-size: 20px;
+  }
+}
+
+/* Synthèse de l'en-tête repliée à trois lignes ; bandeau de démonstration compact sur téléphone. */
+.dekBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.dekClamp {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.dekToggle {
+  padding: 2px 0;
+  font: inherit;
+  font-size: 13px;
+  color: var(--accent-gold-bright);
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-bottom: 1px dotted var(--accent-gold-bright);
+}
+
+.dekToggle:focus-visible {
+  outline: 2px solid var(--accent-gold-bright);
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .demoBanner {
+    gap: 10px;
+    padding: 6px 14px;
+    font-size: 11.5px;
+    line-height: 1.35;
+  }
+
+  .heroContent {
+    gap: 10px;
+  }
+
+  .dek {
+    font-size: 14px;
+    line-height: 1.55;
+  }
+}
+
+.tileMeta {
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+/* Tuiles étroites (téléphone, 2 colonnes) : la mini-courbe laisse la place à la période et au lien « Sources ». */
+@container (max-width: 559px) {
+  .spark {
+    display: none;
+  }
+}

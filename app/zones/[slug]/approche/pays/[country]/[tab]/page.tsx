@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound, redirect } from "next/navigation";
 import ApprocheCountryPage from "@/components/approche/ApprocheCountryPage";
 import { getDemoModules, mergeModules } from "@/lib/approche/demo";
@@ -10,6 +10,7 @@ import { APPROCHE_TABS, tabHref, type ApprocheTab } from "@/lib/approche/tabs";
 // régénération que la page du pays. Un pays non migré ou un onglet inconnu donne une page introuvable.
 export const revalidate = 3600;
 export const dynamicParams = false;
+export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
 type Params = { slug: string; country: string; tab: string };
 

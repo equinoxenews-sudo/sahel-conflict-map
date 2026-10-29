@@ -114,7 +114,11 @@ export const MediaAssetSchema = z.object({
   /** Adresse d'origine de l'image. */
   sourceUrl: z.string().url().nullable().optional(),
   license: z.string().nullable().optional(),
+  licenseUrl: z.string().url().nullable().optional(),
   licenseStatus: z.enum(MEDIA_STATUS).default("unknown"),
+  /** Réutilisation commerciale expressément autorisée par la licence : requise (avec `cleared`) pour paraître en production. */
+  commercialReuseAllowed: z.boolean().nullable().optional(),
+  attributionRequired: z.boolean().nullable().optional(),
   /** Obligations d'attribution à reprendre dans la légende. */
   obligations: z.string().nullable().optional(),
   reviewedAt: z.string().nullable().optional(),
