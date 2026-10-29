@@ -19,7 +19,13 @@ export default function GateGuard() {
       if (stopped || document.visibilityState === "hidden") return;
       try {
         const response = await fetch("/api/session", { cache: "no-store" });
-        if (response.status !== 401 || stopped) return;
+        if (stopped) return;
+        // Maintenance (SITE_MAINTENANCE) : on recharge, le serveur répond alors par la page « hors ligne ».
+        if (response.status === 503) {
+          window.location.reload();
+          return;
+        }
+        if (response.status !== 401) return;
         const back = window.location.pathname + window.location.search;
         window.location.assign(back === "/" ? "/acces" : `/acces?retour=${encodeURIComponent(back)}`);
       } catch {
