@@ -15,6 +15,14 @@ interface WorldBankFile {
   observations?: unknown[];
 }
 
+/** Pays migrés et publiables (pour pré-rendre leurs pages au déploiement). */
+export function listApprocheCountries(): { slug: string; zoneSlug: string }[] {
+  return Object.keys(FILES).flatMap((iso3) => {
+    const data = getApprocheData(iso3);
+    return data ? [{ slug: data.slug, zoneSlug: data.zoneSlug }] : [];
+  });
+}
+
 /**
  * La fiche d'un pays au nouveau modèle, ou null si le pays n'est pas migré, si le fichier est invalide ou si sa
  * publication est refusée (source exclue par licence, observation sans source…). Le refus est journalisé, jamais affiché.

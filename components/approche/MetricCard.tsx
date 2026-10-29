@@ -69,6 +69,12 @@ export default function MetricCard({ label, metric, missing = "Donnée non dispo
             <dd>{metric.scope}</dd>
             <dt>Nature</dt>
             <dd>{metric.kind}</dd>
+            {metric.validFrom ? (
+              <>
+                <dt>En fonction depuis</dt>
+                <dd>{metric.validFrom}</dd>
+              </>
+            ) : null}
             <dt>Dernière vérification</dt>
             <dd>{metric.verifiedAt}</dd>
           </dl>
@@ -84,7 +90,17 @@ export default function MetricCard({ label, metric, missing = "Donnée non dispo
                 <span>
                   {source.publisher} · consultée le {source.accessedAt}
                 </span>
-                <span className={source.reuse === "allowed" ? styles.licenceOk : styles.licenceWarn}>{source.reuse === "allowed" ? source.license : "Licence de réutilisation non vérifiée"}</span>
+                <span className={source.reuse === "allowed" ? styles.licenceOk : styles.licenceWarn}>
+                  {source.reuse === "unknown" ? "Licence de réutilisation non vérifiée" : source.license}
+                  {source.licenseUrl ? (
+                    <>
+                      {" · "}
+                      <a href={source.licenseUrl} target="_blank" rel="noopener noreferrer">
+                        conditions
+                      </a>
+                    </>
+                  ) : null}
+                </span>
                 {source.notes ? <span className={styles.sourceNotes}>{source.notes}</span> : null}
               </li>
             ))}

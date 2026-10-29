@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { formatDate, formatValue, formatWithUnit } from "../lib/approche/formatters";
-import { getApprocheData } from "../lib/approche/repository";
+import { getApprocheData, listApprocheCountries } from "../lib/approche/repository";
+import { tabHref, validateTab } from "../lib/approche/tabs";
 import { CountryDataSchema, ObservationSchema, type CountryData, type Observation } from "../lib/approche/schema";
 import { BLOCKED_WORLD_BANK_INDICATORS, isBlockedSource, publishedObservations, publishProblems, SIPRI_ENTRY } from "../lib/approche/sourceRegistry";
 import { claimViews, metricViews, pendingObservations } from "../lib/approche/view";
@@ -97,12 +98,30 @@ test("la fiche France ne contient aucune source SIPRI ni série militaire de la 
 });
 
 test("une valeur en attente de vérification n'est pas affichée mais reste signalée", () => {
-  const fra = france();
-  const views = metricViews(fra);
-  assert.equal(views.has("politics.head_of_government"), false);
-  assert.equal(views.has("institutions.unsc"), false);
-  const pending = pendingObservations(fra).map((item) => item.key);
-  assert.ok(pending.includes("politics.head_of_government") && pending.includes("institutions.unsc"));
+  const pendingData = data({ observations: [observation({ id: "p-1", key: "politics.head_of_government", value: null, status: "pending", verifiedAt: null })] });
+  assert.equal(metricViews(pendingData).has("politics.head_of_government"), false);
+  assert.deepEqual(pendingObservations(pendingData).map((item) => item.key), ["politics.head_of_government"]);
+});
+
+test("le Premier ministre et le Conseil de sécurité sont publiés avec leurs sources, leur date et leur licence", () => {
+  const views = metricViews(france());
+  const pm = views.get("politics.head_of_government");
+  assert.equal(pm?.value, "Sébastien Lecornu");
+  assert.equal(pm?.validFrom, "26 février 2026");
+  assert.ok(pm?.sources.some((source) => source.url === "https://www.info.gouv.fr/personnalite/sebastien-lecornu"));
+  const unsc = views.get("institutions.unsc");
+  assert.ok(unsc && unsc.sources.length === 2);
+  assert.ok(unsc.sources.some((source) => source.url === "https://www.un.org/about-us/un-charter/chapter-5"));
+});
+
+test("les licences lues sont consignées : UE en CC BY, Élysée sous licence ouverte, OTAN en citation seule", () => {
+  const sources = new Map(france().sources.map((source) => [source.id, source]));
+  assert.equal(sources.get("S05-EU-FRA")?.reuse, "allowed");
+  assert.match(sources.get("S05-EU-FRA")?.license ?? "", /CC BY 4.0/);
+  assert.equal(sources.get("S17-ELYSEE")?.reuse, "allowed");
+  assert.match(sources.get("S17-ELYSEE")?.license ?? "", /Licence ouverte/);
+  assert.equal(sources.get("S06-NATO-MEMBERS")?.reuse, "citation_only");
+  assert.ok(sources.get("S06-NATO-MEMBERS")?.licenseUrl);
 });
 
 test("les valeurs de la maquette de démonstration ne sont pas reprises", () => {
@@ -150,4 +169,12 @@ test("mise en forme française des valeurs", () => {
   assert.equal(formatWithUnit(growth), "+0,8 %");
   assert.equal(formatValue(observation({ value: null })), "Donnée non disponible");
   assert.equal(formatDate("2026-10-29"), "29 octobre 2026");
+});
+
+test("les onglets sont des sous-pages pré-rendues, la vue d'ensemble est la page du pays", () => {
+  assert.equal(tabHref("/zones/europe/approche/pays/france", "overview"), "/zones/europe/approche/pays/france");
+  assert.equal(tabHref("/zones/europe/approche/pays/france", "defense"), "/zones/europe/approche/pays/france/defense");
+  assert.equal(validateTab("defense"), "defense");
+  assert.equal(validateTab("nimporte-quoi"), "overview");
+  assert.deepEqual(listApprocheCountries(), [{ slug: "france", zoneSlug: "europe" }]);
 });

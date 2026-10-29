@@ -11,7 +11,8 @@ export interface SourceView {
   publisher: string;
   url: string;
   license: string;
-  reuse: "allowed" | "unknown";
+  licenseUrl: string | null;
+  reuse: "allowed" | "citation_only" | "unknown";
   accessedAt: string;
   notes: string | null;
 }
@@ -25,6 +26,8 @@ export interface MetricView {
   methodology: string;
   kind: string;
   verifiedAt: string;
+  /** « En fonction depuis » : début de validité, quand une source le donne. */
+  validFrom: string | null;
   sources: SourceView[];
   /** Autres mesures du même sujet (autre organisme, autre période), jamais fondues en une moyenne. */
   others: { value: string; unit: string; period: string; scope: string; publisher: string }[];
@@ -46,7 +49,8 @@ function sourceView(source: SourceRecord): SourceView {
     publisher: source.publisher,
     url: source.canonicalUrl,
     license: source.license ?? "Licence non vérifiée",
-    reuse: source.reuse === "allowed" ? "allowed" : "unknown",
+    licenseUrl: source.licenseUrl ?? null,
+    reuse: source.reuse === "allowed" ? "allowed" : source.reuse === "citation_only" ? "citation_only" : "unknown",
     accessedAt: formatDate(source.accessedAt),
     notes: source.methodNotes ?? null,
   };
@@ -76,6 +80,7 @@ export function metricViews(data: CountryData): Map<string, MetricView> {
       methodology: observation.methodology,
       kind: KIND_LABELS[observation.dataKind],
       verifiedAt: formatDate(observation.verifiedAt),
+      validFrom: observation.validFrom ? formatDate(observation.validFrom) : null,
       sources: observation.sourceIds.flatMap((id) => (sources.has(id) ? [sourceView(sources.get(id) as SourceRecord)] : [])),
       others,
       series: observation.history,

@@ -10,9 +10,10 @@ const DATE = z.string().regex(/^\d{4}-\d{2}-\d{2}(T[\d:.+Z-]+)?$/, "date AAAA-MM
 /**
  * Droits de réutilisation commerciale d'une source. `commercial_license_required` : exclue de toute collecte, import ou
  * actualisation automatique tant qu'une autorisation écrite n'est pas obtenue (c'est le cas de SIPRI, y compris quand ses
- * indicateurs sont redistribués par une autre plateforme).
+ * indicateurs sont redistribués par une autre plateforme). `citation_only` : le contenu de la source n'est pas réutilisable
+ * commercialement (OTAN) ; on cite seulement un fait, avec attribution, sans reprendre son texte, ses images ni sa marque.
  */
-export const REUSE = ["allowed", "unknown", "commercial_license_required"] as const;
+export const REUSE = ["allowed", "citation_only", "unknown", "commercial_license_required"] as const;
 export type Reuse = (typeof REUSE)[number];
 
 export const SourceSchema = z.object({
@@ -27,6 +28,8 @@ export const SourceSchema = z.object({
   publishedAt: z.string().nullable().optional(),
   accessedAt: DATE,
   license: z.string().nullable(),
+  /** Adresse des conditions d'utilisation ou de la licence, quand elle a été lue. */
+  licenseUrl: z.string().url().nullable().optional(),
   reuse: z.enum(REUSE),
   methodNotes: z.string().nullable().optional(),
   language: z.string().default("fr"),
@@ -52,6 +55,8 @@ export const ObservationSchema = z.object({
   sourceIds: z.array(z.string()).min(1),
   collectedAt: DATE,
   verifiedAt: DATE.nullable(),
+  /** Début de validité du fait (ex. prise de fonctions), quand une source le donne. */
+  validFrom: z.string().nullable().optional(),
   status: z.enum(STATUS),
   dataKind: z.enum(DATA_KIND),
   calculationFormula: z.string().nullable().optional(),
