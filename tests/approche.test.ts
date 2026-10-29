@@ -1,0 +1,153 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { formatDate, formatValue, formatWithUnit } from "../lib/approche/formatters";
+import { getApprocheData } from "../lib/approche/repository";
+import { CountryDataSchema, ObservationSchema, type CountryData, type Observation } from "../lib/approche/schema";
+import { BLOCKED_WORLD_BANK_INDICATORS, isBlockedSource, publishedObservations, publishProblems, SIPRI_ENTRY } from "../lib/approche/sourceRegistry";
+import { claimViews, metricViews, pendingObservations } from "../lib/approche/view";
+
+const france = () => {
+  const data = getApprocheData("FRA");
+  assert.ok(data, "la fiche France doit être publiable");
+  return data;
+};
+
+function observation(overrides: Partial<Observation> = {}): Observation {
+  return {
+    id: "x-1",
+    countryCode: "FRA",
+    key: "economy.gdp_growth",
+    value: 1,
+    unit: "%",
+    referencePeriod: "2025",
+    geographicScope: "France",
+    methodology: "test",
+    sourceIds: ["S1"],
+    collectedAt: "2026-10-29",
+    verifiedAt: "2026-10-29",
+    status: "verified",
+    dataKind: "observed",
+    history: [],
+    ...overrides,
+  };
+}
+
+function data(overrides: Partial<CountryData> = {}): CountryData {
+  return {
+    countryCode: "FRA",
+    slug: "france",
+    zoneSlug: "europe",
+    name: "France",
+    publication: "published",
+    lastCheckedAt: "2026-10-29",
+    sources: [{ id: "S1", publisher: "INSEE", title: "t", canonicalUrl: "https://www.insee.fr/x", accessedAt: "2026-10-29", license: "Licence ouverte", reuse: "allowed", language: "fr" }],
+    observations: [observation()],
+    claims: [],
+    ...overrides,
+  };
+}
+
+test("la fiche France est valide et publiable", () => {
+  const fra = france();
+  assert.equal(fra.countryCode, "FRA");
+  assert.deepEqual(publishProblems(fra), []);
+});
+
+test("toute observation publiée a une source, une période et un périmètre", () => {
+  for (const item of publishedObservations(france())) {
+    assert.ok(item.sourceIds.length > 0, item.id);
+    assert.ok(item.referencePeriod.length > 0, item.id);
+    assert.ok(item.geographicScope.length > 0, item.id);
+    assert.ok(item.verifiedAt, item.id);
+  }
+});
+
+test("une observation sans source ou sans année est refusée par le schéma", () => {
+  assert.equal(ObservationSchema.safeParse(observation({ sourceIds: [] })).success, false);
+  assert.equal(ObservationSchema.safeParse(observation({ referencePeriod: "" })).success, false);
+  assert.equal(ObservationSchema.safeParse(observation()).success, true);
+});
+
+test("une fiche dont une affirmation ou une observation cite une source inconnue n'est pas publiable", () => {
+  assert.ok(publishProblems(data({ observations: [observation({ sourceIds: ["INCONNUE"] })] })).some((problem) => problem.includes("source inconnue")));
+  assert.deepEqual(publishProblems(data()), []);
+});
+
+test("SIPRI est exclue : par le registre, par l'éditeur et par les séries Banque mondiale qui la relaient", () => {
+  assert.equal(isBlockedSource(SIPRI_ENTRY), true);
+  const viaWorldBank = { ...data().sources[0], id: "S-WB", publisher: "Banque mondiale", datasetId: "MS.MIL.XPND.GD.ZS" };
+  assert.equal(isBlockedSource(viaWorldBank), true);
+  const sipriPublisher = { ...data().sources[0], id: "S-X", publisher: "SIPRI Yearbook", reuse: "allowed" as const };
+  assert.equal(isBlockedSource(sipriPublisher), true);
+  assert.ok(BLOCKED_WORLD_BANK_INDICATORS.includes("MS.MIL.XPND.GD.ZS"));
+  const problems = publishProblems(data({ sources: [SIPRI_ENTRY, ...data().sources], observations: [observation({ sourceIds: ["S10-SIPRI"] })] }));
+  assert.ok(problems.some((problem) => problem.includes("exclue")));
+});
+
+test("une observation issue d'une source exclue n'est jamais affichée", () => {
+  const blocked = data({ sources: [SIPRI_ENTRY], observations: [observation({ sourceIds: ["S10-SIPRI"] })] });
+  assert.deepEqual(publishedObservations(blocked), []);
+  assert.equal(metricViews(blocked).size, 0);
+});
+
+test("la fiche France ne contient aucune source SIPRI ni série militaire de la Banque mondiale", () => {
+  const fra = france();
+  assert.equal(fra.sources.some(isBlockedSource), false);
+  assert.equal(fra.sources.some((source) => /sipri|MS\.MIL/i.test(`${source.publisher} ${source.title} ${source.datasetId ?? ""} ${source.canonicalUrl}`)), false);
+});
+
+test("une valeur en attente de vérification n'est pas affichée mais reste signalée", () => {
+  const fra = france();
+  const views = metricViews(fra);
+  assert.equal(views.has("politics.head_of_government"), false);
+  assert.equal(views.has("institutions.unsc"), false);
+  const pending = pendingObservations(fra).map((item) => item.key);
+  assert.ok(pending.includes("politics.head_of_government") && pending.includes("institutions.unsc"));
+});
+
+test("les valeurs de la maquette de démonstration ne sont pas reprises", () => {
+  const text = JSON.stringify(getApprocheData("FRA"));
+  for (const forbidden of ["Barnier", "380 000", "380000", "3 130", "68,4", "Barkhane", "98 %", "12 mars 2025"]) assert.equal(text.includes(forbidden), false, forbidden);
+});
+
+test("deux mesures de la population (Banque mondiale, Eurostat) sont gardées côte à côte, sans moyenne", () => {
+  const views = metricViews(france());
+  const world = views.get("demography.population");
+  const eurostat = views.get("demography.population.eurostat");
+  assert.ok(world && eurostat);
+  assert.notEqual(world.period, eurostat.period);
+  assert.ok(world.others.some((other) => other.period === eurostat.period));
+  assert.ok(world.series.length >= 5, "l'historique alimente la courbe");
+});
+
+test("la fiche France publie des affirmations vérifiées, chacune avec sa source", () => {
+  const claims = claimViews(france());
+  assert.ok(claims.length >= 3);
+  for (const claim of claims) assert.ok(claim.sources.length > 0, claim.id);
+});
+
+test("une fiche non publiée ne montre rien", () => {
+  const draft = data({ publication: "draft" });
+  assert.equal(metricViews(draft).size, 0);
+  assert.deepEqual(claimViews(draft), []);
+});
+
+test("un pays non migré garde l'ancienne fiche", () => {
+  assert.equal(getApprocheData("MLI"), null);
+  assert.equal(getApprocheData(undefined), null);
+});
+
+test("le schéma refuse une fiche mal formée", () => {
+  assert.equal(CountryDataSchema.safeParse({ countryCode: "FR" }).success, false);
+});
+
+test("mise en forme française des valeurs", () => {
+  const population = observation({ key: "demography.population", value: 68720337, unit: "habitants" });
+  assert.equal(formatValue(population), "68,7 millions");
+  const gdp = observation({ key: "economy.gdp_nominal_usd", value: 3366315927447, unit: "USD" });
+  assert.equal(formatWithUnit(gdp), "3,37 billions $ US");
+  const growth = observation({ key: "economy.gdp_growth", value: 0.84, unit: "%" });
+  assert.equal(formatWithUnit(growth), "+0,8 %");
+  assert.equal(formatValue(observation({ value: null })), "Donnée non disponible");
+  assert.equal(formatDate("2026-10-29"), "29 octobre 2026");
+});
