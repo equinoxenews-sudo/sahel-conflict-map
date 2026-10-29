@@ -122,11 +122,15 @@ function callNote(batch: string, meta: CallMeta): string {
 /** Ligne de journal d'un appel sans résultat : refus de l'API (rien de facturé) ou coupure par le délai (entrée estimée). */
 function failureNote(batch: string, failure: CallFailure): string {
   const what = failure.kind === "aborted"
-    ? "coupé par le délai (entrée estimée, sortie inconnue)"
+    ? failure.cut === "idle"
+      ? "coupé : plus aucune progression (jetons estimés)"
+      : "coupé par le délai absolu (jetons estimés)"
+    : failure.kind === "stream"
+    ? `réponse interrompue${failure.errorType ? ` ${failure.errorType}` : ""} (jetons estimés)`
     : `refus HTTP ${failure.status}${failure.errorType ? ` ${failure.errorType}` : ""}${failure.errorKind === "spend_limit" ? " (plafond de dépenses)" : ""}`;
   return [
     what, batch, seconds(failure.durationMs), failure.attempt > 1 ? `appel ${failure.attempt}` : null, failure.requestId,
-    failure.retryInMs !== null ? `nouvel essai dans ${seconds(failure.retryInMs)}` : null,
+    failure.retryInMs === 0 ? "nouvel essai immédiat" : failure.retryInMs !== null ? `nouvel essai dans ${seconds(failure.retryInMs)}` : null,
     failure.errorMessage ? `« ${failure.errorMessage} »` : null,
   ].filter(Boolean).join(" · ");
 }
