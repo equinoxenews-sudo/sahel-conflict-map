@@ -17,7 +17,10 @@ export function formatValue(observation: Observation): string {
   if (typeof value === "boolean") return value ? "Oui" : "Non";
   if (typeof value === "string") return value;
   if (unit === "habitants") {
-    if (value >= 1_000_000) return `${number(value / 1_000_000, 1)} millions`;
+    if (value >= 1_000_000) {
+      const millions = Math.round((value / 1_000_000) * 10) / 10;
+      return `${number(millions, 1)} ${millions >= 2 ? "millions" : "million"}`;
+    }
     return number(Math.round(value / 1000) * 1000, 0);
   }
   if (unit === "USD" || unit === "EUR") {

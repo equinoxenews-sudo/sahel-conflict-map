@@ -14,6 +14,21 @@ const args = process.argv.slice(2);
 const checkLinks = args.includes("--check-links");
 const files = args.filter((arg) => !arg.startsWith("--"));
 
+/** Messages de structure de Zod en français, pour que l'erreur se lise sans connaître la bibliothèque. */
+function frenchMessage(message: string): string {
+  if (/received undefined/.test(message)) return "champ obligatoire absent";
+  if (/Invalid URL/.test(message)) return "adresse invalide (adresse complète https://… attendue)";
+  const items = /expected array to have >=(\d+) items/.exec(message);
+  if (items) return `au moins ${items[1]} élément(s) attendu(s)`;
+  const length = /expected string to have exactly (\d+) characters/.exec(message);
+  if (length) return `exactement ${length[1]} caractères attendus`;
+  const option = /expected one of (.+)$/.exec(message);
+  if (option) return `valeur non reconnue, attendu : ${option[1]}`;
+  if (/expected string to have >=1 characters/.test(message)) return "texte vide interdit";
+  if (/expected (number|string|boolean|array|object), received/.test(message)) return `type incorrect (${message.replace(/^Invalid input: /, "")})`;
+  return message;
+}
+
 async function reachable(url: string): Promise<string | null> {
   try {
     const response = await fetch(url, { method: "GET", redirect: "follow", signal: AbortSignal.timeout(20_000), headers: { "User-Agent": "Mozilla/5.0 (compatible; EquinoxeNewsBot/1.0)" } });
@@ -38,7 +53,7 @@ async function main() {
     const parsed = CountryDataSchema.safeParse(raw);
     if (!parsed.success) {
       console.error(`✖ ${file} : structure invalide`);
-      for (const issue of parsed.error.issues.slice(0, 25)) console.error(`   - ${issue.path.join(".") || "(racine)"} : ${issue.message}`);
+      for (const issue of parsed.error.issues.slice(0, 25)) console.error(`   - ${issue.path.join(".") || "(racine)"} : ${frenchMessage(issue.message)}`);
       if (parsed.error.issues.length > 25) console.error(`   … ${parsed.error.issues.length - 25} autre(s) erreur(s)`);
       failed = true;
       continue;

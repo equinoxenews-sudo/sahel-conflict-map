@@ -25,6 +25,18 @@ const NOT_VERIFIED = "À vérifier sur la source officielle";
 export default function OverviewTab({ defenseHref, metrics, pending, map, module, sources }: OverviewTabProps) {
   const get = (key: string) => metrics.get(key) ?? null;
   const missingFor = (key: string) => (pending.has(key) ? NOT_VERIFIED : "Donnée non disponible");
+  // Superficie : première mesure `geography.area.*` du fichier (la source figure dans la clé : eurostat, worldbank…).
+  const area = get([...metrics.keys()].find((key) => key.startsWith("geography.area")) ?? "");
+  const population = get("demography.population");
+  const density = get("demography.density");
+  // Une appartenance n'apparaît que si le fichier la documente (ou la signale à vérifier) : un pays hors UE n'a pas de ligne « Zone euro ».
+  const memberships = [
+    { key: "institutions.eu_membership", label: "Union européenne" },
+    { key: "institutions.euro_area", label: "Zone euro" },
+    { key: "institutions.schengen", label: "Espace Schengen" },
+    { key: "institutions.nato", label: "OTAN" },
+    { key: "institutions.unsc", label: "Conseil de sécurité de l'ONU" },
+  ].filter(({ key }) => get(key) || pending.has(key));
   const hasAnalysis = module.strengths.length + module.challenges.length + module.timeline.length > 0;
 
   return (
@@ -56,7 +68,9 @@ export default function OverviewTab({ defenseHref, metrics, pending, map, module
             Carte
           </SectionHeading>
           <CountryMapFrame data={map} />
-          <p className={styles.cardNote}>Fond de carte : contours des pays du site (carte d&apos;ensemble) et imagerie Esri. Les limites administratives officielles seront ajoutées avec leur source et leur licence.</p>
+          <p className={styles.cardNote}>
+            Fond de carte : contours des pays du site (carte d&apos;ensemble) et imagerie Esri. Les limites administratives officielles seront ajoutées avec leur source et leur licence.
+          </p>
         </section>
 
         <section className={styles.card} aria-labelledby="general-title">
@@ -65,9 +79,20 @@ export default function OverviewTab({ defenseHref, metrics, pending, map, module
           </SectionHeading>
           <div className={styles.rows}>
             <MetricCard variant="row" label="Capitale" metric={get("identity.capital")} />
-            <MetricCard variant="row" label="Superficie" metric={get("geography.area.eurostat")} />
+            <MetricCard variant="row" label="Superficie" metric={area} />
             <MetricCard variant="row" label="Population" metric={get("demography.population")} />
-            <MetricCard variant="row" label="Densité" metric={null} missing="Non calculée" missingHint="périmètres de population et de superficie différents" icon="users" />
+            {density ? (
+              <MetricCard variant="row" label="Densité" metric={density} icon="users" />
+            ) : population && area ? (
+              <MetricCard
+                variant="row"
+                label="Densité"
+                metric={null}
+                missing="Non calculée"
+                missingHint="population et superficie de sources ou de périmètres différents : à harmoniser avant tout calcul"
+                icon="users"
+              />
+            ) : null}
             <MetricCard variant="row" label="Régime" metric={get("politics.regime")} />
             <MetricCard variant="row" label="Chef de l'État" metric={get("politics.head_of_state")} icon="landmark" />
             <MetricCard variant="row" label="Premier ministre" metric={get("politics.head_of_government")} missing={missingFor("politics.head_of_government")} icon="landmark" />
@@ -80,24 +105,24 @@ export default function OverviewTab({ defenseHref, metrics, pending, map, module
       {module.territories ? (
         <section className={styles.card} aria-labelledby="territories-title">
           <SectionHeading id="territories-title" data={module.territories} icon="pin">
-            Territoires d&apos;outre-mer
+            {module.territories.title.replace(/\s*\((démonstration|exemple fictif)\)\s*$/i, "")}
           </SectionHeading>
           <ApprocheMap map={module.territories} sources={sources} height={320} />
         </section>
       ) : null}
 
-      <section className={styles.card} aria-labelledby="orgs-title">
-        <SectionHeading id="orgs-title" icon="globe">
-          Appartenances
-        </SectionHeading>
-        <div className={styles.rows}>
-          <MetricCard variant="row" label="Union européenne" metric={get("institutions.eu_membership")} />
-          <MetricCard variant="row" label="Zone euro" metric={get("institutions.euro_area")} />
-          <MetricCard variant="row" label="Espace Schengen" metric={get("institutions.schengen")} />
-          <MetricCard variant="row" label="OTAN" metric={get("institutions.nato")} />
-          <MetricCard variant="row" label="Conseil de sécurité de l'ONU" metric={get("institutions.unsc")} missing={missingFor("institutions.unsc")} />
-        </div>
-      </section>
+      {memberships.length > 0 ? (
+        <section className={styles.card} aria-labelledby="orgs-title">
+          <SectionHeading id="orgs-title" icon="globe">
+            Appartenances
+          </SectionHeading>
+          <div className={styles.rows}>
+            {memberships.map(({ key, label }) => (
+              <MetricCard key={key} variant="row" label={label} metric={get(key)} missing={missingFor(key)} />
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section aria-labelledby="macro-title">
         <SectionHeading id="macro-title" icon="chart">
@@ -148,7 +173,9 @@ export default function OverviewTab({ defenseHref, metrics, pending, map, module
               <Timeline items={module.timeline} sources={sources} />
             </section>
           ) : null}
-          <p className={styles.cardNote}>Atouts et défis sont des appréciations analytiques, sourcées et datées : aucune barre de « puissance » ni score n&apos;est affiché tant qu&apos;aucune méthode publiée ne le permet.</p>
+          <p className={styles.cardNote}>
+            Atouts et défis sont des appréciations analytiques, sourcées et datées : aucune barre de « puissance » ni score n&apos;est affiché tant qu&apos;aucune méthode publiée ne le permet.
+          </p>
         </>
       ) : (
         <section className={styles.card} aria-labelledby="analysis-title">

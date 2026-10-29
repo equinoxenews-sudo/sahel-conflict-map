@@ -1,0 +1,1358 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "XEC",
+  "slug": "exemple-complet",
+  "zoneSlug": "europe",
+  "name": "Pays d'exemple complet (fictif)",
+  "officialName": "République d'exemple complet (fictif)",
+  "publication": "draft",
+  "lastCheckedAt": "2026-01-15",
+  "sources": [
+    {
+      "id": "S-EX-STAT",
+      "publisher": "Office statistique officiel (exemple fictif)",
+      "title": "Séries nationales : population, comptes, emploi",
+      "canonicalUrl": "https://example.org/statistiques/series",
+      "apiUrl": "https://example.org/api/series",
+      "datasetId": "SERIES-NAT",
+      "datasetVersion": "2025-12",
+      "publishedAt": "2025-12-01",
+      "accessedAt": "2026-01-15",
+      "license": "Licence ouverte Etalab 2.0, avec mention de la source",
+      "licenseUrl": "https://www.etalab.gouv.fr/licence-ouverte-open-licence/",
+      "reuse": "allowed",
+      "methodNotes": "Séries révisables ; définition de fait pour la population.",
+      "originalPublisher": null,
+      "language": "fr"
+    },
+    {
+      "id": "S-EX-MIN",
+      "publisher": "Ministère (exemple fictif)",
+      "title": "Page officielle du ministère : défense et diplomatie",
+      "canonicalUrl": "https://example.org/ministere/defense",
+      "accessedAt": "2026-01-15",
+      "license": "Contenu cité avec attribution, sans reprise du texte ni des images",
+      "licenseUrl": "https://example.org/ministere/mentions-legales",
+      "reuse": "citation_only",
+      "methodNotes": "Seuls des faits (dates, intitulés) sont cités.",
+      "language": "fr"
+    },
+    {
+      "id": "S-EX-OUV",
+      "publisher": "Organisation internationale (exemple fictif)",
+      "title": "Pays membres",
+      "canonicalUrl": "https://example.org/organisation/membres",
+      "accessedAt": "2026-01-15",
+      "license": null,
+      "reuse": "unknown",
+      "methodNotes": "Licence non vérifiée : signalée à l'utilisateur, jamais devinée.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "xec-identity-capital-2026",
+      "countryCode": "XEC",
+      "key": "identity.capital",
+      "value": "Capitale d'exemple",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Pays entier",
+      "methodology": "Siège des institutions selon la constitution (exemple).",
+      "sourceIds": [
+        "S-EX-MIN"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "xec-identity-language-2026",
+      "countryCode": "XEC",
+      "key": "identity.language",
+      "value": "Langue d'exemple",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Pays entier",
+      "methodology": "Langue officielle selon la constitution (exemple).",
+      "sourceIds": [
+        "S-EX-MIN"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "xec-identity-currency-2026",
+      "countryCode": "XEC",
+      "key": "identity.currency",
+      "value": "Monnaie d'exemple (EXM)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Pays entier",
+      "methodology": "Monnaie ayant cours légal (exemple).",
+      "sourceIds": [
+        "S-EX-MIN"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "xec-politics-regime-2026",
+      "countryCode": "XEC",
+      "key": "politics.regime",
+      "value": "République d'exemple",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Pays entier",
+      "methodology": "Régime selon la constitution (exemple).",
+      "sourceIds": [
+        "S-EX-MIN"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "xec-politics-head-of-state-2026",
+      "countryCode": "XEC",
+      "key": "politics.head_of_state",
+      "value": "Personne d'exemple",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Pays entier",
+      "methodology": "Chef de l'État selon la page officielle de la présidence (exemple).",
+      "sourceIds": [
+        "S-EX-MIN"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "validFrom": "2022-05-14"
+    },
+    {
+      "id": "xec-politics-head-of-government-2026",
+      "countryCode": "XEC",
+      "key": "politics.head_of_government",
+      "value": null,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Pays entier",
+      "methodology": "Non confirmé : une valeur en attente ne s'affiche jamais comme un fait.",
+      "sourceIds": [
+        "S-EX-MIN"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": null,
+      "status": "pending",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "xec-institutions-g20-2026",
+      "countryCode": "XEC",
+      "key": "institutions.g20",
+      "value": "Membre du G20 (exemple fictif)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Pays entier",
+      "methodology": "Liste des membres du forum au jour de la vérification (exemple).",
+      "sourceIds": [
+        "S-EX-OUV"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "xec-demography-population-2025",
+      "countryCode": "XEC",
+      "key": "demography.population",
+      "value": 1000000,
+      "unit": "habitants",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier",
+      "methodology": "Estimation au milieu de l'année ; population de fait.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "population",
+      "history": [
+        {
+          "period": "2023",
+          "value": 980000
+        },
+        {
+          "period": "2024",
+          "value": 990000
+        },
+        {
+          "period": "2025",
+          "value": 1000000
+        }
+      ]
+    },
+    {
+      "id": "xec-geography-area-statistique-2025",
+      "countryCode": "XEC",
+      "key": "geography.area.statistique",
+      "value": 52000,
+      "unit": "km²",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier, eaux intérieures comprises",
+      "methodology": "Superficie totale selon l'office statistique (exemple).",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "xec-economy-gdp-nominal-usd-2025",
+      "countryCode": "XEC",
+      "key": "economy.gdp_nominal_usd",
+      "value": 41000000000,
+      "unit": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier",
+      "methodology": "PIB aux prix courants converti en dollars américains au taux de change moyen de l'année.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": [
+        {
+          "period": "2023",
+          "value": 37000000000
+        },
+        {
+          "period": "2024",
+          "value": 39000000000
+        },
+        {
+          "period": "2025",
+          "value": 41000000000
+        }
+      ]
+    },
+    {
+      "id": "xec-economy-gdp-per-capita-usd-2025",
+      "countryCode": "XEC",
+      "key": "economy.gdp_per_capita_usd",
+      "value": 41000,
+      "unit": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier",
+      "methodology": "PIB nominal divisé par la population de milieu d'année.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "calculated",
+      "calculationFormula": "economy.gdp_nominal_usd / demography.population",
+      "uncertainty": "Dépend de la révision du PIB et de la population."
+    },
+    {
+      "id": "xec-economy-gdp-growth-2025",
+      "countryCode": "XEC",
+      "key": "economy.gdp_growth",
+      "value": 2.4,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier",
+      "methodology": "Variation annuelle du PIB en volume.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "xec-economy-inflation-cpi-2025",
+      "countryCode": "XEC",
+      "key": "economy.inflation_cpi",
+      "value": 3.1,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation, moyenne annuelle.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "xec-economy-public-debt-gdp-2025",
+      "countryCode": "XEC",
+      "key": "economy.public_debt_gdp",
+      "value": 62.5,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Administrations publiques",
+      "methodology": "Dette brute des administrations publiques rapportée au PIB.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "xec-labour-unemployment-ilo-2025",
+      "countryCode": "XEC",
+      "key": "labour.unemployment_ilo",
+      "value": 6.8,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier",
+      "methodology": "Taux de chômage selon la définition du Bureau international du travail.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "xec-research-rd-gdp-2024",
+      "countryCode": "XEC",
+      "key": "research.rd_gdp",
+      "value": 1.2,
+      "unit": "%",
+      "referencePeriod": "2024",
+      "geographicScope": "Pays entier",
+      "methodology": "Dépenses intérieures de recherche et développement rapportées au PIB.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "xec-economy-value-added-total-2025",
+      "countryCode": "XEC",
+      "key": "economy.value_added.total",
+      "value": 36000000000,
+      "unit": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier",
+      "methodology": "Valeur ajoutée brute totale, prix courants.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed",
+      "label": "Total"
+    },
+    {
+      "id": "xec-economy-value-added-A-2025",
+      "countryCode": "XEC",
+      "key": "economy.value_added.A",
+      "value": 2000000000,
+      "unit": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier",
+      "methodology": "Valeur ajoutée brute de la branche, prix courants.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed",
+      "label": "Agriculture, sylviculture et pêche"
+    },
+    {
+      "id": "xec-economy-value-added-share-A-2025",
+      "countryCode": "XEC",
+      "key": "economy.value_added_share.A",
+      "value": 5.6,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier",
+      "methodology": "Valeur ajoutée de la branche divisée par la valeur ajoutée totale.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "calculated",
+      "label": "Agriculture, sylviculture et pêche",
+      "calculationFormula": "economy.value_added.A / economy.value_added.total"
+    },
+    {
+      "id": "xec-energy-electricity-production-total-2025",
+      "countryCode": "XEC",
+      "key": "energy.electricity.production_total",
+      "value": 12.5,
+      "unit": "TWh",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier",
+      "methodology": "Production brute d'électricité, toutes filières.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed",
+      "label": "Production totale d'électricité"
+    },
+    {
+      "id": "xec-energy-electricity-hydro-2025",
+      "countryCode": "XEC",
+      "key": "energy.electricity.hydro",
+      "value": 7.5,
+      "unit": "TWh",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier",
+      "methodology": "Production hydraulique.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed",
+      "label": "Production hydraulique"
+    },
+    {
+      "id": "xec-energy-electricity-fossil-2025",
+      "countryCode": "XEC",
+      "key": "energy.electricity.fossil",
+      "value": 4,
+      "unit": "TWh",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier",
+      "methodology": "Production d'origine fossile (gaz, charbon, fioul).",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed",
+      "label": "Production d'origine fossile"
+    }
+  ],
+  "claims": [
+    {
+      "id": "xec-claim-1",
+      "countryCode": "XEC",
+      "statement": "Phrase factuelle d'exemple, datée, appuyée par au moins une source.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-EX-MIN"
+      ],
+      "validAsOf": "2026-01-15",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Précision éventuelle sur la portée de la phrase."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "xec-rel-yyy-traite",
+      "countryCode": "XEC",
+      "targetCode": "YYY",
+      "targetIso2": "YY",
+      "targetName": "Pays partenaire (fictif)",
+      "relationType": "treaty",
+      "title": "Intitulé exact du traité",
+      "topics": [
+        "Défense",
+        "Énergie"
+      ],
+      "summary": "Résumé factuel avec dates de signature et d'entrée en vigueur.",
+      "validFrom": "2020-01-22",
+      "validTo": null,
+      "sourceIds": [
+        "S-EX-MIN"
+      ],
+      "lastReviewedAt": "2026-01-15",
+      "status": "verified"
+    },
+    {
+      "id": "xec-rel-zzz-cooperation",
+      "countryCode": "XEC",
+      "targetCode": "ZZZ",
+      "targetIso2": null,
+      "targetName": "Organisation partenaire (fictive)",
+      "relationType": "cooperation",
+      "title": "Programme de coopération",
+      "topics": [
+        "Éducation"
+      ],
+      "summary": "Programme daté et sourcé.",
+      "validFrom": "2023-03-01",
+      "validTo": null,
+      "sourceIds": [
+        "S-EX-OUV"
+      ],
+      "lastReviewedAt": "2026-01-15",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {
+      "imageId": "img-hero",
+      "tagline": "Phrase de positionnement éditoriale, sans superlatif non sourcé",
+      "summary": "Synthèse courte (exemple fictif) : à défaut, l'interface assemble les affirmations vérifiées de `claims`.",
+      "bannerImages": {
+        "defense": "img-hero"
+      }
+    },
+    "media": {
+      "assets": [
+        {
+          "id": "img-hero",
+          "path": "/approche/exemple/exemple-hero.webp",
+          "alt": "Description factuelle de l'image (exemple fictif)",
+          "author": "Auteur (exemple)",
+          "credit": "Photographie : Auteur (exemple), CC BY 4.0",
+          "sourceUrl": "https://example.org/photos/hero",
+          "license": "CC BY 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+          "licenseStatus": "cleared",
+          "commercialReuseAllowed": true,
+          "attributionRequired": true,
+          "obligations": "Mention de l'auteur et de la licence.",
+          "reviewedAt": "2026-01-15",
+          "focal": {
+            "x": 40,
+            "y": 55
+          },
+          "subject": "Capitale d'exemple"
+        }
+      ]
+    },
+    "overview": {
+      "strengths": [
+        {
+          "id": "ov-s1",
+          "title": "Atout stratégique d'exemple",
+          "summary": "Appréciation analytique sourcée et datée, jamais une barre de puissance.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ],
+          "date": "2026"
+        }
+      ],
+      "challenges": [
+        {
+          "id": "ov-c1",
+          "title": "Défi majeur d'exemple",
+          "summary": "Appréciation analytique sourcée et datée.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ],
+          "date": "2026"
+        }
+      ],
+      "timeline": [
+        {
+          "id": "ov-t1",
+          "title": "Événement institutionnel d'exemple",
+          "summary": "Fait daté et sourcé.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ],
+          "date": "2022"
+        },
+        {
+          "id": "ov-t2",
+          "title": "Second événement d'exemple",
+          "summary": "Fait daté et sourcé.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ],
+          "date": "2025"
+        }
+      ],
+      "territories": {
+        "id": "territoires",
+        "title": "Territoires éloignés (exemple fictif)",
+        "view": {
+          "lat": 0,
+          "lon": -30,
+          "zoom": 2
+        },
+        "hub": {
+          "name": "Capitale d'exemple",
+          "lat": 48.85,
+          "lon": 2.35
+        },
+        "layers": [
+          {
+            "id": "terr",
+            "title": "Territoires",
+            "theme": "relations",
+            "icon": "pin",
+            "color": "#4aa3df",
+            "description": "Territoires : objets publics datés (exemple fictif).",
+            "attribution": "Organisme (exemple fictif)",
+            "license": "Licence ouverte Etalab 2.0",
+            "sourceUrl": "https://example.org/jeux-de-donnees/terr",
+            "lastUpdatedAt": "2026-01-01",
+            "features": [
+              {
+                "id": "t1",
+                "name": "Territoire d'exemple",
+                "lat": -21.1,
+                "lon": 55.5,
+                "kind": "Territoire",
+                "summary": "Objet public daté (exemple fictif).",
+                "status": "Administré",
+                "url": "https://example.org/objets/t1",
+                "sourceIds": [
+                  "S-EX-MIN"
+                ]
+              }
+            ]
+          }
+        ],
+        "note": ""
+      }
+    },
+    "relations": {
+      "map": {
+        "id": "reseau",
+        "title": "Réseau diplomatique (exemple fictif)",
+        "view": {
+          "lat": 20,
+          "lon": 10,
+          "zoom": 2
+        },
+        "hub": {
+          "name": "Capitale d'exemple",
+          "lat": 48.85,
+          "lon": 2.35
+        },
+        "layers": [
+          {
+            "id": "amb",
+            "title": "Ambassades",
+            "theme": "relations",
+            "icon": "building",
+            "color": "#e0b44c",
+            "description": "Ambassades : objets publics datés (exemple fictif).",
+            "attribution": "Organisme (exemple fictif)",
+            "license": "Licence ouverte Etalab 2.0",
+            "sourceUrl": "https://example.org/jeux-de-donnees/amb",
+            "lastUpdatedAt": "2026-01-01",
+            "features": [
+              {
+                "id": "a1",
+                "name": "Ambassade d'exemple",
+                "lat": 50.85,
+                "lon": 4.35,
+                "kind": "Ambassade",
+                "summary": "Objet public daté (exemple fictif).",
+                "status": "Ouverte",
+                "url": "https://example.org/objets/a1",
+                "sourceIds": [
+                  "S-EX-MIN"
+                ]
+              },
+              {
+                "id": "a2",
+                "name": "Seconde ambassade d'exemple",
+                "lat": 35.68,
+                "lon": 139.69,
+                "kind": "Ambassade",
+                "summary": "Objet public daté (exemple fictif).",
+                "status": "Ouverte",
+                "url": null,
+                "sourceIds": [
+                  "S-EX-MIN"
+                ]
+              }
+            ]
+          }
+        ],
+        "note": "Seul un annuaire officiel réutilisable justifie cette carte."
+      },
+      "presenceMap": {
+        "id": "presence",
+        "title": "Présences et engagements documentés (exemple fictif)",
+        "view": {
+          "lat": 10,
+          "lon": 20,
+          "zoom": 2
+        },
+        "hub": {
+          "name": "Capitale d'exemple",
+          "lat": 48.85,
+          "lon": 2.35
+        },
+        "layers": [
+          {
+            "id": "coop",
+            "title": "Coopérations",
+            "theme": "relations",
+            "icon": "handshake",
+            "color": "#35b779",
+            "description": "Coopérations : objets publics datés (exemple fictif).",
+            "attribution": "Organisme (exemple fictif)",
+            "license": "Licence ouverte Etalab 2.0",
+            "sourceUrl": "https://example.org/jeux-de-donnees/coop",
+            "lastUpdatedAt": "2026-01-01",
+            "features": [
+              {
+                "id": "c1",
+                "name": "Accord de coopération d'exemple",
+                "lat": 14.7,
+                "lon": -17.45,
+                "kind": "Coopération",
+                "summary": "Objet public daté (exemple fictif).",
+                "status": "En vigueur",
+                "url": "https://example.org/objets/c1",
+                "sourceIds": [
+                  "S-EX-MIN"
+                ]
+              }
+            ]
+          }
+        ],
+        "note": ""
+      }
+    },
+    "economy": {
+      "sectors": [
+        {
+          "id": "eco-s1",
+          "title": "Secteur d'exemple",
+          "summary": "Description sourcée : entreprises, implantations, importance mesurée par une statistique officielle.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "eco-r1",
+          "title": "Ressource d'exemple",
+          "summary": "Présence, production, importation et dépendance sont des notions distinctes.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ]
+        }
+      ],
+      "map": {
+        "id": "infra",
+        "title": "Ressources et infrastructures (exemple fictif)",
+        "view": {
+          "lat": 47,
+          "lon": 2,
+          "zoom": 5
+        },
+        "hub": {
+          "name": "Capitale d'exemple",
+          "lat": 48.85,
+          "lon": 2.35
+        },
+        "layers": [
+          {
+            "id": "ports",
+            "title": "Ports",
+            "theme": "infrastructure",
+            "icon": "anchor",
+            "color": "#3d9be9",
+            "description": "Ports : objets publics datés (exemple fictif).",
+            "attribution": "Organisme (exemple fictif)",
+            "license": "Licence ouverte Etalab 2.0",
+            "sourceUrl": "https://example.org/jeux-de-donnees/ports",
+            "lastUpdatedAt": "2026-01-01",
+            "features": [
+              {
+                "id": "p1",
+                "name": "Port d'exemple",
+                "lat": 49.48,
+                "lon": 0.11,
+                "kind": "Port",
+                "summary": "Objet public daté (exemple fictif).",
+                "status": "En service",
+                "url": "https://example.org/objets/p1",
+                "sourceIds": [
+                  "S-EX-MIN"
+                ]
+              }
+            ]
+          }
+        ],
+        "note": ""
+      }
+    },
+    "defense": {
+      "kpis": [
+        {
+          "id": "d-k1",
+          "label": "Budget de la défense (exemple)",
+          "valueText": "12,3",
+          "unit": "Md €",
+          "period": "2025",
+          "note": "Périmètre exact et devise ; jamais une source à licence commerciale non établie (SIPRI).",
+          "sourceIds": [
+            "S-EX-MIN"
+          ]
+        }
+      ],
+      "organization": [
+        {
+          "id": "org-1",
+          "label": "Chef d'état-major (exemple)",
+          "parentId": null,
+          "note": "",
+          "sourceIds": [
+            "S-EX-MIN"
+          ]
+        },
+        {
+          "id": "org-2",
+          "label": "Armée de terre (exemple)",
+          "parentId": "org-1",
+          "note": "",
+          "sourceIds": [
+            "S-EX-MIN"
+          ]
+        },
+        {
+          "id": "org-3",
+          "label": "Marine (exemple)",
+          "parentId": "org-1",
+          "note": "",
+          "sourceIds": [
+            "S-EX-MIN"
+          ]
+        }
+      ],
+      "missions": [
+        {
+          "id": "d-m1",
+          "title": "Mission d'exemple",
+          "summary": "Mission citée dans un texte officiel.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-MIN"
+          ]
+        }
+      ],
+      "framework": [
+        {
+          "id": "d-f1",
+          "title": "Document stratégique d'exemple",
+          "summary": "Intitulé exact et date de publication.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-MIN"
+          ],
+          "date": "2025"
+        }
+      ],
+      "operations": [
+        {
+          "id": "d-o1",
+          "title": "Opération d'exemple",
+          "summary": "Toujours datée : une opération close n'est jamais présentée comme en cours.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-MIN"
+          ],
+          "date": "2024-2025",
+          "status": "Clôturée",
+          "layerId": "engagements",
+          "featureId": "e1"
+        }
+      ],
+      "equipment": [
+        {
+          "id": "d-e1",
+          "title": "Équipement d'exemple",
+          "summary": "Nom et catégorie ; aucun chiffre sans source datée.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-MIN"
+          ],
+          "category": "Aviation de combat",
+          "inServiceText": null
+        }
+      ],
+      "industry": [
+        {
+          "id": "d-i1",
+          "title": "Filière industrielle d'exemple",
+          "summary": "Entreprises citées seulement si leur dénomination est sourcée.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-MIN"
+          ]
+        }
+      ],
+      "partnerships": [
+        {
+          "id": "d-p1",
+          "title": "Partenariat de défense d'exemple",
+          "summary": "Accord daté et sourcé.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-MIN"
+          ],
+          "date": "2023"
+        }
+      ],
+      "internalSecurity": [
+        {
+          "id": "d-s1",
+          "title": "Dispositif de sécurité intérieure d'exemple",
+          "summary": "Dispositif officiel décrit sans niveau inventé.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-MIN"
+          ]
+        }
+      ],
+      "threatPosture": {
+        "system": "Dispositif officiel de vigilance (exemple fictif)",
+        "level": "Vigilance renforcée",
+        "validFrom": "2026-01-01",
+        "stages": [
+          "Vigilance",
+          "Vigilance renforcée",
+          "Urgence"
+        ],
+        "note": "Seul un dispositif officiel publié est affiché comme niveau de menace ; la date et la source sont celles de la publication.",
+        "sourceIds": [
+          "S-EX-MIN"
+        ]
+      },
+      "strengths": [
+        {
+          "id": "d-st1",
+          "title": "Capacité d'exemple",
+          "summary": "Appréciation analytique attribuée et datée.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-MIN"
+          ]
+        }
+      ],
+      "map": {
+        "id": "engagements-carte",
+        "title": "Engagements publics (exemple fictif)",
+        "view": {
+          "lat": 15,
+          "lon": 20,
+          "zoom": 2
+        },
+        "hub": {
+          "name": "Capitale d'exemple",
+          "lat": 48.85,
+          "lon": 2.35
+        },
+        "layers": [
+          {
+            "id": "engagements",
+            "title": "Opérations et engagements",
+            "theme": "defense",
+            "icon": "shield",
+            "color": "#d94a4a",
+            "description": "Opérations et engagements : objets publics datés (exemple fictif).",
+            "attribution": "Organisme (exemple fictif)",
+            "license": "Licence ouverte Etalab 2.0",
+            "sourceUrl": "https://example.org/jeux-de-donnees/engagements",
+            "lastUpdatedAt": "2026-01-01",
+            "features": [
+              {
+                "id": "e1",
+                "name": "Zone d'opération d'exemple",
+                "lat": 12.6,
+                "lon": -8,
+                "kind": "Opération",
+                "summary": "Objet public daté (exemple fictif).",
+                "status": "Clôturée",
+                "url": "https://example.org/objets/e1",
+                "sourceIds": [
+                  "S-EX-MIN"
+                ]
+              }
+            ]
+          }
+        ],
+        "note": ""
+      }
+    },
+    "issues": {
+      "kpis": [
+        {
+          "id": "i-k1",
+          "label": "Dossiers suivis",
+          "valueText": "2",
+          "unit": null,
+          "period": "2026",
+          "note": "Nombre de dossiers éditoriaux, pas un score.",
+          "sourceIds": [
+            "S-EX-STAT"
+          ]
+        }
+      ],
+      "issues": [
+        {
+          "id": "iss-1",
+          "title": "Dossier stratégique d'exemple",
+          "summary": "Résumé factuel du dossier.",
+          "tags": [
+            "Économie"
+          ],
+          "sourceIds": [
+            "S-EX-STAT",
+            "S-EX-MIN"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Sous-thème A"
+          ],
+          "situation": "Faits sourcés et datés.",
+          "whyStrategic": "Analyse attribuée : pourquoi le dossier est stratégique.",
+          "actors": [
+            "Acteur public d'exemple"
+          ],
+          "interests": [
+            "Intérêt en jeu"
+          ],
+          "recentDevelopments": [
+            "Développement récent daté"
+          ],
+          "indicators": [
+            "Indicateur à surveiller"
+          ],
+          "uncertainties": [
+            "Hypothèse et incertitude"
+          ],
+          "updatedAt": "2026-01-15"
+        },
+        {
+          "id": "iss-2",
+          "title": "Second dossier d'exemple",
+          "summary": "Résumé factuel du dossier.",
+          "tags": [
+            "Sécurité"
+          ],
+          "sourceIds": [
+            "S-EX-MIN"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "european"
+          ],
+          "subthemes": [],
+          "situation": "",
+          "whyStrategic": "",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [],
+          "uncertainties": [],
+          "updatedAt": null
+        }
+      ],
+      "calendar": [
+        {
+          "id": "cal-1",
+          "title": "Échéance d'exemple",
+          "summary": "Prévue ; jamais présentée comme certaine.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-MIN"
+          ],
+          "date": "2027",
+          "status": "prévu"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "opp-1",
+          "title": "Opportunité d'exemple",
+          "summary": "Possibilité, non événement futur assuré.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "risk-1",
+          "title": "Risque d'exemple",
+          "summary": "Rattaché à un fait daté et sourcé ; aucune probabilité.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ]
+        }
+      ],
+      "map": {
+        "id": "interets",
+        "title": "Intérêts et engagements (exemple fictif)",
+        "view": {
+          "lat": 15,
+          "lon": 15,
+          "zoom": 2
+        },
+        "hub": {
+          "name": "Capitale d'exemple",
+          "lat": 48.85,
+          "lon": 2.35
+        },
+        "layers": [
+          {
+            "id": "interets-couche",
+            "title": "Projets et accords",
+            "theme": "interests",
+            "icon": "target",
+            "color": "#9b6be8",
+            "description": "Projets et accords : objets publics datés (exemple fictif).",
+            "attribution": "Organisme (exemple fictif)",
+            "license": "Licence ouverte Etalab 2.0",
+            "sourceUrl": "https://example.org/jeux-de-donnees/interets-couche",
+            "lastUpdatedAt": "2026-01-01",
+            "features": [
+              {
+                "id": "i1",
+                "name": "Accord d'exemple",
+                "lat": 36.8,
+                "lon": 10.2,
+                "kind": "Accord",
+                "summary": "Objet public daté (exemple fictif).",
+                "status": "En vigueur",
+                "url": "https://example.org/objets/i1",
+                "sourceIds": [
+                  "S-EX-MIN"
+                ]
+              }
+            ]
+          }
+        ],
+        "note": "Un point est un fait précis, pas une zone d'influence."
+      }
+    },
+    "outlook": {
+      "domains": [
+        {
+          "id": "dom-1",
+          "title": "Domaine de vulnérabilité d'exemple",
+          "summary": "Résumé qualitatif sourcé ; aucun indice global.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "dep-1",
+          "title": "Dépendance qualitative d'exemple",
+          "summary": "Description sans pourcentage tant qu'aucune méthode n'est publiée.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ],
+          "state": "needs_methodology",
+          "observationKey": null
+        },
+        {
+          "id": "dep-2",
+          "title": "Dépendance mesurée d'exemple",
+          "summary": "Valeur issue d'une observation sourcée.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ],
+          "state": "measured",
+          "observationKey": "research.rd_gdp"
+        }
+      ],
+      "swot": {
+        "strengths": [
+          {
+            "id": "sw-s",
+            "title": "Force d'exemple",
+            "summary": "Appréciation attribuée.",
+            "tags": [],
+            "sourceIds": [
+              "S-EX-STAT"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "sw-w",
+            "title": "Faiblesse d'exemple",
+            "summary": "Appréciation attribuée.",
+            "tags": [],
+            "sourceIds": [
+              "S-EX-STAT"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "sw-o",
+            "title": "Opportunité d'exemple",
+            "summary": "Appréciation attribuée.",
+            "tags": [],
+            "sourceIds": [
+              "S-EX-STAT"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "sw-t",
+            "title": "Menace d'exemple",
+            "summary": "Appréciation attribuée.",
+            "tags": [],
+            "sourceIds": [
+              "S-EX-STAT"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "sc-1",
+          "title": "Continuité sous pression",
+          "summary": "Scénario narratif, sans probabilité chiffrée.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-MIN"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Hypothèse 1"
+          ],
+          "triggers": [
+            "Déclencheur 1"
+          ],
+          "weakSignals": [
+            "Signal faible 1"
+          ],
+          "consequences": [
+            "Conséquence 1"
+          ],
+          "limits": [
+            "Aucune probabilité n'est affectée."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "wa-1",
+          "title": "Axe de surveillance d'exemple",
+          "summary": "Variable de suivi, non une recommandation.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "ot-1",
+          "title": "Période 2026-2028",
+          "summary": "Jalon de projection, distinct des faits passés.",
+          "tags": [],
+          "sourceIds": [
+            "S-EX-STAT"
+          ],
+          "date": "2026-2028",
+          "status": "prévu"
+        }
+      ],
+      "map": {
+        "id": "aleas",
+        "title": "Aléas documentés (exemple fictif)",
+        "view": {
+          "lat": 47,
+          "lon": 2,
+          "zoom": 5
+        },
+        "hub": {
+          "name": "Capitale d'exemple",
+          "lat": 48.85,
+          "lon": 2.35
+        },
+        "layers": [
+          {
+            "id": "inond",
+            "title": "Inondations",
+            "theme": "risks",
+            "icon": "drop",
+            "color": "#3d9be9",
+            "description": "Inondations : objets publics datés (exemple fictif).",
+            "attribution": "Organisme (exemple fictif)",
+            "license": "Licence ouverte Etalab 2.0",
+            "sourceUrl": "https://example.org/jeux-de-donnees/inond",
+            "lastUpdatedAt": "2026-01-01",
+            "features": [
+              {
+                "id": "z1",
+                "name": "Site d'exemple",
+                "lat": 45.2,
+                "lon": 5.7,
+                "kind": "Zone d'inondation documentée",
+                "summary": "Objet public daté (exemple fictif).",
+                "status": "Documenté",
+                "url": "https://example.org/objets/z1",
+                "sourceIds": [
+                  "S-EX-MIN"
+                ]
+              }
+            ]
+          }
+        ],
+        "note": "Couches officielles sous licence uniquement."
+      }
+    }
+  }
+}

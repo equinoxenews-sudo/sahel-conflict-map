@@ -33,6 +33,8 @@ export const SourceSchema = z.object({
   licenseUrl: z.string().url().nullable().optional(),
   reuse: z.enum(REUSE),
   methodNotes: z.string().nullable().optional(),
+  /** Organisme d’origine de la donnée quand la source la relaie (agrégateur, plateforme) : les droits suivent la donnée d’origine. */
+  originalPublisher: z.string().nullable().optional(),
   language: z.string().default("fr"),
 });
 
@@ -63,6 +65,8 @@ export const ObservationSchema = z.object({
   status: z.enum(STATUS),
   dataKind: z.enum(DATA_KIND),
   calculationFormula: z.string().nullable().optional(),
+  /** Incertitude connue (révision, marge, estimation) : texte libre, affiché dans la provenance de la valeur. */
+  uncertainty: z.string().nullable().optional(),
   /** Valeurs des périodes précédentes, de la plus ancienne à la plus récente (pour les courbes). */
   history: z.array(z.object({ period: z.string(), value: z.number() })).default([]),
 });

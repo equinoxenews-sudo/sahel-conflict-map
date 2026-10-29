@@ -14,6 +14,8 @@ export interface SourceView {
   licenseUrl: string | null;
   reuse: "allowed" | "citation_only" | "unknown";
   accessedAt: string;
+  /** Date de publication de la page, de la série ou du rapport, quand elle est connue. */
+  publishedAt: string | null;
   notes: string | null;
 }
 
@@ -32,6 +34,8 @@ export interface MetricView {
   verifiedAt: string;
   /** « En fonction depuis » : début de validité, quand une source le donne. */
   validFrom: string | null;
+  /** Incertitude connue de la valeur (révision, marge, estimation), quand la source la donne. */
+  uncertainty: string | null;
   sources: SourceView[];
   /** Autres mesures du même sujet (autre organisme, autre période), jamais fondues en une moyenne. */
   others: { value: string; unit: string; period: string; scope: string; publisher: string }[];
@@ -56,6 +60,7 @@ function sourceView(source: SourceRecord): SourceView {
     licenseUrl: source.licenseUrl ?? null,
     reuse: source.reuse === "allowed" ? "allowed" : source.reuse === "citation_only" ? "citation_only" : "unknown",
     accessedAt: formatDate(source.accessedAt),
+    publishedAt: source.publishedAt ? formatDate(source.publishedAt) : null,
     notes: source.methodNotes ?? null,
   };
 }
@@ -87,6 +92,7 @@ export function metricViews(data: CountryData): Map<string, MetricView> {
       kind: KIND_LABELS[observation.dataKind],
       verifiedAt: formatDate(observation.verifiedAt),
       validFrom: observation.validFrom ? formatDate(observation.validFrom) : null,
+      uncertainty: observation.uncertainty ?? null,
       sources: observation.sourceIds.flatMap((id) => (sources.has(id) ? [sourceView(sources.get(id) as SourceRecord)] : [])),
       others,
       series: observation.history,

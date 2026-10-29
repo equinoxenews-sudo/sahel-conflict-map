@@ -10,7 +10,8 @@
     "lint": "eslint",
     "sync:gdelt": "tsx scripts/fetch-gdelt.ts",
     "approche:validate": "tsx scripts/approche-validate.ts",
-    "approche:schema": "tsx scripts/approche-schema.ts"
+    "approche:contract": "tsx scripts/approche-contract.ts",
+    "approche:schema": "tsx scripts/approche-contract.ts"
   },
   "dependencies": {
     "@dagrejs/dagre": "^3.1.1",

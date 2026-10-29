@@ -27,6 +27,12 @@ export default function MetricDrawerBody({ metric, shown }: { metric: MetricView
       </dl>
       <h4>Méthode</h4>
       <p>{metric.methodology}</p>
+      {metric.uncertainty ? (
+        <>
+          <h4>Incertitude</h4>
+          <p>{metric.uncertainty}</p>
+        </>
+      ) : null}
       <h4>Source{metric.sources.length > 1 ? "s" : ""}</h4>
       <ul className={styles.drawerSources}>
         {metric.sources.map((source) => (
@@ -35,7 +41,8 @@ export default function MetricDrawerBody({ metric, shown }: { metric: MetricView
               {source.title}
             </a>
             <span>
-              {source.publisher} · consultée le {source.accessedAt}
+              {source.publisher}
+              {source.publishedAt ? ` · publiée le ${source.publishedAt}` : ""} · consultée le {source.accessedAt}
             </span>
             <span className={source.reuse === "allowed" ? styles.licenceOk : styles.licenceWarn}>
               {source.reuse === "unknown" ? "Licence de réutilisation non vérifiée" : source.license}

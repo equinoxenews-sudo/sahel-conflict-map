@@ -12,6 +12,8 @@ import { tabHref, validateTab } from "../lib/approche/tabs";
 import { CountryDataSchema, ObservationSchema, type CountryData, type Observation } from "../lib/approche/schema";
 import { BLOCKED_WORLD_BANK_INDICATORS, isBlockedSource, moduleProblems, publishedObservations, publishProblems, SIPRI_ENTRY } from "../lib/approche/sourceRegistry";
 import { claimViews, metricViews, pendingObservations, relationViews } from "../lib/approche/view";
+import { referenceProblems } from "../lib/approche/integrity";
+import { buildContractFiles } from "../scripts/lib/approcheContract";
 
 const france = () => {
   const data = getApprocheData("FRA");
@@ -174,6 +176,8 @@ test("le schéma refuse une fiche mal formée", () => {
 test("mise en forme française des valeurs", () => {
   const population = observation({ key: "demography.population", value: 68720337, unit: "habitants" });
   assert.equal(formatValue(population), "68,7 millions");
+  assert.equal(formatValue(observation({ key: "demography.population", value: 1_000_000, unit: "habitants" })), "1 million", "singulier sous deux millions");
+  assert.equal(formatValue(observation({ key: "demography.population", value: 1_450_000, unit: "habitants" })), "1,5 million");
   const gdp = observation({ key: "economy.gdp_nominal_usd", value: 3366315927447, unit: "USD" });
   assert.equal(formatWithUnit(gdp), "3 366 Md $ US", "milliards plutôt que « billions », espaces insécables : le nombre ne se coupe pas");
   assert.ok(!formatValue(gdp).includes(" "),"aucune espace sécable dans une valeur en milliards");
@@ -385,4 +389,91 @@ test("la CEE (1958) et l'Union européenne (1993) sont deux faits distincts, cha
   assert.ok(eu.sourceIds.includes("S05-EU-HIST-1990-99"));
   const claim = data.claims.find((item) => item.id === "fra-claim-eu");
   assert.match(claim?.statement ?? "", /Communauté économique européenne.*1er janvier 1958.*Union européenne depuis sa création le 1er novembre 1993/);
+});
+
+// --- Contrat de données remis à ChatGPT : exemples, fichiers générés, erreurs attendues, absence de pays codé en dur ---
+
+const readJson = (file: string) => JSON.parse(fs.readFileSync(file, "utf8")) as unknown;
+const eol = (text: string) => text.replace(/\r\n/g, "\n");
+
+test("les exemples livrés (complet et partiel) sont valides, publiables et jamais enregistrés comme pays du site", () => {
+  for (const file of ["docs/exemples/APPROCHE_EXEMPLE_COMPLET.json", "docs/exemples/APPROCHE_EXEMPLE.json"]) {
+    const parsed = CountryDataSchema.safeParse(readJson(file));
+    assert.ok(parsed.success, `${file} : ${parsed.success ? "" : JSON.stringify(parsed.error.issues.slice(0, 3))}`);
+    assert.deepEqual(publishProblems(parsed.data), [], file);
+    assert.match(parsed.data.name, /exemple/i, "un exemple se reconnaît à son nom");
+    assert.equal(getApprocheData(parsed.data.countryCode), null, "un exemple n'est pas un pays du site");
+  }
+});
+
+test("l'exemple complet couvre tous les modules du schéma", () => {
+  const parsed = CountryDataSchema.parse(readJson("docs/exemples/APPROCHE_EXEMPLE_COMPLET.json"));
+  for (const module of ["hero", "media", "overview", "relations", "economy", "defense", "issues", "outlook"] as const) {
+    assert.ok(parsed.modules[module], `module ${module} absent de l'exemple complet`);
+  }
+  assert.ok((parsed.modules.relations?.map?.layers.length ?? 0) > 0 && (parsed.modules.relations?.presenceMap?.layers.length ?? 0) > 0);
+});
+
+test("les fichiers du contrat (JSON Schema, dictionnaire des champs, clés lues par l'interface) sont à jour avec le code", () => {
+  for (const [relative, content] of Object.entries(buildContractFiles(process.cwd()))) {
+    assert.equal(eol(fs.readFileSync(relative, "utf8")), eol(content), `${relative} n'est plus à jour : lancer « npm run approche:contract »`);
+  }
+});
+
+test("une source qui relaie SIPRI est refusée même sous un autre éditeur, via originalPublisher", () => {
+  const relay = { ...data().sources[0], id: "S-AGG", publisher: "Plateforme de données ouvertes", originalPublisher: "SIPRI (Stockholm International Peace Research Institute)", reuse: "allowed" as const };
+  assert.equal(isBlockedSource(relay), true);
+  const problems = publishProblems(data({ sources: [relay], observations: [observation({ sourceIds: ["S-AGG"] })] }));
+  assert.ok(problems.some((problem) => problem.includes("S-AGG")));
+});
+
+test("les références cassées sont signalées : source, observation, image, parent, objet de carte, doublon", () => {
+  const item = { id: "a", title: "t", summary: "", tags: [], sourceIds: ["S-INCONNUE"], demo: false };
+  const broken = data({
+    modules: {
+      hero: { imageId: "img-inconnue", bannerImages: { defense: "autre-inconnue" } },
+      overview: { strengths: [item, { ...item, sourceIds: ["S1"] }], challenges: [], timeline: [] },
+      defense: {
+        kpis: [{ id: "k", label: "l", observationKey: "cle.inconnue", note: "", sourceIds: [], demo: false }],
+        organization: [{ id: "n1", label: "x", parentId: "absent", note: "", sourceIds: ["S1"], demo: false }],
+        operations: [{ id: "op", title: "t", summary: "", tags: [], sourceIds: ["S1"], demo: false, layerId: "l1", featureId: "f-absent" }],
+        missions: [], framework: [], equipment: [], industry: [], partnerships: [], internalSecurity: [], strengths: [],
+        map: { id: "m", title: "t", view: { lat: 0, lon: 0, zoom: 2 }, note: "", layers: [{ id: "l1", title: "t", theme: "defense", color: "#e0b44c", description: "", attribution: "", features: [{ id: "f1", name: "n", lat: 1, lon: 1, kind: "k", summary: "", sourceIds: [], demo: false }], demo: false }] },
+      },
+      outlook: { domains: [], dependencies: [{ id: "dep", title: "t", summary: "", tags: [], sourceIds: ["S1"], demo: false, state: "measured", observationKey: null }], swot: { strengths: [], weaknesses: [], opportunities: [], threats: [] }, scenarios: [], watchAxes: [], timeline: [] },
+    },
+  });
+  const text = referenceProblems(broken).join("\n");
+  for (const expected of ["source inconnue « S-INCONNUE »", "observation inconnue « cle.inconnue »", "image inconnue « img-inconnue »", "image inconnue « autre-inconnue »", "parent inconnu « absent »", "objet de carte inconnu « l1:f-absent »", "déjà utilisé", "« measured » exige une observationKey"]) {
+    assert.ok(text.includes(expected), `attendu : ${expected}\nobtenu :\n${text}`);
+  }
+  assert.deepEqual(referenceProblems(data()), []);
+});
+
+test("les composants communs ne codent aucun pays, dirigeant, organisme ou source particulier", () => {
+  const files = [...fs.readdirSync("components/approche").map((name) => `components/approche/${name}`), ...["view", "formatters", "integrity", "media", "keys", "metricIcons", "icons", "tabs", "loadPage"].map((name) => `lib/approche/${name}.ts`)].filter((file) => /\.tsx?$/.test(file));
+  const forbidden = /\b(France|français(?:e|es)?|Paris|Macron|Lecornu|Vigipirate|Rafale|Eurostat|RTE|Douanes|Bruxelles|Mali|Chine|Bamako|Pékin)\b/;
+  for (const file of files) {
+    const code = fs.readFileSync(file, "utf8").replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
+    const hit = forbidden.exec(code);
+    assert.equal(hit, null, `${file} contient « ${hit?.[1]} » : un composant commun ne doit rien coder pour un pays`);
+  }
+});
+
+test("les fiches publiées par le dépôt valident leur propre schéma, version comprise", () => {
+  assert.equal(CountryDataSchema.parse(readJson("docs/exemples/APPROCHE_EXEMPLE_COMPLET.json")).schemaVersion, 1);
+  assert.equal(france().schemaVersion, 1);
+  assert.equal(CountryDataSchema.safeParse({ ...(readJson("docs/exemples/APPROCHE_EXEMPLE.json") as object), schemaVersion: 2 }).success, false, "une version inconnue est refusée, jamais lue de travers");
+});
+
+test("les fichiers invalides de démonstration d'erreurs échouent comme documenté", () => {
+  const structure = CountryDataSchema.safeParse(readJson("tests/fixtures/approche-invalide-structure.json"));
+  assert.equal(structure.success, false);
+  assert.ok(!structure.success && structure.error.issues.length >= 7);
+  const publication = CountryDataSchema.safeParse(readJson("tests/fixtures/approche-invalide-publication.json"));
+  assert.ok(publication.success, "la structure est correcte : seules les règles de publication échouent");
+  const problems = publishProblems(publication.data).join("\n");
+  for (const expected of ["source exclue (licence) : S-AGG", "« verified » sans date de vérification", "source inconnue S-INCONNUE", "contenu de démonstration", "observation inconnue « defense.inconnue »", "parent inconnu « org-absent »"]) {
+    assert.ok(problems.includes(expected), `attendu : ${expected}`);
+  }
 });

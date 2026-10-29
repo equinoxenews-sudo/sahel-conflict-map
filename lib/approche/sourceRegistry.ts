@@ -1,4 +1,5 @@
 import type { CountryData, Observation, Relationship, SourceRecord } from "./schema";
+import { referenceProblems } from "./integrity";
 
 // Registre des sources et politique de licences. Aucune donnée publiée ne doit dépendre d'une source dont les droits de
 // réutilisation commerciale ne sont pas établis : le contrôle est ici, appliqué par les tests et par `publishProblems`.
@@ -21,7 +22,8 @@ export const BLOCKED_WORLD_BANK_INDICATORS: readonly string[] = [
 
 export function isBlockedSource(source: SourceRecord): boolean {
   if (source.reuse === "commercial_license_required") return true;
-  if (BLOCKED_PUBLISHERS.some((pattern) => pattern.test(source.publisher) || pattern.test(source.title) || pattern.test(source.canonicalUrl))) return true;
+  const origin = source.originalPublisher ?? "";
+  if (BLOCKED_PUBLISHERS.some((pattern) => pattern.test(source.publisher) || pattern.test(source.title) || pattern.test(source.canonicalUrl) || pattern.test(origin))) return true;
   return Boolean(source.datasetId && BLOCKED_WORLD_BANK_INDICATORS.includes(source.datasetId));
 }
 
@@ -86,6 +88,7 @@ export function publishProblems(data: CountryData): string[] {
   }
   for (const claim of data.claims) check("affirmation", claim.id, claim.sourceIds);
   problems.push(...moduleProblems(data.modules));
+  problems.push(...referenceProblems(data));
   for (const relationship of data.relationships) {
     check("relation", relationship.id, relationship.sourceIds);
     if (relationship.status === "verified" && relationship.lastReviewedAt === null) problems.push(`relation ${relationship.id} : « verified » sans date de vérification`);

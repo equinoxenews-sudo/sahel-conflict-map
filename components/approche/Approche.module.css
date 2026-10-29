@@ -2723,3 +2723,53 @@ button.tile:hover {
   outline: 2px solid var(--accent-gold-bright);
   outline-offset: 2px;
 }
+
+/* ---- Dossiers : grille pilotée par le nombre de dossiers (1 à N), sans jamais isoler une carte ----
+   Mobile : 1 colonne. Tablette : 2 colonnes (2+2+1 pour cinq). Bureau : 3 colonnes (3+2 pour cinq, 3+3 pour six) ; 4 dossiers en 2x2,
+   puis 4x1 quand la largeur le permet. Au-delà de six dossiers : colonnes automatiques de 280 px minimum. Les cartes gardent la même
+   largeur : la dernière rangée n'est jamais étirée. */
+.issueGridWrap {
+  container-type: inline-size;
+}
+
+.issueGridWrap .issueGrid {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+}
+
+@container (min-width: 560px) {
+  .issueGridWrap .issueGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .issueGridWrap .issueGrid[data-count="1"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@container (min-width: 900px) {
+  .issueGridWrap .issueGrid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  }
+
+  .issueGridWrap .issueGrid[data-count="1"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .issueGridWrap .issueGrid[data-count="2"],
+  .issueGridWrap .issueGrid[data-count="4"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .issueGridWrap .issueGrid[data-count="3"],
+  .issueGridWrap .issueGrid[data-count="5"],
+  .issueGridWrap .issueGrid[data-count="6"] {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@container (min-width: 1200px) {
+  .issueGridWrap .issueGrid[data-count="4"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

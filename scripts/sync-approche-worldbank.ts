@@ -92,6 +92,7 @@ async function main() {
         accessedAt: today,
         license: "CC BY 4.0 (Banque mondiale, données ouvertes)",
         reuse: "allowed",
+        originalPublisher: shorten(origin),
         methodNotes: `Organisme d'origine déclaré : ${shorten(origin)}. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.`,
         language: "fr",
       });
