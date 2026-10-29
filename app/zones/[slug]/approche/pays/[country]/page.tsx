@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ApprocheCountryPage from "@/components/approche/ApprocheCountryPage";
 import CountryProfilePage from "@/components/country-profile/CountryProfilePage";
+import { getDemoModules, mergeModules } from "@/lib/approche/demo";
 import { approcheMetadata, loadCountryPage } from "@/lib/approche/loadPage";
 import { listApprocheCountries } from "@/lib/approche/repository";
 
@@ -27,6 +28,6 @@ export default async function CountryPage({ params }: { params: Promise<Params> 
   if (!loaded) notFound();
 
   // Pays migré : fiche à six onglets (vue d'ensemble ici, autres onglets en sous-pages). Les autres gardent l'ancienne fiche.
-  if (loaded.approche) return <ApprocheCountryPage data={loaded.approche} iso2={loaded.country.iso2} tab="overview" map={loaded.map} />;
+  if (loaded.approche) return <ApprocheCountryPage data={loaded.approche} iso2={loaded.country.iso2} tab="overview" map={loaded.map} modules={mergeModules(loaded.approche.modules, await getDemoModules(loaded.approche.countryCode))} />;
   return <CountryProfilePage country={loaded.country} map={loaded.map} />;
 }

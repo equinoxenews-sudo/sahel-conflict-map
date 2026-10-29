@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import ApprocheCountryPage from "@/components/approche/ApprocheCountryPage";
+import { getDemoModules, mergeModules } from "@/lib/approche/demo";
 import { approcheMetadata, loadCountryPage } from "@/lib/approche/loadPage";
 import { listApprocheCountries } from "@/lib/approche/repository";
 import { APPROCHE_TABS, tabHref, type ApprocheTab } from "@/lib/approche/tabs";
@@ -31,5 +32,5 @@ export default async function CountryTabPage({ params }: { params: Promise<Param
   const known = OTHER_TABS.find((item) => item.key === tab);
   const loaded = loadCountryPage(slug, countrySlug);
   if (!known || !loaded?.approche) notFound();
-  return <ApprocheCountryPage data={loaded.approche} iso2={loaded.country.iso2} tab={known.key as ApprocheTab} map={loaded.map} />;
+  return <ApprocheCountryPage data={loaded.approche} iso2={loaded.country.iso2} tab={known.key as ApprocheTab} map={loaded.map} modules={mergeModules(loaded.approche.modules, await getDemoModules(loaded.approche.countryCode))} />;
 }
