@@ -228,8 +228,13 @@ export function mapDateOf(path: string): string | null {
 }
 
 /** Début du texte du ministère sur les zones, borné, pour la bulle d'information. */
-export function summaryOf(text: string, max = 420): string {
-  const clean = text.replace(/^Zones? (de|à) vigilance\s*/i, "").replace(/^Zones? (de|à) vigilance\s*/i, "").trim();
+export function summaryOf(text: string, max = 300): string {
+  const clean = text
+    .replace(/^Zones? (de|à) vigilance\s*/i, "")
+    .replace(/^Zones? (de|à) vigilance\s*/i, "")
+    // « Dernière actualisation le 12/03/2026, information toujours valable à la date du jour. » : sans intérêt ici.
+    .replace(/^Dernière actualisation[^.]*\.\s*/i, "")
+    .trim();
   if (clean.length <= max) return clean;
   const cut = clean.slice(0, max);
   return `${cut.slice(0, Math.max(cut.lastIndexOf(" "), max - 40)).trimEnd()}…`;

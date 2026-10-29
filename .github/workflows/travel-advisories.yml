@@ -1,0 +1,50 @@
+name: Conseils aux voyageurs
+
+# Le 1er de chaque mois (et à la demande : Actions > Conseils aux voyageurs > Run workflow) : relit les cartes de
+# France Diplomatie pays par pays (une requête à la fois, avec pauses) et enregistre public/data/travel-advisories.json,
+# que la couche « Conseils aux voyageurs » du globe affiche. Aucun coût d'IA. Le script refuse d'écraser le fichier
+# s'il lit moins de 120 pays. Le push déclenche un nouveau déploiement du site.
+on:
+  schedule:
+    - cron: "17 4 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: travel-advisories
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Relire les conseils aux voyageurs
+        run: npx tsx scripts/gen-travel-advisories.ts
+
+      - name: Enregistrer s'il y a du nouveau
+        run: |
+          # La date de mise à jour change à chaque lecture : on compare le contenu des pays seulement.
+          git show HEAD:public/data/travel-advisories.json | node -e 'const j=JSON.parse(require("fs").readFileSync(0,"utf8")); process.stdout.write(JSON.stringify(j.advisories))' > /tmp/before.json
+          node -e 'const j=JSON.parse(require("fs").readFileSync("public/data/travel-advisories.json","utf8")); process.stdout.write(JSON.stringify(j.advisories))' > /tmp/after.json
+          if cmp -s /tmp/before.json /tmp/after.json; then
+            echo "::notice::Aucun changement dans les conseils aux voyageurs."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/travel-advisories.json
+          git commit -m "Conseils aux voyageurs : niveaux mis à jour d'après France Diplomatie"
+          git push
+          echo "::notice::Niveaux mis à jour."

@@ -118,3 +118,8 @@ test("un gros contour est allégé et refermé, un petit contour reste tel quel"
   const small = [[0, 0], [1, 0], [1, 1], [0, 0]];
   assert.deepEqual(thinRing(small, 300), small);
 });
+
+test("la phrase d'actualisation du ministère n'ouvre pas le résumé", () => {
+  const summary = summaryOf("Zones de vigilance Dernière actualisation le 12/03/2026, information toujours valable à la date du jour. L'intégralité du territoire est déconseillée.");
+  assert.equal(summary, "L'intégralité du territoire est déconseillée.");
+});

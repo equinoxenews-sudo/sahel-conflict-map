@@ -438,9 +438,12 @@ async function loadAdvisorySource(Cesium: typeof CesiumNS): Promise<CesiumNS.Geo
   ]);
   const byIso3 = new Map(advisoryFile.advisories.filter((a) => a.level !== "green" || a.worst !== "green").map((a) => [a.iso3, a]));
   const features = world.features
-    .filter((f) => byIso3.has(f.id))
+    // L'Antarctique chevauche l'antiméridien (contour que Cesium ne sait pas remplir) et n'a pas d'enjeu ici.
+    .filter((f) => byIso3.has(f.id) && f.id !== "ATA")
     .map((f) => {
-      const thin = (rings: number[][][]) => rings.map((ring) => thinRing(ring, ADVISORY_MAX_RING_POINTS));
+      // Les points posés pile sur l'antiméridien (±180°) font planter le calcul des contours : on les en écarte un peu.
+      const clampLon = (ring: number[][]) => ring.map(([lon, lat]) => [Math.max(-179.99, Math.min(179.99, lon)), lat]);
+      const thin = (rings: number[][][]) => rings.map((ring) => thinRing(clampLon(ring), ADVISORY_MAX_RING_POINTS));
       const coordinates =
         f.geometry.type === "Polygon"
           ? thin(f.geometry.coordinates as number[][][])
@@ -788,6 +791,17 @@ export default function Globe3D({
               shared.onEntitySelect(null, null);
               shared.onZonePick(zone);
               return;
+            }
+            // Couche « Conseils aux voyageurs » cochée : sa bulle passe avant celle du pays en crise, qui est dessous.
+            if (data.layerKey === "risk" && shared.enabledLayers?.advisories && viewer) {
+              for (const picked of viewer.scene.drillPick(click.position, 8)) {
+                const advisoryRaw = picked.id instanceof Cesium.Entity ? picked.id.properties?.popup?.getValue() : null;
+                if (typeof advisoryRaw !== "string") continue;
+                const advisoryData = JSON.parse(advisoryRaw) as EntityPopupData;
+                if (advisoryData.layerKey !== "advisories") continue;
+                shared.onEntitySelect(advisoryData, { x: click.position.x, y: click.position.y });
+                return;
+              }
             }
             shared.onEntitySelect(data, { x: click.position.x, y: click.position.y });
             return;
