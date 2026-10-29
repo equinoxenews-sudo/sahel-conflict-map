@@ -47,6 +47,8 @@ export function formatWithUnit(observation: Observation): string {
 /** Date AAAA-MM-JJ en « 29 octobre 2026 ». */
 export function formatDate(value: string | null | undefined): string {
   if (!value) return "—";
+  // Une date incomplète (« 2010 ») reste telle quelle : on ne lui invente pas de jour ni de mois.
+  if (!/^\d{4}-\d{2}-\d{2}/.test(value)) return value;
   const date = new Date(`${value.slice(0, 10)}T12:00:00Z`);
   return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(date);
 }

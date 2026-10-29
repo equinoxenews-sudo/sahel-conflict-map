@@ -1,4 +1,4 @@
-import type { CountryData, Observation, SourceRecord } from "./schema";
+import type { CountryData, Observation, Relationship, SourceRecord } from "./schema";
 
 // Registre des sources et politique de licences. Aucune donnée publiée ne doit dépendre d'une source dont les droits de
 // réutilisation commerciale ne sont pas établis : le contrôle est ici, appliqué par les tests et par `publishProblems`.
@@ -63,6 +63,10 @@ export function publishProblems(data: CountryData): string[] {
     if (observation.status === "verified" && observation.value === null) problems.push(`observation ${observation.id} : « verified » sans valeur`);
   }
   for (const claim of data.claims) check("affirmation", claim.id, claim.sourceIds);
+  for (const relationship of data.relationships) {
+    check("relation", relationship.id, relationship.sourceIds);
+    if (relationship.status === "verified" && relationship.lastReviewedAt === null) problems.push(`relation ${relationship.id} : « verified » sans date de vérification`);
+  }
   return problems;
 }
 
@@ -71,4 +75,11 @@ export function publishedObservations(data: CountryData): Observation[] {
   if (data.publication !== "published") return [];
   const blocked = new Set(data.sources.filter(isBlockedSource).map((source) => source.id));
   return data.observations.filter((observation) => observation.status === "verified" && observation.value !== null && !observation.sourceIds.some((id) => blocked.has(id)));
+}
+
+/** Relations affichables : vérifiées et issues de sources autorisées. */
+export function publishedRelationships(data: CountryData): Relationship[] {
+  if (data.publication !== "published") return [];
+  const blocked = new Set(data.sources.filter(isBlockedSource).map((source) => source.id));
+  return data.relationships.filter((relationship) => relationship.status === "verified" && !relationship.sourceIds.some((id) => blocked.has(id)));
 }

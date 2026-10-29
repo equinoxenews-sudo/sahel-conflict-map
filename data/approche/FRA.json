@@ -75,6 +75,106 @@
       "reuse": "unknown",
       "methodNotes": "Fiche officielle du Premier ministre, confirmée par le commanditaire le 29/10/2026, qui en relève la date de prise de fonctions (26 février 2026). Lecture automatique impossible (HTTP 403) : à recouper avec un décret ou un communiqué daté.",
       "language": "fr"
+    },
+    {
+      "id": "S07-G7-FD",
+      "publisher": "France Diplomatie",
+      "title": "L'action de la France au sein du G7",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/le-ministere-en-action/contribuer-a-une-mondialisation-durable-et-equilibree/sommets-et-enjeux-globaux/l-action-de-la-france-au-sein-du-g7",
+      "accessedAt": "2026-10-29",
+      "publishedAt": "2025-11-10",
+      "license": "Licence ouverte Etalab 2.0 (sauf mention de droits de tiers), mention de la source",
+      "licenseUrl": "https://www.etalab.gouv.fr/licence-ouverte-open-licence/",
+      "reuse": "allowed",
+      "methodNotes": "Page mise à jour le 27/10/2026. Le G7 « a été créé à l'initiative de la France » ; premier sommet en 1975 à Rambouillet ; présidence française du G7 depuis le 1er janvier 2026 (précédente : 2019, sommet de Biarritz). Le G7 est un forum, non une organisation à traité.",
+      "language": "fr"
+    },
+    {
+      "id": "S20-G20-FD",
+      "publisher": "France Diplomatie",
+      "title": "France's action in the G20",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/en/the-ministry-in-action/contributing-to-sustainable-balanced-globalization/summits-and-global-issues/france-s-action-in-the-g20",
+      "accessedAt": "2026-10-29",
+      "publishedAt": "2025-11-10",
+      "license": "Licence ouverte Etalab 2.0 (sauf mention de droits de tiers), mention de la source",
+      "licenseUrl": "https://www.etalab.gouv.fr/licence-ouverte-open-licence/",
+      "reuse": "allowed",
+      "methodNotes": "Page mise à jour le 31/08/2026. La France figure dans la liste des membres en note de la page ; elle n'y est pas présentée comme titulaire d'une présidence. Le G20 est un forum, non une organisation à traité.",
+      "language": "en"
+    },
+    {
+      "id": "S20-OECD-FD",
+      "publisher": "France Diplomatie",
+      "title": "L'action de la France au sein de l'OCDE",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/le-ministere-en-action/contribuer-a-une-mondialisation-durable-et-equilibree/sommets-et-enjeux-globaux/l-action-de-la-france-au-sein-de-l-ocde",
+      "accessedAt": "2026-10-29",
+      "publishedAt": "2025-11-20",
+      "license": "Licence ouverte Etalab 2.0 (sauf mention de droits de tiers), mention de la source",
+      "licenseUrl": "https://www.etalab.gouv.fr/licence-ouverte-open-licence/",
+      "reuse": "allowed",
+      "methodNotes": "Page mise à jour le 03/07/2026. La France figure parmi les 38 États membres listés en note ; « Le siège de l'OCDE est situé à Paris depuis sa création en 1961 » et la France est l'État hôte. La page ne dit pas si la France est membre fondateur : non affirmé ici.",
+      "language": "fr"
+    },
+    {
+      "id": "S08-OIF-HOME",
+      "publisher": "Organisation internationale de la Francophonie",
+      "title": "Site de l'OIF",
+      "canonicalUrl": "https://www.francophonie.org/",
+      "accessedAt": "2026-10-29",
+      "license": null,
+      "reuse": "unknown",
+      "methodNotes": "La page d'accueil évoque 90 États et gouvernements membres sans nommer la France : appartenance à confirmer sur la liste officielle des membres.",
+      "language": "fr"
+    },
+    {
+      "id": "S20-FD-AIX",
+      "publisher": "France Diplomatie",
+      "title": "Le traité d'Aix-la-Chapelle sur la coopération et l'intégration franco-allemandes",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/le-ministere-en-action/promouvoir-une-europe-souveraine/la-cooperation-franco-allemande/le-traite-d-aix-la-chapelle-sur-la-cooperation-et-l-integration-franco-allemandes",
+      "accessedAt": "2026-10-29",
+      "publishedAt": "2025-11-12",
+      "license": "Licence ouverte Etalab 2.0 (sauf mention de droits de tiers), mention de la source",
+      "licenseUrl": "https://www.etalab.gouv.fr/licence-ouverte-open-licence/",
+      "reuse": "allowed",
+      "methodNotes": "Page mise à jour le 03/07/2026 : signé le 22 janvier 2019, entré en vigueur le 22 janvier 2020 ; 15 projets prioritaires et 13 projets supplémentaires.",
+      "language": "fr"
+    },
+    {
+      "id": "S20-TRESOR-QUIRINAL",
+      "publisher": "Direction générale du Trésor",
+      "title": "Bilan de la première année du traité du Quirinal",
+      "canonicalUrl": "https://www.tresor.economie.gouv.fr/Articles/2022/11/29/bilan-de-la-premiere-annee-du-traite-du-quirinal",
+      "accessedAt": "2026-10-29",
+      "publishedAt": "2022-11-29",
+      "license": null,
+      "reuse": "unknown",
+      "methodNotes": "Signature le 26 novembre 2021 à Rome (Mario Draghi, Emmanuel Macron). La page de novembre 2022 n'annonce l'entrée en vigueur que comme attendue : la date vient de la source italienne. Licence non indiquée sur la page.",
+      "language": "fr"
+    },
+    {
+      "id": "S20-ESTERI-QUIRINAL",
+      "publisher": "Ministère italien des Affaires étrangères",
+      "title": "Entrata in vigore del Trattato del Quirinale (1er février 2023)",
+      "canonicalUrl": "https://www.esteri.it/it/sala_stampa/archivionotizie/comunicati/2023/02/entrata-in-vigore-del-trattato-del-quirinale-1-febbraio-2023/",
+      "accessedAt": "2026-10-29",
+      "publishedAt": "2023-02-01",
+      "license": null,
+      "reuse": "unknown",
+      "methodNotes": "Communiqué : « Oggi, 1° febbraio 2023, entra ufficialmente in vigore il Trattato » ; rappelle la signature le 26 novembre 2021. Licence non vérifiée.",
+      "language": "it"
+    },
+    {
+      "id": "S17-ELYSEE-LH2",
+      "publisher": "Présidence de la République",
+      "title": "Lancaster House 2.0 : Déclaration sur la modernisation de la coopération de défense et de sécurité entre la France et le Royaume-Uni",
+      "canonicalUrl": "https://www.elysee.fr/emmanuel-macron/2025/07/14/lancaster-house-2-0-declaration-sur-la-modernisation-de-la-cooperation-de-defense-et-de-securite-entre-la-france-et-le-royaume-uni",
+      "accessedAt": "2026-10-29",
+      "publishedAt": "2025-07-14",
+      "license": "Licence ouverte pour les textes, avec la mention « Site de la Présidence de la République »",
+      "licenseUrl": "https://www.elysee.fr/informations-legales-editoriales",
+      "reuse": "allowed",
+      "methodNotes": "Déclaration publiée le 14 juillet 2025 ; elle rappelle : « En 2010, les Traités de Lancaster House ont permis à nos pays de formaliser cette coopération ». Les dates et le contenu des traités de 2010 ne sont pas repris faute de lecture du texte officiel.",
+      "language": "fr"
     }
   ],
   "observations": [
@@ -302,6 +402,74 @@
       "verifiedAt": "2026-10-29",
       "status": "verified",
       "dataKind": "observed"
+    },
+    {
+      "id": "fra-institutions-g7-2026",
+      "countryCode": "FRA",
+      "key": "institutions.g7",
+      "value": "Membre du G7 ; présidence française depuis le 1er janvier 2026",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "France",
+      "methodology": "France Diplomatie : le G7 « a été créé à l'initiative de la France » (premier sommet en 1975 à Rambouillet) ; la France a pris la présidence du G7 au 1er janvier 2026 ; précédente présidence en 2019 (sommet de Biarritz). Forum informel, non organisation à traité.",
+      "sourceIds": [
+        "S07-G7-FD"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-institutions-g20-2026",
+      "countryCode": "FRA",
+      "key": "institutions.g20",
+      "value": "Membre du G20",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "France",
+      "methodology": "France Diplomatie : la France figure dans la liste des membres du G20 donnée en note de la page. Forum informel, non organisation à traité.",
+      "sourceIds": [
+        "S20-G20-FD"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-institutions-oecd-2026",
+      "countryCode": "FRA",
+      "key": "institutions.oecd",
+      "value": "Membre de l'OCDE ; État hôte (siège à Paris)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "France",
+      "methodology": "France Diplomatie : la France figure parmi les 38 États membres listés ; « Le siège de l'OCDE est situé à Paris depuis sa création en 1961 » et la France est l'État hôte. Le statut de membre fondateur n'est pas affirmé.",
+      "sourceIds": [
+        "S20-OECD-FD"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-institutions-oif-2026",
+      "countryCode": "FRA",
+      "key": "institutions.oif",
+      "value": null,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "France",
+      "methodology": "Appartenance à l'OIF non confirmée : le site évoque 90 États et gouvernements membres sans nommer la France. À confirmer sur la liste officielle.",
+      "sourceIds": [
+        "S08-OIF-HOME"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": null,
+      "status": "pending",
+      "dataKind": "official_statement"
     }
   ],
   "claims": [
@@ -356,6 +524,74 @@
       "reviewer": null,
       "status": "verified",
       "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "fra-rel-deu-aix",
+      "countryCode": "FRA",
+      "targetCode": "DEU",
+      "targetIso2": "DE",
+      "targetName": "Allemagne",
+      "relationType": "treaty",
+      "title": "Traité d'Aix-la-Chapelle sur la coopération et l'intégration franco-allemandes",
+      "topics": [
+        "Conseil de sécurité de l'ONU",
+        "Culture et mobilité",
+        "Énergie et climat",
+        "Espace",
+        "Coopération transfrontalière"
+      ],
+      "summary": "Signé à Aix-la-Chapelle le 22 janvier 2019, entré en vigueur le 22 janvier 2020, il vise à porter la relation bilatérale « à un niveau supérieur ». La page du ministère recense 15 projets prioritaires et 13 projets supplémentaires.",
+      "validFrom": "2020-01-22",
+      "validTo": null,
+      "sourceIds": [
+        "S20-FD-AIX"
+      ],
+      "lastReviewedAt": "2026-10-29",
+      "status": "verified"
+    },
+    {
+      "id": "fra-rel-ita-quirinal",
+      "countryCode": "FRA",
+      "targetCode": "ITA",
+      "targetIso2": "IT",
+      "targetName": "Italie",
+      "relationType": "treaty",
+      "title": "Traité du Quirinal pour une coopération bilatérale renforcée",
+      "topics": [
+        "Coopération bilatérale renforcée"
+      ],
+      "summary": "Signé à Rome le 26 novembre 2021 par Mario Draghi et Emmanuel Macron, il est entré en vigueur le 1er février 2023 selon le ministère italien des Affaires étrangères.",
+      "validFrom": "2023-02-01",
+      "validTo": null,
+      "sourceIds": [
+        "S20-TRESOR-QUIRINAL",
+        "S20-ESTERI-QUIRINAL"
+      ],
+      "lastReviewedAt": "2026-10-29",
+      "status": "verified"
+    },
+    {
+      "id": "fra-rel-gbr-lancaster",
+      "countryCode": "FRA",
+      "targetCode": "GBR",
+      "targetIso2": "GB",
+      "targetName": "Royaume-Uni",
+      "relationType": "treaty",
+      "title": "Traités de Lancaster House (2010) et déclaration Lancaster House 2.0 (2025)",
+      "topics": [
+        "Défense",
+        "Sécurité"
+      ],
+      "summary": "En 2010, les traités de Lancaster House ont formalisé la coopération de défense et de sécurité entre les deux pays. Le 14 juillet 2025, une déclaration commune du Président de la République et du Premier ministre britannique porte sur sa modernisation.",
+      "validFrom": "2010",
+      "validTo": null,
+      "sourceIds": [
+        "S17-ELYSEE-LH2"
+      ],
+      "lastReviewedAt": "2026-10-29",
+      "status": "verified"
     }
   ]
 }

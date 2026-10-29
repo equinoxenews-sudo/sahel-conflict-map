@@ -76,6 +76,29 @@ export const ClaimSchema = z.object({
   caveats: z.array(z.string()).default([]),
 });
 
+/**
+ * Relation entre le pays et un autre acteur (pays ou organisation) : jamais un classement « ami / rival ». Un acteur peut avoir
+ * plusieurs relations (traité et divergence). Chaque relation a ses dates et ses sources.
+ */
+export const RelationshipSchema = z.object({
+  id: z.string().min(1),
+  countryCode: z.string().length(3),
+  targetCode: z.string().nullable(),
+  /** Code ISO 2 du pays visé, pour son drapeau. */
+  targetIso2: z.string().length(2).nullable().optional(),
+  targetName: z.string().min(1),
+  /** « treaty » : engagement conventionnel ; « cooperation » : partenariat documenté ; « tension » : divergence documentée. */
+  relationType: z.enum(["treaty", "cooperation", "tension"]),
+  title: z.string().min(1),
+  topics: z.array(z.string()).default([]),
+  summary: z.string().min(1),
+  validFrom: z.string().nullable(),
+  validTo: z.string().nullable().optional(),
+  sourceIds: z.array(z.string()).min(1),
+  lastReviewedAt: DATE.nullable(),
+  status: z.enum(["verified", "pending", "stale", "contested"]),
+});
+
 export const PUBLICATION = ["draft", "review", "published", "archived"] as const;
 
 /** Une fiche pays : identité, sources, observations et affirmations. */
@@ -91,9 +114,11 @@ export const CountryDataSchema = z.object({
   sources: z.array(SourceSchema),
   observations: z.array(ObservationSchema),
   claims: z.array(ClaimSchema).default([]),
+  relationships: z.array(RelationshipSchema).default([]),
 });
 
 export type SourceRecord = z.infer<typeof SourceSchema>;
 export type Observation = z.infer<typeof ObservationSchema>;
 export type Claim = z.infer<typeof ClaimSchema>;
+export type Relationship = z.infer<typeof RelationshipSchema>;
 export type CountryData = z.infer<typeof CountryDataSchema>;

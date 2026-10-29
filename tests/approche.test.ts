@@ -5,7 +5,7 @@ import { getApprocheData, listApprocheCountries } from "../lib/approche/reposito
 import { tabHref, validateTab } from "../lib/approche/tabs";
 import { CountryDataSchema, ObservationSchema, type CountryData, type Observation } from "../lib/approche/schema";
 import { BLOCKED_WORLD_BANK_INDICATORS, isBlockedSource, publishedObservations, publishProblems, SIPRI_ENTRY } from "../lib/approche/sourceRegistry";
-import { claimViews, metricViews, pendingObservations } from "../lib/approche/view";
+import { claimViews, metricViews, pendingObservations, relationViews } from "../lib/approche/view";
 
 const france = () => {
   const data = getApprocheData("FRA");
@@ -44,6 +44,7 @@ function data(overrides: Partial<CountryData> = {}): CountryData {
     sources: [{ id: "S1", publisher: "INSEE", title: "t", canonicalUrl: "https://www.insee.fr/x", accessedAt: "2026-10-29", license: "Licence ouverte", reuse: "allowed", language: "fr" }],
     observations: [observation()],
     claims: [],
+    relationships: [],
     ...overrides,
   };
 }
@@ -169,6 +170,7 @@ test("mise en forme française des valeurs", () => {
   assert.equal(formatWithUnit(growth), "+0,8 %");
   assert.equal(formatValue(observation({ value: null })), "Donnée non disponible");
   assert.equal(formatDate("2026-10-29"), "29 octobre 2026");
+  assert.equal(formatDate("2010"), "2010", "une année seule n'est pas transformée en 1er janvier");
 });
 
 test("les onglets sont des sous-pages pré-rendues, la vue d'ensemble est la page du pays", () => {
@@ -177,4 +179,36 @@ test("les onglets sont des sous-pages pré-rendues, la vue d'ensemble est la pag
   assert.equal(validateTab("defense"), "defense");
   assert.equal(validateTab("nimporte-quoi"), "overview");
   assert.deepEqual(listApprocheCountries(), [{ slug: "france", zoneSlug: "europe" }]);
+});
+
+test("les relations bilatérales publiées ont chacune leurs sources lues et sont classées par nature, sans classement ami / rival", () => {
+  const relations = relationViews(france());
+  assert.deepEqual(relations.map((relation) => relation.targetName).sort(), ["Allemagne", "Italie", "Royaume-Uni"]);
+  for (const relation of relations) {
+    assert.ok(relation.sources.length > 0, relation.id);
+    assert.ok(["treaty", "cooperation", "tension"].includes(relation.type), relation.id);
+  }
+  const italy = relations.find((relation) => relation.targetName === "Italie");
+  assert.equal(italy?.sources.length, 2, "signature et entrée en vigueur viennent de deux sources");
+  assert.equal(relations.filter((relation) => relation.type === "tension").length, 0, "aucune divergence sans fait daté sourcé");
+});
+
+test("une relation sans source, ou dont la source est exclue, n'est pas publiable", () => {
+  const relation = { id: "r-1", countryCode: "FRA", targetCode: "DEU", targetName: "Allemagne", relationType: "treaty" as const, title: "t", topics: [], summary: "s", validFrom: null, sourceIds: ["INCONNUE"], lastReviewedAt: "2026-10-29", status: "verified" as const };
+  assert.ok(publishProblems(data({ relationships: [relation] })).some((problem) => problem.includes("source inconnue")));
+  const blocked = data({ sources: [SIPRI_ENTRY], relationships: [{ ...relation, sourceIds: ["S10-SIPRI"] }] });
+  assert.deepEqual(relationViews(blocked), []);
+});
+
+test("les organisations G7, G20 et OCDE sont publiées avec leur source France Diplomatie sous licence ouverte, l'OIF reste à vérifier", () => {
+  const fra = france();
+  const views = metricViews(fra);
+  for (const key of ["institutions.g7", "institutions.g20", "institutions.oecd"]) {
+    const metric = views.get(key);
+    assert.ok(metric, key);
+    assert.equal(metric.sources[0].publisher, "France Diplomatie");
+    assert.equal(metric.sources[0].reuse, "allowed");
+  }
+  assert.equal(views.has("institutions.oif"), false);
+  assert.ok(pendingObservations(fra).some((item) => item.key === "institutions.oif"));
 });
