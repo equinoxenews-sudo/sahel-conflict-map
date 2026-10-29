@@ -4,7 +4,7 @@ import { mapWithConcurrency } from "./gdelt";
 // Étape 3 du chantier Synthèses du jour : avant de déplacer la rédaction des lots vers
 // GitHub Actions, vérifier que les pages d'articles s'y téléchargent aussi bien que sur
 // Vercel (certains éditeurs bloquent davantage les adresses de GitHub). Lecture seule :
-// aucun appel au modèle, aucune écriture en base. La route app/api/diagnostic/page-fetch
+// aucun appel au modèle, aucune écriture en base. La route app/api/cron/page-fetch
 // lit l'échantillon côté Vercel, scripts/page-fetch-compare.ts relit les mêmes pages
 // depuis GitHub Actions et compare.
 
