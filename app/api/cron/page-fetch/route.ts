@@ -8,6 +8,7 @@ import { getSupabaseAdmin } from "@/lib/supabaseAdmin";
 // Appelée par .github/workflows/page-fetch-compare.yml. Lecture seule : aucune écriture en
 // base, aucun appel au modèle. L'échantillon est choisi ici, dans la table articles :
 // la route ne télécharge jamais une adresse reçue de l'extérieur.
+// Sous /api/cron/ : la porte d'entrée du site (lib/siteGate.ts) laisse passer ces routes, protégées par CRON_SECRET.
 export const maxDuration = 120;
 
 const SYNTHESIS_ZONES = ["afrique", "europe", "moyen-orient", "indopacifique", "amerique-du-sud"];

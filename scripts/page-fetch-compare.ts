@@ -1,6 +1,6 @@
 // Étape 3 du chantier Synthèses du jour : les pages d'articles se téléchargent-elles aussi
 // bien depuis GitHub Actions que depuis Vercel ? Demande à la route
-// /api/diagnostic/page-fetch de lire un échantillon côté Vercel, relit les mêmes pages
+// /api/cron/page-fetch de lire un échantillon côté Vercel, relit les mêmes pages
 // ici, puis compare. Lecture seule : aucun appel au modèle, aucune écriture en base.
 // Lancé à la main par .github/workflows/page-fetch-compare.yml. Usage local :
 //   SITE_URL=… CRON_SECRET=… npx tsx scripts/page-fetch-compare.ts [--per-zone=12] [--hours=72]
@@ -17,7 +17,7 @@ async function main() {
   const secret = process.env.CRON_SECRET?.trim();
   if (!site || !secret) throw new Error("SITE_URL et CRON_SECRET sont requis.");
 
-  const res = await fetch(`${site}/api/diagnostic/page-fetch?per_zone=${perZone}&hours=${hours}`, {
+  const res = await fetch(`${site}/api/cron/page-fetch?per_zone=${perZone}&hours=${hours}`, {
     headers: { Authorization: `Bearer ${secret}` },
     signal: AbortSignal.timeout(150_000),
   });
