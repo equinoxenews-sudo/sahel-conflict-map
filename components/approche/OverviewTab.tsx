@@ -1,13 +1,17 @@
 import type { CountryMapData } from "@/components/country-profile/CountryMap";
 import type { OverviewModule } from "@/lib/approche/modules";
 import type { MetricView } from "@/lib/approche/view";
+import Link from "next/link";
 import ApprocheMap from "./ApprocheMap";
+import Icon from "./Icon";
 import CountryMapFrame from "./CountryMapFrame";
 import MetricCard from "./MetricCard";
 import { IconRow, KpiGrid, SectionHeading, Timeline, type SourceMap } from "./shared";
 import styles from "./Approche.module.css";
 
 interface OverviewTabProps {
+  /** Adresse de l'onglet Défense, pour la tuile « Effectifs militaires ». */
+  defenseHref: string;
   metrics: Map<string, MetricView>;
   /** Clés des valeurs en attente de vérification : affichées comme telles, jamais comme un fait. */
   pending: Set<string>;
@@ -18,7 +22,7 @@ interface OverviewTabProps {
 
 const NOT_VERIFIED = "À vérifier sur la source officielle";
 
-export default function OverviewTab({ metrics, pending, map, module, sources }: OverviewTabProps) {
+export default function OverviewTab({ defenseHref, metrics, pending, map, module, sources }: OverviewTabProps) {
   const get = (key: string) => metrics.get(key) ?? null;
   const missingFor = (key: string) => (pending.has(key) ? NOT_VERIFIED : "Donnée non disponible");
   const hasAnalysis = module.strengths.length + module.challenges.length + module.timeline.length > 0;
@@ -33,7 +37,14 @@ export default function OverviewTab({ metrics, pending, map, module, sources }: 
           <MetricCard label="Population" metric={get("demography.population")} />
           <MetricCard label="PIB nominal" metric={get("economy.gdp_nominal_usd")} />
           <MetricCard label="PIB par habitant" metric={get("economy.gdp_per_capita_usd")} />
-          <MetricCard label="Effectifs militaires" metric={null} missing="Onglet Défense" icon="shield" />
+          <Link href={defenseHref} className={`${styles.tile} ${styles.tileLink}`}>
+            <span className={styles.tileLabel}>
+              <Icon name="shield" size={15} />
+              Effectifs militaires
+            </span>
+            <span className={styles.tileLinkText}>Voir les effectifs →</span>
+            <span className={styles.tileMeta}>Onglet Défense et sécurité</span>
+          </Link>
           <MetricCard label="Capitale" metric={get("identity.capital")} />
           <MetricCard label="Régime" metric={get("politics.regime")} />
         </KpiGrid>

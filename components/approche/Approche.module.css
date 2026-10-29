@@ -2449,3 +2449,34 @@ button.tile:hover {
     display: none;
   }
 }
+
+/* Tuile qui renvoie vers un autre onglet (et non une statistique manquante) ; chiffres à chasse fixe pour l'alignement des séries. */
+.tileLink {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tileLinkText {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--accent-gold-bright);
+}
+
+.tileLink:hover {
+  border-color: rgba(224, 180, 76, 0.5);
+}
+
+.tileLink:focus-visible {
+  outline: 2px solid var(--accent-gold-bright);
+  outline-offset: 2px;
+}
+
+.tileValue,
+.period,
+.drawerValue {
+  font-variant-numeric: tabular-nums;
+}
+
+.tileLinkText {
+  font-size: 15px;
+}

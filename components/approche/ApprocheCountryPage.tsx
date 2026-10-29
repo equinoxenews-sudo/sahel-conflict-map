@@ -5,7 +5,7 @@ import { containsDemo } from "@/lib/approche/demo";
 import { formatDate } from "@/lib/approche/formatters";
 import { DefenseModuleSchema, EconomyModuleSchema, IssuesModuleSchema, OutlookModuleSchema, OverviewModuleSchema, RelationsModuleSchema, type Modules } from "@/lib/approche/modules";
 import type { CountryData } from "@/lib/approche/schema";
-import { type ApprocheTab } from "@/lib/approche/tabs";
+import { tabHref, type ApprocheTab } from "@/lib/approche/tabs";
 import { claimViews, metricViews, pendingObservations, relationViews, sourceViewMap } from "@/lib/approche/view";
 import { zoneHomeHref } from "@/lib/homeZones";
 import { getZone } from "@/lib/zones";
@@ -94,7 +94,7 @@ export default function ApprocheCountryPage({ data, iso2, tab, map, modules }: A
 
         <div key={tab} className={styles.tabPanel}>
           {tab !== "overview" ? <TabBanner {...BANNERS[tab]} asset={bannerAsset} demoActive={demoActive} /> : null}
-          {tab === "overview" ? <OverviewTab metrics={metrics} pending={pendingKeys} map={map} module={modules.overview ?? OverviewModuleSchema.parse({})} sources={sources} /> : null}
+          {tab === "overview" ? <OverviewTab defenseHref={tabHref(basePath, "defense")} metrics={metrics} pending={pendingKeys} map={map} module={modules.overview ?? OverviewModuleSchema.parse({})} sources={sources} /> : null}
           {tab === "relations" ? <RelationsTab metrics={metrics} pending={pendingKeys} relations={relationViews(data)} map={(modules.relations ?? RelationsModuleSchema.parse({})).map} presenceMap={(modules.relations ?? RelationsModuleSchema.parse({})).presenceMap} sources={sources} /> : null}
           {tab === "economy" ? <EconomyTab metrics={metrics} module={modules.economy ?? EconomyModuleSchema.parse({})} sources={sources} media={media} demoActive={demoActive} /> : null}
           {tab === "defense" ? <DefenseTab defense={modules.defense ?? DefenseModuleSchema.parse({})} metrics={metrics} sources={sources} media={media} demoActive={demoActive} /> : null}
