@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
+import GateGuard from "@/components/auth/GateGuard";
 import LoginDialog from "@/components/auth/LoginDialog";
 import MobileNav from "@/components/equinoxe/MobileNav";
 import SearchDialog from "@/components/search/SearchDialog";
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body>
         {children}
+        <GateGuard />
         <LoginDialog />
         <SearchDialog />
         <Suspense fallback={null}>
