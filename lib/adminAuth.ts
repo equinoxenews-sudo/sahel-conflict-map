@@ -50,6 +50,12 @@ export function tokenForCredentials(identifier: unknown, password: unknown): str
   return safeEqual(given, wanted) ? wanted : null;
 }
 
+/** Vrai si la valeur du cookie de connexion est celle du compte (pour la porte d'entrée, qui lit le cookie de la requête). */
+export function isValidSessionToken(value: string | undefined): boolean {
+  const password = configuredPassword();
+  return Boolean(password) && typeof value === "string" && safeEqual(value, tokenFor(accountId(), password as string));
+}
+
 /** Identifiant du compte connecté (cookie valide), sinon null. */
 export async function currentUser(): Promise<string | null> {
   const password = configuredPassword();

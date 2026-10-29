@@ -16,7 +16,9 @@ export async function POST(request: Request) {
   response.cookies.set(ADMIN_COOKIE, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    // « lax » et non « strict » : avec la porte d'entrée, un lien venu d'ailleurs (message, courriel) doit arriver
+    // connecté. Les envois de formulaire d'un autre site restent refusés.
+    sameSite: "lax",
     path: "/",
     maxAge: ADMIN_COOKIE_MAX_AGE,
   });
