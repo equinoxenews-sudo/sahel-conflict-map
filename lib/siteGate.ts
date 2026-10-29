@@ -10,6 +10,16 @@ const OPEN_EXACT = new Set(["/acces", "/api/admin/login", "/favicon.ico", "/robo
  */
 const OPEN_PREFIXES = ["/api/sync-", "/api/cron/", "/api/revalidate", "/api/telegram/webhook"];
 
+/** Routes des machines seulement (sans la page de connexion) : elles restent actives pendant une maintenance. */
+export function isMachinePath(pathname: string): boolean {
+  return OPEN_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+}
+
+/** Maintenance : le site entier répond « hors ligne » (SITE_MAINTENANCE = on, 1 ou true), connexion comprise. */
+export function maintenanceOn(env: Readonly<Record<string, string | undefined>>): boolean {
+  return ["on", "1", "true"].includes(env.SITE_MAINTENANCE?.trim().toLowerCase() ?? "");
+}
+
 export function isOpenPath(pathname: string): boolean {
   return OPEN_EXACT.has(pathname) || OPEN_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 }

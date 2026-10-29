@@ -1,6 +1,16 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { gateDecision, gateEnabled, isOpenPath, safeReturnPath } from "../lib/siteGate";
+import { gateDecision, gateEnabled, isMachinePath, isOpenPath, maintenanceOn, safeReturnPath } from "../lib/siteGate";
+
+test("la maintenance s'active par SITE_MAINTENANCE et épargne seulement les routes des machines", () => {
+  assert.equal(maintenanceOn({ SITE_MAINTENANCE: "on" }), true);
+  assert.equal(maintenanceOn({ SITE_MAINTENANCE: " TRUE " }), true);
+  assert.equal(maintenanceOn({ SITE_MAINTENANCE: "off" }), false);
+  assert.equal(maintenanceOn({}), false);
+  assert.equal(isMachinePath("/api/sync-briefs"), true);
+  assert.equal(isMachinePath("/api/admin/login"), false);
+  assert.equal(isMachinePath("/acces"), false);
+});
 
 test("sans connexion, les pages renvoient vers /acces et l'API est refusée", () => {
   assert.equal(gateDecision("/", false), "login");
