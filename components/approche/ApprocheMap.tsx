@@ -81,8 +81,12 @@ export default function ApprocheMap({ map, sources = {}, list, height = 460 }: A
   }
 
   async function toggleFullscreen() {
-    if (document.fullscreenElement) await document.exitFullscreen();
-    else await frame.current?.requestFullscreen?.();
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await frame.current?.requestFullscreen?.();
+    } catch {
+      // Plein écran refusé par le navigateur (permission, iframe) : la carte reste affichée normalement.
+    }
   }
 
 

@@ -2686,3 +2686,40 @@ button.tile:hover {
   outline: 2px solid var(--accent-gold-bright);
   outline-offset: 2px;
 }
+
+/* Lignes d'information : dans un panneau étroit (1024 px, deux colonnes), l'étiquette et la période passent sur la première ligne et la
+   valeur occupe toute la largeur de la seconde : plus de valeur écrasée dans une colonne de 60 px. */
+.rows {
+  container-type: inline-size;
+}
+
+@container (max-width: 470px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "label meta"
+      "value value";
+    row-gap: 2px;
+  }
+
+  .row .tileLabel {
+    grid-area: label;
+  }
+
+  .row .tileValue {
+    grid-area: value;
+  }
+
+  .row .tileMeta {
+    grid-area: meta;
+  }
+
+  .rowMissing .missing {
+    grid-area: value;
+  }
+}
+
+.drawerClose:focus-visible {
+  outline: 2px solid var(--accent-gold-bright);
+  outline-offset: 2px;
+}

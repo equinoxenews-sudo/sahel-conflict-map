@@ -21,8 +21,12 @@ export default function CountryMapFrame({ data, height = 460 }: { data: CountryM
   }, []);
 
   async function toggleFullscreen() {
-    if (document.fullscreenElement) await document.exitFullscreen();
-    else await frame.current?.requestFullscreen?.();
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else await frame.current?.requestFullscreen?.();
+    } catch {
+      // Plein écran refusé par le navigateur (permission, iframe) : la carte reste affichée normalement.
+    }
   }
 
 
