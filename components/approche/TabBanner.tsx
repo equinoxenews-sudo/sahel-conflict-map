@@ -1,3 +1,4 @@
+import { displayable } from "@/lib/approche/media";
 import type { MediaAsset } from "@/lib/approche/modules";
 import Icon from "./Icon";
 import Visual from "./Visual";
@@ -12,9 +13,22 @@ interface TabBannerProps {
   hue?: number;
 }
 
-// Bandeau d'ouverture d'un onglet : photographie quand une image à licence confirmée existe (ou en démonstration), sinon visuel
-// neutre. Le texte décrit la rubrique, jamais un chiffre.
-export default function TabBanner({ title, subtitle, icon, asset, demoActive, hue }: TabBannerProps) {
+// Bandeau d'ouverture d'un onglet. Avec une photographie autorisée (ou en démonstration) : grand bandeau image. Sans photographie :
+// bandeau compact (pictogramme, titre, sous-titre), jamais une grande surface vide. Le texte décrit la rubrique, jamais un chiffre.
+export default function TabBanner({ title, subtitle, icon, asset, demoActive, hue = 215 }: TabBannerProps) {
+  if (!displayable(asset, demoActive)) {
+    return (
+      <section className={styles.bannerCompact} aria-label={title} style={{ background: `linear-gradient(100deg, hsl(${hue} 42% 15%) 0%, hsl(${(hue + 25) % 360} 45% 10%) 100%)` }}>
+        <span className={styles.bannerCompactIcon} style={{ color: `hsl(${hue} 75% 72%)` }} aria-hidden>
+          <Icon name={icon} size={24} />
+        </span>
+        <div>
+          <h2>{title}</h2>
+          <p>{subtitle}</p>
+        </div>
+      </section>
+    );
+  }
   return (
     <section className={styles.banner} aria-label={title}>
       <Visual asset={asset} demoActive={demoActive} icon={icon} hue={hue} caption className={styles.bannerImage} sizes="100vw" />

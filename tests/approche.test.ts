@@ -371,3 +371,18 @@ test("les pictogrammes existent pour chaque type d'objet de carte et sujet coura
   assert.equal(iconForMetric("demography.population"), "users");
   for (const name of ["users", "coins", "plane", "atom", "anchor", "shield", "handshake", "target", "radar"]) assert.ok(ICON_PATHS[name], name);
 });
+
+test("la CEE (1958) et l'Union européenne (1993) sont deux faits distincts, chacun avec sa source", () => {
+  const data = france();
+  const byKey = new Map(data.observations.map((observation) => [observation.key, observation]));
+  const eec = byKey.get("institutions.eec_founding");
+  const eu = byKey.get("institutions.eu_membership");
+  assert.ok(eec && eu);
+  assert.equal(eec.validFrom, "1958-01-01");
+  assert.equal(eu.validFrom, "1993-11-01");
+  assert.ok(!String(eu.value).includes("1958"), "l'entrée dans l'UE n'est pas datée de 1958");
+  assert.ok(eec.sourceIds.includes("S05-EU-HIST-1945-59"));
+  assert.ok(eu.sourceIds.includes("S05-EU-HIST-1990-99"));
+  const claim = data.claims.find((item) => item.id === "fra-claim-eu");
+  assert.match(claim?.statement ?? "", /Communauté économique européenne.*1er janvier 1958.*Union européenne depuis sa création le 1er novembre 1993/);
+});

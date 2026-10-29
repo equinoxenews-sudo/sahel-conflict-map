@@ -4,7 +4,8 @@ import type { MetricView } from "@/lib/approche/view";
 import ApprocheMap from "./ApprocheMap";
 import Detail from "./Detail";
 import Icon from "./Icon";
-import { KpiGrid, KpiTile, SectionHeading, SourceList, Timeline, type SourceMap } from "./shared";
+import { displayable } from "@/lib/approche/media";
+import { CardBadge, KpiGrid, KpiTile, SectionHeading, SourceList, Timeline, type SourceMap } from "./shared";
 import Visual, { type MediaMap } from "./Visual";
 import styles from "./Approche.module.css";
 
@@ -42,10 +43,12 @@ export default function IssuesTab({ issues, metrics, sources, media, demoActive 
     );
   }
 
+  const hasImage = (imageId?: string | null) => Boolean(imageId && displayable(media[imageId], demoActive));
+
   return (
     <div className={styles.tabBody}>
       {issues.kpis.length > 0 ? (
-        <KpiGrid>
+        <KpiGrid compact={issues.kpis.length <= 3}>
           {issues.kpis.map((kpi) => (
             <KpiTile key={kpi.id} kpi={kpi} metrics={metrics} sources={sources} />
           ))}
@@ -63,11 +66,20 @@ export default function IssuesTab({ issues, metrics, sources, media, demoActive 
               <Detail
                 key={issue.id}
                 title={issue.title}
-                className={styles.issueCard}
+                className={hasImage(issue.imageId) ? styles.issueCard : `${styles.issueCard} ${styles.issueCardCompact}`}
                 trigger={
                   <>
-                    <Visual asset={issue.imageId ? media[issue.imageId] : null} demoActive={demoActive} icon={iconForTopic(`${issue.title} ${issue.tags.join(" ")}`, "target")} hue={(index * 47 + 205) % 360} className={styles.issueImage} sizes="(max-width: 860px) 100vw, 20vw" />
-                    <span className={styles.issueNumber}>{index + 1}</span>
+                    {hasImage(issue.imageId) ? (
+                      <>
+                        <Visual asset={issue.imageId ? media[issue.imageId] : null} demoActive={demoActive} icon={iconForTopic(`${issue.title} ${issue.tags.join(" ")}`, "target")} hue={(index * 47 + 205) % 360} className={styles.issueImage} sizes="(max-width: 860px) 100vw, 20vw" />
+                        <span className={styles.issueNumber}>{index + 1}</span>
+                      </>
+                    ) : (
+                      <span className={styles.issueHead}>
+                        <span className={styles.issueNumber}>{index + 1}</span>
+                        <CardBadge icon={iconForTopic(`${issue.title} ${issue.tags.join(" ")}`, "target")} hue={(index * 47 + 205) % 360} />
+                      </span>
+                    )}
                     <span className={styles.issueBody}>
                       <span className={styles.itemTitle}>{issue.title}</span>
                       <span className={styles.tagRow}>
@@ -121,6 +133,7 @@ export default function IssuesTab({ issues, metrics, sources, media, demoActive 
           <SectionHeading id="interest-title" data={issues.map} icon="globe">
             Carte des intérêts stratégiques
           </SectionHeading>
+          <p className={styles.cardNote}>Chaque point est un intérêt ou un engagement précis (projet, accord, présence), pas une zone d&apos;influence : aucune frontière ni aire d&apos;influence n&apos;est dessinée.</p>
           <ApprocheMap map={issues.map} sources={sources} />
         </section>
       ) : null}

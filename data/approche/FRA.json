@@ -20,6 +20,30 @@
       "licenseUrl": "https://european-union.europa.eu/legal-notice_en"
     },
     {
+      "id": "S05-EU-HIST-1945-59",
+      "publisher": "Union européenne",
+      "title": "Histoire de l'UE — 1945-1959",
+      "canonicalUrl": "https://european-union.europa.eu/principles-countries-history/history-eu/1945-59_fr",
+      "accessedAt": "2026-10-29",
+      "license": "CC BY 4.0 pour le contenu propre de l'UE (mention de la source et des modifications). Logos, marques et contenus de tiers exclus.",
+      "reuse": "allowed",
+      "methodNotes": "Page consultée le 29/10/2026. Elle indique que les organes issus des traités de Rome (CEE et Euratom) « voient le jour le 1er janvier 1958 » et, à l'entrée de la CECA (18 avril 1951), nomme les six pays fondateurs dont la France.",
+      "language": "fr",
+      "licenseUrl": "https://european-union.europa.eu/legal-notice_en"
+    },
+    {
+      "id": "S05-EU-HIST-1990-99",
+      "publisher": "Union européenne",
+      "title": "Histoire de l'UE — 1990-1999",
+      "canonicalUrl": "https://european-union.europa.eu/principles-countries-history/history-eu/1990-99_fr",
+      "accessedAt": "2026-10-29",
+      "license": "CC BY 4.0 pour le contenu propre de l'UE (mention de la source et des modifications). Logos, marques et contenus de tiers exclus.",
+      "reuse": "allowed",
+      "methodNotes": "Page consultée le 29/10/2026. Elle indique que l'« Union européenne » est officiellement créée par le traité de Maastricht, qui entre en vigueur le 1er novembre 1993.",
+      "language": "fr",
+      "licenseUrl": "https://european-union.europa.eu/legal-notice_en"
+    },
+    {
       "id": "S06-NATO-MEMBERS",
       "publisher": "OTAN",
       "title": "Pays membres de l'OTAN",
@@ -307,18 +331,38 @@
       "id": "fra-institutions-eu-2026",
       "countryCode": "FRA",
       "key": "institutions.eu_membership",
-      "value": "Membre de l'Union européenne depuis le 1er janvier 1958",
+      "value": "Membre de l'Union européenne depuis sa création le 1er novembre 1993",
       "unit": null,
       "referencePeriod": "2026",
       "geographicScope": "France",
-      "methodology": "Date d'entrée dans l'UE telle que donnée par le portail officiel de l'UE (« since 1 January 1958 »). La page ne précise pas le statut de pays fondateur.",
+      "methodology": "L'Union européenne est créée par le traité de Maastricht, entré en vigueur le 1er novembre 1993 (histoire officielle de l'UE, 1990-1999) ; la France en est membre depuis cette création. Corrige l'ancienne formulation « depuis le 1er janvier 1958 », qui désignait la Communauté économique européenne (observation distincte : institutions.eec_founding).",
       "sourceIds": [
+        "S05-EU-HIST-1990-99",
         "S05-EU-FRA"
       ],
       "collectedAt": "2026-10-29",
       "verifiedAt": "2026-10-29",
       "status": "verified",
-      "dataKind": "official_statement"
+      "dataKind": "official_statement",
+      "validFrom": "1993-11-01"
+    },
+    {
+      "id": "fra-institutions-eec-1958",
+      "countryCode": "FRA",
+      "key": "institutions.eec_founding",
+      "value": "État fondateur de la Communauté économique européenne (1er janvier 1958)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "France",
+      "methodology": "La CEE, créée par les traités de Rome (signés en 1957), voit le jour le 1er janvier 1958 ; la France figure parmi les six pays fondateurs des Communautés européennes (histoire officielle de l'UE, 1945-1959). Événement antérieur à l'Union européenne, distinct de la date d'entrée dans l'UE.",
+      "sourceIds": [
+        "S05-EU-HIST-1945-59"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "validFrom": "1958-01-01"
     },
     {
       "id": "fra-institutions-euro-2026",
@@ -707,15 +751,16 @@
     {
       "id": "fra-claim-eu",
       "countryCode": "FRA",
-      "statement": "La France est membre de l'Union européenne depuis le 1er janvier 1958.",
+      "statement": "La France est un État fondateur de la Communauté économique européenne, entrée en vigueur le 1er janvier 1958, et membre de l'Union européenne depuis sa création le 1er novembre 1993.",
       "claimType": "fact",
       "sourceIds": [
-        "S05-EU-FRA"
+        "S05-EU-HIST-1945-59",
+        "S05-EU-HIST-1990-99"
       ],
       "validAsOf": "2026-10-29",
       "reviewer": null,
       "status": "verified",
-      "caveats": []
+      "caveats": ["La page officielle indique que les organes issus des traités de Rome « voient le jour le 1er janvier 1958 » (traités signés en 1957) ; le statut de pays fondateur de la France y figure à l’entrée sur les six pays de la CECA (1951)."]
     },
     {
       "id": "fra-claim-euro-schengen",

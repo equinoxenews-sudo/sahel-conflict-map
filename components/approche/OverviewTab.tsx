@@ -67,7 +67,7 @@ export default function OverviewTab({ defenseHref, metrics, pending, map, module
             <MetricCard variant="row" label="Capitale" metric={get("identity.capital")} />
             <MetricCard variant="row" label="Superficie" metric={get("geography.area.eurostat")} />
             <MetricCard variant="row" label="Population" metric={get("demography.population")} />
-            <MetricCard variant="row" label="Densité" metric={null} missing="Non calculée : périmètres de population et de superficie différents" icon="users" />
+            <MetricCard variant="row" label="Densité" metric={null} missing="Non calculée" missingHint="périmètres de population et de superficie différents" icon="users" />
             <MetricCard variant="row" label="Régime" metric={get("politics.regime")} />
             <MetricCard variant="row" label="Chef de l'État" metric={get("politics.head_of_state")} icon="landmark" />
             <MetricCard variant="row" label="Premier ministre" metric={get("politics.head_of_government")} missing={missingFor("politics.head_of_government")} icon="landmark" />

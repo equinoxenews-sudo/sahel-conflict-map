@@ -1,5 +1,6 @@
 import { Children, type ReactNode } from "react";
 import { containsDemo } from "@/lib/approche/demo";
+import { displayable } from "@/lib/approche/media";
 import { iconForMetric } from "@/lib/approche/metricIcons";
 import type { Item, Kpi } from "@/lib/approche/modules";
 import type { MetricView, SourceView } from "@/lib/approche/view";
@@ -7,6 +8,7 @@ import { DemoTag } from "./DemoBanner";
 import Detail from "./Detail";
 import Icon from "./Icon";
 import MetricCard from "./MetricCard";
+import TimelineScroll from "./TimelineScroll";
 import Visual, { type MediaMap } from "./Visual";
 import styles from "./Approche.module.css";
 
@@ -26,10 +28,10 @@ export function SectionHeading({ id, children, data, icon }: { id: string; child
  * Grille des chiffres clés, commune aux six onglets. La disposition suit la largeur de la grille (pas celle de l'écran) et le
  * nombre de tuiles : 6 → 3×2, 5 → 3+2 sur une rangée équilibrée, 4 → 2×2 (4×1 en très large), 3 → 3×1 ; jamais une tuile orpheline.
  */
-export function KpiGrid({ children }: { children: ReactNode }) {
+export function KpiGrid({ children, compact = false }: { children: ReactNode; /** Bandeau de repères sur une ligne (peu de tuiles, décomptes éditoriaux) plutôt que de grandes tuiles. */ compact?: boolean }) {
   const cells = Children.toArray(children);
   return (
-    <div className={styles.kpiGrid}>
+    <div className={compact ? `${styles.kpiGrid} ${styles.kpiCompact}` : styles.kpiGrid}>
       <div className={styles.kpiInner} data-count={cells.length}>
         {cells.map((cell, index) => (
           <div key={index} className={styles.kpiCell}>
@@ -67,6 +69,15 @@ export function SourceList({ ids, sources, demo }: { ids: string[]; sources: Sou
   );
 }
 
+/** Pictogramme teinté d'une carte sans photographie : remplace le grand cadre dégradé vide. */
+export function CardBadge({ icon, hue = 215 }: { icon: string; hue?: number }) {
+  return (
+    <span className={styles.cardBadge} style={{ background: `hsl(${hue} 38% 17%)`, color: `hsl(${hue} 75% 72%)`, borderColor: `hsl(${hue} 40% 28%)` }} aria-hidden>
+      <Icon name={icon} size={22} />
+    </span>
+  );
+}
+
 export interface VisualOptions {
   media: MediaMap;
   demoActive: boolean;
@@ -77,13 +88,17 @@ export interface VisualOptions {
 /** Carte cliquable d'un élément éditorial : (image), titre, résumé, étiquettes ; le détail et les sources s'ouvrent au clic. */
 export function ItemCard({ item, sources, extra, className, visual }: { item: Item; sources: SourceMap; extra?: ReactNode; className?: string; visual?: VisualOptions }) {
   const asset = visual && item.imageId ? visual.media[item.imageId] : null;
+  // Sans photographie autorisée : pas de grand cadre vide, un pictogramme teinté en tête de carte (mêmes dimensions, même alignement).
+  const hasImage = Boolean(visual && displayable(asset, visual.demoActive));
+  const compact = Boolean(visual) && !hasImage;
   return (
     <Detail
       title={item.title}
-      className={className ?? (visual ? styles.mediaCard : styles.itemCard)}
+      className={className ?? (visual ? (compact ? `${styles.mediaCard} ${styles.mediaCardCompact}` : styles.mediaCard) : styles.itemCard)}
       trigger={
         <>
-          {visual ? <Visual asset={asset} demoActive={visual.demoActive} icon={visual.icon} hue={visual.hue} className={styles.mediaCardImage} sizes="(max-width: 860px) 100vw, 25vw" /> : null}
+          {visual && hasImage ? <Visual asset={asset} demoActive={visual.demoActive} icon={visual.icon} hue={visual.hue} className={styles.mediaCardImage} sizes="(max-width: 860px) 100vw, 25vw" /> : null}
+          {visual && compact ? <CardBadge icon={visual.icon} hue={visual.hue} /> : null}
           <span className={visual ? styles.mediaCardBody : styles.itemBody}>
             <span className={styles.itemTitle}>{item.title}</span>
             {item.summary ? <span className={styles.itemSummary}>{item.summary}</span> : null}
@@ -148,7 +163,7 @@ const STATUS_CLASS: Record<string, string> = { "réalisé": "statusDone", "en co
  */
 export function Timeline({ items, sources }: { items: Item[]; sources: SourceMap }) {
   return (
-    <ol className={styles.tl}>
+    <TimelineScroll>
       {items.map((entry) => (
         <li key={entry.id} className={styles.tlItem}>
           <span className={styles.tlDot} aria-hidden />
@@ -170,7 +185,7 @@ export function Timeline({ items, sources }: { items: Item[]; sources: SourceMap
           </Detail>
         </li>
       ))}
-    </ol>
+    </TimelineScroll>
   );
 }
 

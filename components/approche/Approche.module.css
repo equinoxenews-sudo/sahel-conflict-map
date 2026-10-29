@@ -2480,3 +2480,209 @@ button.tile:hover {
 .tileLinkText {
   font-size: 15px;
 }
+
+/* ---- Lot B : bandeaux compacts, cartes sans photographie, repères éditoriaux ---- */
+.bannerCompact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border: 1px solid var(--border-glass);
+  border-radius: 14px;
+}
+
+.bannerCompactIcon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+}
+
+.bannerCompact h2 {
+  margin: 0;
+  font-size: clamp(18px, 2.4vw, 24px);
+}
+
+.bannerCompact p {
+  margin: 2px 0 0;
+  font-size: 13.5px;
+  color: #b9c3d1;
+}
+
+.cardBadge {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid;
+  border-radius: 12px;
+}
+
+.mediaCardCompact {
+  gap: 12px;
+  padding: 14px;
+}
+
+.mediaCardCompact .mediaCardBody {
+  flex: 1;
+  padding: 0;
+}
+
+.mediaCardCompact .sourceHint,
+.issueCardCompact .sourceHint {
+  margin-top: auto;
+  margin-left: 0;
+}
+
+.issueCardCompact {
+  gap: 10px;
+  padding: 14px;
+}
+
+.issueCardCompact .issueBody {
+  flex: 1;
+  padding: 0;
+}
+
+.issueHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.issueCardCompact .issueNumber {
+  position: static;
+}
+
+.issueGrid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+/* Repères éditoriaux (décomptes, portées) : une ligne de pastilles plutôt que de grandes tuiles. */
+.kpiCompact .kpiInner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.kpiCompact .kpiCell {
+  flex: 0 1 auto;
+}
+
+.kpiCompact .kpiCell > .tile {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 9px 14px;
+}
+
+.kpiCompact .tileValue {
+  font-size: 16px;
+}
+
+.kpiCompact .tileMeta {
+  display: none;
+}
+
+/* Relations : seules les catégories renseignées prennent de la place ; les autres tiennent sur une ligne. */
+.relGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.relGridSingle .relationList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+}
+
+.emptyCats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.emptyCats li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 9px 14px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed var(--border-subtle);
+  border-radius: 10px;
+}
+
+.emptyCats li svg {
+  align-self: center;
+  color: var(--accent-gold-bright);
+}
+
+.emptyCats strong {
+  color: var(--text-primary, #e9eef5);
+  font-weight: 600;
+}
+
+.emptyCats span {
+  font-style: italic;
+}
+
+.missingHint {
+  font-size: 12px;
+  font-style: normal;
+  opacity: 0.85;
+}
+
+/* Chronologie : défilement piloté par deux boutons, sans barre native. */
+.tlWrap {
+  position: relative;
+}
+
+.tl {
+  scrollbar-width: none;
+}
+
+.tl::-webkit-scrollbar {
+  display: none;
+}
+
+.tlNav {
+  position: absolute;
+  top: 12px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--accent-gold-bright);
+  cursor: pointer;
+  background: rgba(10, 20, 34, 0.92);
+  border: 1px solid rgba(224, 180, 76, 0.5);
+  border-radius: 50%;
+}
+
+.tlNavPrev {
+  left: -6px;
+}
+
+.tlNavNext {
+  right: -6px;
+}
+
+.tlNav:focus-visible {
+  outline: 2px solid var(--accent-gold-bright);
+  outline-offset: 2px;
+}

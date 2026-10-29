@@ -112,6 +112,14 @@ export default function OutlookTab({ outlook, metrics, sources, media, demoActiv
                   }
                 >
                   <p>{dependency.summary}</p>
+                  <h4>Pour publier une valeur chiffrée, il faut</h4>
+                  <ul className={styles.bullets}>
+                    <li>un numérateur et un dénominateur définis (par exemple volume importé et consommation totale) ;</li>
+                    <li>la période de mesure et le territoire couverts ;</li>
+                    <li>la méthode de calcul, publiée ;</li>
+                    <li>au moins une source citée avec sa date de consultation et sa licence.</li>
+                  </ul>
+                  <p className={styles.cardNote}>Tant que ces éléments manquent, la dépendance est décrite qualitativement et aucun pourcentage n&apos;est affiché.</p>
                   <SourceList ids={dependency.sourceIds} sources={sources} demo={dependency.demo} />
                 </Detail>
               );
@@ -193,7 +201,6 @@ export default function OutlookTab({ outlook, metrics, sources, media, demoActiv
         </section>
       ) : null}
 
-      <div className={styles.twoCols}>
         {outlook.watchAxes.length > 0 ? (
           <section className={styles.card} aria-labelledby="watch-title">
             <SectionHeading id="watch-title" data={outlook.watchAxes} icon="radar">
@@ -220,7 +227,6 @@ export default function OutlookTab({ outlook, metrics, sources, media, demoActiv
             <Timeline items={outlook.timeline} sources={sources} />
           </section>
         ) : null}
-      </div>
     </div>
   );
 }

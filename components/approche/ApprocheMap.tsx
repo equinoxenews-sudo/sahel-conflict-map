@@ -31,6 +31,16 @@ interface ApprocheMapProps {
   height?: number;
 }
 
+/** Attributions des couches, regroupées : une mention commune à plusieurs couches n'est écrite qu'une fois. */
+function attributionNotes(layers: MapModule["layers"]): string {
+  const byNote = new Map<string, string[]>();
+  for (const layer of layers) {
+    if (!layer.attribution) continue;
+    byNote.set(layer.attribution, [...(byNote.get(layer.attribution) ?? []), layer.title]);
+  }
+  return [...byNote].map(([note, titles]) => `${titles.join(", ")} : ${note}`).join(" · ");
+}
+
 // Carte thématique réutilisable pour tous les pays : couches sélectionnables avec légende, marqueurs à pictogrammes, fiche détaillée
 // au clic, zoom, déplacement, recentrage et plein écran. Les couches viennent des données (`MapModule`), jamais du code.
 export default function ApprocheMap({ map, sources = {}, list, height = 460 }: ApprocheMapProps) {
@@ -201,7 +211,7 @@ export default function ApprocheMap({ map, sources = {}, list, height = 460 }: A
       )}
 
       <p className={styles.mapCredit}>
-        Fond de carte : Esri. {map.layers.filter((layer) => layer.attribution).map((layer) => `${layer.title} : ${layer.attribution}`).join(" · ")}
+        Fond de carte : Esri. {attributionNotes(map.layers)}
       </p>
       {map.note ? <p className={styles.cardNote}>{map.note}</p> : null}
     </div>

@@ -25,6 +25,10 @@ const COLUMNS: { type: RelationView["type"]; title: string; icon: string; empty:
 export default function RelationsTab({ metrics, pending, relations, map, presenceMap, sources }: RelationsTabProps) {
   const get = (key: string) => metrics.get(key) ?? null;
   const missingFor = (key: string) => (pending.has(key) ? "À vérifier sur la source officielle" : "Donnée non disponible");
+  // Une catégorie sans relation vérifiée ne prend pas une colonne entière : elle est résumée sur une ligne.
+  const groups = COLUMNS.map((column) => ({ column, items: relations.filter((relation) => relation.type === column.type) }));
+  const filled = groups.filter((group) => group.items.length > 0);
+  const empty = groups.filter((group) => group.items.length === 0);
 
   return (
     <div className={styles.tabBody}>
@@ -34,6 +38,7 @@ export default function RelationsTab({ metrics, pending, relations, map, presenc
         </SectionHeading>
         <div className={styles.rows}>
           <MetricCard variant="row" label="ONU — Conseil de sécurité" metric={get("institutions.unsc")} missing={missingFor("institutions.unsc")} />
+          {get("institutions.eec_founding") ? <MetricCard variant="row" label="Communauté économique européenne" metric={get("institutions.eec_founding")} /> : null}
           <MetricCard variant="row" label="Union européenne" metric={get("institutions.eu_membership")} />
           <MetricCard variant="row" label="Zone euro" metric={get("institutions.euro_area")} />
           <MetricCard variant="row" label="Espace Schengen" metric={get("institutions.schengen")} />
@@ -50,28 +55,34 @@ export default function RelationsTab({ metrics, pending, relations, map, presenc
         <SectionHeading id="bilateral-title" icon="handshake">
           Relations bilatérales documentées
         </SectionHeading>
-        <div className={styles.threeCols}>
-          {COLUMNS.map((column) => {
-            const items = relations.filter((relation) => relation.type === column.type);
-            return (
+        {filled.length > 0 ? (
+          <div className={filled.length === 1 ? `${styles.relGrid} ${styles.relGridSingle}` : styles.relGrid}>
+            {filled.map(({ column, items }) => (
               <div key={column.type} className={`${styles.card} ${styles[`rel_${column.type}`]}`}>
                 <h3 className={styles.colTitle}>
                   <Icon name={column.icon} size={16} />
                   {column.title}
                 </h3>
-                {items.length > 0 ? (
-                  <div className={styles.relationList}>
-                    {items.map((relation) => (
-                      <RelationCard key={relation.id} relation={relation} />
-                    ))}
-                  </div>
-                ) : (
-                  <p className={styles.missing}>{column.empty}</p>
-                )}
+                <div className={styles.relationList}>
+                  {items.map((relation) => (
+                    <RelationCard key={relation.id} relation={relation} />
+                  ))}
+                </div>
               </div>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        ) : null}
+        {empty.length > 0 ? (
+          <ul className={styles.emptyCats}>
+            {empty.map(({ column }) => (
+              <li key={column.type}>
+                <Icon name={column.icon} size={15} />
+                <strong>{column.title}</strong>
+                <span>{column.empty}</span>
+              </li>
+            ))}
+          </ul>
+        ) : null}
         <p className={styles.cardNote}>Ce ne sont pas des classements « amis / rivaux » : une relation peut avoir plusieurs dimensions (traité, coopération, divergence), chacune avec ses dates et ses sources.</p>
       </section>
 
@@ -79,6 +90,7 @@ export default function RelationsTab({ metrics, pending, relations, map, presenc
         <SectionHeading id="network-title" data={map} icon="building">
           Réseau diplomatique
         </SectionHeading>
+        {map ? <p className={styles.cardNote}>Postes institutionnels (ambassades, consulats, représentations permanentes) : une implantation par point, distincts des engagements documentés plus bas.</p> : null}
         {map ? (
           <ApprocheMap map={map} sources={sources} />
         ) : (
@@ -91,8 +103,9 @@ export default function RelationsTab({ metrics, pending, relations, map, presenc
       {presenceMap ? (
         <section className={styles.card} aria-labelledby="presence-title">
           <SectionHeading id="presence-title" data={presenceMap} icon="globe">
-            Zones de présence
+            Présences et engagements documentés
           </SectionHeading>
+          <p className={styles.cardNote}>Faits et engagements documentés (accords, missions, implantations publiques, territoires). Cette carte n&apos;est pas une mesure d&apos;influence : chaque point renvoie à un fait daté, sans zone dessinée.</p>
           <ApprocheMap map={presenceMap} sources={sources} />
         </section>
       ) : null}

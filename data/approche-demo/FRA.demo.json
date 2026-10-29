@@ -1674,9 +1674,9 @@
         },
         {
           "id": "ik-2",
-          "label": "Portées",
-          "valueText": "3",
-          "note": "National, européen, international.",
+          "label": "Portées couvertes",
+          "valueText": "National, européen, international",
+          "note": "Niveaux auxquels se situent les dossiers (étiquettes de chaque dossier).",
           "sourceIds": []
         }
       ],

@@ -13,6 +13,8 @@ interface MetricCardProps {
   metric: MetricView | null;
   /** Texte quand la donnée manque : « Donnée non disponible » par défaut. */
   missing?: string;
+  /** Explication courte de l'absence, en infobulle et en petit à côté du texte (ex. pourquoi une valeur n'est pas calculée). */
+  missingHint?: string;
   /** Mise en page : tuile de chiffre clé (par défaut) ou ligne d'un tableau. */
   variant?: "tile" | "row";
   /** Valeur à afficher à la place de celle de l'observation (ex. une phrase d'appartenance). */
@@ -23,7 +25,7 @@ interface MetricCardProps {
 
 // Un chiffre ou un fait, avec le tiroir de provenance qui s'ouvre au clic : valeur, unité, période, périmètre, méthode,
 // source(s) avec adresse exacte, licence, date de consultation et autres mesures du même sujet.
-export default function MetricCard({ label, metric, missing = "Donnée non disponible", variant = "tile", display, icon }: MetricCardProps) {
+export default function MetricCard({ label, metric, missing = "Donnée non disponible", missingHint, variant = "tile", display, icon }: MetricCardProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const id = `metric-${label.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}`;
   const iconName = icon ?? iconForMetric(metric?.key ?? label);
@@ -35,7 +37,10 @@ export default function MetricCard({ label, metric, missing = "Donnée non dispo
           <Icon name={iconName} size={15} />
           {label}
         </span>
-        <span className={styles.missing}>{missing}</span>
+        <span className={styles.missing} title={missingHint}>
+          {missing}
+          {missingHint ? <small className={styles.missingHint}> · {missingHint}</small> : null}
+        </span>
       </div>
     );
   }
