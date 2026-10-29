@@ -37,7 +37,8 @@ export const updateSupervision = (id: string, input: SupervisionInput) => call<{
 export const setStatus = (id: string, status: "active" | "paused" | "archived") => call<{ supervision: Supervision }>(`/api/supervision/${id}`, { method: "PATCH", body: JSON.stringify({ status }) });
 export const deleteSupervision = (id: string) => call<{ ok: true }>(`/api/supervision/${id}`, { method: "DELETE" });
 export const loadResults = (id: string) => call<{ supervision: Supervision; results: Results }>(`/api/supervision/${id}/results`);
-export const runCollection = (id: string) => call<{ summary: { matched: number; error: string | null } }>(`/api/supervision/${id}/run`, { method: "POST" });
+export const runCollection = (id: string, days?: number) =>
+  call<{ summary: { matched: number; error: string | null } }>(`/api/supervision/${id}/run`, { method: "POST", body: days ? JSON.stringify({ days }) : undefined });
 export const writeReport = (id: string) => call<{ report: ReportContent }>(`/api/supervision/${id}/report`, { method: "POST" });
 export const sendFeedback = (id: string, targetId: number, kind: string) =>
   call<{ ok: true }>(`/api/supervision/${id}/feedback`, { method: "POST", body: JSON.stringify({ targetType: "item", targetId: String(targetId), kind }) });

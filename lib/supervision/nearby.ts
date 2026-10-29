@@ -81,6 +81,26 @@ export function countryWordsNearCircle(features: readonly WorldGeoFeature[], lat
   return words;
 }
 
+function displayNames(feature: WorldGeoFeature): string[] {
+  const french = COUNTRY_PROFILES_LIST.find((profile) => profile.iso3 === feature.id)?.name;
+  return [...new Set([french, feature.properties?.name].filter((name): name is string => Boolean(name)))];
+}
+
+/**
+ * Noms (français puis anglais) du pays du centre d'un cercle et des pays voisins qui le touchent : base des requêtes de
+ * recherche de presse. Un cercle sans pays sous son centre (en mer) range tous les pays touchés comme « pays du centre ».
+ */
+export function circleCountryNames(features: readonly WorldGeoFeature[], lat: number, lon: number, radiusKm: number): { home: string[]; neighbours: string[] } {
+  const home: string[] = [];
+  const neighbours: string[] = [];
+  for (const feature of features) {
+    const contains = polygons(feature).some((polygon) => polygon[0] && pointInRing(lat, lon, polygon[0]));
+    if (contains) home.push(...displayNames(feature));
+    else if (touchesCircle(feature, lat, lon, radiusKm)) neighbours.push(...displayNames(feature));
+  }
+  return home.length > 0 ? { home, neighbours } : { home: neighbours, neighbours: [] };
+}
+
 /** Mots de lieu qu'un texte sans coordonnées doit citer pour concerner la zone ; null si la zone ne peut pas les donner. */
 export function placeWordsFor(zone: Zone, features: readonly WorldGeoFeature[], countriesZoneNames: Set<string> | undefined): Set<string> | null {
   if (zone.kind === "countries") return countriesZoneNames && countriesZoneNames.size > 0 ? countriesZoneNames : null;

@@ -70,10 +70,10 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
     };
   }, [supervision.id]);
 
-  async function collect() {
+  async function collect(days?: number) {
     setRunning(true);
     try {
-      await runCollection(supervision.id);
+      await runCollection(supervision.id, days);
       await refresh();
     } catch (failure) {
       setError(failure instanceof Error ? failure.message : "Collecte impossible.");
@@ -149,6 +149,8 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
       <option value={1}>24 dernières heures</option>
       <option value={7}>7 derniers jours</option>
       <option value={30}>30 derniers jours</option>
+      <option value={90}>3 derniers mois</option>
+      <option value={365}>12 derniers mois</option>
     </select>
   );
 
@@ -161,9 +163,14 @@ export default function SupervisionDetail({ supervision, onBack, onEdit, onActiv
         <h2 className={styles.cardTitle}>{supervision.name}</h2>
         <span className={`${styles.badge} ${supervision.status === "active" ? styles.badgeActive : styles.badgePaused}`}>{supervision.status === "active" ? "Active" : supervision.status === "paused" ? "Suspendue" : "Brouillon"}</span>
         {supervision.status === "active" ? (
-          <button type="button" className={styles.primary} onClick={() => void collect()} disabled={running}>
-            {running ? "Collecte en cours…" : "Lancer la collecte"}
-          </button>
+          <>
+            <button type="button" className={styles.primary} onClick={() => void collect()} disabled={running}>
+              {running ? "Collecte en cours…" : "Lancer la collecte"}
+            </button>
+            <button type="button" className={styles.ghost} onClick={() => void collect(365)} disabled={running} title="Cherche sur les 12 derniers mois et trie 90 publications par passage : relance pour trier la suite">
+              Charger l&apos;historique (1 an)
+            </button>
+          </>
         ) : (
           <button type="button" className={styles.primary} onClick={onActivate} disabled={busy}>
             Activer la veille

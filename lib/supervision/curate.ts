@@ -24,7 +24,7 @@ export const MAX_TO_CURATE_PER_RUN = 30;
 const BATCH = 10;
 const MAX_OUTPUT_TOKENS = 2600;
 const EXCERPT_FOR_PROMPT = 320;
-const MAX_GEOCODES_PER_RUN = 30;
+const MAX_GEOCODES_PER_RUN = 90;
 /** Tolérance autour du cercle pour une localité trouvée (imprécision du géocodage). */
 const LOCALITY_TOLERANCE_KM = 25;
 /** Tolérance plus large pour le centre d'une région, qui n'est pas le lieu de l'événement. */
@@ -190,7 +190,7 @@ interface MatchRow {
  * budget du compte (réservé avant chaque appel). Ne lève jamais : un échec laisse les publications « non triées », visibles
  * comme telles, et le tri sera retenté à la collecte suivante.
  */
-export async function curateMatches(supervision: Supervision, now: Date = new Date()): Promise<CurateSummary> {
+export async function curateMatches(supervision: Supervision, now: Date = new Date(), options: { max?: number; deadlineMs?: number } = {}): Promise<CurateSummary> {
   const summary: CurateSummary = { asked: 0, kept: 0, dropped: 0, placed: 0, note: null };
   try {
     const db = getSupabaseAdmin();
@@ -206,7 +206,7 @@ export async function curateMatches(supervision: Supervision, now: Date = new Da
       .map((row) => row.supervision_items)
       .filter((item): item is NonNullable<MatchRow["supervision_items"]> => item !== null)
       .sort((a, b) => b.id - a.id)
-      .slice(0, MAX_TO_CURATE_PER_RUN);
+      .slice(0, options.max ?? MAX_TO_CURATE_PER_RUN);
     if (pending.length === 0) return summary;
 
     const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -222,6 +222,11 @@ export async function curateMatches(supervision: Supervision, now: Date = new Da
     let geocodes = 0;
 
     for (let start = 0; start < pending.length; start += BATCH) {
+      // Passage long (historique) : pas de nouveau lot passé l'heure limite ; le reste sera trié au passage suivant.
+      if (options.deadlineMs !== undefined && Date.now() > options.deadlineMs) {
+        summary.note = summary.note ?? "temps écoulé : relance pour trier la suite";
+        break;
+      }
       const batch = pending.slice(start, start + BATCH);
       const prompt = buildCuratePrompt(supervision, batch.map((item) => ({ id: item.id, title: item.title, excerpt: item.excerpt, source: item.source_name })));
       const estimate = maxCallCostUsd(SUPERVISION_MODEL, prompt.length, MAX_OUTPUT_TOKENS);

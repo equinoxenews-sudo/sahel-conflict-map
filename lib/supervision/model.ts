@@ -17,13 +17,15 @@ export interface Criteria {
   languages: string[];
 }
 
-export type SourceType = "gdelt" | "rss" | "telegram";
+export type SourceType = "gdelt" | "rss" | "telegram" | "gnews";
 
 export interface SourceSpec {
   type: SourceType;
   /**
    * « gdelt » : événements GDELT déjà collectés par Équinoxe (ref vide). « rss » et « telegram » : ref vide = les flux et
    * canaux d'Équinoxe ; sinon l'adresse d'un flux ou l'identifiant d'un canal public ajouté par l'utilisateur.
+   * « gnews » : recherche Google Actualités ; ref vide = requêtes construites d'après la veille (lib/supervision/gnews.ts),
+   * sinon une requête écrite par l'utilisateur.
    */
   ref: string;
   enabled: boolean;
@@ -78,6 +80,7 @@ export const DEFAULT_SOURCES: SourceSpec[] = [
   { type: "gdelt", ref: "", enabled: true },
   { type: "rss", ref: "", enabled: true },
   { type: "telegram", ref: "", enabled: true },
+  { type: "gnews", ref: "", enabled: true },
 ];
 
 // --- Offres ---------------------------------------------------------------------------------------------------------
@@ -182,7 +185,7 @@ function validateSources(raw: unknown, errors: string[]): SourceSpec[] {
   const seen = new Set<string>();
   for (const item of raw) {
     const source = item as { type?: unknown; ref?: unknown; enabled?: unknown } | null;
-    if (source?.type !== "gdelt" && source?.type !== "rss" && source?.type !== "telegram") {
+    if (source?.type !== "gdelt" && source?.type !== "rss" && source?.type !== "telegram" && source?.type !== "gnews") {
       errors.push("Sources : type inconnu.");
       continue;
     }
@@ -193,6 +196,10 @@ function validateSources(raw: unknown, errors: string[]): SourceSpec[] {
     }
     if (source.type === "telegram" && ref !== "" && !/^[A-Za-z0-9_]{4,64}$/.test(ref)) {
       errors.push("Sources : un canal Telegram s'écrit sans « @ » ni adresse (lettres, chiffres, souligné).");
+      continue;
+    }
+    if (source.type === "gnews" && ref !== "" && ref.length < 3) {
+      errors.push("Sources : une recherche Google Actualités fait 3 caractères au moins.");
       continue;
     }
     const key = `${source.type}:${ref.toLowerCase()}`;

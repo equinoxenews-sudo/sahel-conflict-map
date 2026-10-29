@@ -91,6 +91,7 @@ export default function SupervisionForm({ initial, submitLabel, busy, error, onS
   const [schedule, setSchedule] = useState<Schedule>(initial?.schedule ?? DEFAULT_SCHEDULE);
   const [feedDraft, setFeedDraft] = useState("");
   const [channelDraft, setChannelDraft] = useState("");
+  const [searchDraft, setSearchDraft] = useState("");
 
   const zone: Zone | null = useMemo(() => {
     if (zoneKind === "circle") return circle.lat !== null && circle.lon !== null ? { kind: "circle", lat: circle.lat, lon: circle.lon, radiusKm: circle.radiusKm } : null;
@@ -237,6 +238,37 @@ export default function SupervisionForm({ initial, submitLabel, busy, error, onS
         <label>
           <input type="checkbox" checked={sourceOn("telegram")} onChange={(event) => setOwnSource("telegram", event.target.checked)} /> Canaux Telegram d&apos;Équinoxe
         </label>
+        <label>
+          <input type="checkbox" checked={sourceOn("gnews")} onChange={(event) => setOwnSource("gnews", event.target.checked)} /> Recherche Google Actualités (requêtes écrites d&apos;après la zone, les entités et les mots-clés)
+        </label>
+        <div className={styles.field}>
+          <span>Ajouter une recherche Google Actualités (vos propres mots)</span>
+          <div className={styles.row}>
+            <input className={styles.input} style={{ flex: 1 }} value={searchDraft} onChange={(event) => setSearchDraft(event.target.value)} placeholder='ex. Tchaourou (attaque OR enlèvement)' />
+            <button
+              type="button"
+              className={styles.button}
+              onClick={() => {
+                if (searchDraft.trim().length >= 3) {
+                  setSources((current) => [...current, { type: "gnews", ref: searchDraft.trim(), enabled: true }]);
+                  setSearchDraft("");
+                }
+              }}
+            >
+              Ajouter
+            </button>
+          </div>
+          <div className={styles.chips}>
+            {custom("gnews").map((source) => (
+              <span key={source.ref} className={styles.tag}>
+                {source.ref}
+                <button type="button" aria-label="Retirer" onClick={() => setSources((current) => current.filter((item) => item !== source))}>
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+        </div>
         <div className={styles.field}>
           <span>Ajouter un flux RSS (adresse)</span>
           <div className={styles.row}>

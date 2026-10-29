@@ -3,11 +3,13 @@ import { fetchFeed } from "../rss";
 import { ZONE_RSS_FEEDS } from "../rssFeeds";
 import { getSupabaseAdmin } from "../supabaseAdmin";
 import { fetchChannel } from "../telegram";
+import { FLAG_COUNTRIES } from "../countryFlagIndex";
 import { countryNames, foldName } from "./geo";
+import { buildGnewsQueries, customGnewsQuery, DEFAULT_DAYS, googleNewsUrl, type ZoneCountries } from "./gnews";
 import { curateMatches, type CurateSummary } from "./curate";
 import { matchCandidate } from "./match";
-import { placeWordsFor } from "./nearby";
-import { allWorldCountryFeatures } from "../worldGeo";
+import { circleCountryNames, placeWordsFor } from "./nearby";
+import { allWorldCountryFeatures, type WorldGeoFeature } from "../worldGeo";
 import type { Supervision } from "./model";
 import {
   fromBrief,
@@ -27,8 +29,13 @@ import { listActiveForCollection } from "./store";
 // déterministe, avec la raison écrite. Les publications retenues sont rangées dans supervision_items (partagées) et
 // rattachées à la veille dans supervision_matches. Rien n'est inventé : une publication sans lieu reste « non localisée ».
 
-/** Ancienneté maximale d'une publication retenue. */
+/** Ancienneté maximale d'une publication retenue en collecte courante. */
 const MAX_AGE_DAYS = 30;
+/** Historique le plus long qu'on peut charger d'un coup (premier regard sur une veille). */
+export const MAX_HISTORY_DAYS = 365;
+/** Chargement d'historique : publications triées par passage, et temps (secondes) après lequel on n'ouvre plus de nouveau lot. */
+const HISTORY_CURATE_MAX = 90;
+const HISTORY_CURATE_SECONDS = 150;
 const FEED_CONCURRENCY = 6;
 const PAGE = 1000;
 const CHUNK = 200;
@@ -40,6 +47,8 @@ export interface CollectSummary {
   matched: number;
   /** Tri éditorial par l'IA : publications jugées, gardées, écartées (hors sujet ou hors zone), placées (voir curate.ts). */
   curated: CurateSummary;
+  /** Adresses des recherches Google Actualités lancées pour la veille (pour les relire dans le journal). */
+  gnewsQueries: string[];
   error: string | null;
 }
 
@@ -57,10 +66,10 @@ async function readAll<T>(read: (from: number, to: number) => Page, max: number)
   return out;
 }
 
-const sinceIso = (now: number) => new Date(now - MAX_AGE_DAYS * 86_400_000).toISOString();
+const sinceIso = (now: number, days: number) => new Date(now - days * 86_400_000).toISOString();
 
-async function loadEvents(db: Db, now: number): Promise<SourcedItem[]> {
-  const since = sinceIso(now).slice(0, 10);
+async function loadEvents(db: Db, now: number, days: number): Promise<SourcedItem[]> {
+  const since = sinceIso(now, days).slice(0, 10);
   const rows = await readAll<GdeltEventRow>(
     (from, to) =>
       db
@@ -74,13 +83,13 @@ async function loadEvents(db: Db, now: number): Promise<SourcedItem[]> {
   return rows.flatMap((row) => fromGdeltEvent(row) ?? []);
 }
 
-async function loadBriefs(db: Db, now: number): Promise<SourcedItem[]> {
+async function loadBriefs(db: Db, now: number, days: number): Promise<SourcedItem[]> {
   const rows = await readAll<BriefRow>(
     (from, to) =>
       db
         .from("zone_briefs")
         .select("id, title, summary, published_at, latitude, longitude, place_name, place_country, geo_precision, confidence, image_url")
-        .gte("published_at", sinceIso(now))
+        .gte("published_at", sinceIso(now, days))
         .order("published_at", { ascending: false })
         .range(from, to),
     3000,
@@ -88,10 +97,10 @@ async function loadBriefs(db: Db, now: number): Promise<SourcedItem[]> {
   return rows.flatMap((row) => fromBrief(row) ?? []);
 }
 
-async function loadStoredTelegram(db: Db, now: number): Promise<SourcedItem[]> {
+async function loadStoredTelegram(db: Db, now: number, days: number): Promise<SourcedItem[]> {
   const rows = await readAll<TelegramRow>(
     (from, to) =>
-      db.from("telegram_posts").select("channel, url, text, published_at, image_url").gte("created_at", sinceIso(now)).order("created_at", { ascending: false }).range(from, to),
+      db.from("telegram_posts").select("channel, url, text, published_at, image_url").gte("created_at", sinceIso(now, days)).order("created_at", { ascending: false }).range(from, to),
     3000,
   );
   return rows.flatMap((row) => fromTelegramRow(row) ?? []);
@@ -112,11 +121,30 @@ async function loadChannels(handles: string[]): Promise<Map<string, SourcedItem[
   return new Map(batches);
 }
 
-function enabled(supervision: Supervision, type: "gdelt" | "rss" | "telegram") {
+function enabled(supervision: Supervision, type: "gdelt" | "rss" | "telegram" | "gnews") {
   return supervision.sources.filter((source) => source.type === type && source.enabled);
 }
 
 const unique = <T>(values: T[]) => [...new Set(values)];
+
+/** Pays de la zone, par leurs noms, pour écrire les recherches de presse. */
+function zoneCountries(supervision: Supervision, features: readonly WorldGeoFeature[] | null): ZoneCountries {
+  const zone = supervision.zone;
+  if (zone.kind === "countries") {
+    return { home: FLAG_COUNTRIES.filter((country) => zone.codes.includes(country.iso2)).map((country) => country.name), neighbours: [] };
+  }
+  return features ? circleCountryNames(features, zone.lat, zone.lon, zone.radiusKm) : { home: [], neighbours: [] };
+}
+
+/** Adresses Google Actualités d'une veille : requêtes construites d'après la veille (source vide) ou écrites par l'utilisateur. */
+function gnewsUrls(supervision: Supervision, countries: ZoneCountries, days: number): string[] {
+  const urls: string[] = [];
+  for (const source of enabled(supervision, "gnews")) {
+    if (source.ref === "") urls.push(...buildGnewsQueries(supervision.zone, supervision.criteria, countries, days).map(({ query, lang }) => googleNewsUrl(query, lang)));
+    else urls.push(googleNewsUrl(customGnewsQuery(source.ref, days), "fr"));
+  }
+  return unique(urls);
+}
 
 function recent(item: SourcedItem, since: number): boolean {
   const time = item.row.published_at ? Date.parse(item.row.published_at) : Number.NaN;
@@ -124,9 +152,15 @@ function recent(item: SourcedItem, since: number): boolean {
 }
 
 /** Collecte et rattache les publications à une ou plusieurs veilles actives. Une veille en erreur n'arrête pas les autres. */
-export async function collectSupervisions(options: { ownerId?: string; supervisionId?: string; now?: number } = {}): Promise<CollectSummary[]> {
+/**
+ * `historyDays` : fenêtre de collecte en jours (30 par défaut, 365 au plus) pour charger un historique la première fois ;
+ * le tri par l'IA traite alors davantage de publications par passage.
+ */
+export async function collectSupervisions(options: { ownerId?: string; supervisionId?: string; now?: number; historyDays?: number } = {}): Promise<CollectSummary[]> {
   const now = options.now ?? Date.now();
-  const since = now - MAX_AGE_DAYS * 86_400_000;
+  const days = Math.min(MAX_HISTORY_DAYS, Math.max(MAX_AGE_DAYS, Math.round(options.historyDays ?? MAX_AGE_DAYS)));
+  const history = days > MAX_AGE_DAYS;
+  const since = now - days * 86_400_000;
   const db = getSupabaseAdmin();
   const supervisions = await listActiveForCollection({ ownerId: options.ownerId, id: options.supervisionId });
   if (supervisions.length === 0) return [];
@@ -156,9 +190,9 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
   };
   const none: SourcedItem[] = [];
   const [events, briefs, ownTelegram, ownFeedMap, customFeedMap, channelMap] = await Promise.all([
-    wantsEvents ? guard("événements GDELT", none, () => loadEvents(db, now)) : none,
-    guard("synthèses Équinoxe", none, () => loadBriefs(db, now)),
-    wantsOwnTelegram ? guard("Telegram d'Équinoxe", none, () => loadStoredTelegram(db, now)) : none,
+    wantsEvents ? guard("événements GDELT", none, () => loadEvents(db, now, days)) : none,
+    guard("synthèses Équinoxe", none, () => loadBriefs(db, now, days)),
+    wantsOwnTelegram ? guard("Telegram d'Équinoxe", none, () => loadStoredTelegram(db, now, days)) : none,
     wantsOwnFeeds ? guard("flux d'Équinoxe", new Map<string, SourcedItem[]>(), () => loadFeeds(unique(Object.values(ZONE_RSS_FEEDS).flat()))) : new Map<string, SourcedItem[]>(),
     guard("flux ajoutés", new Map<string, SourcedItem[]>(), () => loadFeeds(customFeeds)),
     guard("canaux ajoutés", new Map<string, SourcedItem[]>(), () => loadChannels(customChannels)),
@@ -166,6 +200,7 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
   const ownFeeds = [...ownFeedMap.values()].flat();
 
   const summaries: CollectSummary[] = [];
+  const gnewsCache = new Map<string, SourcedItem[]>();
   for (const supervision of supervisions) {
     const summary: CollectSummary = {
       supervisionId: supervision.id,
@@ -173,6 +208,7 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
       fetched: { rss: 0, telegram: 0, events: 0, briefs: briefs.length },
       matched: 0,
       curated: { asked: 0, kept: 0, dropped: 0, placed: 0, note: null },
+      gnewsQueries: [],
       error: null,
     };
     try {
@@ -193,6 +229,24 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
       }
 
       const names = supervision.zone.kind === "countries" ? countryNames(supervision.zone.codes) : undefined;
+      // Recherches Google Actualités de la veille : une même adresse n'est téléchargée qu'une fois pour toutes les veilles.
+      if (enabled(supervision, "gnews").length > 0) {
+        let features: readonly WorldGeoFeature[] | null = null;
+        try {
+          features = allWorldCountryFeatures();
+        } catch {
+          failures.push("fond de carte des pays illisible : recherches Google Actualités limitées");
+        }
+        const urls = gnewsUrls(supervision, zoneCountries(supervision, features), history ? days : DEFAULT_DAYS);
+        const missing = urls.filter((url) => !gnewsCache.has(url));
+        if (missing.length > 0) for (const [url, items] of await loadFeeds(missing)) gnewsCache.set(url, items);
+        for (const url of urls) {
+          const items = gnewsCache.get(url) ?? [];
+          pool.push(...items);
+          summary.fetched.rss += items.length;
+        }
+        summary.gnewsQueries = urls.map((url) => decodeURIComponent(new URL(url).searchParams.get("q") ?? url));
+      }
       // Pays qui touchent la zone : une publication sans lieu doit en citer un (sinon elle parle d'ailleurs).
       let placeWords: Set<string> | null = null;
       try {
@@ -217,7 +271,7 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
       // Un lieu déjà précisé lors d'un passage précédent s'applique tout de suite : une publication placée hors zone ne revient pas.
       kept = await applyStoredPlaces(db, supervision, kept, names, placeWords);
       await store(db, supervision, kept);
-      summary.curated = await curateMatches(supervision, new Date(now));
+      summary.curated = await curateMatches(supervision, new Date(now), history ? { max: HISTORY_CURATE_MAX, deadlineMs: Date.now() + HISTORY_CURATE_SECONDS * 1000 } : undefined);
       summary.matched = await countKept(db, supervision.id);
       await db.from("supervisions").update({ last_run_at: new Date(now).toISOString() }).eq("id", supervision.id);
     } catch (error) {
@@ -228,7 +282,7 @@ export async function collectSupervisions(options: { ownerId?: string; supervisi
     if (runId !== undefined) {
       await db
         .from("supervision_runs")
-        .update({ finished_at: new Date().toISOString(), status: summary.error ? "error" : "ok", stats: { fetched: summary.fetched, matched: summary.matched, curated: summary.curated }, error: note })
+        .update({ finished_at: new Date().toISOString(), status: summary.error ? "error" : "ok", stats: { fetched: summary.fetched, matched: summary.matched, curated: summary.curated, gnewsQueries: summary.gnewsQueries }, error: note })
         .eq("id", runId);
     }
     summaries.push(summary);

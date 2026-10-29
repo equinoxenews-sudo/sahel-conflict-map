@@ -76,6 +76,7 @@ test("sans calendrier ni sources, des valeurs par défaut sûres s'appliquent", 
     { type: "gdelt", ref: "", enabled: true },
     { type: "rss", ref: "", enabled: true },
     { type: "telegram", ref: "", enabled: true },
+    { type: "gnews", ref: "", enabled: true },
   ]);
   assert.deepEqual(checked.value.schedule, { dailyHour: 8, weeklyDay: 1 });
 });
