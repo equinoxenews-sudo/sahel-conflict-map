@@ -1,6 +1,8 @@
 import CountryMap, { type CountryMapData } from "@/components/country-profile/CountryMap";
+import type { OverviewModule } from "@/lib/approche/modules";
 import type { MetricView } from "@/lib/approche/view";
 import MetricCard from "./MetricCard";
+import { ItemCard, SectionHeading, type SourceMap } from "./shared";
 import styles from "./Approche.module.css";
 
 interface OverviewTabProps {
@@ -8,11 +10,14 @@ interface OverviewTabProps {
   /** Clés des valeurs en attente de vérification : affichées comme telles, jamais comme un fait. */
   pending: Set<string>;
   map: CountryMapData;
+  module: OverviewModule;
+  sources: SourceMap;
 }
 
 const NOT_VERIFIED = "À vérifier sur la source officielle";
 
-export default function OverviewTab({ metrics, pending, map }: OverviewTabProps) {
+export default function OverviewTab({ metrics, pending, map, module, sources }: OverviewTabProps) {
+  const hasAnalysis = module.strengths.length + module.challenges.length + module.timeline.length > 0;
   const get = (key: string) => metrics.get(key) ?? null;
   const missingFor = (key: string) => (pending.has(key) ? NOT_VERIFIED : "Donnée non disponible");
 
@@ -79,12 +84,57 @@ export default function OverviewTab({ metrics, pending, map }: OverviewTabProps)
         </div>
       </section>
 
-      <section className={styles.card} aria-labelledby="analysis-title">
-        <h2 id="analysis-title">Atouts, défis et chronologie</h2>
-        <p className={styles.cardNote}>
-          Ces rubriques sont des analyses : elles seront publiées une fois rédigées avec leurs sources et relues, jamais générées au moment de la consultation. Aucune barre de « puissance » ni score n&apos;est affiché tant qu&apos;aucune méthode publiée ne le permet.
-        </p>
-      </section>
+      {hasAnalysis ? (
+        <>
+          <div className={styles.twoCols}>
+            <section className={styles.card} aria-labelledby="strengths-title">
+              <SectionHeading id="strengths-title" data={module.strengths}>
+                Atouts stratégiques
+              </SectionHeading>
+              <ul className={styles.plainList}>
+                {module.strengths.map((entry) => (
+                  <li key={entry.id}>
+                    <ItemCard item={{ ...entry, summary: "" }} sources={sources} className={styles.listButton} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+            <section className={styles.card} aria-labelledby="challenges-title">
+              <SectionHeading id="challenges-title" data={module.challenges}>
+                Défis majeurs
+              </SectionHeading>
+              <ul className={styles.plainList}>
+                {module.challenges.map((entry) => (
+                  <li key={entry.id}>
+                    <ItemCard item={{ ...entry, summary: "" }} sources={sources} className={styles.listButton} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
+          {module.timeline.length > 0 ? (
+            <section className={styles.card} aria-labelledby="timeline-title">
+              <SectionHeading id="timeline-title" data={module.timeline}>
+                Chronologie récente
+              </SectionHeading>
+              <ol className={styles.timeline}>
+                {module.timeline.map((entry) => (
+                  <li key={entry.id}>
+                    <span className={styles.timelineDate}>{entry.date}</span>
+                    <ItemCard item={{ ...entry, date: null }} sources={sources} className={styles.listButton} />
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ) : null}
+          <p className={styles.cardNote}>Aucune barre de « puissance » ni score n&apos;est affiché tant qu&apos;aucune méthode publiée ne le permet : les « positionnements » sont remplacés par des indicateurs observables.</p>
+        </>
+      ) : (
+        <section className={styles.card} aria-labelledby="analysis-title">
+          <h2 id="analysis-title">Atouts, défis et chronologie</h2>
+          <p className={styles.cardNote}>Ces rubriques sont des analyses : elles seront publiées une fois rédigées avec leurs sources et relues, jamais générées au moment de la consultation.</p>
+        </section>
+      )}
     </div>
   );
 }

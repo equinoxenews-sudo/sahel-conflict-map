@@ -1,10 +1,13 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import test from "node:test";
+import { containsDemo, demoEnabled, getDemoModules, mergeModules, parseDemoFile } from "../lib/approche/demo";
+import { MapLayerSchema } from "../lib/approche/modules";
 import { formatDate, formatValue, formatWithUnit } from "../lib/approche/formatters";
 import { getApprocheData, listApprocheCountries } from "../lib/approche/repository";
 import { tabHref, validateTab } from "../lib/approche/tabs";
 import { CountryDataSchema, ObservationSchema, type CountryData, type Observation } from "../lib/approche/schema";
-import { BLOCKED_WORLD_BANK_INDICATORS, isBlockedSource, publishedObservations, publishProblems, SIPRI_ENTRY } from "../lib/approche/sourceRegistry";
+import { BLOCKED_WORLD_BANK_INDICATORS, isBlockedSource, moduleProblems, publishedObservations, publishProblems, SIPRI_ENTRY } from "../lib/approche/sourceRegistry";
 import { claimViews, metricViews, pendingObservations, relationViews } from "../lib/approche/view";
 
 const france = () => {
@@ -35,6 +38,7 @@ function observation(overrides: Partial<Observation> = {}): Observation {
 
 function data(overrides: Partial<CountryData> = {}): CountryData {
   return {
+    schemaVersion: 1,
     countryCode: "FRA",
     slug: "france",
     zoneSlug: "europe",
@@ -45,6 +49,7 @@ function data(overrides: Partial<CountryData> = {}): CountryData {
     observations: [observation()],
     claims: [],
     relationships: [],
+    modules: {},
     ...overrides,
   };
 }
@@ -254,4 +259,64 @@ test("la dette publique et la dépendance énergétique viennent d'Eurostat avec
 test("l'onglet Économie n'affiche aucune dépendance de la maquette", () => {
   const text = JSON.stringify(metricViews(france()));
   for (const forbidden of ["98", "terres rares", "Pétrole"]) assert.equal(text.includes(`"value":"${forbidden}`), false, forbidden);
+});
+
+// --- Données de démonstration et modules (schéma v1) ---
+
+const demoRaw = () => JSON.parse(fs.readFileSync("data/approche-demo/FRA.demo.json", "utf8")) as unknown;
+
+test("le fichier de démonstration est valide, marqué demo et ne cite aucune source réelle", () => {
+  const { modules, countryCode } = parseDemoFile(demoRaw());
+  assert.equal(countryCode, "FRA");
+  assert.equal(containsDemo(modules), true);
+  const text = JSON.stringify(modules);
+  assert.equal(/"demo":false/.test(text), false, "tout élément identifiable est marqué demo");
+  assert.equal(/"sourceIds":\["/.test(text), false, "la démonstration ne cite aucune source");
+});
+
+test("la démonstration n'est pas chargée sans la variable d'environnement (cas de la production)", async () => {
+  assert.equal(demoEnabled(), false);
+  assert.equal(await getDemoModules("FRA"), null);
+});
+
+test("la fiche France réelle ne contient aucun élément de démonstration", () => {
+  const fra = france();
+  assert.equal(containsDemo(fra.modules), false);
+  assert.deepEqual(moduleProblems(fra.modules), []);
+  assert.equal(fra.modules.defense?.threatPosture?.level, "Vigilance renforcée");
+});
+
+test("la fusion garde le réel et ne comble que ce qui manque, sans mélanger les éléments", () => {
+  const { modules: demo } = parseDemoFile(demoRaw());
+  const real = france().modules;
+  const merged = mergeModules(real, demo);
+  assert.equal(merged.defense?.threatPosture?.demo, false, "le dispositif réel l'emporte sur la démonstration");
+  assert.equal(merged.defense?.threatPosture?.level, "Vigilance renforcée");
+  assert.ok((merged.defense?.equipment.length ?? 0) > 0 && merged.defense?.equipment.every((item) => item.demo), "le reste vient de la démonstration");
+  assert.ok((merged.outlook?.swot.strengths.length ?? 0) > 0, "un SWOT réel vide ne masque pas la démonstration");
+  assert.equal(mergeModules(real, null).defense?.equipment.length, 0, "sans démonstration, rien n'est inventé");
+});
+
+test("une fiche réelle avec un élément de démonstration ou sans source est refusée", () => {
+  const withDemo = data({ modules: { overview: { strengths: [{ id: "x", title: "t", summary: "", tags: [], sourceIds: ["S1"], demo: true }], challenges: [], timeline: [] } } });
+  assert.ok(publishProblems(withDemo).some((problem) => problem.includes("démonstration")));
+  const noSource = data({ modules: { overview: { strengths: [{ id: "x", title: "t", summary: "", tags: [], sourceIds: [], demo: false }], challenges: [], timeline: [] } } });
+  assert.ok(publishProblems(noSource).some((problem) => problem.includes("aucune source")));
+  const ok = data({ modules: { overview: { strengths: [{ id: "x", title: "t", summary: "", tags: [], sourceIds: ["S1"], demo: false }], challenges: [], timeline: [] } } });
+  assert.deepEqual(publishProblems(ok), []);
+});
+
+test("l'exemple livré à ChatGPT est valide et publiable", () => {
+  const raw = JSON.parse(fs.readFileSync("docs/exemples/APPROCHE_EXEMPLE.json", "utf8")) as unknown;
+  const parsed = CountryDataSchema.safeParse(raw);
+  assert.ok(parsed.success, parsed.success ? "" : JSON.stringify(parsed.error.issues.slice(0, 3)));
+  assert.deepEqual(publishProblems(parsed.data), []);
+  assert.equal(parsed.data.schemaVersion, 1);
+});
+
+test("une carte refuse une coordonnée impossible et une couleur mal formée", () => {
+  const feature = { id: "f", name: "n", lat: 95, lon: 0, kind: "k" };
+  assert.equal(MapLayerSchema.safeParse({ id: "l", title: "t", theme: "defense", color: "#e0b44c", features: [feature] }).success, false);
+  assert.equal(MapLayerSchema.safeParse({ id: "l", title: "t", theme: "defense", color: "rouge", features: [{ ...feature, lat: 10 }] }).success, false);
+  assert.equal(MapLayerSchema.safeParse({ id: "l", title: "t", theme: "defense", color: "#e0b44c", features: [{ ...feature, lat: 10 }] }).success, true);
 });

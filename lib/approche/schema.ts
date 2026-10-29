@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ModulesSchema, SCHEMA_VERSION } from "./modules";
 
 // Modèle de données des fiches pays « Approche » : chaque valeur affichée est une observation qui renvoie à une ou plusieurs
 // sources (organisme, adresse exacte, licence, date de consultation) et porte son unité, sa période de référence, son périmètre
@@ -105,6 +106,8 @@ export const PUBLICATION = ["draft", "review", "published", "archived"] as const
 
 /** Une fiche pays : identité, sources, observations et affirmations. */
 export const CountryDataSchema = z.object({
+  /** Version du schéma de fichier (voir docs/APPROCHE_SCHEMA_V1.md). */
+  schemaVersion: z.literal(SCHEMA_VERSION).default(SCHEMA_VERSION),
   countryCode: z.string().length(3),
   slug: z.string().min(1),
   zoneSlug: z.string().min(1),
@@ -117,6 +120,8 @@ export const CountryDataSchema = z.object({
   observations: z.array(ObservationSchema),
   claims: z.array(ClaimSchema).default([]),
   relationships: z.array(RelationshipSchema).default([]),
+  /** Modules optionnels (cartes, défense, enjeux, vulnérabilités…) : un pays peut n'en fournir aucun. */
+  modules: ModulesSchema.default({}),
 });
 
 export type SourceRecord = z.infer<typeof SourceSchema>;

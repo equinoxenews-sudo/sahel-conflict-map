@@ -1,4 +1,7 @@
+import type { MapModule } from "@/lib/approche/modules";
 import type { MetricView, RelationView } from "@/lib/approche/view";
+import ApprocheMap from "./ApprocheMap";
+import { SectionHeading, type SourceMap } from "./shared";
 import MetricCard from "./MetricCard";
 import RelationCard from "./RelationCard";
 import styles from "./Approche.module.css";
@@ -7,6 +10,8 @@ interface RelationsTabProps {
   metrics: Map<string, MetricView>;
   pending: Set<string>;
   relations: RelationView[];
+  map: MapModule | null | undefined;
+  sources: SourceMap;
 }
 
 const COLUMNS: { type: RelationView["type"]; title: string; empty: string }[] = [
@@ -15,7 +20,7 @@ const COLUMNS: { type: RelationView["type"]; title: string; empty: string }[] = 
   { type: "tension", title: "Divergences et tensions documentées", empty: "Aucune entrée vérifiée pour l'instant : une divergence n'est publiée qu'avec un fait daté et sa source." },
 ];
 
-export default function RelationsTab({ metrics, pending, relations }: RelationsTabProps) {
+export default function RelationsTab({ metrics, pending, relations, map, sources }: RelationsTabProps) {
   const get = (key: string) => metrics.get(key) ?? null;
   const missingFor = (key: string) => (pending.has(key) ? "À vérifier sur la source officielle" : "Donnée non disponible");
 
@@ -64,10 +69,16 @@ export default function RelationsTab({ metrics, pending, relations }: RelationsT
       </section>
 
       <section className={styles.card} aria-labelledby="network-title">
-        <h2 id="network-title">Réseau diplomatique et carte d&apos;influence</h2>
-        <p className={styles.cardNote}>
-          Non affiché pour l&apos;instant. Le réseau d&apos;ambassades et de consulats exige un annuaire officiel dont la réutilisation est vérifiée, et la carte d&apos;influence des indicateurs mesurables et sourcés ; aucun nombre de postes ni aucun gradient d&apos;« influence » n&apos;est repris de la maquette.
-        </p>
+        <SectionHeading id="network-title" data={map}>
+          Réseau diplomatique
+        </SectionHeading>
+        {map ? (
+          <ApprocheMap map={map} sources={sources} />
+        ) : (
+          <p className={styles.cardNote}>
+            Non affiché pour l&apos;instant : le réseau d&apos;ambassades et de consulats exige un annuaire officiel dont la réutilisation est vérifiée. Aucun nombre de postes ni gradient d&apos;« influence » n&apos;est repris de la maquette.
+          </p>
+        )}
       </section>
     </div>
   );

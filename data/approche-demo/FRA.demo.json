@@ -1,0 +1,2341 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "FRA",
+  "demo": true,
+  "modules": {
+    "overview": {
+      "strengths": [
+        {
+          "id": "ov-s0",
+          "title": "Capacité de dissuasion et siège permanent à l'ONU",
+          "summary": "Appréciation de démonstration.",
+          "tags": []
+        },
+        {
+          "id": "ov-s1",
+          "title": "Économie diversifiée et infrastructures avancées",
+          "summary": "Appréciation de démonstration.",
+          "tags": []
+        },
+        {
+          "id": "ov-s2",
+          "title": "Influence diplomatique mondiale",
+          "summary": "Appréciation de démonstration.",
+          "tags": []
+        },
+        {
+          "id": "ov-s3",
+          "title": "Membre fondateur de l'Union européenne",
+          "summary": "Appréciation de démonstration.",
+          "tags": []
+        },
+        {
+          "id": "ov-s4",
+          "title": "Présence sur plusieurs continents",
+          "summary": "Appréciation de démonstration.",
+          "tags": []
+        },
+        {
+          "id": "ov-s5",
+          "title": "Capacités technologiques et industrielles de pointe",
+          "summary": "Appréciation de démonstration.",
+          "tags": []
+        }
+      ],
+      "challenges": [
+        {
+          "id": "ov-c0",
+          "title": "Compétitivité et dette publique élevées",
+          "summary": "Appréciation de démonstration.",
+          "tags": []
+        },
+        {
+          "id": "ov-c1",
+          "title": "Tensions sociales et polarisation politique",
+          "summary": "Appréciation de démonstration.",
+          "tags": []
+        },
+        {
+          "id": "ov-c2",
+          "title": "Dépendances énergétiques partielles",
+          "summary": "Appréciation de démonstration.",
+          "tags": []
+        },
+        {
+          "id": "ov-c3",
+          "title": "Pressions migratoires et défis d'intégration",
+          "summary": "Appréciation de démonstration.",
+          "tags": []
+        },
+        {
+          "id": "ov-c4",
+          "title": "Concurrence stratégique accrue",
+          "summary": "Appréciation de démonstration.",
+          "tags": []
+        },
+        {
+          "id": "ov-c5",
+          "title": "Menaces terroristes et cybermenaces",
+          "summary": "Appréciation de démonstration.",
+          "tags": []
+        }
+      ],
+      "timeline": [
+        {
+          "id": "tl-1",
+          "title": "Événement institutionnel A",
+          "summary": "Élément de chronologie de démonstration.",
+          "tags": [],
+          "date": "2022"
+        },
+        {
+          "id": "tl-2",
+          "title": "Événement institutionnel B",
+          "summary": "Élément de chronologie de démonstration.",
+          "tags": [],
+          "date": "2023"
+        },
+        {
+          "id": "tl-3",
+          "title": "Événement institutionnel C",
+          "summary": "Élément de chronologie de démonstration.",
+          "tags": [],
+          "date": "2024"
+        },
+        {
+          "id": "tl-4",
+          "title": "Événement institutionnel D",
+          "summary": "Élément de chronologie de démonstration.",
+          "tags": [],
+          "date": "2025"
+        },
+        {
+          "id": "tl-5",
+          "title": "Événement institutionnel E",
+          "summary": "Élément de chronologie de démonstration.",
+          "tags": [],
+          "date": "2026"
+        }
+      ]
+    },
+    "relations": {
+      "map": {
+        "id": "reseau",
+        "title": "Réseau diplomatique (démonstration)",
+        "view": {
+          "lat": 22,
+          "lon": 12,
+          "zoom": 2
+        },
+        "note": "Postes fictifs placés dans des capitales pour tester les filtres ; aucun décompte n'est repris de la maquette.",
+        "layers": [
+          {
+            "id": "embassies",
+            "title": "Ambassades",
+            "theme": "relations",
+            "color": "#e0b44c",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "w",
+                "name": "Washington",
+                "lat": 38.9,
+                "lon": -77.04,
+                "kind": "Ambassade",
+                "summary": "Poste de démonstration."
+              },
+              {
+                "id": "l",
+                "name": "Londres",
+                "lat": 51.5,
+                "lon": -0.12,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "b",
+                "name": "Berlin",
+                "lat": 52.52,
+                "lon": 13.4,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "r",
+                "name": "Rome",
+                "lat": 41.9,
+                "lon": 12.5,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "m",
+                "name": "Madrid",
+                "lat": 40.42,
+                "lon": -3.7,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "o",
+                "name": "Ottawa",
+                "lat": 45.42,
+                "lon": -75.7,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "br",
+                "name": "Brasília",
+                "lat": -15.8,
+                "lon": -47.9,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "ba",
+                "name": "Buenos Aires",
+                "lat": -34.6,
+                "lon": -58.4,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "al",
+                "name": "Alger",
+                "lat": 36.75,
+                "lon": 3.06,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "da",
+                "name": "Dakar",
+                "lat": 14.7,
+                "lon": -17.45,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "ab",
+                "name": "Abidjan",
+                "lat": 5.36,
+                "lon": -4,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "n",
+                "name": "Nairobi",
+                "lat": -1.29,
+                "lon": 36.82,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "p",
+                "name": "Pretoria",
+                "lat": -25.75,
+                "lon": 28.19,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "c",
+                "name": "Le Caire",
+                "lat": 30.04,
+                "lon": 31.24,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "an",
+                "name": "Ankara",
+                "lat": 39.93,
+                "lon": 32.86,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "d",
+                "name": "New Delhi",
+                "lat": 28.6,
+                "lon": 77.2,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "pk",
+                "name": "Pékin",
+                "lat": 39.9,
+                "lon": 116.4,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "t",
+                "name": "Tokyo",
+                "lat": 35.68,
+                "lon": 139.69,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "ca",
+                "name": "Canberra",
+                "lat": -35.3,
+                "lon": 149.13,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "mo",
+                "name": "Moscou",
+                "lat": 55.75,
+                "lon": 37.6,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "ri",
+                "name": "Riyad",
+                "lat": 24.7,
+                "lon": 46.7,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "ad",
+                "name": "Abou Dhabi",
+                "lat": 24.45,
+                "lon": 54.38,
+                "kind": "Ambassade",
+                "summary": ""
+              },
+              {
+                "id": "ha",
+                "name": "Hanoï",
+                "lat": 21.03,
+                "lon": 105.85,
+                "kind": "Ambassade",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "consulates",
+            "title": "Consulats",
+            "theme": "relations",
+            "color": "#3d9be9",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "ny",
+                "name": "New York",
+                "lat": 40.71,
+                "lon": -74,
+                "kind": "Consulat général",
+                "summary": ""
+              },
+              {
+                "id": "sh",
+                "name": "Shanghai",
+                "lat": 31.23,
+                "lon": 121.47,
+                "kind": "Consulat général",
+                "summary": ""
+              },
+              {
+                "id": "is",
+                "name": "Istanbul",
+                "lat": 41,
+                "lon": 28.97,
+                "kind": "Consulat général",
+                "summary": ""
+              },
+              {
+                "id": "cs",
+                "name": "Casablanca",
+                "lat": 33.57,
+                "lon": -7.59,
+                "kind": "Consulat général",
+                "summary": ""
+              },
+              {
+                "id": "lg",
+                "name": "Lagos",
+                "lat": 6.52,
+                "lon": 3.38,
+                "kind": "Consulat général",
+                "summary": ""
+              },
+              {
+                "id": "sy",
+                "name": "Sydney",
+                "lat": -33.87,
+                "lon": 151.2,
+                "kind": "Consulat général",
+                "summary": ""
+              },
+              {
+                "id": "hk",
+                "name": "Hong Kong",
+                "lat": 22.3,
+                "lon": 114.17,
+                "kind": "Consulat général",
+                "summary": ""
+              },
+              {
+                "id": "sp",
+                "name": "São Paulo",
+                "lat": -23.55,
+                "lon": -46.63,
+                "kind": "Consulat général",
+                "summary": ""
+              },
+              {
+                "id": "mt",
+                "name": "Montréal",
+                "lat": 45.5,
+                "lon": -73.57,
+                "kind": "Consulat général",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "missions",
+            "title": "Représentations permanentes",
+            "theme": "relations",
+            "color": "#35b779",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "un",
+                "name": "New York (ONU)",
+                "lat": 40.75,
+                "lon": -73.97,
+                "kind": "Représentation permanente",
+                "summary": ""
+              },
+              {
+                "id": "ge",
+                "name": "Genève",
+                "lat": 46.2,
+                "lon": 6.14,
+                "kind": "Représentation permanente",
+                "summary": ""
+              },
+              {
+                "id": "eu",
+                "name": "Bruxelles (UE)",
+                "lat": 50.84,
+                "lon": 4.38,
+                "kind": "Représentation permanente",
+                "summary": ""
+              },
+              {
+                "id": "vi",
+                "name": "Vienne",
+                "lat": 48.2,
+                "lon": 16.37,
+                "kind": "Représentation permanente",
+                "summary": ""
+              },
+              {
+                "id": "fa",
+                "name": "Rome (FAO)",
+                "lat": 41.88,
+                "lon": 12.49,
+                "kind": "Représentation permanente",
+                "summary": ""
+              },
+              {
+                "id": "ne",
+                "name": "Nairobi (ONU)",
+                "lat": -1.27,
+                "lon": 36.81,
+                "kind": "Représentation permanente",
+                "summary": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "economy": {
+      "sectors": [
+        {
+          "id": "sec-0",
+          "title": "Aéronautique et spatial",
+          "summary": "Description sectorielle de démonstration : entreprises, implantations et importance économique à documenter avec des statistiques officielles.",
+          "tags": [
+            "Démonstration"
+          ]
+        },
+        {
+          "id": "sec-1",
+          "title": "Énergie",
+          "summary": "Description sectorielle de démonstration : entreprises, implantations et importance économique à documenter avec des statistiques officielles.",
+          "tags": [
+            "Démonstration"
+          ]
+        },
+        {
+          "id": "sec-2",
+          "title": "Automobile",
+          "summary": "Description sectorielle de démonstration : entreprises, implantations et importance économique à documenter avec des statistiques officielles.",
+          "tags": [
+            "Démonstration"
+          ]
+        },
+        {
+          "id": "sec-3",
+          "title": "Agroalimentaire",
+          "summary": "Description sectorielle de démonstration : entreprises, implantations et importance économique à documenter avec des statistiques officielles.",
+          "tags": [
+            "Démonstration"
+          ]
+        },
+        {
+          "id": "sec-4",
+          "title": "Pharmacie et santé",
+          "summary": "Description sectorielle de démonstration : entreprises, implantations et importance économique à documenter avec des statistiques officielles.",
+          "tags": [
+            "Démonstration"
+          ]
+        },
+        {
+          "id": "sec-5",
+          "title": "Luxe et biens de consommation",
+          "summary": "Description sectorielle de démonstration : entreprises, implantations et importance économique à documenter avec des statistiques officielles.",
+          "tags": [
+            "Démonstration"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "res-0",
+          "title": "Uranium",
+          "summary": "Fiche de démonstration : production nationale, transformation, présence d'entreprises et potentiel à distinguer, avec chiffres sourcés.",
+          "tags": [
+            "Démonstration"
+          ]
+        },
+        {
+          "id": "res-1",
+          "title": "Hydrocarbures",
+          "summary": "Fiche de démonstration : production nationale, transformation, présence d'entreprises et potentiel à distinguer, avec chiffres sourcés.",
+          "tags": [
+            "Démonstration"
+          ]
+        },
+        {
+          "id": "res-2",
+          "title": "Minerais critiques",
+          "summary": "Fiche de démonstration : production nationale, transformation, présence d'entreprises et potentiel à distinguer, avec chiffres sourcés.",
+          "tags": [
+            "Démonstration"
+          ]
+        },
+        {
+          "id": "res-3",
+          "title": "Bois et ressources forestières",
+          "summary": "Fiche de démonstration : production nationale, transformation, présence d'entreprises et potentiel à distinguer, avec chiffres sourcés.",
+          "tags": [
+            "Démonstration"
+          ]
+        },
+        {
+          "id": "res-4",
+          "title": "Ressources maritimes",
+          "summary": "Fiche de démonstration : production nationale, transformation, présence d'entreprises et potentiel à distinguer, avec chiffres sourcés.",
+          "tags": [
+            "Démonstration"
+          ]
+        },
+        {
+          "id": "res-5",
+          "title": "Ressources agricoles",
+          "summary": "Fiche de démonstration : production nationale, transformation, présence d'entreprises et potentiel à distinguer, avec chiffres sourcés.",
+          "tags": [
+            "Démonstration"
+          ]
+        }
+      ],
+      "map": {
+        "id": "ressources",
+        "title": "Ressources et infrastructures (démonstration)",
+        "view": {
+          "lat": 46.6,
+          "lon": 2.4,
+          "zoom": 5
+        },
+        "note": "Sites réels placés pour tester les couches ; en version réelle, chaque couche citera son jeu de données, sa licence et sa date. Aucun tracé de réseau n'est dessiné.",
+        "layers": [
+          {
+            "id": "ports",
+            "title": "Ports majeurs",
+            "theme": "economy",
+            "color": "#3d9be9",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "lh",
+                "name": "Le Havre",
+                "lat": 49.49,
+                "lon": 0.11,
+                "kind": "Port",
+                "summary": ""
+              },
+              {
+                "id": "mf",
+                "name": "Marseille-Fos",
+                "lat": 43.4,
+                "lon": 4.87,
+                "kind": "Port",
+                "summary": ""
+              },
+              {
+                "id": "dk",
+                "name": "Dunkerque",
+                "lat": 51.03,
+                "lon": 2.37,
+                "kind": "Port",
+                "summary": ""
+              },
+              {
+                "id": "ns",
+                "name": "Nantes–Saint-Nazaire",
+                "lat": 47.27,
+                "lon": -2.2,
+                "kind": "Port",
+                "summary": ""
+              },
+              {
+                "id": "bx",
+                "name": "Bordeaux",
+                "lat": 44.88,
+                "lon": -0.55,
+                "kind": "Port",
+                "summary": ""
+              },
+              {
+                "id": "ro",
+                "name": "La Rochelle",
+                "lat": 46.15,
+                "lon": -1.16,
+                "kind": "Port",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "airports",
+            "title": "Aéroports internationaux",
+            "theme": "economy",
+            "color": "#e0b44c",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "cdg",
+                "name": "Paris-Charles de Gaulle",
+                "lat": 49.0097,
+                "lon": 2.5479,
+                "kind": "Aéroport",
+                "summary": ""
+              },
+              {
+                "id": "ory",
+                "name": "Paris-Orly",
+                "lat": 48.7233,
+                "lon": 2.3794,
+                "kind": "Aéroport",
+                "summary": ""
+              },
+              {
+                "id": "lys",
+                "name": "Lyon–Saint-Exupéry",
+                "lat": 45.7256,
+                "lon": 5.0811,
+                "kind": "Aéroport",
+                "summary": ""
+              },
+              {
+                "id": "nce",
+                "name": "Nice Côte d'Azur",
+                "lat": 43.6584,
+                "lon": 7.2159,
+                "kind": "Aéroport",
+                "summary": ""
+              },
+              {
+                "id": "mrs",
+                "name": "Marseille Provence",
+                "lat": 43.4393,
+                "lon": 5.2214,
+                "kind": "Aéroport",
+                "summary": ""
+              },
+              {
+                "id": "tls",
+                "name": "Toulouse-Blagnac",
+                "lat": 43.6293,
+                "lon": 1.3638,
+                "kind": "Aéroport",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "nuclear",
+            "title": "Sites nucléaires civils",
+            "theme": "infrastructure",
+            "color": "#d94a4a",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "gr",
+                "name": "Gravelines",
+                "lat": 51.0153,
+                "lon": 2.1356,
+                "kind": "Centrale",
+                "summary": ""
+              },
+              {
+                "id": "pa",
+                "name": "Paluel",
+                "lat": 49.8583,
+                "lon": 0.6347,
+                "kind": "Centrale",
+                "summary": ""
+              },
+              {
+                "id": "fl",
+                "name": "Flamanville",
+                "lat": 49.5364,
+                "lon": -1.8819,
+                "kind": "Centrale",
+                "summary": ""
+              },
+              {
+                "id": "ct",
+                "name": "Cattenom",
+                "lat": 49.4156,
+                "lon": 6.2183,
+                "kind": "Centrale",
+                "summary": ""
+              },
+              {
+                "id": "tr",
+                "name": "Tricastin",
+                "lat": 44.3306,
+                "lon": 4.7325,
+                "kind": "Centrale",
+                "summary": ""
+              },
+              {
+                "id": "bl",
+                "name": "Blayais",
+                "lat": 45.2556,
+                "lon": -0.6931,
+                "kind": "Centrale",
+                "summary": ""
+              },
+              {
+                "id": "go",
+                "name": "Golfech",
+                "lat": 44.1068,
+                "lon": 0.8456,
+                "kind": "Centrale",
+                "summary": ""
+              },
+              {
+                "id": "cv",
+                "name": "Civaux",
+                "lat": 46.4558,
+                "lon": 0.6528,
+                "kind": "Centrale",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "lng",
+            "title": "Terminaux GNL",
+            "theme": "infrastructure",
+            "color": "#9b6be8",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "dl",
+                "name": "Dunkerque",
+                "lat": 51.03,
+                "lon": 2.22,
+                "kind": "Terminal GNL",
+                "summary": ""
+              },
+              {
+                "id": "fc",
+                "name": "Fos-Cavaou",
+                "lat": 43.4,
+                "lon": 4.85,
+                "kind": "Terminal GNL",
+                "summary": ""
+              },
+              {
+                "id": "mo",
+                "name": "Montoir-de-Bretagne",
+                "lat": 47.3,
+                "lon": -2.15,
+                "kind": "Terminal GNL",
+                "summary": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "defense": {
+      "kpis": [
+        {
+          "id": "k-act",
+          "label": "Personnels d'active",
+          "valueText": "380 000",
+          "period": "démo",
+          "note": "Valeur fictive. Périmètre à définir (ministère, Gendarmerie, civils).",
+          "sourceIds": []
+        },
+        {
+          "id": "k-res",
+          "label": "Réservistes",
+          "valueText": "200 000",
+          "period": "démo",
+          "note": "Valeur fictive. Catégorie à préciser (opérationnelle 1 ou 2).",
+          "sourceIds": []
+        },
+        {
+          "id": "k-pib",
+          "label": "Dépenses de défense / PIB",
+          "valueText": "1,9",
+          "unit": "%",
+          "period": "démo",
+          "note": "Sources à droits commerciaux établis (pas SIPRI).",
+          "sourceIds": []
+        },
+        {
+          "id": "k-bud",
+          "label": "Budget de la mission Défense",
+          "valueText": "50,2",
+          "unit": "Md €",
+          "period": "démo",
+          "note": "Euros courants.",
+          "sourceIds": []
+        },
+        {
+          "id": "k-det",
+          "label": "Dissuasion",
+          "valueText": "Autonome",
+          "period": "démo",
+          "note": "Source doctrinale à citer.",
+          "sourceIds": []
+        },
+        {
+          "id": "k-ops",
+          "label": "Opérations extérieures",
+          "valueText": "11",
+          "period": "démo",
+          "note": "Valeur fictive. Définies et datées.",
+          "sourceIds": []
+        }
+      ],
+      "organization": [
+        {
+          "id": "cema",
+          "label": "Chef d'état-major des armées",
+          "parentId": null,
+          "note": "Organisation à reprendre des sources organiques."
+        },
+        {
+          "id": "terre",
+          "label": "Armée de Terre",
+          "parentId": "cema",
+          "note": ""
+        },
+        {
+          "id": "marine",
+          "label": "Marine nationale",
+          "parentId": "cema",
+          "note": ""
+        },
+        {
+          "id": "air",
+          "label": "Armée de l'Air et de l'Espace",
+          "parentId": "cema",
+          "note": ""
+        },
+        {
+          "id": "cos",
+          "label": "Commandement des opérations spéciales",
+          "parentId": "cema",
+          "note": ""
+        },
+        {
+          "id": "gend",
+          "label": "Gendarmerie nationale",
+          "parentId": null,
+          "note": "Statut particulier : relève du ministère de l'Intérieur pour l'organisation et l'emploi ; pas de subordination structurelle dessinée."
+        }
+      ],
+      "missions": [
+        {
+          "id": "mi-0",
+          "title": "Dissuasion nucléaire",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "mi-1",
+          "title": "Protection du territoire national",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "mi-2",
+          "title": "Défense des intérêts à l'étranger",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "mi-3",
+          "title": "Sécurité maritime et des approvisionnements",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "mi-4",
+          "title": "Lutte contre le terrorisme",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "mi-5",
+          "title": "Soutien aux alliés (OTAN, UE)",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "mi-6",
+          "title": "Protection des ressortissants",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "mi-7",
+          "title": "Soutien aux populations (crises, catastrophes)",
+          "summary": "",
+          "tags": []
+        }
+      ],
+      "framework": [
+        {
+          "id": "fw-1",
+          "title": "Revue nationale stratégique",
+          "summary": "Menaces, priorités et orientations (document officiel à citer).",
+          "tags": []
+        },
+        {
+          "id": "fw-2",
+          "title": "Stratégie de défense de l'Union européenne",
+          "summary": "Coopération et autonomie stratégique.",
+          "tags": []
+        },
+        {
+          "id": "fw-3",
+          "title": "Concept stratégique de l'OTAN",
+          "summary": "Dissuasion, défense et résilience.",
+          "tags": []
+        }
+      ],
+      "operations": [
+        {
+          "id": "op-1",
+          "title": "Golfe de Guinée",
+          "summary": "Sécurisation maritime et lutte contre la piraterie.",
+          "tags": [],
+          "layerId": "operations",
+          "featureId": "op-gg"
+        },
+        {
+          "id": "op-2",
+          "title": "Levant",
+          "summary": "Soutien aux forces partenaires.",
+          "tags": [],
+          "layerId": "operations",
+          "featureId": "op-lv"
+        },
+        {
+          "id": "op-3",
+          "title": "Méditerranée orientale",
+          "summary": "Surveillance et présence stratégique.",
+          "tags": [],
+          "layerId": "operations",
+          "featureId": "op-me"
+        },
+        {
+          "id": "op-4",
+          "title": "Indopacifique",
+          "summary": "Projection de puissance et liberté de navigation.",
+          "tags": [],
+          "layerId": "operations",
+          "featureId": "op-ip"
+        }
+      ],
+      "equipment": [
+        {
+          "id": "eq-1",
+          "title": "Chasseur multirôle",
+          "summary": "Caractéristiques générales à sourcer ; nombre en service daté.",
+          "tags": [
+            "Aviation"
+          ],
+          "category": "Aviation"
+        },
+        {
+          "id": "eq-2",
+          "title": "Sous-marin nucléaire lanceur d'engins",
+          "summary": "Dissuasion nucléaire.",
+          "tags": [
+            "Marine"
+          ],
+          "category": "Marine"
+        },
+        {
+          "id": "eq-3",
+          "title": "Porte-avions",
+          "summary": "Groupe aéronaval.",
+          "tags": [
+            "Marine"
+          ],
+          "category": "Marine"
+        },
+        {
+          "id": "eq-4",
+          "title": "Char de combat",
+          "summary": "Blindés.",
+          "tags": [
+            "Terre"
+          ],
+          "category": "Terre"
+        },
+        {
+          "id": "eq-5",
+          "title": "Frégate multi-missions",
+          "summary": "Surface.",
+          "tags": [
+            "Marine"
+          ],
+          "category": "Marine"
+        },
+        {
+          "id": "eq-6",
+          "title": "Artillerie longue portée",
+          "summary": "Appui.",
+          "tags": [
+            "Terre"
+          ],
+          "category": "Terre"
+        }
+      ],
+      "industry": [
+        {
+          "id": "ind-0",
+          "title": "Industriel électronique et cyber",
+          "summary": "Société commerciale ≠ équipement détenu ≠ production effective : à documenter.",
+          "tags": []
+        },
+        {
+          "id": "ind-1",
+          "title": "Industriel naval",
+          "summary": "Société commerciale ≠ équipement détenu ≠ production effective : à documenter.",
+          "tags": []
+        },
+        {
+          "id": "ind-2",
+          "title": "Industriel aéronautique",
+          "summary": "Société commerciale ≠ équipement détenu ≠ production effective : à documenter.",
+          "tags": []
+        },
+        {
+          "id": "ind-3",
+          "title": "Industriel terrestre",
+          "summary": "Société commerciale ≠ équipement détenu ≠ production effective : à documenter.",
+          "tags": []
+        },
+        {
+          "id": "ind-4",
+          "title": "Industriel de missiles",
+          "summary": "Société commerciale ≠ équipement détenu ≠ production effective : à documenter.",
+          "tags": []
+        }
+      ],
+      "partnerships": [
+        {
+          "id": "pa-1",
+          "title": "OTAN",
+          "summary": "Cadre d'alliance (à sourcer).",
+          "tags": []
+        },
+        {
+          "id": "pa-2",
+          "title": "Union européenne",
+          "summary": "Coopération structurée.",
+          "tags": []
+        },
+        {
+          "id": "pa-3",
+          "title": "Partenaire bilatéral A",
+          "summary": "Coopération de défense.",
+          "tags": []
+        },
+        {
+          "id": "pa-4",
+          "title": "Partenaire bilatéral B",
+          "summary": "Coopération industrielle.",
+          "tags": []
+        },
+        {
+          "id": "pa-5",
+          "title": "Partenaire bilatéral C",
+          "summary": "Partenariat stratégique.",
+          "tags": []
+        }
+      ],
+      "internalSecurity": [
+        {
+          "id": "is-1",
+          "title": "Lutte contre le terrorisme",
+          "summary": "Plan de vigilance.",
+          "tags": []
+        },
+        {
+          "id": "is-2",
+          "title": "Protection des sites sensibles",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "is-3",
+          "title": "Sécurité des grands événements",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "is-4",
+          "title": "Surveillance des frontières",
+          "summary": "Espace Schengen.",
+          "tags": []
+        },
+        {
+          "id": "is-5",
+          "title": "Cybersécurité nationale",
+          "summary": "Agence nationale compétente.",
+          "tags": []
+        },
+        {
+          "id": "is-6",
+          "title": "Lutte contre la criminalité organisée",
+          "summary": "",
+          "tags": []
+        }
+      ],
+      "strengths": [
+        {
+          "id": "ds-0",
+          "title": "Dissuasion nucléaire crédible",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "ds-1",
+          "title": "Forces armées expérimentées et projetables",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "ds-2",
+          "title": "Industrie de défense de premier plan",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "ds-3",
+          "title": "Présence mondiale (outre-mer)",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "ds-4",
+          "title": "Réseau diplomatique et militaire étendu",
+          "summary": "",
+          "tags": []
+        },
+        {
+          "id": "ds-5",
+          "title": "Coopérations stratégiques solides",
+          "summary": "",
+          "tags": []
+        }
+      ],
+      "map": {
+        "id": "implantations",
+        "title": "Implantations et opérations (démonstration)",
+        "view": {
+          "lat": 15,
+          "lon": 40,
+          "zoom": 2
+        },
+        "note": "Positions fictives de démonstration ; en version réelle, seuls des lieux publics officiels, datés, sont affichés. Une opération close n'est jamais présentée comme en cours.",
+        "layers": [
+          {
+            "id": "sovereign",
+            "title": "Territoires souverains",
+            "theme": "defense",
+            "color": "#3d9be9",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "fdf",
+                "name": "Fort-de-France",
+                "lat": 14.6161,
+                "lon": -61.0588,
+                "kind": "Territoire souverain",
+                "summary": ""
+              },
+              {
+                "id": "cay",
+                "name": "Cayenne",
+                "lat": 4.9372,
+                "lon": -52.326,
+                "kind": "Territoire souverain",
+                "summary": ""
+              },
+              {
+                "id": "run",
+                "name": "Saint-Denis (La Réunion)",
+                "lat": -20.8789,
+                "lon": 55.4481,
+                "kind": "Territoire souverain",
+                "summary": ""
+              },
+              {
+                "id": "may",
+                "name": "Mamoudzou",
+                "lat": -12.7806,
+                "lon": 45.2278,
+                "kind": "Territoire souverain",
+                "summary": ""
+              },
+              {
+                "id": "nou",
+                "name": "Nouméa",
+                "lat": -22.2758,
+                "lon": 166.458,
+                "kind": "Territoire souverain",
+                "summary": ""
+              },
+              {
+                "id": "pap",
+                "name": "Papeete",
+                "lat": -17.5516,
+                "lon": -149.5585,
+                "kind": "Territoire souverain",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "bases",
+            "title": "Bases permanentes à l'étranger",
+            "theme": "defense",
+            "color": "#e0b44c",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "dji",
+                "name": "Djibouti",
+                "lat": 11.5472,
+                "lon": 43.1594,
+                "kind": "Base (démonstration)",
+                "summary": ""
+              },
+              {
+                "id": "abu",
+                "name": "Abou Dhabi",
+                "lat": 24.45,
+                "lon": 54.4,
+                "kind": "Base (démonstration)",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "operations",
+            "title": "Opérations extérieures",
+            "theme": "defense",
+            "color": "#d94a4a",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "op-gg",
+                "name": "Golfe de Guinée",
+                "lat": 2,
+                "lon": 2,
+                "kind": "Zone d'opération (démonstration)",
+                "summary": "Sécurité maritime."
+              },
+              {
+                "id": "op-lv",
+                "name": "Levant",
+                "lat": 34,
+                "lon": 38,
+                "kind": "Zone d'opération (démonstration)",
+                "summary": "Soutien aux partenaires."
+              },
+              {
+                "id": "op-me",
+                "name": "Méditerranée orientale",
+                "lat": 34.5,
+                "lon": 29,
+                "kind": "Zone d'opération (démonstration)",
+                "summary": "Présence et surveillance."
+              },
+              {
+                "id": "op-ip",
+                "name": "Indopacifique",
+                "lat": 5,
+                "lon": 100,
+                "kind": "Zone d'opération (démonstration)",
+                "summary": "Liberté de navigation."
+              }
+            ]
+          },
+          {
+            "id": "partners",
+            "title": "Partenariats de défense",
+            "theme": "defense",
+            "color": "#35b779",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "pt-1",
+                "name": "Partenaire A",
+                "lat": 28.6,
+                "lon": 77.2,
+                "kind": "Partenariat (démonstration)",
+                "summary": ""
+              },
+              {
+                "id": "pt-2",
+                "name": "Partenaire B",
+                "lat": -35.3,
+                "lon": 149.13,
+                "kind": "Partenariat (démonstration)",
+                "summary": ""
+              },
+              {
+                "id": "pt-3",
+                "name": "Partenaire C",
+                "lat": 25.2,
+                "lon": 55.3,
+                "kind": "Partenariat (démonstration)",
+                "summary": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "issues": {
+      "kpis": [
+        {
+          "id": "ik-1",
+          "label": "Enjeux majeurs",
+          "valueText": "5",
+          "note": "Nombre de dossiers éditoriaux, pas un score.",
+          "sourceIds": []
+        },
+        {
+          "id": "ik-2",
+          "label": "Portées",
+          "valueText": "3",
+          "note": "National, européen, international.",
+          "sourceIds": []
+        }
+      ],
+      "issues": [
+        {
+          "id": "iss-1",
+          "title": "Souveraineté européenne et coopération dans l'UE",
+          "summary": "Renforcer l'autonomie stratégique de l'Europe et le rôle moteur de la France.",
+          "tags": [
+            "Diplomatie",
+            "Politique"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "european",
+            "international"
+          ],
+          "subthemes": [
+            "Autonomie stratégique",
+            "Réforme de l'UE",
+            "Capacités industrielles et de défense"
+          ],
+          "situation": "Situation actuelle de démonstration : faits sourcés à fournir.",
+          "whyStrategic": "Analyse de démonstration, à attribuer et dater.",
+          "actors": [
+            "Institutions européennes",
+            "États membres"
+          ],
+          "indicators": [
+            "Indicateur de suivi A",
+            "Indicateur de suivi B"
+          ],
+          "uncertainties": [
+            "Hypothèses et incertitudes à documenter."
+          ]
+        },
+        {
+          "id": "iss-2",
+          "title": "Défense, dissuasion et adaptation des capacités",
+          "summary": "Assurer la protection du territoire et des intérêts français sur l'ensemble du spectre des menaces.",
+          "tags": [
+            "Sécurité",
+            "Défense"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "national",
+            "european"
+          ],
+          "subthemes": [
+            "Modernisation des armées",
+            "Dissuasion nucléaire",
+            "Protection des espaces communs"
+          ],
+          "situation": "Situation actuelle de démonstration.",
+          "whyStrategic": "Analyse de démonstration.",
+          "actors": [
+            "Ministère des Armées"
+          ],
+          "indicators": [
+            "Loi de programmation (calendrier officiel)"
+          ],
+          "uncertainties": [
+            "À documenter."
+          ]
+        },
+        {
+          "id": "iss-3",
+          "title": "Transition énergétique, réindustrialisation et compétitivité",
+          "summary": "Sécuriser l'approvisionnement énergétique et réussir la transition bas carbone.",
+          "tags": [
+            "Économie",
+            "Énergie"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "national",
+            "european"
+          ],
+          "subthemes": [
+            "Nucléaire et renouvelables",
+            "Souveraineté énergétique",
+            "Réindustrialisation"
+          ],
+          "situation": "Situation actuelle de démonstration.",
+          "whyStrategic": "Analyse de démonstration.",
+          "actors": [
+            "Gestionnaires de réseaux",
+            "Industriels"
+          ],
+          "indicators": [
+            "Bilan électrique annuel"
+          ],
+          "uncertainties": [
+            "À documenter."
+          ]
+        },
+        {
+          "id": "iss-4",
+          "title": "Technologies critiques, cybersécurité et autonomie numérique",
+          "summary": "Maîtriser les technologies critiques et protéger les données.",
+          "tags": [
+            "Technologie",
+            "Économie"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "national",
+            "european",
+            "international"
+          ],
+          "subthemes": [
+            "Intelligence artificielle",
+            "Cybersécurité",
+            "Espace et satellites"
+          ],
+          "situation": "Situation actuelle de démonstration.",
+          "whyStrategic": "Analyse de démonstration.",
+          "actors": [
+            "Agence nationale de cybersécurité"
+          ],
+          "indicators": [
+            "Panorama annuel de la cybermenace"
+          ],
+          "uncertainties": [
+            "À documenter."
+          ]
+        },
+        {
+          "id": "iss-5",
+          "title": "Stabilité des voisinages et engagement diplomatique",
+          "summary": "Préserver la stabilité des régions voisines et l'influence française dans un monde multipolaire.",
+          "tags": [
+            "Diplomatie",
+            "Sécurité"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "european",
+            "international"
+          ],
+          "subthemes": [
+            "Afrique",
+            "Méditerranée et Moyen-Orient",
+            "Indo-Pacifique"
+          ],
+          "situation": "Situation actuelle de démonstration.",
+          "whyStrategic": "Analyse de démonstration.",
+          "actors": [
+            "Réseau diplomatique"
+          ],
+          "indicators": [
+            "Accords et partenariats datés"
+          ],
+          "uncertainties": [
+            "À documenter."
+          ]
+        }
+      ],
+      "calendar": [
+        {
+          "id": "cal-1",
+          "title": "Loi de programmation militaire 2024–2030",
+          "summary": "Montée en puissance des capacités.",
+          "tags": [],
+          "date": "2024",
+          "status": "réalisé"
+        },
+        {
+          "id": "cal-2",
+          "title": "Présidence du G7",
+          "summary": "Diplomatie et influence globale.",
+          "tags": [],
+          "date": "2026",
+          "status": "réalisé"
+        },
+        {
+          "id": "cal-3",
+          "title": "Réforme du marché européen de l'énergie",
+          "summary": "Vers une plus grande autonomie énergétique.",
+          "tags": [],
+          "date": "2027",
+          "status": "prévu"
+        },
+        {
+          "id": "cal-4",
+          "title": "Programmes spatiaux et numériques",
+          "summary": "Souveraineté technologique.",
+          "tags": [],
+          "date": "2028",
+          "status": "annoncé"
+        },
+        {
+          "id": "cal-5",
+          "title": "Évaluation des ajustements stratégiques",
+          "summary": "Échéance de démonstration.",
+          "tags": [],
+          "date": "2030",
+          "status": "prévu"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "opp-0",
+          "title": "Renforcement du rôle de l'UE dans un monde multipolaire",
+          "summary": "Possibilité de démonstration, non un événement assuré.",
+          "tags": []
+        },
+        {
+          "id": "opp-1",
+          "title": "Position de leader dans la transition énergétique",
+          "summary": "Possibilité de démonstration, non un événement assuré.",
+          "tags": []
+        },
+        {
+          "id": "opp-2",
+          "title": "Développement des industries de défense et du spatial",
+          "summary": "Possibilité de démonstration, non un événement assuré.",
+          "tags": []
+        },
+        {
+          "id": "opp-3",
+          "title": "Attractivité économique et technologique",
+          "summary": "Possibilité de démonstration, non un événement assuré.",
+          "tags": []
+        },
+        {
+          "id": "opp-4",
+          "title": "Rayonnement culturel et diplomatique",
+          "summary": "Possibilité de démonstration, non un événement assuré.",
+          "tags": []
+        },
+        {
+          "id": "opp-5",
+          "title": "Accès aux ressources stratégiques via les partenariats",
+          "summary": "Possibilité de démonstration, non un événement assuré.",
+          "tags": []
+        }
+      ],
+      "risks": [
+        {
+          "id": "risk-0",
+          "title": "Conflit de haute intensité en Europe",
+          "summary": "Risque de démonstration : fait daté et source à fournir.",
+          "tags": []
+        },
+        {
+          "id": "risk-1",
+          "title": "Instabilité au Sahel et en Afrique de l'Ouest",
+          "summary": "Risque de démonstration : fait daté et source à fournir.",
+          "tags": []
+        },
+        {
+          "id": "risk-2",
+          "title": "Terrorisme et menaces hybrides",
+          "summary": "Risque de démonstration : fait daté et source à fournir.",
+          "tags": []
+        },
+        {
+          "id": "risk-3",
+          "title": "Dépendance aux importations énergétiques",
+          "summary": "Risque de démonstration : fait daté et source à fournir.",
+          "tags": []
+        },
+        {
+          "id": "risk-4",
+          "title": "Cyberattaques et espionnage industriel",
+          "summary": "Risque de démonstration : fait daté et source à fournir.",
+          "tags": []
+        },
+        {
+          "id": "risk-5",
+          "title": "Pressions migratoires et tensions sociales",
+          "summary": "Risque de démonstration : fait daté et source à fournir.",
+          "tags": []
+        },
+        {
+          "id": "risk-6",
+          "title": "Concurrence stratégique",
+          "summary": "Risque de démonstration : fait daté et source à fournir.",
+          "tags": []
+        },
+        {
+          "id": "risk-7",
+          "title": "Désinformation et ingérences étrangères",
+          "summary": "Risque de démonstration : fait daté et source à fournir.",
+          "tags": []
+        }
+      ],
+      "map": {
+        "id": "interets",
+        "title": "Zones d'intérêt (démonstration)",
+        "view": {
+          "lat": 22,
+          "lon": 12,
+          "zoom": 2
+        },
+        "note": "Présences fictives par zone : en version réelle, seulement des faits vérifiés (ambassades, base publique, accord).",
+        "layers": [
+          {
+            "id": "europe",
+            "title": "Europe",
+            "theme": "interests",
+            "color": "#3d9be9",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "e1",
+                "name": "Bruxelles",
+                "lat": 50.85,
+                "lon": 4.35,
+                "kind": "Institutions européennes",
+                "summary": ""
+              },
+              {
+                "id": "e2",
+                "name": "Berlin",
+                "lat": 52.52,
+                "lon": 13.4,
+                "kind": "Partenariat",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "africa",
+            "title": "Afrique",
+            "theme": "interests",
+            "color": "#35b779",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "a1",
+                "name": "Dakar",
+                "lat": 14.7,
+                "lon": -17.45,
+                "kind": "Coopération",
+                "summary": ""
+              },
+              {
+                "id": "a2",
+                "name": "Nairobi",
+                "lat": -1.29,
+                "lon": 36.82,
+                "kind": "Coopération",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "middleeast",
+            "title": "Moyen-Orient",
+            "theme": "interests",
+            "color": "#d94a4a",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "m1",
+                "name": "Abou Dhabi",
+                "lat": 24.45,
+                "lon": 54.38,
+                "kind": "Partenariat",
+                "summary": ""
+              },
+              {
+                "id": "m2",
+                "name": "Le Caire",
+                "lat": 30.04,
+                "lon": 31.24,
+                "kind": "Partenariat",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "indopacific",
+            "title": "Indo-Pacifique",
+            "theme": "interests",
+            "color": "#e0b44c",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "i1",
+                "name": "Nouméa",
+                "lat": -22.27,
+                "lon": 166.45,
+                "kind": "Territoire",
+                "summary": ""
+              },
+              {
+                "id": "i2",
+                "name": "Canberra",
+                "lat": -35.3,
+                "lon": 149.13,
+                "kind": "Partenariat",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "americas",
+            "title": "Amériques",
+            "theme": "interests",
+            "color": "#9b6be8",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "u1",
+                "name": "Ottawa",
+                "lat": 45.42,
+                "lon": -75.7,
+                "kind": "Partenariat",
+                "summary": ""
+              },
+              {
+                "id": "u2",
+                "name": "Cayenne",
+                "lat": 4.93,
+                "lon": -52.33,
+                "kind": "Territoire",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "overseas",
+            "title": "Outre-mer",
+            "theme": "interests",
+            "color": "#8f9baa",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "o1",
+                "name": "Fort-de-France",
+                "lat": 14.6,
+                "lon": -61.06,
+                "kind": "Territoire",
+                "summary": ""
+              },
+              {
+                "id": "o2",
+                "name": "Saint-Denis",
+                "lat": -20.88,
+                "lon": 55.45,
+                "kind": "Territoire",
+                "summary": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "outlook": {
+      "domains": [
+        {
+          "id": "dom-1",
+          "title": "Exposition macroéconomique",
+          "summary": "Résumé qualitatif de démonstration.",
+          "tags": [
+            "Économie"
+          ]
+        },
+        {
+          "id": "dom-2",
+          "title": "Dépendances énergétiques et industrielles",
+          "summary": "Résumé qualitatif de démonstration.",
+          "tags": [
+            "Énergie"
+          ]
+        },
+        {
+          "id": "dom-3",
+          "title": "Cyber et numérique",
+          "summary": "Résumé qualitatif de démonstration.",
+          "tags": [
+            "Cyber"
+          ]
+        },
+        {
+          "id": "dom-4",
+          "title": "Tensions sociopolitiques documentées",
+          "summary": "Résumé qualitatif de démonstration.",
+          "tags": [
+            "Social"
+          ]
+        },
+        {
+          "id": "dom-5",
+          "title": "Environnement et climat",
+          "summary": "Résumé qualitatif de démonstration.",
+          "tags": [
+            "Climat"
+          ]
+        },
+        {
+          "id": "dom-6",
+          "title": "Infrastructures et continuité d'activité",
+          "summary": "Résumé qualitatif de démonstration.",
+          "tags": [
+            "Infrastructures"
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "dep-0",
+          "title": "Pétrole",
+          "summary": "Description qualitative de démonstration. Aucune valeur chiffrée sans dénominateur, année, territoire et source.",
+          "tags": [],
+          "state": "needs_methodology"
+        },
+        {
+          "id": "dep-1",
+          "title": "Gaz",
+          "summary": "Description qualitative de démonstration. Aucune valeur chiffrée sans dénominateur, année, territoire et source.",
+          "tags": [],
+          "state": "needs_methodology"
+        },
+        {
+          "id": "dep-2",
+          "title": "Terres rares",
+          "summary": "Description qualitative de démonstration. Aucune valeur chiffrée sans dénominateur, année, territoire et source.",
+          "tags": [],
+          "state": "needs_methodology"
+        },
+        {
+          "id": "dep-3",
+          "title": "Semi-conducteurs",
+          "summary": "Description qualitative de démonstration. Aucune valeur chiffrée sans dénominateur, année, territoire et source.",
+          "tags": [],
+          "state": "needs_methodology"
+        },
+        {
+          "id": "dep-4",
+          "title": "Cloud",
+          "summary": "Description qualitative de démonstration. Aucune valeur chiffrée sans dénominateur, année, territoire et source.",
+          "tags": [],
+          "state": "needs_methodology"
+        },
+        {
+          "id": "dep-5",
+          "title": "Médicaments",
+          "summary": "Description qualitative de démonstration. Aucune valeur chiffrée sans dénominateur, année, territoire et source.",
+          "tags": [],
+          "state": "needs_methodology"
+        },
+        {
+          "id": "dep-6",
+          "title": "Produits agricoles",
+          "summary": "Description qualitative de démonstration. Aucune valeur chiffrée sans dénominateur, année, territoire et source.",
+          "tags": [],
+          "state": "needs_methodology"
+        }
+      ],
+      "swot": {
+        "strengths": [
+          {
+            "id": "sw-s0",
+            "title": "Puissance nucléaire et militaire",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-s1",
+            "title": "Position géostratégique en Europe",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-s2",
+            "title": "Économie diversifiée",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-s3",
+            "title": "Influence diplomatique mondiale",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-s4",
+            "title": "Capacités d'innovation et de recherche",
+            "summary": "",
+            "tags": []
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "sw-w0",
+            "title": "Dépendances énergétiques et industrielles",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-w1",
+            "title": "Déficits publics et dette élevée",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-w2",
+            "title": "Tensions sociales",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-w3",
+            "title": "Productivité",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-w4",
+            "title": "Dépendance numérique et technologique",
+            "summary": "",
+            "tags": []
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "sw-o0",
+            "title": "Transition énergétique et réindustrialisation",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-o1",
+            "title": "Leadership européen renforcé",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-o2",
+            "title": "Technologies de défense",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-o3",
+            "title": "Attractivité des talents",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-o4",
+            "title": "Coopérations stratégiques",
+            "summary": "",
+            "tags": []
+          }
+        ],
+        "threats": [
+          {
+            "id": "sw-t0",
+            "title": "Instabilité internationale",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-t1",
+            "title": "Concurrence entre grandes puissances",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-t2",
+            "title": "Cyberattaques et ingérences",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-t3",
+            "title": "Crises climatiques",
+            "summary": "",
+            "tags": []
+          },
+          {
+            "id": "sw-t4",
+            "title": "Fragilisation de la cohésion sociale",
+            "summary": "",
+            "tags": []
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "sc-1",
+          "title": "Renforcement",
+          "summary": "Une France renforcée : réindustrialisation réussie, autonomie énergétique accrue, leadership européen affirmé.",
+          "tags": [],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Hypothèse A",
+            "Hypothèse B"
+          ],
+          "triggers": [
+            "Déclencheur A"
+          ],
+          "weakSignals": [
+            "Signal faible A"
+          ],
+          "consequences": [
+            "Conséquence A"
+          ],
+          "limits": [
+            "Scénario narratif ; aucune probabilité n'est affectée."
+          ]
+        },
+        {
+          "id": "sc-2",
+          "title": "Continuité sous pression",
+          "summary": "Une France résiliente mais sous pression : maintien de l'influence malgré des tensions sociales et géopolitiques persistantes.",
+          "tags": [],
+          "kind": "pressure",
+          "assumptions": [
+            "Hypothèse A",
+            "Hypothèse B"
+          ],
+          "triggers": [
+            "Déclencheur A"
+          ],
+          "weakSignals": [
+            "Signal faible A"
+          ],
+          "consequences": [
+            "Conséquence A"
+          ],
+          "limits": [
+            "Scénario narratif ; aucune probabilité n'est affectée."
+          ]
+        },
+        {
+          "id": "sc-3",
+          "title": "Fragilisation",
+          "summary": "Une France fragilisée : crises économiques et sociales, pertes d'influence, dépendances accrues.",
+          "tags": [],
+          "kind": "fragility",
+          "assumptions": [
+            "Hypothèse A",
+            "Hypothèse B"
+          ],
+          "triggers": [
+            "Déclencheur A"
+          ],
+          "weakSignals": [
+            "Signal faible A"
+          ],
+          "consequences": [
+            "Conséquence A"
+          ],
+          "limits": [
+            "Scénario narratif ; aucune probabilité n'est affectée."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "wa-0",
+          "title": "Transition énergétique",
+          "summary": "Variable de suivi, non une recommandation.",
+          "tags": []
+        },
+        {
+          "id": "wa-1",
+          "title": "Réindustrialisation",
+          "summary": "Variable de suivi, non une recommandation.",
+          "tags": []
+        },
+        {
+          "id": "wa-2",
+          "title": "Technologies critiques",
+          "summary": "Variable de suivi, non une recommandation.",
+          "tags": []
+        },
+        {
+          "id": "wa-3",
+          "title": "Cohésion sociale",
+          "summary": "Variable de suivi, non une recommandation.",
+          "tags": []
+        },
+        {
+          "id": "wa-4",
+          "title": "Posture européenne",
+          "summary": "Variable de suivi, non une recommandation.",
+          "tags": []
+        },
+        {
+          "id": "wa-5",
+          "title": "Adaptation au changement climatique",
+          "summary": "Variable de suivi, non une recommandation.",
+          "tags": []
+        }
+      ],
+      "timeline": [
+        {
+          "id": "ot-1",
+          "title": "Période 2024–2025",
+          "summary": "Jalons de démonstration.",
+          "tags": [],
+          "date": "2024–2025"
+        },
+        {
+          "id": "ot-2",
+          "title": "Période 2026–2027",
+          "summary": "Jalons de démonstration.",
+          "tags": [],
+          "date": "2026–2027"
+        },
+        {
+          "id": "ot-3",
+          "title": "Période 2028–2030",
+          "summary": "Jalons de démonstration.",
+          "tags": [],
+          "date": "2028–2030"
+        }
+      ],
+      "map": {
+        "id": "risques",
+        "title": "Aléas documentés (démonstration)",
+        "view": {
+          "lat": 46.6,
+          "lon": 2.4,
+          "zoom": 5
+        },
+        "note": "Points fictifs pour tester les couches. En version réelle : couches Géorisques/BRGM avec date et légende officielle ; aucune carte nationale « peinte » de risque cyber ou social.",
+        "layers": [
+          {
+            "id": "floods",
+            "title": "Inondations",
+            "theme": "risks",
+            "color": "#3d9be9",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "f1",
+                "name": "Zone inondable A",
+                "lat": 47.9,
+                "lon": 1.9,
+                "kind": "Aléa (démonstration)",
+                "summary": ""
+              },
+              {
+                "id": "f2",
+                "name": "Zone inondable B",
+                "lat": 44.8,
+                "lon": -0.6,
+                "kind": "Aléa (démonstration)",
+                "summary": ""
+              },
+              {
+                "id": "f3",
+                "name": "Zone inondable C",
+                "lat": 45.1,
+                "lon": 5.7,
+                "kind": "Aléa (démonstration)",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "fires",
+            "title": "Feux de forêt",
+            "theme": "risks",
+            "color": "#e87932",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "w1",
+                "name": "Massif A",
+                "lat": 43.5,
+                "lon": 6.3,
+                "kind": "Aléa (démonstration)",
+                "summary": ""
+              },
+              {
+                "id": "w2",
+                "name": "Massif B",
+                "lat": 44.2,
+                "lon": -1.1,
+                "kind": "Aléa (démonstration)",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "seismic",
+            "title": "Sismicité",
+            "theme": "risks",
+            "color": "#9b6be8",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "s1",
+                "name": "Zone sismique A",
+                "lat": 42.7,
+                "lon": 9.1,
+                "kind": "Aléa (démonstration)",
+                "summary": ""
+              },
+              {
+                "id": "s2",
+                "name": "Zone sismique B",
+                "lat": 44,
+                "lon": 6.9,
+                "kind": "Aléa (démonstration)",
+                "summary": ""
+              }
+            ]
+          },
+          {
+            "id": "industrial",
+            "title": "Sites industriels classés",
+            "theme": "risks",
+            "color": "#d94a4a",
+            "description": "",
+            "attribution": "Données de démonstration",
+            "features": [
+              {
+                "id": "i1",
+                "name": "Site A",
+                "lat": 49.4,
+                "lon": 0.2,
+                "kind": "Site (démonstration)",
+                "summary": ""
+              },
+              {
+                "id": "i2",
+                "name": "Site B",
+                "lat": 43.4,
+                "lon": 4.9,
+                "kind": "Site (démonstration)",
+                "summary": ""
+              },
+              {
+                "id": "i3",
+                "name": "Site C",
+                "lat": 45.7,
+                "lon": 4.8,
+                "kind": "Site (démonstration)",
+                "summary": ""
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

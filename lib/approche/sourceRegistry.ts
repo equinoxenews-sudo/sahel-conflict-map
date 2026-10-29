@@ -38,6 +38,24 @@ export const SIPRI_ENTRY: SourceRecord = {
   language: "en",
 };
 
+/**
+ * Problèmes des modules d'une fiche réelle : aucun contenu de démonstration, et chaque élément identifiable cite au moins une source
+ * (ou renvoie à une observation sourcée).
+ */
+export function moduleProblems(value: unknown, path = "modules"): string[] {
+  const problems: string[] = [];
+  if (Array.isArray(value)) {
+    value.forEach((child, index) => problems.push(...moduleProblems(child, `${path}[${index}]`)));
+  } else if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>;
+    if (record.demo === true) problems.push(`${path} : contenu de démonstration dans une fiche réelle`);
+    const sources = record.sourceIds;
+    if (typeof record.id === "string" && Array.isArray(sources) && sources.length === 0 && !record.observationKey) problems.push(`${path} (${record.id}) : aucune source`);
+    for (const [key, child] of Object.entries(record)) problems.push(...moduleProblems(child, `${path}.${key}`));
+  }
+  return problems;
+}
+
 /** Raisons pour lesquelles une fiche ne peut pas être publiée ; liste vide = publiable. */
 export function publishProblems(data: CountryData): string[] {
   const problems: string[] = [];
@@ -63,6 +81,7 @@ export function publishProblems(data: CountryData): string[] {
     if (observation.status === "verified" && observation.value === null) problems.push(`observation ${observation.id} : « verified » sans valeur`);
   }
   for (const claim of data.claims) check("affirmation", claim.id, claim.sourceIds);
+  problems.push(...moduleProblems(data.modules));
   for (const relationship of data.relationships) {
     check("relation", relationship.id, relationship.sourceIds);
     if (relationship.status === "verified" && relationship.lastReviewedAt === null) problems.push(`relation ${relationship.id} : « verified » sans date de vérification`);

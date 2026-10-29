@@ -1,10 +1,18 @@
+import type { EconomyModule } from "@/lib/approche/modules";
 import type { MetricView } from "@/lib/approche/view";
+import ApprocheMap from "./ApprocheMap";
+import Donut from "./Donut";
 import MetricCard from "./MetricCard";
+import { ItemCard, SectionHeading, type SourceMap } from "./shared";
 import styles from "./Approche.module.css";
 
 interface EconomyTabProps {
   metrics: Map<string, MetricView>;
+  module: EconomyModule;
+  sources: SourceMap;
 }
+
+const DONUT_COLORS = ["#e0b44c", "#3d9be9", "#35b779", "#d94a4a", "#9b6be8", "#e87932", "#6fd3d3", "#c05fa8", "#8f9baa", "#b4c85a"];
 
 const BRANCHES = ["A", "B-E", "F", "G-I", "J", "K", "L", "M_N", "O-Q", "R-U"];
 
@@ -22,7 +30,7 @@ const ELECTRICITY: { key: string; indent: boolean }[] = [
   { key: "consumption", indent: false },
 ];
 
-export default function EconomyTab({ metrics }: EconomyTabProps) {
+export default function EconomyTab({ metrics, module, sources }: EconomyTabProps) {
   const get = (key: string) => metrics.get(key) ?? null;
   const branches = BRANCHES.flatMap((code) => {
     const share = get(`economy.value_added_share.${code}`);
@@ -52,6 +60,21 @@ export default function EconomyTab({ metrics }: EconomyTabProps) {
         <h2 id="structure-title">Structure de l&apos;économie : valeur ajoutée par branche</h2>
         {branches.length > 0 && total ? (
           <>
+            <div className={styles.donutRow}>
+              <Donut
+                label={`Répartition de la valeur ajoutée par branche, ${total.period}`}
+                center={total.period}
+                slices={branches.map(({ code, share }, index) => ({ id: code, label: share.label, value: share.raw ?? 0, color: DONUT_COLORS[index % DONUT_COLORS.length] }))}
+              />
+              <ul className={styles.donutLegend}>
+                {branches.map(({ code, share }, index) => (
+                  <li key={code}>
+                    <i style={{ background: DONUT_COLORS[index % DONUT_COLORS.length] }} aria-hidden />
+                    {share.label} <strong>{share.value} %</strong>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <ul className={styles.bars}>
               {branches.map(({ code, share, amount }) => (
                 <li key={code}>
@@ -98,12 +121,49 @@ export default function EconomyTab({ metrics }: EconomyTabProps) {
         </p>
       </section>
 
-      <section className={styles.card} aria-labelledby="todo-title">
-        <h2 id="todo-title">À venir dans cet onglet</h2>
-        <p className={styles.cardNote}>
-          Secteurs stratégiques, ports et infrastructures (couches de carte avec jeu de données, licence et date), commerce extérieur (Douanes, Eurostat, UN Comtrade), matières premières et ressources : chaque rubrique sera publiée avec ses sources lues et sa licence vérifiée, et reste absente tant que ce n&apos;est pas le cas.
-        </p>
-      </section>
+      {module.sectors.length > 0 ? (
+        <section aria-labelledby="sectors-title">
+          <SectionHeading id="sectors-title" data={module.sectors}>
+            Principaux secteurs
+          </SectionHeading>
+          <div className={styles.cardGrid}>
+            {module.sectors.map((sector) => (
+              <ItemCard key={sector.id} item={sector} sources={sources} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {module.map ? (
+        <section className={styles.card} aria-labelledby="resmap-title">
+          <SectionHeading id="resmap-title" data={module.map}>
+            Carte des ressources et des infrastructures
+          </SectionHeading>
+          <ApprocheMap map={module.map} sources={sources} />
+        </section>
+      ) : null}
+
+      {module.resources.length > 0 ? (
+        <section aria-labelledby="resources-title">
+          <SectionHeading id="resources-title" data={module.resources}>
+            Principales ressources et matières premières
+          </SectionHeading>
+          <div className={styles.cardGrid}>
+            {module.resources.map((resource) => (
+              <ItemCard key={resource.id} item={resource} sources={sources} />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {module.sectors.length + module.resources.length === 0 && !module.map ? (
+        <section className={styles.card} aria-labelledby="todo-title">
+          <h2 id="todo-title">À venir dans cet onglet</h2>
+          <p className={styles.cardNote}>
+            Secteurs stratégiques, ports et infrastructures (couches de carte avec jeu de données, licence et date), commerce extérieur (Douanes, Eurostat, UN Comtrade), matières premières : chaque rubrique sera publiée avec ses sources lues et sa licence vérifiée, et reste absente tant que ce n&apos;est pas le cas.
+          </p>
+        </section>
+      ) : null}
     </div>
   );
 }

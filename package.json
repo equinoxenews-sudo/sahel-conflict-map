@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "sync:gdelt": "tsx scripts/fetch-gdelt.ts"
+    "sync:gdelt": "tsx scripts/fetch-gdelt.ts",
+    "approche:validate": "tsx scripts/approche-validate.ts",
+    "approche:schema": "tsx scripts/approche-schema.ts"
   },
   "dependencies": {
     "@dagrejs/dagre": "^3.1.1",

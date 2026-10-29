@@ -186,6 +186,17 @@
       "reuse": "unknown",
       "methodNotes": "Chiffres lus le 29/10/2026 dans la synthèse du bilan 2024. La page n'indique ni date de publication ni licence : mentions légales de RTE à lire avant tout usage commercial. Le bilan est révisable.",
       "language": "fr"
+    },
+    {
+      "id": "S16-SGDSN-VIGIPIRATE",
+      "publisher": "SGDSN",
+      "title": "Vigipirate — plan de vigilance, de prévention et de protection",
+      "canonicalUrl": "https://www.sgdsn.gouv.fr/vigipirate",
+      "accessedAt": "2026-10-29",
+      "license": null,
+      "reuse": "unknown",
+      "methodNotes": "Nouveau plan applicable depuis le 22 juin 2026 (trois stades : vigilance, vigilance renforcée, alerte attentat) ; posture été-automne 2026 : vigilance renforcée. Confirmé par le commanditaire (vérification documentaire réalisée par ChatGPT) ; page non relue par le développeur. Licence non vérifiée.",
+      "language": "fr"
     }
   ],
   "observations": [
@@ -282,7 +293,7 @@
       "unit": null,
       "referencePeriod": "2026",
       "geographicScope": "France",
-      "methodology": "Premier ministre tel que présenté par la fiche officielle du site d'information du Gouvernement, confirmée par le commanditaire le 29/10/2026 (lecture automatique refusée, HTTP 403). Date de prise de fonctions relevée par le commanditaire sur cette fiche.",
+      "methodology": "Premier ministre tel que présenté par la fiche officielle du site d'information du Gouvernement, confirmée par le commanditaire le 29/10/2026 (lecture automatique refusée, HTTP 403). Date de prise de fonctions relevée par le commanditaire sur cette fiche. Attention : la date de nomination du Premier ministre et celle de la composition du gouvernement sont distinctes ; la date affichée est la prise de fonctions indiquée par la fiche officielle.",
       "sourceIds": [
         "S17-INFO-GOUV"
       ],
@@ -813,5 +824,18 @@
       "lastReviewedAt": "2026-10-29",
       "status": "verified"
     }
-  ]
+  ],
+  "modules": {
+    "defense": {
+      "threatPosture": {
+        "system": "Plan Vigipirate (SGDSN)",
+        "level": "Vigilance renforcée",
+        "validFrom": "2026-06-22",
+        "note": "Plan applicable depuis le 22 juin 2026, avec trois stades : vigilance, vigilance renforcée, alerte attentat. Posture de l'été-automne 2026 : vigilance renforcée.",
+        "sourceIds": [
+          "S16-SGDSN-VIGIPIRATE"
+        ]
+      }
+    }
+  }
 }

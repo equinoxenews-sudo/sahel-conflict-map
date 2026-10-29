@@ -138,3 +138,8 @@ export function relationViews(data: CountryData): RelationView[] {
     sources: relationship.sourceIds.flatMap((id) => (sources.has(id) ? [sourceView(sources.get(id) as SourceRecord)] : [])),
   }));
 }
+
+/** Toutes les sources d'une fiche, indexées par identifiant (pour les fiches d'éléments et d'objets de carte). */
+export function sourceViewMap(data: CountryData): Record<string, SourceView> {
+  return Object.fromEntries(data.sources.map((source) => [source.id, sourceView(source)]));
+}
