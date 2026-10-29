@@ -77,6 +77,15 @@ export async function currentAccount(): Promise<Account | null> {
   return secret ? readSession(value, secret) : null;
 }
 
+/** Vrai si la valeur du cookie de connexion est celle d'un compte (fondateur ou compte individuel) : pour la porte d'entrée, qui lit le cookie de la requête. */
+export function isValidSessionToken(value: string | undefined): boolean {
+  if (typeof value !== "string") return false;
+  const password = configuredPassword();
+  if (password && safeEqual(value, tokenFor(accountId(), password))) return true;
+  const secret = sessionSecret();
+  return secret ? readSession(value, secret) !== null : false;
+}
+
 /** Identifiant du compte connecté (cookie valide), sinon null. */
 export async function currentUser(): Promise<string | null> {
   return (await currentAccount())?.name ?? null;
