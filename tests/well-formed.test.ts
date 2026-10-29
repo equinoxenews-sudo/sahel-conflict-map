@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { synthesizeBriefs, type CallFailure, type SourceArticle } from "../lib/synthesizeBriefs";
+import { streamReply } from "./streamReply";
 import { wellFormed } from "../lib/wellFormed";
 
 test("un texte sans caractère invalide est renvoyé tel quel, emojis entiers compris", () => {
@@ -39,7 +40,7 @@ test("une source coupée au milieu d'un emoji ne produit plus de requête invali
   t.mock.method(globalThis, "fetch", async (_url: unknown, init?: RequestInit) => {
     const body = JSON.parse(String(init?.body)) as { messages: { content: string }[] };
     sent.push(body.messages[0].content);
-    return new Response(JSON.stringify({ content: [{ type: "text", text: "[]" }], stop_reason: "end_turn", usage: { input_tokens: 10, output_tokens: 1 } }), { status: 200 });
+    return streamReply("[]", { inputTokens: 10, outputTokens: 1 });
   });
   const brokenBody = ("y".repeat(699) + "🔴 reste").slice(0, 700);
   await synthesizeBriefs("Amérique du Sud", sources(brokenBody));

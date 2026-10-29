@@ -2,13 +2,14 @@ import {
   eventTypePromptList, isEventTypeKey, isImportanceKey, isThemeKey, MAX_SECONDARY_THEMES, themePromptList,
   type EventTypeKey, type ImportanceKey, type ThemeKey,
 } from "./themes";
-import { estimateInputTokens, meetsImportance, usageFromResponse, type AiUsage } from "./aiBudget";
+import { meetsImportance, type AiUsage } from "./aiBudget";
 import { wellFormed } from "./wellFormed";
 import { findEnglishWord } from "./englishLeak";
 import {
   AnthropicApiError, classifyApiError, describeApiError, parseRetryAfter, retryDelayMs,
   type ApiErrorInfo, type ApiErrorKind,
 } from "./anthropicErrors";
+import { partialUsage, readMessageStream, StreamBrokenError, StreamCutError } from "./anthropicStream";
 import { isValidVeracity, type Veracity } from "./veracity";
 import { CONFIDENCE_LEVELS, normalizeConfidence, type Confidence } from "./confidence";
 
@@ -26,6 +27,9 @@ export const TELEGRAM_STANDALONE_MIN_CHARS = 600;
 // 18/10 après-midi : articles plus longs (150-400 mots), certains lots dépassaient encore
 // 120 s ; lots ramenés à 5 sources (lib/syncBriefs.ts) et délai porté à 170 s.
 export const TIMEOUT_MS = 170_000;
+// Réponse en streaming (29/10/2026) : un appel qui n'avance plus (aucun texte, seulement des « ping »)
+// est coupé après ce délai au lieu d'attendre les 170 s ; un appel lent qui progresse va jusqu'à TIMEOUT_MS.
+export const IDLE_TIMEOUT_MS = 45_000;
 
 export interface SourceArticle {
   title: string;
@@ -300,9 +304,12 @@ export interface CallMeta {
   requestId: string | null;
 }
 
-/** Appel qui n'a rien produit : refus de l'API (429, 529…) ou coupure par le délai. */
+/** Appel qui n'a rien produit : refus de l'API (429, 529…), coupure par un délai, ou réponse interrompue
+ *  (erreur annoncée en cours de route, flux terminé sans sa fin). */
 export interface CallFailure {
-  kind: "http" | "aborted";
+  kind: "http" | "aborted" | "stream";
+  /** Coupure : « idle » = plus aucune progression depuis IDLE_TIMEOUT_MS, « deadline » = délai absolu. */
+  cut?: "idle" | "deadline";
   attempt: number;
   durationMs: number;
   status: number | null;
@@ -311,7 +318,7 @@ export interface CallFailure {
   errorMessage: string | null;
   errorKind: ApiErrorKind | null;
   requestId: string | null;
-  /** Coupure : jetons d'entrée estimés (envoyés, donc facturés). Refus : zéro. */
+  /** Coupure ou réponse interrompue : jetons d'entrée (annoncés par l'API, sinon estimés) et sortie estimée sur le texte reçu. Refus : zéro. */
   usage: AiUsage;
   /** Pause avant la reprise prévue, ou null si le lot n'est pas retenté. */
   retryInMs: number | null;
@@ -389,9 +396,16 @@ export async function synthesizeBriefs(
 
   let formatRetries = 0;
   let httpRetries = 0;
+  let stallRetries = 0;
   for (let attempt = 1; ; attempt++) {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), Math.max(deadline - Date.now(), 1000));
+    // Avant les en-têtes de la réponse, l'attente compte comme de l'inactivité.
+    const headersTimeout = Math.min(IDLE_TIMEOUT_MS, deadline - Date.now());
+    const headers: { cut: "idle" | "deadline" | null } = { cut: null };
+    const timeoutId = setTimeout(() => {
+      headers.cut = headersTimeout < IDLE_TIMEOUT_MS ? "deadline" : "idle";
+      controller.abort();
+    }, Math.max(headersTimeout, 1000));
     const callStarted = Date.now();
 
     try {
@@ -406,6 +420,7 @@ export async function synthesizeBriefs(
           model: MODEL,
           max_tokens: MAX_TOKENS,
           messages: [{ role: "user", content: prompt }],
+          stream: true,
         }),
         signal: controller.signal,
       });
@@ -430,29 +445,44 @@ export async function synthesizeBriefs(
         continue;
       }
 
-      const data = (await res.json()) as { content?: { type: string; text?: string }[]; stop_reason?: string | null };
-      const usage = usageFromResponse(data);
-      const meta: CallMeta = {
-        attempt, durationMs: Date.now() - callStarted, stopReason: data.stop_reason ?? null, requestId: res.headers.get("request-id"),
-      };
+      // En-têtes reçus : la suite est surveillée par la lecture du flux (inactivité et délai absolu).
+      clearTimeout(timeoutId);
+      const requestId = res.headers.get("request-id");
+      const message = await readMessageStream(res, { idleMs: IDLE_TIMEOUT_MS, deadline, controller });
+      const usage = message.usage;
+      const meta: CallMeta = { attempt, durationMs: Date.now() - callStarted, stopReason: message.stopReason, requestId };
       onUsage?.(usage, meta);
-      logCall({ attempt, outcome: "ok", status: res.status, requestId: meta.requestId, durationMs: meta.durationMs, stopReason: meta.stopReason, inputTokens: usage.inputTokens, outputTokens: usage.outputTokens });
-      const text = data.content?.find((block) => block.type === "text")?.text ?? "";
-      return keepImportant(parseResponse(text, articles, previous, true, analyst), minImportance);
+      logCall({ attempt, outcome: "ok", status: res.status, requestId, durationMs: meta.durationMs, stopReason: meta.stopReason, inputTokens: usage.inputTokens, outputTokens: usage.outputTokens });
+      return keepImportant(parseResponse(message.text, articles, previous, true, analyst), minImportance);
     } catch (err) {
+      console.error(`Failed to synthesize briefs (attempt ${attempt}):`, err);
+      const durationMs = Date.now() - callStarted;
+      // Coupé (inactivité ou délai absolu) ou réponse interrompue : la requête est partie, l'entrée et le texte déjà
+      // reçu sont facturés même sans réponse valide. On les note au journal (sinon le budget ne voit pas cette
+      // dépense, visible seulement dans la Console). Une réponse partielle n'est jamais utilisée.
+      const cut = err instanceof StreamCutError ? err.cut : controller.signal.aborted ? headers.cut ?? "deadline" : null;
+      if (cut || err instanceof StreamBrokenError) {
+        const partial = err instanceof StreamCutError || err instanceof StreamBrokenError ? err.partial : { inputTokens: 0, outputChars: 0 };
+        const usage = partialUsage(partial, prompt.length);
+        // Un appel bloqué (plus aucune progression) se retente une fois s'il reste le temps de rédiger ;
+        // un appel lent coupé au délai absolu, non : le même lot serait coupé de la même façon.
+        const retryInMs = cut === "idle" && stallRetries === 0 && deadline - Date.now() >= MIN_BUDGET_AFTER_WAIT_MS ? 0 : null;
+        const brokenType = err instanceof StreamBrokenError ? err.errorType : null;
+        onFailure?.({
+          kind: cut ? "aborted" : "stream", cut: cut ?? undefined, attempt, durationMs, status: null, errorType: brokenType,
+          errorMessage: err instanceof StreamBrokenError ? err.message.slice(0, 200) : null, errorKind: null, requestId: null, usage, retryInMs,
+        });
+        logCall({ attempt, outcome: cut ? "aborted" : "stream_error", cut, errorType: brokenType, durationMs, inputTokens: usage.inputTokens, outputTokensEstimated: usage.outputTokens, retryInMs });
+        if (retryInMs !== null) {
+          stallRetries += 1;
+          continue;
+        }
+        // Coupure avant les en-têtes : l'erreur de fetch ne dit pas laquelle ; on la précise (le message garde « was aborted »).
+        if (cut && !(err instanceof StreamCutError)) throw new StreamCutError(cut, durationMs, partial);
+        throw err;
+      }
       const canRetry =
         err instanceof SynthesisFormatError && formatRetries === 0 && deadline - Date.now() >= MIN_RETRY_BUDGET_MS;
-      console.error(`Failed to synthesize briefs (attempt ${attempt}):`, err);
-      // Coupé par le délai : la requête est partie, l'entrée est facturée même sans réponse. On la note au journal
-      // (sinon le budget ne voit pas cette dépense, visible seulement dans la Console).
-      if (controller.signal.aborted) {
-        const usage = { inputTokens: estimateInputTokens(prompt.length), outputTokens: 0, webSearches: 0 };
-        const durationMs = Date.now() - callStarted;
-        onFailure?.({
-          kind: "aborted", attempt, durationMs, status: null, errorType: null, errorMessage: null, errorKind: null, requestId: null, usage, retryInMs: null,
-        });
-        logCall({ attempt, outcome: "aborted", durationMs, inputTokensEstimated: usage.inputTokens });
-      }
       if (!canRetry) throw err;
       formatRetries += 1;
     } finally {
