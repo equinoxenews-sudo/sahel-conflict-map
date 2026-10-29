@@ -19,6 +19,10 @@ export interface SourceView {
 
 export interface MetricView {
   key: string;
+  /** Libellé propre à l'observation (ex. nom d'une branche économique), sinon vide. */
+  label: string;
+  /** Valeur chiffrée brute, pour dessiner une part ou une barre (jamais affichée telle quelle). */
+  raw: number | null;
   value: string;
   unit: string;
   period: string;
@@ -73,6 +77,8 @@ export function metricViews(data: CountryData): Map<string, MetricView> {
       }));
     views.set(observation.key, {
       key: observation.key,
+      label: observation.label ?? "",
+      raw: typeof observation.value === "number" ? observation.value : null,
       value: formatValue(observation),
       unit: formatUnit(observation),
       period: observation.referencePeriod,

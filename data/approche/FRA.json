@@ -175,6 +175,17 @@
       "reuse": "allowed",
       "methodNotes": "Déclaration publiée le 14 juillet 2025 ; elle rappelle : « En 2010, les Traités de Lancaster House ont permis à nos pays de formaliser cette coopération ». Les dates et le contenu des traités de 2010 ne sont pas repris faute de lecture du texte officiel.",
       "language": "fr"
+    },
+    {
+      "id": "S11-RTE-BE2024",
+      "publisher": "RTE",
+      "title": "Bilan électrique 2024 — synthèse",
+      "canonicalUrl": "https://analysesetdonnees.rte-france.com/bilan-electrique-2024/synthese",
+      "accessedAt": "2026-10-29",
+      "license": null,
+      "reuse": "unknown",
+      "methodNotes": "Chiffres lus le 29/10/2026 dans la synthèse du bilan 2024. La page n'indique ni date de publication ni licence : mentions légales de RTE à lire avant tout usage commercial. Le bilan est révisable.",
+      "language": "fr"
     }
   ],
   "observations": [
@@ -469,6 +480,215 @@
       "collectedAt": "2026-10-29",
       "verifiedAt": null,
       "status": "pending",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-elec-production-total-2024",
+      "countryCode": "FRA",
+      "key": "energy.electricity.production_total",
+      "topic": "electricity",
+      "label": "Production totale d'électricité",
+      "value": 539,
+      "unit": "TWh",
+      "referencePeriod": "2024",
+      "geographicScope": "France, périmètre du bilan électrique de RTE",
+      "methodology": "Production d'électricité de la France en 2024, au plus haut depuis 5 ans selon RTE. Il s'agit de l'électricité seule : ni du mix d'énergie primaire, ni de la consommation finale d'énergie.",
+      "sourceIds": [
+        "S11-RTE-BE2024"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-elec-nuclear-2024",
+      "countryCode": "FRA",
+      "key": "energy.electricity.nuclear",
+      "topic": "electricity",
+      "label": "Production nucléaire",
+      "value": 361.7,
+      "unit": "TWh",
+      "referencePeriod": "2024",
+      "geographicScope": "France, périmètre du bilan électrique de RTE",
+      "methodology": "Production d'électricité d'origine nucléaire en 2024. Il s'agit de l'électricité seule : ni du mix d'énergie primaire, ni de la consommation finale d'énergie.",
+      "sourceIds": [
+        "S11-RTE-BE2024"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-elec-renewable-2024",
+      "countryCode": "FRA",
+      "key": "energy.electricity.renewable",
+      "topic": "electricity",
+      "label": "Production renouvelable",
+      "value": 150,
+      "unit": "TWh",
+      "referencePeriod": "2024",
+      "geographicScope": "France, périmètre du bilan électrique de RTE",
+      "methodology": "Production renouvelable 2024 (RTE indique 27,8 % de la production totale) ; comprend l'hydraulique, l'éolien, le solaire et les bioénergies. Il s'agit de l'électricité seule : ni du mix d'énergie primaire, ni de la consommation finale d'énergie.",
+      "sourceIds": [
+        "S11-RTE-BE2024"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-elec-hydro-2024",
+      "countryCode": "FRA",
+      "key": "energy.electricity.hydro",
+      "topic": "electricity",
+      "label": "Production hydraulique",
+      "value": 75.1,
+      "unit": "TWh",
+      "referencePeriod": "2024",
+      "geographicScope": "France, périmètre du bilan électrique de RTE",
+      "methodology": "Production hydraulique 2024, la plus haute depuis 2013 selon RTE ; comprise dans la production renouvelable. Il s'agit de l'électricité seule : ni du mix d'énergie primaire, ni de la consommation finale d'énergie.",
+      "sourceIds": [
+        "S11-RTE-BE2024"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-elec-wind-solar-2024",
+      "countryCode": "FRA",
+      "key": "energy.electricity.wind_solar",
+      "topic": "electricity",
+      "label": "Production éolienne et solaire",
+      "value": 71.6,
+      "unit": "TWh",
+      "referencePeriod": "2024",
+      "geographicScope": "France, périmètre du bilan électrique de RTE",
+      "methodology": "Production éolienne et solaire cumulée 2024 ; comprise dans la production renouvelable. Il s'agit de l'électricité seule : ni du mix d'énergie primaire, ni de la consommation finale d'énergie.",
+      "sourceIds": [
+        "S11-RTE-BE2024"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-elec-solar-2024",
+      "countryCode": "FRA",
+      "key": "energy.electricity.solar",
+      "topic": "electricity",
+      "label": "Production solaire",
+      "value": 24.8,
+      "unit": "TWh",
+      "referencePeriod": "2024",
+      "geographicScope": "France, périmètre du bilan électrique de RTE",
+      "methodology": "Production solaire 2024 ; comprise dans l'éolien et solaire. La part de l'éolien seul n'est pas chiffrée par la page. Il s'agit de l'électricité seule : ni du mix d'énergie primaire, ni de la consommation finale d'énergie.",
+      "sourceIds": [
+        "S11-RTE-BE2024"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-elec-fossil-2024",
+      "countryCode": "FRA",
+      "key": "energy.electricity.fossil",
+      "topic": "electricity",
+      "label": "Production d'origine fossile",
+      "value": 20,
+      "unit": "TWh",
+      "referencePeriod": "2024",
+      "geographicScope": "France, périmètre du bilan électrique de RTE",
+      "methodology": "Production d'origine fossile 2024 (gaz, charbon, fioul), au plus bas depuis le début des années 1950 selon RTE. Il s'agit de l'électricité seule : ni du mix d'énergie primaire, ni de la consommation finale d'énergie.",
+      "sourceIds": [
+        "S11-RTE-BE2024"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-elec-exports-gross-2024",
+      "countryCode": "FRA",
+      "key": "energy.electricity.exports_gross",
+      "topic": "electricity",
+      "label": "Exportations brutes",
+      "value": 101.3,
+      "unit": "TWh",
+      "referencePeriod": "2024",
+      "geographicScope": "France, périmètre du bilan électrique de RTE",
+      "methodology": "Exportations brutes d'électricité 2024, record selon RTE. Il s'agit de l'électricité seule : ni du mix d'énergie primaire, ni de la consommation finale d'énergie.",
+      "sourceIds": [
+        "S11-RTE-BE2024"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-elec-imports-2024",
+      "countryCode": "FRA",
+      "key": "energy.electricity.imports",
+      "topic": "electricity",
+      "label": "Importations",
+      "value": 12.3,
+      "unit": "TWh",
+      "referencePeriod": "2024",
+      "geographicScope": "France, périmètre du bilan électrique de RTE",
+      "methodology": "Importations d'électricité 2024, principalement depuis l'Espagne, l'Allemagne et la Belgique. Il s'agit de l'électricité seule : ni du mix d'énergie primaire, ni de la consommation finale d'énergie.",
+      "sourceIds": [
+        "S11-RTE-BE2024"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-elec-net-exports-2024",
+      "countryCode": "FRA",
+      "key": "energy.electricity.net_exports",
+      "topic": "electricity",
+      "label": "Solde net exportateur",
+      "value": 89,
+      "unit": "TWh",
+      "referencePeriod": "2024",
+      "geographicScope": "France, périmètre du bilan électrique de RTE",
+      "methodology": "Solde net des échanges d'électricité 2024 (record battu selon RTE : 76 TWh en 2002). Il s'agit de l'électricité seule : ni du mix d'énergie primaire, ni de la consommation finale d'énergie.",
+      "sourceIds": [
+        "S11-RTE-BE2024"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-elec-consumption-2024",
+      "countryCode": "FRA",
+      "key": "energy.electricity.consumption",
+      "topic": "electricity",
+      "label": "Consommation d'électricité (corrigée des aléas météorologiques)",
+      "value": 449.2,
+      "unit": "TWh",
+      "referencePeriod": "2024",
+      "geographicScope": "France, périmètre du bilan électrique de RTE",
+      "methodology": "Consommation d'électricité de la France en 2024, corrigée des aléas météorologiques. À distinguer de la consommation finale d'énergie, qui couvre aussi le gaz, les carburants, etc. Il s'agit de l'électricité seule : ni du mix d'énergie primaire, ni de la consommation finale d'énergie.",
+      "sourceIds": [
+        "S11-RTE-BE2024"
+      ],
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
       "dataKind": "official_statement"
     }
   ],

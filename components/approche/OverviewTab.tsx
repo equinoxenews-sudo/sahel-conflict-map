@@ -74,7 +74,7 @@ export default function OverviewTab({ metrics, pending, map }: OverviewTabProps)
           <MetricCard label="Croissance du PIB réel" metric={get("economy.gdp_growth")} />
           <MetricCard label="Inflation (IPC)" metric={get("economy.inflation_cpi")} />
           <MetricCard label="Chômage (estimation OIT)" metric={get("labour.unemployment_ilo")} />
-          <MetricCard label="Dette publique" metric={null} missing="À sourcer (administrations publiques)" />
+          <MetricCard label="Dette publique (% du PIB)" metric={get("economy.public_debt_gdp")} />
           <MetricCard label="Recherche et développement" metric={get("research.rd_gdp")} />
         </div>
       </section>

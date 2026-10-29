@@ -1,4 +1,5 @@
 import FRA from "@/data/approche/FRA.json";
+import FRA_EUROSTAT from "@/data/approche/FRA.eurostat.json";
 import FRA_WORLDBANK from "@/data/approche/FRA.worldbank.json";
 import { CountryDataSchema, type CountryData } from "./schema";
 import { publishProblems } from "./sourceRegistry";
@@ -6,8 +7,8 @@ import { publishProblems } from "./sourceRegistry";
 // Fiches « Approche » migrées vers le modèle sourcé : un fichier saisi à la main (identité, affirmations, sources
 // institutionnelles) et un fichier produit par scripts/sync-approche-worldbank.ts. Ajouter un pays = ajouter ses deux
 // fichiers dans data/approche/ puis les deux lignes ci-dessous. Un pays absent de cette liste garde l'ancienne fiche.
-const FILES: Record<string, { curated: unknown; worldbank?: unknown }> = {
-  FRA: { curated: FRA, worldbank: FRA_WORLDBANK },
+const FILES: Record<string, { curated: unknown; worldbank?: unknown; eurostat?: unknown }> = {
+  FRA: { curated: FRA, worldbank: FRA_WORLDBANK, eurostat: FRA_EUROSTAT },
 };
 
 interface WorldBankFile {
@@ -31,11 +32,11 @@ export function getApprocheData(iso3: string | undefined): CountryData | null {
   const entry = iso3 ? FILES[iso3.toUpperCase()] : undefined;
   if (!entry) return null;
   const curated = entry.curated as { sources?: unknown[]; observations?: unknown[] };
-  const worldbank = (entry.worldbank ?? {}) as WorldBankFile;
+  const extras = [entry.worldbank, entry.eurostat].map((file) => (file ?? {}) as WorldBankFile);
   const merged = {
     ...curated,
-    sources: [...(curated.sources ?? []), ...(worldbank.sources ?? [])],
-    observations: [...(curated.observations ?? []), ...(worldbank.observations ?? [])],
+    sources: [...(curated.sources ?? []), ...extras.flatMap((file) => file.sources ?? [])],
+    observations: [...(curated.observations ?? []), ...extras.flatMap((file) => file.observations ?? [])],
   };
   const parsed = CountryDataSchema.safeParse(merged);
   if (!parsed.success) {

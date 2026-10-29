@@ -245,6 +245,8 @@ button.tile:hover {
 }
 
 .row {
+  width: 100%;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: 150px 1fr auto;
   align-items: center;
@@ -528,4 +530,36 @@ button.row:hover {
   .threeCols {
     grid-template-columns: 1fr;
   }
+}
+
+.bars {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.bars li {
+  position: relative;
+}
+
+.bar {
+  display: block;
+  height: 4px;
+  margin: -2px 6px 8px;
+  background: var(--border-subtle);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar > span {
+  display: block;
+  height: 100%;
+  background: var(--status-info);
+  border-radius: 999px;
+}
+
+.indent {
+  padding-left: 22px;
 }

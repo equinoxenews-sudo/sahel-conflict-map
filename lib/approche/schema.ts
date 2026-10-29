@@ -43,6 +43,8 @@ export const ObservationSchema = z.object({
   countryCode: z.string().length(3),
   /** Clé stable, ex. `demography.population`. */
   key: z.string().min(1),
+  /** Libellé d'affichage quand la clé ne suffit pas (ex. nom d'une branche économique). */
+  label: z.string().nullable().optional(),
   /** Regroupe plusieurs mesures d'un même sujet (ex. la population selon deux organismes). */
   topic: z.string().nullable().optional(),
   value: z.union([z.number(), z.string(), z.boolean()]).nullable(),

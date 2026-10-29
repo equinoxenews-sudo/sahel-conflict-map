@@ -127,7 +127,9 @@ test("les licences lues sont consignées : UE en CC BY, Élysée sous licence ou
 
 test("les valeurs de la maquette de démonstration ne sont pas reprises", () => {
   const text = JSON.stringify(getApprocheData("FRA"));
-  for (const forbidden of ["Barnier", "380 000", "380000", "3 130", "68,4", "Barkhane", "98 %", "12 mars 2025"]) assert.equal(text.includes(forbidden), false, forbidden);
+  for (const forbidden of ["Barnier", "380 000", "3 130", "68,4", "Barkhane", "98 %", "12 mars 2025"]) assert.equal(text.includes(forbidden), false, forbidden);
+  // Un nombre de la maquette n'est comparé qu'en entier : « 380000 » ne doit pas être trouvé dans 261238000000.
+  assert.equal(/(?<!\d)380000(?!\d)/.test(text), false, "380000");
 });
 
 test("deux mesures de la population (Banque mondiale, Eurostat) sont gardées côte à côte, sans moyenne", () => {
@@ -211,4 +213,45 @@ test("les organisations G7, G20 et OCDE sont publiées avec leur source France D
   }
   assert.equal(views.has("institutions.oif"), false);
   assert.ok(pendingObservations(fra).some((item) => item.key === "institutions.oif"));
+});
+
+test("les parts de valeur ajoutée par branche sont calculées, somment à 100 % et leurs valeurs somment au total Eurostat", () => {
+  const views = metricViews(france());
+  const codes = ["A", "B-E", "F", "G-I", "J", "K", "L", "M_N", "O-Q", "R-U"];
+  const amounts = codes.map((code) => views.get(`economy.value_added.${code}`)?.raw ?? Number.NaN);
+  const shares = codes.map((code) => views.get(`economy.value_added_share.${code}`)?.raw ?? Number.NaN);
+  const total = views.get("economy.value_added.total")?.raw ?? Number.NaN;
+  assert.ok(amounts.every((value) => value > 0) && total > 0);
+  assert.ok(Math.abs(amounts.reduce((sum, value) => sum + value, 0) - total) / total < 1e-6, "la somme des branches égale le total");
+  assert.ok(Math.abs(shares.reduce((sum, value) => sum + value, 0) - 100) < 0.6, "les parts arrondies somment à 100 % à l'arrondi près");
+  const share = france().observations.find((observation) => observation.key === "economy.value_added_share.A");
+  assert.equal(share?.dataKind, "calculated");
+  assert.ok(share?.calculationFormula);
+});
+
+test("l'électricité de RTE : les chiffres lus sont cohérents entre eux (exportations - importations = solde net)", () => {
+  const views = metricViews(france());
+  const value = (key: string) => views.get(`energy.electricity.${key}`)?.raw ?? Number.NaN;
+  assert.equal(value("production_total"), 539);
+  assert.equal(value("nuclear"), 361.7);
+  assert.ok(Math.abs(value("exports_gross") - value("imports") - value("net_exports")) < 0.5);
+  assert.ok(value("hydro") + value("wind_solar") <= value("renewable") + 0.5, "hydraulique + éolien/solaire sont compris dans le renouvelable");
+  assert.ok(value("nuclear") + value("renewable") + value("fossil") <= value("production_total"));
+});
+
+test("la dette publique et la dépendance énergétique viennent d'Eurostat avec leur série trimestrielle ou annuelle", () => {
+  const views = metricViews(france());
+  const debt = views.get("economy.public_debt_gdp");
+  const dependency = views.get("energy.import_dependency");
+  assert.ok(debt && dependency);
+  assert.match(debt.period, /^\d{4}-Q[1-4]$/);
+  assert.ok(debt.series.length >= 4);
+  assert.equal(debt.sources[0].publisher, "Eurostat");
+  assert.equal(dependency.sources[0].publisher, "Eurostat");
+  assert.equal(debt.sources[0].reuse, "allowed");
+});
+
+test("l'onglet Économie n'affiche aucune dépendance de la maquette", () => {
+  const text = JSON.stringify(metricViews(france()));
+  for (const forbidden of ["98", "terres rares", "Pétrole"]) assert.equal(text.includes(`"value":"${forbidden}`), false, forbidden);
 });

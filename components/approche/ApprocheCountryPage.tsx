@@ -8,6 +8,7 @@ import { APPROCHE_TABS, tabHref, type ApprocheTab } from "@/lib/approche/tabs";
 import { claimViews, metricViews, pendingObservations, relationViews } from "@/lib/approche/view";
 import { zoneHomeHref } from "@/lib/homeZones";
 import { getZone } from "@/lib/zones";
+import EconomyTab from "./EconomyTab";
 import OverviewTab from "./OverviewTab";
 import RelationsTab from "./RelationsTab";
 import styles from "./Approche.module.css";
@@ -19,8 +20,7 @@ interface ApprocheCountryPageProps {
   map: CountryMapData;
 }
 
-const COMING: Record<Exclude<ApprocheTab, "overview" | "relations">, string> = {
-  economy: "Structure de l'économie, énergie, commerce et dépendances, avec leurs séries sourcées",
+const COMING: Record<Exclude<ApprocheTab, "overview" | "relations" | "economy">, string> = {
   defense: "Forces armées, opérations datées et sécurité intérieure, d'après les publications officielles",
   issues: "Dossiers stratégiques rédigés, sourcés et datés",
   outlook: "Vulnérabilités documentées, SWOT et scénarios qualitatifs sans probabilités",
@@ -85,11 +85,13 @@ export default function ApprocheCountryPage({ data, iso2, tab, map }: ApprocheCo
           <OverviewTab metrics={metrics} pending={pendingKeys} map={map} />
         ) : tab === "relations" ? (
           <RelationsTab metrics={metrics} pending={pendingKeys} relations={relationViews(data)} />
+        ) : tab === "economy" ? (
+          <EconomyTab metrics={metrics} />
         ) : (
           <section className={styles.card} aria-live="polite">
             <h2>{APPROCHE_TABS.find((item) => item.key === tab)?.label}</h2>
             <p className={styles.cardNote}>
-              Cet onglet sera alimenté dans une prochaine étape : {COMING[tab as Exclude<ApprocheTab, "overview" | "relations">]}. Aucune donnée n&apos;est affichée tant qu&apos;elle n&apos;est pas sourcée.
+              Cet onglet sera alimenté dans une prochaine étape : {COMING[tab as Exclude<ApprocheTab, "overview" | "relations" | "economy">]}. Aucune donnée n&apos;est affichée tant qu&apos;elle n&apos;est pas sourcée.
             </p>
           </section>
         )}
