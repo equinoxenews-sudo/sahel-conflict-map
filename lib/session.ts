@@ -78,3 +78,10 @@ export async function logout(): Promise<void> {
 export function openLogin(): void {
   window.dispatchEvent(new CustomEvent(OPEN_LOGIN_EVENT));
 }
+
+export const OPEN_PROFILE_EVENT = "equinoxe:open-profile";
+
+/** Ouvre le panneau du profil (écouté par ProfileDialog, monté une fois dans la page). */
+export function openProfile(): void {
+  window.dispatchEvent(new CustomEvent(OPEN_PROFILE_EVENT));
+}

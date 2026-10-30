@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
 import GateGuard from "@/components/auth/GateGuard";
 import LoginDialog from "@/components/auth/LoginDialog";
+import ProfileDialog from "@/components/auth/ProfileDialog";
 import MobileNav from "@/components/equinoxe/MobileNav";
 import SearchDialog from "@/components/search/SearchDialog";
 import { INTRO_BOOT_SCRIPT } from "@/lib/homeIntro";
@@ -47,6 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <GateGuard />
         <LoginDialog />
+        <ProfileDialog />
         <SearchDialog />
         <Suspense fallback={null}>
           <MobileNav />

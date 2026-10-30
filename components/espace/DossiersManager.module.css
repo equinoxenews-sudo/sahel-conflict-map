@@ -100,11 +100,13 @@
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
 .smallBtn {
-  flex: 1;
+  flex: 1 1 auto;
+  white-space: nowrap;
   padding: 5px 8px;
   border: 1px solid var(--border-glass);
   border-radius: 7px;

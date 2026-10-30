@@ -95,3 +95,23 @@ a. OK pour cet ordre, et pour livrer le Lot 3 en dernier ?
 b. La « dernière modification gagne » par élément te convient-elle (avec la limite sur le même texte de la même note) ?
 c. Plafond de taille d'un dossier partagé, images comprises : 25 Mo te va-t-il ?
 d. Un participant peut-il inviter d'autres personnes, ou seulement le propriétaire du dossier ?
+
+---
+
+## Décisions de Nicolas et état d'avancement (30/10/2026)
+
+Réponses : ordre validé (travail à deux en dernier) ; « la dernière modification gagne » validé ; **un participant peut inviter
+d'autres personnes** ; plafond de taille à relever.
+
+- **Plafond de taille** : ce n'est pas payant en soi, c'est la place totale de la base Supabase (offre gratuite : 500 Mo de base
+  et 1 Go de fichiers, à vérifier sur ton tableau de bord) qui limite, partagée avec les articles, brèves, etc. Proposition : 50 Mo
+  par dossier partagé, images comprises, en une constante facile à changer ; les images iront dans le stockage de fichiers
+  plutôt que dans la base si la place devient un sujet.
+- **« Faire une copie »** : où que l'on soit (liste ou dossier ouvert). Dans un dossier ouvert (note ou graph), la copie est créée
+  puis **ouverte tout de suite, dans la même vue** : on travaille directement dedans. Depuis la liste, la vignette « Nom (copie) »
+  apparaît à côté des autres. Fait.
+- **Lot 1 fait** : panneau du profil (clic sur le pseudo en haut à droite ; sur mobile, « Mon profil » dans le menu) avec pseudo,
+  mot de passe en étoiles fixes, accès (« Superadmin » pour Nicof, Plus, Pro…), IDcode `#XXXXXXXX` avec Copier et Renouveler, et
+  Se déconnecter. IDcode créé au premier affichage (table `account_codes`, SQL : `supabase/add-sharing.sql`).
+- **Reste à faire** : lot 2 (invitations par pseudo + IDcode, acceptation) et lot 3 (travail à deux), avec la mention
+  « collaboratif : pseudos ».

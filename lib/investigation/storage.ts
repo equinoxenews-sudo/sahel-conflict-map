@@ -97,7 +97,7 @@ export interface InvestigationStorage {
   /** Returns the imported dossier's id. Par défaut les identifiants sont régénérés (le dossier arrive en
    * copie « (importé) »). Avec `keepIds`, le dossier garde ses identifiants et REMPLACE celui qui porte le
    * même identifiant (récupération depuis la copie en ligne). */
-  importDossier(json: string, options?: { keepIds?: boolean }): Promise<string>;
+  importDossier(json: string, options?: { keepIds?: boolean; nameSuffix?: string }): Promise<string>;
 }
 
 /** Fichier d'export : le dossier plus ses images importées, par identifiant. */
@@ -562,7 +562,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
 
       const newDossier: Dossier = {
         id: newDossierId,
-        name: importedDossier ? (keep ? importedDossier.name : `${importedDossier.name} (importé)`) : "Dossier importé",
+        name: importedDossier ? (keep ? importedDossier.name : `${importedDossier.name}${options?.nameSuffix ?? " (importé)"}`) : "Dossier importé",
         description: importedDossier?.description ?? "",
         ...(isCoverImage(importedDossier?.coverImage) ? { coverImage: importedDossier.coverImage } : {}),
         createdAt: keep && importedDossier ? importedDossier.createdAt : nowIso(),

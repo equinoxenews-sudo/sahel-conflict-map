@@ -6,6 +6,7 @@ import type { DossierView } from "@/lib/espace";
 import { ignoreRemoteDossier } from "@/lib/investigation/autoSave";
 import { deleteCloud } from "@/lib/investigation/cloudSync";
 import { coverFromFile } from "@/lib/investigation/cover";
+import { duplicateDossier } from "@/lib/investigation/duplicate";
 import { ImageFileError } from "@/lib/investigation/imageStore";
 import { useDossiers, useInvestigationStorage } from "@/lib/investigation/InvestigationContext";
 import type { Dossier } from "@/lib/investigation/types";
@@ -40,6 +41,14 @@ export default function DossiersManager({ view, title, intro }: DossiersManagerP
     if (!trimmed) return;
     storage.createDossier(trimmed, "");
     setName("");
+  }
+
+  async function handleCopy(id: string) {
+    try {
+      await duplicateDossier(storage, id);
+    } catch {
+      window.alert("La copie a échoué : le dossier d'origine n'a pas été modifié.");
+    }
   }
 
   function handleRename(id: string, currentName: string, currentDesc: string) {
@@ -129,6 +138,9 @@ export default function DossiersManager({ view, title, intro }: DossiersManagerP
               <div className={styles.actions}>
                 <button type="button" className={styles.smallBtn} onClick={() => handleRename(dossier.id, dossier.name, dossier.description)}>
                   Renommer
+                </button>
+                <button type="button" className={styles.smallBtn} onClick={() => void handleCopy(dossier.id)}>
+                  Faire une copie
                 </button>
                 <button type="button" className={styles.smallBtn} onClick={() => setToDelete(dossier)}>
                   Supprimer

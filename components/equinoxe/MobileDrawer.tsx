@@ -2,12 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import { useHasMounted } from "@/lib/useHasMounted";
 import { zoneHomeHref } from "@/lib/homeZones";
 import { openSearch } from "@/lib/searchUi";
-import { logout, openLogin, useSession } from "@/lib/session";
+import { openLogin, openProfile, useSession } from "@/lib/session";
 import { TRACKING_ENABLED, ZONES } from "@/lib/zones";
 import styles from "./MobileDrawer.module.css";
 
@@ -22,7 +21,6 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
   // can ever rank against siblings outside Header, like the bottom nav.
   const mounted = useHasMounted();
   const { user } = useSession();
-  const router = useRouter();
   if (!open || !mounted) return null;
 
   return createPortal(
@@ -91,14 +89,12 @@ export default function MobileDrawer({ open, onClose }: MobileDrawerProps) {
             <button
               type="button"
               className={styles.link}
-              onClick={async () => {
+              onClick={() => {
                 onClose();
-                await logout();
-                router.push("/");
-                router.refresh();
+                openProfile();
               }}
             >
-              Se déconnecter ({user})
+              Mon profil ({user})
             </button>
           ) : (
             <button

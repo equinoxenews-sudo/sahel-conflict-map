@@ -89,3 +89,34 @@ test("les repères de synchronisation en ligne sont propres à chaque compte", (
   setStorageScope("test-alice");
   assert.equal(readSyncBases().d1?.signature, "sig-alice");
 });
+
+test("« Faire une copie » : un dossier indépendant « Nom (copie) », avec son contenu, sans toucher à l'original", async () => {
+  const { duplicateDossier } = await import("../lib/investigation/duplicate");
+  const alice = openEngine("test-alice");
+  const original = alice.createDossier("APN GRAPH", "description");
+  alice.addEntity({ dossierId: original.id, name: "Fiche 1", type: "person" } as unknown as Parameters<typeof alice.addEntity>[0]);
+  alice.addEntity({ dossierId: original.id, name: "Fiche 2", type: "organization" } as unknown as Parameters<typeof alice.addEntity>[0]);
+
+  const copyId = await duplicateDossier(alice, original.id);
+  const data = alice.load();
+  const copy = data.dossiers.find((d) => d.id === copyId);
+  assert.equal(copy?.name, "APN GRAPH (copie)");
+  assert.notEqual(copyId, original.id);
+  assert.equal(data.dossiers.find((d) => d.id === original.id)?.name, "APN GRAPH");
+  const entitiesOf = (id: string) => data.entities.filter((e) => e.dossierId === id);
+  assert.deepEqual(entitiesOf(copyId).map((e) => e.name).sort(), ["Fiche 1", "Fiche 2"]);
+  assert.equal(entitiesOf(original.id).length, 2);
+  assert.ok(entitiesOf(copyId).every((e) => !entitiesOf(original.id).some((o) => o.id === e.id)), "identifiants distincts");
+
+  // Travailler dans la copie ne change pas l'original.
+  alice.addEntity({ dossierId: copyId, name: "Ajout dans la copie", type: "person" } as unknown as Parameters<typeof alice.addEntity>[0]);
+  assert.equal(alice.load().entities.filter((e) => e.dossierId === original.id).length, 2);
+});
+
+test("l'import d'un fichier garde son suffixe « (importé) » par défaut", async () => {
+  const alice = openEngine("test-alice");
+  const source = alice.createDossier("Rapport", "");
+  const json = await alice.exportDossier(source.id);
+  const id = await alice.importDossier(json);
+  assert.equal(alice.load().dossiers.find((d) => d.id === id)?.name, "Rapport (importé)");
+});

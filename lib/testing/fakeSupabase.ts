@@ -12,7 +12,11 @@ const PRIMARY_KEYS: Record<string, string[]> = {
   accounts: ["identifier"],
   investigation_cloud: ["dossier_id"],
   investigation_cloud_chunks: ["dossier_id", "upload_id", "seq"],
+  account_codes: ["owner_id"],
 };
+
+// Colonnes uniques en plus de la clé primaire (contraintes « unique » du SQL).
+const UNIQUE_COLUMNS: Record<string, string[]> = { account_codes: ["code"] };
 
 export interface FakeDb {
   tables: Map<string, Row[]>;
@@ -56,7 +60,7 @@ function likeToRegExp(pattern: string): RegExp {
 type Filter = (row: Row) => boolean;
 
 class Query implements PromiseLike<Result> {
-  private action: "select" | "upsert" | "delete" = "select";
+  private action: "select" | "upsert" | "insert" | "delete" = "select";
   private filters: Filter[] = [];
   private orderBy: { column: string; ascending: boolean } | null = null;
   private max: number | null = null;
@@ -89,6 +93,12 @@ class Query implements PromiseLike<Result> {
 
   upsert(value: Row | Row[]): this {
     this.action = "upsert";
+    this.payload = Array.isArray(value) ? value : [value];
+    return this;
+  }
+
+  insert(value: Row | Row[]): this {
+    this.action = "insert";
     this.payload = Array.isArray(value) ? value : [value];
     return this;
   }
@@ -152,6 +162,16 @@ class Query implements PromiseLike<Result> {
       return { data: null, error: null };
     }
     let affected: Row[];
+    if (this.action === "insert") {
+      const keys = PRIMARY_KEYS[this.table] ?? ["id"];
+      const unique = UNIQUE_COLUMNS[this.table] ?? [];
+      for (const incoming of this.payload) {
+        const clash = rows.some((row) => keys.every((key) => row[key] === incoming[key]) || unique.some((column) => row[column] === incoming[column]));
+        if (clash) return { data: null, error: { message: `duplicate key value violates unique constraint on ${this.table}` } };
+      }
+      for (const incoming of this.payload) rows.push({ ...incoming });
+      return { data: null, error: null };
+    }
     if (this.action === "upsert") {
       const keys = PRIMARY_KEYS[this.table] ?? ["id"];
       affected = this.payload.map((incoming) => {

@@ -7,7 +7,8 @@ import DossierBackup from "@/components/investigation/DossierBackup";
 import EntityGraphPanel from "@/components/investigation/EntityGraphPanel";
 import NotesWorkspace from "@/components/investigation/NotesWorkspace";
 import SourcesPanel from "@/components/investigation/SourcesPanel";
-import { ESPACE_ROOT, parseDossierView, type DossierView } from "@/lib/espace";
+import { ESPACE_ROOT, dossierHref, parseDossierView, type DossierView } from "@/lib/espace";
+import { duplicateDossier } from "@/lib/investigation/duplicate";
 import { ensureAttributePage, ensureFiche } from "@/lib/investigation/fiches";
 import { useDossier, useEntities, useInvestigationStorage, useNotes } from "@/lib/investigation/InvestigationContext";
 import styles from "./DossierWorkspace.module.css";
@@ -52,6 +53,20 @@ export default function DossierWorkspace() {
       window.localStorage.setItem(GRAPH_PREF, show ? "shown" : "hidden");
     } catch {
       // stockage indisponible : le choix vaut pour cette session
+    }
+  }
+
+  // « Faire une copie » : le dossier est dupliqué (nom + « (copie) ») et on travaille directement dedans, dans la même vue.
+  const [copying, setCopying] = useState(false);
+  async function makeCopy() {
+    if (copying) return;
+    setCopying(true);
+    try {
+      router.push(dossierHref(await duplicateDossier(storage, id), tab));
+    } catch {
+      window.alert("La copie a échoué : le dossier d'origine n'a pas été modifié.");
+    } finally {
+      setCopying(false);
     }
   }
 
@@ -108,7 +123,12 @@ export default function DossierWorkspace() {
           <span className={styles.title}>{dossier.name}</span>
           {dossier.description && <span className={styles.desc}>{dossier.description}</span>}
         </div>
-        <DossierBackup dossierId={dossier.id} dossierName={dossier.name} className={styles.ghostBtn} />
+        <div className={styles.headerActions}>
+          <button type="button" className={styles.ghostBtn} onClick={() => void makeCopy()} disabled={copying} title="Crée un dossier indépendant (copie) et l'ouvre">
+            {copying ? "Copie en cours…" : "Faire une copie"}
+          </button>
+          <DossierBackup dossierId={dossier.id} dossierName={dossier.name} className={styles.ghostBtn} />
+        </div>
       </div>
 
       <div className={styles.tabs}>
