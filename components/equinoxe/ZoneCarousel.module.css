@@ -123,6 +123,9 @@
   line-height: 1.3;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  hyphens: none;
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .empty {

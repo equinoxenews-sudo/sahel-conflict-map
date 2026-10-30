@@ -72,8 +72,10 @@
   font-size: 28px;
   line-height: 1.25;
   margin: 0 0 20px;
-  text-align: justify;
-  hyphens: auto;
+  text-align: left;
+  hyphens: none;
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .body {
@@ -92,6 +94,10 @@
   font-size: 18px;
   margin: 0 0 12px;
   color: var(--accent-gold-bright);
+  text-align: left;
+  hyphens: none;
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .paragraph {
