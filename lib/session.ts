@@ -7,19 +7,21 @@ import { useSyncExternalStore } from "react";
 export interface SessionState {
   /** Identifiant connecté, ou null. */
   user: string | null;
+  /** Identifiant normalisé du compte connecté (clé des données), ou null. */
+  id: string | null;
   /** Faux tant que la première lecture n'est pas revenue. */
   ready: boolean;
 }
 
 export const OPEN_LOGIN_EVENT = "equinoxe:open-login";
 
-const SERVER_STATE: SessionState = { user: null, ready: false };
+const SERVER_STATE: SessionState = { user: null, id: null, ready: false };
 let state: SessionState = SERVER_STATE;
 let started = false;
 const listeners = new Set<() => void>();
 
 function set(next: SessionState) {
-  if (next.user === state.user && next.ready === state.ready) return;
+  if (next.user === state.user && next.id === state.id && next.ready === state.ready) return;
   state = next;
   for (const listener of listeners) listener();
 }
@@ -28,10 +30,10 @@ function set(next: SessionState) {
 export async function refreshSession(): Promise<void> {
   try {
     const response = await fetch("/api/session", { cache: "no-store" });
-    const body = (await response.json()) as { user?: string | null };
-    set({ user: typeof body.user === "string" ? body.user : null, ready: true });
+    const body = (await response.json()) as { user?: string | null; id?: string | null };
+    set({ user: typeof body.user === "string" ? body.user : null, id: typeof body.id === "string" ? body.id : null, ready: true });
   } catch {
-    set({ user: state.user, ready: true });
+    set({ user: state.user, id: state.id, ready: true });
   }
 }
 
@@ -69,7 +71,7 @@ export async function login(identifier: string, password: string): Promise<void>
 
 export async function logout(): Promise<void> {
   await fetch("/api/admin/logout", { method: "POST" }).catch(() => undefined);
-  set({ user: null, ready: true });
+  set({ user: null, id: null, ready: true });
 }
 
 /** Ouvre la fenêtre de connexion (écoutée par LoginDialog, montée une fois dans la page). */

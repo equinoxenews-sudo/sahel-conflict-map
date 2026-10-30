@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { isAdmin } from "@/lib/adminAuth";
+import { currentAccount } from "@/lib/adminAuth";
+import { cloudOwnerOf } from "@/lib/accountScope";
 import {
   commitCloudUpload,
+  type CloudOwner,
   deleteCloudDossier,
   getCloudChunk,
   getCloudMeta,
@@ -17,11 +19,13 @@ type Context = { params: Promise<{ id: string }> };
 const UPLOAD_ID_PATTERN = /^[A-Za-z0-9_-]{8,80}$/;
 const MAX_CHUNKS = 400;
 
-async function guard(context: Context): Promise<{ id: string } | NextResponse> {
-  if (!(await isAdmin())) return NextResponse.json({ error: "Mot de passe requis.", code: "locked" }, { status: 401 });
+// Le propriétaire vient de la session, jamais de la requête : seul son identifiant de dossier est fourni par le navigateur.
+async function guard(context: Context): Promise<{ id: string; owner: CloudOwner } | NextResponse> {
+  const account = await currentAccount();
+  if (!account) return NextResponse.json({ error: "Connexion requise.", code: "locked" }, { status: 401 });
   const { id } = await context.params;
   if (!isValidDossierId(id)) return NextResponse.json({ error: "Identifiant de dossier invalide." }, { status: 400 });
-  return { id };
+  return { id, owner: cloudOwnerOf(account) };
 }
 
 function fail(error: unknown) {
@@ -34,12 +38,12 @@ export async function GET(request: Request, context: Context) {
   if (checked instanceof NextResponse) return checked;
   try {
     const params = new URL(request.url).searchParams;
-    const found = await getCloudMeta(checked.id);
+    const found = await getCloudMeta(checked.owner, checked.id);
     if (!found) return NextResponse.json({ error: "Dossier introuvable en ligne." }, { status: 404 });
 
     // Historique : ?versions=1 liste les versions conservées ; ?upload=ID[&seq=n] lit l'une d'elles.
     if (params.get("versions") !== null) {
-      const versions = await listCloudVersions(checked.id);
+      const versions = await listCloudVersions(checked.owner, checked.id);
       return NextResponse.json({
         versions: versions.map((version) => ({ ...version, current: version.uploadId === found.uploadId })),
       });
@@ -47,13 +51,13 @@ export async function GET(request: Request, context: Context) {
     const upload = params.get("upload");
     if (upload !== null) {
       if (!UPLOAD_ID_PATTERN.test(upload)) return NextResponse.json({ error: "Version invalide." }, { status: 400 });
-      const total = await getCloudVersionChunkCount(checked.id, upload);
+      const total = await getCloudVersionChunkCount(checked.owner, checked.id, upload);
       if (total === 0) return NextResponse.json({ error: "Version introuvable." }, { status: 404 });
       const part = params.get("seq");
       if (part === null) return NextResponse.json({ meta: { chunkCount: total } });
       const index = Number(part);
       if (!Number.isInteger(index) || index < 0 || index >= total) return NextResponse.json({ error: "Morceau inexistant." }, { status: 400 });
-      const chunk = await getCloudChunk(checked.id, upload, index);
+      const chunk = await getCloudChunk(checked.owner, checked.id, upload, index);
       if (chunk === null) return NextResponse.json({ error: "Morceau manquant : version incomplète." }, { status: 500 });
       return NextResponse.json({ seq: index, data: chunk });
     }
@@ -64,7 +68,7 @@ export async function GET(request: Request, context: Context) {
     if (!Number.isInteger(seq) || seq < 0 || seq >= found.meta.chunkCount) {
       return NextResponse.json({ error: "Morceau inexistant." }, { status: 400 });
     }
-    const data = await getCloudChunk(checked.id, found.uploadId, seq);
+    const data = await getCloudChunk(checked.owner, checked.id, found.uploadId, seq);
     if (data === null) return NextResponse.json({ error: "Morceau manquant : copie en ligne incomplète." }, { status: 500 });
     return NextResponse.json({ seq, data });
   } catch (error) {
@@ -90,7 +94,7 @@ export async function PUT(request: Request, context: Context) {
       if (data.length > MAX_CHUNK_CHARS) {
         return NextResponse.json({ error: "Morceau trop volumineux." }, { status: 413 });
       }
-      await putCloudChunk(checked.id, body.uploadId, seq, data);
+      await putCloudChunk(checked.owner, checked.id, body.uploadId, seq, data);
       return NextResponse.json({ ok: true });
     }
     if (body.action === "commit") {
@@ -98,7 +102,7 @@ export async function PUT(request: Request, context: Context) {
       if (typeof chunkCount !== "number" || !Number.isInteger(chunkCount) || chunkCount < 1 || chunkCount > MAX_CHUNKS) {
         return NextResponse.json({ error: "Nombre de morceaux invalide." }, { status: 400 });
       }
-      const meta = await commitCloudUpload({
+      const meta = await commitCloudUpload(checked.owner, {
         dossierId: checked.id,
         uploadId: body.uploadId,
         chunkCount,
@@ -119,7 +123,7 @@ export async function DELETE(_request: Request, context: Context) {
   const checked = await guard(context);
   if (checked instanceof NextResponse) return checked;
   try {
-    await deleteCloudDossier(checked.id);
+    await deleteCloudDossier(checked.owner, checked.id);
     return NextResponse.json({ ok: true });
   } catch (error) {
     return fail(error);

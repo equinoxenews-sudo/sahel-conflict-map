@@ -2,7 +2,9 @@
 // dans IndexedDB, pas dans localStorage : celui-ci est limité à environ 5 Mo,
 // quelques photos suffiraient à le remplir. Rien n'est envoyé à un serveur.
 // Une image est réduite avant stockage (côté navigateur) pour rester légère.
-const DB_NAME = "equinoxe-investigation-images";
+import { scopedKey } from "./scope";
+
+const DB_BASE_NAME = "equinoxe-investigation-images";
 const STORE = "images";
 const MAX_SIDE_PX = 512;
 /** Captures d'écran et documents : assez grands pour rester lisibles (texte, détails). */
@@ -14,7 +16,7 @@ const ACCEPTED_TYPES = ["image/png", "image/jpeg", "image/webp", "image/gif"];
 
 function openDb(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, 1);
+    const request = indexedDB.open(scopedKey(DB_BASE_NAME), 1);
     request.onupgradeneeded = () => request.result.createObjectStore(STORE);
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error ?? new Error("IndexedDB indisponible"));

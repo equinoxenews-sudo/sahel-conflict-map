@@ -2,8 +2,9 @@
 // de celle des images des fiches. Le fichier reste dans le navigateur ; seule sa description (nom, type,
 // taille) est dans la source. Les fichiers suivent l'export JSON du dossier, la sauvegarde manuelle et la
 // copie en ligne, comme les images.
+import { scopedKey } from "./scope";
 
-const DB_NAME = "equinoxe-investigation-files";
+const DB_BASE_NAME = "equinoxe-investigation-files";
 const STORE = "files";
 
 /** Taille maximale d'un document-preuve. */
@@ -46,7 +47,7 @@ export function formatFileSize(bytes: number): string {
 
 function openDb(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, 1);
+    const request = indexedDB.open(scopedKey(DB_BASE_NAME), 1);
     request.onupgradeneeded = () => request.result.createObjectStore(STORE);
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error ?? new Error("IndexedDB indisponible"));

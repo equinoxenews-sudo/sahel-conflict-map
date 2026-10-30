@@ -11,7 +11,7 @@ interface LoginFormProps {
   submitLabel?: string;
 }
 
-// Identifiant + mot de passe. Pas de création de compte : le compte est unique.
+// Identifiant + mot de passe. Pas de création de compte : les comptes sont créés à la main (scripts/create-account.ts).
 export default function LoginForm({ onSuccess, hint, submitLabel = "Se connecter" }: LoginFormProps) {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");

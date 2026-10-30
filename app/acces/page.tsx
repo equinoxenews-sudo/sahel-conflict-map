@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { isAdmin } from "@/lib/adminAuth";
+import { currentAccount } from "@/lib/adminAuth";
 import { safeReturnPath } from "@/lib/siteGate";
 import AccessForm from "./AccessForm";
 import styles from "./acces.module.css";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 // Page de connexion de la porte d'entrée (voir proxy.ts) : identifiant et mot de passe du compte.
 export default async function AccessPage({ searchParams }: { searchParams: Promise<{ retour?: string }> }) {
   const target = safeReturnPath((await searchParams).retour);
-  if (await isAdmin()) redirect(target);
+  if (await currentAccount()) redirect(target);
   return (
     <main className={styles.page}>
       <div className={styles.card}>

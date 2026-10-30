@@ -1,6 +1,8 @@
 "use client";
 
-import { createContext, useContext, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useSession } from "../session";
+import { setStorageScope } from "./scope";
 import { createLocalStorageEngine, type InvestigationStorage } from "./storage";
 import { emptyInvestigationData, type InvestigationData } from "./types";
 
@@ -17,13 +19,28 @@ const InvestigationReactContext = createContext<InvestigationContextValue | null
 // time, which loops forever.
 const EMPTY_DATA = emptyInvestigationData();
 
-export function InvestigationProvider({ children }: { children: ReactNode }) {
+interface InvestigationProviderProps {
+  /** Portée des données du navigateur, décidée par le serveur d'après le compte : "" pour le fondateur (clés d'origine), sinon l'identifiant du compte. */
+  scope: string;
+  /** Identifiant du compte connecté tel que le serveur l'a vu en construisant la page, ou null (développement local sans mot de passe). */
+  accountId: string | null;
+  children: ReactNode;
+}
+
+export function InvestigationProvider({ scope, accountId, children }: InvestigationProviderProps) {
   // Lazy useState initializer (not a ref) — the linter's react-hooks/refs
   // rule flags reading `ref.current` during render even for a once-only
   // lazy-init pattern, so useState's own once-only initializer is used
   // instead. Identity stays stable across renders since setStorage is
   // never called.
-  const [storage] = useState<InvestigationStorage>(() => createLocalStorageEngine());
+  const [storage] = useState<InvestigationStorage>(() => {
+    // La portée est posée AVANT la création du moteur : il n'existe aucun moment où les données d'un autre compte (ou celles
+    // du fondateur) seraient lues par défaut. Le layout remonte ce composant (key) si le compte change.
+    setStorageScope(scope);
+    return createLocalStorageEngine();
+  });
+
+  useScopeGuard(accountId);
 
   // useSyncExternalStore (not useState+useEffect) so the store — which
   // only exists in the browser (localStorage) — never mismatches between
@@ -34,6 +51,26 @@ export function InvestigationProvider({ children }: { children: ReactNode }) {
   const value = useMemo<InvestigationContextValue>(() => ({ data, storage }), [data, storage]);
 
   return <InvestigationReactContext.Provider value={value}>{children}</InvestigationReactContext.Provider>;
+}
+
+/**
+ * Garde-fou : la page a été construite pour un compte précis. Si la session du navigateur en désigne un autre (déconnexion et
+ * reconnexion dans un autre onglet, page restée ouverte), on recharge au lieu de laisser un compte travailler dans la page
+ * d'un autre. Un seul rechargement par fenêtre de dix secondes, pour ne jamais boucler.
+ */
+function useScopeGuard(accountId: string | null) {
+  const session = useSession();
+  useEffect(() => {
+    if (!session.ready || session.id === accountId) return;
+    try {
+      const last = Number(window.sessionStorage.getItem("equinoxe-scope-reload") ?? "0");
+      if (Date.now() - last < 10_000) return;
+      window.sessionStorage.setItem("equinoxe-scope-reload", String(Date.now()));
+    } catch {
+      // sessionStorage indisponible : on recharge quand même, une fois par montage
+    }
+    window.location.reload();
+  }, [session.ready, session.id, accountId]);
 }
 
 function useInvestigationContext(): InvestigationContextValue {

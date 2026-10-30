@@ -26,7 +26,7 @@ export default function InvestigationLogin({ configured, title = "Mon espace" }:
             <LoginForm hint="Espace privé. Entre ton identifiant et ton mot de passe pour continuer." onSuccess={() => router.refresh()} submitLabel="Entrer" />
           ) : (
             <p className={styles.error}>
-              Accès fermé : aucun mot de passe n&apos;est configuré sur le serveur (variable ADMIN_PASSWORD, à définir dans les réglages de
+              Accès fermé : aucune connexion n&apos;est configurée sur le serveur (variable ADMIN_PASSWORD, à définir dans les réglages de
               Vercel).
             </p>
           )}

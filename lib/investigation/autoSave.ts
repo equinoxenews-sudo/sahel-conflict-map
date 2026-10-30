@@ -3,6 +3,7 @@
 // ligne plus récente que celle dont cet appareil est parti, ni une copie pleine par un dossier vide. Un dossier
 // que cet appareil n'a pas modifié depuis la dernière synchronisation se met à jour tout seul, sans question.
 import type { InvestigationData } from "./types";
+import { scopedKey } from "./scope";
 
 /** Ce que cet appareil sait de la dernière synchronisation d'un dossier. */
 export interface SyncBase {
@@ -32,7 +33,7 @@ export type AutoSaveDecision =
   /** Le dossier est vide ici alors qu'il est plein en ligne : ne rien envoyer. */
   | "protect";
 
-export const SYNC_BASES_KEY = "equinoxe-investigation-sync-v1";
+export const SYNC_BASES_BASE_KEY = "equinoxe-investigation-sync-v1";
 
 function hash(text: string): string {
   // FNV-1a 32 bits : une empreinte de détection de changement, pas de la cryptographie.
@@ -94,7 +95,7 @@ export function decideAutoSave(input: {
 
 export function readSyncBases(): SyncBases {
   try {
-    const raw = window.localStorage.getItem(SYNC_BASES_KEY);
+    const raw = window.localStorage.getItem(scopedKey(SYNC_BASES_BASE_KEY));
     const parsed = raw ? (JSON.parse(raw) as { bases?: SyncBases }) : null;
     return parsed?.bases ?? {};
   } catch {
@@ -104,7 +105,7 @@ export function readSyncBases(): SyncBases {
 
 export function readIgnoredRemote(): string[] {
   try {
-    const raw = window.localStorage.getItem(SYNC_BASES_KEY);
+    const raw = window.localStorage.getItem(scopedKey(SYNC_BASES_BASE_KEY));
     const parsed = raw ? (JSON.parse(raw) as { ignored?: string[] }) : null;
     return parsed?.ignored ?? [];
   } catch {
@@ -114,7 +115,7 @@ export function readIgnoredRemote(): string[] {
 
 function writeState(bases: SyncBases, ignored: string[]): void {
   try {
-    window.localStorage.setItem(SYNC_BASES_KEY, JSON.stringify({ bases, ignored }));
+    window.localStorage.setItem(scopedKey(SYNC_BASES_BASE_KEY), JSON.stringify({ bases, ignored }));
   } catch {
     // stockage indisponible : la prochaine vérification redemandera, sans rien écraser
   }

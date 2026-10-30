@@ -2,6 +2,7 @@
 // localStorage). Elles protègent d'une fausse manipulation, d'un écrasement ou d'une perte
 // partielle : on peut revenir à une version précédente du dossier. Rien n'est envoyé à un serveur.
 // Une sauvegarde contient le dossier complet, images comprises (même format que l'export JSON).
+import { scopedKey } from "./scope";
 
 export type BackupKind = "manual" | "auto" | "before-restore";
 
@@ -65,13 +66,13 @@ export function backupsToDelete(list: BackupMeta[]): string[] {
 
 // --- IndexedDB -----------------------------------------------------------------------------
 
-const DB_NAME = "equinoxe-investigation-backups";
+const DB_BASE_NAME = "equinoxe-investigation-backups";
 const META = "meta";
 const DATA = "data";
 
 function openDb(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, 1);
+    const request = indexedDB.open(scopedKey(DB_BASE_NAME), 1);
     request.onupgradeneeded = () => {
       const db = request.result;
       const meta = db.createObjectStore(META, { keyPath: "id" });

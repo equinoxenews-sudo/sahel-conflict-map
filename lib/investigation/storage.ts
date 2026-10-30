@@ -18,8 +18,10 @@ import { applyEntityMerge } from "./mergeData";
 import { replaceCitationIds } from "./citations";
 import { deleteFile, getFile, putFile } from "./fileStore";
 import { blobToDataUrl, dataUrlToBlob, deleteImage, getImage, putImage } from "./imageStore";
+import { scopedKey } from "./scope";
 
-const STORAGE_KEY = "equinoxe-investigation-v1";
+/** Clé historique du navigateur (celle du fondateur, inchangée) ; les comptes individuels ont la leur, voir scope.ts. */
+export const STORAGE_BASE_KEY = "equinoxe-investigation-v1";
 
 function newId(): string {
   return crypto.randomUUID();
@@ -149,18 +151,18 @@ function parseRaw(raw: string | null): InvestigationData | null {
   }
 }
 
-function readRaw(): InvestigationData {
+function readRaw(key: string): InvestigationData {
   try {
-    return parseRaw(window.localStorage.getItem(STORAGE_KEY)) ?? emptyInvestigationData();
+    return parseRaw(window.localStorage.getItem(key)) ?? emptyInvestigationData();
   } catch {
     return emptyInvestigationData();
   }
 }
 
 /** Données du navigateur à l'instant T, ou null si elles sont illisibles (on n'écrase alors rien). */
-function readLatest(): { data: InvestigationData; raw: string | null } | null {
+function readLatest(key: string): { data: InvestigationData; raw: string | null } | null {
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw = window.localStorage.getItem(key);
     const data = parseRaw(raw);
     return data ? { data, raw } : null;
   } catch {
@@ -168,9 +170,9 @@ function readLatest(): { data: InvestigationData; raw: string | null } | null {
   }
 }
 
-function writeRaw(data: InvestigationData): string {
+function writeRaw(data: InvestigationData, key: string): string {
   const raw = JSON.stringify(data);
-  window.localStorage.setItem(STORAGE_KEY, raw);
+  window.localStorage.setItem(key, raw);
   return raw;
 }
 
@@ -187,12 +189,14 @@ function writeRaw(data: InvestigationData): string {
  * is only ever replaced by `mutate()`, right before it calls `emit()`.
  */
 export function createLocalStorageEngine(): InvestigationStorage {
+  // La clé est figée à la création du moteur : un moteur ne lit ni n'écrit jamais dans l'espace d'un autre compte.
+  const key = scopedKey(STORAGE_BASE_KEY);
   const listeners = new Set<Listener>();
-  let cached: InvestigationData = readRaw();
+  let cached: InvestigationData = readRaw(key);
   // Dernier contenu connu du navigateur : sert à détecter qu'un autre onglet a modifié les données.
   let lastRaw: string | null = null;
   try {
-    lastRaw = window.localStorage.getItem(STORAGE_KEY);
+    lastRaw = window.localStorage.getItem(key);
   } catch {
     lastRaw = null;
   }
@@ -205,7 +209,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
   // du navigateur : cet onglet reprend alors la version la plus récente au lieu d'écraser le travail
   // des autres avec sa copie en mémoire.
   function syncFromBrowser() {
-    const latest = readLatest();
+    const latest = readLatest(key);
     if (!latest || latest.raw === lastRaw) return;
     lastRaw = latest.raw;
     cached = latest.data;
@@ -213,7 +217,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
   }
   if (typeof window !== "undefined") {
     window.addEventListener("storage", (event) => {
-      if (event.key === null || event.key === STORAGE_KEY) syncFromBrowser();
+      if (event.key === null || event.key === key) syncFromBrowser();
     });
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "visible") syncFromBrowser();
@@ -223,10 +227,10 @@ export function createLocalStorageEngine(): InvestigationStorage {
   function mutate(fn: (data: InvestigationData) => void): void {
     // Toute modification s'applique aux données les plus récentes du navigateur, pas à la copie
     // éventuellement périmée de cet onglet.
-    const latest = readLatest();
+    const latest = readLatest(key);
     const next = { ...(latest ? latest.data : cached) };
     fn(next);
-    lastRaw = writeRaw(next);
+    lastRaw = writeRaw(next, key);
     cached = next;
     emit();
   }
@@ -317,10 +321,10 @@ export function createLocalStorageEngine(): InvestigationStorage {
     },
 
     restoreGraph(dossierId, slice) {
-      const latest = readLatest();
+      const latest = readLatest(key);
       const base = latest ? latest.data : cached;
       const next = applyGraphSlice(base, dossierId, slice);
-      lastRaw = writeRaw(next);
+      lastRaw = writeRaw(next, key);
       cached = next;
       emit();
     },
@@ -328,7 +332,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
     restoreSnapshot(before, after) {
       // Refusé si autre chose a été modifié depuis : on n'écrase jamais un travail plus récent.
       if (cached !== after) return false;
-      writeRaw(before);
+      writeRaw(before, key);
       cached = before;
       emit();
       return true;
@@ -493,7 +497,7 @@ export function createLocalStorageEngine(): InvestigationStorage {
 
     async exportDossier(dossierId, options) {
       // Les données les plus récentes du navigateur : un onglet resté ouvert ne doit pas envoyer une version périmée.
-      const data = readLatest()?.data ?? cached;
+      const data = readLatest(key)?.data ?? cached;
       const entities = data.entities.filter((e) => e.dossierId === dossierId);
       const images: Record<string, string> = {};
       const notes = data.notes.filter((n) => n.dossierId === dossierId);
