@@ -1,6 +1,7 @@
 // Traduction française des fiches d'outils de la carte OSINT (Mon espace > Outils). Logique pure, sans réseau :
 // l'appel à l'API est dans scripts/translate-osint-framework.ts. Testée dans tests/osint-framework.test.ts.
 import { TRANSLATED_FIELDS, type OsintNode, type OsintTranslation, type OsintTranslations } from "./osintFramework";
+import { FRENCH_STYLE_RULES } from "./frenchStyle";
 
 type Field = (typeof TRANSLATED_FIELDS)[number];
 
@@ -55,6 +56,7 @@ Règles :
 - Traduis fidèlement, simplement, en phrases courtes. N'ajoute aucune information et n'interprète rien.
 - Garde tels quels les noms de produits et de sites, les sigles et les termes techniques d'usage courant (OSINT, API, IP, DNS, WHOIS, Tor, Google Dork, OpSec, CLI, URL…).
 - Ne traduis pas les adresses web, les noms de fichiers, de plateformes ni les exemples saisis.
+${FRENCH_STYLE_RULES}
 - Rends exactement les mêmes champs que ceux fournis pour chaque \`id\`, sans en ajouter ni en retirer.
 
 Réponds UNIQUEMENT avec un tableau JSON valide, sans texte ni markdown autour, au même format que l'entrée (mêmes \`id\`, mêmes clés).

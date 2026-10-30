@@ -1,3 +1,4 @@
+import { FRENCH_STYLE_RULES } from "./frenchStyle";
 // Veille hebdomadaire OSINT et IA (Mon espace > Menu) : sources, tri des articles de la semaine et consigne donnée au
 // modèle. Logique pure, sans réseau : la collecte et l'enregistrement sont dans scripts/veille-osint.ts. Testée dans
 // tests/veille-osint.test.ts.
@@ -118,6 +119,8 @@ ${JSON.stringify(list)}
 Choisis ${want} articles, les plus utiles pour un enquêteur. Retiens le nombre demandé dès qu'il y en a assez qui ne sont pas à écarter ; n'en retiens moins que si tous les autres sont à écarter (jusqu'à aucun).
 Sont utiles : méthodes, outils, enquêtes documentées en sources ouvertes (y compris celles de journalistes : imagerie satellite, vérification, géolocalisation), retours d'expérience, nouveautés sur l'OSINT ou l'IA appliquée à l'enquête, et les lettres hebdomadaires de veille spécialisées quand elles présentent des contenus substantiels.
 Sont à écarter : publicités, annonces d'événements ou de formations payantes, offres d'emploi, tests de matériel grand public (caméras embarquées, liseuses…), simples relais de promotion et doublons.
+
+${FRENCH_STYLE_RULES}
 
 Pour chaque article choisi, écris en français :
 - "titre" : titre fidèle et naturel, ${MAX_TITLE_FR} caractères au plus, sans guillemets autour ;

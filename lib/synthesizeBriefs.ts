@@ -5,6 +5,7 @@ import {
 import { meetsImportance, type AiUsage } from "./aiBudget";
 import { wellFormed } from "./wellFormed";
 import { findEnglishWord } from "./englishLeak";
+import { findFranglais, FRENCH_STYLE_RULES } from "./frenchStyle";
 import {
   AnthropicApiError, classifyApiError, describeApiError, parseRetryAfter, retryDelayMs,
   type ApiErrorInfo, type ApiErrorKind,
@@ -131,6 +132,8 @@ Classe chaque synthèse avec : primaryTheme = le sujet dominant, EXACTEMENT une 
 
 Règles strictes : n'utilise QUE les informations présentes dans les textes ci-dessus. N'invente aucun fait, aucune citation, aucun chiffre, aucune date qui n'y figure pas explicitement — étoffer veut dire exploiter tout le texte source fourni et l'éclairer par le contexte (brèves précédentes, faits durables et notoires), jamais ajouter un fait nouveau, un chiffre ou une citation qui n'y figure pas. Rédaction neutre, factuelle et journalistique en français. Le titre, l'accroche, les intertitres et le texte sont ENTIÈREMENT en français : traduis les mots et tournures anglais des sources (par exemple « deepening » devient « approfondissement », « amid » devient « dans un contexte de »). Seuls les noms propres, les sigles et les noms d'organisations ou de médias restent dans leur langue d'origine.
 
+${FRENCH_STYLE_RULES}
+
 ${analyst ? analystRules() : ""}
 
 Réponds UNIQUEMENT avec un tableau JSON valide, sans texte ni markdown autour, au format exact :
@@ -236,6 +239,8 @@ export function parseResponse(
     if (analyst && !telegramOnlyGroupAllowed(sources)) continue;
     // Un titre ou une accroche qui garde un mot anglais n'est jamais publié : les sources restent à traiter au prochain passage.
     if (findEnglishWord(title) || findEnglishWord(excerpt)) continue;
+    // Idem pour un anglicisme voyant (« brokérisé », « rafles forcées » pour un recrutement) dans le titre, l'accroche ou un intertitre.
+    if ([title, excerpt, ...sections.map((section) => section.heading ?? "")].some((text) => findFranglais(text))) continue;
     const old = existingBriefId == null ? undefined : previous.find((brief) => brief.id === existingBriefId);
     if (existingBriefId != null && (!old || usedPreviousIds.has(old.id))) continue;
     const citations = new Map<string, string>();

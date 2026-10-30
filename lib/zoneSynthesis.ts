@@ -3,6 +3,7 @@ import { addUsage, EMPTY_USAGE, usageFromResponse, type AiUsage } from "./aiBudg
 import { stripMarkup } from "./citationTags";
 import { SYNTHESIS_ALLOWED_DOMAINS } from "./synthesisSources";
 import { resolveTheme, themeLabel } from "./themes";
+import { FRENCH_STYLE_RULES } from "./frenchStyle";
 
 const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
 // Changeable sans redéploiement via la variable SYNTHESIS_MODEL.
@@ -101,6 +102,7 @@ ${listing}
 ${webInstruction}
 
 Règles strictes :
+${FRENCH_STYLE_RULES}
 - N'affirme que ce qui figure dans les synthèses ci-dessus ou dans les pages consultées. N'invente aucun fait, chiffre, citation ni date.
 - Distingue les faits confirmés, les revendications d'une partie et les hypothèses. Reprends le statut de véracité : ne présente jamais un fait « Revendiqué », « Possible » ou « Non confirmé » comme établi. Attribue chaque affirmation sensible à sa source (« selon BBC », « selon le ministère… »).
 - Si des sources divergent, dis-le au lieu de trancher.

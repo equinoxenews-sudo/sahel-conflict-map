@@ -2,6 +2,7 @@ import { stripMarkup } from "./citationTags";
 import { isSportsText, isSportsTitle } from "./sportsFilter";
 import { isThemeKey, resolveTheme, themeLabel, themePromptList, THEMES, type ThemeKey } from "./themes";
 import { ZONE_APPROCHE_BOUNDS } from "./zoneMapViews";
+import { FRENCH_STYLE_RULES } from "./frenchStyle";
 
 /** Un événement numéroté d'un point de situation. */
 export interface SituationItem {
@@ -160,6 +161,7 @@ Produis :
 3. conclusion : une conclusion et des perspectives en deux paragraphes séparés par une ligne vide, « À court terme » puis « À moyen terme » (70 mots maximum chacun), qui découlent uniquement des événements retenus.
 
 Règles strictes :
+${FRENCH_STYLE_RULES}
 - N'affirme que ce qui figure dans les synthèses ci-dessus. N'invente aucun fait, chiffre, citation, date ni lieu.
 - Respecte le statut de véracité ou l'indice de confiance : ne présente comme établi qu'un fait « Confirmé », « Hautement probable » ou « Très probable » ; tout fait « Revendiqué », « Probable », « Possible », « Peu probable », « Improbable » ou « Non confirmé » est attribué (« selon… », « revendiqué par… ») ou signalé comme non vérifié.
 - Regroupe en un seul événement les synthèses qui décrivent le même fait ; n'en répète pas.
