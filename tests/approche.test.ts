@@ -466,6 +466,23 @@ test("les fiches publiées par le dépôt valident leur propre schéma, version 
   assert.equal(CountryDataSchema.safeParse({ ...(readJson("docs/exemples/APPROCHE_EXEMPLE.json") as object), schemaVersion: 2 }).success, false, "une version inconnue est refusée, jamais lue de travers");
 });
 
+test("schemaVersion est obligatoire : un fichier sans version est refusé, et chaque fiche du dépôt la porte", () => {
+  const { schemaVersion: _omitted, ...withoutVersion } = data();
+  const parsed = CountryDataSchema.safeParse(withoutVersion);
+  assert.equal(parsed.success, false);
+  assert.ok(!parsed.success && parsed.error.issues.some((issue) => issue.path[0] === "schemaVersion"));
+  for (const name of fs.readdirSync("data/approche").filter((file) => /^[A-Z]{3}\.json$/.test(file))) {
+    assert.equal((readJson(`data/approche/${name}`) as { schemaVersion?: unknown }).schemaVersion, 1, `${name} doit déclarer "schemaVersion": 1`);
+  }
+});
+
+test("une clé d'observation ne peut être portée que par une valeur : aucun écrasement silencieux entre fichiers fusionnés", () => {
+  const twin = observation({ id: "x-2", value: 2, sourceIds: ["S1"] });
+  const problems = publishProblems(data({ observations: [observation(), twin] }));
+  assert.ok(problems.some((problem) => problem.includes("x-2") && problem.includes("economy.gdp_growth") && problem.includes("x-1")), problems.join("\n"));
+  assert.deepEqual(publishProblems(data({ observations: [observation(), observation({ id: "x-3", key: "economy.unemployment" })] })), []);
+});
+
 test("les fichiers invalides de démonstration d'erreurs échouent comme documenté", () => {
   const structure = CountryDataSchema.safeParse(readJson("tests/fixtures/approche-invalide-structure.json"));
   assert.equal(structure.success, false);

@@ -51,8 +51,8 @@ Plusieurs fichiers d'un coup : `npm run approche:validate -- data/approche/MLI.j
 
 **Ce que la commande contrôle**
 
-1. **Structure** (Zod) : champs obligatoires, types, dates `AAAA-MM-JJ`, adresses complètes, valeurs permises, `schemaVersion`.
-2. **Publication** : chaque valeur, affirmation, relation et élément de module a au moins une source connue ; aucune source exclue (SIPRI, y compris relayée : `originalPublisher`) ; aucune observation « verified » sans date de vérification ou sans valeur ; aucun `demo: true` ; aucune image sans licence commerciale confirmée.
+1. **Structure** (Zod) : champs obligatoires, types, dates `AAAA-MM-JJ`, adresses complètes, valeurs permises, `schemaVersion` (**obligatoire** : `"schemaVersion": 1`, un fichier sans version ou avec une autre version est refusé).
+2. **Publication** : une seule observation par `key` ; chaque valeur, affirmation, relation et élément de module a au moins une source connue ; aucune source exclue (SIPRI, y compris relayée : `originalPublisher`) ; aucune observation « verified » sans date de vérification ou sans valeur ; aucun `demo: true` ; aucune image sans licence commerciale confirmée.
 3. **Références** : toute `sourceIds` mène à une source ; tout `observationKey` à une observation ; tout `imageId` à une image du catalogue ; tout `parentId` à un nœud ; toute opération reliée à un objet de carte existant ; pas d'identifiant en double.
 
 **Résultat** : code de sortie `0` et ligne `✔ … valide (…)` si tout est bon ; code `1` et la liste des problèmes sinon. Les lignes `!` sont des **avertissements** (licence « unknown » à vérifier, lien injoignable) : à traiter avant publication, sans bloquer la validation.
@@ -82,6 +82,23 @@ Exemple d'erreurs de publication (`tests/fixtures/approche-invalide-publication.
    - modules.defense.kpis[0] : observation inconnue « defense.inconnue » (observationKey)
    - modules.defense.organization « org-2 » : parent inconnu « org-absent »
 ```
+
+### Couches de données : fichier éditorial et séries automatiques
+
+Une fiche publiée est la **fusion** de trois fichiers au plus (`lib/approche/repository.ts`) : `<ISO3>.json` (éditorial, saisi), puis `<ISO3>.worldbank.json` et `<ISO3>.eurostat.json` (statistiques, produits par `scripts/sync-approche-*.ts`). La fusion **ajoute** les `sources[]` et les `observations[]` des fichiers automatiques à ceux du fichier éditorial ; le reste (identité, `claims`, `relationships`, `modules`) vient uniquement du fichier éditorial. Les règles, telles que le code les applique :
+
+- **Pas de priorité entre couches : une clé = une valeur.** Si une même `key` apparaît deux fois dans la fiche fusionnée (deux observations, deux fichiers), la publication est **refusée** (`clé « … » déjà portée par …`). Aucune couche n'écrase l'autre en silence. Pour comparer deux mesures d'un même sujet (ex. population Banque mondiale et Eurostat), utiliser deux clés différentes qui partagent le même `topic` : l'interface les affiche côte à côte, jamais en moyenne.
+- **Qui possède quelles clés.** Banque mondiale : `demography.population`, `economy.gdp_nominal_usd`, `economy.gdp_per_capita_usd`, `economy.gdp_growth`, `economy.inflation_cpi`, `labour.unemployment_ilo`, `geography.surface_area`, `research.rd_gdp`. Eurostat : `economy.value_added*`, `economy.public_debt_gdp`, `energy.import_dependency`. **Ces séries ne se recopient pas** dans `<ISO3>.json` : le fichier éditorial ne porte que ce que les scripts ne produisent pas. Une série qu'on veut éditorialiser porte une autre clé.
+- **Périodes.** Une observation porte une seule valeur (la plus récente publiée) et son historique dans `history[]` (période, valeur). Les doublons de période se règlent dans la série source, pas à la fusion.
+- **Fraîcheur.** Chaque fichier automatique porte `fetchedAt` ; chaque observation, `collectedAt` et `verifiedAt`. Le rafraîchissement se relance par script ; ce qui n'est pas relancé vieillit mais reste daté.
+- **Valeur `pending`.** Une observation `pending` (valeur `null` ou non vérifiée) ne s'affiche jamais comme un fait : elle est comptée pour le suivi éditorial, l'interface affiche « Donnée non disponible ». Elle n'est jamais complétée par une autre couche.
+- **Exclusions.** Les règles de licence s'appliquent à la fiche fusionnée : une source SIPRI (ou relayée, `originalPublisher`) dans n'importe quelle couche fait refuser la publication.
+
+### Synthèse du HERO, textes libres et licences
+
+- **`hero.summary`** : texte libre **sans source**. L'interface affiche d'abord les `claims[]` vérifiés (datés, sourcés) ; `hero.summary` n'est qu'un repli quand il n'y a aucune affirmation vérifiée. **À privilégier : des `claims[]`, pas de `hero.summary`.** La validation émet un avertissement si `hero.summary` est renseigné.
+- **`hero.tagline`** : formule neutre d'identification (ex. un positionnement géographique), sans fait chiffré, sans jugement. Un avertissement le rappelle. Un champ `hero.sourceIds` (ou des `claimIds`) pourra être ajouté plus tard, de façon additive, sans refonte.
+- **Licence `unknown` ≠ autorisée.** `reuse: "unknown"` n'est **jamais** converti en réutilisation commerciale : citer un fait n'est pas republier une image, un jeu de données ou un long texte. Le code refuse les images sans `commercialReuseAllowed` confirmé ; les sources `unknown` restent signalées par avertissement jusqu'à la relecture éditoriale ; `citation_only` limite à la brève citation de faits.
 
 ## 4. Ce qui reste du côté de Claude (intégration)
 

@@ -62,6 +62,12 @@ async function main() {
     const problems = publishProblems(data);
     const warnings: string[] = [];
     if (data.publication === "published" && data.lastCheckedAt === null) warnings.push("fiche « published » sans date de dernière vérification (lastCheckedAt)");
+    const hero = data.modules.hero;
+    if (hero?.summary) {
+      const replaced = data.claims.some((claim) => claim.status === "verified");
+      warnings.push(`modules.hero.summary : texte libre non sourcé${replaced ? ", ignoré à l'affichage car des affirmations vérifiées (claims) existent" : " — préférer des affirmations (claims) datées et sourcées"}`);
+    }
+    if (hero?.tagline) warnings.push("modules.hero.tagline : texte libre non sourcé — une formule neutre d'identification, sans fait chiffré ni jugement");
     const pending = data.observations.filter((observation) => observation.status === "pending").length;
     const unknownLicense = data.sources.filter((source) => source.reuse === "unknown").length;
     if (unknownLicense > 0) warnings.push(`${unknownLicense} source(s) dont la licence de réutilisation n'est pas vérifiée (reuse: "unknown")`);

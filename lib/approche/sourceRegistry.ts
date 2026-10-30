@@ -79,9 +79,14 @@ export function publishProblems(data: CountryData): string[] {
     }
   };
   const seen = new Set<string>();
+  const seenKeys = new Map<string, string>();
   for (const observation of data.observations) {
     if (seen.has(observation.id)) problems.push(`observation en double : ${observation.id}`);
     seen.add(observation.id);
+    // Une clé désigne une seule valeur affichée : sans ce contrôle, la dernière lue (souvent un fichier statistique fusionné) écraserait l'autre en silence.
+    const sameKey = seenKeys.get(observation.key);
+    if (sameKey) problems.push(`observation ${observation.id} : clé « ${observation.key} » déjà portée par ${sameKey} (une valeur par clé)`);
+    else seenKeys.set(observation.key, observation.id);
     check("observation", observation.id, observation.sourceIds);
     if (observation.status === "verified" && observation.verifiedAt === null) problems.push(`observation ${observation.id} : « verified » sans date de vérification`);
     if (observation.status === "verified" && observation.value === null) problems.push(`observation ${observation.id} : « verified » sans valeur`);

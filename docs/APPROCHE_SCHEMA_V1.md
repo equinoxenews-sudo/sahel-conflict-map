@@ -188,7 +188,7 @@ Les liens entre éléments sont contrôlés : toute `sourceIds` mène à une sou
 
 ## 6. Versions et migration
 
-- **Version du fichier** : `"schemaVersion": 1`, vérifiée à la lecture. Une version inconnue est **refusée** (jamais lue de travers).
+- **Version du fichier** : `"schemaVersion": 1`, **obligatoire** et vérifiée à la lecture. Une version inconnue est **refusée** (jamais lue de travers).
 - **Évolutions additives** (version 1 conservée) : nouveau champ ou module **facultatif**, nouvelle valeur d'énumération qui n'invalide aucun fichier existant, nouvelle clé d'observation. Un fichier v1 déjà livré reste valide sans modification ; les fichiers générés (`approche.schema.v1.json`, dictionnaire, clés lues) sont régénérés et les tests les vérifient.
 - **Évolutions non additives** (champ renommé ou supprimé, type modifié, champ devenu obligatoire) : création d'un **schéma 2**. Le moteur lit alors les deux versions pendant la période de migration ; un script de migration, écrit à ce moment-là, convertit les fichiers, la validation signale les fichiers non migrés, et la version 1 n'est retirée qu'après migration de tous les pays publiés.
 - **Journal** : toute évolution du schéma est notée dans `docs/APPROCHE_SCHEMA_V1.md` (cette section) avec sa date. Historique : 29/10/2026 — v1 ; 30/10/2026 — ajouts facultatifs `uncertainty` (observation), `originalPublisher` (source), champs de licence des images, contrôle des références internes.

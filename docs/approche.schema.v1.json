@@ -3,7 +3,6 @@
   "type": "object",
   "properties": {
     "schemaVersion": {
-      "default": 1,
       "type": "number",
       "const": 1,
       "description": "Version du schéma de fichier (1). Les évolutions sont additives : un fichier v1 reste lisible."
@@ -5269,6 +5268,7 @@
     }
   },
   "required": [
+    "schemaVersion",
     "countryCode",
     "slug",
     "zoneSlug",

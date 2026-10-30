@@ -6,7 +6,7 @@ Les chemins notent `[]` pour une liste. « Obligatoire » = le champ doit figure
 
 | Chemin | Type | Obligatoire | Défaut | Contraintes | Sens |
 |---|---|---|---|---|---|
-| `schemaVersion` | `1` | non | `1` |  | Version du schéma de fichier (1). Les évolutions sont additives : un fichier v1 reste lisible. |
+| `schemaVersion` | `1` | **oui** |  |  | Version du schéma de fichier (1). Les évolutions sont additives : un fichier v1 reste lisible. |
 | `countryCode` | texte | **oui** |  | exactement 3 caractères | Code ISO 3166-1 alpha-3 du pays, en majuscules (ex. FRA). |
 | `slug` | texte | **oui** |  | non vide | Identifiant d'adresse du pays tel qu'il existe sur le site (ex. france). |
 | `zoneSlug` | texte | **oui** |  | non vide | Zone du site à laquelle appartient le pays (ex. europe). |

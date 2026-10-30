@@ -110,8 +110,8 @@ export const PUBLICATION = ["draft", "review", "published", "archived"] as const
 
 /** Une fiche pays : identité, sources, observations et affirmations. */
 export const CountryDataSchema = z.object({
-  /** Version du schéma de fichier (voir docs/APPROCHE_SCHEMA_V1.md). */
-  schemaVersion: z.literal(SCHEMA_VERSION).default(SCHEMA_VERSION),
+  /** Version du schéma de fichier (voir docs/APPROCHE_SCHEMA_V1.md). Obligatoire : un fichier sans version n'est pas lu. */
+  schemaVersion: z.literal(SCHEMA_VERSION),
   countryCode: z.string().length(3),
   slug: z.string().min(1),
   zoneSlug: z.string().min(1),
