@@ -41,3 +41,14 @@ export function scopedKey(base: string): string {
   if (current === null) throw new Error("Portée de stockage non définie : aucun compte reconnu.");
   return scopedName(base, current);
 }
+
+let expectedAccount: string | null = null;
+
+/** Le compte pour lequel la page a été construite (posé par InvestigationProvider), joint aux requêtes de copie en ligne. */
+export function setExpectedAccount(accountId: string | null): void {
+  expectedAccount = accountId;
+}
+
+export function getExpectedAccount(): string | null {
+  return expectedAccount;
+}

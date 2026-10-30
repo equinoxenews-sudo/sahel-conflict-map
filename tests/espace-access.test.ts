@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
-import { cloudOwnerOf, storageScopeOf } from "../lib/accountScope";
+import { cloudOwnerOf, requestMatchesAccount, storageScopeOf } from "../lib/accountScope";
 import type { Account } from "../lib/accounts";
 import { ESPACE_NAV } from "../lib/espace";
 import { canOpenSection, lockedSections, navForAccount, sectionView } from "../lib/espaceAccess";
@@ -75,4 +75,19 @@ test("où vivent les données : le fondateur garde les emplacements d'origine, c
   // Même avec un identifiant « nicof », seule l'offre « owner » donne les emplacements du fondateur.
   assert.equal(cloudOwnerOf({ id: "nicof", tier: "plus" }), "nicof");
   assert.equal(storageScopeOf({ id: "nicof", tier: "plus" }), "nicof");
+});
+
+test("une page ouverte pour un compte ne parle pas à l'espace en ligne d'un autre", () => {
+  assert.equal(requestMatchesAccount("marc", MEMBER), true);
+  assert.equal(requestMatchesAccount("nicof", MEMBER), false);
+  assert.equal(requestMatchesAccount("", MEMBER), false);
+  assert.equal(requestMatchesAccount(null, MEMBER), false);
+  assert.equal(requestMatchesAccount("MARC", MEMBER), false);
+});
+
+test("les routes de la copie en ligne exigent l'en-tête du compte, et le client l'envoie", () => {
+  for (const route of ["app/api/investigation/cloud/route.ts", "app/api/investigation/cloud/[id]/route.ts"]) {
+    assert.ok(readFileSync(route, "utf8").includes("requestMatchesAccount("), route);
+  }
+  assert.ok(readFileSync("lib/investigation/cloudSync.ts", "utf8").includes("[ACCOUNT_HEADER]"));
 });

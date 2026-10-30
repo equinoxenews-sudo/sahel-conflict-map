@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { currentAccount } from "@/lib/adminAuth";
-import { cloudOwnerOf } from "@/lib/accountScope";
+import { ACCOUNT_HEADER, cloudOwnerOf, requestMatchesAccount } from "@/lib/accountScope";
 import {
   commitCloudUpload,
   type CloudOwner,
@@ -20,13 +20,18 @@ const UPLOAD_ID_PATTERN = /^[A-Za-z0-9_-]{8,80}$/;
 const MAX_CHUNKS = 400;
 
 // Le propriétaire vient de la session, jamais de la requête : seul son identifiant de dossier est fourni par le navigateur.
-async function guard(context: Context): Promise<{ id: string; owner: CloudOwner } | NextResponse> {
+async function guard(request: Request, context: Context): Promise<{ id: string; owner: CloudOwner } | NextResponse> {
   const account = await currentAccount();
   if (!account) return NextResponse.json({ error: "Connexion requise.", code: "locked" }, { status: 401 });
+  if (!requestMatchesAccount(request.headers.get(ACCOUNT_HEADER), account)) return ACCOUNT_CHANGED();
   const { id } = await context.params;
   if (!isValidDossierId(id)) return NextResponse.json({ error: "Identifiant de dossier invalide." }, { status: 400 });
   return { id, owner: cloudOwnerOf(account) };
 }
+
+// La page a été ouverte pour un autre compte que celui de la session : rien n'est lu ni écrit.
+const ACCOUNT_CHANGED = () =>
+  NextResponse.json({ error: "Le compte connecté a changé depuis l'ouverture de cette page : recharge la page.", code: "account_changed" }, { status: 409 });
 
 function fail(error: unknown) {
   return NextResponse.json({ error: error instanceof Error ? error.message : String(error) }, { status: 500 });
@@ -34,7 +39,7 @@ function fail(error: unknown) {
 
 // Lecture : sans paramètre, les informations du dossier ; avec ?seq=n, le morceau n.
 export async function GET(request: Request, context: Context) {
-  const checked = await guard(context);
+  const checked = await guard(request, context);
   if (checked instanceof NextResponse) return checked;
   try {
     const params = new URL(request.url).searchParams;
@@ -78,7 +83,7 @@ export async function GET(request: Request, context: Context) {
 
 // Envoi : une suite de { action: "chunk" } puis un { action: "commit" } qui bascule la version.
 export async function PUT(request: Request, context: Context) {
-  const checked = await guard(context);
+  const checked = await guard(request, context);
   if (checked instanceof NextResponse) return checked;
   const body = (await request.json().catch(() => null)) as Record<string, unknown> | null;
   if (!body || typeof body.uploadId !== "string" || !UPLOAD_ID_PATTERN.test(body.uploadId)) {
@@ -119,8 +124,8 @@ export async function PUT(request: Request, context: Context) {
   }
 }
 
-export async function DELETE(_request: Request, context: Context) {
-  const checked = await guard(context);
+export async function DELETE(request: Request, context: Context) {
+  const checked = await guard(request, context);
   if (checked instanceof NextResponse) return checked;
   try {
     await deleteCloudDossier(checked.owner, checked.id);

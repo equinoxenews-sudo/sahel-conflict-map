@@ -1,8 +1,8 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
-import { useSession } from "../session";
-import { setStorageScope } from "./scope";
+import { refreshSession, useSession } from "../session";
+import { setExpectedAccount, setStorageScope } from "./scope";
 import { createLocalStorageEngine, type InvestigationStorage } from "./storage";
 import { emptyInvestigationData, type InvestigationData } from "./types";
 
@@ -37,6 +37,7 @@ export function InvestigationProvider({ scope, accountId, children }: Investigat
     // La portée est posée AVANT la création du moteur : il n'existe aucun moment où les données d'un autre compte (ou celles
     // du fondateur) seraient lues par défaut. Le layout remonte ce composant (key) si le compte change.
     setStorageScope(scope);
+    setExpectedAccount(accountId);
     return createLocalStorageEngine();
   });
 
@@ -60,6 +61,18 @@ export function InvestigationProvider({ scope, accountId, children }: Investigat
  */
 function useScopeGuard(accountId: string | null) {
   const session = useSession();
+  // Au retour sur l'onglet : la session a pu changer ailleurs (autre onglet du même navigateur) pendant qu'il était en arrière-plan.
+  useEffect(() => {
+    const recheck = () => {
+      if (document.visibilityState === "visible") void refreshSession();
+    };
+    document.addEventListener("visibilitychange", recheck);
+    window.addEventListener("focus", recheck);
+    return () => {
+      document.removeEventListener("visibilitychange", recheck);
+      window.removeEventListener("focus", recheck);
+    };
+  }, []);
   useEffect(() => {
     if (!session.ready || session.id === accountId) return;
     try {

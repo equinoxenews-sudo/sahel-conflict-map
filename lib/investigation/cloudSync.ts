@@ -3,8 +3,10 @@
 // « envoyer » en dépose une copie sur le serveur (protégée par le mot de passe), « récupérer »
 // la rapatrie sur un autre appareil. Un dossier est découpé en morceaux : la limite d'une requête
 // sur l'hébergeur est de 4,5 Mo, et les images (en data URL) pèsent vite plusieurs Mo.
+import { ACCOUNT_HEADER } from "../accountScope";
 import { dossierContentCount, dossierSignature, saveSyncBase } from "./autoSave";
 import { saveBackup, type BackupMeta } from "./backups";
+import { getExpectedAccount } from "./scope";
 import type { InvestigationStorage } from "./storage";
 
 export interface CloudDossier {
@@ -40,12 +42,16 @@ export function splitIntoChunks(text: string, size: number = CHUNK_CHARS): strin
   return chunks;
 }
 
+// Chaque requête dit pour quel compte la page a été construite : le serveur refuse si la session du navigateur est devenue
+// celle d'un autre compte (voir requestMatchesAccount).
+// Chaque requête dit pour quel compte la page a été construite : le serveur refuse si la session du navigateur est
+// devenue celle d'un autre compte (voir requestMatchesAccount), au lieu de mélanger les dossiers de deux comptes.
 async function call<T>(path: string, init?: RequestInit): Promise<T> {
   let response: Response;
   try {
     response = await fetch(path, {
       ...init,
-      headers: { "content-type": "application/json", ...(init?.headers ?? {}) },
+      headers: { "content-type": "application/json", [ACCOUNT_HEADER]: getExpectedAccount() ?? "", ...(init?.headers ?? {}) },
       cache: "no-store",
     });
   } catch {

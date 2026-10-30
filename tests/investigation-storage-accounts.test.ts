@@ -64,7 +64,7 @@ test("une modification faite par un compte ne touche jamais la clé d'un autre",
   const before = memory.get(LEGACY_KEY);
   const bruno = openEngine("test-bruno");
   const dossier = bruno.createDossier("Dossier de Bruno", "");
-  bruno.addNote({ dossierId: dossier.id, title: "Note", body: "contenu", tags: [] } as Parameters<typeof bruno.addNote>[0]);
+  bruno.addNote({ dossierId: dossier.id, title: "Note", body: "contenu", tags: [] } as unknown as Parameters<typeof bruno.addNote>[0]);
   bruno.deleteDossier(dossier.id);
   assert.equal(memory.get(LEGACY_KEY), before);
   assert.ok(memory.has("equinoxe-investigation-v1:test-bruno"));

@@ -147,3 +147,39 @@ a. Les trois identifiants à créer (3 à 40 caractères : lettres, chiffres, `.
    parmi les trois (dans ce cas il en faut deux nouveaux seulement).
 b. Nicof garde-t-il l'accès complet à Investigation, Supervision et Tracking (prévu : oui) ?
 c. OK pour que le SQL de création des comptes soit produit par le script `scripts/create-account.ts` que tu lances toi-même ?
+
+---
+
+## État d'avancement (30/10/2026) — implémenté sur `comptes-v1`
+
+Réponses de Nicolas : trois comptes **nouveaux** (Nicof en plus, accès complet), SQL produit par script lancé dans son terminal.
+Les trois identifiants ne sont pas encore connus : ils ne sont demandés qu'à l'exécution du script, rien du code ne les suppose.
+
+Écarts et ajouts par rapport au plan ci-dessus :
+
+- **En-tête de compte sur la copie en ligne** (`x-equinoxe-account`). Cas trouvé en vérifiant : un onglet resté ouvert pour le
+  compte A, alors qu'un autre onglet du même navigateur s'est reconnecté en B, aurait envoyé les dossiers de A dans l'espace en
+  ligne de B (ou récupéré ceux de B). Le serveur refuse (409) toute requête dont l'en-tête n'est pas le compte de la session ; la
+  page se recharge d'elle-même au retour sur l'onglet (`InvestigationProvider`, `useScopeGuard`). Un onglet ouvert au moment du
+  déploiement affichera une erreur de synchronisation jusqu'au rechargement : normal.
+- **Base factice** (`lib/testing/fakeSupabase.ts`, activée par `EQUINOXE_FAKE_DB=1`, **refusée en production**) : elle sert aux
+  tests et aux essais locaux, pour ne rien écrire dans la vraie base. Comptes de test et mot de passe de test du fondateur
+  dans `lib/testing/testAccounts.ts` (valeurs jetables, sans rapport avec un vrai compte).
+- Rubriques réservées : les pages Supervision et Tracking sont déjà « Bientôt » pour tout le monde sur `main` ; seule la page
+  Investigation (recherche OSINT) passe par `SectionGate`. Un test vérifie que toute page de rubrique réservée passe par la porte
+  serveur ou n'affiche que « Bientôt » : il casserait si `supervision-v1` était fusionnée sans la porte.
+- Le compte est relu en base à chaque vérification serveur : suspendre un compte (`update accounts set disabled = true …`)
+  coupe l'accès à la requête suivante.
+
+### Essais locaux (sans toucher à la vraie base)
+
+Créer `.env.local` (ignoré par git) avec : `EQUINOXE_FAKE_DB=1`, `ADMIN_PASSWORD=` la valeur `TEST_FOUNDER_PASSWORD` de
+`lib/testing/testAccounts.ts`, et deux valeurs factices `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY`. Puis
+`npm run dev` ; comptes `test-alice` et `test-bruno` (mots de passe dans le même fichier).
+
+### Limites connues
+
+- Cloisonnement applicatif : les données locales du navigateur ne sont pas chiffrées. Deux personnes sur le même profil Chrome
+  pourraient les lire avec les outils de développement ; pour une séparation physique, un profil ou un appareil par personne.
+- La vérification « compte suspendu » ajoute une lecture en base par requête serveur d'un compte individuel (négligeable à
+  trois comptes).
