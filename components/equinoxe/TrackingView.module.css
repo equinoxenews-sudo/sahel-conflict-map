@@ -22,6 +22,9 @@
 .newsTitle {
   font-size: 15px;
   margin: 0 0 6px;
+  hyphens: none;
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .newsSummary {

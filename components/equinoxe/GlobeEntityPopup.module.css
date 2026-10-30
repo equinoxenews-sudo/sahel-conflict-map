@@ -63,8 +63,10 @@
   color: var(--text-primary);
   margin: 0 0 8px;
   line-height: 1.35;
-  text-align: justify;
-  hyphens: auto;
+  text-align: left;
+  hyphens: none;
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 /* Pastille de couleur avant une valeur (niveau de confiance). */
