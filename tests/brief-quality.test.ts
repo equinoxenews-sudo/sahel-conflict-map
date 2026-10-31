@@ -86,3 +86,17 @@ test("Les échecs API ne sont pas des lots traités vides", async (t) => {
  mock.mock.mockImplementation(async () => streamReply("invalide"));
  await assert.rejects(synthesizeBriefs("Afrique", sources));
 });
+test("Quand aucun groupe n'est valide, l'erreur dit pourquoi chacun a été écarté", () => {
+ const groups = [
+  { ...item, title: "Pékin brokérise un accord", sourceIndexes: [0] },
+  { ...item, title: "China warns Taiwan", sourceIndexes: [1] },
+  { ...item, sourceIndexes: [9] },
+  { ...item, existingBriefId: 99, sourceIndexes: [0] },
+ ];
+ assert.throws(
+  () => parseResponse(JSON.stringify(groups), sources, previous, true),
+  (error: Error) => /\(0\/4 valides\)/.test(error.message) && /anglicisme « brokérisé »/.test(error.message) && /mot anglais « warns »/.test(error.message)
+   && /indice de source invalide ou déjà pris \(9 sur 2 sources\)/.test(error.message) && /brève antérieure inconnue/.test(error.message),
+ );
+ assert.equal(parseResponse(JSON.stringify([...groups, item]), sources, previous, true).length, 1, "un seul groupe valide suffit : les autres sont écartés sans erreur");
+});

@@ -197,8 +197,14 @@ export function parseResponse(
   const briefs: SynthesizedBrief[] = [];
   const usedIndexes = new Set<number>();
   const usedPreviousIds = new Set<number>();
+  // Motif de chaque groupe écarté : sans lui, « 0/3 valides » ne dit pas si c'est le modèle, un filtre de langue ou les sources.
+  const dropped = new Map<string, number>();
+  const drop = (reason: string) => dropped.set(reason, (dropped.get(reason) ?? 0) + 1);
   for (const item of parsed) {
-    if (typeof item !== "object" || item === null) continue;
+    if (typeof item !== "object" || item === null) {
+      drop("élément qui n'est pas un objet");
+      continue;
+    }
     const {
       title, excerpt, sections, primaryTheme, secondaryThemes, eventType, importance, veracity, sourceIndexes, existingBriefId,
       confidence, confidenceLabel, claimedBy, place, doubt,
@@ -228,21 +234,39 @@ export function parseResponse(
       !sections.every(isValidSection) ||
       !Array.isArray(sourceIndexes)
     ) {
+      drop("champs manquants ou mal formés (titre, accroche, sections, sourceIndexes)");
       continue;
     }
 
     const indexes = [...new Set(sourceIndexes as unknown[])];
-    if (!indexes.length || indexes.some((index) => typeof index !== "number" ||
-      !Number.isInteger(index) || index < 0 || index >= articles.length || usedIndexes.has(index))) continue;
+    const badIndex = indexes.find((index) => typeof index !== "number" || !Number.isInteger(index) || index < 0 || index >= articles.length || usedIndexes.has(index));
+    if (!indexes.length || badIndex !== undefined) {
+      drop(!indexes.length ? "aucune source citée" : `indice de source invalide ou déjà pris (${JSON.stringify(badIndex)} sur ${articles.length} sources)`);
+      continue;
+    }
     const sources = (indexes as number[]).map((index) => articles[index]);
     // Telegram ne fait pas une information à lui seul (sauf exceptions encadrées).
-    if (analyst && !telegramOnlyGroupAllowed(sources)) continue;
+    if (analyst && !telegramOnlyGroupAllowed(sources)) {
+      drop("Telegram seul, sans source de presse");
+      continue;
+    }
     // Un titre ou une accroche qui garde un mot anglais n'est jamais publié : les sources restent à traiter au prochain passage.
-    if (findEnglishWord(title) || findEnglishWord(excerpt)) continue;
+    const englishWord = findEnglishWord(title) ?? findEnglishWord(excerpt);
+    if (englishWord) {
+      drop(`mot anglais « ${englishWord} »`);
+      continue;
+    }
     // Idem pour un anglicisme voyant (« brokérisé », « rafles forcées » pour un recrutement) dans le titre, l'accroche ou un intertitre.
-    if ([title, excerpt, ...sections.map((section) => section.heading ?? "")].some((text) => findFranglais(text))) continue;
+    const franglais = [title, excerpt, ...sections.map((section) => section.heading ?? "")].map(findFranglais).find((label) => label !== null);
+    if (franglais) {
+      drop(`anglicisme « ${franglais} »`);
+      continue;
+    }
     const old = existingBriefId == null ? undefined : previous.find((brief) => brief.id === existingBriefId);
-    if (existingBriefId != null && (!old || usedPreviousIds.has(old.id))) continue;
+    if (existingBriefId != null && (!old || usedPreviousIds.has(old.id))) {
+      drop(!old ? "reprise d'une brève antérieure inconnue (existingBriefId)" : "brève antérieure déjà reprise par un autre groupe");
+      continue;
+    }
     const citations = new Map<string, string>();
     old?.source_urls.forEach((url, index) => citations.set(url, old.source_domains[index] ?? new URL(url).hostname));
     sources.forEach((source) => citations.set(source.url, source.domain));
@@ -284,7 +308,8 @@ export function parseResponse(
   // Un groupe en doublon (même article ou même brève citée deux fois) est
   // écarté seul : on ne jette toute la réponse que si aucun groupe n'est valide.
   if (strict && briefs.length === 0 && parsed.length > 0) {
-    throw new SynthesisFormatError(`Invalid synthesis groups or source references (${briefs.length}/${parsed.length} valides)`);
+    const reasons = [...dropped].map(([reason, count]) => `${count} × ${reason}`).join(" ; ");
+    throw new SynthesisFormatError(`Invalid synthesis groups or source references (${briefs.length}/${parsed.length} valides) — motifs : ${reasons}`);
   }
   return briefs;
 }
