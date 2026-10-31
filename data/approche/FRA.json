@@ -6,7 +6,7 @@
   "name": "France",
   "officialName": "République française",
   "publication": "published",
-  "lastCheckedAt": "2026-10-29",
+  "lastCheckedAt": "2026-10-30",
   "sources": [
     {
       "id": "S05-EU-FRA",
@@ -221,6 +221,295 @@
       "license": null,
       "reuse": "unknown",
       "methodNotes": "Nouveau plan applicable depuis le 22 juin 2026 (trois stades : vigilance, vigilance renforcée, alerte attentat) ; posture été-automne 2026 : vigilance renforcée. Confirmé par le commanditaire (vérification documentaire réalisée par ChatGPT) ; page non relue par le développeur. Licence non vérifiée.",
+      "language": "fr"
+    },
+    {
+      "id": "S-FRA-RTE-2025",
+      "publisher": "RTE",
+      "title": "Bilan électrique 2025 – Principaux résultats",
+      "canonicalUrl": "https://analysesetdonnees.rte-france.com/bilan-electrique-2025/synthese",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-FRA-RTE-2025-ECHANGES",
+      "publisher": "RTE",
+      "title": "Bilan électrique 2025 – Échanges",
+      "canonicalUrl": "https://analysesetdonnees.rte-france.com/bilan-electrique-2025/echanges",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-FRA-INSEE-CN2025",
+      "publisher": "INSEE",
+      "title": "Les comptes de la Nation en 2025",
+      "canonicalUrl": "https://www.insee.fr/fr/statistiques/8988793",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-05-29"
+    },
+    {
+      "id": "S-FRA-LPM-2026",
+      "publisher": "Légifrance",
+      "title": "Loi n°2026-791 du 16 août 2026 actualisant la programmation militaire 2024-2030",
+      "canonicalUrl": "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000054694832/2026-10-19",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-08-18"
+    },
+    {
+      "id": "S-FRA-RNS-2025",
+      "publisher": "Ministère des Armées",
+      "title": "Revue nationale stratégique 2025",
+      "canonicalUrl": "https://www.defense.gouv.fr/dgris/politique-defense/textes-reference/revue-nationale-strategique",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2025-07-14"
+    },
+    {
+      "id": "S-FRA-RNS-2025-OBJECTIFS",
+      "publisher": "Ministère des Armées",
+      "title": "Revue nationale stratégique 2025 : s’adapter au contexte géopolitique",
+      "canonicalUrl": "https://www.defense.gouv.fr/actualites/revue-nationale-strategique-2025-sadapter-au-contexte-geopolitique",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2025-07-15"
+    },
+    {
+      "id": "S-FRA-ANSSI-2025",
+      "publisher": "ANSSI",
+      "title": "Panorama de la cybermenace 2025 : la France toujours sous pression",
+      "canonicalUrl": "https://cyber.gouv.fr/actualites/panorama-de-la-cybermenace-2025/",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-03-11"
+    },
+    {
+      "id": "S-FRA-PNACC3",
+      "publisher": "Ministère chargé de la Transition écologique",
+      "title": "Troisième plan national d’adaptation au changement climatique",
+      "canonicalUrl": "https://www.ecologie.gouv.fr/dossiers/france-sadapte/3e-plan-national-dadaptation-changement-climatique",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2025-03-10"
+    },
+    {
+      "id": "S-FRA-PPE3",
+      "publisher": "Ministère chargé de la Transition écologique",
+      "title": "Programmations pluriannuelles de l’énergie – PPE3 2026-2035",
+      "canonicalUrl": "https://www.ecologie.gouv.fr/politiques-publiques/programmations-pluriannuelles-lenergie-ppe",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-02-13"
+    },
+    {
+      "id": "S-FRA-SNBC3",
+      "publisher": "Ministère chargé de la Transition écologique",
+      "title": "La France adopte sa troisième Stratégie nationale bas-carbone",
+      "canonicalUrl": "https://www.ecologie.gouv.fr/presse/france-adopte-sa-troisieme-strategie-nationale-bas-carbone-feuille-route-ambitieuse",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-07-15"
+    },
+    {
+      "id": "S-FRA-GARDE-NATIONALE-2026",
+      "publisher": "Ministère des Armées",
+      "title": "Présentation de la Garde nationale et chiffres du premier semestre 2026",
+      "canonicalUrl": "https://www.defense.gouv.fr/garde-nationale/mieux-nous-connaitre/presentation-garde-nationale",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-FRA-EMA-ATTR",
+      "publisher": "Ministère des Armées",
+      "title": "Fonctions et décret du chef d’état-major des armées",
+      "canonicalUrl": "https://www.defense.gouv.fr/ema/fonction-decret",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-FRA-ORGA-MIN",
+      "publisher": "Ministère des Armées",
+      "title": "Organisation du ministère des Armées",
+      "canonicalUrl": "https://www.defense.gouv.fr/de/node/673",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-FRA-AIGLE-2026",
+      "publisher": "Ministère des Armées",
+      "title": "Mission Aigle – soutien du flanc est de l’OTAN",
+      "canonicalUrl": "https://www.defense.gouv.fr/operations/actualites/aigle-eagle-support-eprouve-chaine-soutien-francaise-flanc-est-lotan",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-06-26"
+    },
+    {
+      "id": "S-FRA-OPS-2026-10",
+      "publisher": "Ministère des Armées",
+      "title": "Point de situation des opérations du 8 au 15 octobre 2026",
+      "canonicalUrl": "https://www.defense.gouv.fr/operations/points-situation-operations/point-situation-operations-jeudi-8-octobre-au-jeudi-15-octobre-2026",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-10-15"
+    },
+    {
+      "id": "S-FRA-CORYMBE26",
+      "publisher": "Ministère des Armées",
+      "title": "Mission Corymbe 26 : sécurité dans le golfe de Guinée",
+      "canonicalUrl": "https://www.defense.gouv.fr/actualites/mission-corymbe-26-assurer-securite-golfe-guinee",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-09-14"
+    },
+    {
+      "id": "S-FRA-PRESENCE-MO",
+      "publisher": "Ministère des Armées",
+      "title": "Forces de présence au Proche et Moyen-Orient",
+      "canonicalUrl": "https://www.defense.gouv.fr/operations/proche-moyen-orient/forces-presence-au-proche-moyen-orient",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-FRA-LPM-ACTU",
+      "publisher": "Ministère des Armées",
+      "title": "Actualisation de la LPM : intensification de l’effort",
+      "canonicalUrl": "https://www.defense.gouv.fr/actualites/actualisation-lpm-france-intensifie-son-effort-rearmement",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-08-18"
+    },
+    {
+      "id": "S-FRA-DGA-COMMANDES-2025",
+      "publisher": "Ministère des Armées / DGA",
+      "title": "4 milliards d’euros de nouvelles commandes",
+      "canonicalUrl": "https://www.defense.gouv.fr/dga/actualites/ministere-armees-totalise-4-milliards-deuros-nouvelles-commandes",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2025"
+    },
+    {
+      "id": "S-FRA-DGA-RAFALE-F5",
+      "publisher": "Ministère des Armées / DGA",
+      "title": "Préparation du standard F5 du Rafale",
+      "canonicalUrl": "https://www.defense.gouv.fr/dga/actualites/dga-commande-premiers-travaux-amont-du-prochain-lancement-realisation-du-standard-f5-du-rafale",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-09-10"
+    },
+    {
+      "id": "S-FRA-ARMEE-TERRE",
+      "publisher": "Ministère des Armées",
+      "title": "Présentation de l’armée de Terre et de ses équipements",
+      "canonicalUrl": "https://www.defense.gouv.fr/terre/mieux-nous-connaitre/presentation-larmee-terre",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-FRA-HAROPA-2025",
+      "publisher": "HAROPA PORT",
+      "title": "Qui sommes-nous ? Port du Havre, Rouen, Paris – données 2025",
+      "canonicalUrl": "https://rapport-annuel.haropaport.com/fr/qui-sommes-nous",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-09-11"
+    },
+    {
+      "id": "S-FRA-MARSEILLE-2025",
+      "publisher": "Grand port maritime de Marseille",
+      "title": "Port de Marseille Fos – Chiffres clés 2025",
+      "canonicalUrl": "https://www.marseille-port.fr/actualites/port-de-marseille-fos-chiffres-cles-2025",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-01-20"
+    },
+    {
+      "id": "S-FRA-EDF-NUCL-2025",
+      "publisher": "EDF Open Data",
+      "title": "Centrales de production nucléaire EDF SA – localisation et capacités",
+      "canonicalUrl": "https://opendata.edf.fr/datasets/centrales-de-production-nucleaire-edf",
+      "accessedAt": "2026-10-30",
+      "license": "Licence Ouverte / Etalab 2.0",
+      "reuse": "allowed",
+      "language": "fr",
+      "methodNotes": "Données de sites sous Licence Ouverte 2.0 ; seules les observations de métadonnées sont reprises, aucune géolocalisation inventée."
+    },
+    {
+      "id": "S-FRA-GEORISQUES",
+      "publisher": "Géorisques",
+      "title": "Dossiers thématiques sur les risques naturels et technologiques",
+      "canonicalUrl": "https://www.georisques.gouv.fr/consulter-les-dossiers-thematiques",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-FRA-BF-INV-2025",
+      "publisher": "Business France",
+      "title": "Bilan des investissements internationaux en France 2025 – secteurs et emplois",
+      "canonicalUrl": "https://media.businessfrance.fr/assets/bilan-des-investissements-internationaux-en-france-2025-97cef-0fea0.html?dl=1",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026",
+      "methodNotes": "Statistiques de projets d’investissement internationaux, ne mesurent pas la totalité du secteur économique."
+    },
+    {
+      "id": "S-FRA-DIPLO-RESEAU",
+      "publisher": "Ministère de l’Europe et des Affaires étrangères",
+      "title": "Réseau diplomatique – domaines d’action",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/le-ministere/reseau-diplomatique",
+      "accessedAt": "2026-10-30",
+      "license": null,
+      "reuse": "citation_only",
       "language": "fr"
     }
   ],
@@ -746,6 +1035,367 @@
       "verifiedAt": "2026-10-29",
       "status": "verified",
       "dataKind": "official_statement"
+    },
+    {
+      "id": "fra-economy-gdp-nominal-eur-insee-2025-2025",
+      "countryCode": "FRA",
+      "key": "economy.gdp_nominal_eur_insee_2025",
+      "value": 2991.1,
+      "unit": "milliards EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "France entière, comptes nationaux",
+      "methodology": "PIB annuel aux prix courants, comptes nationaux INSEE, base 2020 ; ne pas confondre avec la série en dollars de la Banque mondiale.",
+      "sourceIds": [
+        "S-FRA-INSEE-CN2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-energy-electricity-production-total-2025-2025",
+      "countryCode": "FRA",
+      "key": "energy.electricity.production_total_2025",
+      "value": 547.5,
+      "unit": "TWh",
+      "referencePeriod": "2025",
+      "geographicScope": "France métropolitaine",
+      "methodology": "Production électrique annuelle selon le bilan électrique RTE, périmètre France métropolitaine.",
+      "sourceIds": [
+        "S-FRA-RTE-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": [],
+      "uncertainty": "Comparaisons avec 2024 selon périmètre RTE ; ne pas mélanger avec énergie primaire."
+    },
+    {
+      "id": "fra-energy-electricity-nuclear-2025-2025",
+      "countryCode": "FRA",
+      "key": "energy.electricity.nuclear_2025",
+      "value": 373.0,
+      "unit": "TWh",
+      "referencePeriod": "2025",
+      "geographicScope": "France métropolitaine",
+      "methodology": "Production nucléaire française publiée par RTE.",
+      "sourceIds": [
+        "S-FRA-RTE-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-energy-electricity-hydro-2025-2025",
+      "countryCode": "FRA",
+      "key": "energy.electricity.hydro_2025",
+      "value": 62.4,
+      "unit": "TWh",
+      "referencePeriod": "2025",
+      "geographicScope": "France métropolitaine",
+      "methodology": "Production hydroélectrique publiée par RTE.",
+      "sourceIds": [
+        "S-FRA-RTE-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-energy-electricity-low-carbon-2025-2025",
+      "countryCode": "FRA",
+      "key": "energy.electricity.low_carbon_2025",
+      "value": 521.1,
+      "unit": "TWh",
+      "referencePeriod": "2025",
+      "geographicScope": "France métropolitaine",
+      "methodology": "Production bas-carbone (nucléaire + renouvelables), RTE.",
+      "sourceIds": [
+        "S-FRA-RTE-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-energy-electricity-low-carbon-share-2025-2025",
+      "countryCode": "FRA",
+      "key": "energy.electricity.low_carbon_share_2025",
+      "value": 95.2,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "France métropolitaine",
+      "methodology": "Part bas-carbone dans la production électrique nationale de 2025, RTE.",
+      "sourceIds": [
+        "S-FRA-RTE-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-energy-electricity-net-exports-2025-2025",
+      "countryCode": "FRA",
+      "key": "energy.electricity.net_exports_2025",
+      "value": 92.3,
+      "unit": "TWh",
+      "referencePeriod": "2025",
+      "geographicScope": "France métropolitaine",
+      "methodology": "Solde annuel net des échanges d’électricité avec pays voisins, positif = exportateur.",
+      "sourceIds": [
+        "S-FRA-RTE-2025-ECHANGES"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-energy-electricity-consumption-corrected-2025-2025",
+      "countryCode": "FRA",
+      "key": "energy.electricity.consumption_corrected_2025",
+      "value": 451.0,
+      "unit": "TWh",
+      "referencePeriod": "2025",
+      "geographicScope": "France métropolitaine",
+      "methodology": "Consommation corrigée aléas météo et calendrier, RTE.",
+      "sourceIds": [
+        "S-FRA-RTE-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-energy-fossil-imports-bill-2025-2025",
+      "countryCode": "FRA",
+      "key": "energy.fossil_imports_bill_2025",
+      "value": 53,
+      "unit": "milliards EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "France, combustibles fossiles",
+      "methodology": "Facture d’importations de combustibles fossiles telle que rapportée par RTE, différente de la dépendance Eurostat.",
+      "sourceIds": [
+        "S-FRA-RTE-2025-ECHANGES"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-defense-lpm-2026-programmed-payments-2026",
+      "countryCode": "FRA",
+      "key": "defense.lpm_2026_programmed_payments",
+      "value": 57.1,
+      "unit": "milliards EUR",
+      "referencePeriod": "2026",
+      "geographicScope": "Mission Défense (hors pensions), France",
+      "methodology": "Crédits de paiement de la trajectoire LPM actualisée du 16 août 2026 ; programmation, non consommation constatée.",
+      "sourceIds": [
+        "S-FRA-LPM-2026"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "history": []
+    },
+    {
+      "id": "fra-defense-lpm-2030-programmed-payments-2030 (programmation)",
+      "countryCode": "FRA",
+      "key": "defense.lpm_2030_programmed_payments",
+      "value": 75.7,
+      "unit": "milliards EUR",
+      "referencePeriod": "2030 (programmation)",
+      "geographicScope": "Mission Défense (hors pensions), France",
+      "methodology": "Trajectoire prévue 2030 dans la LPM actualisée, non dépenses exécutées.",
+      "sourceIds": [
+        "S-FRA-LPM-2026"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "history": []
+    },
+    {
+      "id": "fra-defense-lpm-additional-2026-2030-2026-2030",
+      "countryCode": "FRA",
+      "key": "defense.lpm_additional_2026_2030",
+      "value": 36,
+      "unit": "milliards EUR",
+      "referencePeriod": "2026-2030",
+      "geographicScope": "Programmation de défense 2026-2030, France",
+      "methodology": "Crédits supplémentaires programmés par la loi d’actualisation, en plus de la trajectoire antérieure.",
+      "sourceIds": [
+        "S-FRA-LPM-2026"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "history": []
+    },
+    {
+      "id": "fra-defense-reservists-ministry-2026s1-2026-S1",
+      "countryCode": "FRA",
+      "key": "defense.reservists_ministry_2026s1",
+      "value": 51961,
+      "unit": "personnes",
+      "referencePeriod": "2026-S1",
+      "geographicScope": "Réserve opérationnelle relevant du ministère des Armées (hors réservistes relevant de l’Intérieur)",
+      "methodology": "Effectif publié par le secrétariat général de la Garde nationale ; ne pas additionner avec des chiffres d’autre périmètre sans harmonisation.",
+      "sourceIds": [
+        "S-FRA-GARDE-NATIONALE-2026"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-security-anssi-events-2025-2025",
+      "countryCode": "FRA",
+      "key": "security.anssi_events_2025",
+      "value": 3586,
+      "unit": "événements",
+      "referencePeriod": "2025",
+      "geographicScope": "Événements de sécurité traités par l’ANSSI en France",
+      "methodology": "Volume d’événements traités avec différents niveaux de mobilisation, non nombre exhaustif de cyberattaques.",
+      "sourceIds": [
+        "S-FRA-ANSSI-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-security-anssi-incidents-2025-2025",
+      "countryCode": "FRA",
+      "key": "security.anssi_incidents_2025",
+      "value": 1366,
+      "unit": "incidents",
+      "referencePeriod": "2025",
+      "geographicScope": "Incidents portés à la connaissance de l’ANSSI",
+      "methodology": "Nombre d’incidents porté à connaissance selon le Panorama ANSSI 2025.",
+      "sourceIds": [
+        "S-FRA-ANSSI-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-economy-haropa-maritime-traffic-2025-2025",
+      "countryCode": "FRA",
+      "key": "economy.haropa_maritime_traffic_2025",
+      "value": 84.7,
+      "unit": "millions de tonnes",
+      "referencePeriod": "2025",
+      "geographicScope": "Ensemble portuaire HAROPA (Le Havre, Rouen, Paris)",
+      "methodology": "Trafic maritime global selon l’établissement portuaire ; ne pas attribuer à la seule ville du Havre.",
+      "sourceIds": [
+        "S-FRA-HAROPA-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-economy-haropa-river-traffic-2025-2025",
+      "countryCode": "FRA",
+      "key": "economy.haropa_river_traffic_2025",
+      "value": 18.1,
+      "unit": "millions de tonnes",
+      "referencePeriod": "2025",
+      "geographicScope": "Ensemble HAROPA, trafic fluvial",
+      "methodology": "Trafic fluvial annuel selon HAROPA.",
+      "sourceIds": [
+        "S-FRA-HAROPA-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-economy-businessfrance-automotive-projects-2025-2025",
+      "countryCode": "FRA",
+      "key": "economy.businessfrance_automotive_projects_2025",
+      "value": 123,
+      "unit": "projets",
+      "referencePeriod": "2025",
+      "geographicScope": "Projets d’investissement international en France : constructeurs automobiles et équipementiers",
+      "methodology": "Nombre de projets enregistrés par Business France ; ne correspond pas au nombre d’entreprises françaises.",
+      "sourceIds": [
+        "S-FRA-BF-INV-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-economy-businessfrance-agrifood-projects-2025-2025",
+      "countryCode": "FRA",
+      "key": "economy.businessfrance_agrifood_projects_2025",
+      "value": 93,
+      "unit": "projets",
+      "referencePeriod": "2025",
+      "geographicScope": "Projets d’investissement international en France : agroalimentaire",
+      "methodology": "Nombre de projets enregistrés par Business France, non taille totale de l’industrie.",
+      "sourceIds": [
+        "S-FRA-BF-INV-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
+    },
+    {
+      "id": "fra-economy-businessfrance-energy-projects-2025-2025",
+      "countryCode": "FRA",
+      "key": "economy.businessfrance_energy_projects_2025",
+      "value": 91,
+      "unit": "projets",
+      "referencePeriod": "2025",
+      "geographicScope": "Projets d’investissement international en France : énergie et recyclage",
+      "methodology": "Nombre de projets enregistrés par Business France.",
+      "sourceIds": [
+        "S-FRA-BF-INV-2025"
+      ],
+      "collectedAt": "2026-10-30",
+      "verifiedAt": "2026-10-30",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": []
     }
   ],
   "claims": [
@@ -761,7 +1411,9 @@
       "validAsOf": "2026-10-29",
       "reviewer": null,
       "status": "verified",
-      "caveats": ["La page officielle indique que les organes issus des traités de Rome « voient le jour le 1er janvier 1958 » (traités signés en 1957) ; le statut de pays fondateur de la France y figure à l’entrée sur les six pays de la CECA (1951)."]
+      "caveats": [
+        "La page officielle indique que les organes issus des traités de Rome « voient le jour le 1er janvier 1958 » (traités signés en 1957) ; le statut de pays fondateur de la France y figure à l’entrée sur les six pays de la CECA (1951)."
+      ]
     },
     {
       "id": "fra-claim-euro-schengen",
@@ -798,6 +1450,59 @@
         "S04-UN-CHARTER-CH5"
       ],
       "validAsOf": "2026-10-29",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "fra-fact-lpm26",
+      "countryCode": "FRA",
+      "statement": "La loi du 16 août 2026 actualise la programmation militaire 2024-2030 et ajoute 36 milliards d’euros à la trajectoire 2026-2030.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-FRA-LPM-2026"
+      ],
+      "validAsOf": "2026-10-30",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "fra-fact-rte25",
+      "countryCode": "FRA",
+      "statement": "En 2025, la production d’électricité française atteint 547,5 TWh, dont 373,0 TWh d’origine nucléaire ; son solde d’échanges reste nettement exportateur (92,3 TWh).",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-FRA-RTE-2025",
+        "S-FRA-RTE-2025-ECHANGES"
+      ],
+      "validAsOf": "2026-10-30",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "fra-fact-climate",
+      "countryCode": "FRA",
+      "statement": "Le plan national d’adaptation au changement climatique publié en mars 2025 prévoit des mesures pour les territoires métropolitains et ultramarins.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-FRA-PNACC3"
+      ],
+      "validAsOf": "2026-10-30",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "fra-fact-cyber",
+      "countryCode": "FRA",
+      "statement": "L’ANSSI a traité 3 586 événements de sécurité en 2025, sans que ce chiffre constitue le total des attaques contre la France.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-FRA-ANSSI-2025"
+      ],
+      "validAsOf": "2026-10-30",
       "reviewer": null,
       "status": "verified",
       "caveats": []
@@ -869,6 +1574,49 @@
       ],
       "lastReviewedAt": "2026-10-29",
       "status": "verified"
+    },
+    {
+      "id": "fra-rel-rom-otan",
+      "countryCode": "FRA",
+      "targetCode": null,
+      "targetIso2": "RO",
+      "targetName": "Roumanie",
+      "relationType": "cooperation",
+      "title": "Engagement français au sein du dispositif OTAN sur le flanc est",
+      "topics": [
+        "Défense",
+        "OTAN"
+      ],
+      "summary": "La France encadre un bataillon multinational en Roumanie dans le cadre du renforcement de la posture défensive et de la dissuasion de l’OTAN. La mission AIGLE est documentée en 2026.",
+      "validFrom": "2022",
+      "validTo": null,
+      "sourceIds": [
+        "S-FRA-AIGLE-2026",
+        "S-FRA-OPS-2026-10"
+      ],
+      "lastReviewedAt": "2026-10-30",
+      "status": "verified"
+    },
+    {
+      "id": "fra-rel-uae-defense",
+      "countryCode": "FRA",
+      "targetCode": null,
+      "targetIso2": "AE",
+      "targetName": "Émirats arabes unis",
+      "relationType": "cooperation",
+      "title": "Coopération stratégique de défense",
+      "topics": [
+        "Défense",
+        "Moyen-Orient"
+      ],
+      "summary": "Le ministère des Armées décrit un stationnement de forces françaises aux Émirats arabes unis et un accord bilatéral de défense renforcé en 2009.",
+      "validFrom": "2009",
+      "validTo": null,
+      "sourceIds": [
+        "S-FRA-PRESENCE-MO"
+      ],
+      "lastReviewedAt": "2026-10-30",
+      "status": "verified"
     }
   ],
   "modules": {
@@ -886,7 +1634,1560 @@
           "Vigilance renforcée",
           "Alerte attentat"
         ]
-      }
+      },
+      "kpis": [
+        {
+          "id": "fra-def-kpi-1",
+          "label": "Réservistes – ministère des Armées",
+          "note": "1er semestre 2026 ; hors réserve dépendant de l’Intérieur.",
+          "sourceIds": [],
+          "observationKey": "defense.reservists_ministry_2026s1"
+        },
+        {
+          "id": "fra-def-kpi-2",
+          "label": "Mission Défense – CP programmés 2026",
+          "note": "Trajectoire LPM, hors pensions ; pas dépenses exécutées.",
+          "sourceIds": [],
+          "observationKey": "defense.lpm_2026_programmed_payments"
+        },
+        {
+          "id": "fra-def-kpi-3",
+          "label": "Mission Défense – CP programmés 2030",
+          "note": "Objectif légal programmé, pas une prévision de dépense réalisée.",
+          "sourceIds": [],
+          "observationKey": "defense.lpm_2030_programmed_payments"
+        },
+        {
+          "id": "fra-def-kpi-4",
+          "label": "Renfort LPM 2026-2030",
+          "note": "Crédits additionnels programmés ; ce n’est pas un budget annuel.",
+          "sourceIds": [],
+          "observationKey": "defense.lpm_additional_2026_2030"
+        }
+      ],
+      "organization": [
+        {
+          "id": "fra-org-cema",
+          "label": "Chef d’état-major des armées",
+          "parentId": null,
+          "note": "Autorité sur les chefs d’état-major des trois armées ; décrets de compétence.",
+          "sourceIds": [
+            "S-FRA-EMA-ATTR"
+          ]
+        },
+        {
+          "id": "fra-org-terre",
+          "label": "Armée de Terre",
+          "parentId": "fra-org-cema",
+          "note": "Chef d’état-major sous autorité du CEMA.",
+          "sourceIds": [
+            "S-FRA-EMA-ATTR"
+          ]
+        },
+        {
+          "id": "fra-org-marine",
+          "label": "Marine nationale",
+          "parentId": "fra-org-cema",
+          "note": "Chef d’état-major sous autorité du CEMA.",
+          "sourceIds": [
+            "S-FRA-EMA-ATTR"
+          ]
+        },
+        {
+          "id": "fra-org-air",
+          "label": "Armée de l’Air et de l’Espace",
+          "parentId": "fra-org-cema",
+          "note": "Chef d’état-major sous autorité du CEMA.",
+          "sourceIds": [
+            "S-FRA-EMA-ATTR"
+          ]
+        }
+      ],
+      "missions": [
+        {
+          "id": "fra-def-ms-1",
+          "title": "Dissuasion et protection des intérêts essentiels",
+          "summary": "La dissuasion demeure une composante de la stratégie nationale de défense, avec un cadre politique et opérationnel propre.",
+          "tags": [
+            "Dissuasion"
+          ],
+          "sourceIds": [
+            "S-FRA-RNS-2025"
+          ]
+        },
+        {
+          "id": "fra-def-ms-2",
+          "title": "Protection du territoire et des approches",
+          "summary": "Les forces assurent la préparation et la mise en condition opérationnelle des armées, ainsi que des missions de protection et de surveillance.",
+          "tags": [
+            "Protection"
+          ],
+          "sourceIds": [
+            "S-FRA-EMA-ATTR",
+            "S-FRA-RNS-2025"
+          ]
+        },
+        {
+          "id": "fra-def-ms-3",
+          "title": "Défense collective et soutien aux alliés",
+          "summary": "La France participe aux dispositifs de l’OTAN sur son flanc oriental, notamment via le bataillon multinational en Roumanie.",
+          "tags": [
+            "OTAN"
+          ],
+          "sourceIds": [
+            "S-FRA-AIGLE-2026",
+            "S-FRA-OPS-2026-10"
+          ]
+        },
+        {
+          "id": "fra-def-ms-4",
+          "title": "Sécurisation maritime et partenariat",
+          "summary": "La mission Corymbe 26 participe à la sûreté maritime en coopération avec les pays riverains du golfe de Guinée.",
+          "tags": [
+            "Maritime"
+          ],
+          "sourceIds": [
+            "S-FRA-CORYMBE26"
+          ]
+        }
+      ],
+      "framework": [
+        {
+          "id": "fra-def-fw-rns",
+          "title": "Revue nationale stratégique 2025",
+          "summary": "Document d’orientation sur la défense globale, les capacités militaires, l’industrie de défense, le cyber, les coopérations et la résilience.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-RNS-2025"
+          ],
+          "date": "2025-07-14"
+        },
+        {
+          "id": "fra-def-fw-lpm",
+          "title": "LPM 2024-2030 actualisée en 2026",
+          "summary": "Loi n°2026-791 du 16 août 2026 : crédits supplémentaires et orientations capacitaires jusqu’en 2030.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-LPM-2026"
+          ],
+          "date": "2026-08-16"
+        },
+        {
+          "id": "fra-def-fw-otan",
+          "title": "OTAN : engagements de défense collective",
+          "summary": "La France participe aux mécanismes de défense collective de l’Alliance, notamment en Roumanie.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-AIGLE-2026",
+            "S06-NATO-MEMBERS"
+          ],
+          "date": "2026"
+        }
+      ],
+      "operations": [
+        {
+          "id": "fra-def-op-aigle",
+          "title": "Mission AIGLE — Roumanie",
+          "summary": "Participation française au bataillon multinational de l’OTAN sur le flanc oriental ; activité documentée en octobre 2026.",
+          "tags": [
+            "Roumanie",
+            "OTAN"
+          ],
+          "sourceIds": [
+            "S-FRA-AIGLE-2026",
+            "S-FRA-OPS-2026-10"
+          ],
+          "date": "2026-10",
+          "status": "en cours au 15 octobre 2026"
+        },
+        {
+          "id": "fra-def-op-corymbe",
+          "title": "Corymbe 26 — Golfe de Guinée",
+          "summary": "Mission française de coopération et sûreté maritime, annoncée en septembre 2026.",
+          "tags": [
+            "Maritime",
+            "Afrique"
+          ],
+          "sourceIds": [
+            "S-FRA-CORYMBE26"
+          ],
+          "date": "2026-09",
+          "status": "documentée septembre 2026 ; fin à recontrôler"
+        },
+        {
+          "id": "fra-def-op-aspides",
+          "title": "EUNAVFOR ASPIDES — mer Rouge",
+          "summary": "Un point de situation du 8 au 15 octobre 2026 indique la participation d’une frégate française à la protection de la navigation commerciale.",
+          "tags": [
+            "Mer Rouge",
+            "UE"
+          ],
+          "sourceIds": [
+            "S-FRA-OPS-2026-10"
+          ],
+          "date": "2026-10",
+          "status": "documentée au 15 octobre 2026"
+        }
+      ],
+      "equipment": [
+        {
+          "id": "fra-def-eq-rafale",
+          "title": "Rafale",
+          "summary": "Avion de combat multirôle. La DGA a commandé en 2026 des travaux préparatoires au futur standard F5.",
+          "tags": [
+            "Aviation"
+          ],
+          "sourceIds": [
+            "S-FRA-DGA-RAFALE-F5"
+          ],
+          "category": "Aviation",
+          "inServiceText": null
+        },
+        {
+          "id": "fra-def-eq-leclerc",
+          "title": "Char Leclerc",
+          "summary": "Le char Leclerc apparaît dans les activités d’entraînement du bataillon OTAN en Roumanie en octobre 2026.",
+          "tags": [
+            "Terre"
+          ],
+          "sourceIds": [
+            "S-FRA-OPS-2026-10"
+          ],
+          "category": "Terre",
+          "inServiceText": null
+        },
+        {
+          "id": "fra-def-eq-caesar",
+          "title": "Système d’artillerie CAESAR",
+          "summary": "Le programme CAESAR est cité parmi les commandes industrielles suivies par la DGA et les équipements de l’armée de Terre.",
+          "tags": [
+            "Artillerie"
+          ],
+          "sourceIds": [
+            "S-FRA-DGA-COMMANDES-2025",
+            "S-FRA-ARMEE-TERRE"
+          ],
+          "category": "Terre",
+          "inServiceText": null
+        },
+        {
+          "id": "fra-def-eq-fremm",
+          "title": "Frégate multimissions (FREMM)",
+          "summary": "Une FREMM française a participé en octobre 2026 aux missions de protection de la navigation commerciale dans le cadre d’EUNAVFOR ASPIDES.",
+          "tags": [
+            "Naval"
+          ],
+          "sourceIds": [
+            "S-FRA-OPS-2026-10"
+          ],
+          "category": "Marine",
+          "inServiceText": null
+        }
+      ],
+      "industry": [
+        {
+          "id": "fra-def-ind-dassault",
+          "title": "Dassault Aviation",
+          "summary": "Contributeur industriel aux évolutions du Rafale, notamment le standard F5.",
+          "tags": [
+            "Aéronautique"
+          ],
+          "sourceIds": [
+            "S-FRA-DGA-RAFALE-F5"
+          ]
+        },
+        {
+          "id": "fra-def-ind-thales",
+          "title": "Thales",
+          "summary": "Contributeur aux systèmes de communication, à la connectivité et aux évolutions du Rafale.",
+          "tags": [
+            "Électronique"
+          ],
+          "sourceIds": [
+            "S-FRA-DGA-RAFALE-F5",
+            "S-FRA-DGA-COMMANDES-2025"
+          ]
+        },
+        {
+          "id": "fra-def-ind-safran",
+          "title": "Safran",
+          "summary": "Contributeur à la motorisation du Rafale et à la préparation du moteur M88 T-REX.",
+          "tags": [
+            "Propulsion"
+          ],
+          "sourceIds": [
+            "S-FRA-DGA-RAFALE-F5"
+          ]
+        },
+        {
+          "id": "fra-def-ind-mbda",
+          "title": "MBDA",
+          "summary": "Contributeur à plusieurs équipements du standard F5 du Rafale.",
+          "tags": [
+            "Missiles"
+          ],
+          "sourceIds": [
+            "S-FRA-DGA-RAFALE-F5"
+          ]
+        },
+        {
+          "id": "fra-def-ind-knds",
+          "title": "KNDS",
+          "summary": "Titulaire de commandes DGA relatives notamment à Scorpion et CAESAR en 2025.",
+          "tags": [
+            "Terrestre"
+          ],
+          "sourceIds": [
+            "S-FRA-DGA-COMMANDES-2025"
+          ]
+        },
+        {
+          "id": "fra-def-ind-navalgroup",
+          "title": "Naval Group",
+          "summary": "Activités de construction navale militaire et programmes Barracuda et SNLE de troisième génération mentionnés par la DGA.",
+          "tags": [
+            "Naval"
+          ],
+          "sourceIds": [
+            "S-FRA-DGA-COMMANDES-2025"
+          ]
+        }
+      ],
+      "partnerships": [
+        {
+          "id": "fra-def-coop-nato",
+          "title": "OTAN",
+          "summary": "Engagements opérationnels et exercices multinationaux sur le flanc est, dont la mission AIGLE.",
+          "tags": [
+            "OTAN"
+          ],
+          "sourceIds": [
+            "S-FRA-AIGLE-2026"
+          ],
+          "date": "2026"
+        },
+        {
+          "id": "fra-def-coop-uk",
+          "title": "Royaume-Uni",
+          "summary": "La coopération bilatérale de défense est encadrée notamment par les accords de Lancaster House et la déclaration Lancaster House 2.0 de 2025.",
+          "tags": [
+            "Défense"
+          ],
+          "sourceIds": [
+            "S17-ELYSEE-LH2"
+          ],
+          "date": "2025-07-14"
+        },
+        {
+          "id": "fra-def-coop-uae",
+          "title": "Émirats arabes unis",
+          "summary": "Partenariat de défense avec présence permanente de forces françaises, documenté par le ministère des Armées.",
+          "tags": [
+            "Moyen-Orient"
+          ],
+          "sourceIds": [
+            "S-FRA-PRESENCE-MO"
+          ]
+        }
+      ],
+      "internalSecurity": [
+        {
+          "id": "fra-def-inter-vig",
+          "title": "Vigipirate",
+          "summary": "Le dispositif officiel 2026 prévoit les trois stades vigilance, vigilance renforcée et alerte attentat. Au 30 octobre, la posture officielle été-automne 2026 est au stade vigilance renforcée.",
+          "tags": [
+            "Terrorisme"
+          ],
+          "sourceIds": [
+            "S16-SGDSN-VIGIPIRATE"
+          ],
+          "date": "2026-06-22"
+        },
+        {
+          "id": "fra-def-inter-cyber",
+          "title": "Réponse nationale à la cybermenace",
+          "summary": "L’ANSSI publie chaque année un panorama de la cybermenace et a traité 3 586 événements en 2025.",
+          "tags": [
+            "Cyber"
+          ],
+          "sourceIds": [
+            "S-FRA-ANSSI-2025"
+          ],
+          "date": "2025"
+        }
+      ],
+      "strengths": [
+        {
+          "id": "fra-def-str-dis",
+          "title": "Capacité nationale de dissuasion",
+          "summary": "La dissuasion française est mentionnée dans la revue nationale stratégique et le modèle d’armée.",
+          "tags": [
+            "Dissuasion"
+          ],
+          "sourceIds": [
+            "S-FRA-RNS-2025"
+          ]
+        },
+        {
+          "id": "fra-def-str-industrie",
+          "title": "Capacités de l’industrie de défense",
+          "summary": "Les programmes DGA mobilisent des industriels nationaux et européens couvrant plusieurs filières capacitaires.",
+          "tags": [
+            "Industrie"
+          ],
+          "sourceIds": [
+            "S-FRA-DGA-COMMANDES-2025",
+            "S-FRA-DGA-RAFALE-F5"
+          ]
+        },
+        {
+          "id": "fra-def-str-interop",
+          "title": "Interopérabilité avec l’OTAN",
+          "summary": "La mission AIGLE démontre l’intégration de partenaires multinationaux dans un dispositif de défense collective.",
+          "tags": [
+            "OTAN"
+          ],
+          "sourceIds": [
+            "S-FRA-AIGLE-2026"
+          ]
+        }
+      ]
+    },
+    "hero": {
+      "tagline": "France — Europe et outre-mer",
+      "summary": null,
+      "bannerImages": {}
+    },
+    "media": {
+      "assets": []
+    },
+    "overview": {
+      "strengths": [
+        {
+          "id": "fra-ov-str-1",
+          "title": "Dissuasion nucléaire et rôle au Conseil de sécurité",
+          "summary": "La France dispose d’une dissuasion nationale et d’un siège permanent au Conseil de sécurité ; ce sont des leviers majeurs de son positionnement stratégique.",
+          "tags": [
+            "Défense",
+            "Diplomatie"
+          ],
+          "sourceIds": [
+            "S-FRA-RNS-2025",
+            "S04-UN-CHARTER-CH5"
+          ]
+        },
+        {
+          "id": "fra-ov-str-2",
+          "title": "Production électrique bas-carbone",
+          "summary": "Le mix électrique 2025 présente 95,2 % de production bas-carbone, un atout pour l’électrification et la décarbonation de l’industrie.",
+          "tags": [
+            "Énergie"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025"
+          ]
+        },
+        {
+          "id": "fra-ov-str-3",
+          "title": "Réseau de coopération institutionnelle",
+          "summary": "La France appartient notamment à l’Union européenne, à l’OTAN et au G7 et participe à des partenariats conventionnels avec plusieurs voisins.",
+          "tags": [
+            "Diplomatie"
+          ],
+          "sourceIds": [
+            "S05-EU-FRA",
+            "S06-NATO-MEMBERS",
+            "S07-G7-FD"
+          ]
+        },
+        {
+          "id": "fra-ov-str-4",
+          "title": "Base industrielle et technologique de défense",
+          "summary": "Les programmes suivis par la DGA mobilisent plusieurs entreprises industrielles de défense, notamment dans l’aéronautique, l’électronique, les véhicules et le naval.",
+          "tags": [
+            "Industrie",
+            "Défense"
+          ],
+          "sourceIds": [
+            "S-FRA-DGA-COMMANDES-2025"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "fra-ov-ch-1",
+          "title": "Adaptation de l’outil de défense",
+          "summary": "L’actualisation de la LPM 2024-2030 répond à un environnement sécuritaire dégradé et augmente l’effort programmé en faveur des capacités.",
+          "tags": [
+            "Sécurité"
+          ],
+          "sourceIds": [
+            "S-FRA-LPM-2026",
+            "S-FRA-RNS-2025"
+          ]
+        },
+        {
+          "id": "fra-ov-ch-2",
+          "title": "Dépendance aux énergies fossiles",
+          "summary": "Les importations de combustibles fossiles représentent une charge économique et l’électrification des usages progresse moins vite que les objectifs climatiques.",
+          "tags": [
+            "Énergie",
+            "Économie"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025",
+            "S-FRA-RTE-2025-ECHANGES"
+          ]
+        },
+        {
+          "id": "fra-ov-ch-3",
+          "title": "Cybermenace persistante",
+          "summary": "L’ANSSI signale une cybermenace élevée en 2025 et une exposition importante de l’État, de la recherche, de la santé et des télécommunications.",
+          "tags": [
+            "Cyber"
+          ],
+          "sourceIds": [
+            "S-FRA-ANSSI-2025"
+          ]
+        },
+        {
+          "id": "fra-ov-ch-4",
+          "title": "Adaptation aux aléas climatiques",
+          "summary": "Le PNACC-3 identifie les besoins d’adaptation face aux canicules, inondations, sécheresses, feux de forêt et autres risques.",
+          "tags": [
+            "Climat"
+          ],
+          "sourceIds": [
+            "S-FRA-PNACC3"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "fra-ov-tl-1",
+          "title": "Signature du traité de Maastricht",
+          "summary": "La création de l’Union européenne s’inscrit dans le traité de Maastricht, entré en vigueur le 1er novembre 1993.",
+          "tags": [],
+          "sourceIds": [
+            "S05-EU-HIST-1990-99"
+          ],
+          "date": "1993-11-01",
+          "status": "réalisé"
+        },
+        {
+          "id": "fra-ov-tl-2",
+          "title": "Traité d’Aix-la-Chapelle",
+          "summary": "Entrée en vigueur du traité franco-allemand de coopération et d’intégration.",
+          "tags": [],
+          "sourceIds": [
+            "S20-FD-AIX"
+          ],
+          "date": "2020-01-22",
+          "status": "réalisé"
+        },
+        {
+          "id": "fra-ov-tl-3",
+          "title": "Actualisation de la revue nationale stratégique",
+          "summary": "Présentation de la RNS 2025, réévaluant l’environnement de défense et de sécurité.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-RNS-2025"
+          ],
+          "date": "2025-07-14",
+          "status": "réalisé"
+        },
+        {
+          "id": "fra-ov-tl-4",
+          "title": "PPE3",
+          "summary": "Publication de la programmation pluriannuelle de l’énergie pour 2026-2035.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-PPE3"
+          ],
+          "date": "2026-02-13",
+          "status": "réalisé"
+        },
+        {
+          "id": "fra-ov-tl-5",
+          "title": "Actualisation de la loi de programmation militaire",
+          "summary": "Promulgation de la loi n°2026-791.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-LPM-2026"
+          ],
+          "date": "2026-08-16",
+          "status": "réalisé"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "fra-eco-sec-aero",
+          "title": "Aéronautique et spatial",
+          "summary": "La filière contribue aux programmes de souveraineté industrielle ; les commandes de Rafale F5 associent Dassault Aviation, Thales, Safran et MBDA.",
+          "tags": [
+            "Aéronautique",
+            "Industrie"
+          ],
+          "sourceIds": [
+            "S-FRA-DGA-RAFALE-F5"
+          ]
+        },
+        {
+          "id": "fra-eco-sec-energy",
+          "title": "Énergie et électricité",
+          "summary": "La France dispose d’une production électrique majoritairement bas-carbone. La PPE3 2026-2035 encadre la trajectoire énergétique nationale.",
+          "tags": [
+            "Énergie"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025",
+            "S-FRA-PPE3"
+          ]
+        },
+        {
+          "id": "fra-eco-sec-auto",
+          "title": "Automobile et équipementiers",
+          "summary": "Business France recense 123 projets d’investissement international en 2025 dans les activités des constructeurs automobiles et équipementiers.",
+          "tags": [
+            "Automobile"
+          ],
+          "sourceIds": [
+            "S-FRA-BF-INV-2025"
+          ],
+          "date": "2025"
+        },
+        {
+          "id": "fra-eco-sec-agrifood",
+          "title": "Agroalimentaire",
+          "summary": "Business France dénombre 93 projets d’investissement international en 2025 dans l’agroalimentaire ; ce compteur ne représente pas le nombre total d’entreprises du secteur.",
+          "tags": [
+            "Agroalimentaire"
+          ],
+          "sourceIds": [
+            "S-FRA-BF-INV-2025"
+          ],
+          "date": "2025"
+        },
+        {
+          "id": "fra-eco-sec-health",
+          "title": "Équipements et dispositifs médicaux",
+          "summary": "Le bilan Business France recense des projets d’investissements étrangers dans les équipements et dispositifs médicaux en 2025.",
+          "tags": [
+            "Santé"
+          ],
+          "sourceIds": [
+            "S-FRA-BF-INV-2025"
+          ],
+          "date": "2025"
+        },
+        {
+          "id": "fra-eco-sec-log",
+          "title": "Logistique et transports",
+          "summary": "HAROPA regroupe les ports du Havre, de Rouen et de Paris ; le groupe rapporte 84,7 millions de tonnes de trafic maritime en 2025.",
+          "tags": [
+            "Ports",
+            "Logistique"
+          ],
+          "sourceIds": [
+            "S-FRA-HAROPA-2025"
+          ],
+          "date": "2025"
+        }
+      ],
+      "resources": [
+        {
+          "id": "fra-eco-res-fossil",
+          "title": "Hydrocarbures et approvisionnement",
+          "summary": "Les fossiles occupent encore une place importante dans la consommation d’énergie et la facture d’importations de combustibles fossiles est évaluée à 53 Md€ en 2025 par RTE.",
+          "tags": [
+            "Hydrocarbures"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025-ECHANGES",
+            "S-FRA-RTE-2025"
+          ]
+        },
+        {
+          "id": "fra-eco-res-nuclear",
+          "title": "Électricité nucléaire",
+          "summary": "Le parc nucléaire a produit 373,0 TWh d’électricité en 2025. Les centrales exploitées par EDF sont documentées dans un jeu de données ouvert daté du 31 décembre 2025.",
+          "tags": [
+            "Nucléaire"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025",
+            "S-FRA-EDF-NUCL-2025"
+          ]
+        },
+        {
+          "id": "fra-eco-res-solar",
+          "title": "Énergies renouvelables",
+          "summary": "Le solaire et l’éolien ont accru leur production en 2025 tandis que l’hydraulique a reculé par rapport à une année 2024 très favorable.",
+          "tags": [
+            "Énergie renouvelable"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025"
+          ]
+        },
+        {
+          "id": "fra-eco-res-water",
+          "title": "Ressources hydrauliques",
+          "summary": "La production hydroélectrique s’établit à 62,4 TWh en 2025, avec une sensibilité aux conditions hydrologiques.",
+          "tags": [
+            "Hydroélectricité"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025"
+          ]
+        },
+        {
+          "id": "fra-eco-res-critical",
+          "title": "Minerais critiques",
+          "summary": "Les approvisionnements industriels et les chaînes d’approvisionnement souveraines ou européennes figurent parmi les priorités de la programmation de défense actualisée ; aucune autonomie minérale chiffrée n’est affirmée.",
+          "tags": [
+            "Matières premières"
+          ],
+          "sourceIds": [
+            "S-FRA-LPM-2026"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "fra-issue-1",
+          "title": "Défense européenne et adaptation à la haute intensité",
+          "summary": "Renforcer la résilience et les capacités militaires dans un environnement stratégique dégradé.",
+          "tags": [
+            "Défense",
+            "Europe"
+          ],
+          "sourceIds": [
+            "S-FRA-RNS-2025",
+            "S-FRA-LPM-2026"
+          ],
+          "horizon": "2026–2035",
+          "scope": [
+            "national",
+            "european"
+          ],
+          "subthemes": [
+            "Dissuasion",
+            "Industrie",
+            "Résilience"
+          ],
+          "situation": "La loi de programmation militaire a été actualisée en août 2026 avec 36 Md€ supplémentaires programmés pour 2026-2030.",
+          "whyStrategic": "La capacité de préparation, de soutien et de dissuasion conditionne la liberté d’action nationale et la contribution à la défense collective.",
+          "actors": [
+            "Ministère des Armées",
+            "OTAN",
+            "Partenaires européens"
+          ],
+          "interests": [
+            "Préparation des forces",
+            "Approvisionnement industriel"
+          ],
+          "recentDevelopments": [
+            "16 août 2026 : promulgation de la LPM actualisée."
+          ],
+          "indicators": [
+            "Exécution des crédits votés",
+            "Disponibilité des équipements",
+            "Montée en puissance de la réserve"
+          ],
+          "uncertainties": [
+            "Délais industriels et de livraison",
+            "Évolution de l’environnement de menace"
+          ],
+          "updatedAt": "2026-10-30"
+        },
+        {
+          "id": "fra-issue-2",
+          "title": "Transition énergétique et électrification des usages",
+          "summary": "Décarboner les usages fossiles tout en soutenant la compétitivité industrielle.",
+          "tags": [
+            "Énergie",
+            "Économie"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025",
+            "S-FRA-PPE3",
+            "S-FRA-SNBC3"
+          ],
+          "horizon": "2026–2035",
+          "scope": [
+            "national",
+            "european"
+          ],
+          "subthemes": [
+            "Électricité",
+            "Transport",
+            "Industrie"
+          ],
+          "situation": "Le bilan RTE 2025 souligne l’abondance d’électricité bas-carbone mais la persistance d’une consommation finale importante de combustibles fossiles.",
+          "whyStrategic": "Réduire la dépendance aux hydrocarbures importés modifie la balance commerciale et l’exposition aux chocs extérieurs.",
+          "actors": [
+            "RTE",
+            "État",
+            "Industries",
+            "Collectivités"
+          ],
+          "interests": [
+            "Sécurité d’approvisionnement",
+            "Décarbonation",
+            "Compétitivité"
+          ],
+          "recentDevelopments": [
+            "13 février 2026 : publication de la PPE3 2026-2035.",
+            "15 juillet 2026 : adoption annoncée de la SNBC3."
+          ],
+          "indicators": [
+            "Part de l’électricité dans les usages",
+            "Facture des combustibles fossiles",
+            "Capacités de production"
+          ],
+          "uncertainties": [
+            "Rythme d’industrialisation",
+            "Demande énergétique future"
+          ],
+          "updatedAt": "2026-10-30"
+        },
+        {
+          "id": "fra-issue-3",
+          "title": "Cyberdéfense et souveraineté numérique",
+          "summary": "Prévenir l’espionnage, les rançongiciels et les effets destructeurs sur les secteurs critiques.",
+          "tags": [
+            "Cyber",
+            "Technologie"
+          ],
+          "sourceIds": [
+            "S-FRA-ANSSI-2025",
+            "S-FRA-RNS-2025"
+          ],
+          "horizon": "2026–2030",
+          "scope": [
+            "national",
+            "european",
+            "international"
+          ],
+          "subthemes": [
+            "Infrastructures critiques",
+            "Sécurité des systèmes",
+            "Espionnage"
+          ],
+          "situation": "Le panorama ANSSI publié en mars 2026 décrit une menace élevée et des méthodes de compromission des équipements exposés.",
+          "whyStrategic": "L’intégrité des réseaux numériques et des infrastructures critiques participe directement à la continuité de l’État et de l’économie.",
+          "actors": [
+            "ANSSI",
+            "Administrations",
+            "Opérateurs essentiels"
+          ],
+          "interests": [
+            "Protection des services",
+            "Autonomie numérique"
+          ],
+          "recentDevelopments": [
+            "11 mars 2026 : publication du panorama ANSSI 2025."
+          ],
+          "indicators": [
+            "Incidents portés à connaissance",
+            "Réglementation de cybersécurité",
+            "Correctifs des équipements exposés"
+          ],
+          "uncertainties": [
+            "Difficulté d’attribution",
+            "Sous-déclaration des incidents"
+          ],
+          "updatedAt": "2026-10-30"
+        },
+        {
+          "id": "fra-issue-4",
+          "title": "Positionnement international et sécurité des voies maritimes",
+          "summary": "Concilier engagements européens, partenariats et protection des approvisionnements maritimes.",
+          "tags": [
+            "Diplomatie",
+            "Maritime"
+          ],
+          "sourceIds": [
+            "S-FRA-DIPLO-RESEAU",
+            "S-FRA-CORYMBE26",
+            "S-FRA-OPS-2026-10"
+          ],
+          "horizon": "2026–2030",
+          "scope": [
+            "european",
+            "international"
+          ],
+          "subthemes": [
+            "Diplomatie",
+            "Sûreté maritime",
+            "Coopération"
+          ],
+          "situation": "En 2026, les forces françaises ont participé à des engagements maritimes, notamment Corymbe dans le golfe de Guinée et ASPIDES en mer Rouge.",
+          "whyStrategic": "La sécurité des routes de commerce et la coopération avec les partenaires concernent les approvisionnements, l’influence et la capacité de réaction.",
+          "actors": [
+            "Ministère des Affaires étrangères",
+            "Marine nationale",
+            "Partenaires régionaux"
+          ],
+          "interests": [
+            "Navigation commerciale",
+            "Coopération de défense"
+          ],
+          "recentDevelopments": [
+            "Septembre 2026 : mission Corymbe 26 présentée officiellement."
+          ],
+          "indicators": [
+            "Évolution des déploiements publics",
+            "Incidents de sécurité maritime"
+          ],
+          "uncertainties": [
+            "Durée effective des opérations",
+            "Instabilité régionale"
+          ],
+          "updatedAt": "2026-10-30"
+        },
+        {
+          "id": "fra-issue-5",
+          "title": "Adaptation climatique et résilience des infrastructures",
+          "summary": "Adapter bâtiments, réseaux et territoires aux aléas climatiques identifiés par l’État.",
+          "tags": [
+            "Climat",
+            "Infrastructures"
+          ],
+          "sourceIds": [
+            "S-FRA-PNACC3",
+            "S-FRA-SNBC3"
+          ],
+          "horizon": "2026–2050",
+          "scope": [
+            "national",
+            "european"
+          ],
+          "subthemes": [
+            "Inondations",
+            "Chaleur",
+            "Continuité d’activité"
+          ],
+          "situation": "Le PNACC-3 de 2025 définit des mesures d’adaptation fondées sur un réchauffement de référence de +4 °C pour la France hexagonale en 2100.",
+          "whyStrategic": "Les événements extrêmes touchent la population, les infrastructures, les chaînes logistiques et les coûts publics.",
+          "actors": [
+            "État",
+            "Collectivités",
+            "Opérateurs d’infrastructure"
+          ],
+          "interests": [
+            "Résilience territoriale",
+            "Protection des populations"
+          ],
+          "recentDevelopments": [
+            "10 mars 2025 : publication du PNACC-3."
+          ],
+          "indicators": [
+            "Mise en œuvre des mesures PNACC",
+            "Vulnérabilités locales dans Géorisques"
+          ],
+          "uncertainties": [
+            "Exposition variable selon les territoires",
+            "Incertitude temporelle des événements extrêmes"
+          ],
+          "updatedAt": "2026-10-30"
+        }
+      ],
+      "calendar": [
+        {
+          "id": "fra-iss-cal-1",
+          "title": "Publication de la PPE3",
+          "summary": "Cadre énergétique publié pour 2026-2035.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-PPE3"
+          ],
+          "date": "2026-02-13",
+          "status": "réalisé"
+        },
+        {
+          "id": "fra-iss-cal-2",
+          "title": "LPM actualisée",
+          "summary": "Loi n°2026-791 promulguée.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-LPM-2026"
+          ],
+          "date": "2026-08-16",
+          "status": "réalisé"
+        },
+        {
+          "id": "fra-iss-cal-3",
+          "title": "Objectif LPM 2030",
+          "summary": "Trajectoire annuelle programmée de 75,7 Md€ en crédits de paiement pour 2030.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-LPM-2026"
+          ],
+          "date": "2030",
+          "status": "prévu"
+        },
+        {
+          "id": "fra-iss-cal-4",
+          "title": "Horizon énergétique PPE3",
+          "summary": "Fin de la période de la programmation énergétique 2026-2035.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-PPE3"
+          ],
+          "date": "2035",
+          "status": "programmé"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "fra-iss-opp-1",
+          "title": "Électrification et moindre dépendance fossile",
+          "summary": "L’augmentation de l’usage de l’électricité bas-carbone pourrait réduire les besoins d’importation de combustibles fossiles.",
+          "tags": [
+            "Énergie"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025",
+            "S-FRA-PPE3"
+          ]
+        },
+        {
+          "id": "fra-iss-opp-2",
+          "title": "Renforcement des capacités industrielles de défense",
+          "summary": "La LPM actualisée prévoit des moyens et des orientations favorisant la résilience des chaînes d’approvisionnement.",
+          "tags": [
+            "Industrie"
+          ],
+          "sourceIds": [
+            "S-FRA-LPM-2026"
+          ]
+        },
+        {
+          "id": "fra-iss-opp-3",
+          "title": "Coopération européenne en cyberdéfense",
+          "summary": "Les démarches de cybersécurité européennes constituent un cadre potentiel pour le renforcement des protections des opérateurs.",
+          "tags": [
+            "Cyber"
+          ],
+          "sourceIds": [
+            "S-FRA-ANSSI-2025"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "fra-iss-risk-1",
+          "title": "Durcissement du contexte sécuritaire en Europe",
+          "summary": "La RNS 2025 constate un environnement de défense dégradé qui nécessite une adaptation des capacités.",
+          "tags": [
+            "Défense"
+          ],
+          "sourceIds": [
+            "S-FRA-RNS-2025"
+          ]
+        },
+        {
+          "id": "fra-iss-risk-2",
+          "title": "Cyberattaques sur les infrastructures",
+          "summary": "L’ANSSI décrit des tentatives de compromission et d’espionnage susceptibles d’affecter des infrastructures et services critiques.",
+          "tags": [
+            "Cyber"
+          ],
+          "sourceIds": [
+            "S-FRA-ANSSI-2025"
+          ]
+        },
+        {
+          "id": "fra-iss-risk-3",
+          "title": "Dépendance aux combustibles fossiles importés",
+          "summary": "La dépendance énergétique persiste malgré la forte production d’électricité bas-carbone.",
+          "tags": [
+            "Énergie"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025-ECHANGES",
+            "S-FRA-RTE-2025"
+          ]
+        },
+        {
+          "id": "fra-iss-risk-4",
+          "title": "Aléas climatiques et infrastructures",
+          "summary": "Les aléas retenus par le PNACC-3 exposent des réseaux, des bâtiments et des populations.",
+          "tags": [
+            "Climat"
+          ],
+          "sourceIds": [
+            "S-FRA-PNACC3"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "domains": [
+        {
+          "id": "fra-out-dom-eco",
+          "title": "Exposition macroéconomique",
+          "summary": "Le PIB 2025 progresse de 0,8 % en volume selon l’INSEE ; les chocs d’énergie et de commerce extérieur constituent des facteurs de surveillance.",
+          "tags": [
+            "Économie"
+          ],
+          "sourceIds": [
+            "S-FRA-INSEE-CN2025",
+            "S-FRA-RTE-2025-ECHANGES"
+          ]
+        },
+        {
+          "id": "fra-out-dom-energy",
+          "title": "Dépendances énergétiques et industrielles",
+          "summary": "La production d’électricité est très largement bas-carbone mais les combustibles fossiles restent importants dans les usages finaux.",
+          "tags": [
+            "Énergie"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025"
+          ]
+        },
+        {
+          "id": "fra-out-dom-cyber",
+          "title": "Cyber et numérique",
+          "summary": "L’ANSSI relève une menace persistante et des ciblages d’équipements exposés ainsi que des secteurs critiques.",
+          "tags": [
+            "Cyber"
+          ],
+          "sourceIds": [
+            "S-FRA-ANSSI-2025"
+          ]
+        },
+        {
+          "id": "fra-out-dom-climate",
+          "title": "Environnement et climat",
+          "summary": "La politique d’adaptation nationale identifie des vulnérabilités multiples liées aux conditions météorologiques extrêmes.",
+          "tags": [
+            "Climat"
+          ],
+          "sourceIds": [
+            "S-FRA-PNACC3"
+          ]
+        },
+        {
+          "id": "fra-out-dom-infra",
+          "title": "Continuité des infrastructures",
+          "summary": "Les risques climatiques et cyber nécessitent des mesures de continuité d’activité dans les infrastructures essentielles.",
+          "tags": [
+            "Infrastructures"
+          ],
+          "sourceIds": [
+            "S-FRA-PNACC3",
+            "S-FRA-ANSSI-2025"
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "fra-out-dep-oil",
+          "title": "Pétrole et produits pétroliers",
+          "summary": "Dépendance qualitative à documenter par des quantités importées, leurs pays d’origine et un périmètre explicite.",
+          "tags": [
+            "Énergie"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025-ECHANGES"
+          ],
+          "state": "needs_methodology"
+        },
+        {
+          "id": "fra-out-dep-gas",
+          "title": "Gaz naturel",
+          "summary": "L’indicateur doit distinguer importations, consommation, origine et transit ; aucun ratio n’est inféré ici.",
+          "tags": [
+            "Énergie"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025-ECHANGES"
+          ],
+          "state": "needs_methodology"
+        },
+        {
+          "id": "fra-out-dep-critical",
+          "title": "Matières premières critiques",
+          "summary": "Les chaînes d’approvisionnement industrielles sont un sujet de la LPM ; aucun pourcentage de dépendance non documenté n’est avancé.",
+          "tags": [
+            "Industrie"
+          ],
+          "sourceIds": [
+            "S-FRA-LPM-2026"
+          ],
+          "state": "needs_methodology"
+        },
+        {
+          "id": "fra-out-dep-cloud",
+          "title": "Cloud et infrastructures numériques",
+          "summary": "L’ANSSI documente les risques sur les systèmes ; aucune part de marché ou dépendance cloud n’est présentée sans base de mesure spécifique.",
+          "tags": [
+            "Cyber"
+          ],
+          "sourceIds": [
+            "S-FRA-ANSSI-2025"
+          ],
+          "state": "needs_methodology"
+        },
+        {
+          "id": "fra-out-dep-electricity",
+          "title": "Échanges d’électricité",
+          "summary": "Le solde net des échanges d’électricité est mesuré à +92,3 TWh en 2025 ; ce solde ne mesure pas la dépendance totale à l’énergie.",
+          "tags": [
+            "Électricité"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025-ECHANGES"
+          ],
+          "state": "measured",
+          "observationKey": "energy.electricity.net_exports_2025"
+        }
+      ],
+      "swot": {
+        "strengths": [
+          {
+            "id": "fra-out-sw-strengths-dis",
+            "title": "Dissuasion nationale",
+            "summary": "Élément structurant de la posture de défense française.",
+            "tags": [],
+            "sourceIds": [
+              "S-FRA-RNS-2025"
+            ]
+          },
+          {
+            "id": "fra-out-sw-strengths-elec",
+            "title": "Production électrique bas-carbone",
+            "summary": "95,2 % de la production électrique métropolitaine est bas-carbone en 2025.",
+            "tags": [],
+            "sourceIds": [
+              "S-FRA-RTE-2025"
+            ]
+          },
+          {
+            "id": "fra-out-sw-strengths-diplo",
+            "title": "Participation multilatérale",
+            "summary": "La France est membre de l’UE, de l’OTAN et du Conseil de sécurité de l’ONU.",
+            "tags": [],
+            "sourceIds": [
+              "S05-EU-FRA",
+              "S06-NATO-MEMBERS",
+              "S04-UN-CHARTER-CH5"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "fra-out-sw-weaknesses-fossil",
+            "title": "Exposition aux combustibles fossiles",
+            "summary": "Une partie de la consommation finale reste fossile et importée.",
+            "tags": [],
+            "sourceIds": [
+              "S-FRA-RTE-2025-ECHANGES"
+            ]
+          },
+          {
+            "id": "fra-out-sw-weaknesses-cyber",
+            "title": "Surface d’exposition numérique",
+            "summary": "Le panorama ANSSI 2025 souligne la pression constante des cyberattaquants.",
+            "tags": [],
+            "sourceIds": [
+              "S-FRA-ANSSI-2025"
+            ]
+          },
+          {
+            "id": "fra-out-sw-weaknesses-adapt",
+            "title": "Adaptation territoriale nécessaire",
+            "summary": "Les risques climatiques appellent une réponse différenciée selon les territoires.",
+            "tags": [],
+            "sourceIds": [
+              "S-FRA-PNACC3"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "fra-out-sw-opportunities-ppe",
+            "title": "Électrification des usages",
+            "summary": "PPE3 et SNBC3 établissent un cadre de transformation de l’énergie.",
+            "tags": [],
+            "sourceIds": [
+              "S-FRA-PPE3",
+              "S-FRA-SNBC3"
+            ]
+          },
+          {
+            "id": "fra-out-sw-opportunities-bitd",
+            "title": "Modernisation capacitaire",
+            "summary": "La LPM actualisée apporte des moyens supplémentaires aux investissements programmés.",
+            "tags": [],
+            "sourceIds": [
+              "S-FRA-LPM-2026"
+            ]
+          },
+          {
+            "id": "fra-out-sw-opportunities-port",
+            "title": "Transitions logistiques",
+            "summary": "Le système portuaire HAROPA indique des investissements et une activité importante en 2025.",
+            "tags": [],
+            "sourceIds": [
+              "S-FRA-HAROPA-2025"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "fra-out-sw-threats-hybrid",
+            "title": "Menaces hybrides",
+            "summary": "La RNS et le panorama ANSSI relèvent l’évolution des menaces cyber et informationnelles.",
+            "tags": [],
+            "sourceIds": [
+              "S-FRA-RNS-2025",
+              "S-FRA-ANSSI-2025"
+            ]
+          },
+          {
+            "id": "fra-out-sw-threats-clim",
+            "title": "Événements climatiques extrêmes",
+            "summary": "Canicules, inondations, sécheresses et feux de forêt constituent des aléas à anticiper.",
+            "tags": [],
+            "sourceIds": [
+              "S-FRA-PNACC3"
+            ]
+          },
+          {
+            "id": "fra-out-sw-threats-route",
+            "title": "Insécurité des routes maritimes",
+            "summary": "Les missions Corymbe et ASPIDES répondent à des risques de sûreté maritime documentés.",
+            "tags": [],
+            "sourceIds": [
+              "S-FRA-CORYMBE26",
+              "S-FRA-OPS-2026-10"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "fra-out-sce-renf",
+          "title": "Renforcement",
+          "summary": "Scénario narratif : accélération de l’électrification, amélioration de la résilience et déploiement industriel des capacités programmées.",
+          "tags": [
+            "Scénario"
+          ],
+          "sourceIds": [
+            "S-FRA-PPE3",
+            "S-FRA-LPM-2026",
+            "S-FRA-RTE-2025"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Déploiement effectif des investissements énergétiques et industriels",
+            "Capacités de recrutement et de production suffisantes"
+          ],
+          "triggers": [
+            "Accélération mesurée de l’électrification",
+            "Mise en œuvre régulière des crédits de défense"
+          ],
+          "weakSignals": [
+            "Réduction de la facture fossile",
+            "Projets industriels réellement mis en service"
+          ],
+          "consequences": [
+            "Exposition moindre aux importations fossiles",
+            "Résilience renforcée"
+          ],
+          "limits": [
+            "Scénario illustratif non probabilisé",
+            "Ne constitue pas une prévision chiffrée"
+          ]
+        },
+        {
+          "id": "fra-out-sce-press",
+          "title": "Continuité sous pression",
+          "summary": "Scénario narratif : maintien des institutions et des capacités, mais adaptation ralentie par la persistance des vulnérabilités énergétiques et cyber.",
+          "tags": [
+            "Scénario"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025",
+            "S-FRA-ANSSI-2025",
+            "S-FRA-LPM-2026"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Faible progression des usages électriques",
+            "Niveau durablement élevé de cybermenace"
+          ],
+          "triggers": [
+            "Retard dans la réalisation des projets d’électrification",
+            "Prolongation des tensions internationales"
+          ],
+          "weakSignals": [
+            "Faible conversion des projets industriels",
+            "Événements de cybersécurité récurrents"
+          ],
+          "consequences": [
+            "Poursuite des coûts de dépendance",
+            "Pression persistante sur les opérateurs"
+          ],
+          "limits": [
+            "Dépend de plusieurs trajectoires incertaines",
+            "Aucune probabilité attribuée"
+          ]
+        },
+        {
+          "id": "fra-out-sce-frag",
+          "title": "Fragilisation",
+          "summary": "Scénario narratif : conjonction de chocs géopolitiques, énergétiques et climatiques affectant l’économie et la continuité d’activité.",
+          "tags": [
+            "Scénario"
+          ],
+          "sourceIds": [
+            "S-FRA-PNACC3",
+            "S-FRA-RNS-2025",
+            "S-FRA-ANSSI-2025"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Chocs énergétiques majeurs",
+            "Événements extrêmes touchant simultanément plusieurs secteurs"
+          ],
+          "triggers": [
+            "Dégradation prolongée de l’environnement de sécurité",
+            "Crises affectant les infrastructures"
+          ],
+          "weakSignals": [
+            "Perturbations prolongées de services essentiels",
+            "Augmentation des besoins d’adaptation"
+          ],
+          "consequences": [
+            "Coûts de continuité et de remise en état accrus",
+            "Arbitrages budgétaires renforcés"
+          ],
+          "limits": [
+            "Scénario exploratoire sans estimation de fréquence",
+            "Ne prédit pas un événement précis"
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "fra-out-watch-1",
+          "title": "Exécution de la LPM",
+          "summary": "Suivre les écarts entre trajectoires de crédits programmés et réalisations constatées.",
+          "tags": [
+            "Défense"
+          ],
+          "sourceIds": [
+            "S-FRA-LPM-2026"
+          ]
+        },
+        {
+          "id": "fra-out-watch-2",
+          "title": "Électrification et combustibles fossiles",
+          "summary": "Suivre la consommation finale d’énergie, la facture d’importation et les infrastructures raccordées.",
+          "tags": [
+            "Énergie"
+          ],
+          "sourceIds": [
+            "S-FRA-RTE-2025",
+            "S-FRA-PPE3"
+          ]
+        },
+        {
+          "id": "fra-out-watch-3",
+          "title": "Cybermenaces",
+          "summary": "Suivre le panorama annuel de l’ANSSI et les tendances sectorielles des incidents.",
+          "tags": [
+            "Cyber"
+          ],
+          "sourceIds": [
+            "S-FRA-ANSSI-2025"
+          ]
+        },
+        {
+          "id": "fra-out-watch-4",
+          "title": "Adaptation climatique",
+          "summary": "Suivre l’application du PNACC-3 et les aléas recensés par Géorisques.",
+          "tags": [
+            "Climat"
+          ],
+          "sourceIds": [
+            "S-FRA-PNACC3",
+            "S-FRA-GEORISQUES"
+          ]
+        },
+        {
+          "id": "fra-out-watch-5",
+          "title": "Chaînes logistiques",
+          "summary": "Suivre les évolutions des ports, des approvisionnements et de la sûreté maritime.",
+          "tags": [
+            "Logistique"
+          ],
+          "sourceIds": [
+            "S-FRA-HAROPA-2025",
+            "S-FRA-CORYMBE26"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "fra-out-tl-2025",
+          "title": "2025 : stratégie de défense et adaptation",
+          "summary": "Publication de la RNS et du PNACC-3.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-RNS-2025",
+            "S-FRA-PNACC3"
+          ],
+          "date": "2025",
+          "status": "réalisé"
+        },
+        {
+          "id": "fra-out-tl-2026",
+          "title": "2026 : nouveaux cadres de programmation",
+          "summary": "Publication de la PPE3 et actualisation de la LPM.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-PPE3",
+            "S-FRA-LPM-2026"
+          ],
+          "date": "2026",
+          "status": "réalisé"
+        },
+        {
+          "id": "fra-out-tl-2030",
+          "title": "2030 : échéances programmées",
+          "summary": "Jalon de programmation de défense et des objectifs climatiques ; réalisation à contrôler.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-LPM-2026",
+            "S-FRA-SNBC3"
+          ],
+          "date": "2030",
+          "status": "prévu"
+        },
+        {
+          "id": "fra-out-tl-2035",
+          "title": "2035 : fin de période PPE3",
+          "summary": "Horizon du cadre énergétique pluriannuel 2026-2035.",
+          "tags": [],
+          "sourceIds": [
+            "S-FRA-PPE3"
+          ],
+          "date": "2035",
+          "status": "prévu"
+        }
+      ]
     }
   }
 }

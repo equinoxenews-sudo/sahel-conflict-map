@@ -198,7 +198,7 @@ test("les onglets sont des sous-pages pré-rendues, la vue d'ensemble est la pag
 
 test("les relations bilatérales publiées ont chacune leurs sources lues et sont classées par nature, sans classement ami / rival", () => {
   const relations = relationViews(france());
-  assert.deepEqual(relations.map((relation) => relation.targetName).sort(), ["Allemagne", "Italie", "Royaume-Uni"]);
+  assert.deepEqual(relations.map((relation) => relation.targetName).sort(), ["Allemagne", "Italie", "Roumanie", "Royaume-Uni", "Émirats arabes unis"]);
   for (const relation of relations) {
     assert.ok(relation.sources.length > 0, relation.id);
     assert.ok(["treaty", "cooperation", "tension"].includes(relation.type), relation.id);
@@ -300,9 +300,19 @@ test("la fusion garde le réel et ne comble que ce qui manque, sans mélanger le
   const merged = mergeModules(real, demo);
   assert.equal(merged.defense?.threatPosture?.demo, false, "le dispositif réel l'emporte sur la démonstration");
   assert.equal(merged.defense?.threatPosture?.level, "Vigilance renforcée");
-  assert.ok((merged.defense?.equipment.length ?? 0) > 0 && merged.defense?.equipment.every((item) => item.demo), "le reste vient de la démonstration");
-  assert.ok((merged.outlook?.swot.strengths.length ?? 0) > 0, "un SWOT réel vide ne masque pas la démonstration");
-  assert.equal(mergeModules(real, null).defense?.equipment.length, 0, "sans démonstration, rien n'est inventé");
+  // Champ par champ : une rubrique réelle renseignée n'est jamais touchée ; une rubrique réelle vide est comblée par la démonstration, sans mélange.
+  const realDefense = real.defense as Record<string, unknown>;
+  const demoDefense = demo.defense as Record<string, unknown>;
+  const mergedDefense = merged.defense as Record<string, unknown>;
+  for (const field of ["kpis", "organization", "missions", "framework", "operations", "equipment", "industry", "partnerships", "internalSecurity", "strengths"]) {
+    const realItems = realDefense[field] as { demo?: boolean }[];
+    const mergedItems = mergedDefense[field] as { demo?: boolean }[];
+    if (realItems.length > 0) assert.deepEqual(mergedItems, realItems, `${field} : la rubrique réelle n'est pas modifiée`);
+    else if ((demoDefense[field] as unknown[]).length > 0) assert.ok(mergedItems.length > 0 && mergedItems.every((item) => item.demo), `${field} : une rubrique réelle vide vient de la démonstration`);
+  }
+  assert.deepEqual(merged.outlook?.swot, real.outlook?.swot, "un SWOT réel renseigné n'est pas masqué par la démonstration");
+  assert.equal(mergeModules(real, null).defense?.map ?? null, real.defense?.map ?? null, "sans démonstration, rien n'est inventé");
+  assert.ok(mergeModules(undefined, demo).defense?.equipment.every((item) => item.demo), "sans fiche réelle, tout vient de la démonstration et reste marqué demo");
 });
 
 test("une fiche réelle avec un élément de démonstration ou sans source est refusée", () => {
@@ -360,8 +370,9 @@ test("les images de démonstration sont déclarées à confirmer et existent sur
 });
 
 test("la fiche France réelle ne contient aucune image : en production, un visuel neutre s'affiche", () => {
-  assert.equal(france().modules.media, undefined);
-  assert.equal(france().modules.hero, undefined);
+  assert.deepEqual(france().modules.media?.assets ?? [], []);
+  assert.ok(!france().modules.hero?.imageId, "pas d'image d'en-tête");
+  assert.deepEqual(france().modules.hero?.bannerImages ?? {}, {}, "pas d'image d'onglet");
 });
 
 test("les pictogrammes existent pour chaque type d'objet de carte et sujet courant", () => {
