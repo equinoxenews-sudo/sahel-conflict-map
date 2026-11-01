@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     env:
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_KEY_TRADUCTION_OSINT || secrets.ANTHROPIC_API_KEY }}
       BRIEFS_MODEL: ${{ vars.BRIEFS_MODEL }}
       LIMIT: ${{ inputs.limit }}
     steps:

@@ -36,7 +36,7 @@ jobs:
     timeout-minutes: 30
     env:
       SITE_URL: https://sahel-conflict-map.vercel.app
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_KEY_SYNTHESE_ZONE || secrets.ANTHROPIC_API_KEY }}
       SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
       NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
       CRON_SECRET: ${{ secrets.CRON_SECRET }}
