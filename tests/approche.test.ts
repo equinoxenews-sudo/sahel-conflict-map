@@ -165,7 +165,7 @@ test("une fiche non publiée ne montre rien", () => {
 });
 
 test("un pays non migré garde l'ancienne fiche", () => {
-  assert.equal(getApprocheData("MLI"), null);
+  assert.equal(getApprocheData("NER"), null);
   assert.equal(getApprocheData(undefined), null);
 });
 
@@ -193,7 +193,7 @@ test("les onglets sont des sous-pages pré-rendues, la vue d'ensemble est la pag
   assert.equal(tabHref("/zones/europe/approche/pays/france", "defense"), "/zones/europe/approche/pays/france/defense");
   assert.equal(validateTab("defense"), "defense");
   assert.equal(validateTab("nimporte-quoi"), "overview");
-  assert.deepEqual(listApprocheCountries(), [{ slug: "france", zoneSlug: "europe" }]);
+  assert.deepEqual(listApprocheCountries(), [{ slug: "france", zoneSlug: "europe" }, { slug: "mali", zoneSlug: "afrique" }, { slug: "chine", zoneSlug: "indopacifique" }]);
 });
 
 test("les relations bilatérales publiées ont chacune leurs sources lues et sont classées par nature, sans classement ami / rival", () => {

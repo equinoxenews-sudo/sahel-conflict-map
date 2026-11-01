@@ -1,6 +1,10 @@
 import FRA from "@/data/approche/FRA.json";
 import FRA_EUROSTAT from "@/data/approche/FRA.eurostat.json";
 import FRA_WORLDBANK from "@/data/approche/FRA.worldbank.json";
+import MLI from "@/data/approche/MLI.json";
+import MLI_WORLDBANK from "@/data/approche/MLI.worldbank.json";
+import CHN from "@/data/approche/CHN.json";
+import CHN_WORLDBANK from "@/data/approche/CHN.worldbank.json";
 import { CountryDataSchema, type CountryData } from "./schema";
 import { publishProblems } from "./sourceRegistry";
 
@@ -9,6 +13,8 @@ import { publishProblems } from "./sourceRegistry";
 // fichiers dans data/approche/ puis les deux lignes ci-dessous. Un pays absent de cette liste garde l'ancienne fiche.
 const FILES: Record<string, { curated: unknown; worldbank?: unknown; eurostat?: unknown }> = {
   FRA: { curated: FRA, worldbank: FRA_WORLDBANK, eurostat: FRA_EUROSTAT },
+  MLI: { curated: MLI, worldbank: MLI_WORLDBANK },
+  CHN: { curated: CHN, worldbank: CHN_WORLDBANK },
 };
 
 interface WorldBankFile {

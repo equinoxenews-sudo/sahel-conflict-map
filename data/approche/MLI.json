@@ -1,0 +1,1506 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "MLI",
+  "slug": "mali",
+  "zoneSlug": "afrique",
+  "name": "Mali",
+  "officialName": "République du Mali",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-01",
+  "sources": [
+    {
+      "id": "S-MLI-WB",
+      "publisher": "Banque mondiale",
+      "title": "Mali — présentation du pays et perspectives économiques 2026",
+      "canonicalUrl": "https://www.banquemondiale.org/ext/fr/country/mali",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Croissance 2026 et contraintes sont des projections, pas des réalisations."
+    },
+    {
+      "id": "S-MLI-GOV",
+      "publisher": "Gouvernement du Mali",
+      "title": "Biographie du Président de la Transition",
+      "canonicalUrl": "https://gouvernement.ml/biographie-du-president-de-la-transition/",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-MLI-GOV2",
+      "publisher": "Gouvernement du Mali",
+      "title": "Remaniement ministériel : liste des membres du nouveau gouvernement",
+      "canonicalUrl": "https://gouvernement.ml/remaniement-ministeriel-liste-des-membres-du-nouveau-gouvernement/",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-02-12"
+    },
+    {
+      "id": "S-MLI-GOV3",
+      "publisher": "Gouvernement du Mali",
+      "title": "Discours du Président de la Transition à la Nation, nouvel an 2026",
+      "canonicalUrl": "https://gouvernement.ml/discours-du-president-de-la-transition-chef-de-letat-le-general-darmee-assimi-goita-a-la-nation-a-loccasion-du-nouvel-an-2026/",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-01-01"
+    },
+    {
+      "id": "S-MLI-UEMOA",
+      "publisher": "UEMOA",
+      "title": "Mali — État membre",
+      "canonicalUrl": "https://www.uemoa.int/etat-membre/mali",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Surface officielle sur cette page ; éviter les autres chiffres non millésimés du panneau."
+    },
+    {
+      "id": "S-MLI-WTO",
+      "publisher": "OMC",
+      "title": "Mali — renseignements par membre",
+      "canonicalUrl": "https://www.wto.org/English/Thewto_E/countries_e/mali_e.htm",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-MLI-ECOWAS",
+      "publisher": "CEDEAO",
+      "title": "Press statement — withdrawal of Burkina Faso, Mali and Niger",
+      "canonicalUrl": "https://www.ecowas.int/press-statement-2/",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2025-01-30"
+    },
+    {
+      "id": "S-MLI-AES",
+      "publisher": "Gouvernement du Mali",
+      "title": "Comité ministériel de pilotage de la Confédération des États du Sahel",
+      "canonicalUrl": "https://gouvernement.ml/comite-ministeriel-de-pilotage-de-la-confederation-des-etats-du-sahel-aes-reunions-preparatoires-aux-negociations-formelles-avec-la-cedeao/",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-10-19"
+    },
+    {
+      "id": "S-MLI-MINUSMA",
+      "publisher": "Nations unies / MINUSMA",
+      "title": "Déclaration du porte-parole du Secrétaire général sur le Mali — fermeture de la MINUSMA",
+      "canonicalUrl": "https://minusma.unmissions.org/fr/communiques-de-presse/declaration-du-porte-parole-du-secretaire-general-de-lonu-sur-le-mali",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2023-12-31"
+    },
+    {
+      "id": "S-MLI-IOM",
+      "publisher": "Organisation internationale pour les migrations",
+      "title": "Mali Crisis Response Plan 2025–2026 — 2026",
+      "canonicalUrl": "https://crisisresponse.iom.int/response/mali-crisis-response-plan-2025-2026/year/2026",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Chiffres 2026 de besoins et cibles humanitaires, non population en déplacement."
+    },
+    {
+      "id": "S-MLI-UNHCR",
+      "publisher": "HCR / gouvernement malien",
+      "title": "Mali — operational data portal",
+      "canonicalUrl": "https://data.unhcr.org/fr/country/mli",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Chiffres par statut et dates différentes ; données réfugiés 2026, PDI 2025 (ne pas mélanger)."
+    },
+    {
+      "id": "S-MLI-GPC",
+      "publisher": "Global Protection Cluster",
+      "title": "Mali Protection Analysis Update, 17 septembre 2026",
+      "canonicalUrl": "https://globalprotectioncluster.org/latest/publications/mali-protection-analysis-update-4",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-09-17"
+    },
+    {
+      "id": "S-MLI-IMF",
+      "publisher": "Fonds monétaire international",
+      "title": "IMF Management Approves the Second Review of the Staff-Monitored Program with Mali",
+      "canonicalUrl": "https://www.imf.org/en/news/articles/2026/03/23/pr-26085-mali-imf-approves-2nd-rev-of-the-staff-monitored-program",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-03-23"
+    },
+    {
+      "id": "S-MLI-HRW",
+      "publisher": "Human Rights Watch",
+      "title": "Mali: Military Attacks on Civilians, Insurgent Abuses",
+      "canonicalUrl": "https://www.hrw.org/news/2026/10/19/mali-military-attacks-on-civilians-insurgent-abuses",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-10-19",
+      "methodNotes": "Constats d’une ONG fondés sur des entretiens et documents; attribuer les accusations, préserver les contestations éventuelles."
+    },
+    {
+      "id": "S-MLI-HRW2",
+      "publisher": "Human Rights Watch",
+      "title": "Mali : De graves abus commis dans un contexte de reprise des combats",
+      "canonicalUrl": "https://www.hrw.org/fr/news/2026/06/28/mali-de-graves-abus-commis-dans-un-contexte-de-reprise-des-combats",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-06-28"
+    },
+    {
+      "id": "S-MLI-WHO",
+      "publisher": "OMS — Health Cluster",
+      "title": "Mali — Health Cluster",
+      "canonicalUrl": "https://healthcluster.who.int/countries-and-regions/mali",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-MLI-UNICEF",
+      "publisher": "UNICEF Mali",
+      "title": "Pour apprendre, il faut plus qu’une salle de classe",
+      "canonicalUrl": "https://www.unicef.org/mali/communiqu%C3%A9s-de-presse/pour-apprendre-il-faut-plus-quune-salle-de-classe-lunicef-mobilis%C3%A9-pour-une",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-10-02"
+    },
+    {
+      "id": "S-MLI-WBEN",
+      "publisher": "Banque mondiale",
+      "title": "Mali — country overview",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/mali",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "World Bank"
+    },
+    {
+      "id": "S-MLI-PRIMATURE",
+      "publisher": "Gouvernement du Mali",
+      "title": "Conseil national de Transition (CNT) : session ordinaire d’octobre 2026",
+      "canonicalUrl": "https://gouvernement.ml/conseil-national-de-transition-cnt-la-session-ordinaire-doctobre-2026-examinera-plus-dune-trentaine-de-projets-de-loi-inscrits-a-lordre-du-jour/",
+      "accessedAt": "2026-11-01",
+      "publishedAt": "2026-10-07",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "mli-identity-capital-2026",
+      "countryCode": "MLI",
+      "key": "identity.capital",
+      "value": "Bamako",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Capitale indiquée par la fiche UEMOA.",
+      "sourceIds": [
+        "S-MLI-UEMOA"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mli-identity-head-of-state-2026",
+      "countryCode": "MLI",
+      "key": "identity.head_of_state",
+      "value": "Assimi Goïta",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Président de la Transition selon le portail gouvernemental.",
+      "sourceIds": [
+        "S-MLI-GOV"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mli-identity-regime-2026",
+      "countryCode": "MLI",
+      "key": "identity.regime",
+      "value": "Transition dirigée par les autorités militaires",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Description institutionnelle, non classification de régime universelle.",
+      "sourceIds": [
+        "S-MLI-GOV",
+        "S-MLI-WB"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "editorial_analysis"
+    },
+    {
+      "id": "mli-geography-surface-area-official-uemoa-2026",
+      "countryCode": "MLI",
+      "key": "geography.surface_area_official_uemoa",
+      "value": 1241238,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Superficie territoriale publiée par l’UEMOA; ne pas la fusionner avec la clé automatique Banque mondiale.",
+      "sourceIds": [
+        "S-MLI-UEMOA"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "mli-institutions-uemoa-2026",
+      "countryCode": "MLI",
+      "key": "institutions.uemoa",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Appartenance à l’Union économique et monétaire ouest-africaine.",
+      "sourceIds": [
+        "S-MLI-UEMOA"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mli-institutions-wto-2026",
+      "countryCode": "MLI",
+      "key": "institutions.wto",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "OMC, adhésion le 31 mai 1995.",
+      "sourceIds": [
+        "S-MLI-WTO"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "validFrom": "1995-05-31"
+    },
+    {
+      "id": "mli-institutions-aes-2026",
+      "countryCode": "MLI",
+      "key": "institutions.aes",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Membre de la Confédération des États du Sahel, confirmé par le communiqué gouvernemental d’octobre 2026.",
+      "sourceIds": [
+        "S-MLI-AES"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mli-institutions-ecowas-former-member-2025",
+      "countryCode": "MLI",
+      "key": "institutions.ecowas_former_member",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Mali",
+      "methodology": "Ancien membre CEDEAO, retrait devenu effectif le 29 janvier 2025 ; ne pas afficher comme membre actuel.",
+      "sourceIds": [
+        "S-MLI-ECOWAS"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "validFrom": "2025-01-29"
+    },
+    {
+      "id": "mli-economy-growth-projection-2026-wb-2026",
+      "countryCode": "MLI",
+      "key": "economy.growth_projection_2026_wb",
+      "value": 5.0,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Projection de croissance annuelle du PIB réel Banque mondiale, non résultat acquis.",
+      "sourceIds": [
+        "S-MLI-WB"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "uncertainty": "Projection conditionnelle susceptible d’être révisée."
+    },
+    {
+      "id": "mli-economy-growth-projection-2025-wb-2025",
+      "countryCode": "MLI",
+      "key": "economy.growth_projection_2025_wb",
+      "value": 4.1,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Mali",
+      "methodology": "Estimation Banque mondiale utilisée comme base de projection 2026.",
+      "sourceIds": [
+        "S-MLI-WB"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "uncertainty": "Estimation publiée en 2026 ; révisions possibles."
+    },
+    {
+      "id": "mli-economy-poverty-extreme-projection-2026-wb-2026",
+      "countryCode": "MLI",
+      "key": "economy.poverty_extreme_projection_2026_wb",
+      "value": 34.9,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Projection de part de la population en extrême pauvreté selon la Banque mondiale, seuil défini par la source.",
+      "sourceIds": [
+        "S-MLI-WB"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "uncertainty": "Projection ; le seuil international doit être repris de la note méthodologique avant représentation comparée."
+    },
+    {
+      "id": "mli-humanitarian-people-needing-assistance-2026-iom-2026",
+      "countryCode": "MLI",
+      "key": "humanitarian.people_needing_assistance_2026_iom",
+      "value": 5100000,
+      "unit": "personnes",
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Population estimée ayant besoin d’aide humanitaire selon le plan 2026 repris par l’OIM.",
+      "sourceIds": [
+        "S-MLI-IOM"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "uncertainty": "Besoins évalués, pas nombre de bénéficiaires ni de déplacés."
+    },
+    {
+      "id": "mli-humanitarian-people-targeted-2026-iom-2026",
+      "countryCode": "MLI",
+      "key": "humanitarian.people_targeted_2026_iom",
+      "value": 3800000,
+      "unit": "personnes",
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Population visée par la réponse inter-agences 2026 (cible, non réalisation).",
+      "sourceIds": [
+        "S-MLI-IOM"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "mli-humanitarian-refugees-hosted-sep-2026-2026-09",
+      "countryCode": "MLI",
+      "key": "humanitarian.refugees_hosted_sep_2026",
+      "value": 195020,
+      "unit": "personnes",
+      "referencePeriod": "2026-09",
+      "geographicScope": "Mali",
+      "methodology": "Population réfugiée enregistrée par le portail HCR au 30 septembre 2026.",
+      "sourceIds": [
+        "S-MLI-UNHCR"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "uncertainty": "Données administratives mises à jour périodiquement."
+    },
+    {
+      "id": "mli-humanitarian-idps-sep-2025-2025-09",
+      "countryCode": "MLI",
+      "key": "humanitarian.idps_sep_2025",
+      "value": 414524,
+      "unit": "personnes",
+      "referencePeriod": "2025-09",
+      "geographicScope": "Mali",
+      "methodology": "Personnes déplacées à l’intérieur du Mali, observation de septembre 2025 ; ne pas présenter comme 2026.",
+      "sourceIds": [
+        "S-MLI-UNHCR"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "uncertainty": "Série plus ancienne que le nombre de réfugiés."
+    },
+    {
+      "id": "mli-defense-internal-security-minister-name-2026",
+      "countryCode": "MLI",
+      "key": "defense.internal_security_minister_name",
+      "value": "Sadio Camara",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Ministre de la Défense et des Anciens Combattants dans le remaniement du 12 février 2026.",
+      "sourceIds": [
+        "S-MLI-GOV2"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mli-security-minusma-closed-2023",
+      "countryCode": "MLI",
+      "key": "security.minusma_closed",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2023",
+      "geographicScope": "Mali",
+      "methodology": "Fermeture de la MINUSMA le 31 décembre 2023.",
+      "sourceIds": [
+        "S-MLI-MINUSMA"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "validFrom": "2023-12-31"
+    },
+    {
+      "id": "mli-security-protection-priorities-2026-2026",
+      "countryCode": "MLI",
+      "key": "security.protection_priorities_2026",
+      "value": 5,
+      "unit": "catégories",
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Cinq catégories principales de risque de protection décrites dans la note du Global Protection Cluster du 17 septembre 2026.",
+      "sourceIds": [
+        "S-MLI-GPC"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "mli-humanitarian-health-response-target-2026-who-2026",
+      "countryCode": "MLI",
+      "key": "humanitarian.health_response_target_2026_who",
+      "value": 1600000,
+      "unit": "personnes",
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Cible approximative du Health Cluster (« nearly 1.6 million »), pas résultat constaté.",
+      "sourceIds": [
+        "S-MLI-WHO"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "uncertainty": "Valeur arrondie, donnée de planification."
+    },
+    {
+      "id": "mli-identity-head-of-government-2026",
+      "countryCode": "MLI",
+      "key": "identity.head_of_government",
+      "value": "Abdoulaye Maïga",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Premier ministre, chef du Gouvernement, cité dans le communiqué officiel d’octobre 2026.",
+      "sourceIds": [
+        "S-MLI-PRIMATURE"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "mli-claim-geo",
+      "countryCode": "MLI",
+      "statement": "Le Mali est un État sahélien enclavé d’Afrique de l’Ouest dont la capitale est Bamako.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-MLI-UEMOA"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "mli-claim-politics",
+      "countryCode": "MLI",
+      "statement": "Le Mali est dirigé par le président de la Transition Assimi Goïta et le Premier ministre Abdoulaye Maïga ; la transition demeure marquée par la dissolution des partis politiques en 2025.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-MLI-WB",
+        "S-MLI-GOV",
+        "S-MLI-PRIMATURE"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "La qualification du régime et les échéances doivent être recontrôlées lors de chaque mise à jour."
+      ]
+    },
+    {
+      "id": "mli-claim-security",
+      "countryCode": "MLI",
+      "statement": "Le pays reste exposé à des attaques de groupes armés, à des restrictions de circulation et à des violations des droits des civils documentées par plusieurs organismes.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-MLI-GPC",
+        "S-MLI-HRW"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Les responsabilités et les chiffres d’incidents varient selon les sources."
+      ]
+    },
+    {
+      "id": "mli-claim-economy",
+      "countryCode": "MLI",
+      "statement": "L’économie repose fortement sur l’agriculture pluviale et les exportations minières, notamment l’or ; le lithium prend une importance croissante.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-MLI-WB"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "mli-claim-regional",
+      "countryCode": "MLI",
+      "statement": "Le Mali a quitté la CEDEAO le 29 janvier 2025 et participe à la Confédération des États du Sahel.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-MLI-ECOWAS",
+        "S-MLI-AES"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "mli-claim-humanitarian",
+      "countryCode": "MLI",
+      "statement": "Le plan humanitaire 2026 recense environ 5,1 millions de personnes ayant besoin d’assistance au Mali.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-MLI-IOM"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "mli-rel-bfa",
+      "countryCode": "MLI",
+      "targetCode": "BFA",
+      "targetIso2": "BF",
+      "targetName": "Burkina Faso",
+      "relationType": "cooperation",
+      "title": "Coordination dans la Confédération des États du Sahel",
+      "topics": [
+        "Régional",
+        "Sécurité",
+        "Diplomatie"
+      ],
+      "summary": "Le Mali et le Burkina Faso participent à la Confédération des États du Sahel ; des concertations communes avec la CEDEAO se sont poursuivies en octobre 2026.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-MLI-AES"
+      ],
+      "lastReviewedAt": "2026-11-01",
+      "status": "verified"
+    },
+    {
+      "id": "mli-rel-ner",
+      "countryCode": "MLI",
+      "targetCode": "NER",
+      "targetIso2": "NE",
+      "targetName": "Niger",
+      "relationType": "cooperation",
+      "title": "Coordination dans la Confédération des États du Sahel",
+      "topics": [
+        "Régional",
+        "Diplomatie"
+      ],
+      "summary": "Le Niger et le Mali participent aux travaux confédéraux, y compris aux négociations préparatoires avec la CEDEAO.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-MLI-AES"
+      ],
+      "lastReviewedAt": "2026-11-01",
+      "status": "verified"
+    },
+    {
+      "id": "mli-rel-cdeao",
+      "countryCode": "MLI",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "CEDEAO",
+      "relationType": "tension",
+      "title": "Retrait institutionnel de la CEDEAO",
+      "topics": [
+        "Intégration régionale",
+        "Mobilité",
+        "Commerce"
+      ],
+      "summary": "Le retrait du Mali est effectif depuis le 29 janvier 2025 ; des modalités de coopération post-retrait font l’objet de discussions entre la Confédération AES et la CEDEAO.",
+      "validFrom": "2025-01-29",
+      "validTo": null,
+      "sourceIds": [
+        "S-MLI-ECOWAS",
+        "S-MLI-AES"
+      ],
+      "lastReviewedAt": "2026-11-01",
+      "status": "verified"
+    },
+    {
+      "id": "mli-rel-un",
+      "countryCode": "MLI",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Nations unies / MINUSMA",
+      "relationType": "cooperation",
+      "title": "Fin du mandat de la MINUSMA",
+      "topics": [
+        "Maintien de la paix",
+        "Historique"
+      ],
+      "summary": "La mission de maintien de la paix des Nations unies au Mali a fermé le 31 décembre 2023 ; il s’agit d’un engagement terminé, non d’une opération en cours.",
+      "validFrom": null,
+      "validTo": "2023-12-31",
+      "sourceIds": [
+        "S-MLI-MINUSMA"
+      ],
+      "lastReviewedAt": "2026-11-01",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {
+      "tagline": "État sahélien enclavé d’Afrique de l’Ouest"
+    },
+    "overview": {
+      "strengths": [
+        {
+          "id": "mli-ov-s1",
+          "title": "Ressources minières",
+          "summary": "La production aurifère occupe une place centrale dans les exportations ; le lithium gagne en importance.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB"
+          ]
+        },
+        {
+          "id": "mli-ov-s2",
+          "title": "Position régionale",
+          "summary": "La position enclavée du Mali au sein du Sahel le place au croisement de plusieurs corridors ouest-africains.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-UEMOA"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "mli-ov-c1",
+          "title": "Insécurité persistante",
+          "summary": "Les attaques de groupes armés, les restrictions de circulation et les risques pour les civils affectent les territoires.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-GPC",
+            "S-MLI-HRW"
+          ]
+        },
+        {
+          "id": "mli-ov-c2",
+          "title": "Vulnérabilité alimentaire et climatique",
+          "summary": "L’agriculture pluviale et les contraintes d’accès aux services augmentent l’exposition aux chocs.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB",
+            "S-MLI-IOM"
+          ]
+        },
+        {
+          "id": "mli-ov-c3",
+          "title": "Dépendance logistique",
+          "summary": "Les difficultés d’approvisionnement en carburants ont perturbé l’activité économique en 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-IMF"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "mli-ov-t2012",
+          "title": "Début de la crise sécuritaire contemporaine",
+          "summary": "La Banque mondiale date de 2012 le début de la période d’instabilité et de conflit armé prolongé.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB"
+          ],
+          "date": "2012"
+        },
+        {
+          "id": "mli-ov-t2020",
+          "title": "Rupture institutionnelle",
+          "summary": "Le coup d’État d’août 2020 ouvre la phase de transition.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB"
+          ],
+          "date": "2020"
+        },
+        {
+          "id": "mli-ov-t2023",
+          "title": "Fin de la MINUSMA",
+          "summary": "La mission de l’ONU ferme le 31 décembre 2023.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-MINUSMA"
+          ],
+          "date": "2023-12-31"
+        },
+        {
+          "id": "mli-ov-t2025",
+          "title": "Sortie de la CEDEAO",
+          "summary": "Le retrait du Mali devient effectif le 29 janvier 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-ECOWAS"
+          ],
+          "date": "2025-01-29"
+        },
+        {
+          "id": "mli-ov-t2026",
+          "title": "Négociations post-retrait",
+          "summary": "La Confédération AES et la CEDEAO préparent leurs négociations formelles en octobre 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-AES"
+          ],
+          "date": "2026-10"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "mli-eco-s1",
+          "title": "Or et industrie extractive",
+          "summary": "L’or domine les exportations maliennes ; la reprise des volumes miniers contribue aux perspectives de croissance 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB",
+            "S-MLI-IMF"
+          ]
+        },
+        {
+          "id": "mli-eco-s2",
+          "title": "Agriculture pluviale",
+          "summary": "L’agriculture demeure une source de subsistance majeure, exposée aux variations pluviométriques et à l’insécurité.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB"
+          ]
+        },
+        {
+          "id": "mli-eco-s3",
+          "title": "Services et commerce",
+          "summary": "Les services soutiennent la croissance projetée ; la fluidité des transports dépend de la sécurité des corridors.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB",
+            "S-MLI-IMF"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "mli-eco-r1",
+          "title": "Or",
+          "summary": "Ressource majeure des exportations ; éviter de confondre réserves, extraction et recettes fiscales.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB"
+          ]
+        },
+        {
+          "id": "mli-eco-r2",
+          "title": "Lithium",
+          "summary": "Le lithium est présenté par la Banque mondiale comme une filière exportatrice émergente.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB"
+          ]
+        },
+        {
+          "id": "mli-eco-r3",
+          "title": "Productions agricoles",
+          "summary": "Le coton et les productions vivrières restent sensibles aux intrants et à la météo.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "framework": [
+        {
+          "id": "mli-def-f1",
+          "title": "Cadre national de défense et de sécurité",
+          "summary": "Le ministre de la Défense et des Anciens Combattants est nommé par décret dans le gouvernement de transition.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-GOV2"
+          ],
+          "date": "2026"
+        },
+        {
+          "id": "mli-def-f2",
+          "title": "Protection des civils",
+          "summary": "Le Global Protection Cluster recense des risques liés aux attaques, aux restrictions de mouvement et aux engins explosifs.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-GPC"
+          ],
+          "date": "2026"
+        }
+      ],
+      "missions": [
+        {
+          "id": "mli-def-m1",
+          "title": "Sécurité du territoire",
+          "summary": "Les autorités annoncent des opérations de sécurisation, dans un contexte de violence armée persistante et d’allégations documentées d’abus.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-GOV3",
+            "S-MLI-HRW"
+          ]
+        }
+      ],
+      "operations": [
+        {
+          "id": "mli-def-o1",
+          "title": "MINUSMA (mission historique close)",
+          "summary": "La mission onusienne de stabilisation a fermé le 31 décembre 2023 ; ne jamais l’afficher comme opération actuelle.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-MINUSMA"
+          ],
+          "date": "2013–2023",
+          "status": "Clôturée"
+        }
+      ],
+      "internalSecurity": [
+        {
+          "id": "mli-def-int1",
+          "title": "Protection des personnes déplacées",
+          "summary": "Les besoins en protection, identité, eau et soins sont décrits dans le plan OIM 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-IOM"
+          ]
+        },
+        {
+          "id": "mli-def-int2",
+          "title": "Prévention des risques explosifs",
+          "summary": "Les engins explosifs et leurs effets sur les civils figurent parmi les risques signalés par le Global Protection Cluster.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-GPC"
+          ]
+        }
+      ],
+      "partnerships": [
+        {
+          "id": "mli-def-p1",
+          "title": "Coordination sahélienne",
+          "summary": "La Confédération AES constitue le principal cadre régional documenté dans les sources examinées.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-AES"
+          ]
+        }
+      ],
+      "strengths": [
+        {
+          "id": "mli-def-str1",
+          "title": "Cadres institutionnels de coordination",
+          "summary": "La coopération avec le Burkina Faso et le Niger repose sur un mécanisme confédéral officiellement documenté.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-AES"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "mli-issue-armed",
+          "title": "Conflit armé et protection des civils",
+          "summary": "Les hostilités, les engins explosifs et les restrictions de mouvement constituent un enjeu central de sécurité.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-GPC",
+            "S-MLI-HRW"
+          ],
+          "scope": [
+            "national",
+            "international"
+          ],
+          "horizon": "1–3 ans",
+          "situation": "Les notes de protection et HRW décrivent des affrontements impliquant notamment le GSIM/JNIM et des groupes séparatistes, ainsi que des abus imputés à plusieurs parties ; la responsabilité de chaque incident exige une vérification spécifique.",
+          "whyStrategic": "L’évolution de la violence conditionne les déplacements, l’action humanitaire et les activités économiques.",
+          "actors": [
+            "Autorités maliennes",
+            "Groupes armés",
+            "Organisations humanitaires"
+          ],
+          "interests": [
+            "Sécurité des personnes",
+            "Accès humanitaire"
+          ],
+          "indicators": [
+            "Incidents publics documentés",
+            "Accès routier",
+            "Déplacements"
+          ],
+          "uncertainties": [
+            "Sous-déclaration possible",
+            "Difficultés d’attribution des violations"
+          ],
+          "subthemes": [],
+          "recentDevelopments": [],
+          "updatedAt": "2026-11-01"
+        },
+        {
+          "id": "mli-issue-transition",
+          "title": "Transition institutionnelle et gouvernance",
+          "summary": "La durée de la transition et la place des mécanismes politiques demeurent des enjeux de stabilité.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB",
+            "S-MLI-GOV3"
+          ],
+          "scope": [
+            "national",
+            "international"
+          ],
+          "horizon": "1–3 ans",
+          "situation": "La Banque mondiale rappelle la dissolution des partis politiques et la prolongation de la transition en 2025.",
+          "whyStrategic": "Les modalités de gouvernance influencent les relations avec les partenaires et le climat économique.",
+          "actors": [
+            "Présidence de transition",
+            "Institutions nationales"
+          ],
+          "interests": [
+            "Prévisibilité institutionnelle",
+            "Dialogue politique"
+          ],
+          "indicators": [
+            "Annonces officielles",
+            "Cadre légal électoral"
+          ],
+          "uncertainties": [
+            "Calendrier politique évolutif"
+          ],
+          "subthemes": [],
+          "recentDevelopments": [],
+          "updatedAt": "2026-11-01"
+        },
+        {
+          "id": "mli-issue-corridors",
+          "title": "Approvisionnement et corridors commerciaux",
+          "summary": "Le risque de perturbation des routes fragilise les échanges et l’approvisionnement énergétique.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-IMF",
+            "S-MLI-GPC"
+          ],
+          "scope": [
+            "national",
+            "international"
+          ],
+          "horizon": "6–24 mois",
+          "situation": "Le FMI relève les perturbations d’approvisionnement en carburant au quatrième trimestre 2025.",
+          "whyStrategic": "Les importations terrestres sont déterminantes pour un pays sans accès à la mer.",
+          "actors": [
+            "Autorités",
+            "Transporteurs",
+            "Pays de transit"
+          ],
+          "interests": [
+            "Énergie",
+            "Commerce",
+            "Mobilité"
+          ],
+          "indicators": [
+            "Disponibilité de carburant",
+            "Accès aux grands axes"
+          ],
+          "uncertainties": [
+            "Évolutions sécuritaires imprévisibles"
+          ],
+          "subthemes": [],
+          "recentDevelopments": [],
+          "updatedAt": "2026-11-01"
+        },
+        {
+          "id": "mli-issue-mining",
+          "title": "Gouvernance des ressources minières",
+          "summary": "L’or et le lithium soutiennent les recettes et les perspectives mais accentuent la sensibilité aux prix et aux décisions réglementaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB",
+            "S-MLI-IMF"
+          ],
+          "scope": [
+            "national",
+            "international"
+          ],
+          "horizon": "3–10 ans",
+          "situation": "Le FMI évoque la résolution en 2025 d’un conflit avec un grand producteur d’or.",
+          "whyStrategic": "La concentration des exportations rend l’économie sensible à la continuité de la production minière.",
+          "actors": [
+            "État malien",
+            "Entreprises minières",
+            "Investisseurs"
+          ],
+          "interests": [
+            "Recettes publiques",
+            "Emploi",
+            "Exportations"
+          ],
+          "indicators": [
+            "Production publiée",
+            "Recettes fiscales minières"
+          ],
+          "uncertainties": [
+            "Variations de prix",
+            "Qualité des données"
+          ],
+          "subthemes": [],
+          "recentDevelopments": [],
+          "updatedAt": "2026-11-01"
+        },
+        {
+          "id": "mli-issue-humanitarian",
+          "title": "Besoins humanitaires et accès aux services",
+          "summary": "Les besoins en aide, santé, éducation et eau restent élevés malgré les interventions de partenaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-IOM",
+            "S-MLI-WHO",
+            "S-MLI-UNICEF"
+          ],
+          "scope": [
+            "national",
+            "international"
+          ],
+          "horizon": "1–3 ans",
+          "situation": "L’OIM estime 5,1 millions de personnes dans le besoin en 2026.",
+          "whyStrategic": "La protection et les services de base conditionnent les perspectives de stabilisation.",
+          "actors": [
+            "État",
+            "OIM",
+            "OMS",
+            "UNICEF"
+          ],
+          "interests": [
+            "Accès aux soins",
+            "Éducation",
+            "Résilience"
+          ],
+          "indicators": [
+            "Besoins humanitaires",
+            "État des structures de santé"
+          ],
+          "uncertainties": [
+            "Financement des programmes",
+            "Contraintes d’accès"
+          ],
+          "subthemes": [],
+          "recentDevelopments": [],
+          "updatedAt": "2026-11-01"
+        }
+      ],
+      "calendar": [
+        {
+          "id": "mli-issue-cal1",
+          "title": "Préparation des négociations AES–CEDEAO",
+          "summary": "Travaux préparatoires documentés en octobre 2026 ; l’aboutissement n’est pas connu.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-AES"
+          ],
+          "date": "2026-10",
+          "status": "réalisé"
+        }
+      ],
+      "risks": [
+        {
+          "id": "mli-risk1",
+          "title": "Propagation des entraves logistiques",
+          "summary": "Des incidents sur les routes peuvent toucher l’activité et les approvisionnements.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-IMF",
+            "S-MLI-GPC"
+          ]
+        },
+        {
+          "id": "mli-risk2",
+          "title": "Détérioration humanitaire",
+          "summary": "Les attaques contre les civils et les services essentiels peuvent aggraver les déplacements.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-GPC",
+            "S-MLI-IOM"
+          ]
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "mli-opp1",
+          "title": "Reprise de l’activité extractive",
+          "summary": "Une normalisation durable de la filière aurifère pourrait soutenir les recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-IMF"
+          ]
+        },
+        {
+          "id": "mli-opp2",
+          "title": "Coopération sur les services essentiels",
+          "summary": "La coordination institutionnelle et humanitaire peut améliorer la continuité des soins et de l’éducation.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WHO",
+            "S-MLI-UNICEF"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "domains": [
+        {
+          "id": "mli-out-d1",
+          "title": "Protection des civils",
+          "summary": "Les affrontements et violations rapportés demeurent une vulnérabilité centrale.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-GPC",
+            "S-MLI-HRW"
+          ]
+        },
+        {
+          "id": "mli-out-d2",
+          "title": "Sécurité alimentaire et climat",
+          "summary": "L’agriculture pluviale est exposée aux variations météorologiques et aux conflits.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB"
+          ]
+        },
+        {
+          "id": "mli-out-d3",
+          "title": "Système de santé",
+          "summary": "L’OMS décrit des ruptures d’accès aux soins liées à l’insécurité, aux épidémies et aux inondations.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WHO"
+          ]
+        },
+        {
+          "id": "mli-out-d4",
+          "title": "Approvisionnement énergétique",
+          "summary": "Les perturbations des convois de carburant ont pesé sur l’activité et la fourniture électrique.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-IMF"
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "mli-out-dep1",
+          "title": "Exportations aurifères",
+          "summary": "Concentration des recettes d’exportation sur l’or, sans pourcentage comparable retenu.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-WB"
+          ],
+          "state": "needs_methodology",
+          "observationKey": null
+        },
+        {
+          "id": "mli-out-dep2",
+          "title": "Carburants importés",
+          "summary": "Approvisionnement sensible à l’état des corridors de transport.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-IMF"
+          ],
+          "state": "needs_methodology",
+          "observationKey": null
+        }
+      ],
+      "swot": {
+        "strengths": [
+          {
+            "id": "mli-sw-s1",
+            "title": "Potentiel minier",
+            "summary": "L’or et le lithium représentent des ressources économiques importantes.",
+            "tags": [],
+            "sourceIds": [
+              "S-MLI-WB"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "mli-sw-w1",
+            "title": "Concentration économique",
+            "summary": "Faible diversification et dépendance aux exportations minières.",
+            "tags": [],
+            "sourceIds": [
+              "S-MLI-WB"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "mli-sw-o1",
+            "title": "Reprise minière",
+            "summary": "Possibilité de redressement de la production d’or en 2026, selon le FMI.",
+            "tags": [],
+            "sourceIds": [
+              "S-MLI-IMF"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "mli-sw-t1",
+            "title": "Insécurité et déplacements",
+            "summary": "Les attaques armées et restrictions de mouvement compromettent le fonctionnement des services.",
+            "tags": [],
+            "sourceIds": [
+              "S-MLI-GPC"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "mli-scenario-resilience",
+          "title": "Stabilisation territoriale graduelle",
+          "summary": "Les accès routiers et les services publics se rétablissent partiellement.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-IMF",
+            "S-MLI-WHO"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Réduction durable des interruptions d’approvisionnement",
+            "Accès sanitaire amélioré"
+          ],
+          "triggers": [
+            "Amélioration mesurable des accès routiers"
+          ],
+          "weakSignals": [
+            "Reprise de services locaux"
+          ],
+          "consequences": [
+            "Meilleure circulation commerciale"
+          ],
+          "limits": [
+            "Scénario conditionnel ; aucune probabilité associée."
+          ]
+        },
+        {
+          "id": "mli-scenario-pressure",
+          "title": "Continuité sous pression",
+          "summary": "Insécurité localisée et fragilité logistique persistent.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-GPC",
+            "S-MLI-IMF"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Conflit non résolu",
+            "Importations terrestres maintenues de façon irrégulière"
+          ],
+          "triggers": [
+            "Nouvelles restrictions de circulation"
+          ],
+          "weakSignals": [
+            "Pénuries localisées"
+          ],
+          "consequences": [
+            "Pression sur les ménages et les prix"
+          ],
+          "limits": [
+            "Ni prévision officielle ni certitude."
+          ]
+        },
+        {
+          "id": "mli-scenario-fragility",
+          "title": "Fragilisation humanitaire",
+          "summary": "Une intensification du conflit aggrave le déplacement des populations et l’accès aux services.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-IOM",
+            "S-MLI-GPC"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Hausse des violences",
+            "Réponse humanitaire contrainte"
+          ],
+          "triggers": [
+            "Attaques contre les axes et marchés"
+          ],
+          "weakSignals": [
+            "Suspension de services essentiels"
+          ],
+          "consequences": [
+            "Augmentation des besoins non couverts"
+          ],
+          "limits": [
+            "Hypothèse prospective qualitative sans quantification."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "mli-watch1",
+          "title": "Restrictions de mouvement",
+          "summary": "Suivre les rapports périodiques de protection des civils.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-GPC"
+          ]
+        },
+        {
+          "id": "mli-watch2",
+          "title": "Approvisionnement et inflation",
+          "summary": "Suivre les publications du FMI et de la Banque mondiale.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-IMF",
+            "S-MLI-WB"
+          ]
+        },
+        {
+          "id": "mli-watch3",
+          "title": "Déplacements et aide",
+          "summary": "Suivre les mises à jour OIM, HCR et OMS.",
+          "tags": [],
+          "sourceIds": [
+            "S-MLI-IOM",
+            "S-MLI-UNHCR",
+            "S-MLI-WHO"
+          ]
+        }
+      ]
+    }
+  }
+}
