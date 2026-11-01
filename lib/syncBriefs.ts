@@ -10,7 +10,7 @@ import { mapWithConcurrency } from "./gdelt";
 import { locateBrief } from "./geocode";
 import { isSportsTitle } from "./sportsFilter";
 import { getSupabaseAdmin } from "./supabaseAdmin";
-import { MODEL, TIMEOUT_MS, synthesizeBriefs, type CallFailure, type CallMeta, type PreviousBrief, type SourceArticle } from "./synthesizeBriefs";
+import { MODEL, TIMEOUT_MS, synthesizeBriefs, telegramOnlyGroupAllowed, type CallFailure, type CallMeta, type PreviousBrief, type SourceArticle } from "./synthesizeBriefs";
 import { effectiveMaxBatches } from "./syncPasses";
 import { channelNote } from "./telegramChannels";
 import { getZone } from "./zones";
@@ -176,7 +176,9 @@ async function briefBatch(
   const articles = prioritize(stored.filter((article) => !sportsIds.includes(article.id)), (a) => a.title, keywords).slice(0, limit);
   const telegram = analyst ? await loadTelegram(zoneSlug, telegramExclude, keywords) : [];
   const telegramOnly = articles.length === 0;
-  if (telegramOnly && telegram.length < TELEGRAM_ONLY_MIN_POSTS) {
+  // Lot sans presse : le modèle n'est appelé que si un groupe Telegram peut passer la règle (deux canaux différents, ou un
+  // message conséquent). Sinon l'appel serait payé pour rien : tous les groupes seraient écartés.
+  if (telegramOnly && (telegram.length < TELEGRAM_ONLY_MIN_POSTS || !telegramOnlyGroupAllowed(telegram.map(telegramSource)))) {
     return { zoneSlug, articleCount: 0, briefCount: 0, telegramUsed: 0 };
   }
 

@@ -20,6 +20,9 @@ const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
 export const MODEL = process.env.BRIEFS_MODEL?.trim() || "claude-haiku-4-5-20251001";
 // Articles plus longs (150 à 400 mots, 18/10/2026) : de la marge pour un lot de 8 sources.
 const MAX_TOKENS = 9000;
+/** Motif d'un groupe écarté par la règle Telegram : un choix éditorial, pas une réponse mal formée. */
+const TELEGRAM_ONLY_REASON = "Telegram seul, sans source de presse";
+
 /** Un message Telegram seul ne fait une synthèse que s'il traite le sujet de façon conséquente. */
 export const TELEGRAM_STANDALONE_MIN_CHARS = 600;
 // Délai de rédaction d'un lot. Le format « analyste » (confiance, lieu, doute) allonge les
@@ -247,7 +250,7 @@ export function parseResponse(
     const sources = (indexes as number[]).map((index) => articles[index]);
     // Telegram ne fait pas une information à lui seul (sauf exceptions encadrées).
     if (analyst && !telegramOnlyGroupAllowed(sources)) {
-      drop("Telegram seul, sans source de presse");
+      drop(TELEGRAM_ONLY_REASON);
       continue;
     }
     // Un titre ou une accroche qui garde un mot anglais n'est jamais publié : les sources restent à traiter au prochain passage.
@@ -307,7 +310,10 @@ export function parseResponse(
   }
   // Un groupe en doublon (même article ou même brève citée deux fois) est
   // écarté seul : on ne jette toute la réponse que si aucun groupe n'est valide.
-  if (strict && briefs.length === 0 && parsed.length > 0) {
+  // Exception : si la règle Telegram a écarté TOUS les groupes (lot sans article de presse), la réponse est valide et ne
+  // contient simplement rien de publiable, comme un tableau vide. Pas d'erreur, donc pas de second appel payant ni d'alerte ;
+  // les messages restent disponibles pour étoffer un futur article de presse.
+  if (strict && briefs.length === 0 && parsed.length > 0 && dropped.get(TELEGRAM_ONLY_REASON) !== parsed.length) {
     const reasons = [...dropped].map(([reason, count]) => `${count} × ${reason}`).join(" ; ");
     throw new SynthesisFormatError(`Invalid synthesis groups or source references (${briefs.length}/${parsed.length} valides) — motifs : ${reasons}`);
   }

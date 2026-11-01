@@ -100,3 +100,13 @@ test("Quand aucun groupe n'est valide, l'erreur dit pourquoi chacun a été éca
  );
  assert.equal(parseResponse(JSON.stringify([...groups, item]), sources, previous, true).length, 1, "un seul groupe valide suffit : les autres sont écartés sans erreur");
 });
+test("Lot sans presse : si la règle Telegram écarte tous les groupes, la réponse est vide et valide, sans erreur ni second appel", () => {
+ const telegram = (channel: string, id: number): SourceArticle => ({ title: `message ${id}`, url: `https://t.me/${channel}/${id}`, domain: `t.me/${channel}`, summary: null, bodyText: "Message court", imageUrl: null, telegram: { channel, note: "test" } });
+ const posts = [telegram("a", 1), telegram("a", 2), telegram("a", 3)];
+ const groups = [0, 1, 2].map((index) => ({ ...item, sourceIndexes: [index] }));
+ assert.deepEqual(parseResponse(JSON.stringify(groups), posts, [], true, true), []);
+ // Un seul autre motif de rejet dans la réponse : c'est une vraie anomalie, l'erreur est conservée.
+ assert.throws(() => parseResponse(JSON.stringify([...groups, { ...item, sourceIndexes: [9] }]), posts, [], true, true), /0\/4 valides/);
+ // Hors analyste, la règle Telegram ne joue pas : le même lot est accepté.
+ assert.equal(parseResponse(JSON.stringify(groups), posts, [], true, false).length, 3);
+});
