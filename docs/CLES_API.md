@@ -4,7 +4,7 @@ Une clé par usage permet de lire la consommation de chaque tâche dans la Conso
 
 | Clé à créer (Console) | Tâche | Où la coller | Nom du secret ou de la variable |
 |---|---|---|---|
-| `equinoxe-synthese-jour` | Rédaction des articles (matin et soir), par zone | Vercel > Settings > Environment Variables (Production, et Preview si présente), puis redéployer | `ANTHROPIC_API_KEY` |
+| `equinoxe-synthese-jour` | Rédaction des articles (matin et après-midi), par zone | Vercel > Settings > Environment Variables (Production, et Preview si présente), puis redéployer | `ANTHROPIC_API_KEY` |
 | `equinoxe-synthese-zone` | Synthèse de zone (workflow « Synthèse de zone ») | GitHub > Settings > Secrets and variables > Actions | `ANTHROPIC_KEY_SYNTHESE_ZONE` |
 | `equinoxe-psit` | Points de situation (lundi et jeudi) | idem | `ANTHROPIC_KEY_PSIT` |
 | `equinoxe-veille-osint` | Veille OSINT du dimanche (carrousel de Mon espace) | idem | `ANTHROPIC_KEY_VEILLE_OSINT` |

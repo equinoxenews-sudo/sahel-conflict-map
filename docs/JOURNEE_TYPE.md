@@ -16,7 +16,7 @@ Les horaires visés (heure de Paris) sont donc des **créneaux d'une heure** : 0
 | 06:00 | 07 h 30 (08 h 30) | Vercel, puis GitHub | **Rédaction des articles, passage du matin** : recollecte, puis jusqu'à 3 lots de 5 articles par zone | collecte, API Anthropic |
 | 07:00 | 08 h (09 h) | Vercel, puis GitHub | **Synthèse de zone** (une par zone, seulement s'il y a de nouveaux articles) | articles du matin |
 | 08:00, lundi et jeudi | 09 h (10 h) | Vercel, puis GitHub | **Point de situation** : brouillons des 5 zones (Opus) | articles du matin et synthèse de zone |
-| 13:00 | 14 h (15 h) | Vercel, puis GitHub | **Rédaction des articles, passage du soir** : recollecte, 1 lot de 5 articles par zone, pas de synthèse de zone | — |
+| 13:00 | 14 h (15 h) | Vercel, puis GitHub | **Rédaction des articles, passage de l'après-midi** : recollecte, 1 lot de 5 articles par zone, pas de synthèse de zone | — |
 | 17:00, dimanche | 18 h (19 h) | Vercel, puis GitHub | **Veille OSINT et IA** : choix de 5 articles au plus parmi 4 sources, titre et résumé en français (Haiku, un seul appel, quelques centimes) | — |
 | 1er du mois, 05:00 | 06 h (07 h) | GitHub | Indicateurs des fiches pays (Banque mondiale) | — |
 
@@ -42,7 +42,7 @@ Les noms reconnus par la route de réveil : `sync-briefs.yml`, `sync-briefs-apre
 ## Ce qu'il faut savoir
 
 - **Ordre :** rédaction du matin (06:00 UTC), puis synthèse de zone (07:00), puis point de situation (08:00, lundi et jeudi) : le point de situation voit donc les articles publiés le matin même.
-- **Plafonds :** 3 lots de 5 articles par zone le matin, 1 lot le soir (14 h) ; le mode budget du mois peut les réduire.
+- **Plafonds :** 3 lots de 5 articles par zone le matin, 1 lot l'après-midi (14 h) ; le mode budget du mois peut les réduire.
   Les articles en attente passent du plus récent au plus ancien et sont repris les jours suivants.
 - **Lot mince :** un lot trop petit et trop récent est reporté sans appel au modèle.
 - **Coûts :** chaque appel est noté dans la table `ai_usage` (durée, fin de génération, identifiant de requête, échecs

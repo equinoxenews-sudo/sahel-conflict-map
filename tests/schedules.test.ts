@@ -59,7 +59,7 @@ test("le tableau de la journée type liste chaque horaire de vercel.json", () =>
   }
 });
 
-test("l'ordre de la journée est conservé : collecte, rédaction du matin, synthèse de zone, point de situation, soir", () => {
+test("l'ordre de la journée est conservé : collecte, rédaction du matin, synthèse de zone, point de situation, après-midi", () => {
   const hour = (end: string) => Number(crons.find((c) => c.path.endsWith(end))?.schedule.split(" ")[1]);
   assert.ok(hour("sync-gdelt") < hour("sync-articles"));
   assert.ok(hour("sync-articles") <= hour("sync-briefs.yml"));
