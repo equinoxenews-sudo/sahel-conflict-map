@@ -1,7 +1,7 @@
 // Agent de synthèse de zone : lit les synthèses Équinoxe parues depuis la dernière
 // synthèse de la zone et enregistre l'analyse dans zone_syntheses.
 //
-// Chaque matin vers 9 h (Paris), les cinq zones : chaque analyste fait la synthèse de
+// Chaque matin vers 8 h (Paris), les cinq zones : chaque analyste fait la synthèse de
 // la sienne (décision de Nicolas, 17/10/2026 ; auparavant une zone par jour en
 // rotation). Une zone sans nouvelle synthèse Équinoxe depuis la dernière n'est pas
 // régénérée, sans appel au modèle. La recherche web payante est désactivée par

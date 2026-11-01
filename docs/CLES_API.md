@@ -4,7 +4,7 @@ Une clé par usage permet de lire la consommation de chaque tâche dans la Conso
 
 | Clé à créer (Console) | Tâche | Où la coller | Nom du secret ou de la variable |
 |---|---|---|---|
-| `equinoxe-synthese-jour` | Synthèses du jour (matin et après-midi), rédaction des brèves par zone | Vercel > Settings > Environment Variables (Production, et Preview si présente), puis redéployer | `ANTHROPIC_API_KEY` |
+| `equinoxe-synthese-jour` | Rédaction des articles (matin et soir), par zone | Vercel > Settings > Environment Variables (Production, et Preview si présente), puis redéployer | `ANTHROPIC_API_KEY` |
 | `equinoxe-synthese-zone` | Synthèse de zone (workflow « Synthèse de zone ») | GitHub > Settings > Secrets and variables > Actions | `ANTHROPIC_KEY_SYNTHESE_ZONE` |
 | `equinoxe-psit` | Points de situation (lundi et jeudi) | idem | `ANTHROPIC_KEY_PSIT` |
 | `equinoxe-veille-osint` | Veille OSINT du dimanche (carrousel de Mon espace) | idem | `ANTHROPIC_KEY_VEILLE_OSINT` |
@@ -17,5 +17,5 @@ Chaque workflow lit d'abord son secret dédié, puis, à défaut, l'ancien secre
 ## Vérifier
 
 - « Veille OSINT » à la main (Run workflow) : environ 1 centime, prouve la clé `equinoxe-veille-osint`.
-- « Synthèses du jour » à la main sur une seule zone : prouve la clé `equinoxe-synthese-jour`.
+- « Rédaction des articles » à la main sur une seule zone : prouve la clé `equinoxe-synthese-jour`.
 - Console > liste des clés : le coût de chaque clé s'affiche séparément après son premier appel.

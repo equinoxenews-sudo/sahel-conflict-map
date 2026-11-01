@@ -59,12 +59,14 @@ test("le tableau de la journée type liste chaque horaire de vercel.json", () =>
   }
 });
 
-test("l'ordre de la journée est conservé : collecte, point de situation, synthèses, synthèse de zone, après-midi", () => {
+test("l'ordre de la journée est conservé : collecte, rédaction du matin, synthèse de zone, point de situation, soir", () => {
   const hour = (end: string) => Number(crons.find((c) => c.path.endsWith(end))?.schedule.split(" ")[1]);
   assert.ok(hour("sync-gdelt") < hour("sync-articles"));
-  assert.ok(hour("situation-report.yml") <= hour("sync-briefs.yml"));
+  assert.ok(hour("sync-articles") <= hour("sync-briefs.yml"));
   assert.ok(hour("sync-briefs.yml") < hour("zone-synthesis.yml"));
-  assert.ok(hour("zone-synthesis.yml") < hour("sync-briefs-apres-midi"));
+  assert.ok(hour("zone-synthesis.yml") < hour("situation-report.yml"));
+  assert.ok(hour("situation-report.yml") < hour("sync-briefs-apres-midi"));
   // Au moins une heure entre deux étapes dépendantes : la marge de Vercel est de 59 minutes.
   assert.ok(hour("zone-synthesis.yml") - hour("sync-briefs.yml") >= 1);
+  assert.ok(hour("situation-report.yml") - hour("zone-synthesis.yml") >= 1);
 });

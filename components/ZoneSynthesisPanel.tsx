@@ -24,7 +24,7 @@ const updatedAtFormat = new Intl.DateTimeFormat("fr-FR", {
 });
 
 // Synthèse politico-sécuritaire de la zone rédigée par l'agent IA
-// (scripts/zone-synthesis.ts, chaque jour à 9 h si de nouvelles synthèses
+// (scripts/zone-synthesis.ts, chaque jour à 8 h si de nouvelles synthèses
 // sont arrivées). Tant qu'aucune n'existe, le panneau le dit sans afficher
 // de faux contenu.
 export default function ZoneSynthesisPanel({ zoneName, synthesis }: ZoneSynthesisPanelProps) {
@@ -37,7 +37,7 @@ export default function ZoneSynthesisPanel({ zoneName, synthesis }: ZoneSynthesi
         </div>
         <p className={styles.text}>
           Un agent IA analyse nos articles et des sources ouvertes pour proposer ici une synthèse des
-          événements politico-sécuritaires de la zone, mise à jour chaque jour à 9 h si nécessaire.
+          événements politico-sécuritaires de la zone, mise à jour chaque jour à 8 h si nécessaire.
         </p>
       </section>
     );

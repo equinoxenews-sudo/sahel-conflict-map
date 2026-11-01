@@ -3,13 +3,13 @@ name: Veille OSINT et IA
 # Chaque dimanche soir, choisit les articles de la semaine (Bellingcat, The OSINT Newsletter, IntelTechniques, Project OSINT)
 # et les publie dans Mon espace > Menu avec titre et résumé en français (scripts/veille-osint.ts). Un seul appel au modèle
 # le moins cher : quelques centimes par semaine.
-# Lancé à l'heure par le cron de Vercel (vercel.json, 18:00 UTC à ±59 min, soit 19 h - 20 h à Paris en hiver, 20 h - 21 h en été) ;
+# Lancé à l'heure par le cron de Vercel (vercel.json, 17:00 UTC à ±59 min, soit 18 h - 19 h à Paris en hiver, 19 h - 20 h en été) ;
 # la planification ci-dessous reste en secours et s'arrête si le passage du jour a déjà eu lieu. Au passage à l'heure d'été
-# (28/03/2027) : ramener le cron à 17:00 UTC (et le secours à `5 17`). Sans nouvel article, ou sans article jugé utile,
+# (28/03/2027) : ramener le cron à 16:00 UTC (et le secours à `5 16`). Sans nouvel article, ou sans article jugé utile,
 # rien n'est publié.
 on:
   schedule:
-    - cron: "5 18 * * 0"
+    - cron: "5 17 * * 0"
   workflow_dispatch:
     inputs:
       force:

@@ -71,7 +71,7 @@ export default function VeilleCarousel() {
       {state.status === "error" && <p className={styles.note}>{state.message}</p>}
       {state.status === "ready" && state.items.length === 0 && (
         <p className={styles.note}>
-          Les articles de la semaine arrivent ici chaque dimanche soir, vers 19 h : titre et résumé en français, avec un lien vers
+          Les articles de la semaine arrivent ici chaque dimanche soir, vers 18 h : titre et résumé en français, avec un lien vers
           l&apos;article d&apos;origine.
         </p>
       )}

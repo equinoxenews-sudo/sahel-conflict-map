@@ -49,9 +49,9 @@ test("le cron Vercel de l'après-midi existe, après celui du matin et avant la 
 
 test("le workflow ne confond pas les passages : fenêtres de garde distinctes et un seul lot l'après-midi", () => {
   const yml = readFileSync(".github/workflows/sync-briefs.yml", "utf8");
-  assert.match(yml, /cron: "5 7 \* \* \*"/);
-  assert.match(yml, /cron: "5 12 \* \* \*"/);
-  assert.match(yml, /github\.event\.schedule == '5 12 \* \* \*'/);
+  assert.match(yml, /cron: "5 6 \* \* \*"/);
+  assert.match(yml, /cron: "5 13 \* \* \*"/);
+  assert.match(yml, /github\.event\.schedule == '5 13 \* \* \*'/);
   assert.match(yml, /T10:00:00Z\.\.\$\{today\}T23:59:59Z/);
   assert.match(yml, /T00:00:00Z\.\.\$\{today\}T09:59:59Z/);
   assert.match(yml, /batches="&batches=1"/);
