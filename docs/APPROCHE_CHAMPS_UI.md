@@ -32,6 +32,7 @@ Une clé absente du fichier n'est pas une erreur. Une clé nouvelle est accepté
 | `energy.electricity.production_total` | EconomyTab.tsx |
 | `energy.import_dependency` | EconomyTab.tsx |
 | `geography.area` | OverviewTab.tsx |
+| `geography.surface_area` | OverviewTab.tsx |
 | `identity.capital` | OverviewTab.tsx |
 | `identity.currency` | OverviewTab.tsx |
 | `identity.language` | OverviewTab.tsx |
@@ -51,7 +52,7 @@ Une clé absente du fichier n'est pas une erreur. Une clé nouvelle est accepté
 | `politics.regime` | OverviewTab.tsx |
 | `research.rd_gdp` | OverviewTab.tsx |
 
-`geography.area` désigne la première mesure `geography.area.<source>` du fichier (ex. `geography.area.eurostat`).
+`geography.area` désigne la première mesure `geography.area.<source>` du fichier (ex. `geography.area.eurostat`, `geography.area.uemoa`) ; à défaut, la série Banque mondiale `geography.surface_area` des fichiers automatiques.
 
 ## Familles de clés
 
@@ -59,6 +60,8 @@ Une clé absente du fichier n'est pas une erreur. Une clé nouvelle est accepté
 - `energy.electricity.<clé>` : `production_total`, `nuclear`, `renewable`, `hydro`, `wind_solar`, `solar`, `fossil`, `exports_gross`, `imports`, `net_exports`, `consumption`. La section « électricité » n'apparaît que si au moins une de ces mesures existe ; le graphique de production exige `production_total`. Une filière absente n'est jamais comptée comme nulle : elle tombe dans « non détaillé (calculé) ».
 - `institutions.*` : une ligne d'appartenance n'est affichée que si le fichier la documente (ou la signale `pending`). **Ne pas créer** d'observation pour une organisation dont le pays n'est pas membre : une observation `institutions.*` produit un badge d'appartenance.
 - `demography.density` : si présente, remplace la ligne « densité non calculée » de la vue d'ensemble.
+- **Politique et identité** : `politics.regime`, `politics.head_of_state` et `politics.head_of_government` (régime, chef de l'État, chef du gouvernement) ; `identity.capital`, `identity.language` et `identity.currency` (capitale, langue, monnaie). **Une clé `identity.regime`, `identity.head_of_state` ou `identity.head_of_government` n'est lue par aucun composant** : la valeur ne s'afficherait pas.
+- **Contrôle** : `npm run approche:validate` signale, pour chaque fichier, les observations jamais lues par l'interface (ni par un composant, ni par un module via `observationKey`) et propose la clé lue de même nom. Pour qu'un indicateur propre à un pays s'affiche, un module doit le référencer (`observationKey`).
 
 ## Libellés
 

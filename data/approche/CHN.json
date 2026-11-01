@@ -235,6 +235,31 @@
       "language": "en",
       "publishedAt": "2026-09-30",
       "originalPublisher": "Xinhua"
+    },
+    {
+      "id": "S-CHN-CONST",
+      "publisher": "Commission exécutive du Congrès des États-Unis sur la Chine (CECC)",
+      "title": "Constitution of the People’s Republic of China (traduction anglaise, texte amendé en 2004)",
+      "canonicalUrl": "https://www.cecc.gov/resources/legal-provisions/chinas-constitution",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Assemblée populaire nationale de la RPC",
+      "methodNotes": "Traduction anglaise hébergée par la CECC ; article 19 relevé le 2026-11-01 sur l’édition amendée en 2004. L’édition de 2018 n’a pas été consultée."
+    },
+    {
+      "id": "S-CHN-PBOC",
+      "publisher": "Banque populaire de Chine",
+      "title": "Law of the People’s Republic of China on the People’s Bank of China (amended 2003)",
+      "canonicalUrl": "https://camlmac.pbc.gov.cn/en/3688110/3688172/4048356/2025080817550322452/index.html",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "publishedAt": "2003-12-27"
     }
   ],
   "observations": [
@@ -258,7 +283,7 @@
     {
       "id": "chn-identity-head-of-state-2026",
       "countryCode": "CHN",
-      "key": "identity.head_of_state",
+      "key": "politics.head_of_state",
       "value": "Xi Jinping",
       "unit": null,
       "referencePeriod": "2026",
@@ -275,7 +300,7 @@
     {
       "id": "chn-identity-head-of-government-2026",
       "countryCode": "CHN",
-      "key": "identity.head_of_government",
+      "key": "politics.head_of_government",
       "value": "Li Qiang",
       "unit": null,
       "referencePeriod": "2026",
@@ -292,7 +317,7 @@
     {
       "id": "chn-identity-regime-2026",
       "countryCode": "CHN",
-      "key": "identity.regime",
+      "key": "politics.regime",
       "value": "République socialiste dirigée par le Parti communiste chinois",
       "unit": null,
       "referencePeriod": "2026",
@@ -618,6 +643,41 @@
       "status": "verified",
       "dataKind": "official_statement",
       "uncertainty": "Seuil minimal annoncé ; ne pas confondre part de capacité et part de production."
+    },
+    {
+      "id": "chn-identity-language-2026",
+      "countryCode": "CHN",
+      "key": "identity.language",
+      "value": "Chinois (mandarin / putonghua)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Article 19 de la Constitution : l’État promeut l’usage du putonghua sur tout le territoire. La Constitution ne proclame pas expressément le putonghua langue officielle.",
+      "sourceIds": [
+        "S-CHN-CONST"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "uncertainty": "Traduction anglaise de la Constitution (édition amendée en 2004) ; édition de 2018 non consultée."
+    },
+    {
+      "id": "chn-identity-currency-2026",
+      "countryCode": "CHN",
+      "key": "identity.currency",
+      "value": "Yuan / renminbi (CNY)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Article 16 de la loi sur la Banque populaire de Chine (version amendée en 2003) : la monnaie ayant cours légal en RPC est le renminbi. CNY est le code ISO 4217 du yuan (code non cité par la source).",
+      "sourceIds": [
+        "S-CHN-PBOC"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
     }
   ],
   "claims": [

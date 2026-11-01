@@ -1,5 +1,5 @@
 import { formatDate, formatUnit, formatValue } from "./formatters";
-import { publishedObservations, publishedRelationships } from "./sourceRegistry";
+import { isVisible, publishedObservations, publishedRelationships } from "./sourceRegistry";
 import type { CountryData, Observation, SourceRecord } from "./schema";
 
 // Données prêtes à afficher : tout le texte (valeur, unité, période, sources) est mis en forme ici, côté serveur, à partir des
@@ -103,7 +103,7 @@ export function metricViews(data: CountryData): Map<string, MetricView> {
 
 /** Affirmations vérifiées, dans l'ordre du fichier, avec leurs sources. */
 export function claimViews(data: CountryData): { id: string; statement: string; sources: SourceView[] }[] {
-  if (data.publication !== "published") return [];
+  if (!isVisible(data)) return [];
   const sources = new Map(data.sources.map((source) => [source.id, source]));
   return data.claims
     .filter((claim) => claim.status === "verified")

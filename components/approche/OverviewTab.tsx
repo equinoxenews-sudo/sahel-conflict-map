@@ -25,8 +25,9 @@ const NOT_VERIFIED = "À vérifier sur la source officielle";
 export default function OverviewTab({ defenseHref, metrics, pending, map, module, sources }: OverviewTabProps) {
   const get = (key: string) => metrics.get(key) ?? null;
   const missingFor = (key: string) => (pending.has(key) ? NOT_VERIFIED : "Donnée non disponible");
-  // Superficie : première mesure `geography.area.*` du fichier (la source figure dans la clé : eurostat, worldbank…).
-  const area = get([...metrics.keys()].find((key) => key.startsWith("geography.area")) ?? "");
+  // Superficie : première mesure `geography.area.*` du fichier (la source figure dans la clé : eurostat, uemoa…), à défaut la série
+  // Banque mondiale `geography.surface_area` des fichiers automatiques.
+  const area = get([...metrics.keys()].find((key) => key.startsWith("geography.area")) ?? "geography.surface_area");
   const population = get("demography.population");
   const density = get("demography.density");
   // Une appartenance n'apparaît que si le fichier la documente (ou la signale à vérifier) : un pays hors UE n'a pas de ligne « Zone euro ».

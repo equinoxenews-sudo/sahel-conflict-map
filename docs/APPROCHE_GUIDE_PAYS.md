@@ -24,6 +24,8 @@ Public : qui produit ou relit les fichiers pays (ChatGPT, éditeur) et qui les i
 11. **Revue** : relecture éditoriale des valeurs et des sources par le responsable. Les valeurs `pending` restent `pending`.
 12. **Publication** : `publication: "published"` et fusion **uniquement après accord exprès** du responsable éditorial. Un pays `draft` ou `review` n'est jamais affiché publiquement.
 
+    **Fiche en brouillon, visible en préversion.** Hors préversion, une fiche `draft` ou `review` n'est pas servie : le pays garde son ancienne fiche. Sur Vercel Preview (variable `NEXT_PUBLIC_APPROCHE_DEMO=1`, refusée en production), elle s'affiche sous un bandeau « PRÉVISUALISATION : fiche non validée éditorialement ». Le statut du fichier reste `draft` ; rien n'est publié.
+
 ## B. Modifier un champ existant
 
 1. Ouvrir le fichier concerné (`data/approche/<ISO3>.json`). Les fichiers `<ISO3>.worldbank.json` et `<ISO3>.eurostat.json` sont **produits par script** (`scripts/sync-approche-*.ts`) : ne pas les éditer à la main, relancer le script.

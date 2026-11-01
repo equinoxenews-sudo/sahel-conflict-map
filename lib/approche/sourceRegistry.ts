@@ -1,3 +1,4 @@
+import { demoEnabled } from "./demo";
 import type { CountryData, Observation, Relationship, SourceRecord } from "./schema";
 import { referenceProblems } from "./integrity";
 
@@ -101,16 +102,25 @@ export function publishProblems(data: CountryData): string[] {
   return problems;
 }
 
+/**
+ * Une fiche est visible quand elle est « published ». En Preview (même variable que la démonstration, posée dans Vercel pour
+ * l'environnement Preview seulement, refusée en production), une fiche « draft » ou « review » l'est aussi, sous un bandeau
+ * « non validée éditorialement » : c'est ainsi qu'une livraison est relue sans la publier.
+ */
+export function isVisible(data: Pick<CountryData, "publication">, preview: boolean = demoEnabled()): boolean {
+  return data.publication === "published" || (preview && (data.publication === "draft" || data.publication === "review"));
+}
+
 /** Observations affichables : vérifiées et issues de sources autorisées. Les autres restent invisibles côté public. */
 export function publishedObservations(data: CountryData): Observation[] {
-  if (data.publication !== "published") return [];
+  if (!isVisible(data)) return [];
   const blocked = new Set(data.sources.filter(isBlockedSource).map((source) => source.id));
   return data.observations.filter((observation) => observation.status === "verified" && observation.value !== null && !observation.sourceIds.some((id) => blocked.has(id)));
 }
 
 /** Relations affichables : vérifiées et issues de sources autorisées. */
 export function publishedRelationships(data: CountryData): Relationship[] {
-  if (data.publication !== "published") return [];
+  if (!isVisible(data)) return [];
   const blocked = new Set(data.sources.filter(isBlockedSource).map((source) => source.id));
   return data.relationships.filter((relationship) => relationship.status === "verified" && !relationship.sourceIds.some((id) => blocked.has(id)));
 }

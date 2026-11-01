@@ -10,10 +10,11 @@ import { formatDate, formatValue, formatWithUnit } from "../lib/approche/formatt
 import { getApprocheData, listApprocheCountries } from "../lib/approche/repository";
 import { tabHref, validateTab } from "../lib/approche/tabs";
 import { CountryDataSchema, ObservationSchema, type CountryData, type Observation } from "../lib/approche/schema";
-import { BLOCKED_WORLD_BANK_INDICATORS, isBlockedSource, moduleProblems, publishedObservations, publishProblems, SIPRI_ENTRY } from "../lib/approche/sourceRegistry";
+import { BLOCKED_WORLD_BANK_INDICATORS, isBlockedSource, isVisible, moduleProblems, publishedObservations, publishProblems, SIPRI_ENTRY } from "../lib/approche/sourceRegistry";
 import { claimViews, metricViews, pendingObservations, relationViews } from "../lib/approche/view";
 import { referenceProblems } from "../lib/approche/integrity";
 import { buildContractFiles } from "../scripts/lib/approcheContract";
+import { unreadObservationKeys } from "../scripts/lib/approcheUnread";
 
 const france = () => {
   const data = getApprocheData("FRA");
@@ -169,6 +170,46 @@ test("un pays non migré garde l'ancienne fiche", () => {
   assert.equal(getApprocheData(undefined), null);
 });
 
+test("un brouillon n'est visible qu'en Preview ; en production le pays garde son ancienne fiche", () => {
+  assert.equal(demoEnabled(), false, "ce test suppose l'environnement sans la variable de démonstration");
+  for (const publication of ["draft", "review"] as const) {
+    assert.equal(isVisible({ publication }, false), false);
+    assert.equal(isVisible({ publication }, true), true, "visible en Preview, sous un bandeau");
+    assert.deepEqual(publishedObservations(data({ publication })), [], "aucune valeur d'un brouillon n'est servie hors Preview");
+  }
+  assert.equal(isVisible({ publication: "published" }, false), true);
+  assert.equal(isVisible({ publication: "archived" }, true), false, "une fiche archivée n'est jamais visible");
+  assert.equal(getApprocheData("MLI"), null, "Mali est en brouillon : l'ancienne fiche reste servie");
+  assert.equal(getApprocheData("CHN"), null);
+  for (const iso3 of ["MLI", "CHN"]) {
+    const draft = JSON.parse(fs.readFileSync(`data/approche/${iso3}.json`, "utf8")) as { publication: string };
+    assert.equal(draft.publication, "draft", `${iso3} reste en brouillon jusqu'à l'accord du responsable éditorial`);
+  }
+});
+
+test("une observation que l'interface ne lit pas est signalée, avec la clé lue de même nom", () => {
+  const fiche = data({
+    observations: [
+      observation({ id: "a", key: "identity.regime", value: "x", unit: null }),
+      observation({ id: "b", key: "politics.regime", value: "x", unit: null }),
+      observation({ id: "c", key: "geography.area.uemoa" }),
+      observation({ id: "d", key: "geography.surface_area" }),
+      observation({ id: "e", key: "economy.value_added.A" }),
+      observation({ id: "f", key: "humanitarian.needs" }),
+      observation({ id: "g", key: "defense.minister_name", value: "x", unit: null }),
+    ],
+    modules: { defense: { kpis: [{ id: "k", label: "Ministre", observationKey: "defense.minister_name", note: "", sourceIds: [], demo: false }], organization: [], missions: [], framework: [], operations: [], equipment: [], industry: [], partnerships: [], internalSecurity: [], strengths: [] } },
+  });
+  const unread = unreadObservationKeys(fiche);
+  assert.deepEqual(unread.map((item) => item.key).sort(), ["humanitarian.needs", "identity.regime"], "lues : politics.*, geography.area.*, geography.surface_area, familles, clés citées par un module");
+  assert.equal(unread.find((item) => item.key === "identity.regime")?.suggestion, "politics.regime");
+});
+
+test("la fiche de France ne contient aucune clé d'identité ou de politique que l'interface ignore", () => {
+  const ignored = unreadObservationKeys(france()).filter((item) => item.suggestion !== null);
+  assert.deepEqual(ignored, [], "une clé proche d'une clé lue est presque toujours une faute de nom");
+});
+
 test("le schéma refuse une fiche mal formée", () => {
   assert.equal(CountryDataSchema.safeParse({ countryCode: "FR" }).success, false);
 });
@@ -193,7 +234,8 @@ test("les onglets sont des sous-pages pré-rendues, la vue d'ensemble est la pag
   assert.equal(tabHref("/zones/europe/approche/pays/france", "defense"), "/zones/europe/approche/pays/france/defense");
   assert.equal(validateTab("defense"), "defense");
   assert.equal(validateTab("nimporte-quoi"), "overview");
-  assert.deepEqual(listApprocheCountries(), [{ slug: "france", zoneSlug: "europe" }, { slug: "mali", zoneSlug: "afrique" }, { slug: "chine", zoneSlug: "indopacifique" }]);
+  // Mali et Chine sont en brouillon : hors Preview, seule la France (publiée) est servie par le nouveau modèle.
+  assert.deepEqual(listApprocheCountries(), [{ slug: "france", zoneSlug: "europe" }]);
 });
 
 test("les relations bilatérales publiées ont chacune leurs sources lues et sont classées par nature, sans classement ami / rival", () => {

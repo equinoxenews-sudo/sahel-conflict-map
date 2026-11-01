@@ -9,7 +9,7 @@ import { tabHref, type ApprocheTab } from "@/lib/approche/tabs";
 import { claimViews, metricViews, pendingObservations, relationViews, sourceViewMap } from "@/lib/approche/view";
 import { zoneHomeHref } from "@/lib/homeZones";
 import { getZone } from "@/lib/zones";
-import { DemoBanner } from "./DemoBanner";
+import { DemoBanner, PreviewBanner } from "./DemoBanner";
 import DefenseTab from "./DefenseTab";
 import EconomyTab from "./EconomyTab";
 import Hero from "./Hero";
@@ -60,6 +60,7 @@ export default function ApprocheCountryPage({ data, iso2, tab, map, modules }: A
   return (
     <main className={styles.main}>
       <Header />
+      {data.publication !== "published" ? <PreviewBanner status={data.publication} /> : null}
       {demoActive ? <DemoBanner /> : null}
 
       <div className={styles.topBar}>

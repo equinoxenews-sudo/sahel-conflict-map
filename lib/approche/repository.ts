@@ -6,7 +6,7 @@ import MLI_WORLDBANK from "@/data/approche/MLI.worldbank.json";
 import CHN from "@/data/approche/CHN.json";
 import CHN_WORLDBANK from "@/data/approche/CHN.worldbank.json";
 import { CountryDataSchema, type CountryData } from "./schema";
-import { publishProblems } from "./sourceRegistry";
+import { isVisible, publishProblems } from "./sourceRegistry";
 
 // Fiches « Approche » migrées vers le modèle sourcé : un fichier saisi à la main (identité, affirmations, sources
 // institutionnelles) et un fichier produit par scripts/sync-approche-worldbank.ts. Ajouter un pays = ajouter ses deux
@@ -54,5 +54,6 @@ export function getApprocheData(iso3: string | undefined): CountryData | null {
     console.error(`Approche ${iso3} : publication refusée`, problems.slice(0, 5));
     return null;
   }
-  return parsed.data;
+  // Brouillon hors Preview : le pays garde son ancienne fiche, rien du nouveau modèle n'est servi.
+  return isVisible(parsed.data) ? parsed.data : null;
 }

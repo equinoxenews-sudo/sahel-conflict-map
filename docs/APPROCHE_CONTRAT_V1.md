@@ -9,6 +9,7 @@
 - **Tout est sourcé.** Chaque valeur, phrase, relation et élément de module cite au moins une source du registre `sources[]` (adresse exacte, organisme, date de consultation, licence). Une valeur sans source est refusée.
 - **Une valeur absente reste absente** : `value: null` et `status: "pending"` ; jamais d'estimation, jamais de valeur « plausible ».
 - **Modules optionnels** : un pays fournit les modules dont il dispose (`hero`, `media`, `overview`, `relations`, `economy`, `defense`, `issues`, `outlook`). Ce qui n'existe pas est masqué ou affiché « Donnée non disponible » ; on ne fabrique rien pour remplir une rubrique.
+- **Clés lues par l'interface** : régime, chef de l'État et chef du gouvernement se déclarent sous `politics.regime`, `politics.head_of_state` et `politics.head_of_government` (pas `identity.*`) ; capitale, langue et monnaie sous `identity.capital`, `identity.language` et `identity.currency` ; la superficie sous `geography.area.<source>` (ex. `geography.area.uemoa`). `npm run approche:validate` signale toute observation qu'aucun composant ni aucun module ne lit.
 - **Exclusions** : SIPRI (et tout relais de SIPRI) tant qu'aucune autorisation commerciale écrite n'existe ; aucun contenu de démonstration (`demo: true`) ; aucune image sans licence commerciale confirmée ; aucun score d'influence, de risque ou de probabilité sans méthode publiée.
 
 > Valider un fichier prouve sa **forme**, ses **liens internes** et ses **règles de traçabilité**. Cela ne prouve pas que son contenu est **vrai** : c'est le rôle de la relecture.

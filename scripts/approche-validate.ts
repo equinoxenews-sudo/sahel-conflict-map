@@ -9,6 +9,7 @@
 import fs from "node:fs";
 import { CountryDataSchema } from "../lib/approche/schema";
 import { publishProblems } from "../lib/approche/sourceRegistry";
+import { unreadObservationKeys } from "./lib/approcheUnread";
 
 const args = process.argv.slice(2);
 const checkLinks = args.includes("--check-links");
@@ -68,6 +69,11 @@ async function main() {
       warnings.push(`modules.hero.summary : texte libre non sourcé${replaced ? ", ignoré à l'affichage car des affirmations vérifiées (claims) existent" : " — préférer des affirmations (claims) datées et sourcées"}`);
     }
     if (hero?.tagline) warnings.push("modules.hero.tagline : texte libre non sourcé — une formule neutre d'identification, sans fait chiffré ni jugement");
+    const unread = unreadObservationKeys(data);
+    if (unread.length > 0) {
+      const list = unread.map((item) => (item.suggestion ? `${item.key} (clé lue : ${item.suggestion})` : item.key)).join(", ");
+      warnings.push(`${unread.length} observation(s) jamais lue(s) par l'interface, donc affichée(s) nulle part tant qu'un module ne les référence pas (observationKey) : ${list}`);
+    }
     const pending = data.observations.filter((observation) => observation.status === "pending").length;
     const unknownLicense = data.sources.filter((source) => source.reuse === "unknown").length;
     if (unknownLicense > 0) warnings.push(`${unknownLicense} source(s) dont la licence de réutilisation n'est pas vérifiée (reuse: "unknown")`);

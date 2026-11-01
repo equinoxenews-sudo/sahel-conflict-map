@@ -11,6 +11,16 @@ export function DemoBanner() {
   );
 }
 
+// Bandeau des fiches visibles en Preview alors qu'elles ne sont pas publiées : livraison documentaire en attente de relecture.
+export function PreviewBanner({ status }: { status: string }) {
+  return (
+    <div className={styles.demoBanner} role="note">
+      <strong>PRÉVISUALISATION</strong>
+      <span>Fiche non validée éditorialement (statut « {status} ») : livraison documentaire en attente de relecture, visible uniquement en préversion. Ne pas diffuser.</span>
+    </div>
+  );
+}
+
 /** Indicateur discret d'un composant dont le contenu est fictif. */
 export function DemoTag({ show = true }: { show?: boolean }) {
   return show ? (

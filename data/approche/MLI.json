@@ -233,6 +233,41 @@
       "licenseUrl": null,
       "reuse": "citation_only",
       "language": "fr"
+    },
+    {
+      "id": "S-MLI-CONST",
+      "publisher": "Université Laval — L’aménagement linguistique dans le monde",
+      "title": "Constitution de 2023 (République du Mali)",
+      "canonicalUrl": "https://axl.cefan.ulaval.ca/afrique/mali-const-2023.htm",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "République du Mali",
+      "methodNotes": "Transcription universitaire du texte constitutionnel ; article 31 relevé le 2026-11-01. À confirmer sur le Journal officiel avant approbation éditoriale."
+    },
+    {
+      "id": "S-MLI-BCEAO",
+      "publisher": "Banque centrale des États de l’Afrique de l’Ouest (BCEAO)",
+      "title": "Présentation de l’UMOA",
+      "canonicalUrl": "https://www.bceao.int/fr/content/presentation-de-lumoa",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-MLI-BCEAO2",
+      "publisher": "Banque centrale des États de l’Afrique de l’Ouest (BCEAO)",
+      "title": "États membres de l’UMOA",
+      "canonicalUrl": "https://www.bceao.int/fr/etats-membres",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr"
     }
   ],
   "observations": [
@@ -256,7 +291,7 @@
     {
       "id": "mli-identity-head-of-state-2026",
       "countryCode": "MLI",
-      "key": "identity.head_of_state",
+      "key": "politics.head_of_state",
       "value": "Assimi Goïta",
       "unit": null,
       "referencePeriod": "2026",
@@ -273,7 +308,7 @@
     {
       "id": "mli-identity-regime-2026",
       "countryCode": "MLI",
-      "key": "identity.regime",
+      "key": "politics.regime",
       "value": "Transition dirigée par les autorités militaires",
       "unit": null,
       "referencePeriod": "2026",
@@ -291,7 +326,8 @@
     {
       "id": "mli-geography-surface-area-official-uemoa-2026",
       "countryCode": "MLI",
-      "key": "geography.surface_area_official_uemoa",
+      "key": "geography.area.uemoa",
+      "topic": "area",
       "value": 1241238,
       "unit": "km²",
       "referencePeriod": "2026",
@@ -501,14 +537,14 @@
       "uncertainty": "Série plus ancienne que le nombre de réfugiés."
     },
     {
-      "id": "mli-defense-internal-security-minister-name-2026",
+      "id": "mli-defense-minister-name-2026",
       "countryCode": "MLI",
-      "key": "defense.internal_security_minister_name",
+      "key": "defense.minister_name",
       "value": "Sadio Camara",
       "unit": null,
       "referencePeriod": "2026",
       "geographicScope": "Mali",
-      "methodology": "Ministre de la Défense et des Anciens Combattants dans le remaniement du 12 février 2026.",
+      "methodology": "Ministre d’État, ministre de la Défense et des Anciens Combattants, selon la liste du gouvernement annexée au décret n°2026-062/PTRM du 12 février 2026. Fonction distincte de celle de ministre de la Sécurité et de la Protection civile.",
       "sourceIds": [
         "S-MLI-GOV2"
       ],
@@ -573,7 +609,7 @@
     {
       "id": "mli-identity-head-of-government-2026",
       "countryCode": "MLI",
-      "key": "identity.head_of_government",
+      "key": "politics.head_of_government",
       "value": "Abdoulaye Maïga",
       "unit": null,
       "referencePeriod": "2026",
@@ -581,6 +617,42 @@
       "methodology": "Premier ministre, chef du Gouvernement, cité dans le communiqué officiel d’octobre 2026.",
       "sourceIds": [
         "S-MLI-PRIMATURE"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mli-identity-language-2026",
+      "countryCode": "MLI",
+      "key": "identity.language",
+      "value": "Langues nationales (langues officielles) ; français, langue de travail",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Article 31 de la Constitution de 2023 : les langues nationales sont les langues officielles du Mali, le français est la langue de travail et l’État peut adopter d’autres langues de travail.",
+      "sourceIds": [
+        "S-MLI-CONST"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "uncertainty": "Texte relevé sur une transcription universitaire, non sur le Journal officiel."
+    },
+    {
+      "id": "mli-identity-currency-2026",
+      "countryCode": "MLI",
+      "key": "identity.currency",
+      "value": "Franc CFA (XOF)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mali",
+      "methodology": "Franc de la Communauté Financière Africaine (F.CFA), unité monétaire commune de l’UMOA émise par la BCEAO ; le Mali figure parmi ses huit États membres. XOF est le code ISO 4217 du franc CFA d’Afrique de l’Ouest (code non cité par la source).",
+      "sourceIds": [
+        "S-MLI-BCEAO",
+        "S-MLI-BCEAO2"
       ],
       "collectedAt": "2026-11-01",
       "verifiedAt": "2026-11-01",
@@ -938,6 +1010,13 @@
       ]
     },
     "defense": {
+      "kpis": [
+        {
+          "id": "mli-kpi-defense-minister",
+          "label": "Ministre de la Défense et des Anciens Combattants",
+          "observationKey": "defense.minister_name"
+        }
+      ],
       "framework": [
         {
           "id": "mli-def-f1",
