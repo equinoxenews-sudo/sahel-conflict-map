@@ -175,6 +175,35 @@ function applyEventMode(source: CesiumNS.DataSource, mode: EventMode): void {
   clustering.pixelRange = CLUSTER_PIXEL_RANGE;
 }
 
+/**
+ * Où poser le point d'un groupe : sur un lieu réel d'événements, jamais au centre de gravité (que Cesium choisit par défaut et qui
+ * tombe entre les villes, dans la Manche ou à côté de Moscou). On retient le lieu qui revient le plus souvent dans le groupe
+ * (arrondi à 0,01°, environ 1 km : les événements d'une même ville), et, à égalité, celui qui est le plus proche du centre.
+ */
+function clusterAnchor(Cesium: typeof CesiumNS, entities: CesiumNS.Entity[]): CesiumNS.Cartesian3 | null {
+  const now = Cesium.JulianDate.now();
+  const places = new Map<string, { position: CesiumNS.Cartesian3; count: number }>();
+  const sum = new Cesium.Cartesian3();
+  let total = 0;
+  for (const entity of entities) {
+    const position = entity.position?.getValue(now);
+    if (!position) continue;
+    Cesium.Cartesian3.add(sum, position, sum);
+    total += 1;
+    const key = `${Number(entity.properties?.eventLat?.getValue()).toFixed(2)},${Number(entity.properties?.eventLon?.getValue()).toFixed(2)}`;
+    const place = places.get(key);
+    if (place) place.count += 1;
+    else places.set(key, { position, count: 1 });
+  }
+  if (total === 0) return null;
+  const centre = Cesium.Cartesian3.multiplyByScalar(sum, 1 / total, new Cesium.Cartesian3());
+  let best: { position: CesiumNS.Cartesian3; count: number } | null = null;
+  for (const place of places.values()) {
+    if (!best || place.count > best.count || (place.count === best.count && Cesium.Cartesian3.distanceSquared(place.position, centre) < Cesium.Cartesian3.distanceSquared(best.position, centre))) best = place;
+  }
+  return best ? best.position : null;
+}
+
 const clusterDots = new Map<number, string>();
 /** Gros point rouge d'un groupe : le rouge des points d'événements (DOT_COLOR), à la taille voulue, sans chiffre. */
 function clusterDotImage(diameter: number): string {
@@ -1283,6 +1312,9 @@ export default function Globe3D({
           marker.verticalOrigin = Cesium.VerticalOrigin.CENTER;
           marker.eyeOffset = new Cesium.Cartesian3(0, 0, -50);
           marker.id = clustered;
+          // Le point se pose sur un lieu réel du groupe, pas sur son centre de gravité.
+          const anchor = clusterAnchor(Cesium, clustered);
+          if (anchor) marker.position = cluster.label.position = cluster.point.position = anchor;
           refreshSoon();
         });
         applyEventMode(eventSource, shared.eventMode);
