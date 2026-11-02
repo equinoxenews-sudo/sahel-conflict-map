@@ -13,25 +13,32 @@ export const DEFAULT_EVENT_MODE: EventMode = GLOBE_CLUSTERING_ENABLED ? "groups"
 
 /** Distance à l'écran (pixels) sous laquelle deux marqueurs se regroupent. */
 export const CLUSTER_PIXEL_RANGE = 46;
-/** Nombre minimal de marqueurs pour former un groupe. */
-export const CLUSTER_MIN_SIZE = 2;
+/** Nombre minimal d'événements voisins à l'écran pour former un groupe : en dessous, les points rouges restent individuels, comme avant. */
+export const CLUSTER_MIN_SIZE = 5;
 /** Un groupe dont tous les événements tiennent dans ce rayon (mètres) n'a plus rien à séparer en zoomant : on liste ses événements. */
 export const COLOCATED_RADIUS_M = 500;
 
 const MIN_DIAMETER = 26;
 const MAX_DIAMETER = 42;
 
-/** Nombre d'événements d'un groupe, lisible dans un disque de 42 px : exact jusqu'à 999, puis « 1,2 k ». */
-export function formatClusterCount(count: number): string {
-  if (count < 1000) return String(count);
-  const thousands = Math.round(count / 100) / 10;
-  return `${String(thousands).replace(".", ",")} k`;
-}
-
 /** Diamètre du disque (pixels) : croît lentement avec le nombre d'événements, plafonné à 42 px (jamais de grosse bulle). */
 export function clusterDiameter(count: number): number {
   const grown = MIN_DIAMETER + 4 * Math.log2(Math.max(count, 2) / 2);
   return Math.round(Math.min(MAX_DIAMETER, grown));
+}
+
+/**
+ * Diamètre (pixels) du gros point rouge d'un groupe, par paliers de 5 événements : 5 → 26 px, 10 → 30, 15 → 32, 20 → 34, 25 → 35,
+ * puis de plus en plus lentement jusqu'au plafond de 42 px. Moins de 5 événements : pas de groupe (0).
+ */
+export function clusterDotDiameter(count: number): number {
+  if (count < CLUSTER_MIN_SIZE) return 0;
+  return clusterDiameter(2 * Math.floor(count / 5));
+}
+
+/** Côté de l'image du point (disque et halo discret autour). */
+export function clusterDotCanvasSize(diameter: number): number {
+  return diameter + 2 * Math.round(diameter * 0.35);
 }
 
 const EARTH_RADIUS_M = 6_371_000;

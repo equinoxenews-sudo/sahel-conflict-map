@@ -16,7 +16,7 @@ import { CESIUM_BASE_URL } from "@/lib/cesiumCdn";
 import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
 import { ISO3_TO_ZONE, isHomeZone, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
 import { getHoveredBrief, onHoveredBrief } from "@/lib/briefHover";
-import { CLUSTER_MIN_SIZE, CLUSTER_PIXEL_RANGE, GLOBE_CLUSTERING_ENABLED, clusterDiameter, distinctIds, formatClusterCount, isColocated, type EventMode } from "@/lib/globeClustering";
+import { CLUSTER_MIN_SIZE, CLUSTER_PIXEL_RANGE, GLOBE_CLUSTERING_ENABLED, clusterDotCanvasSize, clusterDotDiameter, distinctIds, isColocated, type EventMode } from "@/lib/globeClustering";
 import styles from "./Globe3D.module.css";
 import type { GlobeDateRange } from "./GlobeTimeRange";
 
@@ -175,33 +175,35 @@ function applyEventMode(source: CesiumNS.DataSource, mode: EventMode): void {
   clustering.pixelRange = CLUSTER_PIXEL_RANGE;
 }
 
-const clusterImages = new Map<string, string>();
-/** Disque d'un groupe : fond sombre translucide, fin contour corail discret, nombre blanc. Neutre : la couleur ne dit rien de la gravité. */
-function clusterImage(text: string, diameter: number): string {
-  const key = `${text}|${diameter}`;
-  const cached = clusterImages.get(key);
+const clusterDots = new Map<number, string>();
+/** Gros point rouge d'un groupe : le rouge des points d'événements (DOT_COLOR), à la taille voulue, sans chiffre. */
+function clusterDotImage(diameter: number): string {
+  const cached = clusterDots.get(diameter);
   if (cached) return cached;
   const ratio = 3;
+  const size = clusterDotCanvasSize(diameter);
   const canvas = document.createElement("canvas");
-  canvas.width = canvas.height = diameter * ratio;
+  canvas.width = canvas.height = size * ratio;
   const ctx = canvas.getContext("2d")!;
   ctx.scale(ratio, ratio);
+  const c = size / 2;
   const r = diameter / 2;
+  // Halo discret autour du disque, puis disque plein au bord net avec un léger éclat au centre (comme les points isolés).
+  const halo = ctx.createRadialGradient(c, c, 0, c, c, c);
+  halo.addColorStop(0, `${DOT_COLOR}88`);
+  halo.addColorStop(1, `${DOT_COLOR}00`);
+  ctx.fillStyle = halo;
+  ctx.fillRect(0, 0, size, size);
+  const disc = ctx.createRadialGradient(c, c, 0, c, c, r);
+  disc.addColorStop(0, "#ff8a80");
+  disc.addColorStop(1, DOT_COLOR);
   ctx.beginPath();
-  ctx.arc(r, r, r - 1.2, 0, Math.PI * 2);
-  ctx.fillStyle = "rgba(10, 16, 28, 0.82)";
+  ctx.arc(c, c, r, 0, Math.PI * 2);
+  ctx.fillStyle = disc;
   ctx.fill();
-  ctx.lineWidth = 1.4;
-  ctx.strokeStyle = "rgba(255, 118, 104, 0.62)";
-  ctx.stroke();
-  ctx.fillStyle = "#ffffff";
-  ctx.font = `700 ${text.length >= 4 ? 11 : text.length === 3 ? 12.5 : 14}px system-ui, -apple-system, "Segoe UI", sans-serif`;
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.fillText(text, r, r + 0.5);
   // Adresse de données : Cesium reconnaît la même image d'un groupe à l'autre au lieu d'en téléverser une nouvelle à chaque calcul.
   const url = canvas.toDataURL();
-  clusterImages.set(key, url);
+  clusterDots.set(diameter, url);
   return url;
 }
 
@@ -1178,10 +1180,11 @@ export default function Globe3D({
       }
       layerSources.vessels = vesselSource;
 
-      // Événements des analystes. Mode « Points » (historique) : point rouge net et fixe, avec un anneau qui s'élargit en
-      // s'estompant ; plusieurs événements au même endroit (une capitale, souvent) sont écartés en couronne autour du point.
-      // Mode « Groupes » : pas d'anneau ni d'écart ; le regroupement de Cesium réunit les points voisins à l'écran en disques
-      // numérotés, et chaque événement garde sa position réelle (voir applyEventDisplay).
+      // Événements des analystes : point rouge net et fixe, avec un anneau qui s'élargit en s'estompant ; plusieurs événements au
+      // même endroit (une capitale, souvent) sont écartés en couronne autour du point. Mode « Groupes » : à partir de 5 événements
+      // voisins à l'écran, le regroupement de Cesium les remplace par un gros point rouge (taille par paliers, voir
+      // clusterDotDiameter) qui éclate en petits points en zoomant ; les groupes de moins de 5 gardent leurs points, comme avant.
+      // L'anneau animé est masqué en mode « Groupes » (voir applyEventMode).
       const eventSource = new Cesium.CustomDataSource("events");
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const EVENT_DOT = 22;
@@ -1203,9 +1206,7 @@ export default function Globe3D({
           brief: { zone: ev.zone, id: ev.id, title: ev.title, imageUrl: ev.imageUrl ?? null, publishedAt: ev.publishedAt, veracity: ev.confidenceLabel },
         };
         const [dx, dy] = spreadOffsets[index];
-        // Écart en couronne : seulement en mode « Points ». Regroupés, les événements gardent leur position réelle.
-        const spread = new Cesium.Cartesian2(dx, dy);
-        const pixelOffset = new Cesium.CallbackProperty(() => (shared.eventMode === "groups" ? Cesium.Cartesian2.ZERO : spread), false);
+        const pixelOffset = new Cesium.Cartesian2(dx, dy);
         // Phase propre à chaque événement (tirée de son numéro) : les anneaux ne partent pas tous ensemble.
         const phase = ((ev.id * 0.618034) % 1 + 1) % 1;
         const size = ev.importance === "high" ? EVENT_DOT * 1.25 : EVENT_DOT;
@@ -1242,8 +1243,8 @@ export default function Globe3D({
             image: glowDot(),
             width: size,
             height: size,
-            // Article survolé dans le bandeau : point plus gros. Regroupés, les points isolés sont un peu plus discrets.
-            scale: new Cesium.CallbackProperty(() => (getHoveredBrief() === ev.id ? 2.6 : 1) * (shared.eventMode === "groups" ? 0.72 : 1), false),
+            // Article survolé dans le bandeau : point plus gros.
+            scale: new Cesium.CallbackProperty(() => (getHoveredBrief() === ev.id ? 2.6 : 1), false),
             // Décalage en pixels d'écran : la couronne garde le même écart à tous les zooms.
             pixelOffset,
             verticalOrigin: Cesium.VerticalOrigin.CENTER,
@@ -1269,14 +1270,14 @@ export default function Globe3D({
         clustering.minimumClusterSize = CLUSTER_MIN_SIZE;
         clustering.clusterEvent.addEventListener((clustered, cluster) => {
           const count = distinctIds(clustered.map((e) => e.properties?.eventId?.getValue())).length;
-          const diameter = clusterDiameter(count);
+          const diameter = clusterDotDiameter(count);
           cluster.label.show = false;
           cluster.point.show = false;
           const marker = cluster.billboard;
           marker.show = true;
-          marker.image = clusterImage(formatClusterCount(count), diameter);
-          marker.width = diameter;
-          marker.height = diameter;
+          marker.image = clusterDotImage(diameter);
+          marker.width = clusterDotCanvasSize(diameter);
+          marker.height = clusterDotCanvasSize(diameter);
           marker.verticalOrigin = Cesium.VerticalOrigin.CENTER;
           marker.eyeOffset = new Cesium.Cartesian3(0, 0, -50);
           marker.id = clustered;
