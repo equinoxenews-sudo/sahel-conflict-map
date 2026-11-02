@@ -15,21 +15,31 @@ export const DEFAULT_EVENT_MODE: EventMode = GLOBE_CLUSTERING_ENABLED ? "groups"
 export const CLUSTER_PIXEL_RANGE = 28;
 /** Nombre minimal d'événements voisins à l'écran pour former un groupe : en dessous, les points rouges restent individuels, comme avant. */
 export const CLUSTER_MIN_SIZE = 5;
+/** Zoom proche : sous cette altitude (mètres) les groupes éclatent en points individuels, avec l'écart en couronne et l'anneau de main. */
+export const EXPLODE_BELOW_M = 500_000;
+/** Ils se regroupent de nouveau au-dessus de cette altitude (écart pour éviter les allers-retours autour du seuil). */
+export const REGROUP_ABOVE_M = 700_000;
+
+/** Regroupement ou éclatement selon l'altitude de la caméra, avec hystérésis. */
+export function explodedAtHeight(currentlyExploded: boolean, heightMeters: number): boolean {
+  return currentlyExploded ? heightMeters < REGROUP_ABOVE_M : heightMeters < EXPLODE_BELOW_M;
+}
+
 /** Un groupe dont tous les événements tiennent dans ce rayon (mètres) n'a plus rien à séparer en zoomant : on liste ses événements. */
 export const COLOCATED_RADIUS_M = 500;
 
-/** Taille (pixels) du point d'un groupe de 5 à 9 événements (celle d'un point rouge de main), et plafond. */
-const FIRST_DOT = 10;
-const MAX_DOT = 24;
+/** Taille (pixels) du point d'un groupe de 5 à 9 événements (un peu plus qu'un point rouge de main, environ 10), et plafond. */
+const FIRST_DOT = 13;
+const MAX_DOT = 28;
 
 /**
- * Diamètre (pixels) du point rouge d'un groupe, par paliers de 5 événements : 5 → 10 px, 10 → 14, 15 → 16, 20 → 18, 25 → 19, puis de
- * plus en plus lentement jusqu'au plafond de 24 px. Moins de 5 événements : pas de groupe (0).
+ * Diamètre (pixels) du point rouge d'un groupe, par paliers de 5 événements : 5 → 13 px, 10 → 18, 15 → 20, 20 → 22, 25 → 23, puis de
+ * plus en plus lentement jusqu'au plafond de 28 px. Moins de 5 événements : pas de groupe (0).
  */
 export function clusterDotDiameter(count: number): number {
   if (count < CLUSTER_MIN_SIZE) return 0;
   const tier = Math.floor(count / 5);
-  return Math.round(Math.min(MAX_DOT, FIRST_DOT + 4 * Math.log2(tier)));
+  return Math.round(Math.min(MAX_DOT, FIRST_DOT + 4.5 * Math.log2(tier)));
 }
 
 /** Côté de l'image du point (disque et petit halo autour). */

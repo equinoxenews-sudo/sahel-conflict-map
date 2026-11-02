@@ -1,23 +1,23 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { clusterDotCanvasSize, clusterDotDiameter, distanceMeters, distinctIds, isColocated } from "../lib/globeClustering";
+import { explodedAtHeight, clusterDotCanvasSize, clusterDotDiameter, distanceMeters, distinctIds, isColocated } from "../lib/globeClustering";
 
 test("un groupe se forme à partir de 5 événements et son point grandit par paliers de 5, sans jamais être gros", () => {
   assert.equal(clusterDotDiameter(2), 0);
   assert.equal(clusterDotDiameter(4), 0, "moins de 5 : les points restent individuels");
-  assert.equal(clusterDotDiameter(5), 10);
-  assert.equal(clusterDotDiameter(9), 10);
-  assert.equal(clusterDotDiameter(10), 14);
-  assert.equal(clusterDotDiameter(15), 16);
-  assert.equal(clusterDotDiameter(20), 18);
-  assert.equal(clusterDotDiameter(25), 19);
+  assert.equal(clusterDotDiameter(5), 13);
+  assert.equal(clusterDotDiameter(9), 13);
+  assert.equal(clusterDotDiameter(10), 18);
+  assert.equal(clusterDotDiameter(15), 20);
+  assert.equal(clusterDotDiameter(20), 22);
+  assert.equal(clusterDotDiameter(25), 23);
   for (const count of [5, 50, 500, 5000, 1_000_000]) {
     const d = clusterDotDiameter(count);
-    assert.ok(d >= 10 && d <= 24, `${count} → ${d}`);
+    assert.ok(d >= 13 && d <= 28, `${count} → ${d}`);
   }
-  assert.equal(clusterDotDiameter(5000), 24, "plafond strict : jamais de grosse bulle");
+  assert.equal(clusterDotDiameter(5000), 28, "plafond strict : jamais de grosse bulle");
   for (let count = 5; count < 500; count++) assert.ok(clusterDotDiameter(count + 1) >= clusterDotDiameter(count), "jamais plus petit quand il y a plus d'événements");
-  assert.ok(clusterDotCanvasSize(10) > 10, "le halo ajoute une marge autour du disque");
+  assert.ok(clusterDotCanvasSize(13) > 13, "le halo ajoute une marge autour du disque");
 });
 
 test("deux événements au même lieu ne se séparent jamais ; deux villes distinctes si", () => {
@@ -33,4 +33,12 @@ test("un événement porte deux marqueurs mais ne se compte qu'une fois", () => 
   assert.deepEqual(distinctIds([5, 5, 7, 7, 9]), [5, 7, 9]);
   assert.deepEqual(distinctIds([undefined, null, 3, 3]), [3]);
   assert.deepEqual(distinctIds([]), []);
+});
+
+test("au zoom proche les groupes éclatent, avec un écart pour ne pas osciller autour du seuil", () => {
+  assert.equal(explodedAtHeight(false, 2_500_000), false, "vue d'une zone : regroupé");
+  assert.equal(explodedAtHeight(false, 80_000), true, "vue d'une ville : éclaté");
+  assert.equal(explodedAtHeight(false, 600_000), false, "entre les deux seuils, l'état ne change pas");
+  assert.equal(explodedAtHeight(true, 600_000), true);
+  assert.equal(explodedAtHeight(true, 800_000), false, "on s'éloigne : regroupé de nouveau");
 });

@@ -16,7 +16,7 @@ import { CESIUM_BASE_URL } from "@/lib/cesiumCdn";
 import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
 import { ISO3_TO_ZONE, isHomeZone, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
 import { getHoveredBrief, onHoveredBrief } from "@/lib/briefHover";
-import { CLUSTER_MIN_SIZE, CLUSTER_PIXEL_RANGE, GLOBE_CLUSTERING_ENABLED, clusterDotCanvasSize, clusterDotDiameter, distinctIds, isColocated, type EventMode } from "@/lib/globeClustering";
+import { CLUSTER_MIN_SIZE, CLUSTER_PIXEL_RANGE, GLOBE_CLUSTERING_ENABLED, clusterDotCanvasSize, clusterDotDiameter, distinctIds, explodedAtHeight, isColocated, type EventMode } from "@/lib/globeClustering";
 import styles from "./Globe3D.module.css";
 import type { GlobeDateRange } from "./GlobeTimeRange";
 
@@ -160,7 +160,8 @@ function applyDateFilter(source: CesiumNS.DataSource, dateRange: GlobeDateRange)
  * groupe. Aucun événement n'est retiré : seul son affichage change.
  */
 function applyEventMode(source: CesiumNS.DataSource, mode: EventMode): void {
-  const groups = mode === "groups";
+  // Regroupé : mode « Groupes » et zoom assez large. Au zoom proche, les points redeviennent individuels (écart en couronne et anneau de main).
+  const groups = mode === "groups" && !shared.exploded;
   const dotShown = new Map<number, boolean>();
   for (const entity of source.entities.values) {
     if (entity.properties?.ring?.getValue() !== true) dotShown.set(entity.properties?.eventId?.getValue(), entity.show);
@@ -548,6 +549,8 @@ const shared: {
   nightLights: boolean;
   dayNight: boolean;
   eventMode: EventMode;
+  /** Zoom proche : les groupes d'événements sont éclatés en points individuels (voir explodedAtHeight). */
+  exploded: boolean;
 } = {
   onEntitySelect: () => {},
   focusZone: null,
@@ -556,6 +559,7 @@ const shared: {
   nightLights: true,
   dayNight: true,
   eventMode: "points",
+  exploded: false,
 };
 
 interface Globe3DProps {
@@ -1318,6 +1322,17 @@ export default function Globe3D({
           refreshSoon();
         });
         applyEventMode(eventSource, shared.eventMode);
+        // Zoom proche : même au même lieu, les événements d'un groupe doivent pouvoir se séparer. Sous 500 km d'altitude les groupes
+        // éclatent donc en points individuels, avec l'écart en couronne de main ; ils se reforment au-dessus de 700 km.
+        const groupScene = viewer.scene;
+        const groupCamera = viewer.camera;
+        groupScene.postRender.addEventListener(() => {
+          const exploded = explodedAtHeight(shared.exploded, groupCamera.positionCartographic.height);
+          if (exploded === shared.exploded) return;
+          shared.exploded = exploded;
+          applyEventMode(eventSource, shared.eventMode);
+          groupScene.requestRender();
+        });
       }
       layerSources.events = eventSource;
 
