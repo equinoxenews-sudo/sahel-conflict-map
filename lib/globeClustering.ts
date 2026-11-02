@@ -18,27 +18,23 @@ export const CLUSTER_MIN_SIZE = 5;
 /** Un groupe dont tous les événements tiennent dans ce rayon (mètres) n'a plus rien à séparer en zoomant : on liste ses événements. */
 export const COLOCATED_RADIUS_M = 500;
 
-const MIN_DIAMETER = 26;
-const MAX_DIAMETER = 42;
-
-/** Diamètre du disque (pixels) : croît lentement avec le nombre d'événements, plafonné à 42 px (jamais de grosse bulle). */
-export function clusterDiameter(count: number): number {
-  const grown = MIN_DIAMETER + 4 * Math.log2(Math.max(count, 2) / 2);
-  return Math.round(Math.min(MAX_DIAMETER, grown));
-}
+/** Taille (pixels) du point d'un groupe de 5 à 9 événements, et plafond : un point rouge de main en fait environ 10. */
+const FIRST_DOT = 12;
+const MAX_DOT = 30;
 
 /**
- * Diamètre (pixels) du gros point rouge d'un groupe, par paliers de 5 événements : 5 → 26 px, 10 → 30, 15 → 32, 20 → 34, 25 → 35,
- * puis de plus en plus lentement jusqu'au plafond de 42 px. Moins de 5 événements : pas de groupe (0).
+ * Diamètre (pixels) du point rouge d'un groupe, par paliers de 5 événements : 5 → 12 px, 10 → 17, 15 → 20, 20 → 22, 25 → 24, puis de
+ * plus en plus lentement jusqu'au plafond de 30 px. Moins de 5 événements : pas de groupe (0).
  */
 export function clusterDotDiameter(count: number): number {
   if (count < CLUSTER_MIN_SIZE) return 0;
-  return clusterDiameter(2 * Math.floor(count / 5));
+  const tier = Math.floor(count / 5);
+  return Math.round(Math.min(MAX_DOT, FIRST_DOT + 5 * Math.log2(tier)));
 }
 
-/** Côté de l'image du point (disque et halo discret autour). */
+/** Côté de l'image du point (disque et petit halo autour). */
 export function clusterDotCanvasSize(diameter: number): number {
-  return diameter + 2 * Math.round(diameter * 0.35);
+  return diameter + 2 * Math.round(diameter * 0.2);
 }
 
 const EARTH_RADIUS_M = 6_371_000;

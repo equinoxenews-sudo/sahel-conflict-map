@@ -190,7 +190,7 @@ function clusterDotImage(diameter: number): string {
   const r = diameter / 2;
   // Halo discret autour du disque, puis disque plein au bord net avec un léger éclat au centre (comme les points isolés).
   const halo = ctx.createRadialGradient(c, c, 0, c, c, c);
-  halo.addColorStop(0, `${DOT_COLOR}88`);
+  halo.addColorStop(0, `${DOT_COLOR}66`);
   halo.addColorStop(1, `${DOT_COLOR}00`);
   ctx.fillStyle = halo;
   ctx.fillRect(0, 0, size, size);

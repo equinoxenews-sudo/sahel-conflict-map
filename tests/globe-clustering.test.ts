@@ -1,29 +1,23 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { clusterDiameter, clusterDotCanvasSize, clusterDotDiameter, distanceMeters, distinctIds, isColocated } from "../lib/globeClustering";
+import { clusterDotCanvasSize, clusterDotDiameter, distanceMeters, distinctIds, isColocated } from "../lib/globeClustering";
 
-test("un groupe se forme à partir de 5 événements et son point grandit par paliers de 5", () => {
+test("un groupe se forme à partir de 5 événements et son point grandit par paliers de 5, sans jamais être gros", () => {
   assert.equal(clusterDotDiameter(2), 0);
   assert.equal(clusterDotDiameter(4), 0, "moins de 5 : les points restent individuels");
-  assert.equal(clusterDotDiameter(5), 26, "5 à 9 : taille du disque « 2 »");
-  assert.equal(clusterDotDiameter(9), 26);
-  assert.equal(clusterDotDiameter(10), 30, "10 à 14 : taille du disque « 4 »");
-  assert.equal(clusterDotDiameter(15), 32, "15 à 19 : taille du disque « 6 »");
-  assert.equal(clusterDotDiameter(20), 34, "20 à 24 : taille du disque « 8 »");
-  assert.equal(clusterDotDiameter(25), 35, "25 et plus : taille du disque « 10 »");
+  assert.equal(clusterDotDiameter(5), 12);
+  assert.equal(clusterDotDiameter(9), 12);
+  assert.equal(clusterDotDiameter(10), 17);
+  assert.equal(clusterDotDiameter(15), 20);
+  assert.equal(clusterDotDiameter(20), 22);
+  assert.equal(clusterDotDiameter(25), 24);
   for (const count of [5, 50, 500, 5000, 1_000_000]) {
     const d = clusterDotDiameter(count);
-    assert.ok(d >= 26 && d <= 42, `${count} → ${d}`);
+    assert.ok(d >= 12 && d <= 30, `${count} → ${d}`);
   }
-  assert.equal(clusterDotDiameter(5000), 42, "plafond strict : jamais de grosse bulle");
+  assert.equal(clusterDotDiameter(5000), 30, "plafond strict : jamais de grosse bulle");
   for (let count = 5; count < 500; count++) assert.ok(clusterDotDiameter(count + 1) >= clusterDotDiameter(count), "jamais plus petit quand il y a plus d'événements");
-});
-
-test("le disque d'un groupe grandit lentement et ne dépasse jamais 42 px", () => {
-  assert.equal(clusterDiameter(2), 26);
-  assert.ok(clusterDiameter(10) > clusterDiameter(3));
-  assert.equal(clusterDiameter(5000), 42);
-  assert.ok(clusterDotCanvasSize(26) > 26, "le halo ajoute une marge autour du disque");
+  assert.ok(clusterDotCanvasSize(12) > 12, "le halo ajoute une marge autour du disque");
 });
 
 test("deux événements au même lieu ne se séparent jamais ; deux villes distinctes si", () => {
