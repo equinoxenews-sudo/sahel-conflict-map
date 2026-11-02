@@ -46,7 +46,8 @@ test("Un appel bloqué est coupé pour inactivité, retenté une fois, puis aban
   assert.equal(hanging.mock.callCount(), 2);
   assert.deepEqual(failures.map((f) => [f.kind, f.cut, f.retryInMs]), [["aborted", "idle", 0], ["aborted", "idle", null]]);
   assert.ok(failures[0].usage.inputTokens > 100);
-  assert.ok(TIMEOUT_MS - 2 * IDLE_TIMEOUT_MS < 90_000, "le deuxième blocage ne laisse plus le temps d'un troisième appel");
+  // Une seule reprise après un blocage : le deuxième est abandonné (retryInMs null ci-dessus), même avec 4 minutes de marge.
+  assert.equal(TIMEOUT_MS, 240_000, "4 minutes par réponse de l'IA (02/11/2026)");
 
   // Un refus rapide non passager (503) : signalé sans jetons, jamais retenté.
   const fetchMock = t.mock.method(globalThis, "fetch", async () => new Response("{}", { status: 503 }));

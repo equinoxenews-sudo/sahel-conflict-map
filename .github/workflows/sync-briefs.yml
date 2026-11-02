@@ -1,12 +1,13 @@
 name: Rédaction des articles
 
 # Lancé par le cron de Vercel (route /api/cron/dispatch, vercel.json) ; les planifications ci-dessous
-# ne sont que le secours. La journée complète est décrite dans docs/JOURNEE_TYPE.md. Deux passages par jour :
-#  - le matin (complet, jusqu'à 3 lots de 5 sources par zone) : cible 7 h 30 à Paris en heure d'hiver
-#    (8 h 30 en été) ; cron Vercel à 06:00 UTC, départ dans l'heure qui suit (7 h - 8 h à Paris en hiver) ;
-#  - l'après-midi (léger, 1 lot par zone, pour borner le coût) : cible 14 h à Paris en heure d'hiver
-#    (15 h en été) ; cron Vercel à 13:00 UTC (14 h - 15 h à Paris en hiver). Il recollecte les articles et messages Telegram arrivés
-#    depuis le matin et rédige ce qui est nouveau ; pas de synthèse de zone (workflow à part).
+# ne sont que le secours. La journée complète est décrite dans docs/JOURNEE_TYPE.md. Trois passages par jour (heures de Paris, hiver) :
+#  - le matin, 7 h 30 (complet : jusqu'à 3 lots de 5 sources par zone) ; cron Vercel à 06:00 UTC, départ dans l'heure qui suit ;
+#  - midi, 12 h (léger : 1 lot par zone, pour borner le coût) ; cron Vercel à 11:00 UTC ;
+#  - fin de journée, 17 h (léger : 1 lot par zone) ; cron Vercel à 16:00 UTC.
+# Chaque passage recollecte les articles et messages Telegram arrivés depuis le précédent et rédige ce qui est nouveau ; pas de
+# synthèse de zone (workflow à part). Une réponse de l'IA peut durer 4 minutes (lib/synthesizeBriefs.ts) : un appel de la route
+# ne traite donc qu'un lot par zone, et ce workflow la rappelle une fois par lot (3 fois le matin, 1 fois aux passages légers).
 # Horaires fixés le 01/11/2026 en heure de Paris : au passage à l'heure d'été (28/03/2027), ramener tout d'une heure plus tôt en UTC.
 # Les 5 minutes évitent le pic de charge de GitHub à l'heure pile.
 # Une zone dont le lot d'articles est mince et récent est reportée sans appel au
@@ -14,7 +15,8 @@ name: Rédaction des articles
 on:
   schedule:
     - cron: "5 6 * * *"
-    - cron: "5 13 * * *"
+    - cron: "5 11 * * *"
+    - cron: "5 16 * * *"
   workflow_dispatch:
     inputs:
       zone:
@@ -40,18 +42,18 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 60
     env:
       SITE_URL: https://sahel-conflict-map.vercel.app
       CRON_SECRET: ${{ secrets.CRON_SECRET }}
       # Passage : choisi au lancement manuel ou par le cron Vercel ; pour une planification GitHub,
-      # déduit de l'heure programmée (13 h 05 UTC = après-midi, sinon matin).
-      PASSE: ${{ inputs.passe || (github.event.schedule == '5 13 * * *' && 'apres-midi') || 'matin' }}
+      # déduit de l'heure programmée (11 h 05 ou 16 h 05 UTC = passages légers, sinon matin).
+      PASSE: ${{ inputs.passe || ((github.event.schedule == '5 11 * * *' || github.event.schedule == '5 16 * * *') && 'apres-midi') || 'matin' }}
     steps:
       # Le cron de Vercel lance ce workflow à l'heure (route /api/cron/dispatch). La
       # planification ci-dessus reste en secours : si un lancement du même passage existe
       # déjà, ce passage planifié s'arrête, sans doublon ni coût IA supplémentaire.
-      # Le matin = lancements créés avant 10 h UTC ; l'après-midi = ceux créés ensuite.
+      # Trois fenêtres (UTC) : matin avant 10 h, passage de midi de 10 h à 14 h, passage de fin de journée après 14 h.
       - name: Déjà lancé pour ce passage ?
         id: guard
         if: github.event_name == 'schedule'
@@ -60,11 +62,11 @@ jobs:
         run: |
           # En cas d'erreur de lecture, on ne saute rien : mieux vaut un doublon qu'un jour sans synthèse.
           today=$(date -u +%F)
-          if [ "$PASSE" = "apres-midi" ]; then
-            window="${today}T10:00:00Z..${today}T23:59:59Z"
-          else
-            window="${today}T00:00:00Z..${today}T09:59:59Z"
-          fi
+          case "${{ github.event.schedule }}" in
+            "5 16 * * *") window="${today}T14:00:00Z..${today}T23:59:59Z" ;;
+            "5 11 * * *") window="${today}T10:00:00Z..${today}T13:59:59Z" ;;
+            *) window="${today}T00:00:00Z..${today}T09:59:59Z" ;;
+          esac
           n=$(gh api "repos/${{ github.repository }}/actions/workflows/sync-briefs.yml/runs?created=$window&per_page=30" --jq '[.workflow_runs[] | select(.id != ${{ github.run_id }}) | select(.event == "workflow_dispatch") | select(.status != "completed" or .conclusion == "success")] | length' 2>/dev/null) || n=0
           if [ "$n" -gt 0 ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
@@ -94,32 +96,43 @@ jobs:
           # Lancement manuel : possibilité de ne relancer qu'une zone (choix « zone »).
           zones="afrique europe moyen-orient indopacifique amerique-du-sud"
           if [ -n "${{ inputs.zone }}" ] && [ "${{ inputs.zone }}" != "toutes" ]; then zones="${{ inputs.zone }}"; fi
-          # Passage de l'après-midi : un seul lot de 5 sources par zone (le reste attend le lendemain matin).
-          batches=""
-          if [ "$PASSE" = "apres-midi" ]; then batches="&batches=1"; fi
+          # Un appel de la route traite UN lot de 5 sources par zone (4 minutes au plus par réponse de l'IA, 300 s par appel).
+          # Passage du matin : jusqu'à 3 appels par zone, plafond relu dans la réponse (le mode budget du mois peut le réduire).
+          # Passages légers (midi, fin de journée) : un seul appel.
+          rounds=3
+          if [ "$PASSE" = "apres-midi" ]; then rounds=1; fi
           echo "Passage : $PASSE"
           for zone in $zones; do
-            ok=0
-            # Une zone qui échoue garde ses articles non traités : on réessaie une fois.
-            for attempt in 1 2; do
-              echo "== $zone (essai $attempt)"
-              if body=$(curl -sS --max-time 310 --fail-with-body \
-                -H "Authorization: Bearer $CRON_SECRET" \
-                "$SITE_URL/api/sync-briefs?zone=$zone$batches" 2>&1); then
+            round=1
+            while [ "$round" -le "$rounds" ]; do
+              ok=0
+              # Un appel qui échoue garde ses articles non traités : on réessaie une fois.
+              for attempt in 1 2; do
+                echo "== $zone (lot $round, essai $attempt)"
+                if body=$(curl -sS --max-time 310 --fail-with-body \
+                  -H "Authorization: Bearer $CRON_SECRET" \
+                  "$SITE_URL/api/sync-briefs?zone=$zone&batches=1" 2>&1); then
+                  echo "$body"
+                  ok=1
+                  break
+                fi
                 echo "$body"
-                ok=1
-                break
-              fi
-              echo "$body"
-              # Annotation lisible sur la page de l'exécution, sans ouvrir les journaux.
-              echo "::error title=Synthèses $zone (essai $attempt)::$(echo "$body" | tr -d '[:cntrl:]' | head -c 400)"
-              # Appel coupé par le délai : la requête est déjà partie et facturée, et le même lot serait
-              # coupé de la même façon. Pas de nouvel essai tout de suite ; la zone reprend au prochain passage.
-              if echo "$body" | grep -q "was aborted"; then
-                echo "::warning title=Synthèses $zone::Appel coupé par le délai : pas de nouvel essai immédiat, lot repris au prochain passage."
-                break
-              fi
+                # Annotation lisible sur la page de l'exécution, sans ouvrir les journaux.
+                echo "::error title=Synthèses $zone (essai $attempt)::$(echo "$body" | tr -d '[:cntrl:]' | head -c 400)"
+                # Appel coupé par le délai : la requête est déjà partie et facturée, et le même lot serait
+                # coupé de la même façon. Pas de nouvel essai tout de suite ; la zone reprend au prochain passage.
+                if echo "$body" | grep -q "was aborted"; then
+                  echo "::warning title=Synthèses $zone::Appel coupé par le délai : pas de nouvel essai immédiat, lot repris au prochain passage."
+                  break
+                fi
+              done
+              [ "$ok" = 1 ] || { failed=1; break; }
+              # Lot incomplet, reporté ou plafond du mois atteint : plus rien à traiter pour cette zone.
+              articles=$(echo "$body" | jq -r --arg z "$zone" '.summary[$z].articles // 0' 2>/dev/null || echo 0)
+              deferred=$(echo "$body" | jq -r --arg z "$zone" '.summary[$z].deferred // ""' 2>/dev/null || echo "")
+              cap=$(echo "$body" | jq -r '.batchCap // 3' 2>/dev/null || echo 3)
+              if [ -n "$deferred" ] || [ "${articles:-0}" -lt 5 ] || [ "$round" -ge "${cap:-3}" ]; then break; fi
+              round=$((round + 1))
             done
-            [ "$ok" = 1 ] || failed=1
           done
           exit $failed

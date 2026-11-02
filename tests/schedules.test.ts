@@ -66,6 +66,7 @@ test("l'ordre de la journée est conservé : collecte, rédaction du matin, synt
   assert.ok(hour("sync-briefs.yml") < hour("zone-synthesis.yml"));
   assert.ok(hour("zone-synthesis.yml") < hour("situation-report.yml"));
   assert.ok(hour("situation-report.yml") < hour("sync-briefs-apres-midi"));
+  assert.ok(hour("sync-briefs-apres-midi") < hour("sync-briefs-fin-de-journee"));
   // Au moins une heure entre deux étapes dépendantes : la marge de Vercel est de 59 minutes.
   assert.ok(hour("zone-synthesis.yml") - hour("sync-briefs.yml") >= 1);
   assert.ok(hour("situation-report.yml") - hour("zone-synthesis.yml") >= 1);

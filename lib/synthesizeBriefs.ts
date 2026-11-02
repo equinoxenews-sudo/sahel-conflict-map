@@ -30,7 +30,9 @@ export const TELEGRAM_STANDALONE_MIN_CHARS = 600;
 // marge voulue, et lib/syncBriefs.ts n'ouvre un lot que s'il peut finir avant les 300 s de la route.
 // 18/10 après-midi : articles plus longs (150-400 mots), certains lots dépassaient encore
 // 120 s ; lots ramenés à 5 sources (lib/syncBriefs.ts) et délai porté à 170 s.
-export const TIMEOUT_MS = 170_000;
+// 02/11/2026 : l'Europe dépassait encore 170 s ; délai porté à 4 minutes (240 s). La route fait 300 s au plus (plan Hobby) :
+// un appel de la route ne traite donc plus qu'un lot par zone, et le workflow la rappelle une fois par lot (.github/workflows/sync-briefs.yml).
+export const TIMEOUT_MS = 240_000;
 // Réponse en streaming (29/10/2026) : un appel qui n'avance plus (aucun texte, seulement des « ping »)
 // est coupé après ce délai au lieu d'attendre les 170 s ; un appel lent qui progresse va jusqu'à TIMEOUT_MS.
 export const IDLE_TIMEOUT_MS = 45_000;

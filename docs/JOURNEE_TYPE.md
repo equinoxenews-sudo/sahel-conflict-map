@@ -16,12 +16,13 @@ Les horaires visés (heure de Paris) sont donc des **créneaux d'une heure** : 0
 | 06:00 | 07 h 30 (08 h 30) | Vercel, puis GitHub | **Rédaction des articles, passage du matin** : recollecte, puis jusqu'à 3 lots de 5 articles par zone | collecte, API Anthropic |
 | 07:00 | 08 h (09 h) | Vercel, puis GitHub | **Synthèse de zone** (une par zone, seulement s'il y a de nouveaux articles) | articles du matin |
 | 08:00, lundi et jeudi | 09 h (10 h) | Vercel, puis GitHub | **Point de situation** : brouillons des 5 zones (Opus) | articles du matin et synthèse de zone |
-| 13:00 | 14 h (15 h) | Vercel, puis GitHub | **Rédaction des articles, passage de l'après-midi** : recollecte, 1 lot de 5 articles par zone, pas de synthèse de zone | — |
+| 11:00 | 12 h (13 h) | Vercel, puis GitHub | **Rédaction des articles, passage de midi (léger)** : recollecte, 1 lot de 5 articles par zone, pas de synthèse de zone | — |
+| 16:00 | 17 h (18 h) | Vercel, puis GitHub | **Rédaction des articles, passage de fin de journée (léger)** : recollecte, 1 lot de 5 articles par zone, pas de synthèse de zone | — |
 | 17:00, dimanche | 18 h (19 h) | Vercel, puis GitHub | **Veille OSINT et IA** : choix de 5 articles au plus parmi 4 sources, titre et résumé en français (Haiku, un seul appel, quelques centimes) | — |
 | 1er du mois, 05:00 | 06 h (07 h) | GitHub | Indicateurs des fiches pays (Banque mondiale) | — |
 
 **Secours GitHub.** Chaque workflow a aussi une planification propre (`10 8` pour le point de situation, `5 6`, `5 7`,
-`5 13`). Elle ne sert que si le lancement par Vercel n'a pas eu lieu ; elle s'arrête d'elle-même si le lancement du
+`5 11`, `5 16`). Elle ne sert que si le lancement par Vercel n'a pas eu lieu ; elle s'arrête d'elle-même si le lancement du
 même passage a déjà réussi (pas de doublon ni de coût IA en trop). Les planifications GitHub partent parfois avec
 plusieurs heures de retard : c'est pourquoi Vercel est le déclencheur principal.
 
@@ -42,7 +43,11 @@ Les noms reconnus par la route de réveil : `sync-briefs.yml`, `sync-briefs-apre
 ## Ce qu'il faut savoir
 
 - **Ordre :** rédaction du matin (06:00 UTC), puis synthèse de zone (07:00), puis point de situation (08:00, lundi et jeudi) : le point de situation voit donc les articles publiés le matin même.
-- **Plafonds :** 3 lots de 5 articles par zone le matin, 1 lot l'après-midi (14 h) ; le mode budget du mois peut les réduire.
+- **Plafonds :** 3 lots de 5 articles par zone le matin, 1 lot aux passages de midi et de fin de journée ; le mode budget du mois peut les réduire.
+- **Durée :** une réponse de l'IA peut durer 4 minutes (240 s, au lieu de 170 s jusqu'au 02/11/2026). La route du site est limitée à 300 s
+  (plan Hobby de Vercel) : un appel traite donc **un seul lot par zone**, et le workflow rappelle la route une fois par lot
+  (jusqu'à 3 fois par zone le matin ; le plafond du mode budget est relu dans la réponse). Au-delà, il faudrait Vercel Pro (800 s) ou
+  déplacer la rédaction sur GitHub Actions.
   Les articles en attente passent du plus récent au plus ancien et sont repris les jours suivants.
 - **Lot mince :** un lot trop petit et trop récent est reporté sans appel au modèle.
 - **Coûts :** chaque appel est noté dans la table `ai_usage` (durée, fin de génération, identifiant de requête, échecs

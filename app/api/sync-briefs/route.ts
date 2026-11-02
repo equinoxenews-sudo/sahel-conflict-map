@@ -4,7 +4,8 @@ import { isAuthorizedCron } from "@/lib/cronAuth";
 import { syncBriefs } from "@/lib/syncBriefs";
 import { parseBatchesLimit } from "@/lib/syncPasses";
 
-// 300 s (maximum du plan Hobby) : une zone « analyste » enchaîne jusqu'à 3 lots (lib/syncBriefs.ts).
+// 300 s (maximum du plan Hobby). Avec 4 minutes par réponse de l'IA, un appel traite un seul lot par zone : le workflow
+// rappelle la route une fois par lot (jusqu'à 3 le matin, 1 aux passages légers).
 export const maxDuration = 300;
 
 // Called by Vercel Cron (see vercel.json). Vercel automatically sends
@@ -19,7 +20,7 @@ export async function GET(request: Request) {
     const params = new URL(request.url).searchParams;
     const zone = params.get("zone") ?? undefined;
     // Passage léger de l'après-midi : « batches=1 » limite chaque zone à un lot (lib/syncPasses.ts).
-    const { summary, errors } = await syncBriefs(zone, { maxBatches: parseBatchesLimit(params.get("batches")) });
+    const { summary, errors, batchCap } = await syncBriefs(zone, { maxBatches: parseBatchesLimit(params.get("batches")) });
     // The homepage and zone pages are ISR-cached (revalidate = 3600) — mark
     // them stale so the very next visit picks up the new briefs instead of
     // waiting up to an hour.
@@ -27,7 +28,7 @@ export async function GET(request: Request) {
     revalidatePath("/zones/[slug]/[tab]", "page");
     revalidatePath("/briefs/[id]", "page");
     const failed = Object.values(summary).some((value) => value === -1);
-    return NextResponse.json({ ok: !failed, summary, errors }, { status: failed ? 502 : 200 });
+    return NextResponse.json({ ok: !failed, summary, errors, batchCap }, { status: failed ? 502 : 200 });
   } catch (error) {
     console.error("Brief sync failed", error);
     return NextResponse.json(

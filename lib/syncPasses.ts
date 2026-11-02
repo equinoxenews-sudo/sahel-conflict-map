@@ -20,6 +20,8 @@ export interface DispatchPlan {
 const PLANS: Record<string, DispatchPlan> = {
   "sync-briefs.yml": { workflow: "sync-briefs.yml" },
   "sync-briefs-apres-midi": { workflow: "sync-briefs.yml", inputs: { passe: "apres-midi" } },
+  // Troisième passage (17 h à Paris) : même traitement léger que celui de midi, son propre nom pour avoir son propre cron.
+  "sync-briefs-fin-de-journee": { workflow: "sync-briefs.yml", inputs: { passe: "apres-midi" } },
   "zone-synthesis.yml": { workflow: "zone-synthesis.yml" },
   "situation-report.yml": { workflow: "situation-report.yml" },
   "veille-osint.yml": { workflow: "veille-osint.yml" },

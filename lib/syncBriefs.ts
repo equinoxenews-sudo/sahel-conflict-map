@@ -32,7 +32,7 @@ const ANALYST_BATCH = 5;
 // Plafond de lots par zone : lib/syncPasses.ts (3 le matin, 1 l'après-midi, réduit selon le mode budget).
 /** Un nouveau lot ne démarre que si ce temps n'est pas écoulé : ce budget + un lot complet
  *  (rédaction, TIMEOUT_MS, et téléchargement des pages) restent sous les 300 s de la route. */
-const ANALYST_TIME_BUDGET_MS = 300_000 - TIMEOUT_MS - 45_000;
+const ANALYST_TIME_BUDGET_MS = 300_000 - TIMEOUT_MS - 45_000; // avec 4 minutes par appel : un seul lot par appel de la route
 const TELEGRAM_PER_BATCH = 10;
 const TELEGRAM_PROMPT_CHARS = 700;
 const TELEGRAM_MAX_AGE_HOURS = 72;
@@ -374,7 +374,7 @@ export async function syncBriefs(onlyZone?: string, options: { maxBatches?: numb
   const budget = await checkBudget("sync-briefs");
   if (!budget.allowed) {
     console.warn(budget.message);
-    return { summary: {}, errors: {}, skipped: budget.message };
+    return { summary: {}, errors: {}, batchCap: 0, skipped: budget.message };
   }
   console.log(budget.message);
 
@@ -405,5 +405,7 @@ export async function syncBriefs(onlyZone?: string, options: { maxBatches?: numb
     }
   });
 
-  return { summary, errors, ...(budget.mode !== "normal" ? { budget: budget.message } : {}) };
+  // Plafond de lots par zone (code, mode budget du mois) : le workflow le lit pour savoir combien d'appels enchaîner.
+  const batchCap = effectiveMaxBatches(budget.policy?.articles.maxBatches, undefined);
+  return { summary, errors, batchCap, ...(budget.mode !== "normal" ? { budget: budget.message } : {}) };
 }
