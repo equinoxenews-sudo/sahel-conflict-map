@@ -1269,7 +1269,9 @@ export default function Globe3D({
         clustering.pixelRange = CLUSTER_PIXEL_RANGE;
         clustering.minimumClusterSize = CLUSTER_MIN_SIZE;
         clustering.clusterEvent.addEventListener((clustered, cluster) => {
-          const count = distinctIds(clustered.map((e) => e.properties?.eventId?.getValue())).length;
+          // Jamais de groupe invisible : un groupe de Cesium compte des marqueurs, pas des événements (doublons éventuels dans les
+          // données) ; son point a au moins la taille du plus petit palier.
+          const count = Math.max(distinctIds(clustered.map((e) => e.properties?.eventId?.getValue())).length, clustered.length, CLUSTER_MIN_SIZE);
           const diameter = clusterDotDiameter(count);
           cluster.label.show = false;
           cluster.point.show = false;
