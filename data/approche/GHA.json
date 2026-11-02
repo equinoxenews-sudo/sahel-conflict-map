@@ -47,8 +47,8 @@
     {
       "id": "S-GHA-PRES",
       "publisher": "Présidence du Ghana",
-      "title": "Présidence et équipe gouvernementale — Ghana",
-      "canonicalUrl": "https://presidency.gov.gh/",
+      "title": "Profil officiel du président John Dramani Mahama",
+      "canonicalUrl": "https://presidency.gov.gh/biography/",
       "accessedAt": "2026-11-02",
       "license": null,
       "licenseUrl": null,
@@ -900,7 +900,7 @@
         {
           "id": "gha-vuln-2",
           "title": "Création d’emplois",
-          "summary": "La dépendance à l’or, au cacao et au pétrole rend les recettes extérieures sensibles à plusieurs cycles de prix.",
+          "summary": "La reprise économique ne se transforme pas automatiquement en emplois de qualité : les PME supportent des coûts logistiques et un accès au financement encore contraignants.",
           "tags": [],
           "sourceIds": [
             "S-GHA-WB_UP"
@@ -909,10 +909,11 @@
         {
           "id": "gha-vuln-3",
           "title": "Prix des matières premières",
-          "summary": "Les coûts du transport pénalisent les PME qui cherchent à accéder aux marchés et à créer des emplois.",
+          "summary": "Les recettes liées à l’or, au cacao et au pétrole demeurent exposées aux fluctuations des cours mondiaux, indépendamment des volumes exportés.",
           "tags": [],
           "sourceIds": [
-            "S-GHA-BOG"
+            "S-GHA-BOG",
+            "S-GHA-GOLDBOD"
           ]
         },
         {
@@ -930,7 +931,7 @@
           {
             "id": "gha-sw-s-1",
             "title": "Exportations minières",
-            "summary": "Le redressement macroéconomique fournit un socle de confiance à consolider par des réformes productives.",
+            "summary": "Les exportations aurifères contribuent aux recettes en devises ; leur niveau dépend à la fois des volumes vendus et des cours mondiaux.",
             "tags": [],
             "sourceIds": [
               "S-GHA-GOLDBOD"
@@ -939,7 +940,7 @@
           {
             "id": "gha-sw-s-2",
             "title": "Restauration macroéconomique",
-            "summary": "Les exportations d’or ont soutenu les recettes en devises ; leur caractère cyclique reste un facteur à suivre.",
+            "summary": "La stabilisation macroéconomique et les progrès du programme économique fournissent une base pour les réformes productives, sans supprimer les besoins de financement.",
             "tags": [],
             "sourceIds": [
               "S-GHA-WB",
@@ -1095,25 +1096,26 @@
       "watchAxes": [
         {
           "id": "gha-watch-1",
-          "title": "Prix des matières premières",
+          "title": "Dette et calendrier de refinancement",
           "summary": "Surveiller les conditions de refinancement après restructuration et le respect des trajectoires budgétaires publiées.",
-          "tags": [],
-          "sourceIds": [
-            "S-GHA-BOG"
-          ]
-        },
-        {
-          "id": "gha-watch-2",
-          "title": "Durabilité budgétaire",
-          "summary": "Suivre le ratio entre valeur des exportations aurifères, cours mondiaux et volumes pour isoler les effets de prix.",
           "tags": [],
           "sourceIds": [
             "S-GHA-IMF"
           ]
         },
         {
+          "id": "gha-watch-2",
+          "title": "Exportations aurifères : prix et volumes",
+          "summary": "Suivre le ratio entre valeur des exportations aurifères, cours mondiaux et volumes pour isoler les effets de prix.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-BOG",
+            "S-GHA-GOLDBOD"
+          ]
+        },
+        {
           "id": "gha-watch-3",
-          "title": "Valorisation locale",
+          "title": "Emploi productif et coûts logistiques",
           "summary": "Vérifier l’exécution des programmes de transport et leurs effets mesurables sur les coûts logistiques et l’emploi.",
           "tags": [],
           "sourceIds": [

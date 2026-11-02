@@ -56,11 +56,16 @@ test("les fiches déjà enregistrées passent le contrôle d'import sans erreur 
     assert.deepEqual(Object.values(report.errors).flat(), [], `${code} : ${JSON.stringify(report.errors)}`);
     assert.equal(report.ok, true);
     assert.deepEqual(
-      report.hidden.filter((item) => !item.reason.startsWith("masquée volontairement")),
+      report.hidden.filter((item) => !item.reason.startsWith("masquée volontairement") && !item.reason.startsWith("statut « ")),
       [],
       `${code} : observation vérifiée sans emplacement`,
     );
   }
+  // Une observation non vérifiée n'est jamais présentée comme un chiffre établi : la population 2026 de la Guinée (17,52 M, écart
+  // non expliqué avec la série Banque mondiale 2025) est « conflicting » et reste donc masquée.
+  const guinea = analyzeCountry(read("GIN"), "GIN.json", ctx());
+  assert.deepEqual(guinea.hidden.map((item) => item.key), ["demography.population_2026_wb_country"]);
+  assert.match(guinea.hidden[0].reason, /conflicting/);
 });
 
 test("le contrôle refuse chaque famille d'anomalie, avec un message par pays", () => {

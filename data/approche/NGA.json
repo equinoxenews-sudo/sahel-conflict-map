@@ -876,7 +876,7 @@
         {
           "id": "nga-vuln-1",
           "title": "Pression sociale et pauvreté",
-          "summary": "La pression sécuritaire diffère entre les régions et complique la continuité de l’agriculture, du commerce et des services locaux.",
+          "summary": "La persistance de prix alimentaires élevés et la pauvreté réduisent le pouvoir d’achat, même lorsque les indicateurs de stabilisation macroéconomique s’améliorent.",
           "tags": [],
           "sourceIds": [
             "S-NGA-WB",
@@ -886,7 +886,7 @@
         {
           "id": "nga-vuln-2",
           "title": "Insécurité géographiquement diversifiée",
-          "summary": "Le maintien de prix alimentaires élevés pèse sur les ménages même lorsque l’inflation générale ralentit.",
+          "summary": "Les violences prennent des formes différentes selon les régions, avec des effets sur les exploitations agricoles, les déplacements et l’accès aux services.",
           "tags": [],
           "sourceIds": [
             "S-NGA-WB",
@@ -896,7 +896,7 @@
         {
           "id": "nga-vuln-3",
           "title": "Violences et déplacements",
-          "summary": "Les réserves extérieures bénéficient de flux dont la composante de portefeuille peut se retirer rapidement.",
+          "summary": "Les violences et les mouvements forcés de population perturbent la continuité scolaire, les marchés locaux et l’accès aux services essentiels.",
           "tags": [],
           "sourceIds": [
             "S-NGA-UNHCR",
@@ -906,7 +906,7 @@
         {
           "id": "nga-vuln-4",
           "title": "Chocs inflationnistes",
-          "summary": "Les recettes pétrolières et les coûts domestiques du carburant répondent différemment aux chocs mondiaux de prix.",
+          "summary": "Les variations des prix de l’énergie et des transports peuvent se répercuter sur l’inflation intérieure, en particulier sur les denrées alimentaires.",
           "tags": [],
           "sourceIds": [
             "S-NGA-WB"
@@ -970,11 +970,10 @@
         "threats": [
           {
             "id": "nga-sw-t-1",
-            "title": "Violences et déplacements",
-            "summary": "Une contraction des flux de portefeuille compliquerait la gestion des réserves.",
+            "title": "Volatilité des flux financiers extérieurs",
+            "summary": "Un retrait rapide des capitaux de portefeuille réduirait la marge de stabilisation externe malgré la remontée des réserves.",
             "tags": [],
             "sourceIds": [
-              "S-NGA-UNHCR",
               "S-NGA-WB"
             ]
           },
@@ -1084,12 +1083,11 @@
       "watchAxes": [
         {
           "id": "nga-watch-1",
-          "title": "Violences et déplacements",
+          "title": "Exécution des budgets des États fédérés",
           "summary": "Comparer la progression des recettes des États fédérés à l’exécution budgétaire effective et aux dépenses d’éducation et de santé.",
           "tags": [],
           "sourceIds": [
-            "S-NGA-UNHCR",
-            "S-NGA-WB"
+            "S-NGA-WB_NDU"
           ]
         },
         {
@@ -1103,11 +1101,11 @@
         },
         {
           "id": "nga-watch-3",
-          "title": "Transformation des recettes en services",
+          "title": "Réserves extérieures et financement",
           "summary": "Confronter les réserves extérieures aux entrées de capitaux de portefeuille et à l’évolution des recettes pétrolières.",
           "tags": [],
           "sourceIds": [
-            "S-NGA-WB_NDU"
+            "S-NGA-WB"
           ]
         }
       ]

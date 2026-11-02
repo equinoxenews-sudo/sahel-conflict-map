@@ -47,14 +47,15 @@
     {
       "id": "S-BEN-PRES",
       "publisher": "Présidence de la République du Bénin",
-      "title": "Présidence : Romuald Wadagni",
-      "canonicalUrl": "https://presidence.bj/",
+      "title": "Discours officiel d’investiture de Romuald Wadagni, 24 mai 2026",
+      "canonicalUrl": "https://presidence.bj/article/394/discours-investiture-president-republique-monsieur-romuald-wadagni/",
       "accessedAt": "2026-11-02",
       "license": null,
       "licenseUrl": null,
       "reuse": "citation_only",
       "language": "fr",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication.",
+      "publishedAt": "2026-05-24"
     },
     {
       "id": "S-BEN-COUR",
@@ -454,11 +455,10 @@
     {
       "id": "ben-claim-2",
       "countryCode": "BEN",
-      "statement": "Le Bénin occupe une position de transit entre le golfe de Guinée et le Sahel, notamment par les corridors Abidjan–Lagos et Cotonou–Niamey.",
+      "statement": "Le Bénin occupe une position commerciale au croisement des corridors régionaux Abidjan–Lagos et Cotonou–Niamey, qui relient la côte du golfe de Guinée aux marchés voisins.",
       "claimType": "analysis",
       "sourceIds": [
-        "S-BEN-WB",
-        "S-BEN-NGA-2026"
+        "S-BEN-WB"
       ],
       "validAsOf": "2026-11-02",
       "reviewer": null,
@@ -947,8 +947,8 @@
         },
         {
           "id": "ben-vuln-3",
-          "title": "Propagation de l’insécurité sahélienne",
-          "summary": "Les bassins du Sud sont soumis à des crues, tandis que les zones septentrionales connaissent des épisodes de sécheresse et des aléas de rendement.",
+          "title": "Aléas climatiques et fragilité des productions agricoles",
+          "summary": "Les crues au Sud et les épisodes de sécheresse au Nord peuvent perturber les récoltes et les revenus ruraux ; leur intensité varie selon les saisons et les territoires.",
           "tags": [],
           "sourceIds": [
             "S-BEN-FEWS"
@@ -1029,10 +1029,11 @@
           },
           {
             "id": "ben-sw-t-2",
-            "title": "Vulnérabilité de la logistique",
-            "summary": "Des chocs climatiques répétés risqueraient d’affecter la production et les revenus ruraux.",
+            "title": "Chocs climatiques sur les revenus agricoles",
+            "summary": "Des épisodes climatiques défavorables pourraient réduire les récoltes et accroître la vulnérabilité des ménages ruraux.",
             "tags": [],
             "sourceIds": [
+              "S-BEN-FEWS",
               "S-BEN-WB"
             ]
           }

@@ -108,14 +108,26 @@
     {
       "id": "S-GIN-BCRG-CURRENCY",
       "publisher": "Banque centrale de la République de Guinée (BCRG)",
-      "title": "Portail officiel BCRG — cours de référence exprimés en francs guinéens",
-      "canonicalUrl": "https://www.bcrg-guinee.org/",
+      "title": "BCRG — Billets et monnaie en circulation, franc guinéen",
+      "canonicalUrl": "https://www.bcrg-guinee.org/moyens-de-paiement__trashed/billets-et-monnaie-en-circulation/",
       "accessedAt": "2026-11-02",
       "license": "Réutilisation commerciale non établie",
       "licenseUrl": "https://www.bcrg-guinee.org/",
       "reuse": "citation_only",
       "language": "fr",
       "methodNotes": "La banque centrale publie les cours contre le GNF. Source institutionnelle de l’unité monétaire."
+    },
+    {
+      "id": "S-GIN-WDI-POPTOT",
+      "publisher": "Banque mondiale — World Development Indicators",
+      "title": "Population totale de la Guinée, série SP.POP.TOTL (2025)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=GN",
+      "accessedAt": "2026-11-02",
+      "license": "À consulter sur la fiche de la série, dont les conditions de réutilisation peuvent varier selon la donnée originale",
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Valeur 2025 : 15 099 727 ; conservée dans la couche automatique Banque mondiale, non recopiée comme observation éditoriale."
     }
   ],
   "observations": [
@@ -200,7 +212,7 @@
       "unit": null,
       "referencePeriod": "2026",
       "geographicScope": "Guinée",
-      "methodology": "Monnaie nationale selon étude BCEAO.",
+      "methodology": "Unité monétaire attestée par les billets en circulation publiés par la Banque centrale de la République de Guinée (BCRG) ; ne pas confondre avec le franc CFA/UEMOA.",
       "sourceIds": [
         "S-GIN-BCRG-CURRENCY"
       ],
@@ -237,14 +249,16 @@
       "unit": "personnes",
       "referencePeriod": "2026",
       "geographicScope": "Guinée",
-      "methodology": "Estimation de la page pays ; ne pas remplacer la série automatique.",
+      "methodology": "Valeur indiquée dans l’aperçu pays Banque mondiale pour 2026. Elle est divergente de la série statistique World Development Indicators (15 099 727 habitants en 2025), sans méthodologie permettant à ce stade de réconcilier les deux estimations. Ne pas l’afficher comme une valeur démographique validée.",
       "sourceIds": [
-        "S-GIN-WB"
+        "S-GIN-WB",
+        "S-GIN-WDI-POPTOT"
       ],
       "collectedAt": "2026-11-02",
       "verifiedAt": "2026-11-02",
-      "status": "verified",
-      "dataKind": "observed"
+      "status": "conflicting",
+      "dataKind": "observed",
+      "uncertainty": "Écart non réconcilié entre l’aperçu Banque mondiale 2026 (17,52 M) et sa série WDI 2025 (15,10 M) ; comparaison de millésimes différents et absence de détail méthodologique."
     },
     {
       "id": "gin-economy-gdp-growth-2025-wb-report",
@@ -900,8 +914,8 @@
         },
         {
           "id": "gin-vuln-3",
-          "title": "Dépendance minière",
-          "summary": "Les besoins de gouvernance budgétaire et de transparence minière restent structurants pour transformer les recettes en services.",
+          "title": "Gouvernance des recettes minières",
+          "summary": "La traçabilité des recettes et les choix d’investissement public conditionnent la transformation des revenus extractifs en services et en activité non minière.",
           "tags": [],
           "sourceIds": [
             "S-GIN-WB_UPDATE"
@@ -943,7 +957,7 @@
           {
             "id": "gin-sw-w-1",
             "title": "Concentration extractive",
-            "summary": "La concentration extractive laisse l’emploi dépendre fortement d’activités rurales peu productives.",
+            "summary": "La concentration des exportations dans la bauxite et le minerai de fer expose les recettes en devises et les décisions d’investissement aux cycles miniers.",
             "tags": [],
             "sourceIds": [
               "S-GIN-WB_UPDATE"
@@ -982,8 +996,8 @@
           },
           {
             "id": "gin-sw-t-2",
-            "title": "Défaillances d’infrastructure",
-            "summary": "Une gestion budgétaire insuffisamment transparente accentuerait la vulnérabilité aux cycles miniers.",
+            "title": "Interruption des infrastructures d’exportation",
+            "summary": "Une défaillance prolongée du rail ou des installations portuaires limiterait la continuité des exportations de minerai de fer.",
             "tags": [],
             "sourceIds": [
               "S-GIN-RIO"
@@ -1085,8 +1099,8 @@
       "watchAxes": [
         {
           "id": "gin-watch-1",
-          "title": "Dépendance minière",
-          "summary": "Documenter les tonnages effectivement exportés via Simandou, distincts des capacités nominales annoncées.",
+          "title": "Concentration des recettes et exportations minières",
+          "summary": "Suivre la part des minerais dans les exportations et les recettes publiques, en distinguant les effets de volume, de prix et de fiscalité.",
           "tags": [],
           "sourceIds": [
             "S-GIN-WB_UPDATE"
@@ -1094,8 +1108,8 @@
         },
         {
           "id": "gin-watch-2",
-          "title": "Défaillances d’infrastructure",
-          "summary": "Suivre les recettes minières encaissées et les mesures de transparence budgétaire évoquées dans les échanges avec le FMI.",
+          "title": "Fiabilité des infrastructures ferroportuaires",
+          "summary": "Vérifier la fréquence des trains, le fonctionnement des terminaux et les tonnages effectivement embarqués, séparément des capacités nominales annoncées.",
           "tags": [],
           "sourceIds": [
             "S-GIN-RIO"

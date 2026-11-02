@@ -883,7 +883,7 @@
         {
           "id": "bfa-vuln-3",
           "title": "Violences et déplacements",
-          "summary": "Les chocs pluviométriques et l’accès aux intrants agricoles influencent les revenus des ménages ruraux.",
+          "summary": "Les déplacements forcés et les retours déclarés ne garantissent pas un rétablissement de l’accès aux services ; la situation varie selon la sécurité des localités.",
           "tags": [],
           "sourceIds": [
             "S-BFA-WB"
@@ -892,7 +892,7 @@
         {
           "id": "bfa-vuln-4",
           "title": "Chocs de prix et de climat",
-          "summary": "Les retours de déplacés déclarés doivent être rapprochés de la sécurité locale et de la réouverture des services.",
+          "summary": "L’irrégularité des pluies, les coûts des engrais et les tensions sur les marchés alimentaires pèsent sur les revenus agricoles et la sécurité alimentaire.",
           "tags": [],
           "sourceIds": [
             "S-BFA-WB"
@@ -943,11 +943,12 @@
         "opportunities": [
           {
             "id": "bfa-sw-o-1",
-            "title": "Transformation agricole",
-            "summary": "La transformation et la formalisation d’activités minières peuvent améliorer la traçabilité des recettes.",
+            "title": "Transformation agricole et formalisation minière",
+            "summary": "Une meilleure transformation des productions agricoles et des circuits miniers plus formels pourraient renforcer les revenus locaux et leur traçabilité.",
             "tags": [],
             "sourceIds": [
-              "S-BFA-WB"
+              "S-BFA-WB",
+              "S-BFA-WB_UP"
             ]
           }
         ],
@@ -955,7 +956,7 @@
           {
             "id": "bfa-sw-t-1",
             "title": "Violences et déplacements",
-            "summary": "La dégradation des axes logistiques pourrait accroître les prix dans les zones enclavées.",
+            "summary": "Une intensification des violences pourrait provoquer de nouveaux déplacements et réduire davantage l’accès aux écoles, soins et marchés.",
             "tags": [],
             "sourceIds": [
               "S-BFA-WB"
@@ -1075,16 +1076,17 @@
         },
         {
           "id": "bfa-watch-2",
-          "title": "Chocs de prix et de climat",
+          "title": "Coopération régionale et continuité monétaire",
           "summary": "Distinguer les mécanismes de coopération AES de l’appartenance à l’UEMOA et du retrait effectif de la CEDEAO.",
           "tags": [],
           "sourceIds": [
-            "S-BFA-WB"
+            "S-BFA-ECOWAS_HIST",
+            "S-BFA-BCEAO"
           ]
         },
         {
           "id": "bfa-watch-3",
-          "title": "Transformation agricole",
+          "title": "Prix agricoles et accès aux intrants",
           "summary": "Surveiller l’accès aux engrais, la pluviométrie et les prix alimentaires dans les zones aux marchés perturbés.",
           "tags": [],
           "sourceIds": [
