@@ -34,6 +34,8 @@ export interface RelationFormValues {
   justifyingSourceId: string | null;
   /** Le trait du graphe affiche la lecture inverse du type. */
   labelInverse: boolean;
+  /** Flèche indiquant le sens ; false = simple trait (absent = automatique). */
+  directed?: boolean;
   /** Points d'ancrage et forme du trait (absents : choisis automatiquement / droit). */
   sourceAnchor?: AnchorId;
   targetAnchor?: AnchorId;
@@ -82,6 +84,7 @@ export default function RelationForm({
   const [justifyingSourceId, setJustifyingSourceId] = useState(initial?.justifyingSourceId ?? "");
   const [period, setPeriod] = useState(initial?.period ?? "");
   const [labelInverse, setLabelInverse] = useState(initial?.labelInverse === true);
+  const [directed, setDirected] = useState(initial?.directed !== false);
   const [routing, setRouting] = useState<{ sourceAnchor?: AnchorId; targetAnchor?: AnchorId; lineStyle?: LineStyle }>({
     sourceAnchor: initial?.sourceAnchor,
     targetAnchor: initial?.targetAnchor,
@@ -106,6 +109,7 @@ export default function RelationForm({
       confidence,
       justifyingSourceId: justifyingSourceId || null,
       labelInverse: !custom && type !== null && !type.symmetric && labelInverse,
+      directed: directed ? undefined : false,
       sourceAnchor: routing.sourceAnchor,
       targetAnchor: routing.targetAnchor,
       lineStyle: routing.lineStyle && routing.lineStyle !== "straight" ? routing.lineStyle : undefined,
@@ -213,6 +217,21 @@ export default function RelationForm({
             <strong>{sourceName}</strong> {custom ? label || "…" : type?.label} <strong>{targetName}</strong>
           </p>
         )
+      ) : null}
+
+      {custom || (type && !type.symmetric) ? (
+        <label className={styles.readingOption}>
+          <input type="checkbox" checked={directed} onChange={(e) => setDirected(e.target.checked)} />
+          <span>
+            Flèche indiquant le sens
+            {sourceName && targetName ? (
+              <>
+                {" "}
+                (<strong>{custom || !labelInverse ? sourceName : targetName}</strong> → <strong>{custom || !labelInverse ? targetName : sourceName}</strong>)
+              </>
+            ) : null}
+          </span>
+        </label>
       ) : null}
 
       <div className={styles.field}>

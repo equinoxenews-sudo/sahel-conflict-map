@@ -3,6 +3,7 @@
 import {
   Background,
   Controls,
+  MarkerType,
   MiniMap,
   Panel,
   ReactFlow,
@@ -69,6 +70,7 @@ import { pushLimited, sameGraph, sliceOf, type GraphSlice } from "@/lib/investig
 import { findDuplicateCandidates } from "@/lib/investigation/duplicates";
 import { planEntityMerge, type MergeChoices } from "@/lib/investigation/merge";
 import {
+  arrowEnd,
   DUPLICATE_RELATION_KEY,
   edgeLabel,
   getRelationType,
@@ -190,6 +192,16 @@ function pivotEdges(shared: SharedValue[]): Edge[] {
   return edges;
 }
 
+const ARROW = { type: MarkerType.ArrowClosed, width: 16, height: 16 } as const;
+
+/** Pointes de flèche d'une relation, de la couleur de son trait. */
+function arrows(relation: Relation, color: string): Pick<Edge, "markerEnd" | "markerStart"> {
+  const end = arrowEnd(relation);
+  if (end === "target") return { markerEnd: { ...ARROW, color } };
+  if (end === "source") return { markerStart: { ...ARROW, color } };
+  return {};
+}
+
 function relationsToEdges(relations: Relation[]): Edge[] {
   return relations.map((r) => {
     const duplicate = isDuplicateRelation(r);
@@ -205,6 +217,8 @@ function relationsToEdges(relations: Relation[]): Edge[] {
         sourceAnchor: r.sourceAnchor,
         targetAnchor: r.targetAnchor,
       },
+      // Flèche : du sujet vers l'objet de la phrase lue sur le trait (voir arrowEnd) ; rien pour une relation symétrique.
+      ...arrows(r, r.lineColor ?? (duplicate ? "var(--status-danger)" : "var(--accent-gold)")),
       // Pointillés animés = lien supposé (hypothèse) ; trait plein = lien documenté.
       animated: r.status === "hypothesis",
       // Un doublon possible est orange : à examiner, jamais fusionné automatiquement.
@@ -901,6 +915,7 @@ export default function EntityGraphPanel({
       // Le libellé suit le type du catalogue ; « Autre » garde le texte libre.
       typeKey: values.typeKey === "custom" ? undefined : values.typeKey,
       labelInverse: values.labelInverse || undefined,
+      directed: values.directed === false ? false : undefined,
       label: values.label,
       status: values.status,
       confidence: values.confidence,
@@ -1367,6 +1382,12 @@ export default function EntityGraphPanel({
                     value={selectedRelation.lineColor}
                     onChange={(color) => storage.updateRelation(selectedRelation.id, { lineColor: color })}
                   />
+                  {arrowEnd({ ...selectedRelation, directed: undefined }) !== null ? (
+                    <label className={styles.detailRow} title="Une flèche indique le sens de la relation : du sujet vers l'objet de la phrase lue sur le trait">
+                      <span className={styles.detailLabel}>Flèche (sens)</span>
+                      <input type="checkbox" checked={selectedRelation.directed !== false} onChange={(event) => storage.updateRelation(selectedRelation.id, { directed: event.target.checked ? undefined : false })} />
+                    </label>
+                  ) : null}
                   <div className={styles.detailRow}>
                     <span className={styles.detailLabel}>Tracé du trait</span>
                     <RelationRouting

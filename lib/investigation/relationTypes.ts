@@ -135,3 +135,15 @@ export function hierarchyOf(relation: Relation): { parent: string; child: string
 export function isDuplicateRelation(relation: Pick<Relation, "typeKey">): boolean {
   return relation.typeKey === DUPLICATE_RELATION_KEY;
 }
+
+/**
+ * Extrémité du trait où dessiner la flèche : l'objet de la phrase lue sur le trait, du sujet vers l'objet.
+ * « A utilise B » → flèche sur B (la cible) ; si le trait affiche la lecture inverse (« B est utilisé par A ») → flèche sur A (la source).
+ * Aucune flèche (null) pour une relation symétrique (« collabore avec »), un doublon possible, ou quand elle est désactivée.
+ */
+export function arrowEnd(relation: Pick<Relation, "typeKey" | "labelInverse" | "directed">): "target" | "source" | null {
+  if (relation.directed === false || isDuplicateRelation(relation)) return null;
+  const known = getRelationType(relation.typeKey);
+  if (known?.symmetric) return null;
+  return known && relation.labelInverse ? "source" : "target";
+}

@@ -198,6 +198,8 @@ export interface Relation {
   targetAnchor?: AnchorId;
   /** Forme du trait ; absent = droit. */
   lineStyle?: LineStyle;
+  /** Flèche indiquant le sens de la relation ; absent = automatique (flèche, sauf relation symétrique ou doublon possible), false = simple trait. */
+  directed?: boolean;
   /** Période de validité en texte libre (« depuis 2021 », « jusqu'en mars 2025 »). */
   period?: string;
   /** 0-100 — a manual confidence estimate, not a computed score. */

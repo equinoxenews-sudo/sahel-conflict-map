@@ -57,6 +57,7 @@ function exitFraction(from: Point, to: Point, rect: Rect): number {
 // d'ancrage de la fiche cible : ceux choisis pour la relation, sinon les côtés qui se font face.
 // Trois formes : droit (par défaut), courbe, coude. Le libellé se place sur la partie VISIBLE du
 // trait droit (entre les deux cartes) : au milieu des centres, il serait caché sous une carte.
+// La flèche (markerEnd / markerStart, posée par le graphe) indique le sens de la relation.
 export default function RelationEdge({
   id,
   source,
@@ -73,6 +74,8 @@ export default function RelationEdge({
   labelBgPadding,
   labelBgBorderRadius,
   interactionWidth,
+  markerStart,
+  markerEnd,
 }: EdgeProps<RelationFlowEdge>) {
   const sourceNode = useInternalNode(source);
   const targetNode = useInternalNode(target);
@@ -123,6 +126,8 @@ export default function RelationEdge({
       labelBgPadding={labelBgPadding}
       labelBgBorderRadius={labelBgBorderRadius}
       style={style}
+      markerStart={markerStart}
+      markerEnd={markerEnd}
       interactionWidth={interactionWidth}
     />
   );
