@@ -39,7 +39,7 @@ const DESCRIPTIONS: Record<string, string> = {
   "sources.methodNotes": "Ce qu'il faut savoir pour réutiliser la donnée : définition, révisions, limites.",
   "sources.originalPublisher": "Organisme producteur d'origine quand la source relaie les données d'un autre (agrégateur, plateforme). Les droits suivent la donnée d'origine : un producteur exclu (SIPRI) exclut la source.",
   "sources.language": "Langue de la source (fr, en…).",
-  documentationLevel: "Niveau documentaire visé : essential (de quoi présenter le pays avec ses sources) ou extended (toutes les rubriques renseignées). Facultatif : le niveau atteint est calculé d'après le contenu et l'import signale tout écart. Les deux niveaux utilisent le même moteur.",
+  documentationLevel: "Niveau documentaire : essential ou extended. Décision ÉDITORIALE, facultative : le niveau n'est ni calculé ni imposé par le moteur, et n'est affiché que s'il est déclaré ici. L'import fournit un profil de couverture (contenus, sources, contenus spécifiques) pour éclairer la décision. Les deux niveaux utilisent le même moteur.",
   "observations.id": "Identifiant unique de l'observation.",
   "observations.countryCode": "Code ISO alpha-3 du pays (identique à celui du fichier).",
   "observations.key": "Clé stable de la donnée (ex. economy.gdp_nominal_usd). Les clés lues par l'interface sont listées dans APPROCHE_CHAMPS_UI.md ; une clé nouvelle est acceptée.",

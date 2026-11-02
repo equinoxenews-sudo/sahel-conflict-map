@@ -3,7 +3,7 @@ import fs from "node:fs";
 import test from "node:test";
 import { classifyObservations } from "../lib/approche/complements";
 import { AUTOMATIC_SERIES } from "../lib/approche/keys";
-import { assessLevel, missingForLevel } from "../lib/approche/levels";
+import { coverageProfile, longTexts } from "../lib/approche/levels";
 import { comparableMeasures, isOtherSourceOf, unitFamily } from "../lib/approche/measures";
 import { COUNTRY_FILES } from "../lib/approche/registry.generated";
 import { getApprocheData, listApprocheCountries, loadApprocheCountry } from "../lib/approche/repository";
@@ -116,38 +116,74 @@ test("un lot est refusé pays par pays : deux fichiers ne portent ni le même co
   assert.ok(one.errors.registry.some((message) => message.includes("plusieurs fichiers du lot")));
 });
 
-test("les textes passe-partout et répétés sont signalés (gabarit non personnalisé)", () => {
-  const strings = moduleStrings({ a: { summary: "Un texte suffisamment long pour compter comme contenu éditorial répété." }, id: "x" });
-  assert.deepEqual(strings, ["Un texte suffisamment long pour compter comme contenu éditorial répété."]);
-  const reports = BATCH.map((code) => ({ report: analyzeCountry(read(code), `${code}.json`, ctx()), slug: String(read(code).slug), strings: moduleStrings(read(code).modules) }));
-  checkBatch(reports);
-  for (const { report } of reports) {
-    assert.ok(report.warnings.some((warning) => warning.includes("identique(s) dans au moins 3 pays du lot")), `${report.code} : textes de gabarit communs aux cinq pays`);
-    assert.equal(report.ok, true, "un avertissement documentaire ne bloque pas l'enregistrement");
-  }
-});
-
 test("les adresses des sources et des licences sont extraites pour le contrôle réseau", () => {
   const urls = urlsOf({ sources: [{ canonicalUrl: "https://a.example/x", licenseUrl: "https://a.example/licence" }, { canonicalUrl: "https://b.example/y", licenseUrl: null }] });
   assert.deepEqual(urls, ["https://a.example/x", "https://a.example/licence", "https://b.example/y"]);
 });
 
-test("deux niveaux documentaires, un seul moteur : le niveau ne change ni le classement ni l'affichage", () => {
-  const levels = Object.fromEntries([...PILOTS, ...BATCH].map((code) => [code, assessLevel(loadApprocheCountry(code) as CountryData).achieved]));
-  for (const code of PILOTS) assert.equal(levels[code], "extended", `${code} : approfondi`);
-  for (const code of BATCH) assert.equal(levels[code], "essential", `${code} : essentiel (5 affirmations vérifiées sur 6 attendues pour l'approfondi)`);
+test("les textes identiques entre pays et les textes répétés sont signalés, sans bloquer (gabarit non personnalisé)", () => {
+  assert.deepEqual(moduleStrings({ a: { summary: "Un texte suffisamment long pour compter comme contenu éditorial répété." }, id: "x" }), ["Un texte suffisamment long pour compter comme contenu éditorial répété."]);
+  for (const code of BATCH) {
+    const report = analyzeCountry(read(code), `${code}.json`, ctx());
+    assert.ok(report.warnings.some((warning) => warning.startsWith("[textes identiques entre pays]")), `${code} : textes de gabarit communs aux autres pays`);
+    assert.ok(report.warnings.some((warning) => warning.startsWith("[textes répétés]")), `${code} : textes répétés dans la fiche`);
+    assert.equal(report.ok, true, "un avertissement documentaire ne bloque pas l'enregistrement");
+  }
+  // Un pays sans texte commun avec les autres n'a pas cet avertissement.
+  const lonely = analyzeCountry(read("FRA"), "FRA.json", { ...ctx(), peers: [] });
+  assert.ok(!lonely.warnings.some((warning) => warning.startsWith("[textes identiques entre pays]")));
+});
 
-  // Le niveau déclaré n'est qu'une information : le même fichier, déclaré « essential » ou « extended », est classé à l'identique.
+test("le rapport signale, en avertissements, les sources jamais référencées, les topics sans regroupement d'indicateurs, les libellés incohérents et les données invisibles", () => {
+  const raw = clone(read("BFA"));
+  raw.sources.push({ id: "S-BFA-ORPHELINE", publisher: "Organisme", title: "Source jamais citée", canonicalUrl: "https://example.org/orpheline", accessedAt: "2026-11-02", license: null, reuse: "citation_only", language: "fr" });
+  // Libellé incohérent : une année absente de la période ; même libellé pour deux clés.
+  raw.observations[0].label = "Capitale en 2031";
+  raw.observations.push({ ...clone(raw.observations[1]), id: "bfa-double", key: "politics.head_of_state_bis", label: String(raw.observations[1].label) });
+  // Observation sans label ni rubrique connue : visible nulle part.
+  raw.observations.push({ ...clone(raw.observations[1]), id: "bfa-invisible", key: "mystere.sans_rubrique", label: null, topic: null });
+  const report = analyzeCountry(raw, "BFA.json", ctx());
+  assert.equal(report.ok, true, "ce sont des avertissements : aucune décision éditoriale n'est bloquée par le moteur");
+  const has = (prefix: string, text: string) => report.warnings.some((warning) => warning.startsWith(prefix) && warning.includes(text));
+  assert.ok(has("[sources jamais référencées]", "S-BFA-ORPHELINE"));
+  assert.ok(has("[topic]", "« politics »"), "un mot de domaine ne regroupe pas d'indicateurs");
+  assert.ok(has("[libellés]", "identity.capital"), "année du libellé absente de la période");
+  assert.ok(has("[libellés]", "même libellé pour plusieurs clés"));
+  assert.ok(has("[données invisibles]", "mystere.sans_rubrique"));
+  // Clés institutionnelles : « Membre de l'UEMOA » est porté par institutions.uemoa (Mali) et institutions.waemu (Burkina).
+  assert.ok(has("[libellés]", "institutions.waemu") || has("[libellés]", "clé institutions.waemu"), "clé à harmoniser entre pays");
+});
+
+test("un topic qui regroupe des mesures comparables de sources différentes, ou rejoint une tuile, n'est pas signalé", () => {
+  const raw = clone(read("MLI"));
+  const report = analyzeCountry(raw, "MLI.json", ctx());
+  assert.ok(!report.warnings.some((warning) => warning.startsWith("[topic]") && warning.includes("« growth »")), "growth rejoint la tuile de croissance");
+});
+
+test("les niveaux ne sont ni calculés ni affichés automatiquement : ils sont déclarés, et le profil de couverture éclaire la décision", () => {
+  const page = fs.readFileSync("components/approche/ApprocheCountryPage.tsx", "utf8");
+  assert.match(page, /data\.documentationLevel \? \(/, "le niveau n'est affiché que s'il est déclaré");
+  assert.ok(!page.includes("assessLevel"));
+  for (const code of [...PILOTS, ...BATCH]) assert.equal(read(code).documentationLevel, undefined, `${code} : aucun niveau déclaré`);
+
+  const profile = (code: string) => {
+    const data = loadApprocheCountry(code) as CountryData;
+    const peers = [...PILOTS, ...BATCH].filter((other) => other !== code).flatMap((other) => [...longTexts((loadApprocheCountry(other) as CountryData).modules)]);
+    return coverageProfile(data, new Set(peers));
+  };
+  const fra = profile("FRA");
+  const ben = profile("BEN");
+  for (const item of [fra, ben]) {
+    assert.ok(item.coverage.score >= 0 && item.coverage.score <= 1 && item.sources.score >= 0 && item.sources.score <= 1);
+    assert.ok(item.coverage.blocks.length >= 15, "couverture mesurée bloc par bloc");
+  }
+  assert.ok((ben.specific.score ?? 1) < (fra.specific.score ?? 0), "les textes de gabarit du lot abaissent la part de contenu spécifique");
+  assert.equal(coverageProfile(loadApprocheCountry("FRA") as CountryData, null).specific.parts[0].value, null, "sans autre pays, le caractère spécifique n'est pas évalué");
+
+  // Le niveau déclaré n'est qu'une information : le même fichier, avec ou sans niveau, est classé à l'identique par le moteur.
   const data = loadApprocheCountry("BEN") as CountryData;
   const withLevel = CountryDataSchema.parse({ ...data, documentationLevel: "extended" });
   assert.deepEqual([...classifyObservations(withLevel)], [...classifyObservations(data)]);
-  // Un niveau déclaré non atteint est signalé à l'import, sans bloquer.
-  const declared = { ...read("BEN"), documentationLevel: "extended" };
-  const report = analyzeCountry(declared, "BEN.json", ctx());
-  assert.equal(report.ok, true);
-  assert.ok(report.warnings.some((warning) => warning.includes("déclaré mais non atteint")));
-  assert.ok(missingForLevel(assessLevel(data), "extended").length > 0);
-  assert.deepEqual(missingForLevel(assessLevel(loadApprocheCountry("FRA") as CountryData), "extended"), []);
 });
 
 test("même grandeur seulement : un chef d'État et une durée de mandat ne sont pas « d'autres sources » l'un de l'autre", () => {

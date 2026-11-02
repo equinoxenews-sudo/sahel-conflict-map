@@ -5,7 +5,6 @@
 //   npm run approche:smoke -- http://localhost:3000 [ISO3 ...] [--json fichier.json]
 import fs from "node:fs";
 import { classifyObservations } from "../lib/approche/complements";
-import { assessLevel } from "../lib/approche/levels";
 import { loadApprocheCountry } from "../lib/approche/repository";
 import { APPROCHE_TABS, tabHref } from "../lib/approche/tabs";
 import { listCountryFiles } from "./lib/approcheContract";
@@ -63,7 +62,8 @@ async function main() {
       pages.set(tab.key, norm(html));
       const sectionsMissing: string[] = [];
       if (response.ok && !html.includes(data.name)) sectionsMissing.push("nom du pays");
-      if (response.ok && tab.key === "overview" && !html.includes("Niveau documentaire")) sectionsMissing.push("niveau documentaire");
+      // Le niveau n'est affiché que s'il est déclaré dans le fichier (décision éditoriale).
+      if (response.ok && tab.key === "overview" && data.documentationLevel && !html.includes("Niveau documentaire")) sectionsMissing.push("niveau documentaire");
       tabs.push({ tab: tab.key, status: response.status, panels: (html.match(/<details/g) ?? []).length, sectionsMissing });
     }
     // Chaque observation classée « panneau », « autres sources » ou « électricité » doit apparaître, avec son libellé, dans la page.
@@ -79,7 +79,7 @@ async function main() {
       if (!expectedTabs.some((tab) => (pages.get(tab) ?? "").includes(label))) missingLabels.push({ label: observation.label, where: `${placement.kind} (${expectedTabs.join(", ")})` });
     }
     const ok = tabs.every((tab) => tab.status === 200 && tab.sectionsMissing.length === 0) && missingLabels.length === 0;
-    results.push({ code, name: data.name, slug: data.slug, tabs, missingLabels, checkedLabels: checked, level: assessLevel(data).achieved, ok });
+    results.push({ code, name: data.name, slug: data.slug, tabs, missingLabels, checkedLabels: checked, level: data.documentationLevel ?? "non déclaré", ok });
     console.log(`${ok ? "✔" : "✖"} ${code} ${data.name} : onglets ${tabs.map((tab) => `${tab.tab}=${tab.status}`).join(" ")} ; libellés retrouvés ${checked - missingLabels.length}/${checked}`);
     for (const item of missingLabels) console.log(`   - introuvable : « ${item.label} » (${item.where})`);
     for (const tab of tabs) if (tab.sectionsMissing.length) console.log(`   - ${tab.tab} : manque ${tab.sectionsMissing.join(", ")}`);

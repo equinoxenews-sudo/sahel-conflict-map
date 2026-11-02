@@ -13,7 +13,7 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
-import { analyzeCountry, checkBatch, checkUrls, moduleStrings, registeredCountries, renderReport, urlsOf, type CountryReport } from "./lib/approcheImport";
+import { analyzeCountry, checkBatch, checkUrls, loadPeers, peerProfile, registeredCountries, renderReport, urlsOf, type CountryReport, type PeerProfile } from "./lib/approcheImport";
 import { buildContractFiles } from "./lib/approcheContract";
 
 function option(name: string): string | undefined {
@@ -38,13 +38,23 @@ async function main() {
   if (files.length > 12) console.warn(`! ${files.length} fichiers : l'import est prévu pour des lots de 5 à 10 pays.`);
 
   const registered = registeredCountries(root);
+  // Pour comparer textes et libellés : les pays du lot (tels que livrés) et les pays déjà enregistrés qui n'en font pas partie.
+  const rawFiles = files.map((file) => {
+    try {
+      return { file, raw: JSON.parse(fs.readFileSync(file, "utf8")) as { countryCode?: string } };
+    } catch {
+      return { file, raw: null };
+    }
+  });
+  const batchPeers: PeerProfile[] = rawFiles.flatMap(({ raw }) => (raw?.countryCode ? [peerProfile(raw.countryCode, raw)] : []));
+  const peersFor = (code: string) => [...batchPeers.filter((peer) => peer.code !== code), ...loadPeers(root, [code, ...batchPeers.map((peer) => peer.code)])];
   const analyzed: { report: CountryReport; slug: string; raw: unknown; file: string }[] = [];
   for (const file of files) {
     let raw: unknown;
     try {
       raw = JSON.parse(fs.readFileSync(file, "utf8"));
     } catch (error) {
-      const report: CountryReport = analyzeCountry({}, file, { root, registered });
+      const report: CountryReport = analyzeCountry({}, file, { root, registered, peers: [] });
       report.errors.schema = [`JSON illisible : ${error instanceof Error ? error.message : String(error)}`];
       report.ok = false;
       analyzed.push({ report, slug: "", raw: null, file });
@@ -52,7 +62,7 @@ async function main() {
     }
     const slug = (raw as { slug?: string }).slug ?? "";
     // Un pays déjà enregistré n'est remplacé que sur demande (--replace) : sinon l'import le refuse.
-    const report = analyzeCountry(raw, file, { root, registered });
+    const report = analyzeCountry(raw, file, { root, registered, peers: peersFor((raw as { countryCode?: string }).countryCode ?? "") });
     const code = report.code;
     if (!replace && registered.some((entry) => entry.code === code)) {
       report.errors.registry.push(`pays ${code} déjà enregistré (data/approche/${code}.json) : relancer avec --replace pour le remplacer`);
@@ -60,7 +70,7 @@ async function main() {
     }
     analyzed.push({ report, slug, raw, file });
   }
-  checkBatch(analyzed.map(({ report, slug, raw }) => ({ report, slug, strings: moduleStrings((raw as { modules?: unknown } | null)?.modules) })));
+  checkBatch(analyzed.map(({ report, slug }) => ({ report, slug })));
 
   if (args.includes("--check-links")) {
     console.log("Contrôle des adresses des sources…");
@@ -78,7 +88,7 @@ async function main() {
       // Contrôle réel des collisions, maintenant que les séries automatiques sont là.
       const after = registeredCountries(root);
       for (const item of accepted) {
-        const recheck = analyzeCountry(item.raw, item.file, { root, registered: after });
+        const recheck = analyzeCountry(item.raw, item.file, { root, registered: after, peers: peersFor(item.report.code) });
         item.report.errors.collisions = recheck.errors.collisions;
         item.report.errors.publication = recheck.errors.publication;
         item.report.automatic = recheck.automatic;

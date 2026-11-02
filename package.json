@@ -12,6 +12,7 @@
     "approche:validate": "tsx scripts/approche-validate.ts",
     "approche:import": "tsx scripts/approche-import.ts",
     "approche:smoke": "tsx scripts/approche-smoke.ts",
+    "approche:levels": "tsx scripts/approche-levels.ts",
     "approche:contract": "tsx scripts/approche-contract.ts",
     "approche:schema": "tsx scripts/approche-contract.ts"
   },

@@ -58,7 +58,7 @@
           "type": "null"
         }
       ],
-      "description": "Niveau documentaire visé : essential (de quoi présenter le pays avec ses sources) ou extended (toutes les rubriques renseignées). Facultatif : le niveau atteint est calculé d'après le contenu et l'import signale tout écart. Les deux niveaux utilisent le même moteur."
+      "description": "Niveau documentaire : essential ou extended. Décision ÉDITORIALE, facultative : le niveau n'est ni calculé ni imposé par le moteur, et n'est affiché que s'il est déclaré ici. L'import fournit un profil de couverture (contenus, sources, contenus spécifiques) pour éclairer la décision. Les deux niveaux utilisent le même moteur."
     },
     "lastCheckedAt": {
       "anyOf": [

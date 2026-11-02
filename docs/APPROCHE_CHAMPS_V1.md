@@ -13,7 +13,7 @@ Les chemins notent `[]` pour une liste. « Obligatoire » = le champ doit figure
 | `name` | texte | **oui** |  | non vide | Nom d'usage du pays. |
 | `officialName` | texte ou null | non |  |  | Nom officiel complet. |
 | `publication` | `draft` · `review` · `published` · `archived` | **oui** |  |  | Cycle de vie : draft, review, published, archived. Seul « published » est affiché publiquement. |
-| `documentationLevel` | `essential` · `extended` ou null | non |  |  | Niveau documentaire visé : essential (de quoi présenter le pays avec ses sources) ou extended (toutes les rubriques renseignées). Facultatif : le niveau atteint est calculé d'après le contenu et l'import signale tout écart. Les deux niveaux utilisent le même moteur. |
+| `documentationLevel` | `essential` · `extended` ou null | non |  |  | Niveau documentaire : essential ou extended. Décision ÉDITORIALE, facultative : le niveau n'est ni calculé ni imposé par le moteur, et n'est affiché que s'il est déclaré ici. L'import fournit un profil de couverture (contenus, sources, contenus spécifiques) pour éclairer la décision. Les deux niveaux utilisent le même moteur. |
 | `lastCheckedAt` | date AAAA-MM-JJ ou null | **oui** |  |  | Date du dernier contrôle de la fiche (AAAA-MM-JJ), même sans changement. |
 | `sources` | liste d'objets | **oui** |  |  | Registre des sources : chaque affirmation, observation, relation ou élément de module cite au moins une source de cette liste. |
 | `sources[].id` | texte | **oui** |  | non vide | Identifiant unique de la source ; repris par les champs sourceIds. |

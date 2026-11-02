@@ -3,7 +3,7 @@ import Header from "@/components/equinoxe/Header";
 import type { CountryMapData } from "@/components/country-profile/CountryMap";
 import { complementPanels, type ComplementPanel } from "@/lib/approche/complements";
 import { containsDemo } from "@/lib/approche/demo";
-import { assessLevel, LEVEL_LABELS } from "@/lib/approche/levels";
+import { LEVEL_LABELS } from "@/lib/approche/levels";
 import { electricityVintages } from "@/lib/approche/electricity";
 import { formatDate } from "@/lib/approche/formatters";
 import { DefenseModuleSchema, EconomyModuleSchema, IssuesModuleSchema, OutlookModuleSchema, OverviewModuleSchema, RelationsModuleSchema, type Modules } from "@/lib/approche/modules";
@@ -122,10 +122,12 @@ export default function ApprocheCountryPage({ data, iso2, tab, map, modules }: A
             <span className={styles.provLabel}>Valeurs en attente de vérification</span>
             <strong>{pending.length}</strong>
           </div>
-          <div>
-            <span className={styles.provLabel}>Niveau documentaire</span>
-            <strong>{LEVEL_LABELS[assessLevel(data).achieved]}</strong>
-          </div>
+          {data.documentationLevel ? (
+            <div>
+              <span className={styles.provLabel}>Niveau documentaire</span>
+              <strong>{LEVEL_LABELS[data.documentationLevel]}</strong>
+            </div>
+          ) : null}
           <p>
             Chaque valeur cliquable ouvre sa source, sa période, son périmètre et sa méthode. Les dates de mesure, de publication de la source et de vérification de la fiche sont distinctes. Les données provenant de SIPRI ne sont pas utilisées (licence commerciale requise).
           </p>

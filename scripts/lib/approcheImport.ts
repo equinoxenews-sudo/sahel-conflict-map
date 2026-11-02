@@ -6,7 +6,8 @@ import fs from "node:fs";
 import path from "node:path";
 import { classifyObservations, THEMES, THEME_NONE } from "../../lib/approche/complements";
 import { AUTOMATIC_SERIES, TOPIC_HINTS } from "../../lib/approche/keys";
-import { assessLevel, LEVEL_LABELS, missingForLevel, type DocumentationLevel } from "../../lib/approche/levels";
+import { coverageProfile, LEVEL_LABELS, longTexts, type CoverageProfile, type DocumentationLevel } from "../../lib/approche/levels";
+import { isOtherSourceOf } from "../../lib/approche/measures";
 import { CountryDataSchema, type CountryData } from "../../lib/approche/schema";
 import { publishProblems } from "../../lib/approche/sourceRegistry";
 import { getCountryGeoConfig } from "../../lib/countryGeoConfig";
@@ -34,7 +35,10 @@ export interface CountryReport {
   /** Où s'affiche chaque observation : tuile, module, électricité, autres sources, panneau, masquée. */
   placements: Record<string, number>;
   hidden: { key: string; reason: string }[];
-  level: { declared: DocumentationLevel | null; achieved: string; missingExtended: string[]; missingDeclared: string[] };
+  /** Niveau déclaré dans le fichier (décision éditoriale) ; le niveau n'est jamais calculé ni imposé. */
+  declaredLevel: DocumentationLevel | null;
+  /** Profil de couverture documentaire (information pour décider du niveau ; la méthode reste à valider). */
+  profile: CoverageProfile | null;
   automatic: { worldbank: boolean; eurostat: boolean };
   urls: UrlResult[];
   /** Résultat global : true si aucune erreur bloquante. */
@@ -42,18 +46,58 @@ export interface CountryReport {
 }
 
 /** Textes longs d'un ensemble de modules (pour repérer les contenus répétés ou passe-partout). */
-export function moduleStrings(value: unknown, into: string[] = []): string[] {
-  if (typeof value === "string") {
-    if (value.trim().length >= 50) into.push(value.trim());
-  } else if (Array.isArray(value)) value.forEach((child) => moduleStrings(child, into));
-  else if (value && typeof value === "object") for (const [name, child] of Object.entries(value as Record<string, unknown>)) if (name !== "id" && name !== "sourceIds") moduleStrings(child, into);
-  return into;
+export const moduleStrings = longTexts;
+
+/** Ce qu'un autre pays (déjà enregistré ou du même lot) apporte pour les comparaisons : textes, libellés par clé, clés par libellé. */
+export interface PeerProfile {
+  code: string;
+  texts: Set<string>;
+  labelsByKey: Map<string, string>;
+  keysByLabel: Map<string, string>;
+}
+
+/** Libellé ramené à l'essentiel pour comparer : sans accents, apostrophes, ni mots d'appartenance (« Membre de l'UEMOA » = « Appartenance UEMOA »). */
+export function normalizeLabel(label: string): string {
+  return label
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[’'`]/g, " ")
+    .split(/[^a-z0-9]+/)
+    .filter((word) => word && !["membre", "appartenance", "de", "du", "des", "la", "le", "les", "l", "d", "au", "aux", "en", "et"].includes(word))
+    .join(" ");
+}
+
+export function peerProfile(code: string, raw: unknown): PeerProfile {
+  const data = (raw ?? {}) as { observations?: { key?: string; label?: string | null }[]; modules?: unknown };
+  const labelsByKey = new Map<string, string>();
+  const keysByLabel = new Map<string, string>();
+  for (const observation of data.observations ?? []) {
+    if (!observation.key || !observation.label) continue;
+    labelsByKey.set(observation.key, observation.label);
+    keysByLabel.set(normalizeLabel(observation.label), observation.key);
+  }
+  return { code, texts: new Set(longTexts(data.modules)), labelsByKey, keysByLabel };
+}
+
+/** Pays déjà enregistrés, lus comme référence de comparaison (hors `exclude`). */
+export function loadPeers(root: string, exclude: string[] = []): PeerProfile[] {
+  return listCountryFiles(root).flatMap(({ code }) => {
+    if (exclude.includes(code)) return [];
+    try {
+      return [peerProfile(code, JSON.parse(fs.readFileSync(path.join(root, "data", "approche", `${code}.json`), "utf8")))];
+    } catch {
+      return [];
+    }
+  });
 }
 
 export interface ImportContext {
   root: string;
   /** Pays déjà enregistrés (hors fichier en cours) : leurs slugs et codes ne doivent pas être repris. */
   registered: { code: string; slug: string }[];
+  /** Autres pays (enregistrés et du même lot) pour comparer textes et libellés ; absent = comparaison avec les pays enregistrés. */
+  peers?: PeerProfile[];
 }
 
 const errorsCount = (report: CountryReport) => Object.values(report.errors).reduce((sum, list) => sum + list.length, 0);
@@ -99,7 +143,8 @@ const emptyReport = (file: string, code: string, name: string): CountryReport =>
   counts: { sources: 0, observations: 0, verified: 0, pending: 0, claims: 0, relationships: 0 },
   placements: {},
   hidden: [],
-  level: { declared: null, achieved: "incomplete", missingExtended: [], missingDeclared: [] },
+  declaredLevel: null,
+  profile: null,
   automatic: { worldbank: false, eurostat: false },
   urls: [],
   ok: false,
@@ -186,7 +231,7 @@ export function analyzeCountry(raw: unknown, fileName: string, ctx: ImportContex
     const placement = placements.get(observation.id);
     return placement?.kind === "hidden" ? [{ key: observation.key, reason: placement.reason }] : [];
   });
-  for (const item of unreadObservationKeys(data)) report.warnings.push(`observation sans emplacement : ${item.key} — ${item.reason}${item.suggestion ? ` (clé lue de même nom : ${item.suggestion})` : ""}`);
+  for (const item of unreadObservationKeys(data)) report.warnings.push(`[données invisibles] observation sans emplacement : ${item.key} — ${item.reason}${item.suggestion ? ` (clé lue de même nom : ${item.suggestion})` : ""}`);
   const knownThemes = new Set<string>([...THEMES.map((theme) => theme.id), THEME_NONE]);
   for (const observation of data.observations) if (observation.theme && !knownThemes.has(observation.theme)) report.warnings.push(`theme inconnu « ${observation.theme} » (${observation.key}) : rubrique déduite du préfixe de la clé`);
 
@@ -194,7 +239,7 @@ export function analyzeCountry(raw: unknown, fileName: string, ctx: ImportContex
   const used = new Set<string>();
   collectSourceIds({ observations: data.observations, claims: data.claims, relationships: data.relationships, modules: data.modules }, used);
   const unused = data.sources.filter((source) => !used.has(source.id)).map((source) => source.id);
-  if (unused.length > 0) report.warnings.push(`${unused.length} source(s) jamais citée(s) : ${unused.join(", ")}`);
+  if (unused.length > 0) report.warnings.push(`[sources jamais référencées] ${unused.length} source(s) jamais citée(s) : ${unused.join(", ")}`);
   const noLicense = data.sources.filter((source) => source.license === null).length;
   if (noLicense > 0) report.warnings.push(`${noLicense} source(s) sans licence lue (reuse « citation_only » : un fait cité avec attribution, sans reprise du texte, des images ni de la marque)`);
   const unknownReuse = data.sources.filter((source) => source.reuse === "unknown").length;
@@ -219,38 +264,72 @@ export function analyzeCountry(raw: unknown, fileName: string, ctx: ImportContex
   const occurrences = new Map<string, number>();
   for (const text of moduleStrings(data.modules)) occurrences.set(text, (occurrences.get(text) ?? 0) + 1);
   const repeated = [...occurrences].filter(([, times]) => times >= 3);
-  if (repeated.length > 0) report.warnings.push(`${repeated.length} texte(s) répété(s) au moins 3 fois dans les modules (même contenu dans plusieurs rubriques), ex. « ${repeated[0][0].slice(0, 80)}… »`);
+  if (repeated.length > 0) report.warnings.push(`[textes répétés] ${repeated.length} texte(s) répété(s) au moins 3 fois dans la fiche (même contenu dans plusieurs rubriques), ex. « ${repeated[0][0].slice(0, 80)}… »`);
 
-  // 7. Niveau documentaire (même moteur pour les deux niveaux : seule la complétude change).
-  const assessment = assessLevel(data);
-  const declared = (data.documentationLevel ?? null) as DocumentationLevel | null;
-  report.level = {
-    declared,
-    achieved: assessment.achieved,
-    missingExtended: missingForLevel(assessment, "extended"),
-    missingDeclared: declared ? missingForLevel(assessment, declared) : [],
-  };
-  if (declared && report.level.missingDeclared.length > 0) report.warnings.push(`niveau « ${LEVEL_LABELS[declared]} » déclaré mais non atteint : ${report.level.missingDeclared.join(" ; ")}`);
+  // Textes identiques entre plusieurs pays (autres pays enregistrés et du même lot) : un gabarit non personnalisé n'est pas du contenu du pays.
+  const peers = (ctx.peers ?? loadPeers(ctx.root, [code])).filter((peer) => peer.code !== code);
+  const myTexts = [...new Set(moduleStrings(data.modules))];
+  const sharedWith = peers.flatMap((peer) => {
+    const shared = myTexts.filter((text) => peer.texts.has(text));
+    return shared.length > 0 ? [{ code: peer.code, shared }] : [];
+  });
+  if (sharedWith.length > 0) {
+    const distinctShared = new Set(sharedWith.flatMap((entry) => entry.shared));
+    report.warnings.push(`[textes identiques entre pays] ${distinctShared.size} texte(s) identique(s) à ceux d'autres pays (${sharedWith.map((entry) => `${entry.code} : ${entry.shared.length}`).join(", ")}), ex. « ${[...distinctShared][0].slice(0, 80)}… »`);
+  }
+
+  // Topics : un topic regroupe des mesures de même grandeur issues de sources différentes (ou rejoint une tuile automatique) ; un mot de
+  // domaine (« economy », « politics », « identity ») ne regroupe aucun indicateur.
+  const byTopic = new Map<string, typeof data.observations>();
+  for (const observation of data.observations) if (observation.topic) byTopic.set(observation.topic, [...(byTopic.get(observation.topic) ?? []), observation]);
+  for (const [topic, members] of byTopic) {
+    const automatic = AUTOMATIC_SERIES.some((series) => series.topic === topic) && members.some((member) => typeof member.value === "number");
+    const paired = members.some((a) => members.some((b) => isOtherSourceOf(a, b)));
+    if (!automatic && !paired) report.warnings.push(`[topic] « ${topic} » ne regroupe pas d'indicateurs comparables (${members.length} observation(s) : ${members.slice(0, 5).map((member) => member.key).join(", ")}${members.length > 5 ? "…" : ""}) : un topic doit réunir des mesures de même grandeur issues de sources différentes, ou reprendre celui d'une tuile (${AUTOMATIC_SERIES.map((series) => series.topic).join(", ")}) ; à retirer ou à préciser`);
+  }
+
+  // Libellés : doublons dans la fiche, année du libellé différente de la période, et écarts avec les autres pays (même clé, libellés différents ;
+  // même libellé, clés différentes).
+  const byLabel = new Map<string, string[]>();
+  for (const observation of data.observations) {
+    if (!observation.label) continue;
+    byLabel.set(normalizeLabel(observation.label), [...(byLabel.get(normalizeLabel(observation.label)) ?? []), observation.key]);
+    const years: string[] = observation.label.match(/(?:19|20)\d{2}/g) ?? [];
+    const periodYears: string[] = observation.referencePeriod.match(/(?:19|20)\d{2}/g) ?? [];
+    if (years.some((year) => !periodYears.includes(year))) report.warnings.push(`[libellés] ${observation.key} : le libellé « ${observation.label} » cite une année absente de la période « ${observation.referencePeriod} »`);
+  }
+  for (const [label, keys] of byLabel) if (new Set(keys).size > 1) report.warnings.push(`[libellés] même libellé pour plusieurs clés (« ${label} ») : ${[...new Set(keys)].join(", ")}`);
+  const sharedFamily = /^(identity|politics|institutions)\./;
+  for (const observation of data.observations) {
+    if (!observation.label || !sharedFamily.test(observation.key)) continue;
+    const others = peers.flatMap((peer) => {
+      const label = peer.labelsByKey.get(observation.key);
+      return label !== undefined && normalizeLabel(label) !== normalizeLabel(observation.label ?? "") ? [`${peer.code} : « ${label} »`] : [];
+    });
+    if (others.length > 0) report.warnings.push(`[libellés] ${observation.key} : « ${observation.label} » ici, ${others.slice(0, 4).join(" ; ")}${others.length > 4 ? "…" : ""} ailleurs`);
+    const sameLabelOtherKey = peers.flatMap((peer) => {
+      const key = peer.keysByLabel.get(normalizeLabel(observation.label ?? ""));
+      return key !== undefined && key !== observation.key ? [`${peer.code} : ${key}`] : [];
+    });
+    if (sameLabelOtherKey.length > 0) report.warnings.push(`[libellés] « ${observation.label} » : clé ${observation.key} ici, ${sameLabelOtherKey.slice(0, 4).join(" ; ")} ailleurs (clés à harmoniser pour comparer les pays)`);
+  }
+
+  // 7. Profil de couverture documentaire. Le niveau est une décision éditoriale, jamais calculée ni imposée ; le profil l'éclaire.
+  const peerTexts = peers.length > 0 ? new Set(peers.flatMap((peer) => [...peer.texts])) : null;
+  report.profile = coverageProfile(data, peerTexts);
+  report.declaredLevel = (data.documentationLevel ?? null) as DocumentationLevel | null;
 
   report.ok = errorsCount(report) === 0;
   return report;
 }
 
 /** Contrôles croisés d'un lot : deux fichiers ne peuvent pas porter le même code ni la même adresse. */
-export function checkBatch(reports: { report: CountryReport; slug: string; strings?: string[] }[]): void {
+export function checkBatch(reports: { report: CountryReport; slug: string }[]): void {
   const byCode = new Map<string, string[]>();
   const bySlug = new Map<string, string[]>();
   for (const { report, slug } of reports) {
     byCode.set(report.code, [...(byCode.get(report.code) ?? []), report.file]);
     bySlug.set(slug, [...(bySlug.get(slug) ?? []), report.file]);
-  }
-  // Textes passe-partout : un même texte long dans au moins trois pays du lot est un gabarit non personnalisé.
-  const countries = new Map<string, Set<string>>();
-  for (const { report, strings } of reports) for (const text of new Set(strings ?? [])) countries.set(text, (countries.get(text) ?? new Set()).add(report.code));
-  const generic = [...countries].filter(([, codes]) => codes.size >= 3);
-  for (const { report, strings } of reports) {
-    const mine = generic.filter(([text]) => (strings ?? []).includes(text));
-    if (mine.length > 0) report.warnings.push(`${mine.length} texte(s) identique(s) dans au moins 3 pays du lot (gabarit non personnalisé : scénarios, indicateurs, « pourquoi stratégique »…), ex. « ${mine[0][0].slice(0, 80)}… »`);
   }
   for (const { report, slug } of reports) {
     const sameCode = byCode.get(report.code) ?? [];
@@ -300,19 +379,21 @@ export function urlsOf(raw: unknown): string[] {
 
 const mark = (ok: boolean) => (ok ? "✔" : "✖");
 const bullet = (items: string[]) => items.map((item) => `  - ${item}`);
+const percent = (value: number | null) => (value === null ? "n.d." : `${Math.round(value * 100)} %`);
+const profileCell = (report: CountryReport) => (report.profile ? `${percent(report.profile.coverage.score)} / ${percent(report.profile.sources.score)} / ${percent(report.profile.specific.score)}` : "—");
 
 /** Rapport récapitulatif en Markdown : un tableau d'ensemble, puis le détail de chaque pays. */
 export function renderReport(reports: CountryReport[], meta: { generatedAt: string; applied: boolean }): string {
   const lines: string[] = [];
   lines.push(`# Rapport d'import des fiches pays « Approche »`, "");
   lines.push(`Généré le ${meta.generatedAt}. ${meta.applied ? "Les pays sans erreur ont été enregistrés." : "Simulation : rien n'a été écrit dans le dépôt."}`, "");
-  lines.push("| Pays | Résultat | Erreurs | Avertissements | Observations (vérifiées) | Affichées / masquées | Niveau atteint | URL à vérifier |");
-  lines.push("|---|---|---|---|---|---|---|---|");
+  lines.push("| Pays | Résultat | Erreurs | Avertissements | Observations (vérifiées) | Affichées / masquées | Couverture / sources / spécifique | Niveau déclaré | URL à vérifier |");
+  lines.push("|---|---|---|---|---|---|---|---|---|");
   for (const report of reports) {
     const hidden = report.hidden.length;
     const shown = report.counts.observations - hidden;
     const urlIssues = report.urls.filter((url) => url.verdict !== "ok").length;
-    lines.push(`| ${report.name} (${report.code}) | ${mark(report.ok)} ${report.ok ? "prêt" : "refusé"} | ${errorsCount(report)} | ${report.warnings.length} | ${report.counts.observations} (${report.counts.verified}) | ${shown} / ${hidden} | ${LEVEL_LABELS[report.level.achieved as DocumentationLevel | "incomplete"]} | ${report.urls.length ? urlIssues : "non contrôlées"} |`);
+    lines.push(`| ${report.name} (${report.code}) | ${mark(report.ok)} ${report.ok ? "prêt" : "refusé"} | ${errorsCount(report)} | ${report.warnings.length} | ${report.counts.observations} (${report.counts.verified}) | ${shown} / ${hidden} | ${profileCell(report)} | ${report.declaredLevel ? LEVEL_LABELS[report.declaredLevel] : "non déclaré"} | ${report.urls.length ? urlIssues : "non contrôlées"} |`);
   }
   lines.push("");
   for (const report of reports) {
@@ -331,7 +412,14 @@ export function renderReport(reports: CountryReport[], meta: { generatedAt: stri
       const bad = report.urls.filter((url) => url.verdict !== "ok");
       lines.push(`- ${mark(bad.every((url) => url.verdict === "blocked"))} **Adresses des sources** : ${report.urls.length - bad.length} répondent, ${bad.length} à vérifier`, ...bullet(bad.map((url) => `${url.url} → ${url.status ?? "aucune réponse"} (${url.verdict}${url.note ? `, ${url.note}` : ""})`)));
     }
-    lines.push(`- **Niveau documentaire** : ${LEVEL_LABELS[report.level.achieved as DocumentationLevel | "incomplete"]}${report.level.declared ? ` (visé : ${LEVEL_LABELS[report.level.declared]})` : " (non déclaré)"}${report.level.achieved === "extended" ? "" : ` ; pour l'approfondi il manque : ${report.level.missingExtended.join(" ; ") || "—"}`}`);
+    if (report.profile) {
+      const profile = report.profile;
+      lines.push(`- **Profil de couverture documentaire** (information : le niveau est une décision éditoriale, ${report.declaredLevel ? `déclaré « ${LEVEL_LABELS[report.declaredLevel]} »` : "non déclaré"} ; la méthode de décision reste à valider)`);
+      lines.push(`  - Couverture des contenus : ${percent(profile.coverage.score)}${profile.coverage.blocks.some((block) => !block.ok) ? ` — manque : ${profile.coverage.blocks.filter((block) => !block.ok).map((block) => `${block.label} (${block.detail})`).join(" ; ")}` : ""}`);
+      lines.push(`  - Qualité des sources : ${percent(profile.sources.score)} — ${profile.sources.parts.map((part) => `${part.label} ${part.detail}`).join(" ; ")}`);
+      lines.push(`  - Contenus spécifiques au pays : ${percent(profile.specific.score)} — ${profile.specific.parts.map((part) => `${part.label} ${part.detail}`).join(" ; ")}`);
+      lines.push(`  - Ce que donneraient les seuils proposés (non appliqués) : ${profile.suggestion === "incomplete" ? "aucun niveau atteint" : LEVEL_LABELS[profile.suggestion]}`);
+    }
     lines.push(`- **Avertissements documentaires** : ${report.warnings.length === 0 ? "aucun" : report.warnings.length}`, ...bullet(report.warnings), "");
   }
   return lines.join("\n");
