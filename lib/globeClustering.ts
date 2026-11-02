@@ -12,24 +12,24 @@ export type EventMode = "points" | "groups";
 export const DEFAULT_EVENT_MODE: EventMode = GLOBE_CLUSTERING_ENABLED ? "groups" : "points";
 
 /** Distance à l'écran (pixels) sous laquelle deux marqueurs se regroupent. */
-export const CLUSTER_PIXEL_RANGE = 46;
+export const CLUSTER_PIXEL_RANGE = 28;
 /** Nombre minimal d'événements voisins à l'écran pour former un groupe : en dessous, les points rouges restent individuels, comme avant. */
 export const CLUSTER_MIN_SIZE = 5;
 /** Un groupe dont tous les événements tiennent dans ce rayon (mètres) n'a plus rien à séparer en zoomant : on liste ses événements. */
 export const COLOCATED_RADIUS_M = 500;
 
-/** Taille (pixels) du point d'un groupe de 5 à 9 événements, et plafond : un point rouge de main en fait environ 10. */
-const FIRST_DOT = 12;
-const MAX_DOT = 30;
+/** Taille (pixels) du point d'un groupe de 5 à 9 événements (celle d'un point rouge de main), et plafond. */
+const FIRST_DOT = 10;
+const MAX_DOT = 24;
 
 /**
- * Diamètre (pixels) du point rouge d'un groupe, par paliers de 5 événements : 5 → 12 px, 10 → 17, 15 → 20, 20 → 22, 25 → 24, puis de
- * plus en plus lentement jusqu'au plafond de 30 px. Moins de 5 événements : pas de groupe (0).
+ * Diamètre (pixels) du point rouge d'un groupe, par paliers de 5 événements : 5 → 10 px, 10 → 14, 15 → 16, 20 → 18, 25 → 19, puis de
+ * plus en plus lentement jusqu'au plafond de 24 px. Moins de 5 événements : pas de groupe (0).
  */
 export function clusterDotDiameter(count: number): number {
   if (count < CLUSTER_MIN_SIZE) return 0;
   const tier = Math.floor(count / 5);
-  return Math.round(Math.min(MAX_DOT, FIRST_DOT + 5 * Math.log2(tier)));
+  return Math.round(Math.min(MAX_DOT, FIRST_DOT + 4 * Math.log2(tier)));
 }
 
 /** Côté de l'image du point (disque et petit halo autour). */
