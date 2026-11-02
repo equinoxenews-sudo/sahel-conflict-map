@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Regroupement des événements du globe (lib/globeClustering.ts) : hors production seulement. Un build Vercel de production
+  // pose « 0 » et le globe garde son affichage historique ; en local et en Preview, la bascule « Points / Groupes » existe.
+  env: { NEXT_PUBLIC_GLOBE_CLUSTERING: process.env.VERCEL_ENV === "production" ? "0" : "1" },
   // L'espace « Investigation » est devenu « Mon espace » (menu de gauche : notes, graph, investigation, supervision,
   // tracking, outils). Les anciennes adresses, y compris celles enregistrées dans des favoris, y mènent toujours.
   async redirects() {

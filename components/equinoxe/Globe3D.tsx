@@ -16,6 +16,7 @@ import { CESIUM_BASE_URL } from "@/lib/cesiumCdn";
 import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
 import { ISO3_TO_ZONE, isHomeZone, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
 import { getHoveredBrief, onHoveredBrief } from "@/lib/briefHover";
+import { CLUSTER_MIN_SIZE, CLUSTER_PIXEL_RANGE, GLOBE_CLUSTERING_ENABLED, clusterDiameter, distinctIds, formatClusterCount, isColocated, type EventMode } from "@/lib/globeClustering";
 import styles from "./Globe3D.module.css";
 import type { GlobeDateRange } from "./GlobeTimeRange";
 
@@ -147,6 +148,61 @@ function applyDateFilter(source: CesiumNS.DataSource, dateRange: GlobeDateRange)
       entity.show = t <= dateRange.end && (typeof end === "number" ? end : t) >= dateRange.start;
     }
   }
+}
+
+// --- Regroupement des événements (mode « Groupes ») ---------------------------------------------------
+
+/**
+ * Mode d'affichage des événements. « Points » : historique (anneau, écart en couronne, un point chacun). « Groupes » : le
+ * regroupement de Cesium (EntityCluster) réunit les points voisins à l'écran ; l'anneau est masqué. Changer de mode ne touche
+ * jamais à l'ensemble des événements affichés : la visibilité de chaque point (filtre de dates comprise) est conservée, l'anneau
+ * suit son point. Cesium ignore les marqueurs masqués et ceux de la face cachée du globe, ils ne sont donc pas comptés dans un
+ * groupe. Aucun événement n'est retiré : seul son affichage change.
+ */
+function applyEventMode(source: CesiumNS.DataSource, mode: EventMode): void {
+  const groups = mode === "groups";
+  const dotShown = new Map<number, boolean>();
+  for (const entity of source.entities.values) {
+    if (entity.properties?.ring?.getValue() !== true) dotShown.set(entity.properties?.eventId?.getValue(), entity.show);
+  }
+  for (const entity of source.entities.values) {
+    if (entity.properties?.ring?.getValue() === true) entity.show = !groups && (dotShown.get(entity.properties?.eventId?.getValue()) ?? true);
+  }
+  const clustering = source.clustering;
+  clustering.enabled = groups;
+  // Cesium ne recalcule les groupes qu'au mouvement de la caméra : un changement de période ou de mode l'y oblige.
+  clustering.pixelRange = CLUSTER_PIXEL_RANGE + 1;
+  clustering.pixelRange = CLUSTER_PIXEL_RANGE;
+}
+
+const clusterImages = new Map<string, string>();
+/** Disque d'un groupe : fond sombre translucide, fin contour corail discret, nombre blanc. Neutre : la couleur ne dit rien de la gravité. */
+function clusterImage(text: string, diameter: number): string {
+  const key = `${text}|${diameter}`;
+  const cached = clusterImages.get(key);
+  if (cached) return cached;
+  const ratio = 3;
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = diameter * ratio;
+  const ctx = canvas.getContext("2d")!;
+  ctx.scale(ratio, ratio);
+  const r = diameter / 2;
+  ctx.beginPath();
+  ctx.arc(r, r, r - 1.2, 0, Math.PI * 2);
+  ctx.fillStyle = "rgba(10, 16, 28, 0.82)";
+  ctx.fill();
+  ctx.lineWidth = 1.4;
+  ctx.strokeStyle = "rgba(255, 118, 104, 0.62)";
+  ctx.stroke();
+  ctx.fillStyle = "#ffffff";
+  ctx.font = `700 ${text.length >= 4 ? 11 : text.length === 3 ? 12.5 : 14}px system-ui, -apple-system, "Segoe UI", sans-serif`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(text, r, r + 0.5);
+  // Adresse de données : Cesium reconnaît la même image d'un groupe à l'autre au lieu d'en téléverser une nouvelle à chaque calcul.
+  const url = canvas.toDataURL();
+  clusterImages.set(key, url);
+  return url;
 }
 
 const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
@@ -460,6 +516,7 @@ const shared: {
   enabledLayers: Record<LayerKey, boolean> | null;
   nightLights: boolean;
   dayNight: boolean;
+  eventMode: EventMode;
 } = {
   onEntitySelect: () => {},
   focusZone: null,
@@ -467,6 +524,7 @@ const shared: {
   enabledLayers: null,
   nightLights: true,
   dayNight: true,
+  eventMode: "points",
 };
 
 interface Globe3DProps {
@@ -480,6 +538,8 @@ interface Globe3DProps {
   naturalEvents: NaturalEvent[];
   launches: Launch[];
   dateRange: GlobeDateRange | null;
+  /** Événements des analystes : un point par événement (historique) ou regroupés selon la densité à l'écran. */
+  eventMode: EventMode;
   onEntitySelect: (data: EntityPopupData | null, screen: { x: number; y: number } | null) => void;
   /** Zone au centre du globe (null : vue d'ensemble). */
   focusZone: ZoneSlug | null;
@@ -498,6 +558,7 @@ export default function Globe3D({
   naturalEvents,
   launches,
   dateRange,
+  eventMode,
   onEntitySelect,
   focusZone,
   onZonePick,
@@ -510,6 +571,9 @@ export default function Globe3D({
   useEffect(() => {
     shared.onEntitySelect = onEntitySelect;
   }, [onEntitySelect]);
+  useEffect(() => {
+    shared.eventMode = GLOBE_CLUSTERING_ENABLED ? eventMode : "points";
+  }, [eventMode]);
   useEffect(() => {
     shared.focusZone = focusZone;
     shared.onZonePick = onZonePick;
@@ -673,10 +737,20 @@ export default function Globe3D({
       // below widens the effective hit target for point entities by
       // sampling a small ring of nearby pixels before accepting a
       // polygon hit.
-      function pickPointNear(position: CesiumNS.Cartesian2): CesiumNS.Entity | null {
+      // Un groupe d'événements (EntityCluster) : le marqueur pické porte la liste de ses entités.
+      function clusterOf(picked: unknown): CesiumNS.Entity[] | null {
+        const id = Cesium.defined(picked) ? (picked as { id?: unknown }).id : null;
+        if (!Array.isArray(id)) return null;
+        const entities = id.filter((e): e is CesiumNS.Entity => e instanceof Cesium.Entity);
+        return entities.length > 0 ? entities : null;
+      }
+
+      function pickPointNear(position: CesiumNS.Cartesian2): CesiumNS.Entity | CesiumNS.Entity[] | null {
         const currentViewer = viewer;
         if (!currentViewer) return null;
         const direct = currentViewer.scene.pick(position);
+        const directCluster = clusterOf(direct);
+        if (directCluster) return directCluster;
         const directEntity =
           Cesium.defined(direct) && direct.id instanceof Cesium.Entity ? direct.id : null;
         // Marqueurs illustrés (points d'articles, icônes) : des billboards, prioritaires eux aussi.
@@ -695,6 +769,8 @@ export default function Globe3D({
               position.y + Math.sin(angle) * radius
             );
             const picked = currentViewer.scene.pick(sample);
+            const sampledCluster = clusterOf(picked);
+            if (sampledCluster) return sampledCluster;
             const entity = Cesium.defined(picked) && picked.id instanceof Cesium.Entity ? picked.id : null;
             if (isMarker(entity)) return entity;
           }
@@ -703,9 +779,53 @@ export default function Globe3D({
         return directEntity;
       }
 
+      // Clic sur un groupe : la caméra s'approche de ses membres (clics successifs pour descendre). Quand tous les événements
+      // sont au même lieu, zoomer ne les séparera jamais : leur liste s'ouvre, chacun ouvre ensuite sa fiche habituelle.
+      function openCluster(entities: CesiumNS.Entity[], position: CesiumNS.Cartesian2) {
+        const currentViewer = viewer;
+        if (!currentViewer || currentViewer.isDestroyed()) return;
+        const events: { id: number; lat: number; lon: number; popup: EntityPopupData }[] = [];
+        for (const entity of entities) {
+          const id = entity.properties?.eventId?.getValue();
+          const raw = entity.properties?.popup?.getValue();
+          if (typeof id !== "number" || typeof raw !== "string" || events.some((e) => e.id === id)) continue;
+          try {
+            events.push({ id, lat: Number(entity.properties?.eventLat?.getValue()), lon: Number(entity.properties?.eventLon?.getValue()), popup: JSON.parse(raw) as EntityPopupData });
+          } catch (err) {
+            console.error("Malformed entity popup payload:", err);
+          }
+        }
+        if (events.length === 0) return;
+        shared.onEntitySelect(null, null);
+        if (isColocated(events)) {
+          const where = events[0].popup.fields.find((f) => f.label === "Lieu")?.value.replace(" (national)", "");
+          const items = events
+            .map((e) => e.popup)
+            .sort((a, b) => Date.parse(b.brief?.publishedAt ?? "") - Date.parse(a.brief?.publishedAt ?? ""));
+          shared.onEntitySelect(
+            { layerKey: "events", badge: "ÉVÉNEMENTS", title: `${items.length} événements au même endroit`, fields: where ? [{ label: "Lieu", value: where }] : [], items },
+            { x: position.x, y: position.y },
+          );
+          return;
+        }
+        const now = Cesium.JulianDate.now();
+        const points = entities.map((e) => e.position?.getValue(now)).filter((p): p is CesiumNS.Cartesian3 => Cesium.defined(p));
+        if (points.length === 0) return;
+        const sphere = Cesium.BoundingSphere.fromPoints(points);
+        currentViewer.camera.flyToBoundingSphere(sphere, {
+          duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 0.9,
+          offset: new Cesium.HeadingPitchRange(currentViewer.camera.heading, -Math.PI / 2, Math.max(sphere.radius * 2.8, 15_000)),
+        });
+      }
+
       clickHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
       clickHandler.setInputAction((click: CesiumNS.ScreenSpaceEventHandler.PositionedEvent) => {
-        const entity = pickPointNear(click.position);
+        const hit = pickPointNear(click.position);
+        if (Array.isArray(hit)) {
+          openCluster(hit, click.position);
+          return;
+        }
+        const entity = hit;
         const raw = entity?.properties?.popup?.getValue();
         if (entity && typeof raw === "string") {
           try {
@@ -726,6 +846,40 @@ export default function Globe3D({
         }
         shared.onEntitySelect(null, null);
       }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+      // Survol d'un groupe (souris seulement) : info-bulle « N événements — Cliquer pour explorer » et curseur main.
+      const clusterTip = document.createElement("div");
+      clusterTip.className = styles.clusterTip;
+      clusterTip.hidden = true;
+      viewer.container.appendChild(clusterTip);
+      const hideClusterTip = () => {
+        clusterTip.hidden = true;
+        if (viewer && !viewer.isDestroyed()) viewer.canvas.style.cursor = "";
+      };
+      viewer.canvas.addEventListener("mouseleave", hideClusterTip);
+      let lastHoverAt = 0;
+      clickHandler.setInputAction((move: CesiumNS.ScreenSpaceEventHandler.MotionEvent) => {
+        const currentViewer = viewer;
+        if (!currentViewer || currentViewer.isDestroyed()) return;
+        if (shared.eventMode !== "groups" || !shared.enabledLayers?.events || window.matchMedia("(pointer: coarse)").matches) {
+          if (!clusterTip.hidden) hideClusterTip();
+          return;
+        }
+        const now = performance.now();
+        if (now - lastHoverAt < 70) return;
+        lastHoverAt = now;
+        const cluster = clusterOf(currentViewer.scene.pick(move.endPosition));
+        if (!cluster) {
+          if (!clusterTip.hidden) hideClusterTip();
+          return;
+        }
+        const count = distinctIds(cluster.map((e) => e.properties?.eventId?.getValue())).length;
+        clusterTip.textContent = `${count} événement${count > 1 ? "s" : ""} — Cliquer pour explorer`;
+        clusterTip.style.left = `${move.endPosition.x + 14}px`;
+        clusterTip.style.top = `${move.endPosition.y + 14}px`;
+        clusterTip.hidden = false;
+        currentViewer.canvas.style.cursor = "pointer";
+      }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
       // Introduction de l'accueil : le script de démarrage (lib/homeIntro.ts) pose
       // data-home-intro="loading" avant l'affichage. Le globe démarre alors « neutre » :
@@ -1024,8 +1178,10 @@ export default function Globe3D({
       }
       layerSources.vessels = vesselSource;
 
-      // Événements des analystes : point rouge net et fixe, avec un anneau qui s'élargit en s'estompant.
-      // Plusieurs événements au même endroit (une capitale, souvent) sont écartés en couronne autour du point.
+      // Événements des analystes. Mode « Points » (historique) : point rouge net et fixe, avec un anneau qui s'élargit en
+      // s'estompant ; plusieurs événements au même endroit (une capitale, souvent) sont écartés en couronne autour du point.
+      // Mode « Groupes » : pas d'anneau ni d'écart ; le regroupement de Cesium réunit les points voisins à l'écran en disques
+      // numérotés, et chaque événement garde sa position réelle (voir applyEventDisplay).
       const eventSource = new Cesium.CustomDataSource("events");
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const EVENT_DOT = 22;
@@ -1047,13 +1203,17 @@ export default function Globe3D({
           brief: { zone: ev.zone, id: ev.id, title: ev.title, imageUrl: ev.imageUrl ?? null, publishedAt: ev.publishedAt, veracity: ev.confidenceLabel },
         };
         const [dx, dy] = spreadOffsets[index];
+        // Écart en couronne : seulement en mode « Points ». Regroupés, les événements gardent leur position réelle.
+        const spread = new Cesium.Cartesian2(dx, dy);
+        const pixelOffset = new Cesium.CallbackProperty(() => (shared.eventMode === "groups" ? Cesium.Cartesian2.ZERO : spread), false);
         // Phase propre à chaque événement (tirée de son numéro) : les anneaux ne partent pas tous ensemble.
         const phase = ((ev.id * 0.618034) % 1 + 1) % 1;
         const size = ev.importance === "high" ? EVENT_DOT * 1.25 : EVENT_DOT;
-        const properties = { popup: JSON.stringify(popup), eventTime: Date.parse(ev.publishedAt) };
+        // eventId, eventLat et eventLon : le point et son anneau portent le même événement, un groupe le compte une seule fois.
+        const properties = { popup: JSON.stringify(popup), eventTime: Date.parse(ev.publishedAt), eventId: ev.id, eventLat: ev.lat, eventLon: ev.lon };
         // Anneau qui s'élargit en s'estompant autour du point (coupé si les animations sont réduites).
         // Il porte les mêmes informations que le point : un clic sur l'anneau ouvre la même bulle,
-        // et le filtre de dates le masque avec lui.
+        // et le filtre de dates le masque avec lui. Masqué en mode « Groupes ».
         eventSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(ev.lon, ev.lat, 0),
           billboard: {
@@ -1070,11 +1230,11 @@ export default function Globe3D({
               () => (0.3 + 0.5 * pingProgress(phase)) * (getHoveredBrief() === ev.id ? 2.6 : 1),
               false,
             ),
-            pixelOffset: new Cesium.Cartesian2(dx, dy),
+            pixelOffset,
             verticalOrigin: Cesium.VerticalOrigin.CENTER,
             eyeOffset: new Cesium.Cartesian3(0, 0, -49),
           },
-          properties,
+          properties: { ...properties, ring: true },
         });
         eventSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(ev.lon, ev.lat, 0),
@@ -1082,16 +1242,47 @@ export default function Globe3D({
             image: glowDot(),
             width: size,
             height: size,
-            // Article survolé dans le bandeau : point plus gros.
-            scale: new Cesium.CallbackProperty(() => (getHoveredBrief() === ev.id ? 2.6 : 1), false),
+            // Article survolé dans le bandeau : point plus gros. Regroupés, les points isolés sont un peu plus discrets.
+            scale: new Cesium.CallbackProperty(() => (getHoveredBrief() === ev.id ? 2.6 : 1) * (shared.eventMode === "groups" ? 0.72 : 1), false),
             // Décalage en pixels d'écran : la couronne garde le même écart à tous les zooms.
-            pixelOffset: new Cesium.Cartesian2(dx, dy),
+            pixelOffset,
             verticalOrigin: Cesium.VerticalOrigin.CENTER,
             // Toujours lisible au-dessus des pays colorés, même au bord du globe ; le point passe devant son anneau.
             eyeOffset: new Cesium.Cartesian3(0, 0, -50),
           },
           properties,
         });
+      }
+      // Regroupement natif de Cesium, en espace écran (désactivé tant que le mode « Groupes » n'est pas choisi).
+      if (GLOBE_CLUSTERING_ENABLED) {
+        // Le globe ne se redessine que sur demande : les disques de groupes chargent leur image après leur création.
+        let refreshTimer: number | undefined;
+        const refreshSoon = () => {
+          window.clearTimeout(refreshTimer);
+          refreshTimer = window.setTimeout(() => {
+            if (viewer && !viewer.isDestroyed()) viewer.scene.requestRender();
+          }, 150);
+        };
+        const clustering = eventSource.clustering;
+        clustering.enabled = false;
+        clustering.pixelRange = CLUSTER_PIXEL_RANGE;
+        clustering.minimumClusterSize = CLUSTER_MIN_SIZE;
+        clustering.clusterEvent.addEventListener((clustered, cluster) => {
+          const count = distinctIds(clustered.map((e) => e.properties?.eventId?.getValue())).length;
+          const diameter = clusterDiameter(count);
+          cluster.label.show = false;
+          cluster.point.show = false;
+          const marker = cluster.billboard;
+          marker.show = true;
+          marker.image = clusterImage(formatClusterCount(count), diameter);
+          marker.width = diameter;
+          marker.height = diameter;
+          marker.verticalOrigin = Cesium.VerticalOrigin.CENTER;
+          marker.eyeOffset = new Cesium.Cartesian3(0, 0, -50);
+          marker.id = clustered;
+          refreshSoon();
+        });
+        applyEventMode(eventSource, shared.eventMode);
       }
       layerSources.events = eventSource;
 
@@ -1255,6 +1446,8 @@ export default function Globe3D({
         viewer.dataSources.add(source);
       }
       dataSourcesRef.current = layerSources;
+      // Contrôles manuels hors production (nombre d'événements par mode, groupes) : le globe n'est exposé nulle part en production.
+      if (GLOBE_CLUSTERING_ENABLED) (window as unknown as { __equinoxeGlobe?: unknown }).__equinoxeGlobe = { viewer, sources: layerSources };
 
       // --- Introduction : vol de la caméra, puis révélation de l'accueil -------------
       // Le composant HomeIntro orchestre (titre, bouton « Passer », apparition de
@@ -1398,6 +1591,9 @@ export default function Globe3D({
       source.show = enabledLayers[key];
       if (dateRange) applyDateFilter(source, dateRange);
     }
+    // Événements : la période vient d'être appliquée (anneaux compris) ; en mode « Groupes » les anneaux sont remasqués et les groupes recalculés.
+    const eventsSource = dataSourcesRef.current.events;
+    if (GLOBE_CLUSTERING_ENABLED && eventsSource) applyEventMode(eventsSource, shared.eventMode);
     // Le globe ne se redessine plus en continu : on le demande après un changement de couche,
     // puis encore quelques fois, le temps que les images des marqueurs (ronds illustrés,
     // points d'articles) soient chargées sur la carte graphique ; sinon elles n'apparaissent qu'au
@@ -1413,17 +1609,26 @@ export default function Globe3D({
     return () => timers.forEach((t) => window.clearTimeout(t));
   }, [enabledLayers, dateRange]);
 
+  // Bascule « Points / Groupes » : seul l'affichage change, sans relancer le filtre de dates ni toucher à la caméra.
+  useEffect(() => {
+    const source = dataSourcesRef.current.events;
+    if (!GLOBE_CLUSTERING_ENABLED || !source) return;
+    applyEventMode(source, eventMode);
+    viewerRef.current?.scene.requestRender();
+  }, [eventMode]);
+
   // Anneaux qui s'élargissent autour des points d'événements : le globe ne se redessine que sur
   // demande, on le demande donc une vingtaine de fois par seconde tant que la couche est affichée
   // (rien si l'utilisateur a réduit les animations, ni quand l'onglet est caché).
   useEffect(() => {
-    if (!enabledLayers.events || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Mode « Groupes » : pas d'anneau, donc aucun redessin continu.
+    if (!enabledLayers.events || (GLOBE_CLUSTERING_ENABLED && eventMode === "groups") || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = window.setInterval(() => {
       const viewer = viewerRef.current;
       if (viewer && !viewer.isDestroyed() && !document.hidden) viewer.scene.requestRender();
     }, 50);
     return () => window.clearInterval(id);
-  }, [enabledLayers.events]);
+  }, [enabledLayers.events, eventMode]);
 
   // Survol d'un article du bandeau : redessin immédiat (sans attendre l'image suivante de l'anneau,
   // coupée si l'utilisateur a réduit les animations).

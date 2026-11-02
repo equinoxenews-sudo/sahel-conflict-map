@@ -110,4 +110,6 @@ export interface EntityPopupData {
   wikiPhotoOnly?: boolean;
   /** Événement analysé : sa zone et sa carte d'article, pour le surligner dans le bandeau. */
   brief?: { zone: string; id: number; title: string; imageUrl: string | null; publishedAt: string; veracity: string | null };
+  /** Plusieurs événements au même lieu (regroupement du globe) : leurs fiches, à choisir dans la liste. */
+  items?: EntityPopupData[];
 }
