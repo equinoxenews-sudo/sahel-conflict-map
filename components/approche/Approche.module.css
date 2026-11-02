@@ -2773,3 +2773,160 @@ button.tile:hover {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+/* ---- Données complémentaires : un panneau dépliable par rubrique, refermé par défaut, compact ---- */
+.complements {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.compPanel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-glass);
+  border-radius: 12px;
+}
+
+.compPanel summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.compPanel summary::-webkit-details-marker {
+  display: none;
+}
+
+.compPanel summary::after {
+  content: "+";
+  margin-left: auto;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--text-secondary);
+}
+
+.compPanel[open] summary::after {
+  content: "–";
+}
+
+.compPanel summary:focus-visible {
+  outline: 2px solid var(--accent-gold-bright);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+.compTitle {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.compCount {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.compPanel > .rows {
+  padding: 0 10px 8px;
+}
+
+.statusBadge {
+  padding: 1px 7px;
+  font-size: 11px;
+  color: var(--status-normal);
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.statusPending {
+  color: var(--accent-gold-bright);
+}
+
+/* ---- Sélecteur de millésime (électricité) ---- */
+.vintageBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.vintageButtons {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.vintageButton {
+  min-width: 56px;
+  padding: 5px 12px;
+  font: inherit;
+  color: var(--text-primary);
+  background: none;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.vintageButton:hover {
+  background: var(--bg-panel-alt);
+}
+
+.vintageButton:focus-visible {
+  outline: 2px solid var(--accent-gold-bright);
+  outline-offset: 2px;
+}
+
+.vintageActive {
+  color: var(--accent-gold-bright);
+  background: rgba(224, 180, 76, 0.1);
+  border-color: rgba(224, 180, 76, 0.5);
+  font-weight: 600;
+}
+
+.vintageBar small {
+  flex-basis: 100%;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ---- Volet « Autres sources » d'une tuile ---- */
+.drawerOthers li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+}
+
+.drawerOthers li span {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.drawerOthers li a {
+  font-size: 13px;
+  color: var(--accent-gold-bright);
+  word-break: break-word;
+}
+
+/* Panneaux étroits (téléphone) : le libellé garde toute la largeur de la première ligne ; la valeur, la période, le statut et le lien
+   Sources passent ensemble sur la seconde. */
+@container (max-width: 470px) {
+  .compPanel .row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "label label"
+      "value meta";
+  }
+
+  .compPanel .row .tileMeta {
+    justify-content: flex-end;
+  }
+}

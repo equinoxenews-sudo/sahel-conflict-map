@@ -203,6 +203,25 @@
       ]
     },
     {
+      "id": "ex-obs-humanitarian-needs-2026",
+      "countryCode": "XEC",
+      "key": "humanitarian.people_in_need_2026",
+      "label": "Personnes ayant besoin d'assistance humanitaire (2026)",
+      "theme": "humanitaire",
+      "value": 120000,
+      "unit": "personnes",
+      "referencePeriod": "2026",
+      "geographicScope": "Pays entier",
+      "methodology": "Estimation d'un plan de réponse humanitaire ; exemple fictif.",
+      "sourceIds": [
+        "S-EX-STAT"
+      ],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
       "id": "xec-geography-area-statistique-2025",
       "countryCode": "XEC",
       "key": "geography.area.statistique",

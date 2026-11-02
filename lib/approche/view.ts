@@ -19,6 +19,23 @@ export interface SourceView {
   notes: string | null;
 }
 
+/** Une autre mesure du même sujet, avec de quoi la distinguer : organisme, période, périmètre, nature, méthode et lien vers la source. */
+export interface OtherMeasure {
+  label: string;
+  value: string;
+  unit: string;
+  period: string;
+  scope: string;
+  publisher: string;
+  kind: string;
+  methodology: string;
+  uncertainty: string | null;
+  sourceTitle: string;
+  sourceUrl: string;
+  /** Écart relatif avec la valeur de la tuile, en %, seulement si valeur, unité, période et périmètre sont identiques ; sinon null. */
+  gapPercent: string | null;
+}
+
 export interface MetricView {
   key: string;
   /** Libellé propre à l'observation (ex. nom d'une branche économique), sinon vide. */
@@ -38,7 +55,7 @@ export interface MetricView {
   uncertainty: string | null;
   sources: SourceView[];
   /** Autres mesures du même sujet (autre organisme, autre période), jamais fondues en une moyenne. */
-  others: { value: string; unit: string; period: string; scope: string; publisher: string }[];
+  others: OtherMeasure[];
   /** Valeurs des périodes précédentes pour la courbe, de la plus ancienne à la plus récente. */
   series: { period: string; value: number }[];
 }
@@ -65,6 +82,21 @@ function sourceView(source: SourceRecord): SourceView {
   };
 }
 
+const normalizeScope = (text: string) => text.trim().toLowerCase();
+
+/**
+ * Écart relatif entre deux mesures du même sujet, en %, SEULEMENT si elles sont comparables : deux nombres, même unité et même
+ * devise, même période de référence, même périmètre. Sinon null : on ne calcule jamais un écart entre des définitions, des dates
+ * ou des unités différentes, et on ne désigne jamais la « bonne » valeur.
+ */
+export function comparableGap(base: Observation, other: Observation): string | null {
+  if (typeof base.value !== "number" || typeof other.value !== "number" || base.value === 0) return null;
+  if (base.unit !== other.unit || (base.currency ?? null) !== (other.currency ?? null)) return null;
+  if (base.referencePeriod !== other.referencePeriod || normalizeScope(base.geographicScope) !== normalizeScope(other.geographicScope)) return null;
+  const gap = ((other.value - base.value) / Math.abs(base.value)) * 100;
+  return new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 2, signDisplay: "exceptZero" }).format(gap);
+}
+
 /** Observations publiées d'une fiche, indexées par clé, avec leurs sources. Une fiche non publiée ne donne rien. */
 export function metricViews(data: CountryData): Map<string, MetricView> {
   const published = publishedObservations(data);
@@ -72,14 +104,26 @@ export function metricViews(data: CountryData): Map<string, MetricView> {
   const views = new Map<string, MetricView>();
   for (const observation of published) {
     const others = published
-      .filter((other) => other.id !== observation.id && observation.topic && other.topic === observation.topic)
-      .map((other) => ({
-        value: formatValue(other),
-        unit: formatUnit(other),
-        period: other.referencePeriod,
-        scope: other.geographicScope,
-        publisher: sources.get(other.sourceIds[0])?.publisher ?? "",
-      }));
+      // « Autres sources » : même sujet, mais lu dans une autre source. Deux mesures d'une même source (production et consommation d'un même
+      // bilan, branches d'un même tableau) sont des notions distinctes, pas deux versions d'une même valeur.
+      .filter((other) => other.id !== observation.id && observation.topic && other.topic === observation.topic && !other.sourceIds.some((id) => observation.sourceIds.includes(id)))
+      .map((other): OtherMeasure => {
+        const source = sources.get(other.sourceIds[0]);
+        return {
+          label: other.label ?? "",
+          value: formatValue(other),
+          unit: formatUnit(other),
+          period: other.referencePeriod,
+          scope: other.geographicScope,
+          publisher: source?.publisher ?? "",
+          kind: KIND_LABELS[other.dataKind],
+          methodology: other.methodology,
+          uncertainty: other.uncertainty ?? null,
+          sourceTitle: source?.title ?? "",
+          sourceUrl: source?.canonicalUrl ?? "",
+          gapPercent: comparableGap(observation, other),
+        };
+      });
     views.set(observation.key, {
       key: observation.key,
       label: observation.label ?? "",

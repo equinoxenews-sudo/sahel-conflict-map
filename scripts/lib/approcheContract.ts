@@ -5,7 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { z } from "zod";
 import { CountryDataSchema } from "../../lib/approche/schema";
-import { ELECTRICITY_KEYS, VALUE_ADDED_BRANCHES } from "../../lib/approche/keys";
+import { ELECTRICITY_ALIASES, ELECTRICITY_KEYS, VALUE_ADDED_BRANCHES } from "../../lib/approche/keys";
 import { SCHEMA_VERSION } from "../../lib/approche/modules";
 
 type Node = Record<string, unknown> & { properties?: Record<string, Node>; items?: Node; anyOf?: Node[]; required?: string[]; type?: string | string[]; enum?: unknown[]; description?: string };
@@ -42,8 +42,9 @@ const DESCRIPTIONS: Record<string, string> = {
   "observations.id": "Identifiant unique de l'observation.",
   "observations.countryCode": "Code ISO alpha-3 du pays (identique à celui du fichier).",
   "observations.key": "Clé stable de la donnée (ex. economy.gdp_nominal_usd). Les clés lues par l'interface sont listées dans APPROCHE_CHAMPS_UI.md ; une clé nouvelle est acceptée.",
-  "observations.label": "Libellé d'affichage quand la clé ne suffit pas (ex. nom d'une branche économique).",
-  "observations.topic": "Regroupe plusieurs mesures d'un même sujet (autre organisme, autre période) : elles sont affichées côte à côte, jamais moyennées.",
+  "observations.label": "Intitulé lisible par le lecteur (ex. « Cible 2030 : part des énergies non fossiles »). Obligatoire pour qu'une valeur sans tuile apparaisse dans les données complémentaires de son onglet ; sert aussi de nom de branche économique.",
+  "observations.theme": "Rubrique des données complémentaires où ranger la valeur : appartenances, demographie, projections, conjoncture, energie, recherche, ports, investissement, defense, humanitaire, cyber, securite ; « none » pour ne pas l'afficher. Facultatif : à défaut, la rubrique se déduit du préfixe de la clé (institutions.*, demography.*, humanitarian.*…).",
+  "observations.topic": "Regroupe plusieurs mesures d'un même sujet (autre organisme, autre période). Quand une tuile porte le même sujet, les autres mesures s'ouvrent dans son volet « Autres sources », avec organisme, période, périmètre, nature et méthode : jamais moyennées, jamais classées, et un écart en % n'est calculé que si période, périmètre et unité sont identiques.",
   "observations.value": "Valeur : nombre, texte ou booléen. null si inconnue (avec status pending).",
   "observations.unit": "Unité (habitants, USD, EUR, %, km², TWh…). null pour un texte.",
   "observations.currency": "Devise quand la valeur est monétaire et que l'unité ne la porte pas.",
@@ -331,10 +332,12 @@ export function buildUiReport(root: string): string {
     "",
     `- \`economy.value_added.<code>\` (montant) et \`economy.value_added_share.<code>\` (part calculée) : codes de branche ${VALUE_ADDED_BRANCHES.map((code) => `\`${code}\``).join(", ")} (nomenclature A10), plus \`economy.value_added.total\`. Le graphique de structure de l'économie n'apparaît que si une branche a son montant **et** sa part, avec le total.`,
     `- \`energy.electricity.<clé>\` : ${ELECTRICITY_KEYS.map((key) => `\`${key}\``).join(", ")}. La section « électricité » n'apparaît que si au moins une de ces mesures existe ; le graphique de production exige \`production_total\`. Une filière absente n'est jamais comptée comme nulle : elle tombe dans « non détaillé (calculé) ».`,
+    `- **Millésimes de l'électricité** : une mesure d'un autre exercice porte la clé \`energy.electricity.<clé>_<AAAA>\` (ex. \`production_total_2025\`) ; la clé sans suffixe garde l'année de sa période de référence. L'année la plus récente est affichée par défaut, un sélecteur ramène aux autres. Chaque année est complète par elle-même : une valeur absente d'une année n'est jamais remplacée par celle d'une autre. Alias de clé : ${Object.entries(ELECTRICITY_ALIASES).map(([from, to]) => `\`${from}\` → \`${to}\``).join(", ")}.`,
+    "- **Données complémentaires** : une observation vérifiée que ni une tuile, ni un graphique, ni un module n'affiche est rangée, avec son `label`, dans un panneau dépliable de son onglet (rubrique = `theme`, à défaut le préfixe de la clé). Deux observations `<racine>_low` et `<racine>_high` de même période et unité forment une ligne « bas – haut ». Une observation dont le `topic` est celui d'une tuile s'ouvre dans le volet « Autres sources » de cette tuile, pas dans un panneau. Une valeur `pending` apparaît « à vérifier », sans valeur. Une observation sans `label` n'est pas affichée (le validateur la signale).",
     "- `institutions.*` : une ligne d'appartenance n'est affichée que si le fichier la documente (ou la signale `pending`). **Ne pas créer** d'observation pour une organisation dont le pays n'est pas membre : une observation `institutions.*` produit un badge d'appartenance.",
     "- `demography.density` : si présente, remplace la ligne « densité non calculée » de la vue d'ensemble.",
     "- **Politique et identité** : `politics.regime`, `politics.head_of_state` et `politics.head_of_government` (régime, chef de l'État, chef du gouvernement) ; `identity.capital`, `identity.language` et `identity.currency` (capitale, langue, monnaie). **Une clé `identity.regime`, `identity.head_of_state` ou `identity.head_of_government` n'est lue par aucun composant** : la valeur ne s'afficherait pas.",
-    "- **Contrôle** : `npm run approche:validate` signale, pour chaque fichier, les observations jamais lues par l'interface (ni par un composant, ni par un module via `observationKey`) et propose la clé lue de même nom. Pour qu'un indicateur propre à un pays s'affiche, un module doit le référencer (`observationKey`).",
+    "- **Contrôle** : `npm run approche:validate` signale, pour chaque fichier, les observations sans emplacement (ni tuile, ni module via `observationKey`, ni section d'électricité, ni volet « Autres sources », ni panneau de données complémentaires) avec la raison (sans `label`, rubrique inconnue, statut…) et propose la clé lue de même nom. Un indicateur propre à un pays s'affiche soit par un module qui le référence (`observationKey`), soit par son `label` dans les données complémentaires.",
     "",
     "## Libellés",
     "",
@@ -343,10 +346,23 @@ export function buildUiReport(root: string): string {
   ].join("\n");
 }
 
+/** Module des clés lues par l'interface, utilisé à l'exécution par le classement des observations (lib/approche/complements.ts). */
+export function buildReadKeysModule(root: string): string {
+  return [
+    "// Fichier GÉNÉRÉ par `npm run approche:contract` (analyse du code des composants) : ne pas modifier à la main.",
+    "// Clés d'observations lues par l'interface ; une clé contenant `${…}` désigne une famille de clés. Un test vérifie que ce fichier est à jour.",
+    "export const READ_KEYS: readonly string[] = [",
+    ...scanUiKeys(root).map(({ key }) => `  ${JSON.stringify(key)},`),
+    "];",
+    "",
+  ].join("\n");
+}
+
 /** Contenu attendu de chaque fichier généré (chemin relatif → texte). */
 export function buildContractFiles(root: string): Record<string, string> {
   const schema = buildSchema();
   return {
+    "lib/approche/readKeys.ts": buildReadKeysModule(root),
     "docs/approche.schema.v1.json": `${JSON.stringify(schema, null, 2)}\n`,
     "docs/APPROCHE_CHAMPS_V1.md": buildFieldReference(schema),
     "docs/APPROCHE_CHAMPS_UI.md": buildUiReport(root),

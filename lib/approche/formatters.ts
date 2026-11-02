@@ -16,6 +16,12 @@ export function formatValue(observation: Observation): string {
   if (value === null) return "Donnée non disponible";
   if (typeof value === "boolean") return value ? "Oui" : "Non";
   if (typeof value === "string") return value;
+  if (unit === "personnes") {
+    // Effectif exact sous le million (« 195 020 »), arrondi au dixième de million au-delà (« 5,1 millions », complété par « de personnes »).
+    if (value < 1_000_000) return number(Math.round(value), 0);
+    const millions = Math.round((value / 1_000_000) * 10) / 10;
+    return `${number(millions, 1)} ${millions >= 2 ? "millions" : "million"}`;
+  }
   if (unit === "habitants") {
     if (value >= 1_000_000) {
       const millions = Math.round((value / 1_000_000) * 10) / 10;
@@ -23,7 +29,7 @@ export function formatValue(observation: Observation): string {
     }
     return number(Math.round(value / 1000) * 1000, 0);
   }
-  if (unit === "USD" || unit === "EUR") {
+  if (typeof unit === "string" && /^[A-Z]{3}$/.test(unit)) {
     // « Md » (milliards) jusque dans les billions : « 3 366 Md » tient sur une ligne, « 3,37 billions » se coupait en deux.
     if (value >= 1e12) return `${number(value / 1e9, 0)} Md`;
     if (value >= 1e9) return `${number(value / 1e9, value >= 1e11 ? 0 : 1)} Md`;
@@ -38,6 +44,7 @@ export function formatValue(observation: Observation): string {
 export function formatUnit(observation: Observation): string {
   const { unit, value } = observation;
   if (unit === "habitants" || typeof value === "string" || typeof value === "boolean") return "";
+  if (unit === "personnes") return typeof value === "number" && value >= 1_000_000 ? "de personnes" : "personnes";
   if (unit === "USD" || unit === "EUR") return unit === "USD" ? "$ US" : "€";
   return unit ?? "";
 }

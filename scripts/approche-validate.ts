@@ -7,6 +7,7 @@
 //
 // Un fichier valide n'est pas pour autant VRAI : la validation vérifie la forme et les règles de traçabilité, pas l'exactitude.
 import fs from "node:fs";
+import { THEMES, THEME_NONE } from "../lib/approche/complements";
 import { CountryDataSchema } from "../lib/approche/schema";
 import { publishProblems } from "../lib/approche/sourceRegistry";
 import { unreadObservationKeys } from "./lib/approcheUnread";
@@ -71,9 +72,12 @@ async function main() {
     if (hero?.tagline) warnings.push("modules.hero.tagline : texte libre non sourcé — une formule neutre d'identification, sans fait chiffré ni jugement");
     const unread = unreadObservationKeys(data);
     if (unread.length > 0) {
-      const list = unread.map((item) => (item.suggestion ? `${item.key} (clé lue : ${item.suggestion})` : item.key)).join(", ");
-      warnings.push(`${unread.length} observation(s) jamais lue(s) par l'interface, donc affichée(s) nulle part tant qu'un module ne les référence pas (observationKey) : ${list}`);
+      const list = unread.map((item) => `${item.key} — ${item.reason}${item.suggestion ? ` (clé lue : ${item.suggestion})` : ""}`).join(" ; ");
+      warnings.push(`${unread.length} observation(s) vérifiée(s) sans emplacement dans l'interface (ajouter un label, un theme valide, ou la référencer par observationKey dans un module) : ${list}`);
     }
+    const knownThemes = new Set<string>([...THEMES.map((theme) => theme.id), THEME_NONE]);
+    const badThemes = [...new Set(data.observations.flatMap((observation) => (observation.theme && !knownThemes.has(observation.theme) ? [`${observation.key} (${observation.theme})`] : [])))];
+    if (badThemes.length > 0) warnings.push(`theme inconnu (rubriques : ${[...knownThemes].join(", ")}) : ${badThemes.join(", ")}`);
     const pending = data.observations.filter((observation) => observation.status === "pending").length;
     const unknownLicense = data.sources.filter((source) => source.reuse === "unknown").length;
     if (unknownLicense > 0) warnings.push(`${unknownLicense} source(s) dont la licence de réutilisation n'est pas vérifiée (reuse: "unknown")`);

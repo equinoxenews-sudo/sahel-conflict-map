@@ -1,7 +1,9 @@
 import Link from "next/link";
 import Header from "@/components/equinoxe/Header";
 import type { CountryMapData } from "@/components/country-profile/CountryMap";
+import { complementPanels, type ComplementPanel } from "@/lib/approche/complements";
 import { containsDemo } from "@/lib/approche/demo";
+import { electricityVintages } from "@/lib/approche/electricity";
 import { formatDate } from "@/lib/approche/formatters";
 import { DefenseModuleSchema, EconomyModuleSchema, IssuesModuleSchema, OutlookModuleSchema, OverviewModuleSchema, RelationsModuleSchema, type Modules } from "@/lib/approche/modules";
 import type { CountryData } from "@/lib/approche/schema";
@@ -47,6 +49,9 @@ export default function ApprocheCountryPage({ data, iso2, tab, map, modules }: A
   const zone = getZone(data.zoneSlug);
   const basePath = `/zones/${data.zoneSlug}/approche/pays/${data.slug}`;
   const metrics = metricViews(data);
+  const vintages = electricityVintages(metrics);
+  const panels = complementPanels(data, metrics);
+  const complements = (name: ApprocheTab): ComplementPanel[] => panels.filter((panel) => panel.tab === name);
   const claims = claimViews(data);
   const pending = pendingObservations(data);
   const pendingKeys = new Set(pending.map((item) => item.key));
@@ -95,11 +100,11 @@ export default function ApprocheCountryPage({ data, iso2, tab, map, modules }: A
 
         <div key={tab} className={styles.tabPanel}>
           {tab !== "overview" ? <TabBanner {...BANNERS[tab]} asset={bannerAsset} demoActive={demoActive} /> : null}
-          {tab === "overview" ? <OverviewTab defenseHref={tabHref(basePath, "defense")} metrics={metrics} pending={pendingKeys} map={map} module={modules.overview ?? OverviewModuleSchema.parse({})} sources={sources} /> : null}
-          {tab === "relations" ? <RelationsTab metrics={metrics} pending={pendingKeys} relations={relationViews(data)} map={(modules.relations ?? RelationsModuleSchema.parse({})).map} presenceMap={(modules.relations ?? RelationsModuleSchema.parse({})).presenceMap} sources={sources} /> : null}
-          {tab === "economy" ? <EconomyTab metrics={metrics} module={modules.economy ?? EconomyModuleSchema.parse({})} sources={sources} media={media} demoActive={demoActive} /> : null}
-          {tab === "defense" ? <DefenseTab defense={modules.defense ?? DefenseModuleSchema.parse({})} metrics={metrics} sources={sources} media={media} demoActive={demoActive} /> : null}
-          {tab === "issues" ? <IssuesTab issues={modules.issues ?? IssuesModuleSchema.parse({})} metrics={metrics} sources={sources} media={media} demoActive={demoActive} /> : null}
+          {tab === "overview" ? <OverviewTab defenseHref={tabHref(basePath, "defense")} metrics={metrics} pending={pendingKeys} map={map} module={modules.overview ?? OverviewModuleSchema.parse({})} sources={sources} complements={complements("overview")} /> : null}
+          {tab === "relations" ? <RelationsTab metrics={metrics} pending={pendingKeys} relations={relationViews(data)} map={(modules.relations ?? RelationsModuleSchema.parse({})).map} presenceMap={(modules.relations ?? RelationsModuleSchema.parse({})).presenceMap} sources={sources} complements={complements("relations")} /> : null}
+          {tab === "economy" ? <EconomyTab metrics={metrics} module={modules.economy ?? EconomyModuleSchema.parse({})} sources={sources} media={media} demoActive={demoActive} vintages={vintages} complements={complements("economy")} /> : null}
+          {tab === "defense" ? <DefenseTab defense={modules.defense ?? DefenseModuleSchema.parse({})} metrics={metrics} sources={sources} media={media} demoActive={demoActive} complements={complements("defense")} /> : null}
+          {tab === "issues" ? <IssuesTab issues={modules.issues ?? IssuesModuleSchema.parse({})} metrics={metrics} sources={sources} media={media} demoActive={demoActive} complements={complements("issues")} /> : null}
           {tab === "outlook" ? <OutlookTab outlook={modules.outlook ?? OutlookModuleSchema.parse({})} metrics={metrics} sources={sources} media={media} demoActive={demoActive} /> : null}
         </div>
 

@@ -31,10 +31,11 @@ export function listApprocheCountries(): { slug: string; zoneSlug: string }[] {
 }
 
 /**
- * La fiche d'un pays au nouveau modèle, ou null si le pays n'est pas migré, si le fichier est invalide ou si sa
- * publication est refusée (source exclue par licence, observation sans source…). Le refus est journalisé, jamais affiché.
+ * La fiche d'un pays au nouveau modèle, fichiers fusionnés et validés, que sa publication soit un brouillon ou non (pour les contrôles
+ * et les tests) ; null si le pays n'est pas migré, si le fichier est invalide ou si sa publication est refusée (source exclue par
+ * licence, observation sans source…). Le refus est journalisé, jamais affiché.
  */
-export function getApprocheData(iso3: string | undefined): CountryData | null {
+export function loadApprocheCountry(iso3: string | undefined): CountryData | null {
   const entry = iso3 ? FILES[iso3.toUpperCase()] : undefined;
   if (!entry) return null;
   const curated = entry.curated as { sources?: unknown[]; observations?: unknown[] };
@@ -54,6 +55,11 @@ export function getApprocheData(iso3: string | undefined): CountryData | null {
     console.error(`Approche ${iso3} : publication refusée`, problems.slice(0, 5));
     return null;
   }
-  // Brouillon hors Preview : le pays garde son ancienne fiche, rien du nouveau modèle n'est servi.
-  return isVisible(parsed.data) ? parsed.data : null;
+  return parsed.data;
+}
+
+/** La fiche servie au public : un brouillon hors Preview garde son ancienne fiche, rien du nouveau modèle n'est servi. */
+export function getApprocheData(iso3: string | undefined): CountryData | null {
+  const data = loadApprocheCountry(iso3);
+  return data && isVisible(data) ? data : null;
 }

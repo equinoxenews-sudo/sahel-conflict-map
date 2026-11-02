@@ -1,3 +1,4 @@
+import type { ComplementPanel } from "@/lib/approche/complements";
 import type { MapModule } from "@/lib/approche/modules";
 import type { MetricView, RelationView } from "@/lib/approche/view";
 import ApprocheMap from "./ApprocheMap";
@@ -6,6 +7,7 @@ import MetricCard from "./MetricCard";
 import RelationCard from "./RelationCard";
 import { SectionHeading, type SourceMap } from "./shared";
 import styles from "./Approche.module.css";
+import ComplementPanels from "./ComplementPanels";
 
 interface RelationsTabProps {
   metrics: Map<string, MetricView>;
@@ -14,6 +16,8 @@ interface RelationsTabProps {
   map: MapModule | null | undefined;
   presenceMap: MapModule | null | undefined;
   sources: SourceMap;
+  /** Données complémentaires de l'onglet, par rubrique. */
+  complements: ComplementPanel[];
 }
 
 const COLUMNS: { type: RelationView["type"]; title: string; icon: string; empty: string }[] = [
@@ -36,7 +40,7 @@ const ORGANISATIONS = [
   { key: "institutions.oif", label: "Francophonie (OIF)" },
 ];
 
-export default function RelationsTab({ metrics, pending, relations, map, presenceMap, sources }: RelationsTabProps) {
+export default function RelationsTab({ metrics, pending, relations, map, presenceMap, sources, complements }: RelationsTabProps) {
   const get = (key: string) => metrics.get(key) ?? null;
   const missingFor = (key: string) => (pending.has(key) ? "À vérifier sur la source officielle" : "Donnée non disponible");
   const organisations = ORGANISATIONS.filter(({ key }) => get(key) || pending.has(key));
@@ -131,6 +135,7 @@ export default function RelationsTab({ metrics, pending, relations, map, presenc
           <ApprocheMap map={presenceMap} sources={sources} />
         </section>
       ) : null}
+      <ComplementPanels panels={complements} />
     </div>
   );
 }

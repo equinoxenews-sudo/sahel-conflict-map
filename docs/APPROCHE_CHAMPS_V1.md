@@ -34,8 +34,9 @@ Les chemins notent `[]` pour une liste. « Obligatoire » = le champ doit figure
 | `observations[].id` | texte | **oui** |  | non vide | Identifiant unique de l'observation. |
 | `observations[].countryCode` | texte | **oui** |  | exactement 3 caractères | Code ISO alpha-3 du pays (identique à celui du fichier). |
 | `observations[].key` | texte | **oui** |  | non vide | Clé stable de la donnée (ex. economy.gdp_nominal_usd). Les clés lues par l'interface sont listées dans APPROCHE_CHAMPS_UI.md ; une clé nouvelle est acceptée. |
-| `observations[].label` | texte ou null | non |  |  | Libellé d'affichage quand la clé ne suffit pas (ex. nom d'une branche économique). |
-| `observations[].topic` | texte ou null | non |  |  | Regroupe plusieurs mesures d'un même sujet (autre organisme, autre période) : elles sont affichées côte à côte, jamais moyennées. |
+| `observations[].label` | texte ou null | non |  |  | Intitulé lisible par le lecteur (ex. « Cible 2030 : part des énergies non fossiles »). Obligatoire pour qu'une valeur sans tuile apparaisse dans les données complémentaires de son onglet ; sert aussi de nom de branche économique. |
+| `observations[].topic` | texte ou null | non |  |  | Regroupe plusieurs mesures d'un même sujet (autre organisme, autre période). Quand une tuile porte le même sujet, les autres mesures s'ouvrent dans son volet « Autres sources », avec organisme, période, périmètre, nature et méthode : jamais moyennées, jamais classées, et un écart en % n'est calculé que si période, périmètre et unité sont identiques. |
+| `observations[].theme` | texte ou null | non |  |  | Rubrique des données complémentaires où ranger la valeur : appartenances, demographie, projections, conjoncture, energie, recherche, ports, investissement, defense, humanitaire, cyber, securite ; « none » pour ne pas l'afficher. Facultatif : à défaut, la rubrique se déduit du préfixe de la clé (institutions.*, demography.*, humanitarian.*…). |
 | `observations[].value` | nombre ou texte ou booléen ou null | **oui** |  |  | Valeur : nombre, texte ou booléen. null si inconnue (avec status pending). |
 | `observations[].unit` | texte ou null | **oui** |  |  | Unité (habitants, USD, EUR, %, km², TWh…). null pour un texte. |
 | `observations[].currency` | texte ou null | non |  |  | Devise quand la valeur est monétaire et que l'unité ne la porte pas. |

@@ -1,3 +1,4 @@
+import type { ComplementPanel } from "@/lib/approche/complements";
 import { iconForTopic } from "@/lib/approche/metricIcons";
 import type { IssuesModule } from "@/lib/approche/modules";
 import type { MetricView } from "@/lib/approche/view";
@@ -8,6 +9,7 @@ import { displayable } from "@/lib/approche/media";
 import { CardBadge, KpiGrid, KpiTile, SectionHeading, SourceList, Timeline, type SourceMap } from "./shared";
 import Visual, { type MediaMap } from "./Visual";
 import styles from "./Approche.module.css";
+import ComplementPanels from "./ComplementPanels";
 
 interface IssuesTabProps {
   issues: IssuesModule;
@@ -15,6 +17,8 @@ interface IssuesTabProps {
   sources: SourceMap;
   media: MediaMap;
   demoActive: boolean;
+  /** Données complémentaires de l'onglet, par rubrique. */
+  complements: ComplementPanel[];
 }
 
 const SCOPE_LABELS = { national: "National", european: "Européen", international: "International" } as const;
@@ -33,13 +37,16 @@ function BulletBlock({ title, entries }: { title: string; entries: string[] }) {
   );
 }
 
-export default function IssuesTab({ issues, metrics, sources, media, demoActive }: IssuesTabProps) {
+export default function IssuesTab({ issues, metrics, sources, media, demoActive, complements }: IssuesTabProps) {
   if (!issues.issues.length && !issues.calendar.length && !issues.map) {
     return (
-      <section className={styles.card}>
-        <h2>Enjeux stratégiques</h2>
-        <p className={styles.cardNote}>Aucun dossier n&apos;est publié pour ce pays pour l&apos;instant.</p>
-      </section>
+      <div className={styles.tabBody}>
+        <section className={styles.card}>
+          <h2>Enjeux stratégiques</h2>
+          <p className={styles.cardNote}>Aucun dossier n&apos;est publié pour ce pays pour l&apos;instant.</p>
+        </section>
+        <ComplementPanels panels={complements} />
+      </div>
     );
   }
 
@@ -215,6 +222,7 @@ export default function IssuesTab({ issues, metrics, sources, media, demoActive 
           </section>
         ) : null}
       </div>
+      <ComplementPanels panels={complements} />
     </div>
   );
 }

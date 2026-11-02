@@ -58,7 +58,10 @@ Public : qui produit ou relit les fichiers pays (ChatGPT, éditeur) et qui les i
 
 - **Ne jamais inventer** : pas de chiffre, de date, de nom, d'URL ou de licence « vraisemblable ». En cas de doute : `pending`, `reuse: "unknown"`.
 - **Une source par fait, la plus primaire possible** (texte officiel, organisme statistique national, institution internationale), avec son adresse exacte.
-- **Deux mesures d'un même sujet** : deux observations avec le même `topic`, jamais une moyenne ni un choix silencieux.
+- **Deux mesures d'un même sujet** : deux observations de sources différentes avec le même `topic`, jamais une moyenne ni un choix silencieux ; elles s'ouvrent dans le volet « Autres sources » de la tuile.
+- **Valeur sans tuile** : donner un `label` lisible (« Cible 2030 : part des énergies non fossiles ») ; la rubrique se déduit du préfixe de la clé, ou se précise par `theme` (`ports`, `cyber`, `humanitaire`…, ou `none` pour ne pas l'afficher). Sans `label`, la valeur n'apparaît nulle part et `npm run approche:validate` la signale.
+- **Fourchette** : deux observations `<racine>_low` et `<racine>_high` de même période et unité ne forment qu'une ligne « bas – haut ».
+- **Autre exercice** : pour l'électricité, `energy.electricity.<clé>_<AAAA>` ajoute un millésime (sélecteur) sans mélanger les années.
 - **Analyses** (atouts, défis, enjeux, scénarios) : attribuées, datées, sourcées ; **aucun score, aucune probabilité chiffrée**.
 - **Opérations militaires** : toujours datées ; une opération close porte `status: "Clôturée"`.
 - **Cartes** : un point est un fait public daté, jamais une « zone d'influence » ni une coordonnée sensible.

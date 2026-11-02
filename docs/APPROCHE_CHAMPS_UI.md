@@ -24,12 +24,6 @@ Une clé absente du fichier n'est pas une erreur. Une clé nouvelle est accepté
 | `economy.value_added_share.${code}` | EconomyTab.tsx |
 | `economy.value_added.${code}` | EconomyTab.tsx |
 | `economy.value_added.total` | EconomyTab.tsx |
-| `energy.electricity.${key}` | EconomyTab.tsx |
-| `energy.electricity.consumption` | EconomyTab.tsx |
-| `energy.electricity.exports_gross` | EconomyTab.tsx |
-| `energy.electricity.imports` | EconomyTab.tsx |
-| `energy.electricity.net_exports` | EconomyTab.tsx |
-| `energy.electricity.production_total` | EconomyTab.tsx |
 | `energy.import_dependency` | EconomyTab.tsx |
 | `geography.area` | OverviewTab.tsx |
 | `geography.surface_area` | OverviewTab.tsx |
@@ -57,11 +51,13 @@ Une clé absente du fichier n'est pas une erreur. Une clé nouvelle est accepté
 ## Familles de clés
 
 - `economy.value_added.<code>` (montant) et `economy.value_added_share.<code>` (part calculée) : codes de branche `A`, `B-E`, `F`, `G-I`, `J`, `K`, `L`, `M_N`, `O-Q`, `R-U` (nomenclature A10), plus `economy.value_added.total`. Le graphique de structure de l'économie n'apparaît que si une branche a son montant **et** sa part, avec le total.
-- `energy.electricity.<clé>` : `production_total`, `nuclear`, `renewable`, `hydro`, `wind_solar`, `solar`, `fossil`, `exports_gross`, `imports`, `net_exports`, `consumption`. La section « électricité » n'apparaît que si au moins une de ces mesures existe ; le graphique de production exige `production_total`. Une filière absente n'est jamais comptée comme nulle : elle tombe dans « non détaillé (calculé) ».
+- `energy.electricity.<clé>` : `production_total`, `nuclear`, `renewable`, `hydro`, `wind_solar`, `solar`, `fossil`, `exports_gross`, `imports`, `net_exports`, `consumption`, `low_carbon`, `low_carbon_share`. La section « électricité » n'apparaît que si au moins une de ces mesures existe ; le graphique de production exige `production_total`. Une filière absente n'est jamais comptée comme nulle : elle tombe dans « non détaillé (calculé) ».
+- **Millésimes de l'électricité** : une mesure d'un autre exercice porte la clé `energy.electricity.<clé>_<AAAA>` (ex. `production_total_2025`) ; la clé sans suffixe garde l'année de sa période de référence. L'année la plus récente est affichée par défaut, un sélecteur ramène aux autres. Chaque année est complète par elle-même : une valeur absente d'une année n'est jamais remplacée par celle d'une autre. Alias de clé : `consumption_corrected` → `consumption`.
+- **Données complémentaires** : une observation vérifiée que ni une tuile, ni un graphique, ni un module n'affiche est rangée, avec son `label`, dans un panneau dépliable de son onglet (rubrique = `theme`, à défaut le préfixe de la clé). Deux observations `<racine>_low` et `<racine>_high` de même période et unité forment une ligne « bas – haut ». Une observation dont le `topic` est celui d'une tuile s'ouvre dans le volet « Autres sources » de cette tuile, pas dans un panneau. Une valeur `pending` apparaît « à vérifier », sans valeur. Une observation sans `label` n'est pas affichée (le validateur la signale).
 - `institutions.*` : une ligne d'appartenance n'est affichée que si le fichier la documente (ou la signale `pending`). **Ne pas créer** d'observation pour une organisation dont le pays n'est pas membre : une observation `institutions.*` produit un badge d'appartenance.
 - `demography.density` : si présente, remplace la ligne « densité non calculée » de la vue d'ensemble.
 - **Politique et identité** : `politics.regime`, `politics.head_of_state` et `politics.head_of_government` (régime, chef de l'État, chef du gouvernement) ; `identity.capital`, `identity.language` et `identity.currency` (capitale, langue, monnaie). **Une clé `identity.regime`, `identity.head_of_state` ou `identity.head_of_government` n'est lue par aucun composant** : la valeur ne s'afficherait pas.
-- **Contrôle** : `npm run approche:validate` signale, pour chaque fichier, les observations jamais lues par l'interface (ni par un composant, ni par un module via `observationKey`) et propose la clé lue de même nom. Pour qu'un indicateur propre à un pays s'affiche, un module doit le référencer (`observationKey`).
+- **Contrôle** : `npm run approche:validate` signale, pour chaque fichier, les observations sans emplacement (ni tuile, ni module via `observationKey`, ni section d'électricité, ni volet « Autres sources », ni panneau de données complémentaires) avec la raison (sans `label`, rubrique inconnue, statut…) et propose la clé lue de même nom. Un indicateur propre à un pays s'affiche soit par un module qui le référence (`observationKey`), soit par son `label` dans les données complémentaires.
 
 ## Libellés
 

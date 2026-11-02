@@ -1,3 +1,4 @@
+import type { ComplementPanel } from "@/lib/approche/complements";
 import { iconForTopic } from "@/lib/approche/metricIcons";
 import type { DefenseModule } from "@/lib/approche/modules";
 import type { MetricView } from "@/lib/approche/view";
@@ -7,6 +8,7 @@ import Icon from "./Icon";
 import { IconRow, ItemCard, KpiGrid, KpiTile, SectionHeading, SourceList, type SourceMap } from "./shared";
 import type { MediaMap } from "./Visual";
 import styles from "./Approche.module.css";
+import ComplementPanels from "./ComplementPanels";
 
 interface DefenseTabProps {
   defense: DefenseModule;
@@ -14,6 +16,8 @@ interface DefenseTabProps {
   sources: SourceMap;
   media: MediaMap;
   demoActive: boolean;
+  /** Données complémentaires de l'onglet, par rubrique. */
+  complements: ComplementPanel[];
 }
 
 /** Initiales d'une entreprise ou d'un organisme, pour un monogramme neutre quand aucun logo n'est autorisé. */
@@ -25,7 +29,7 @@ const monogram = (name: string) =>
     .map((word) => word[0].toUpperCase())
     .join("");
 
-export default function DefenseTab({ defense, metrics, sources, media, demoActive }: DefenseTabProps) {
+export default function DefenseTab({ defense, metrics, sources, media, demoActive, complements }: DefenseTabProps) {
   const roots = defense.organization.filter((node) => node.parentId === null);
   const childrenOf = (id: string) => defense.organization.filter((node) => node.parentId === id);
   const posture = defense.threatPosture;
@@ -33,10 +37,13 @@ export default function DefenseTab({ defense, metrics, sources, media, demoActiv
 
   if (empty) {
     return (
-      <section className={styles.card}>
-        <h2>Défense et sécurité</h2>
-        <p className={styles.cardNote}>Aucune donnée de défense n&apos;est publiée pour ce pays pour l&apos;instant.</p>
-      </section>
+      <div className={styles.tabBody}>
+        <section className={styles.card}>
+          <h2>Défense et sécurité</h2>
+          <p className={styles.cardNote}>Aucune donnée de défense n&apos;est publiée pour ce pays pour l&apos;instant.</p>
+        </section>
+        <ComplementPanels panels={complements} />
+      </div>
     );
   }
 
@@ -276,6 +283,7 @@ export default function DefenseTab({ defense, metrics, sources, media, demoActiv
           </section>
         ) : null}
       </div>
+      <ComplementPanels panels={complements} />
     </div>
   );
 }

@@ -21,11 +21,13 @@ interface MetricCardProps {
   display?: string;
   /** Pictogramme ; par défaut déduit de la nature de la valeur. */
   icon?: string;
+  /** Statut documentaire affiché à côté de la période (ex. « Vérifié »). */
+  badge?: string;
 }
 
 // Un chiffre ou un fait, avec le tiroir de provenance qui s'ouvre au clic : valeur, unité, période, périmètre, méthode,
 // source(s) avec adresse exacte, licence, date de consultation et autres mesures du même sujet.
-export default function MetricCard({ label, metric, missing = "Donnée non disponible", missingHint, variant = "tile", display, icon }: MetricCardProps) {
+export default function MetricCard({ label, metric, missing = "Donnée non disponible", missingHint, variant = "tile", display, icon, badge }: MetricCardProps) {
   const dialog = useRef<HTMLDialogElement>(null);
   const id = `metric-${label.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}`;
   const iconName = icon ?? iconForMetric(metric?.key ?? label);
@@ -41,6 +43,7 @@ export default function MetricCard({ label, metric, missing = "Donnée non dispo
           {missing}
           {missingHint ? <small className={styles.missingHint}> · {missingHint}</small> : null}
         </span>
+        {badge ? <span className={`${styles.statusBadge} ${styles.statusPending}`}>{badge}</span> : null}
       </div>
     );
   }
@@ -59,6 +62,7 @@ export default function MetricCard({ label, metric, missing = "Donnée non dispo
         </span>
         <span className={styles.tileMeta}>
           <span className={styles.period}>{metric.period}</span>
+          {badge ? <span className={styles.statusBadge}>{badge}</span> : null}
           <span className={styles.spark}>
             <Sparkline series={metric.series} label={label} />
           </span>

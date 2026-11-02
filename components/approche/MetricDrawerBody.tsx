@@ -61,18 +61,34 @@ export default function MetricDrawerBody({ metric, shown }: { metric: MetricView
       </ul>
       {metric.others.length > 0 ? (
         <>
-          <h4>Autres mesures du même sujet</h4>
+          <h4>Autres sources sur ce sujet</h4>
           <ul className={styles.drawerOthers}>
             {metric.others.map((other) => (
               <li key={`${other.publisher}-${other.period}-${other.value}`}>
                 <strong>
+                  {other.label ? `${other.label} : ` : ""}
                   {other.value} {other.unit}
-                </strong>{" "}
-                · {other.publisher} · {other.period} · {other.scope}
+                </strong>
+                <span>
+                  {other.publisher} · période {other.period} · périmètre : {other.scope}
+                </span>
+                <span>
+                  {other.kind}
+                  {other.gapPercent ? ` · écart de ${other.gapPercent} % avec la valeur ci-dessus (même période, même périmètre, même unité)` : ""}
+                </span>
+                <span>Méthode : {other.methodology}</span>
+                {other.uncertainty ? <span>Incertitude : {other.uncertainty}</span> : null}
+                {other.sourceUrl ? (
+                  <a href={other.sourceUrl} target="_blank" rel="noopener noreferrer">
+                    {other.sourceTitle || "Source"}
+                  </a>
+                ) : null}
               </li>
             ))}
           </ul>
-          <p className={styles.drawerNote}>Ces mesures ont des définitions et des dates différentes : elles ne sont pas additionnées ni moyennées.</p>
+          <p className={styles.drawerNote}>
+            Ces mesures ont des définitions, des dates ou des périmètres différents : aucune n&apos;est présentée comme la bonne, elles ne sont ni additionnées ni moyennées, et un écart n&apos;est chiffré que lorsque les deux mesures sont comparables.
+          </p>
         </>
       ) : null}
     </>

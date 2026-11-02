@@ -1,3 +1,4 @@
+import type { ComplementPanel } from "@/lib/approche/complements";
 import type { CountryMapData } from "@/components/country-profile/CountryMap";
 import type { OverviewModule } from "@/lib/approche/modules";
 import type { MetricView } from "@/lib/approche/view";
@@ -8,6 +9,7 @@ import CountryMapFrame from "./CountryMapFrame";
 import MetricCard from "./MetricCard";
 import { IconRow, KpiGrid, SectionHeading, Timeline, type SourceMap } from "./shared";
 import styles from "./Approche.module.css";
+import ComplementPanels from "./ComplementPanels";
 
 interface OverviewTabProps {
   /** Adresse de l'onglet Défense, pour la tuile « Effectifs militaires ». */
@@ -18,11 +20,13 @@ interface OverviewTabProps {
   map: CountryMapData;
   module: OverviewModule;
   sources: SourceMap;
+  /** Données complémentaires de l'onglet, par rubrique. */
+  complements: ComplementPanel[];
 }
 
 const NOT_VERIFIED = "À vérifier sur la source officielle";
 
-export default function OverviewTab({ defenseHref, metrics, pending, map, module, sources }: OverviewTabProps) {
+export default function OverviewTab({ defenseHref, metrics, pending, map, module, sources, complements }: OverviewTabProps) {
   const get = (key: string) => metrics.get(key) ?? null;
   const missingFor = (key: string) => (pending.has(key) ? NOT_VERIFIED : "Donnée non disponible");
   // Superficie : première mesure `geography.area.*` du fichier (la source figure dans la clé : eurostat, uemoa…), à défaut la série
@@ -186,6 +190,7 @@ export default function OverviewTab({ defenseHref, metrics, pending, map, module
           <p className={styles.cardNote}>Ces rubriques sont des analyses : elles seront publiées une fois rédigées avec leurs sources et relues, jamais générées au moment de la consultation.</p>
         </section>
       )}
+      <ComplementPanels panels={complements} />
     </div>
   );
 }

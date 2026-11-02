@@ -22,7 +22,8 @@ Ce document s'adresse à qui produit les fichiers de données (ChatGPT, éditeur
 7. **Relations bilatérales** : décrites par dimensions datées (traité, coopération, divergence), jamais en « amis / rivaux ».
 8. **Opérations militaires** : toujours datées ; ne jamais présenter une opération close comme en cours.
 9. **Dirigeants** : date et URL de la page officielle ; distinguer nomination du Premier ministre et composition du gouvernement.
-10. **Deux mesures d'un même sujet** (ex. population Banque mondiale et Eurostat) : deux observations avec le même `topic`, jamais une moyenne.
+10. **Deux mesures d'un même sujet** (ex. population Banque mondiale et Eurostat) : deux observations de sources différentes avec le même `topic`, jamais une moyenne ni un choix silencieux. Elles s'ouvrent dans le volet « Autres sources » de la tuile (organisme, période, périmètre, nature, méthode, lien) ; un écart en % n'est calculé que si période, périmètre et unité sont identiques.
+11. **Millésimes de l'électricité** : une mesure d'un autre exercice porte la clé `energy.electricity.<clé>_<AAAA>` ; l'année la plus récente s'affiche par défaut avec un sélecteur, chaque année est complète par elle-même (jamais complétée par une autre).
 11. **Contenu de démonstration interdit** : aucun élément `demo: true` dans un fichier réel.
 
 ## 2. Structure d'un fichier
@@ -70,7 +71,7 @@ Ce document s'adresse à qui produit les fichiers de données (ChatGPT, éditeur
 | Champ | Contenu |
 |---|---|
 | `id`, `countryCode`, `key` | `key` stable, ex. `economy.gdp_nominal_usd`. |
-| `label`, `topic` | Libellé d'affichage (facultatif) ; `topic` regroupe plusieurs mesures du même sujet. |
+| `label`, `theme`, `topic` | `label` : intitulé lisible par le lecteur (obligatoire pour qu'une valeur sans tuile soit affichée dans les données complémentaires). `theme` : rubrique de ces données complémentaires (`appartenances`, `demographie`, `projections`, `conjoncture`, `energie`, `recherche`, `ports`, `investissement`, `defense`, `humanitaire`, `cyber`, `securite`), ou `none` pour ne pas l'afficher ; à défaut, déduite du préfixe de la clé. `topic` regroupe plusieurs mesures du même sujet issues de sources différentes (volet « Autres sources » de la tuile). |
 | `value`, `unit`, `currency` | Nombre, texte ou booléen ; unité (`habitants`, `USD`, `EUR`, `%`, `km²`, `TWh`…). `null` si inconnu. |
 | `referencePeriod`, `validFrom` | Période de la valeur (`2025`, `2025-Q4`) ; début de validité d'un fait (prise de fonctions). |
 | `geographicScope`, `methodology` | Périmètre et définition (obligatoires). |
@@ -191,7 +192,7 @@ Les liens entre éléments sont contrôlés : toute `sourceIds` mène à une sou
 - **Version du fichier** : `"schemaVersion": 1`, **obligatoire** et vérifiée à la lecture. Une version inconnue est **refusée** (jamais lue de travers).
 - **Évolutions additives** (version 1 conservée) : nouveau champ ou module **facultatif**, nouvelle valeur d'énumération qui n'invalide aucun fichier existant, nouvelle clé d'observation. Un fichier v1 déjà livré reste valide sans modification ; les fichiers générés (`approche.schema.v1.json`, dictionnaire, clés lues) sont régénérés et les tests les vérifient.
 - **Évolutions non additives** (champ renommé ou supprimé, type modifié, champ devenu obligatoire) : création d'un **schéma 2**. Le moteur lit alors les deux versions pendant la période de migration ; un script de migration, écrit à ce moment-là, convertit les fichiers, la validation signale les fichiers non migrés, et la version 1 n'est retirée qu'après migration de tous les pays publiés.
-- **Journal** : toute évolution du schéma est notée dans `docs/APPROCHE_SCHEMA_V1.md` (cette section) avec sa date. Historique : 29/10/2026 — v1 ; 30/10/2026 — ajouts facultatifs `uncertainty` (observation), `originalPublisher` (source), champs de licence des images, contrôle des références internes.
+- **Journal** : toute évolution du schéma est notée dans `docs/APPROCHE_SCHEMA_V1.md` (cette section) avec sa date. Historique : 29/10/2026 — v1 ; 30/10/2026 — ajouts facultatifs `uncertainty` (observation), `originalPublisher` (source), champs de licence des images, contrôle des références internes ; 02/11/2026 — ajout facultatif `theme` (observation) pour ranger une valeur dans les données complémentaires de son onglet, `label` désormais requis pour l'affichage d'une valeur sans tuile, volet « Autres sources » des tuiles, millésimes de l'électricité (`energy.electricity.<clé>_<AAAA>`), clés `energy.electricity.low_carbon` et `low_carbon_share`. Les fichiers v1 déjà livrés restent valides.
 
 ## 7. Données de démonstration
 

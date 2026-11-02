@@ -50,6 +50,11 @@ export const ObservationSchema = z.object({
   label: z.string().nullable().optional(),
   /** Regroupe plusieurs mesures d'un même sujet (ex. la population selon deux organismes). */
   topic: z.string().nullable().optional(),
+  /**
+   * Rubrique thématique où ranger la valeur dans les données complémentaires de son onglet (ex. `humanitaire`, `cyber`). Facultatif :
+   * à défaut, la rubrique se déduit du préfixe de la clé (lib/approche/complements.ts).
+   */
+  theme: z.string().nullable().optional(),
   value: z.union([z.number(), z.string(), z.boolean()]).nullable(),
   unit: z.string().nullable(),
   currency: z.string().nullable().optional(),

@@ -207,14 +207,21 @@
               "string",
               "null"
             ],
-            "description": "Libellé d'affichage quand la clé ne suffit pas (ex. nom d'une branche économique)."
+            "description": "Intitulé lisible par le lecteur (ex. « Cible 2030 : part des énergies non fossiles »). Obligatoire pour qu'une valeur sans tuile apparaisse dans les données complémentaires de son onglet ; sert aussi de nom de branche économique."
           },
           "topic": {
             "type": [
               "string",
               "null"
             ],
-            "description": "Regroupe plusieurs mesures d'un même sujet (autre organisme, autre période) : elles sont affichées côte à côte, jamais moyennées."
+            "description": "Regroupe plusieurs mesures d'un même sujet (autre organisme, autre période). Quand une tuile porte le même sujet, les autres mesures s'ouvrent dans son volet « Autres sources », avec organisme, période, périmètre, nature et méthode : jamais moyennées, jamais classées, et un écart en % n'est calculé que si période, périmètre et unité sont identiques."
+          },
+          "theme": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Rubrique des données complémentaires où ranger la valeur : appartenances, demographie, projections, conjoncture, energie, recherche, ports, investissement, defense, humanitaire, cyber, securite ; « none » pour ne pas l'afficher. Facultatif : à défaut, la rubrique se déduit du préfixe de la clé (institutions.*, demography.*, humanitarian.*…)."
           },
           "value": {
             "type": [
