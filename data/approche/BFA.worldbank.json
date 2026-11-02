@@ -1,0 +1,684 @@
+{
+  "countryCode": "BFA",
+  "fetchedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=BF",
+      "apiUrl": "https://api.worldbank.org/v2/country/BFA/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=BF",
+      "apiUrl": "https://api.worldbank.org/v2/country/BFA/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=BF",
+      "apiUrl": "https://api.worldbank.org/v2/country/BFA/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=BF",
+      "apiUrl": "https://api.worldbank.org/v2/country/BFA/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=BF",
+      "apiUrl": "https://api.worldbank.org/v2/country/BFA/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=BF",
+      "apiUrl": "https://api.worldbank.org/v2/country/BFA/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=BF",
+      "apiUrl": "https://api.worldbank.org/v2/country/BFA/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-GB.XPD.RSDV.GD.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Dépenses de recherche-développement (% du PIB)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS?locations=BF",
+      "apiUrl": "https://api.worldbank.org/v2/country/BFA/indicator/GB.XPD.RSDV.GD.ZS?format=json&per_page=18",
+      "datasetId": "GB.XPD.RSDV.GD.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "bfa-demography-population-2025",
+      "countryCode": "BFA",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 24074580,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Burkina Faso, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 18229461
+        },
+        {
+          "period": "2015",
+          "value": 18777487
+        },
+        {
+          "period": "2016",
+          "value": 19334856
+        },
+        {
+          "period": "2017",
+          "value": 19894407
+        },
+        {
+          "period": "2018",
+          "value": 20438288
+        },
+        {
+          "period": "2019",
+          "value": 20961952
+        },
+        {
+          "period": "2020",
+          "value": 21478690
+        },
+        {
+          "period": "2021",
+          "value": 21995243
+        },
+        {
+          "period": "2022",
+          "value": 22509038
+        },
+        {
+          "period": "2023",
+          "value": 23025776
+        },
+        {
+          "period": "2024",
+          "value": 23548781
+        },
+        {
+          "period": "2025",
+          "value": 24074580
+        }
+      ]
+    },
+    {
+      "id": "bfa-economy-gdp_nominal_usd-2025",
+      "countryCode": "BFA",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 27627297461.3181,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Burkina Faso, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 13943016076.7436
+        },
+        {
+          "period": "2015",
+          "value": 11832159315.6298
+        },
+        {
+          "period": "2016",
+          "value": 12833363045.3367
+        },
+        {
+          "period": "2017",
+          "value": 14106955615.3442
+        },
+        {
+          "period": "2018",
+          "value": 15890066221.2882
+        },
+        {
+          "period": "2019",
+          "value": 16032813503.3707
+        },
+        {
+          "period": "2020",
+          "value": 17725010532.5268
+        },
+        {
+          "period": "2021",
+          "value": 19697516284.3787
+        },
+        {
+          "period": "2022",
+          "value": 18622421394.6133
+        },
+        {
+          "period": "2023",
+          "value": 20106062971.6533
+        },
+        {
+          "period": "2024",
+          "value": 23136514855.7646
+        },
+        {
+          "period": "2025",
+          "value": 27627297461.3181
+        }
+      ]
+    },
+    {
+      "id": "bfa-economy-gdp_per_capita_usd-2025",
+      "countryCode": "BFA",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 1147.57131635601,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Burkina Faso, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 764.861675106225
+        },
+        {
+          "period": "2015",
+          "value": 630.124750752312
+        },
+        {
+          "period": "2016",
+          "value": 663.742364842886
+        },
+        {
+          "period": "2017",
+          "value": 709.091535894695
+        },
+        {
+          "period": "2018",
+          "value": 777.465618514048
+        },
+        {
+          "period": "2019",
+          "value": 764.853077774946
+        },
+        {
+          "period": "2020",
+          "value": 825.237038782475
+        },
+        {
+          "period": "2021",
+          "value": 895.535288442991
+        },
+        {
+          "period": "2022",
+          "value": 827.330843486661
+        },
+        {
+          "period": "2023",
+          "value": 873.198061670247
+        },
+        {
+          "period": "2024",
+          "value": 982.493100418428
+        },
+        {
+          "period": "2025",
+          "value": 1147.57131635601
+        }
+      ]
+    },
+    {
+      "id": "bfa-economy-gdp_growth-2025",
+      "countryCode": "BFA",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 5.29461839319283,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Burkina Faso, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 4.32684561452976
+        },
+        {
+          "period": "2015",
+          "value": 3.9212287937935
+        },
+        {
+          "period": "2016",
+          "value": 5.95797670754024
+        },
+        {
+          "period": "2017",
+          "value": 6.20348941121868
+        },
+        {
+          "period": "2018",
+          "value": 6.60456906812341
+        },
+        {
+          "period": "2019",
+          "value": 5.88920497068135
+        },
+        {
+          "period": "2020",
+          "value": 2.01077262406221
+        },
+        {
+          "period": "2021",
+          "value": 6.94252492572348
+        },
+        {
+          "period": "2022",
+          "value": 1.62673258211919
+        },
+        {
+          "period": "2023",
+          "value": 3.00027415814125
+        },
+        {
+          "period": "2024",
+          "value": 4.83395810163883
+        },
+        {
+          "period": "2025",
+          "value": 5.29461839319283
+        }
+      ]
+    },
+    {
+      "id": "bfa-economy-inflation_cpi-2025",
+      "countryCode": "BFA",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": -0.586235316330578,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Burkina Faso, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": -0.258089517535291
+        },
+        {
+          "period": "2015",
+          "value": 0.724838981070516
+        },
+        {
+          "period": "2016",
+          "value": 0.441041448058809
+        },
+        {
+          "period": "2017",
+          "value": 1.48299897161325
+        },
+        {
+          "period": "2018",
+          "value": 1.95594302672532
+        },
+        {
+          "period": "2019",
+          "value": -3.23338933983321
+        },
+        {
+          "period": "2020",
+          "value": 1.88470066518847
+        },
+        {
+          "period": "2021",
+          "value": 3.65326761825508
+        },
+        {
+          "period": "2022",
+          "value": 14.2902354303358
+        },
+        {
+          "period": "2023",
+          "value": 0.742910428668917
+        },
+        {
+          "period": "2024",
+          "value": 4.19081721344523
+        },
+        {
+          "period": "2025",
+          "value": -0.586235316330578
+        }
+      ]
+    },
+    {
+      "id": "bfa-labour-unemployment_ilo-2025",
+      "countryCode": "BFA",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 3.477,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Burkina Faso, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 4.255
+        },
+        {
+          "period": "2015",
+          "value": 4.472
+        },
+        {
+          "period": "2016",
+          "value": 4.598
+        },
+        {
+          "period": "2017",
+          "value": 4.662
+        },
+        {
+          "period": "2018",
+          "value": 4.695
+        },
+        {
+          "period": "2019",
+          "value": 4.493
+        },
+        {
+          "period": "2020",
+          "value": 4.59
+        },
+        {
+          "period": "2021",
+          "value": 4.511
+        },
+        {
+          "period": "2022",
+          "value": 3.828
+        },
+        {
+          "period": "2023",
+          "value": 3.601
+        },
+        {
+          "period": "2024",
+          "value": 3.441
+        },
+        {
+          "period": "2025",
+          "value": 3.477
+        }
+      ]
+    },
+    {
+      "id": "bfa-geography-surface_area-2024",
+      "countryCode": "BFA",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 274200,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Burkina Faso, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 274220
+        },
+        {
+          "period": "2014",
+          "value": 274220
+        },
+        {
+          "period": "2015",
+          "value": 274220
+        },
+        {
+          "period": "2016",
+          "value": 274220
+        },
+        {
+          "period": "2017",
+          "value": 274220
+        },
+        {
+          "period": "2018",
+          "value": 274220
+        },
+        {
+          "period": "2019",
+          "value": 274200
+        },
+        {
+          "period": "2020",
+          "value": 274200
+        },
+        {
+          "period": "2021",
+          "value": 274200
+        },
+        {
+          "period": "2022",
+          "value": 274200
+        },
+        {
+          "period": "2023",
+          "value": 274200
+        },
+        {
+          "period": "2024",
+          "value": 274200
+        }
+      ]
+    },
+    {
+      "id": "bfa-research-rd_gdp-2024",
+      "countryCode": "BFA",
+      "key": "research.rd_gdp",
+      "topic": "rd",
+      "value": 0.10477,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Burkina Faso, périmètre Banque mondiale",
+      "methodology": "Dépenses intérieures de recherche-développement, en pourcentage du PIB.",
+      "sourceIds": [
+        "S01-WB-GB.XPD.RSDV.GD.ZS"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2008",
+          "value": 0.16568
+        },
+        {
+          "period": "2009",
+          "value": 0.17787
+        },
+        {
+          "period": "2014",
+          "value": 0.19719
+        },
+        {
+          "period": "2017",
+          "value": 0.61361
+        },
+        {
+          "period": "2019",
+          "value": 0.17435
+        },
+        {
+          "period": "2020",
+          "value": 0.25116
+        },
+        {
+          "period": "2021",
+          "value": 0.25057
+        },
+        {
+          "period": "2023",
+          "value": 0.09845
+        },
+        {
+          "period": "2024",
+          "value": 0.10477
+        }
+      ]
+    }
+  ]
+}

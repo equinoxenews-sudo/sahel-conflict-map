@@ -1,4 +1,5 @@
 import { formatDate, formatUnit, formatValue } from "./formatters";
+import { isOtherSourceOf } from "./measures";
 import { isVisible, publishedObservations, publishedRelationships } from "./sourceRegistry";
 import type { CountryData, Observation, SourceRecord } from "./schema";
 
@@ -106,7 +107,7 @@ export function metricViews(data: CountryData): Map<string, MetricView> {
     const others = published
       // « Autres sources » : même sujet, mais lu dans une autre source. Deux mesures d'une même source (production et consommation d'un même
       // bilan, branches d'un même tableau) sont des notions distinctes, pas deux versions d'une même valeur.
-      .filter((other) => other.id !== observation.id && observation.topic && other.topic === observation.topic && !other.sourceIds.some((id) => observation.sourceIds.includes(id)))
+      .filter((other) => isOtherSourceOf(observation, other))
       .map((other): OtherMeasure => {
         const source = sources.get(other.sourceIds[0]);
         return {

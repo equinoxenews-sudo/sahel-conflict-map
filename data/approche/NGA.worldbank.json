@@ -1,0 +1,652 @@
+{
+  "countryCode": "NGA",
+  "fetchedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=NG",
+      "apiUrl": "https://api.worldbank.org/v2/country/NGA/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=NG",
+      "apiUrl": "https://api.worldbank.org/v2/country/NGA/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=NG",
+      "apiUrl": "https://api.worldbank.org/v2/country/NGA/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=NG",
+      "apiUrl": "https://api.worldbank.org/v2/country/NGA/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=NG",
+      "apiUrl": "https://api.worldbank.org/v2/country/NGA/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=NG",
+      "apiUrl": "https://api.worldbank.org/v2/country/NGA/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=NG",
+      "apiUrl": "https://api.worldbank.org/v2/country/NGA/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-GB.XPD.RSDV.GD.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Dépenses de recherche-développement (% du PIB)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS?locations=NG",
+      "apiUrl": "https://api.worldbank.org/v2/country/NGA/indicator/GB.XPD.RSDV.GD.ZS?format=json&per_page=18",
+      "datasetId": "GB.XPD.RSDV.GD.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "nga-demography-population-2025",
+      "countryCode": "NGA",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 237527782,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Nigeria, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 185896915
+        },
+        {
+          "period": "2015",
+          "value": 190671878
+        },
+        {
+          "period": "2016",
+          "value": 195443700
+        },
+        {
+          "period": "2017",
+          "value": 200254579
+        },
+        {
+          "period": "2018",
+          "value": 204938755
+        },
+        {
+          "period": "2019",
+          "value": 209485641
+        },
+        {
+          "period": "2020",
+          "value": 213996181
+        },
+        {
+          "period": "2021",
+          "value": 218529286
+        },
+        {
+          "period": "2022",
+          "value": 223150896
+        },
+        {
+          "period": "2023",
+          "value": 227882945
+        },
+        {
+          "period": "2024",
+          "value": 232679478
+        },
+        {
+          "period": "2025",
+          "value": 237527782
+        }
+      ]
+    },
+    {
+      "id": "nga-economy-gdp_nominal_usd-2025",
+      "countryCode": "NGA",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 290794361542.112,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Nigeria, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 574183763411.508
+        },
+        {
+          "period": "2015",
+          "value": 493026682800.63
+        },
+        {
+          "period": "2016",
+          "value": 404649125252.16
+        },
+        {
+          "period": "2017",
+          "value": 375745731053.427
+        },
+        {
+          "period": "2018",
+          "value": 421739251509.08
+        },
+        {
+          "period": "2019",
+          "value": 668219992686.575
+        },
+        {
+          "period": "2020",
+          "value": 598586817817.392
+        },
+        {
+          "period": "2021",
+          "value": 609147716965.348
+        },
+        {
+          "period": "2022",
+          "value": 646950257575.455
+        },
+        {
+          "period": "2023",
+          "value": 487387801877.803
+        },
+        {
+          "period": "2024",
+          "value": 252261880140.271
+        },
+        {
+          "period": "2025",
+          "value": 290794361542.112
+        }
+      ]
+    },
+    {
+      "id": "nga-economy-gdp_per_capita_usd-2025",
+      "countryCode": "NGA",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 1224.25410237743,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Nigeria, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 3088.72131316169
+        },
+        {
+          "period": "2015",
+          "value": 2585.73360671797
+        },
+        {
+          "period": "2016",
+          "value": 2070.4127339595
+        },
+        {
+          "period": "2017",
+          "value": 1876.34027111773
+        },
+        {
+          "period": "2018",
+          "value": 2057.87944554011
+        },
+        {
+          "period": "2019",
+          "value": 3189.81286496183
+        },
+        {
+          "period": "2020",
+          "value": 2797.184580679
+        },
+        {
+          "period": "2021",
+          "value": 2787.48779220991
+        },
+        {
+          "period": "2022",
+          "value": 2899.16047469267
+        },
+        {
+          "period": "2023",
+          "value": 2138.76383718757
+        },
+        {
+          "period": "2024",
+          "value": 1084.16041805058
+        },
+        {
+          "period": "2025",
+          "value": 1224.25410237743
+        }
+      ]
+    },
+    {
+      "id": "nga-economy-gdp_growth-2025",
+      "countryCode": "NGA",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 4.01336180700973,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Nigeria, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 6.30971865521856
+        },
+        {
+          "period": "2015",
+          "value": 2.65269329541779
+        },
+        {
+          "period": "2016",
+          "value": -1.61686894903467
+        },
+        {
+          "period": "2017",
+          "value": 0.805886619091581
+        },
+        {
+          "period": "2018",
+          "value": 1.92275734199798
+        },
+        {
+          "period": "2019",
+          "value": 2.20842927835211
+        },
+        {
+          "period": "2020",
+          "value": -6.36889840468527
+        },
+        {
+          "period": "2021",
+          "value": 1.109252540249
+        },
+        {
+          "period": "2022",
+          "value": 4.31882949157136
+        },
+        {
+          "period": "2023",
+          "value": 3.31590368111438
+        },
+        {
+          "period": "2024",
+          "value": 4.07106650147703
+        },
+        {
+          "period": "2025",
+          "value": 4.01336180700973
+        }
+      ]
+    },
+    {
+      "id": "nga-economy-inflation_cpi-2025",
+      "countryCode": "NGA",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 23.0101235833333,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Nigeria, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 8.04741087967907
+        },
+        {
+          "period": "2015",
+          "value": 9.00943498007706
+        },
+        {
+          "period": "2016",
+          "value": 15.6968126387972
+        },
+        {
+          "period": "2017",
+          "value": 16.5022662139641
+        },
+        {
+          "period": "2018",
+          "value": 12.0951065173431
+        },
+        {
+          "period": "2019",
+          "value": 11.3964223378114
+        },
+        {
+          "period": "2020",
+          "value": 13.2460234276598
+        },
+        {
+          "period": "2021",
+          "value": 16.9528457221607
+        },
+        {
+          "period": "2022",
+          "value": 18.8471877843274
+        },
+        {
+          "period": "2023",
+          "value": 24.6595502031139
+        },
+        {
+          "period": "2024",
+          "value": 33.2416590552748
+        },
+        {
+          "period": "2025",
+          "value": 23.0101235833333
+        }
+      ]
+    },
+    {
+      "id": "nga-labour-unemployment_ilo-2025",
+      "countryCode": "NGA",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 3.064,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Nigeria, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 3.9
+        },
+        {
+          "period": "2015",
+          "value": 4.134
+        },
+        {
+          "period": "2016",
+          "value": 4.499
+        },
+        {
+          "period": "2017",
+          "value": 4.83
+        },
+        {
+          "period": "2018",
+          "value": 5.069
+        },
+        {
+          "period": "2019",
+          "value": 5.206
+        },
+        {
+          "period": "2020",
+          "value": 5.714
+        },
+        {
+          "period": "2021",
+          "value": 5.404
+        },
+        {
+          "period": "2022",
+          "value": 3.827
+        },
+        {
+          "period": "2023",
+          "value": 3.074
+        },
+        {
+          "period": "2024",
+          "value": 3.045
+        },
+        {
+          "period": "2025",
+          "value": 3.064
+        }
+      ]
+    },
+    {
+      "id": "nga-geography-surface_area-2024",
+      "countryCode": "NGA",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 923768,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Nigeria, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 923770
+        },
+        {
+          "period": "2014",
+          "value": 923770
+        },
+        {
+          "period": "2015",
+          "value": 923770
+        },
+        {
+          "period": "2016",
+          "value": 923770
+        },
+        {
+          "period": "2017",
+          "value": 923770
+        },
+        {
+          "period": "2018",
+          "value": 923770
+        },
+        {
+          "period": "2019",
+          "value": 923770
+        },
+        {
+          "period": "2020",
+          "value": 923770
+        },
+        {
+          "period": "2021",
+          "value": 923770
+        },
+        {
+          "period": "2022",
+          "value": 923770
+        },
+        {
+          "period": "2023",
+          "value": 923770
+        },
+        {
+          "period": "2024",
+          "value": 923768
+        }
+      ]
+    },
+    {
+      "id": "nga-research-rd_gdp-2019",
+      "countryCode": "NGA",
+      "key": "research.rd_gdp",
+      "topic": "rd",
+      "value": 0.28444,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2019",
+      "geographicScope": "Nigeria, périmètre Banque mondiale",
+      "methodology": "Dépenses intérieures de recherche-développement, en pourcentage du PIB.",
+      "sourceIds": [
+        "S01-WB-GB.XPD.RSDV.GD.ZS"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2019",
+          "value": 0.28444
+        }
+      ]
+    }
+  ]
+}

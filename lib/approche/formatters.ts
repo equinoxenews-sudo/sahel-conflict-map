@@ -17,10 +17,10 @@ export function formatValue(observation: Observation): string {
   if (typeof value === "boolean") return value ? "Oui" : "Non";
   if (typeof value === "string") return value;
   if (unit === "personnes") {
-    // Effectif exact sous le million (« 195 020 »), arrondi au dixième de million au-delà (« 5,1 millions », complété par « de personnes »).
+    // Effectif exact sous le million (« 195 020 »), au centième de million au-delà (« 5,1 millions », « 2,01 millions », complété par « de personnes »).
     if (value < 1_000_000) return number(Math.round(value), 0);
-    const millions = Math.round((value / 1_000_000) * 10) / 10;
-    return `${number(millions, 1)} ${millions >= 2 ? "millions" : "million"}`;
+    const millions = Math.round((value / 1_000_000) * 100) / 100;
+    return `${number(millions, 2)} ${millions >= 2 ? "millions" : "million"}`;
   }
   if (unit === "habitants") {
     if (value >= 1_000_000) {

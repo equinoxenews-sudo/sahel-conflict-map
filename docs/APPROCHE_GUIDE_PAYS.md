@@ -66,3 +66,5 @@ Public : qui produit ou relit les fichiers pays (ChatGPT, éditeur) et qui les i
 - **Opérations militaires** : toujours datées ; une opération close porte `status: "Clôturée"`.
 - **Cartes** : un point est un fait public daté, jamais une « zone d'influence » ni une coordonnée sensible.
 - **Rendre le fichier sans toucher au code** : ChatGPT produit le JSON ; l'intégration est faite par le développeur.
+
+**Lots de pays** : la procédure d'import par lot (5 à 10 pays), le rapport par pays et les deux niveaux documentaires sont décrits dans `docs/APPROCHE_IMPORT_PAYS.md`.

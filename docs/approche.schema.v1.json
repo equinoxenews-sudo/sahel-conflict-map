@@ -45,6 +45,21 @@
       ],
       "description": "Cycle de vie : draft, review, published, archived. Seul « published » est affiché publiquement."
     },
+    "documentationLevel": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "essential",
+            "extended"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Niveau documentaire visé : essential (de quoi présenter le pays avec ses sources) ou extended (toutes les rubriques renseignées). Facultatif : le niveau atteint est calculé d'après le contenu et l'import signale tout écart. Les deux niveaux utilisent le même moteur."
+    },
     "lastCheckedAt": {
       "anyOf": [
         {
@@ -221,7 +236,7 @@
               "string",
               "null"
             ],
-            "description": "Rubrique des données complémentaires où ranger la valeur : appartenances, demographie, projections, conjoncture, energie, recherche, ports, investissement, defense, humanitaire, cyber, securite ; « none » pour ne pas l'afficher. Facultatif : à défaut, la rubrique se déduit du préfixe de la clé (institutions.*, demography.*, humanitarian.*…)."
+            "description": "Rubrique des données complémentaires où ranger la valeur : appartenances, demographie, politique, geographie, projections, conjoncture, energie, infrastructures, ressources, recherche, ports, investissement, defense, humanitaire, cyber, securite ; « none » pour ne pas l'afficher. Facultatif : à défaut, la rubrique se déduit du préfixe de la clé (institutions.*, demography.*, humanitarian.*…)."
           },
           "value": {
             "type": [

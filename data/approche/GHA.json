@@ -1,0 +1,1110 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "GHA",
+  "slug": "ghana",
+  "zoneSlug": "afrique",
+  "name": "Ghana",
+  "officialName": "République du Ghana",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-GHA-ECOWAS",
+      "publisher": "CEDEAO",
+      "title": "États membres en 2026",
+      "canonicalUrl": "https://www.ecowas.int/member_states/?lang=fr",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GHA-ECOWAS_CAP",
+      "publisher": "Fonds de paix de la CEDEAO",
+      "title": "Fiches États membres : capitales",
+      "canonicalUrl": "https://peacefund.ecowas.int/countries",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GHA-ECOWAS_HIST",
+      "publisher": "CEDEAO",
+      "title": "Création, histoire et retrait des États de l’AES",
+      "canonicalUrl": "https://www.ecowas.int/creationhistoire/?lang=fr",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GHA-BCEAO",
+      "publisher": "BCEAO",
+      "title": "Le franc CFA et les États de l’UEMOA",
+      "canonicalUrl": "https://www.bceao.int/fr/content/histoire-du-franc-cfa",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GHA-PRES",
+      "publisher": "Présidence du Ghana",
+      "title": "Présidence et équipe gouvernementale — Ghana",
+      "canonicalUrl": "https://presidency.gov.gh/",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GHA-MIN",
+      "publisher": "Ministère de l’Intérieur du Ghana",
+      "title": "Biographie officielle de John Dramani Mahama",
+      "canonicalUrl": "https://mint.gov.gh/the-ministry/leadership/john-dramani-mahama",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GHA-WB",
+      "publisher": "Banque mondiale",
+      "title": "Ghana — aperçu économique 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/ghana",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GHA-WB_UP",
+      "publisher": "Banque mondiale",
+      "title": "Ghana economic update — août 2026",
+      "canonicalUrl": "https://www.worldbank.org/en/news/press-release/2026/08/26/ghana-must-turn-strong-recovery-into-quality-jobs-and-lasting-growth",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GHA-IMF",
+      "publisher": "FMI",
+      "title": "Ghana — Article IV et revue du programme ECF 2026",
+      "canonicalUrl": "https://www.elibrary.imf.org/view/journals/002/2026/212/article-A001-en.xml",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GHA-AFDB",
+      "publisher": "Banque africaine de développement",
+      "title": "Ghana Country Focus Report 2026",
+      "canonicalUrl": "https://www.afdb.org/en/documents/country-focus-report-2026-ghana-mobilizing-ghanas-development-financing-scale-fragmented-world",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GHA-BOG",
+      "publisher": "Banque du Ghana",
+      "title": "Rapport de politique monétaire septembre 2026",
+      "canonicalUrl": "https://www.bog.gov.gh/wp-content/uploads/2026/10/Monetary-Policy-Report-September-2026.pdf",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GHA-GOLDBOD",
+      "publisher": "Ghana Gold Board",
+      "title": "Exportations aurifères 2025 selon la Banque du Ghana",
+      "canonicalUrl": "https://goldbod.gov.gh/news/ghana-records-us20bn-in-gold-export-earnings-in-2025-more-than-double-2024-level",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GHA-CURRENCY",
+      "publisher": "BCEAO",
+      "title": "Étude sur les monnaies de la CEDEAO",
+      "canonicalUrl": "https://cofeb.bceao.int/sites/default/files/2022-03/DER_2020_04%20Alignement%20des%20monnaies%20dans%20la%20CEDEAO.pdf",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    }
+  ],
+  "observations": [
+    {
+      "id": "gha-identity-capital",
+      "countryCode": "GHA",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "topic": "identity",
+      "value": "Accra",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Ghana",
+      "methodology": "Capitale selon le registre des États membres.",
+      "sourceIds": [
+        "S-GHA-ECOWAS_CAP"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gha-politics-head-of-state",
+      "countryCode": "GHA",
+      "key": "politics.head_of_state",
+      "label": "Président",
+      "topic": "politics",
+      "value": "John Dramani Mahama",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Ghana",
+      "methodology": "Présidence depuis janvier 2025.",
+      "sourceIds": [
+        "S-GHA-PRES"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gha-politics-vice-president",
+      "countryCode": "GHA",
+      "key": "politics.vice_president",
+      "label": "Vice-présidente",
+      "topic": "politics",
+      "value": "Naana Jane Opoku-Agyemang",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Ghana",
+      "methodology": "Vice-présidente selon la présidence du Ghana.",
+      "sourceIds": [
+        "S-GHA-PRES"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gha-politics-regime",
+      "countryCode": "GHA",
+      "key": "politics.regime",
+      "label": "Système politique",
+      "topic": "politics",
+      "value": "République présidentielle multipartite",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Ghana",
+      "methodology": "Président élu et gouvernement présidentiel.",
+      "sourceIds": [
+        "S-GHA-PRES"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gha-identity-currency",
+      "countryCode": "GHA",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "topic": "identity",
+      "value": "Cedi ghanéen (GHS)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Ghana",
+      "methodology": "Monnaie nationale distincte du franc CFA.",
+      "sourceIds": [
+        "S-GHA-CURRENCY"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gha-institutions-ecowas",
+      "countryCode": "GHA",
+      "key": "institutions.ecowas",
+      "label": "Membre de la CEDEAO",
+      "topic": "institutions",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Ghana",
+      "methodology": "Membre de la CEDEAO en 2026.",
+      "sourceIds": [
+        "S-GHA-ECOWAS"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gha-economy-gdp-growth-2025-wb-report",
+      "countryCode": "GHA",
+      "key": "economy.gdp_growth_2025_wb_report",
+      "label": "Croissance réelle du PIB 2025 — Banque mondiale",
+      "topic": "economy",
+      "value": 6.0,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Ghana",
+      "methodology": "Revue Banque mondiale d’août 2026, distincte de séries révisables et du chiffre BAD 5,8 %.",
+      "sourceIds": [
+        "S-GHA-WB_UP"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gha-economy-gdp-growth-projection-2026-wb",
+      "countryCode": "GHA",
+      "key": "economy.gdp_growth_projection_2026_wb",
+      "label": "Projection de croissance 2026 — Banque mondiale",
+      "topic": "economy",
+      "value": 4.8,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Ghana",
+      "methodology": "Prévision, pas réalisé.",
+      "sourceIds": [
+        "S-GHA-WB_UP"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gha-economy-gdp-growth-projection-2026-imf",
+      "countryCode": "GHA",
+      "key": "economy.gdp_growth_projection_2026_imf",
+      "label": "Projection de croissance 2026 — FMI",
+      "topic": "economy",
+      "value": 4.8,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Ghana",
+      "methodology": "Prévision FMI de 2026.",
+      "sourceIds": [
+        "S-GHA-IMF"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gha-economy-inflation-aug-2026-wb",
+      "countryCode": "GHA",
+      "key": "economy.inflation_aug_2026_wb",
+      "label": "Inflation annuelle août 2026",
+      "topic": "economy",
+      "value": 5.0,
+      "unit": "%",
+      "referencePeriod": "2026-08",
+      "geographicScope": "Ghana",
+      "methodology": "Mesure pour août 2026 ; ne pas traiter comme une moyenne annuelle.",
+      "sourceIds": [
+        "S-GHA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gha-economy-public-debt-2025-wb",
+      "countryCode": "GHA",
+      "key": "economy.public_debt_2025_wb",
+      "label": "Dette publique fin 2025 — Banque mondiale",
+      "topic": "economy",
+      "value": 49.0,
+      "unit": "% PIB",
+      "referencePeriod": "2025-12",
+      "geographicScope": "Ghana",
+      "methodology": "Estimation publiée par Banque mondiale ; différences possibles avec BAD (45,3 %) en fonction périmètre.",
+      "sourceIds": [
+        "S-GHA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gha-economy-primary-balance-2025-wb",
+      "countryCode": "GHA",
+      "key": "economy.primary_balance_2025_wb",
+      "label": "Solde primaire 2025",
+      "topic": "economy",
+      "value": 2.1,
+      "unit": "% PIB",
+      "referencePeriod": "2025",
+      "geographicScope": "Ghana",
+      "methodology": "Excédent primaire ; ne pas confondre avec solde global.",
+      "sourceIds": [
+        "S-GHA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gha-economy-gold-exports-2025-usd",
+      "countryCode": "GHA",
+      "key": "economy.gold_exports_2025_usd",
+      "label": "Recettes d’exportation d’or 2025",
+      "topic": "economy",
+      "value": 20.0,
+      "unit": "milliards USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Ghana",
+      "methodology": "Environ 20 milliards USD selon GoldBod reprenant Banque du Ghana.",
+      "sourceIds": [
+        "S-GHA-GOLDBOD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gha-economy-total-exports-2025-usd",
+      "countryCode": "GHA",
+      "key": "economy.total_exports_2025_usd",
+      "label": "Recettes totales d’exportation de biens 2025",
+      "topic": "economy",
+      "value": 31.1,
+      "unit": "milliards USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Ghana",
+      "methodology": "Données Banque du Ghana citées par GoldBod.",
+      "sourceIds": [
+        "S-GHA-GOLDBOD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gha-economy-reserves-cover-2026h1",
+      "countryCode": "GHA",
+      "key": "economy.reserves_cover_2026h1",
+      "label": "Réserves internationales — mois d’importation",
+      "topic": "economy",
+      "value": 5.0,
+      "unit": "mois",
+      "referencePeriod": "2026-S1",
+      "geographicScope": "Ghana",
+      "methodology": "Couverture approximative des importations selon la page pays.",
+      "sourceIds": [
+        "S-GHA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "gha-claim-1",
+      "countryCode": "GHA",
+      "statement": "John Dramani Mahama occupe la présidence du Ghana depuis le 7 janvier 2025.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GHA-MIN"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gha-claim-2",
+      "countryCode": "GHA",
+      "statement": "La Banque mondiale estime la croissance réelle du Ghana à 6,0 % en 2025, après une grave crise macroéconomique.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GHA-WB_UP"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gha-claim-3",
+      "countryCode": "GHA",
+      "statement": "La désinflation et la restructuration de dette ont soutenu la reprise, mais l’emploi productif et la soutenabilité restent des enjeux.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-GHA-WB",
+        "S-GHA-IMF"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gha-claim-4",
+      "countryCode": "GHA",
+      "statement": "L’or, le cacao et le pétrole figurent parmi les grandes sources de recettes d’exportation du Ghana.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GHA-BOG"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gha-claim-5",
+      "countryCode": "GHA",
+      "statement": "Le rétablissement macroéconomique doit encore se traduire par une création d’emplois de qualité et un meilleur accès aux services.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-GHA-WB_UP"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "gha-rel-nga-1",
+      "countryCode": "GHA",
+      "targetCode": "NGA",
+      "targetIso2": "NG",
+      "targetName": "Nigéria",
+      "relationType": "cooperation",
+      "title": "Intégration CEDEAO",
+      "topics": [],
+      "summary": "Le Ghana et le Nigéria participent à la CEDEAO et à ses mécanismes d’intégration ; aucune intensité bilatérale n’est quantifiée ici.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GHA-ECOWAS"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "gha-rel-ben-2",
+      "countryCode": "GHA",
+      "targetCode": "BEN",
+      "targetIso2": "BJ",
+      "targetName": "Bénin",
+      "relationType": "cooperation",
+      "title": "Coopération économique ouest-africaine",
+      "topics": [],
+      "summary": "Appartenances communes à la CEDEAO et objectifs d’intégration commerciale.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GHA-ECOWAS"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "gha-rel-bfa-3",
+      "countryCode": "GHA",
+      "targetCode": "BFA",
+      "targetIso2": "BF",
+      "targetName": "Burkina Faso",
+      "relationType": "cooperation",
+      "title": "Voisinage commercial et statut CEDEAO différencié",
+      "topics": [],
+      "summary": "Le Ghana demeure membre de la CEDEAO tandis que le Burkina Faso en est sorti en janvier 2025 ; les mécanismes transitoires restent en place.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GHA-ECOWAS_HIST"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "gha-strength-1",
+          "title": "Exportations minières",
+          "summary": "L’or occupe une place prépondérante dans les exportations de 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-GOLDBOD"
+          ]
+        },
+        {
+          "id": "gha-strength-2",
+          "title": "Restauration macroéconomique",
+          "summary": "La baisse de l’inflation et le redressement de la position extérieure renforcent les marges d’action.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-WB",
+            "S-GHA-IMF"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "gha-challenge-1",
+          "title": "Dette et besoin de financement",
+          "summary": "La restructuration n’efface pas les risques de refinancement et de maintien de la discipline budgétaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-IMF"
+          ]
+        },
+        {
+          "id": "gha-challenge-2",
+          "title": "Création d’emplois",
+          "summary": "La croissance ne génère pas encore assez d’emplois productifs pour les jeunes actifs.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-WB_UP"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "gha-timeline-1",
+          "title": "Investiture de John Mahama",
+          "summary": "Nouveau mandat présidentiel depuis le 7 janvier 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-MIN"
+          ],
+          "date": "2025-01-07"
+        },
+        {
+          "id": "gha-timeline-2",
+          "title": "Restructuration de dette et programme FMI",
+          "summary": "Poursuite du programme de redressement macroéconomique et des restructurations.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-IMF"
+          ],
+          "date": "2023-2026"
+        },
+        {
+          "id": "gha-timeline-3",
+          "title": "Rapport Banque mondiale 2026",
+          "summary": "Constat d’une reprise macroéconomique et de défis persistants pour l’emploi.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-WB_UP"
+          ],
+          "date": "2026-08"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "gha-sector-1",
+          "title": "Or et industrie minière",
+          "summary": "L’or constitue la première source de recettes d’exportation de biens en 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-GOLDBOD"
+          ]
+        },
+        {
+          "id": "gha-sector-2",
+          "title": "Cacao",
+          "summary": "Produit d’exportation agricole clé, exposé aux fluctuations de prix et à la production.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-BOG"
+          ]
+        },
+        {
+          "id": "gha-sector-3",
+          "title": "Pétrole et gaz",
+          "summary": "Composante exportatrice et énergétique ; exposition aux marchés mondiaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-BOG"
+          ]
+        },
+        {
+          "id": "gha-sector-4",
+          "title": "Services",
+          "summary": "La reprise de 2025–2026 repose notamment sur l’activité tertiaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-WB"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "gha-resource-1",
+          "title": "Or",
+          "summary": "Ressource majeure des exportations : recettes d’environ 20 milliards USD en 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-GOLDBOD"
+          ]
+        },
+        {
+          "id": "gha-resource-2",
+          "title": "Cacao",
+          "summary": "Culture d’exportation centrale, soumise aux variations des cours.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-BOG"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "gha-sec-1",
+          "title": "Coopération régionale",
+          "summary": "Le Ghana participe aux dispositifs institutionnels de la CEDEAO ; aucun budget ni effectif militaire n’est renseigné faute de source vérifiée dans ce lot.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-ECOWAS"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "gha-issue-1",
+          "title": "Soutenabilité de la reprise",
+          "summary": "Maintien de la discipline budgétaire et gestion de la dette après le programme de stabilisation.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-IMF",
+            "S-GHA-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Économie"
+          ],
+          "situation": "Maintien de la discipline budgétaire et gestion de la dette après le programme de stabilisation.",
+          "whyStrategic": "La question « soutenabilité de la reprise » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "gha-issue-2",
+          "title": "Or, cacao et pétrole",
+          "summary": "La concentration de recettes sur les matières premières rend la position extérieure sensible aux cours mondiaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-BOG"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Commerce"
+          ],
+          "situation": "La concentration de recettes sur les matières premières rend la position extérieure sensible aux cours mondiaux.",
+          "whyStrategic": "La question « or, cacao et pétrole » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "gha-issue-3",
+          "title": "Emploi et transformation productive",
+          "summary": "Créer davantage d’emplois productifs au-delà des gains macroéconomiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-WB_UP"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Emploi"
+          ],
+          "situation": "Créer davantage d’emplois productifs au-delà des gains macroéconomiques.",
+          "whyStrategic": "La question « emploi et transformation productive » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "gha-issue-4",
+          "title": "Énergie et finances publiques",
+          "summary": "Pressions potentielles du secteur énergétique sur les budgets et les réformes.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-IMF"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Énergie"
+          ],
+          "situation": "Pressions potentielles du secteur énergétique sur les budgets et les réformes.",
+          "whyStrategic": "La question « énergie et finances publiques » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "gha-opp-1",
+          "title": "Valorisation locale",
+          "summary": "La mobilisation de l’investissement peut soutenir une diversification au-delà des exportations brutes.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-WB_UP"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "gha-risk-1",
+          "title": "Prix des matières premières",
+          "summary": "La variabilité des cours de l’or, du cacao et du pétrole peut affecter exportations et recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-BOG"
+          ]
+        },
+        {
+          "id": "gha-risk-2",
+          "title": "Durabilité budgétaire",
+          "summary": "Un ralentissement de la consolidation pourrait fragiliser le rétablissement.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-IMF"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "domains": [
+        {
+          "id": "gha-vuln-1",
+          "title": "Dette et besoin de financement",
+          "summary": "La restructuration n’efface pas les risques de refinancement et de maintien de la discipline budgétaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-IMF"
+          ]
+        },
+        {
+          "id": "gha-vuln-2",
+          "title": "Création d’emplois",
+          "summary": "La croissance ne génère pas encore assez d’emplois productifs pour les jeunes actifs.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-WB_UP"
+          ]
+        },
+        {
+          "id": "gha-vuln-3",
+          "title": "Prix des matières premières",
+          "summary": "La variabilité des cours de l’or, du cacao et du pétrole peut affecter exportations et recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-BOG"
+          ]
+        },
+        {
+          "id": "gha-vuln-4",
+          "title": "Durabilité budgétaire",
+          "summary": "Un ralentissement de la consolidation pourrait fragiliser le rétablissement.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-IMF"
+          ]
+        }
+      ],
+      "swot": {
+        "strengths": [
+          {
+            "id": "gha-sw-s-1",
+            "title": "Exportations minières",
+            "summary": "L’or occupe une place prépondérante dans les exportations de 2025.",
+            "tags": [],
+            "sourceIds": [
+              "S-GHA-GOLDBOD"
+            ]
+          },
+          {
+            "id": "gha-sw-s-2",
+            "title": "Restauration macroéconomique",
+            "summary": "La baisse de l’inflation et le redressement de la position extérieure renforcent les marges d’action.",
+            "tags": [],
+            "sourceIds": [
+              "S-GHA-WB",
+              "S-GHA-IMF"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "gha-sw-w-1",
+            "title": "Dette et besoin de financement",
+            "summary": "La restructuration n’efface pas les risques de refinancement et de maintien de la discipline budgétaire.",
+            "tags": [],
+            "sourceIds": [
+              "S-GHA-IMF"
+            ]
+          },
+          {
+            "id": "gha-sw-w-2",
+            "title": "Création d’emplois",
+            "summary": "La croissance ne génère pas encore assez d’emplois productifs pour les jeunes actifs.",
+            "tags": [],
+            "sourceIds": [
+              "S-GHA-WB_UP"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "gha-sw-o-1",
+            "title": "Valorisation locale",
+            "summary": "La mobilisation de l’investissement peut soutenir une diversification au-delà des exportations brutes.",
+            "tags": [],
+            "sourceIds": [
+              "S-GHA-WB_UP"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "gha-sw-t-1",
+            "title": "Prix des matières premières",
+            "summary": "La variabilité des cours de l’or, du cacao et du pétrole peut affecter exportations et recettes.",
+            "tags": [],
+            "sourceIds": [
+              "S-GHA-BOG"
+            ]
+          },
+          {
+            "id": "gha-sw-t-2",
+            "title": "Durabilité budgétaire",
+            "summary": "Un ralentissement de la consolidation pourrait fragiliser le rétablissement.",
+            "tags": [],
+            "sourceIds": [
+              "S-GHA-IMF"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "gha-sc-1",
+          "title": "Consolidation graduelle",
+          "summary": "Scénario conditionnel : amélioration progressive des conditions économiques et institutionnelles si les réformes et la sécurité avancent.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-GOLDBOD",
+            "S-GHA-WB",
+            "S-GHA-IMF",
+            "S-GHA-WB_UP"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Stabilité des principales institutions et financements",
+            "Progrès mesurables dans la mise en œuvre des politiques"
+          ],
+          "triggers": [
+            "Amélioration documentée des indicateurs de services et d’investissement"
+          ],
+          "weakSignals": [
+            "Diminution durable des perturbations économiques ou sécuritaires"
+          ],
+          "consequences": [
+            "Capacité accrue de financement et de prestation de services"
+          ],
+          "limits": [
+            "Scénario illustratif sans probabilité et sans projection chiffrée"
+          ]
+        },
+        {
+          "id": "gha-sc-2",
+          "title": "Continuité sous contraintes",
+          "summary": "Scénario conditionnel : les tendances dominantes se prolongent, avec des tensions sur les revenus, l’emploi et la gouvernance.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-IMF",
+            "S-GHA-WB_UP"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Persistance des difficultés structurelles",
+            "Absence de rupture institutionnelle majeure"
+          ],
+          "triggers": [
+            "Indicateurs stagnants sur plusieurs publications"
+          ],
+          "weakSignals": [
+            "Difficultés persistantes d’accès aux services et aux financements"
+          ],
+          "consequences": [
+            "Progrès inégaux entre territoires et secteurs"
+          ],
+          "limits": [
+            "Ne préjuge pas de l’évolution effective du pays"
+          ]
+        },
+        {
+          "id": "gha-sc-3",
+          "title": "Dégradation par chocs",
+          "summary": "Scénario conditionnel : combinaison de facteurs de risque économiques, climatiques ou sécuritaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-BOG",
+            "S-GHA-IMF"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Réalisation d’au moins un choc externe ou intérieur important"
+          ],
+          "triggers": [
+            "Détérioration simultanée de plusieurs indicateurs suivis"
+          ],
+          "weakSignals": [
+            "Tensions persistantes sur chaînes d’approvisionnement, populations ou recettes"
+          ],
+          "consequences": [
+            "Pression sur les finances publiques et les moyens d’existence"
+          ],
+          "limits": [
+            "Hypothèse de stress, sans probabilité calculée"
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "gha-watch-1",
+          "title": "Prix des matières premières",
+          "summary": "La variabilité des cours de l’or, du cacao et du pétrole peut affecter exportations et recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-BOG"
+          ]
+        },
+        {
+          "id": "gha-watch-2",
+          "title": "Durabilité budgétaire",
+          "summary": "Un ralentissement de la consolidation pourrait fragiliser le rétablissement.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-IMF"
+          ]
+        },
+        {
+          "id": "gha-watch-3",
+          "title": "Valorisation locale",
+          "summary": "La mobilisation de l’investissement peut soutenir une diversification au-delà des exportations brutes.",
+          "tags": [],
+          "sourceIds": [
+            "S-GHA-WB_UP"
+          ]
+        }
+      ]
+    }
+  }
+}

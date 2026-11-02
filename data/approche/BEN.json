@@ -1,0 +1,1132 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "BEN",
+  "slug": "benin",
+  "zoneSlug": "afrique",
+  "name": "Bénin",
+  "officialName": "République du Bénin",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-BEN-ECOWAS",
+      "publisher": "CEDEAO",
+      "title": "États membres en 2026",
+      "canonicalUrl": "https://www.ecowas.int/member_states/?lang=fr",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BEN-ECOWAS_CAP",
+      "publisher": "Fonds de paix de la CEDEAO",
+      "title": "Fiches États membres : capitales",
+      "canonicalUrl": "https://peacefund.ecowas.int/countries",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BEN-ECOWAS_HIST",
+      "publisher": "CEDEAO",
+      "title": "Création, histoire et retrait des États de l’AES",
+      "canonicalUrl": "https://www.ecowas.int/creationhistoire/?lang=fr",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BEN-BCEAO",
+      "publisher": "BCEAO",
+      "title": "Le franc CFA et les États de l’UEMOA",
+      "canonicalUrl": "https://www.bceao.int/fr/content/histoire-du-franc-cfa",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BEN-PRES",
+      "publisher": "Présidence de la République du Bénin",
+      "title": "Présidence : Romuald Wadagni",
+      "canonicalUrl": "https://presidence.bj/",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BEN-COUR",
+      "publisher": "Cour constitutionnelle du Bénin",
+      "title": "Investiture du président le 24 mai 2026",
+      "canonicalUrl": "https://courconstitutionnelle.bj/fr/actualities-view/au-palais-des-congres-la-cour-constitutionnelle-consacre-linvestiture-du-president-romuald-wadagni",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BEN-WB",
+      "publisher": "Banque mondiale",
+      "title": "Bénin — aperçu économique et institutionnel 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/benin",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BEN-AFDB",
+      "publisher": "Banque africaine de développement",
+      "title": "Country Report 2026 — Benin",
+      "canonicalUrl": "https://www.afdb.org/en/news-and-events/2026-country-report-benin-has-strong-assets-attract-more-investment-says-african-development-bank-group-report-97059",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BEN-FEWS",
+      "publisher": "FEWS NET",
+      "title": "Benin Context Report — juin 2026",
+      "canonicalUrl": "https://fews.net/west-africa/benin/special-report/june-2026",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BEN-COSO",
+      "publisher": "Banque mondiale",
+      "title": "Renforcement du projet de cohésion sociale des régions nord du golfe de Guinée",
+      "canonicalUrl": "https://www.worldbank.org/en/news/press-release/2026/06/25/world-bank-scales-up-support-to-boost-jobs-and-resilience-in-northern-gulf-of-guinea",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BEN-CPF",
+      "publisher": "Banque mondiale",
+      "title": "Cadre de partenariat Bénin 2027–2036",
+      "canonicalUrl": "https://documents.worldbank.org/en/publication/documents-reports/documentdetail/099052226122216856",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BEN-WB_DATA",
+      "publisher": "Banque mondiale",
+      "title": "Bénin — indicateurs macroéconomiques et sociaux",
+      "canonicalUrl": "https://data.worldbank.org/country/BJ",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    }
+  ],
+  "observations": [
+    {
+      "id": "ben-identity-capital",
+      "countryCode": "BEN",
+      "key": "identity.capital",
+      "label": "Capitale constitutionnelle",
+      "topic": "identity",
+      "value": "Porto-Novo",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Bénin",
+      "methodology": "Capitale selon le registre CEDEAO ; Cotonou est le siège du gouvernement.",
+      "sourceIds": [
+        "S-BEN-ECOWAS_CAP"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ben-politics-head-of-state",
+      "countryCode": "BEN",
+      "key": "politics.head_of_state",
+      "label": "Président de la République",
+      "topic": "politics",
+      "value": "Romuald Wadagni",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Bénin",
+      "methodology": "Investiture du 24 mai 2026.",
+      "sourceIds": [
+        "S-BEN-COUR"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ben-politics-regime",
+      "countryCode": "BEN",
+      "key": "politics.regime",
+      "label": "Régime institutionnel",
+      "topic": "politics",
+      "value": "République à régime présidentiel",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Bénin",
+      "methodology": "Le président est chef de l’État et du gouvernement.",
+      "sourceIds": [
+        "S-BEN-PRES"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ben-identity-currency",
+      "countryCode": "BEN",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "topic": "identity",
+      "value": "Franc CFA (XOF)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Bénin",
+      "methodology": "Monnaie de l’UEMOA émise par la BCEAO.",
+      "sourceIds": [
+        "S-BEN-BCEAO"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ben-institutions-ecowas",
+      "countryCode": "BEN",
+      "key": "institutions.ecowas",
+      "label": "Appartenance CEDEAO",
+      "topic": "institutions",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Bénin",
+      "methodology": "État membre au 2 novembre 2026.",
+      "sourceIds": [
+        "S-BEN-ECOWAS"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ben-institutions-waemu",
+      "countryCode": "BEN",
+      "key": "institutions.waemu",
+      "label": "Appartenance UEMOA",
+      "topic": "institutions",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Bénin",
+      "methodology": "État membre de l’UEMOA.",
+      "sourceIds": [
+        "S-BEN-BCEAO"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ben-economy-growth-2025-afdb",
+      "countryCode": "BEN",
+      "key": "economy.growth_2025_afdb",
+      "label": "Croissance réelle du PIB 2025 — BAD",
+      "topic": "economy",
+      "value": 8.1,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Bénin",
+      "methodology": "Estimation de la Banque africaine de développement ; ne pas dupliquer la série WB.",
+      "sourceIds": [
+        "S-BEN-AFDB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "ben-economy-growth-projection-2026-afdb",
+      "countryCode": "BEN",
+      "key": "economy.growth_projection_2026_afdb",
+      "label": "Croissance projetée du PIB en 2026 — BAD",
+      "topic": "economy",
+      "value": 7.0,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Bénin",
+      "methodology": "Projection, non résultat observé.",
+      "sourceIds": [
+        "S-BEN-AFDB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ben-economy-growth-projection-2027-afdb",
+      "countryCode": "BEN",
+      "key": "economy.growth_projection_2027_afdb",
+      "label": "Croissance projetée du PIB en 2027 — BAD",
+      "topic": "economy",
+      "value": 7.1,
+      "unit": "%",
+      "referencePeriod": "2027",
+      "geographicScope": "Bénin",
+      "methodology": "Projection, non résultat observé.",
+      "sourceIds": [
+        "S-BEN-AFDB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ben-economy-inflation-2025-afdb",
+      "countryCode": "BEN",
+      "key": "economy.inflation_2025_afdb",
+      "label": "Inflation 2025 — BAD",
+      "topic": "economy",
+      "value": 1.1,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Bénin",
+      "methodology": "Évolution des prix à la consommation selon le rapport BAD.",
+      "sourceIds": [
+        "S-BEN-AFDB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "ben-economy-fiscal-deficit-2025-afdb",
+      "countryCode": "BEN",
+      "key": "economy.fiscal_deficit_2025_afdb",
+      "label": "Déficit public 2025 — BAD",
+      "topic": "economy",
+      "value": 2.8,
+      "unit": "% PIB",
+      "referencePeriod": "2025",
+      "geographicScope": "Bénin",
+      "methodology": "Solde déficitaire rapporté au PIB ; ne pas traiter comme une dette.",
+      "sourceIds": [
+        "S-BEN-AFDB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "ben-demography-population-2024-wb-country",
+      "countryCode": "BEN",
+      "key": "demography.population_2024_wb_country",
+      "label": "Population 2024 — aperçu Banque mondiale",
+      "topic": "demography",
+      "value": 14500000,
+      "unit": "personnes",
+      "referencePeriod": "2024",
+      "geographicScope": "Bénin",
+      "methodology": "Valeur arrondie sur page pays ; série automatique à privilégier pour la tuile.",
+      "sourceIds": [
+        "S-BEN-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "ben-economy-national-poverty-2021-2022-wb",
+      "countryCode": "BEN",
+      "key": "economy.national_poverty_2021_2022_wb",
+      "label": "Pauvreté au seuil national, enquête 2021–2022",
+      "topic": "economy",
+      "value": 36.2,
+      "unit": "%",
+      "referencePeriod": "2021-2022",
+      "geographicScope": "Bénin",
+      "methodology": "Estimation Banque mondiale ; ancienne enquête, ne pas présenter comme situation 2026.",
+      "sourceIds": [
+        "S-BEN-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "ben-security-northern-departments",
+      "countryCode": "BEN",
+      "key": "security.northern_departments",
+      "label": "Départements septentrionaux concernés par l’insécurité",
+      "topic": "security",
+      "value": "Alibori et Atacora",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Bénin",
+      "methodology": "Zones de préoccupation FEWS NET, sans géolocalisation précise ni carte d’incidents.",
+      "sourceIds": [
+        "S-BEN-FEWS"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ben-economy-infrastructure-corridors",
+      "countryCode": "BEN",
+      "key": "economy.infrastructure_corridors",
+      "label": "Corridors stratégiques",
+      "topic": "economy",
+      "value": "Abidjan–Lagos ; Cotonou–Niamey",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Bénin",
+      "methodology": "Couloirs commerciaux, ne pas inférer le trafic exact.",
+      "sourceIds": [
+        "S-BEN-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ben-economy-cpf-horizon",
+      "countryCode": "BEN",
+      "key": "economy.cpf_horizon",
+      "label": "Horizon du cadre de partenariat Banque mondiale",
+      "topic": "economy",
+      "value": "2027–2036",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Bénin",
+      "methodology": "Cadre approuvé en juin 2026.",
+      "sourceIds": [
+        "S-BEN-CPF"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "ben-claim-1",
+      "countryCode": "BEN",
+      "statement": "La présidence de Romuald Wadagni débute le 24 mai 2026 après son investiture.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-BEN-COUR"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "ben-claim-2",
+      "countryCode": "BEN",
+      "statement": "Le Bénin occupe une position de transit entre le golfe de Guinée et le Sahel, notamment par les corridors Abidjan–Lagos et Cotonou–Niamey.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-BEN-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "ben-claim-3",
+      "countryCode": "BEN",
+      "statement": "Le nord du Bénin, en particulier Alibori et Atacora, est affecté par l’extension de l’insécurité régionale selon FEWS NET.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-BEN-FEWS"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "ben-claim-4",
+      "countryCode": "BEN",
+      "statement": "La BAD estime la croissance béninoise à 8,1 % en 2025 et projette 7,0 % en 2026 : la seconde valeur n’est pas une réalisation.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-BEN-AFDB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "ben-claim-5",
+      "countryCode": "BEN",
+      "statement": "Le cadre de partenariat Banque mondiale 2027–2036 met l’accent sur l’emploi, les infrastructures et la transformation tirée par le privé.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-BEN-CPF"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "ben-rel-nga-1",
+      "countryCode": "BEN",
+      "targetCode": "NGA",
+      "targetIso2": "NG",
+      "targetName": "Nigéria",
+      "relationType": "cooperation",
+      "title": "Corridor commercial et voisinage",
+      "topics": [],
+      "summary": "Les échanges avec le Nigéria sont structurants pour les activités de transport et de transit du Bénin.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-BEN-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "ben-rel-ner-2",
+      "countryCode": "BEN",
+      "targetCode": "NER",
+      "targetIso2": "NE",
+      "targetName": "Niger",
+      "relationType": "cooperation",
+      "title": "Corridor Cotonou–Niamey",
+      "topics": [],
+      "summary": "Le corridor relie le port de Cotonou au Niger ; les échanges peuvent être perturbés par le contexte politique et frontalier.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-BEN-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "ben-rel-tgo-3",
+      "countryCode": "BEN",
+      "targetCode": "TGO",
+      "targetIso2": "TG",
+      "targetName": "Togo",
+      "relationType": "cooperation",
+      "title": "Intégration commerciale régionale",
+      "topics": [],
+      "summary": "Bénin et Togo appartiennent à la CEDEAO et à l’UEMOA ; cette relation décrit une coopération institutionnelle, pas un traité bilatéral spécifique.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-BEN-ECOWAS",
+        "S-BEN-BCEAO"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "ben-rel-bfa-4",
+      "countryCode": "BEN",
+      "targetCode": "BFA",
+      "targetIso2": "BF",
+      "targetName": "Burkina Faso",
+      "relationType": "cooperation",
+      "title": "Vulnérabilités frontalières communes",
+      "topics": [],
+      "summary": "Voisinage frontalier marqué par la propagation de l’insécurité ; la coopération bilatérale précise reste à documenter.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-BEN-FEWS"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "ben-strength-1",
+          "title": "Façade maritime et transit régional",
+          "summary": "Les corridors Cotonou–Niamey et Abidjan–Lagos soutiennent une fonction de plateforme logistique.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-WB"
+          ]
+        },
+        {
+          "id": "ben-strength-2",
+          "title": "Dynamique de croissance",
+          "summary": "La BAD estime la croissance 2025 à 8,1 %, notamment portée par le commerce et l’industrie.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-AFDB"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "ben-challenge-1",
+          "title": "Insécurité au nord",
+          "summary": "FEWS NET signale des atteintes aux moyens d’existence et des déplacements dans l’Alibori et l’Atacora.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-FEWS"
+          ]
+        },
+        {
+          "id": "ben-challenge-2",
+          "title": "Transformation sociale inégale",
+          "summary": "La Banque mondiale relève la persistance de la pauvreté rurale et de l’informalité.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-WB",
+            "S-BEN-CPF"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "ben-timeline-1",
+          "title": "Élection présidentielle",
+          "summary": "Élection de Romuald Wadagni en avril 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-PRES"
+          ],
+          "date": "2026-04-12"
+        },
+        {
+          "id": "ben-timeline-2",
+          "title": "Investiture présidentielle",
+          "summary": "Prise de fonctions de Romuald Wadagni.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-COUR"
+          ],
+          "date": "2026-05-24"
+        },
+        {
+          "id": "ben-timeline-3",
+          "title": "Cadre Banque mondiale 2027–2036",
+          "summary": "Approbation du nouveau cadre de partenariat en juin 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-CPF"
+          ],
+          "date": "2026-06"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "ben-sector-1",
+          "title": "Commerce et logistique",
+          "summary": "Transport, commerce transfrontalier et accès portuaire soutiennent l’économie.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-WB"
+          ]
+        },
+        {
+          "id": "ben-sector-2",
+          "title": "Industrie et construction",
+          "summary": "La BAD attribue une partie de la croissance 2025 aux activités manufacturières et à la construction.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-AFDB"
+          ]
+        },
+        {
+          "id": "ben-sector-3",
+          "title": "Agriculture",
+          "summary": "Activité essentielle aux moyens d’existence ruraux, exposée aux chocs sécuritaires et climatiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-FEWS"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "ben-resource-1",
+          "title": "Façade portuaire",
+          "summary": "Infrastructure maritime structurante pour le transit régional, sans données de capacité non vérifiées.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-WB"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "ben-sec-1",
+          "title": "Sécurité des frontières septentrionales",
+          "summary": "L’insécurité sahélienne affecte les départements de l’Atacora et de l’Alibori ; ne pas déduire des implantations militaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-FEWS"
+          ]
+        },
+        {
+          "id": "ben-sec-2",
+          "title": "Résilience communautaire",
+          "summary": "La Banque mondiale soutient les communautés frontalières exposées aux conflits et déplacements via COSO.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-COSO"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "ben-issue-1",
+          "title": "Insécurité du Nord",
+          "summary": "Débordement régional de violences dans les zones frontalières, effets sur la circulation et l’agriculture.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-FEWS",
+            "S-BEN-COSO"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Sécurité",
+            "Cohésion"
+          ],
+          "situation": "Débordement régional de violences dans les zones frontalières, effets sur la circulation et l’agriculture.",
+          "whyStrategic": "La question « insécurité du nord » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "ben-issue-2",
+          "title": "Corridors de transit",
+          "summary": "Continuité des échanges avec le Nigéria et vers les pays sahéliens via Cotonou.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Commerce",
+            "Logistique"
+          ],
+          "situation": "Continuité des échanges avec le Nigéria et vers les pays sahéliens via Cotonou.",
+          "whyStrategic": "La question « corridors de transit » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "ben-issue-3",
+          "title": "Industrialisation et emplois",
+          "summary": "Transformation de la croissance en emplois productifs et réduction de l’informalité.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-CPF",
+            "S-BEN-AFDB"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Économie",
+            "Emploi"
+          ],
+          "situation": "Transformation de la croissance en emplois productifs et réduction de l’informalité.",
+          "whyStrategic": "La question « industrialisation et emplois » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "ben-issue-4",
+          "title": "Adaptation climatique",
+          "summary": "Crues dans le sud et aléas pluviométriques dans le nord, selon FEWS NET.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-FEWS"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Climat",
+            "Agriculture"
+          ],
+          "situation": "Crues dans le sud et aléas pluviométriques dans le nord, selon FEWS NET.",
+          "whyStrategic": "La question « adaptation climatique » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "ben-opp-1",
+          "title": "Transformation productive",
+          "summary": "Le cadre 2027–2036 cherche à développer le secteur privé et les emplois.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-CPF"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "ben-risk-1",
+          "title": "Propagation de l’insécurité sahélienne",
+          "summary": "L’extension des violences peut restreindre l’accès aux marchés et provoquer des déplacements.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-FEWS"
+          ]
+        },
+        {
+          "id": "ben-risk-2",
+          "title": "Vulnérabilité de la logistique",
+          "summary": "Un choc sur les corridors ou les frontières fragiliserait les revenus de transit.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-WB"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "domains": [
+        {
+          "id": "ben-vuln-1",
+          "title": "Insécurité au nord",
+          "summary": "FEWS NET signale des atteintes aux moyens d’existence et des déplacements dans l’Alibori et l’Atacora.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-FEWS"
+          ]
+        },
+        {
+          "id": "ben-vuln-2",
+          "title": "Transformation sociale inégale",
+          "summary": "La Banque mondiale relève la persistance de la pauvreté rurale et de l’informalité.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-WB",
+            "S-BEN-CPF"
+          ]
+        },
+        {
+          "id": "ben-vuln-3",
+          "title": "Propagation de l’insécurité sahélienne",
+          "summary": "L’extension des violences peut restreindre l’accès aux marchés et provoquer des déplacements.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-FEWS"
+          ]
+        },
+        {
+          "id": "ben-vuln-4",
+          "title": "Vulnérabilité de la logistique",
+          "summary": "Un choc sur les corridors ou les frontières fragiliserait les revenus de transit.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-WB"
+          ]
+        }
+      ],
+      "swot": {
+        "strengths": [
+          {
+            "id": "ben-sw-s-1",
+            "title": "Façade maritime et transit régional",
+            "summary": "Les corridors Cotonou–Niamey et Abidjan–Lagos soutiennent une fonction de plateforme logistique.",
+            "tags": [],
+            "sourceIds": [
+              "S-BEN-WB"
+            ]
+          },
+          {
+            "id": "ben-sw-s-2",
+            "title": "Dynamique de croissance",
+            "summary": "La BAD estime la croissance 2025 à 8,1 %, notamment portée par le commerce et l’industrie.",
+            "tags": [],
+            "sourceIds": [
+              "S-BEN-AFDB"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "ben-sw-w-1",
+            "title": "Insécurité au nord",
+            "summary": "FEWS NET signale des atteintes aux moyens d’existence et des déplacements dans l’Alibori et l’Atacora.",
+            "tags": [],
+            "sourceIds": [
+              "S-BEN-FEWS"
+            ]
+          },
+          {
+            "id": "ben-sw-w-2",
+            "title": "Transformation sociale inégale",
+            "summary": "La Banque mondiale relève la persistance de la pauvreté rurale et de l’informalité.",
+            "tags": [],
+            "sourceIds": [
+              "S-BEN-WB",
+              "S-BEN-CPF"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "ben-sw-o-1",
+            "title": "Transformation productive",
+            "summary": "Le cadre 2027–2036 cherche à développer le secteur privé et les emplois.",
+            "tags": [],
+            "sourceIds": [
+              "S-BEN-CPF"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "ben-sw-t-1",
+            "title": "Propagation de l’insécurité sahélienne",
+            "summary": "L’extension des violences peut restreindre l’accès aux marchés et provoquer des déplacements.",
+            "tags": [],
+            "sourceIds": [
+              "S-BEN-FEWS"
+            ]
+          },
+          {
+            "id": "ben-sw-t-2",
+            "title": "Vulnérabilité de la logistique",
+            "summary": "Un choc sur les corridors ou les frontières fragiliserait les revenus de transit.",
+            "tags": [],
+            "sourceIds": [
+              "S-BEN-WB"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "ben-sc-1",
+          "title": "Consolidation graduelle",
+          "summary": "Scénario conditionnel : amélioration progressive des conditions économiques et institutionnelles si les réformes et la sécurité avancent.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-WB",
+            "S-BEN-AFDB",
+            "S-BEN-CPF"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Stabilité des principales institutions et financements",
+            "Progrès mesurables dans la mise en œuvre des politiques"
+          ],
+          "triggers": [
+            "Amélioration documentée des indicateurs de services et d’investissement"
+          ],
+          "weakSignals": [
+            "Diminution durable des perturbations économiques ou sécuritaires"
+          ],
+          "consequences": [
+            "Capacité accrue de financement et de prestation de services"
+          ],
+          "limits": [
+            "Scénario illustratif sans probabilité et sans projection chiffrée"
+          ]
+        },
+        {
+          "id": "ben-sc-2",
+          "title": "Continuité sous contraintes",
+          "summary": "Scénario conditionnel : les tendances dominantes se prolongent, avec des tensions sur les revenus, l’emploi et la gouvernance.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-FEWS",
+            "S-BEN-WB",
+            "S-BEN-CPF"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Persistance des difficultés structurelles",
+            "Absence de rupture institutionnelle majeure"
+          ],
+          "triggers": [
+            "Indicateurs stagnants sur plusieurs publications"
+          ],
+          "weakSignals": [
+            "Difficultés persistantes d’accès aux services et aux financements"
+          ],
+          "consequences": [
+            "Progrès inégaux entre territoires et secteurs"
+          ],
+          "limits": [
+            "Ne préjuge pas de l’évolution effective du pays"
+          ]
+        },
+        {
+          "id": "ben-sc-3",
+          "title": "Dégradation par chocs",
+          "summary": "Scénario conditionnel : combinaison de facteurs de risque économiques, climatiques ou sécuritaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-FEWS",
+            "S-BEN-WB"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Réalisation d’au moins un choc externe ou intérieur important"
+          ],
+          "triggers": [
+            "Détérioration simultanée de plusieurs indicateurs suivis"
+          ],
+          "weakSignals": [
+            "Tensions persistantes sur chaînes d’approvisionnement, populations ou recettes"
+          ],
+          "consequences": [
+            "Pression sur les finances publiques et les moyens d’existence"
+          ],
+          "limits": [
+            "Hypothèse de stress, sans probabilité calculée"
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "ben-watch-1",
+          "title": "Propagation de l’insécurité sahélienne",
+          "summary": "L’extension des violences peut restreindre l’accès aux marchés et provoquer des déplacements.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-FEWS"
+          ]
+        },
+        {
+          "id": "ben-watch-2",
+          "title": "Vulnérabilité de la logistique",
+          "summary": "Un choc sur les corridors ou les frontières fragiliserait les revenus de transit.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-WB"
+          ]
+        },
+        {
+          "id": "ben-watch-3",
+          "title": "Transformation productive",
+          "summary": "Le cadre 2027–2036 cherche à développer le secteur privé et les emplois.",
+          "tags": [],
+          "sourceIds": [
+            "S-BEN-CPF"
+          ]
+        }
+      ]
+    }
+  }
+}

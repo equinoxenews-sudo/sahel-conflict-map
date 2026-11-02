@@ -1,0 +1,1080 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "BFA",
+  "slug": "burkina-faso",
+  "zoneSlug": "afrique",
+  "name": "Burkina Faso",
+  "officialName": "Burkina Faso",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-BFA-ECOWAS",
+      "publisher": "CEDEAO",
+      "title": "États membres en 2026",
+      "canonicalUrl": "https://www.ecowas.int/member_states/?lang=fr",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BFA-ECOWAS_CAP",
+      "publisher": "Fonds de paix de la CEDEAO",
+      "title": "Fiches États membres : capitales",
+      "canonicalUrl": "https://peacefund.ecowas.int/countries",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BFA-ECOWAS_HIST",
+      "publisher": "CEDEAO",
+      "title": "Création, histoire et retrait des États de l’AES",
+      "canonicalUrl": "https://www.ecowas.int/creationhistoire/?lang=fr",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BFA-BCEAO",
+      "publisher": "BCEAO",
+      "title": "Le franc CFA et les États de l’UEMOA",
+      "canonicalUrl": "https://www.bceao.int/fr/content/histoire-du-franc-cfa",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BFA-FD",
+      "publisher": "France Diplomatie",
+      "title": "Burkina Faso : présentation actualisée au 22 octobre 2026",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/burkina-faso/presentation-du-burkina-faso",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BFA-WB",
+      "publisher": "Banque mondiale",
+      "title": "Burkina Faso — contexte économique, politique et sécuritaire 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/burkinafaso",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BFA-WB_UP",
+      "publisher": "Banque mondiale",
+      "title": "Burkina Faso Economic Update — 30 juin 2026",
+      "canonicalUrl": "https://www.worldbank.org/en/news/press-release/2026/06/30/burkina-faso-world-bank-calls-for-economic-resilience-to-become-a-sustainable-drive-of-jobs-and-opportunity",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BFA-WB_DATA",
+      "publisher": "Banque mondiale",
+      "title": "Burkina Faso — données macroéconomiques",
+      "canonicalUrl": "https://data.worldbank.org/country/burkina-faso",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-BFA-CIA",
+      "publisher": "CIA — World Leaders",
+      "title": "Burkina Faso — dirigeants et membres du gouvernement, mai 2026",
+      "canonicalUrl": "https://www.cia.gov/resources/world-leaders/foreign-governments/burkina-faso/",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    }
+  ],
+  "observations": [
+    {
+      "id": "bfa-identity-capital",
+      "countryCode": "BFA",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "topic": "identity",
+      "value": "Ouagadougou",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Capitale mentionnée dans la fiche institutionnelle.",
+      "sourceIds": [
+        "S-BFA-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bfa-politics-head-of-state",
+      "countryCode": "BFA",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "topic": "politics",
+      "value": "Ibrahim Traoré",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Chef de la transition selon fiche du 22 octobre 2026.",
+      "sourceIds": [
+        "S-BFA-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bfa-politics-head-of-government",
+      "countryCode": "BFA",
+      "key": "politics.head_of_government",
+      "label": "Premier ministre",
+      "topic": "politics",
+      "value": "Rimtalba Jean Emmanuel Ouédraogo",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Présenté aussi comme Jean Emmanuel Ouédraogo par France Diplomatie.",
+      "sourceIds": [
+        "S-BFA-CIA"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bfa-politics-regime",
+      "countryCode": "BFA",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "topic": "politics",
+      "value": "République en régime de transition",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Régime de transition selon France Diplomatie.",
+      "sourceIds": [
+        "S-BFA-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bfa-identity-currency",
+      "countryCode": "BFA",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "topic": "identity",
+      "value": "Franc CFA (XOF)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Monnaie UEMOA, indépendamment du retrait de la CEDEAO.",
+      "sourceIds": [
+        "S-BFA-BCEAO"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bfa-institutions-waemu",
+      "countryCode": "BFA",
+      "key": "institutions.waemu",
+      "label": "Membre de l’UEMOA",
+      "topic": "institutions",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Appartenance UEMOA / franc CFA.",
+      "sourceIds": [
+        "S-BFA-BCEAO"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bfa-institutions-ecowas-former-member",
+      "countryCode": "BFA",
+      "key": "institutions.ecowas_former_member",
+      "label": "Retrait de la CEDEAO effectif",
+      "topic": "institutions",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2025-01-29",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Sortie formellement effective le 29 janvier 2025.",
+      "sourceIds": [
+        "S-BFA-ECOWAS_HIST"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bfa-institutions-aes",
+      "countryCode": "BFA",
+      "key": "institutions.aes",
+      "label": "Membre de l’Alliance des États du Sahel",
+      "topic": "institutions",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Alliance créée en 2023 avec Mali et Niger.",
+      "sourceIds": [
+        "S-BFA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bfa-geography-surface-area-official",
+      "countryCode": "BFA",
+      "key": "geography.surface_area_official",
+      "label": "Superficie selon France Diplomatie",
+      "topic": "geography",
+      "value": 274500,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Surface publiée dans la fiche France Diplomatie.",
+      "sourceIds": [
+        "S-BFA-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "bfa-economy-gdp-growth-2025-wb-report",
+      "countryCode": "BFA",
+      "key": "economy.gdp_growth_2025_wb_report",
+      "label": "Croissance réelle du PIB 2025 — rapport",
+      "topic": "economy",
+      "value": 5.3,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Chiffre rapport Banque mondiale 2026.",
+      "sourceIds": [
+        "S-BFA-WB_UP"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "bfa-economy-gdp-growth-projection-2026-wb",
+      "countryCode": "BFA",
+      "key": "economy.gdp_growth_projection_2026_wb",
+      "label": "Croissance réelle projetée pour 2026",
+      "topic": "economy",
+      "value": 5.0,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Prévision Banque mondiale ; pas réalisé.",
+      "sourceIds": [
+        "S-BFA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bfa-economy-inflation-projection-2026-wb",
+      "countryCode": "BFA",
+      "key": "economy.inflation_projection_2026_wb",
+      "label": "Inflation projetée 2026",
+      "topic": "economy",
+      "value": 2.2,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Projection Banque mondiale.",
+      "sourceIds": [
+        "S-BFA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bfa-economy-fiscal-deficit-projection-2026-wb",
+      "countryCode": "BFA",
+      "key": "economy.fiscal_deficit_projection_2026_wb",
+      "label": "Déficit budgétaire projeté 2026",
+      "topic": "economy",
+      "value": 3.5,
+      "unit": "% PIB",
+      "referencePeriod": "2026",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Prévision de déficit total, non dette publique.",
+      "sourceIds": [
+        "S-BFA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bfa-humanitarian-idp-last-census-mar2023",
+      "countryCode": "BFA",
+      "key": "humanitarian.idp_last_census_mar2023",
+      "label": "Déplacés internes au dernier recensement cité",
+      "topic": "humanitarian",
+      "value": 2010000,
+      "unit": "personnes",
+      "referencePeriod": "2023-03-30",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Dernier recensement OCHA cité par Banque mondiale, ancien : ne pas présenter comme valeur 2026.",
+      "sourceIds": [
+        "S-BFA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "bfa-humanitarian-idp-returnees-sep2026-government",
+      "countryCode": "BFA",
+      "key": "humanitarian.idp_returnees_sep2026_government",
+      "label": "Retours de déplacés internes déclarés par le gouvernement",
+      "topic": "humanitarian",
+      "value": 1400000,
+      "unit": "personnes",
+      "referencePeriod": "2026-09",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Chiffre gouvernemental relayé par Banque mondiale ; retours cumulés, pas stock actuel.",
+      "sourceIds": [
+        "S-BFA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "bfa-politics-transition-extension-years",
+      "countryCode": "BFA",
+      "key": "politics.transition_extension_years",
+      "label": "Durée additionnelle de transition prévue en 2024",
+      "topic": "politics",
+      "value": 5,
+      "unit": "ans",
+      "referencePeriod": "2024-07-02",
+      "geographicScope": "Burkina Faso",
+      "methodology": "Prolongation de la transition par charte modifiée en 2024, ne pas en inférer une échéance certaine.",
+      "sourceIds": [
+        "S-BFA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "bfa-claim-1",
+      "countryCode": "BFA",
+      "statement": "Ibrahim Traoré dirige le Burkina Faso dans un régime de transition ; Jean Emmanuel Ouédraogo exerce les fonctions de Premier ministre en octobre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-BFA-FD",
+        "S-BFA-CIA"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "bfa-claim-2",
+      "countryCode": "BFA",
+      "statement": "Le Burkina Faso a quitté la CEDEAO le 29 janvier 2025 mais reste membre de l’UEMOA et conserve le franc CFA.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-BFA-ECOWAS_HIST",
+        "S-BFA-BCEAO"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "bfa-claim-3",
+      "countryCode": "BFA",
+      "statement": "La Banque mondiale estime la croissance réelle à 5,3 % en 2025, dans un environnement sécuritaire contraint.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-BFA-WB_UP"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "bfa-claim-4",
+      "countryCode": "BFA",
+      "statement": "L’insécurité et les chocs climatiques affectent l’activité économique et ont provoqué des déplacements massifs.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-BFA-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "bfa-claim-5",
+      "countryCode": "BFA",
+      "statement": "La charte de transition a été modifiée en mai 2024 pour prolonger la transition de cinq ans à compter de juillet 2024.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-BFA-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "bfa-rel-mli-1",
+      "countryCode": "BFA",
+      "targetCode": "MLI",
+      "targetIso2": "ML",
+      "targetName": "Mali",
+      "relationType": "cooperation",
+      "title": "Alliance des États du Sahel",
+      "topics": [],
+      "summary": "Partenaire au sein de l’Alliance des États du Sahel avec le Niger.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-BFA-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "bfa-rel-ner-2",
+      "countryCode": "BFA",
+      "targetCode": "NER",
+      "targetIso2": "NE",
+      "targetName": "Niger",
+      "relationType": "cooperation",
+      "title": "Alliance des États du Sahel",
+      "topics": [],
+      "summary": "Partenaire de l’AES, organisation créée en septembre 2023.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-BFA-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "bfa-rel-gha-3",
+      "countryCode": "BFA",
+      "targetCode": "GHA",
+      "targetIso2": "GH",
+      "targetName": "Ghana",
+      "relationType": "cooperation",
+      "title": "Voisinage et mécanismes régionaux",
+      "topics": [],
+      "summary": "Le Burkina est voisin du Ghana ; les mécanismes de circulation hérités de la CEDEAO ont fait l’objet d’arrangements transitoires.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-BFA-ECOWAS_HIST",
+        "S-BFA-ECOWAS"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "bfa-strength-1",
+          "title": "Or et agriculture",
+          "summary": "Les secteurs extractif et agricole alimentent la croissance, malgré les contraintes sécuritaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB_UP"
+          ]
+        },
+        {
+          "id": "bfa-strength-2",
+          "title": "Intégration monétaire UEMOA",
+          "summary": "La BCEAO conserve son rôle monétaire dans le pays, distinct du cadre CEDEAO.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-BCEAO"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "bfa-challenge-1",
+          "title": "Insécurité durable",
+          "summary": "Les violences ont un effet sur les déplacements et l’accès aux services.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        },
+        {
+          "id": "bfa-challenge-2",
+          "title": "Diversification et emploi",
+          "summary": "La Banque mondiale souligne le besoin de transformer la croissance en emplois productifs.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB_UP"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "bfa-timeline-1",
+          "title": "Changement de pouvoir",
+          "summary": "Ibrahim Traoré devient chef de la transition à l’issue des événements de septembre–octobre 2022.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ],
+          "date": "2022-09"
+        },
+        {
+          "id": "bfa-timeline-2",
+          "title": "Création AES",
+          "summary": "Alliance des États du Sahel constituée en septembre 2023.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ],
+          "date": "2023-09-16"
+        },
+        {
+          "id": "bfa-timeline-3",
+          "title": "Prolongation de la transition",
+          "summary": "Charte modifiée en mai 2024, durée additionnelle de cinq ans à partir du 2 juillet 2024.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ],
+          "date": "2024-05"
+        },
+        {
+          "id": "bfa-timeline-4",
+          "title": "Retrait de la CEDEAO",
+          "summary": "Sortie officiellement effective le 29 janvier 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-ECOWAS_HIST"
+          ],
+          "date": "2025-01-29"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "bfa-sector-1",
+          "title": "Or",
+          "summary": "Le secteur minier soutient les exportations et la croissance, avec dépendance aux cours.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB",
+            "S-BFA-WB_UP"
+          ]
+        },
+        {
+          "id": "bfa-sector-2",
+          "title": "Agriculture et élevage",
+          "summary": "Le secteur agropastoral est sensible aux pluies, engrais et restrictions d’accès.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        },
+        {
+          "id": "bfa-sector-3",
+          "title": "Services",
+          "summary": "Activités commerciales et administratives, sensibles à la sécurité des corridors.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "bfa-resource-1",
+          "title": "Or",
+          "summary": "Ressource minière centrale dans les exportations ; pas de volume physique ajouté sans source minière dédiée.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "bfa-sec-1",
+          "title": "Sécurité intérieure et territoriale",
+          "summary": "Violences de groupes armés, déplacements et difficultés d’accès ; les positions précises des forces ne sont pas cartographiées.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        },
+        {
+          "id": "bfa-sec-2",
+          "title": "Coopération régionale AES",
+          "summary": "Alliance politique et sécuritaire avec le Mali et le Niger.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "bfa-issue-1",
+          "title": "Sécurité et accès aux territoires",
+          "summary": "L’insécurité affecte marchés, éducation, santé et mobilité.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Sécurité"
+          ],
+          "situation": "L’insécurité affecte marchés, éducation, santé et mobilité.",
+          "whyStrategic": "La question « sécurité et accès aux territoires » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "bfa-issue-2",
+          "title": "Transition politique",
+          "summary": "La durée prolongée de transition et ses modalités de gouvernance constituent un dossier à suivre.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Institutions"
+          ],
+          "situation": "La durée prolongée de transition et ses modalités de gouvernance constituent un dossier à suivre.",
+          "whyStrategic": "La question « transition politique » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "bfa-issue-3",
+          "title": "Or et recettes publiques",
+          "summary": "Le secteur minier soutient l’activité et expose les finances aux cours et à la gestion des revenus.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB_UP"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Économie"
+          ],
+          "situation": "Le secteur minier soutient l’activité et expose les finances aux cours et à la gestion des revenus.",
+          "whyStrategic": "La question « or et recettes publiques » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "bfa-issue-4",
+          "title": "Agriculture et climat",
+          "summary": "La production agricole dépend des saisons et de l’accès aux intrants dans un contexte sécuritaire difficile.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Agriculture"
+          ],
+          "situation": "La production agricole dépend des saisons et de l’accès aux intrants dans un contexte sécuritaire difficile.",
+          "whyStrategic": "La question « agriculture et climat » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "bfa-opp-1",
+          "title": "Transformation agricole",
+          "summary": "Amélioration de la productivité et accès aux services peuvent soutenir emplois et sécurité alimentaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "bfa-risk-1",
+          "title": "Violences et déplacements",
+          "summary": "Une recrudescence des violences pourrait aggraver les déplacements et les restrictions d’accès.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        },
+        {
+          "id": "bfa-risk-2",
+          "title": "Chocs de prix et de climat",
+          "summary": "Un recul de l’or ou une mauvaise campagne agricole pourrait peser sur revenus et recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "domains": [
+        {
+          "id": "bfa-vuln-1",
+          "title": "Insécurité durable",
+          "summary": "Les violences ont un effet sur les déplacements et l’accès aux services.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        },
+        {
+          "id": "bfa-vuln-2",
+          "title": "Diversification et emploi",
+          "summary": "La Banque mondiale souligne le besoin de transformer la croissance en emplois productifs.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB_UP"
+          ]
+        },
+        {
+          "id": "bfa-vuln-3",
+          "title": "Violences et déplacements",
+          "summary": "Une recrudescence des violences pourrait aggraver les déplacements et les restrictions d’accès.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        },
+        {
+          "id": "bfa-vuln-4",
+          "title": "Chocs de prix et de climat",
+          "summary": "Un recul de l’or ou une mauvaise campagne agricole pourrait peser sur revenus et recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        }
+      ],
+      "swot": {
+        "strengths": [
+          {
+            "id": "bfa-sw-s-1",
+            "title": "Or et agriculture",
+            "summary": "Les secteurs extractif et agricole alimentent la croissance, malgré les contraintes sécuritaires.",
+            "tags": [],
+            "sourceIds": [
+              "S-BFA-WB_UP"
+            ]
+          },
+          {
+            "id": "bfa-sw-s-2",
+            "title": "Intégration monétaire UEMOA",
+            "summary": "La BCEAO conserve son rôle monétaire dans le pays, distinct du cadre CEDEAO.",
+            "tags": [],
+            "sourceIds": [
+              "S-BFA-BCEAO"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "bfa-sw-w-1",
+            "title": "Insécurité durable",
+            "summary": "Les violences ont un effet sur les déplacements et l’accès aux services.",
+            "tags": [],
+            "sourceIds": [
+              "S-BFA-WB"
+            ]
+          },
+          {
+            "id": "bfa-sw-w-2",
+            "title": "Diversification et emploi",
+            "summary": "La Banque mondiale souligne le besoin de transformer la croissance en emplois productifs.",
+            "tags": [],
+            "sourceIds": [
+              "S-BFA-WB_UP"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "bfa-sw-o-1",
+            "title": "Transformation agricole",
+            "summary": "Amélioration de la productivité et accès aux services peuvent soutenir emplois et sécurité alimentaire.",
+            "tags": [],
+            "sourceIds": [
+              "S-BFA-WB"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "bfa-sw-t-1",
+            "title": "Violences et déplacements",
+            "summary": "Une recrudescence des violences pourrait aggraver les déplacements et les restrictions d’accès.",
+            "tags": [],
+            "sourceIds": [
+              "S-BFA-WB"
+            ]
+          },
+          {
+            "id": "bfa-sw-t-2",
+            "title": "Chocs de prix et de climat",
+            "summary": "Un recul de l’or ou une mauvaise campagne agricole pourrait peser sur revenus et recettes.",
+            "tags": [],
+            "sourceIds": [
+              "S-BFA-WB"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "bfa-sc-1",
+          "title": "Consolidation graduelle",
+          "summary": "Scénario conditionnel : amélioration progressive des conditions économiques et institutionnelles si les réformes et la sécurité avancent.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB_UP",
+            "S-BFA-BCEAO",
+            "S-BFA-WB"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Stabilité des principales institutions et financements",
+            "Progrès mesurables dans la mise en œuvre des politiques"
+          ],
+          "triggers": [
+            "Amélioration documentée des indicateurs de services et d’investissement"
+          ],
+          "weakSignals": [
+            "Diminution durable des perturbations économiques ou sécuritaires"
+          ],
+          "consequences": [
+            "Capacité accrue de financement et de prestation de services"
+          ],
+          "limits": [
+            "Scénario illustratif sans probabilité et sans projection chiffrée"
+          ]
+        },
+        {
+          "id": "bfa-sc-2",
+          "title": "Continuité sous contraintes",
+          "summary": "Scénario conditionnel : les tendances dominantes se prolongent, avec des tensions sur les revenus, l’emploi et la gouvernance.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB",
+            "S-BFA-WB_UP"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Persistance des difficultés structurelles",
+            "Absence de rupture institutionnelle majeure"
+          ],
+          "triggers": [
+            "Indicateurs stagnants sur plusieurs publications"
+          ],
+          "weakSignals": [
+            "Difficultés persistantes d’accès aux services et aux financements"
+          ],
+          "consequences": [
+            "Progrès inégaux entre territoires et secteurs"
+          ],
+          "limits": [
+            "Ne préjuge pas de l’évolution effective du pays"
+          ]
+        },
+        {
+          "id": "bfa-sc-3",
+          "title": "Dégradation par chocs",
+          "summary": "Scénario conditionnel : combinaison de facteurs de risque économiques, climatiques ou sécuritaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Réalisation d’au moins un choc externe ou intérieur important"
+          ],
+          "triggers": [
+            "Détérioration simultanée de plusieurs indicateurs suivis"
+          ],
+          "weakSignals": [
+            "Tensions persistantes sur chaînes d’approvisionnement, populations ou recettes"
+          ],
+          "consequences": [
+            "Pression sur les finances publiques et les moyens d’existence"
+          ],
+          "limits": [
+            "Hypothèse de stress, sans probabilité calculée"
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "bfa-watch-1",
+          "title": "Violences et déplacements",
+          "summary": "Une recrudescence des violences pourrait aggraver les déplacements et les restrictions d’accès.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        },
+        {
+          "id": "bfa-watch-2",
+          "title": "Chocs de prix et de climat",
+          "summary": "Un recul de l’or ou une mauvaise campagne agricole pourrait peser sur revenus et recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        },
+        {
+          "id": "bfa-watch-3",
+          "title": "Transformation agricole",
+          "summary": "Amélioration de la productivité et accès aux services peuvent soutenir emplois et sécurité alimentaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-BFA-WB"
+          ]
+        }
+      ]
+    }
+  }
+}

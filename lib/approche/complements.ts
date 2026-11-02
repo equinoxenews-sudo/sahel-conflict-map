@@ -1,5 +1,6 @@
 import { electricityKeyParts } from "./electricity";
 import { READ_KEYS } from "./readKeys";
+import { isOtherSourceOf } from "./measures";
 import { isBlockedSource, isVisible } from "./sourceRegistry";
 import type { CountryData, Observation } from "./schema";
 import type { ApprocheTab } from "./tabs";
@@ -21,9 +22,13 @@ export interface ThemeDefinition {
 export const THEMES: readonly ThemeDefinition[] = [
   { id: "appartenances", tab: "relations", title: "Appartenances", match: /^institutions\./ },
   { id: "demographie", tab: "overview", title: "Démographie", match: /^demography\./ },
+  { id: "politique", tab: "overview", title: "Vie politique", match: /^politics\./ },
+  { id: "geographie", tab: "overview", title: "Géographie", match: /^geography\./ },
   { id: "projections", tab: "economy", title: "Projections et objectifs", match: /^economy\..*(projection|target)/ },
   { id: "conjoncture", tab: "economy", title: "Conjoncture", match: /^(economy|labour)\./ },
   { id: "energie", tab: "economy", title: "Énergie et transition", match: /^energy\./ },
+  { id: "infrastructures", tab: "economy", title: "Infrastructures", match: /^infrastructure\./ },
+  { id: "ressources", tab: "economy", title: "Ressources naturelles", match: /^resources\./ },
   { id: "recherche", tab: "economy", title: "Recherche et innovation", match: /^research\./ },
   { id: "ports", tab: "economy", title: "Ports et logistique" },
   { id: "investissement", tab: "economy", title: "Investissement étranger" },
@@ -101,10 +106,7 @@ export function classifyObservations(data: CountryData): Map<string, Placement> 
   const anchored = (observation: Observation) => !electricityKeyParts(observation.key, observation.referencePeriod) && (isRead(observation.key) || referenced.has(observation.key));
 
   // Sujets déjà portés par une tuile ou un module : une autre mesure du même sujet va dans son volet « Autres sources ».
-  const anchorTopics = new Set<string>();
-  for (const observation of data.observations) {
-    if (observation.topic && published.has(observation.id) && anchored(observation)) anchorTopics.add(observation.topic);
-  }
+  const anchors = data.observations.filter((observation) => observation.topic && published.has(observation.id) && anchored(observation));
 
   for (const observation of data.observations) {
     const { key } = observation;
@@ -132,7 +134,7 @@ export function classifyObservations(data: CountryData): Map<string, Placement> 
       else placements.set(observation.id, { kind: "hidden", reason: `statut « ${observation.status} »${observation.value === null ? ", sans valeur" : ""}` });
       continue;
     }
-    if (observation.topic && anchorTopics.has(observation.topic)) {
+    if (observation.topic && anchors.some((anchor) => isOtherSourceOf(anchor, observation))) {
       placements.set(observation.id, { kind: "drawer", topic: observation.topic });
       continue;
     }

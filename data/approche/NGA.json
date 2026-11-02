@@ -1,0 +1,1100 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "NGA",
+  "slug": "nigeria",
+  "zoneSlug": "afrique",
+  "name": "Nigéria",
+  "officialName": "République fédérale du Nigéria",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-NGA-ECOWAS",
+      "publisher": "CEDEAO",
+      "title": "États membres en 2026",
+      "canonicalUrl": "https://www.ecowas.int/member_states/?lang=fr",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-NGA-ECOWAS_CAP",
+      "publisher": "Fonds de paix de la CEDEAO",
+      "title": "Fiches États membres : capitales",
+      "canonicalUrl": "https://peacefund.ecowas.int/countries",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-NGA-ECOWAS_HIST",
+      "publisher": "CEDEAO",
+      "title": "Création, histoire et retrait des États de l’AES",
+      "canonicalUrl": "https://www.ecowas.int/creationhistoire/?lang=fr",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-NGA-BCEAO",
+      "publisher": "BCEAO",
+      "title": "Le franc CFA et les États de l’UEMOA",
+      "canonicalUrl": "https://www.bceao.int/fr/content/histoire-du-franc-cfa",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-NGA-PRES",
+      "publisher": "Présidence du Nigéria",
+      "title": "Leadership du Nigeria — Bola Tinubu et Kashim Shettima",
+      "canonicalUrl": "https://statehouse.gov.ng/people/",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-NGA-WB",
+      "publisher": "Banque mondiale",
+      "title": "Nigeria — country overview 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/nigeria",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-NGA-WB_NDU",
+      "publisher": "Banque mondiale",
+      "title": "Nigeria Development Update — octobre 2026",
+      "canonicalUrl": "https://www.worldbank.org/en/news/press-release/2026/10/08/higher-revenues-better-lives-strengthening-state-spending-for-growth-jobs-services",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-NGA-IMF",
+      "publisher": "FMI",
+      "title": "Nigeria — consultation Article IV de juin 2026",
+      "canonicalUrl": "https://www.imf.org/en/news/articles/2026/06/09/pr26190-nigeria-imf-executive-board-concludes-2026-article-iv-consultation-with-nigeria",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-NGA-UNHCR",
+      "publisher": "HCR / OIM / NEMA",
+      "title": "Nigeria — portail opérationnel de population déplacée (octobre 2026)",
+      "canonicalUrl": "https://data.unhcr.org/en/country/nga",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-NGA-CBN",
+      "publisher": "Banque centrale du Nigéria",
+      "title": "Currency Operations — monnaie nationale",
+      "canonicalUrl": "https://www.cbn.gov.ng/Currency/",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    }
+  ],
+  "observations": [
+    {
+      "id": "nga-identity-capital",
+      "countryCode": "NGA",
+      "key": "identity.capital",
+      "label": "Capitale fédérale",
+      "topic": "identity",
+      "value": "Abuja",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Nigéria",
+      "methodology": "Siège de la présidence à Abuja.",
+      "sourceIds": [
+        "S-NGA-ECOWAS_CAP"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "nga-politics-head-of-state",
+      "countryCode": "NGA",
+      "key": "politics.head_of_state",
+      "label": "Président",
+      "topic": "politics",
+      "value": "Bola Ahmed Tinubu",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Nigéria",
+      "methodology": "Président de la République fédérale.",
+      "sourceIds": [
+        "S-NGA-PRES"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "nga-politics-vice-president",
+      "countryCode": "NGA",
+      "key": "politics.vice_president",
+      "label": "Vice-président",
+      "topic": "politics",
+      "value": "Kashim Shettima",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Nigéria",
+      "methodology": "Vice-président selon la présidence.",
+      "sourceIds": [
+        "S-NGA-PRES"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "nga-politics-regime",
+      "countryCode": "NGA",
+      "key": "politics.regime",
+      "label": "Système politique",
+      "topic": "politics",
+      "value": "République fédérale présidentielle",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Nigéria",
+      "methodology": "36 États fédérés et territoire fédéral de la capitale.",
+      "sourceIds": [
+        "S-NGA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "nga-identity-currency",
+      "countryCode": "NGA",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "topic": "identity",
+      "value": "Naira (NGN)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Nigéria",
+      "methodology": "Cours légal émis par la Banque centrale du Nigéria.",
+      "sourceIds": [
+        "S-NGA-CBN"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "nga-institutions-ecowas",
+      "countryCode": "NGA",
+      "key": "institutions.ecowas",
+      "label": "Membre de la CEDEAO",
+      "topic": "institutions",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Nigéria",
+      "methodology": "État membre selon la liste actualisée.",
+      "sourceIds": [
+        "S-NGA-ECOWAS"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "nga-economy-gdp-growth-h1-2026-wb",
+      "countryCode": "NGA",
+      "key": "economy.gdp_growth_h1_2026_wb",
+      "label": "Croissance réelle du PIB au premier semestre 2026",
+      "topic": "economy",
+      "value": 4.2,
+      "unit": "%",
+      "referencePeriod": "2026-S1",
+      "geographicScope": "Nigéria",
+      "methodology": "Croissance du PIB réel comparée au premier semestre précédent ; pas un taux annuel.",
+      "sourceIds": [
+        "S-NGA-WB_NDU"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "nga-economy-gdp-growth-h1-2025-wb",
+      "countryCode": "NGA",
+      "key": "economy.gdp_growth_h1_2025_wb",
+      "label": "Croissance réelle du PIB au premier semestre 2025",
+      "topic": "economy",
+      "value": 3.9,
+      "unit": "%",
+      "referencePeriod": "2025-S1",
+      "geographicScope": "Nigéria",
+      "methodology": "Comparateur semestriel, pas PIB annuel.",
+      "sourceIds": [
+        "S-NGA-WB_NDU"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "nga-economy-gdp-growth-estimate-2025-imf",
+      "countryCode": "NGA",
+      "key": "economy.gdp_growth_estimate_2025_imf",
+      "label": "Croissance PIB 2025 — estimation FMI",
+      "topic": "economy",
+      "value": 4.0,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Nigéria",
+      "methodology": "Estimation FMI 2026, distincte de la série annuelle WB.",
+      "sourceIds": [
+        "S-NGA-IMF"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "nga-economy-gdp-growth-projection-2026-imf",
+      "countryCode": "NGA",
+      "key": "economy.gdp_growth_projection_2026_imf",
+      "label": "Projection croissance 2026 — FMI",
+      "topic": "economy",
+      "value": 4.1,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Nigéria",
+      "methodology": "Résumé FMI de juin 2026 : projection, non réalisé ; tableaux du rapport peuvent différer.",
+      "sourceIds": [
+        "S-NGA-IMF"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "nga-economy-inflation-feb-2026-wb",
+      "countryCode": "NGA",
+      "key": "economy.inflation_feb_2026_wb",
+      "label": "Inflation annuelle février 2026",
+      "topic": "economy",
+      "value": 15.1,
+      "unit": "%",
+      "referencePeriod": "2026-02",
+      "geographicScope": "Nigéria",
+      "methodology": "Indice national global en février 2026, non moyenne annuelle.",
+      "sourceIds": [
+        "S-NGA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "nga-economy-inflation-food-jul-2026-wb",
+      "countryCode": "NGA",
+      "key": "economy.inflation_food_jul_2026_wb",
+      "label": "Inflation alimentaire juillet 2026",
+      "topic": "economy",
+      "value": 20.3,
+      "unit": "%",
+      "referencePeriod": "2026-07",
+      "geographicScope": "Nigéria",
+      "methodology": "Indice des prix alimentaires en variation annuelle.",
+      "sourceIds": [
+        "S-NGA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "nga-economy-reserves-jul-2026-wb",
+      "countryCode": "NGA",
+      "key": "economy.reserves_jul_2026_wb",
+      "label": "Réserves de change brutes fin juillet 2026",
+      "topic": "economy",
+      "value": 51.9,
+      "unit": "milliards USD",
+      "referencePeriod": "2026-07",
+      "geographicScope": "Nigéria",
+      "methodology": "Réserves brutes, non solde courant.",
+      "sourceIds": [
+        "S-NGA-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "nga-economy-poverty-2025-national-imf",
+      "countryCode": "NGA",
+      "key": "economy.poverty_2025_national_imf",
+      "label": "Pauvreté au seuil national, estimation FMI",
+      "topic": "economy",
+      "value": 63.0,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Nigéria",
+      "methodology": "Taux au seuil national ; différent des seuils internationaux et des séries automatiques.",
+      "sourceIds": [
+        "S-NGA-IMF"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "nga-humanitarian-idps-oct-2026-unhcr",
+      "countryCode": "NGA",
+      "key": "humanitarian.idps_oct_2026_unhcr",
+      "label": "Personnes déplacées internes (HCR/OIM)",
+      "topic": "humanitarian",
+      "value": 3679757,
+      "unit": "personnes",
+      "referencePeriod": "2026-10-01",
+      "geographicScope": "Nigéria",
+      "methodology": "Agrégat national affiché par le portail ; à ne pas confondre avec réfugiés à l’étranger.",
+      "sourceIds": [
+        "S-NGA-UNHCR"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "nga-humanitarian-refugees-asylum-oct-2026-unhcr",
+      "countryCode": "NGA",
+      "key": "humanitarian.refugees_asylum_oct_2026_unhcr",
+      "label": "Réfugiés et demandeurs d’asile présents au Nigéria",
+      "topic": "humanitarian",
+      "value": 141688,
+      "unit": "personnes",
+      "referencePeriod": "2026-10-01",
+      "geographicScope": "Nigéria",
+      "methodology": "Personnes accueillies au Nigéria selon le portail.",
+      "sourceIds": [
+        "S-NGA-UNHCR"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "nga-claim-1",
+      "countryCode": "NGA",
+      "statement": "Bola Ahmed Tinubu exerce la présidence de la République fédérale du Nigéria depuis mai 2023.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-NGA-PRES",
+        "S-NGA-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "nga-claim-2",
+      "countryCode": "NGA",
+      "statement": "La Banque mondiale mesure une croissance réelle de 4,2 % au premier semestre 2026, mais souligne une pauvreté persistante.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-NGA-WB_NDU",
+        "S-NGA-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "nga-claim-3",
+      "countryCode": "NGA",
+      "statement": "Le Nigéria affronte des violences distinctes : insurrection au Nord-Est, banditisme et enlèvements au Nord-Ouest, tensions locales et séparatisme ailleurs.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-NGA-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "nga-claim-4",
+      "countryCode": "NGA",
+      "statement": "Le HCR recense plus de 3,6 millions de déplacés internes au 1er octobre 2026, selon les agrégats affichés sur son portail.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-NGA-UNHCR"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "nga-claim-5",
+      "countryCode": "NGA",
+      "statement": "Les réformes macroéconomiques ne suffisent pas, à ce stade, à absorber la croissance de la main-d’œuvre et à réduire rapidement la pauvreté.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-NGA-WB",
+        "S-NGA-IMF"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "nga-rel-ben-1",
+      "countryCode": "NGA",
+      "targetCode": "BEN",
+      "targetIso2": "BJ",
+      "targetName": "Bénin",
+      "relationType": "cooperation",
+      "title": "Corridor économique ouest-africain",
+      "topics": [],
+      "summary": "Les économies de Lagos et Cotonou sont liées par le commerce régional ; relation décrite comme coopération commerciale, sans traité précis ajouté.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-NGA-WB",
+        "S-NGA-ECOWAS"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "nga-rel-gha-2",
+      "countryCode": "NGA",
+      "targetCode": "GHA",
+      "targetIso2": "GH",
+      "targetName": "Ghana",
+      "relationType": "cooperation",
+      "title": "Coopération dans la CEDEAO",
+      "topics": [],
+      "summary": "Les deux pays sont membres de la CEDEAO et participent aux mécanismes d’intégration régionale.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-NGA-ECOWAS"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "nga-rel-ner-3",
+      "countryCode": "NGA",
+      "targetCode": "NER",
+      "targetIso2": "NE",
+      "targetName": "Niger",
+      "relationType": "cooperation",
+      "title": "Voisinage régional et enjeux sécuritaires",
+      "topics": [],
+      "summary": "Les déplacements régionaux et la crise sécuritaire au Sahel interagissent avec la situation du Nigéria ; détail bilatéral à documenter.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-NGA-WB",
+        "S-NGA-UNHCR"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "nga-strength-1",
+          "title": "Taille et diversification économique",
+          "summary": "Marché intérieur étendu, services, agriculture, industrie et hydrocarbures.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB"
+          ]
+        },
+        {
+          "id": "nga-strength-2",
+          "title": "Redressement des réserves",
+          "summary": "La Banque mondiale relève 51,9 milliards USD de réserves brutes fin juillet 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "nga-challenge-1",
+          "title": "Pression sociale et pauvreté",
+          "summary": "La hausse des prix alimentaires et l’insuffisance d’emplois productifs pèsent sur la population.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB",
+            "S-NGA-IMF"
+          ]
+        },
+        {
+          "id": "nga-challenge-2",
+          "title": "Insécurité géographiquement diversifiée",
+          "summary": "Insurrection au Nord-Est, banditisme au Nord-Ouest et violences locales.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB",
+            "S-NGA-UNHCR"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "nga-timeline-1",
+          "title": "Début du mandat de Bola Tinubu",
+          "summary": "Investiture présidentielle de mai 2023.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB"
+          ],
+          "date": "2023-05-29"
+        },
+        {
+          "id": "nga-timeline-2",
+          "title": "Réformes macroéconomiques",
+          "summary": "Poursuite des réformes de change et de politique budgétaire engagées depuis 2023.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB",
+            "S-NGA-IMF"
+          ],
+          "date": "2023-2026"
+        },
+        {
+          "id": "nga-timeline-3",
+          "title": "Development Update 2026",
+          "summary": "Publication d’un bilan sur les recettes et les dépenses publiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB_NDU"
+          ],
+          "date": "2026-10"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "nga-sector-1",
+          "title": "Hydrocarbures",
+          "summary": "Exportations pétrolières importantes pour le secteur extérieur ; exposition aux fluctuations de prix.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB"
+          ]
+        },
+        {
+          "id": "nga-sector-2",
+          "title": "Services",
+          "summary": "Principale contribution à la croissance observée au premier semestre 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB_NDU"
+          ]
+        },
+        {
+          "id": "nga-sector-3",
+          "title": "Agriculture",
+          "summary": "Contribution à la croissance et à l’emploi, entravée dans certaines zones par les violences et les chocs climatiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "nga-resource-1",
+          "title": "Pétrole et gaz",
+          "summary": "Ressources exportatrices majeures dont les cours influencent les recettes et la balance extérieure.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB",
+            "S-NGA-IMF"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "nga-sec-1",
+          "title": "Conflits au Nord-Est",
+          "summary": "Insurrection persistante avec conséquences humanitaires et déplacements.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB",
+            "S-NGA-UNHCR"
+          ]
+        },
+        {
+          "id": "nga-sec-2",
+          "title": "Violences au Nord-Ouest",
+          "summary": "Banditisme, enlèvements et attaques dans plusieurs États du Nord-Ouest.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "nga-issue-1",
+          "title": "Diversité des insécurités",
+          "summary": "Conflits armés, banditisme, enlèvements et violences intercommunautaires ne relèvent pas d’un acteur unique.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB",
+            "S-NGA-UNHCR"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Sécurité"
+          ],
+          "situation": "Conflits armés, banditisme, enlèvements et violences intercommunautaires ne relèvent pas d’un acteur unique.",
+          "whyStrategic": "La question « diversité des insécurités » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "nga-issue-2",
+          "title": "Croissance et inclusion",
+          "summary": "Écart entre stabilisation macroéconomique et hausse du niveau de vie des ménages.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB_NDU",
+            "S-NGA-IMF"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Économie"
+          ],
+          "situation": "Écart entre stabilisation macroéconomique et hausse du niveau de vie des ménages.",
+          "whyStrategic": "La question « croissance et inclusion » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "nga-issue-3",
+          "title": "Inflation et revenus réels",
+          "summary": "Inflation alimentaire et coût des transports demeurent des facteurs de vulnérabilité sociale.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Économie",
+            "Société"
+          ],
+          "situation": "Inflation alimentaire et coût des transports demeurent des facteurs de vulnérabilité sociale.",
+          "whyStrategic": "La question « inflation et revenus réels » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "nga-issue-4",
+          "title": "Hydrocarbures et diversification",
+          "summary": "Les exportations pétrolières renforcent les réserves mais concentrent certains risques.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Énergie"
+          ],
+          "situation": "Les exportations pétrolières renforcent les réserves mais concentrent certains risques.",
+          "whyStrategic": "La question « hydrocarbures et diversification » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution des statistiques et communiqués de l’organisme source"
+          ],
+          "uncertainties": [
+            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+          ],
+          "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "nga-opp-1",
+          "title": "Transformation des recettes en services",
+          "summary": "Le rapport d’octobre 2026 met l’accent sur l’efficacité des dépenses publiques et les emplois.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB_NDU"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "nga-risk-1",
+          "title": "Violences et déplacements",
+          "summary": "Les conflits armés et l’insécurité peuvent provoquer de nouveaux déplacements et restreindre l’activité économique.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-UNHCR",
+            "S-NGA-WB"
+          ]
+        },
+        {
+          "id": "nga-risk-2",
+          "title": "Chocs inflationnistes",
+          "summary": "Les prix des carburants et de l’alimentation limitent le pouvoir d’achat et les marges budgétaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "domains": [
+        {
+          "id": "nga-vuln-1",
+          "title": "Pression sociale et pauvreté",
+          "summary": "La hausse des prix alimentaires et l’insuffisance d’emplois productifs pèsent sur la population.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB",
+            "S-NGA-IMF"
+          ]
+        },
+        {
+          "id": "nga-vuln-2",
+          "title": "Insécurité géographiquement diversifiée",
+          "summary": "Insurrection au Nord-Est, banditisme au Nord-Ouest et violences locales.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB",
+            "S-NGA-UNHCR"
+          ]
+        },
+        {
+          "id": "nga-vuln-3",
+          "title": "Violences et déplacements",
+          "summary": "Les conflits armés et l’insécurité peuvent provoquer de nouveaux déplacements et restreindre l’activité économique.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-UNHCR",
+            "S-NGA-WB"
+          ]
+        },
+        {
+          "id": "nga-vuln-4",
+          "title": "Chocs inflationnistes",
+          "summary": "Les prix des carburants et de l’alimentation limitent le pouvoir d’achat et les marges budgétaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB"
+          ]
+        }
+      ],
+      "swot": {
+        "strengths": [
+          {
+            "id": "nga-sw-s-1",
+            "title": "Taille et diversification économique",
+            "summary": "Marché intérieur étendu, services, agriculture, industrie et hydrocarbures.",
+            "tags": [],
+            "sourceIds": [
+              "S-NGA-WB"
+            ]
+          },
+          {
+            "id": "nga-sw-s-2",
+            "title": "Redressement des réserves",
+            "summary": "La Banque mondiale relève 51,9 milliards USD de réserves brutes fin juillet 2026.",
+            "tags": [],
+            "sourceIds": [
+              "S-NGA-WB"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "nga-sw-w-1",
+            "title": "Pression sociale et pauvreté",
+            "summary": "La hausse des prix alimentaires et l’insuffisance d’emplois productifs pèsent sur la population.",
+            "tags": [],
+            "sourceIds": [
+              "S-NGA-WB",
+              "S-NGA-IMF"
+            ]
+          },
+          {
+            "id": "nga-sw-w-2",
+            "title": "Insécurité géographiquement diversifiée",
+            "summary": "Insurrection au Nord-Est, banditisme au Nord-Ouest et violences locales.",
+            "tags": [],
+            "sourceIds": [
+              "S-NGA-WB",
+              "S-NGA-UNHCR"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "nga-sw-o-1",
+            "title": "Transformation des recettes en services",
+            "summary": "Le rapport d’octobre 2026 met l’accent sur l’efficacité des dépenses publiques et les emplois.",
+            "tags": [],
+            "sourceIds": [
+              "S-NGA-WB_NDU"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "nga-sw-t-1",
+            "title": "Violences et déplacements",
+            "summary": "Les conflits armés et l’insécurité peuvent provoquer de nouveaux déplacements et restreindre l’activité économique.",
+            "tags": [],
+            "sourceIds": [
+              "S-NGA-UNHCR",
+              "S-NGA-WB"
+            ]
+          },
+          {
+            "id": "nga-sw-t-2",
+            "title": "Chocs inflationnistes",
+            "summary": "Les prix des carburants et de l’alimentation limitent le pouvoir d’achat et les marges budgétaires.",
+            "tags": [],
+            "sourceIds": [
+              "S-NGA-WB"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "nga-sc-1",
+          "title": "Consolidation graduelle",
+          "summary": "Scénario conditionnel : amélioration progressive des conditions économiques et institutionnelles si les réformes et la sécurité avancent.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB",
+            "S-NGA-WB_NDU"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Stabilité des principales institutions et financements",
+            "Progrès mesurables dans la mise en œuvre des politiques"
+          ],
+          "triggers": [
+            "Amélioration documentée des indicateurs de services et d’investissement"
+          ],
+          "weakSignals": [
+            "Diminution durable des perturbations économiques ou sécuritaires"
+          ],
+          "consequences": [
+            "Capacité accrue de financement et de prestation de services"
+          ],
+          "limits": [
+            "Scénario illustratif sans probabilité et sans projection chiffrée"
+          ]
+        },
+        {
+          "id": "nga-sc-2",
+          "title": "Continuité sous contraintes",
+          "summary": "Scénario conditionnel : les tendances dominantes se prolongent, avec des tensions sur les revenus, l’emploi et la gouvernance.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB",
+            "S-NGA-IMF",
+            "S-NGA-UNHCR"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Persistance des difficultés structurelles",
+            "Absence de rupture institutionnelle majeure"
+          ],
+          "triggers": [
+            "Indicateurs stagnants sur plusieurs publications"
+          ],
+          "weakSignals": [
+            "Difficultés persistantes d’accès aux services et aux financements"
+          ],
+          "consequences": [
+            "Progrès inégaux entre territoires et secteurs"
+          ],
+          "limits": [
+            "Ne préjuge pas de l’évolution effective du pays"
+          ]
+        },
+        {
+          "id": "nga-sc-3",
+          "title": "Dégradation par chocs",
+          "summary": "Scénario conditionnel : combinaison de facteurs de risque économiques, climatiques ou sécuritaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-UNHCR",
+            "S-NGA-WB"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Réalisation d’au moins un choc externe ou intérieur important"
+          ],
+          "triggers": [
+            "Détérioration simultanée de plusieurs indicateurs suivis"
+          ],
+          "weakSignals": [
+            "Tensions persistantes sur chaînes d’approvisionnement, populations ou recettes"
+          ],
+          "consequences": [
+            "Pression sur les finances publiques et les moyens d’existence"
+          ],
+          "limits": [
+            "Hypothèse de stress, sans probabilité calculée"
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "nga-watch-1",
+          "title": "Violences et déplacements",
+          "summary": "Les conflits armés et l’insécurité peuvent provoquer de nouveaux déplacements et restreindre l’activité économique.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-UNHCR",
+            "S-NGA-WB"
+          ]
+        },
+        {
+          "id": "nga-watch-2",
+          "title": "Chocs inflationnistes",
+          "summary": "Les prix des carburants et de l’alimentation limitent le pouvoir d’achat et les marges budgétaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB"
+          ]
+        },
+        {
+          "id": "nga-watch-3",
+          "title": "Transformation des recettes en services",
+          "summary": "Le rapport d’octobre 2026 met l’accent sur l’efficacité des dépenses publiques et les emplois.",
+          "tags": [],
+          "sourceIds": [
+            "S-NGA-WB_NDU"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,21 +1,12 @@
-import FRA from "@/data/approche/FRA.json";
-import FRA_EUROSTAT from "@/data/approche/FRA.eurostat.json";
-import FRA_WORLDBANK from "@/data/approche/FRA.worldbank.json";
-import MLI from "@/data/approche/MLI.json";
-import MLI_WORLDBANK from "@/data/approche/MLI.worldbank.json";
-import CHN from "@/data/approche/CHN.json";
-import CHN_WORLDBANK from "@/data/approche/CHN.worldbank.json";
+import { COUNTRY_FILES } from "./registry.generated";
 import { CountryDataSchema, type CountryData } from "./schema";
 import { isVisible, publishProblems } from "./sourceRegistry";
 
 // Fiches « Approche » migrées vers le modèle sourcé : un fichier saisi à la main (identité, affirmations, sources
-// institutionnelles) et un fichier produit par scripts/sync-approche-worldbank.ts. Ajouter un pays = ajouter ses deux
-// fichiers dans data/approche/ puis les deux lignes ci-dessous. Un pays absent de cette liste garde l'ancienne fiche.
-const FILES: Record<string, { curated: unknown; worldbank?: unknown; eurostat?: unknown }> = {
-  FRA: { curated: FRA, worldbank: FRA_WORLDBANK, eurostat: FRA_EUROSTAT },
-  MLI: { curated: MLI, worldbank: MLI_WORLDBANK },
-  CHN: { curated: CHN, worldbank: CHN_WORLDBANK },
-};
+// institutionnelles) et des fichiers produits par scripts/sync-approche-worldbank.ts (et -eurostat). Le registre des pays est GÉNÉRÉ
+// à partir de data/approche/ (registry.generated.ts) : ajouter un pays = `npm run approche:import`, sans toucher à ce fichier. Un pays
+// absent du registre garde l'ancienne fiche.
+const FILES = COUNTRY_FILES;
 
 interface WorldBankFile {
   sources?: unknown[];

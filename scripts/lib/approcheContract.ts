@@ -39,11 +39,12 @@ const DESCRIPTIONS: Record<string, string> = {
   "sources.methodNotes": "Ce qu'il faut savoir pour réutiliser la donnée : définition, révisions, limites.",
   "sources.originalPublisher": "Organisme producteur d'origine quand la source relaie les données d'un autre (agrégateur, plateforme). Les droits suivent la donnée d'origine : un producteur exclu (SIPRI) exclut la source.",
   "sources.language": "Langue de la source (fr, en…).",
+  documentationLevel: "Niveau documentaire visé : essential (de quoi présenter le pays avec ses sources) ou extended (toutes les rubriques renseignées). Facultatif : le niveau atteint est calculé d'après le contenu et l'import signale tout écart. Les deux niveaux utilisent le même moteur.",
   "observations.id": "Identifiant unique de l'observation.",
   "observations.countryCode": "Code ISO alpha-3 du pays (identique à celui du fichier).",
   "observations.key": "Clé stable de la donnée (ex. economy.gdp_nominal_usd). Les clés lues par l'interface sont listées dans APPROCHE_CHAMPS_UI.md ; une clé nouvelle est acceptée.",
   "observations.label": "Intitulé lisible par le lecteur (ex. « Cible 2030 : part des énergies non fossiles »). Obligatoire pour qu'une valeur sans tuile apparaisse dans les données complémentaires de son onglet ; sert aussi de nom de branche économique.",
-  "observations.theme": "Rubrique des données complémentaires où ranger la valeur : appartenances, demographie, projections, conjoncture, energie, recherche, ports, investissement, defense, humanitaire, cyber, securite ; « none » pour ne pas l'afficher. Facultatif : à défaut, la rubrique se déduit du préfixe de la clé (institutions.*, demography.*, humanitarian.*…).",
+  "observations.theme": "Rubrique des données complémentaires où ranger la valeur : appartenances, demographie, politique, geographie, projections, conjoncture, energie, infrastructures, ressources, recherche, ports, investissement, defense, humanitaire, cyber, securite ; « none » pour ne pas l'afficher. Facultatif : à défaut, la rubrique se déduit du préfixe de la clé (institutions.*, demography.*, humanitarian.*…).",
   "observations.topic": "Regroupe plusieurs mesures d'un même sujet (autre organisme, autre période). Quand une tuile porte le même sujet, les autres mesures s'ouvrent dans son volet « Autres sources », avec organisme, période, périmètre, nature et méthode : jamais moyennées, jamais classées, et un écart en % n'est calculé que si période, périmètre et unité sont identiques.",
   "observations.value": "Valeur : nombre, texte ou booléen. null si inconnue (avec status pending).",
   "observations.unit": "Unité (habitants, USD, EUR, %, km², TWh…). null pour un texte.",
@@ -358,11 +359,43 @@ export function buildReadKeysModule(root: string): string {
   ].join("\n");
 }
 
+/** Pays enregistrés : un fichier `data/approche/<ISO3>.json`, avec ses séries automatiques `<ISO3>.worldbank.json` et `<ISO3>.eurostat.json` s'il y en a. */
+export function listCountryFiles(root: string): { code: string; worldbank: boolean; eurostat: boolean }[] {
+  const dir = path.join(root, "data", "approche");
+  const names = fs.existsSync(dir) ? fs.readdirSync(dir) : [];
+  return names
+    .flatMap((name) => (/^[A-Z]{3}\.json$/.test(name) ? [name.slice(0, 3)] : []))
+    .sort()
+    .map((code) => ({ code, worldbank: names.includes(`${code}.worldbank.json`), eurostat: names.includes(`${code}.eurostat.json`) }));
+}
+
+/**
+ * Registre des pays, GÉNÉRÉ à partir du dossier data/approche/ : ajouter un pays = déposer son fichier puis relancer
+ * `npm run approche:contract` (ou `npm run approche:import`, qui le fait). Aucune ligne à écrire dans repository.ts.
+ */
+export function buildRegistryModule(root: string): string {
+  const countries = listCountryFiles(root);
+  return [
+    "// Fichier GÉNÉRÉ par `npm run approche:contract` à partir de data/approche/ : ne pas modifier à la main. Un test vérifie qu'il est à jour.",
+    ...countries.flatMap(({ code, worldbank, eurostat }) => [
+      `import ${code} from "@/data/approche/${code}.json";`,
+      ...(worldbank ? [`import ${code}_WORLDBANK from "@/data/approche/${code}.worldbank.json";`] : []),
+      ...(eurostat ? [`import ${code}_EUROSTAT from "@/data/approche/${code}.eurostat.json";`] : []),
+    ]),
+    "",
+    "export const COUNTRY_FILES: Record<string, { curated: unknown; worldbank?: unknown; eurostat?: unknown }> = {",
+    ...countries.map(({ code, worldbank, eurostat }) => `  ${code}: { curated: ${code}${worldbank ? `, worldbank: ${code}_WORLDBANK` : ""}${eurostat ? `, eurostat: ${code}_EUROSTAT` : ""} },`),
+    "};",
+    "",
+  ].join("\n");
+}
+
 /** Contenu attendu de chaque fichier généré (chemin relatif → texte). */
 export function buildContractFiles(root: string): Record<string, string> {
   const schema = buildSchema();
   return {
     "lib/approche/readKeys.ts": buildReadKeysModule(root),
+    "lib/approche/registry.generated.ts": buildRegistryModule(root),
     "docs/approche.schema.v1.json": `${JSON.stringify(schema, null, 2)}\n`,
     "docs/APPROCHE_CHAMPS_V1.md": buildFieldReference(schema),
     "docs/APPROCHE_CHAMPS_UI.md": buildUiReport(root),

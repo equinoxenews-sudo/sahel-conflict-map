@@ -123,6 +123,8 @@ export const CountryDataSchema = z.object({
   name: z.string().min(1),
   officialName: z.string().nullable().optional(),
   publication: z.enum(PUBLICATION),
+  /** Niveau documentaire visé : « essential » ou « extended » (voir lib/approche/levels.ts). Facultatif ; le niveau atteint est calculé d'après le contenu. */
+  documentationLevel: z.enum(["essential", "extended"]).nullable().optional(),
   /** Dernier contrôle de la fiche, même sans changement. */
   lastCheckedAt: DATE.nullable(),
   sources: z.array(SourceSchema),

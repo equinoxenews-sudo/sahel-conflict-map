@@ -71,7 +71,7 @@ Ce document s'adresse à qui produit les fichiers de données (ChatGPT, éditeur
 | Champ | Contenu |
 |---|---|
 | `id`, `countryCode`, `key` | `key` stable, ex. `economy.gdp_nominal_usd`. |
-| `label`, `theme`, `topic` | `label` : intitulé lisible par le lecteur (obligatoire pour qu'une valeur sans tuile soit affichée dans les données complémentaires). `theme` : rubrique de ces données complémentaires (`appartenances`, `demographie`, `projections`, `conjoncture`, `energie`, `recherche`, `ports`, `investissement`, `defense`, `humanitaire`, `cyber`, `securite`), ou `none` pour ne pas l'afficher ; à défaut, déduite du préfixe de la clé. `topic` regroupe plusieurs mesures du même sujet issues de sources différentes (volet « Autres sources » de la tuile). |
+| `label`, `theme`, `topic` | `label` : intitulé lisible par le lecteur (obligatoire pour qu'une valeur sans tuile soit affichée dans les données complémentaires). `theme` : rubrique de ces données complémentaires (`appartenances`, `demographie`, `politique`, `geographie`, `projections`, `conjoncture`, `energie`, `infrastructures`, `ressources`, `recherche`, `ports`, `investissement`, `defense`, `humanitaire`, `cyber`, `securite`), ou `none` pour ne pas l'afficher ; à défaut, déduite du préfixe de la clé. `topic` regroupe plusieurs mesures du même sujet issues de sources différentes (volet « Autres sources » de la tuile). |
 | `value`, `unit`, `currency` | Nombre, texte ou booléen ; unité (`habitants`, `USD`, `EUR`, `%`, `km²`, `TWh`…). `null` si inconnu. |
 | `referencePeriod`, `validFrom` | Période de la valeur (`2025`, `2025-Q4`) ; début de validité d'un fait (prise de fonctions). |
 | `geographicScope`, `methodology` | Périmètre et définition (obligatoires). |
