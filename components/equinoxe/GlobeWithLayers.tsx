@@ -9,6 +9,8 @@ import type { Launch } from "@/lib/layers/launches";
 import type { NaturalEvent } from "@/lib/layers/naturalEvents";
 import type { SatellitePosition } from "@/lib/layers/satellites";
 import { LAYER_DEFAULTS, type EntityPopupData, type LayerKey } from "@/lib/layers/types";
+import { DEFAULT_EVENT_MODE, GLOBE_CLUSTERING_ENABLED, GLOBE_TEST_TOOLS, type EventMode } from "@/lib/globeClustering";
+import { fixtureCountFromSearch, syntheticEvents } from "@/lib/globeFixtures";
 import { FOCUS_ZONE_EVENT, ZONE_FOCUSED_EVENT, isHomeZone, type ZoneBriefsByZone, type ZoneSlug } from "@/lib/homeZones";
 import type { VesselPosition } from "@/types/vessel";
 import Globe3DLoader from "./Globe3DLoader";
@@ -46,15 +48,21 @@ export default function GlobeWithLayers({
   satellites,
   vessels,
   earthquakes,
-  analystEvents,
+  analystEvents: loadedEvents,
   riskSource,
   naturalEvents,
   launches,
   gdeltStatus,
   zoneBriefs,
 }: GlobeWithLayersProps) {
+  // Jeu d'essai : ?evenements-test=100|1000|5000 remplace les événements par des données synthétiques (hors production seulement,
+  // jamais écrites nulle part). Lu une fois au montage ; sans le paramètre, les événements réels sont inchangés.
+  const [testCount] = useState<number | null>(() => (GLOBE_TEST_TOOLS && typeof window !== "undefined" ? fixtureCountFromSearch(window.location.search) : null));
+  const analystEvents = useMemo(() => (testCount ? syntheticEvents(testCount) : loadedEvents), [testCount, loadedEvents]);
   const [enabledLayers, setEnabledLayers] = useState<Record<LayerKey, boolean>>(LAYER_DEFAULTS);
   const [mobileSheet, setMobileSheet] = useState<null | "layers" | "risk">(null);
+  // Affichage des événements : regroupés (par défaut hors production) ou un point chacun, comme avant.
+  const [eventMode, setEventMode] = useState<EventMode>(DEFAULT_EVENT_MODE);
   const [selectedEntity, setSelectedEntity] = useState<{
     data: EntityPopupData;
     x: number;
@@ -186,6 +194,7 @@ export default function GlobeWithLayers({
             naturalEvents={naturalEvents}
             launches={launches}
             dateRange={dateRange}
+            eventMode={eventMode}
             onEntitySelect={handleEntitySelect}
             focusZone={focusedZone}
             onZonePick={setFocusedZone}
@@ -209,6 +218,7 @@ export default function GlobeWithLayers({
               x={selectedEntity.x}
               y={selectedEntity.y}
               onClose={() => setSelectedEntity(null)}
+              onPickItem={(item) => handleEntitySelect(item, { x: selectedEntity.x, y: selectedEntity.y })}
             />
           ) : null}
         </div>
@@ -268,7 +278,7 @@ export default function GlobeWithLayers({
           </svg>
         </button>
         <div className={layersOpen ? `${styles.stackLayers} ${styles.stackLayersOpen}` : styles.stackLayers}>
-          <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
+          <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} eventMode={GLOBE_CLUSTERING_ENABLED ? eventMode : undefined} onEventMode={setEventMode} />
         </div>
       </div>
 
@@ -300,7 +310,7 @@ export default function GlobeWithLayers({
 
       {mobileSheet === "layers" ? (
         <MobileSheet title="Couches" onBack={() => setMobileSheet(null)}>
-          <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} />
+          <LayersPanel enabled={enabledLayers} counts={counts} onToggle={toggleLayer} eventMode={GLOBE_CLUSTERING_ENABLED ? eventMode : undefined} onEventMode={setEventMode} />
           <div className={styles.mobileTimeRange}>
             <GlobeTimeRange onChange={setDateRange} />
           </div>

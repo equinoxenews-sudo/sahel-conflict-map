@@ -11,6 +11,7 @@ import type { SatellitePosition } from "@/lib/layers/satellites";
 import type { EntityPopupData, LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
 import type { ZoneSlug } from "@/lib/homeZones";
+import type { EventMode } from "@/lib/globeClustering";
 import type { GlobeDateRange } from "./GlobeTimeRange";
 
 const Globe3D = dynamic(() => import("./Globe3D"), { ssr: false });
@@ -26,6 +27,8 @@ interface Globe3DLoaderProps {
   naturalEvents: NaturalEvent[];
   launches: Launch[];
   dateRange: GlobeDateRange | null;
+  /** Événements des analystes : un point par événement (historique) ou regroupés selon la densité à l'écran. */
+  eventMode: EventMode;
   onEntitySelect: (data: EntityPopupData | null, screen: { x: number; y: number } | null) => void;
   /** Zone au centre du globe (null : vue d'ensemble). */
   focusZone: ZoneSlug | null;

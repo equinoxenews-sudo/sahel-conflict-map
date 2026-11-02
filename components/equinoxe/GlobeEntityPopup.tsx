@@ -80,13 +80,15 @@ interface GlobeEntityPopupProps {
   x: number;
   y: number;
   onClose: () => void;
+  /** Événement choisi dans une liste d'événements confondus : sa fiche habituelle s'ouvre à la place de la liste. */
+  onPickItem?: (item: EntityPopupData) => void;
 }
 
 // A small "bulle" anchored to the clicked point's screen position (see
 // Globe3D.tsx's click handler) — deliberately not Cesium's default
 // InfoBox (a large sidebar) or SelectionIndicator, neither of which
 // matches this site's floating glass-card style.
-export default function GlobeEntityPopup({ data, x, y, onClose }: GlobeEntityPopupProps) {
+export default function GlobeEntityPopup({ data, x, y, onClose, onPickItem }: GlobeEntityPopupProps) {
   return (
     <div className={styles.popup} style={{ left: x, top: y }} lang="fr">
       <div className={styles.header}>
@@ -107,6 +109,18 @@ export default function GlobeEntityPopup({ data, x, y, onClose }: GlobeEntityPop
         ) : null}
         {data.title}
       </h3>
+      {data.items?.length ? (
+        <ul className={styles.items}>
+          {data.items.map((item, index) => (
+            <li key={`${item.brief?.id ?? index}`}>
+              <button type="button" className={styles.itemBtn} onClick={() => onPickItem?.(item)}>
+                <span className={styles.itemTitle}>{item.title}</span>
+                {item.fields.find((f) => f.label === "Publié") ? <span className={styles.itemMeta}>{item.fields.find((f) => f.label === "Publié")?.value}</span> : null}
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
       {data.fields.length > 0 ? (
         <dl className={styles.fields}>
           {data.fields.map((field) => (
