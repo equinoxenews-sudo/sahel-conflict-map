@@ -157,6 +157,10 @@ const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
   droughts: "SÉCHERESSE",
 };
 
+/** Finesse des tuiles de la carte sur téléphone (plus petit = plus fin) : à l'arrêt, puis pendant un geste. */
+const MOBILE_IDLE_SSE = 1.5;
+const MOBILE_MOVING_SSE = 2.5;
+
 // --- Points lumineux des événements des analystes ---------------------------------------
 
 /** Rouge des points d'événements (tous de la même couleur, demande de Nicolas, 18/10/2026). */
@@ -746,10 +750,32 @@ export default function Globe3D({
         viewer.scene.msaaSamples = 1;
         viewer.scene.fog.enabled = false;
         viewer.scene.postProcessStages.fxaa.enabled = false;
-        // Sur téléphone la page fait 980 px de large (voir app/layout.tsx) : le globe dessinait
-        // plus de cinq fois plus de pixels qu'en version mobile. On le dessine à environ 65 % de la
-        // définition (le navigateur l'étire), ce qui garde un rendu net à cette taille d'écran.
-        viewer.resolutionScale = window.innerWidth > 700 ? 0.65 : 0.85;
+        // Sur téléphone la page fait 980 px de large (voir app/layout.tsx). Le globe était dessiné à 65 % de cette
+        // largeur puis étiré par le navigateur : image floue. Désormais : résolution native de l'écran (devicePixelRatio,
+        // plafonnée à 1,5 pour épargner la batterie) quand le globe est immobile, et définition allégée (70 %, tuiles
+        // moins fines) pendant les gestes, rétablie 0,2 s après leur fin. Le coût n'est payé qu'à l'arrêt.
+        viewer.useBrowserRecommendedResolution = false;
+        const nativeRatio = window.devicePixelRatio || 1;
+        const idleRatio = Math.min(nativeRatio, 1.5);
+        const idleScale = idleRatio / nativeRatio;
+        const movingScale = (idleRatio * 0.7) / nativeRatio;
+        viewer.resolutionScale = idleScale;
+        const qualityViewer = viewer;
+        let sharpenTimer: number | undefined;
+        const setQuality = (idle: boolean) => {
+          if (qualityViewer.isDestroyed()) return;
+          qualityViewer.resolutionScale = idle ? idleScale : movingScale;
+          qualityViewer.scene.globe.maximumScreenSpaceError = idle ? MOBILE_IDLE_SSE : MOBILE_MOVING_SSE;
+          qualityViewer.scene.requestRender();
+        };
+        qualityViewer.camera.moveStart.addEventListener(() => {
+          window.clearTimeout(sharpenTimer);
+          setQuality(false);
+        });
+        qualityViewer.camera.moveEnd.addEventListener(() => {
+          window.clearTimeout(sharpenTimer);
+          sharpenTimer = window.setTimeout(() => setQuality(true), 200);
+        });
       }
 
       const baseLayer = viewer.imageryLayers.addImageryProvider(
@@ -845,7 +871,7 @@ export default function Globe3D({
       // to sharp Sahel/Africa in the same frame). Tightening it makes
       // Cesium request higher-detail tiles everywhere, including toward
       // the limb, closing that gap — at the cost of more tile requests.
-      viewer.scene.globe.maximumScreenSpaceError = lowPower ? 2.5 : 1;
+      viewer.scene.globe.maximumScreenSpaceError = lowPower ? MOBILE_IDLE_SSE : 1;
 
       // Centered on the Sahel/Africa — the site's editorial focus —
       // rather than Cesium's generic flyHome() default view (which
@@ -1418,10 +1444,12 @@ export default function Globe3D({
   // (rien si l'utilisateur a réduit les animations, ni quand l'onglet est caché).
   useEffect(() => {
     if (!enabledLayers.events || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Téléphone : 9 redessins par seconde au lieu de 20 (le globe est maintenant net à l'arrêt, donc plus coûteux à redessiner).
+    const everyMs = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 900 ? 110 : 50;
     const id = window.setInterval(() => {
       const viewer = viewerRef.current;
       if (viewer && !viewer.isDestroyed() && !document.hidden) viewer.scene.requestRender();
-    }, 50);
+    }, everyMs);
     return () => window.clearInterval(id);
   }, [enabledLayers.events]);
 
