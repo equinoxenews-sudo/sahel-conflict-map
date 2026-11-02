@@ -3,8 +3,8 @@
   "countryCode": "NGA",
   "slug": "nigeria",
   "zoneSlug": "afrique",
-  "name": "Nigéria",
-  "officialName": "République fédérale du Nigéria",
+  "name": "Nigeria",
+  "officialName": "République fédérale du Nigeria",
   "publication": "draft",
   "lastCheckedAt": "2026-11-02",
   "sources": [
@@ -30,30 +30,6 @@
       "licenseUrl": null,
       "reuse": "citation_only",
       "language": "en",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
-    },
-    {
-      "id": "S-NGA-ECOWAS_HIST",
-      "publisher": "CEDEAO",
-      "title": "Création, histoire et retrait des États de l’AES",
-      "canonicalUrl": "https://www.ecowas.int/creationhistoire/?lang=fr",
-      "accessedAt": "2026-11-02",
-      "license": null,
-      "licenseUrl": null,
-      "reuse": "citation_only",
-      "language": "fr",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
-    },
-    {
-      "id": "S-NGA-BCEAO",
-      "publisher": "BCEAO",
-      "title": "Le franc CFA et les États de l’UEMOA",
-      "canonicalUrl": "https://www.bceao.int/fr/content/histoire-du-franc-cfa",
-      "accessedAt": "2026-11-02",
-      "license": null,
-      "licenseUrl": null,
-      "reuse": "citation_only",
-      "language": "fr",
       "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
     },
     {
@@ -90,7 +66,8 @@
       "licenseUrl": null,
       "reuse": "citation_only",
       "language": "en",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication.",
+      "publishedAt": "2026-10-08"
     },
     {
       "id": "S-NGA-IMF",
@@ -102,7 +79,8 @@
       "licenseUrl": null,
       "reuse": "citation_only",
       "language": "en",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication.",
+      "publishedAt": "2026-06-09"
     },
     {
       "id": "S-NGA-UNHCR",
@@ -134,8 +112,7 @@
       "id": "nga-identity-capital",
       "countryCode": "NGA",
       "key": "identity.capital",
-      "label": "Capitale fédérale",
-      "topic": "identity",
+      "label": "Capitale",
       "value": "Abuja",
       "unit": null,
       "referencePeriod": "2026",
@@ -153,8 +130,7 @@
       "id": "nga-politics-head-of-state",
       "countryCode": "NGA",
       "key": "politics.head_of_state",
-      "label": "Président",
-      "topic": "politics",
+      "label": "Chef de l’État",
       "value": "Bola Ahmed Tinubu",
       "unit": null,
       "referencePeriod": "2026",
@@ -172,8 +148,7 @@
       "id": "nga-politics-vice-president",
       "countryCode": "NGA",
       "key": "politics.vice_president",
-      "label": "Vice-président",
-      "topic": "politics",
+      "label": "Vice-présidence",
       "value": "Kashim Shettima",
       "unit": null,
       "referencePeriod": "2026",
@@ -191,8 +166,7 @@
       "id": "nga-politics-regime",
       "countryCode": "NGA",
       "key": "politics.regime",
-      "label": "Système politique",
-      "topic": "politics",
+      "label": "Régime politique",
       "value": "République fédérale présidentielle",
       "unit": null,
       "referencePeriod": "2026",
@@ -211,7 +185,6 @@
       "countryCode": "NGA",
       "key": "identity.currency",
       "label": "Monnaie",
-      "topic": "identity",
       "value": "Naira (NGN)",
       "unit": null,
       "referencePeriod": "2026",
@@ -230,7 +203,6 @@
       "countryCode": "NGA",
       "key": "institutions.ecowas",
       "label": "Membre de la CEDEAO",
-      "topic": "institutions",
       "value": true,
       "unit": null,
       "referencePeriod": "2026",
@@ -249,12 +221,11 @@
       "countryCode": "NGA",
       "key": "economy.gdp_growth_h1_2026_wb",
       "label": "Croissance réelle du PIB au premier semestre 2026",
-      "topic": "economy",
       "value": 4.2,
       "unit": "%",
       "referencePeriod": "2026-S1",
       "geographicScope": "Nigéria",
-      "methodology": "Croissance du PIB réel comparée au premier semestre précédent ; pas un taux annuel.",
+      "methodology": "Croissance du PIB réel comparée au premier semestre précédent ; pas un taux annuel. ; croissance cumulée sur le premier semestre, non directement comparable à une croissance annuelle.",
       "sourceIds": [
         "S-NGA-WB_NDU"
       ],
@@ -268,12 +239,11 @@
       "countryCode": "NGA",
       "key": "economy.gdp_growth_h1_2025_wb",
       "label": "Croissance réelle du PIB au premier semestre 2025",
-      "topic": "economy",
       "value": 3.9,
       "unit": "%",
       "referencePeriod": "2025-S1",
       "geographicScope": "Nigéria",
-      "methodology": "Comparateur semestriel, pas PIB annuel.",
+      "methodology": "Comparateur semestriel, pas PIB annuel. ; croissance cumulée sur le premier semestre, non directement comparable à une croissance annuelle.",
       "sourceIds": [
         "S-NGA-WB_NDU"
       ],
@@ -286,8 +256,8 @@
       "id": "nga-economy-gdp-growth-estimate-2025-imf",
       "countryCode": "NGA",
       "key": "economy.gdp_growth_estimate_2025_imf",
-      "label": "Croissance PIB 2025 — estimation FMI",
-      "topic": "economy",
+      "label": "Croissance 2025 estimée par le FMI",
+      "topic": "growth",
       "value": 4.0,
       "unit": "%",
       "referencePeriod": "2025",
@@ -305,8 +275,7 @@
       "id": "nga-economy-gdp-growth-projection-2026-imf",
       "countryCode": "NGA",
       "key": "economy.gdp_growth_projection_2026_imf",
-      "label": "Projection croissance 2026 — FMI",
-      "topic": "economy",
+      "label": "Croissance 2026 projetée par le FMI",
       "value": 4.1,
       "unit": "%",
       "referencePeriod": "2026",
@@ -324,8 +293,7 @@
       "id": "nga-economy-inflation-feb-2026-wb",
       "countryCode": "NGA",
       "key": "economy.inflation_feb_2026_wb",
-      "label": "Inflation annuelle février 2026",
-      "topic": "economy",
+      "label": "Inflation générale (février 2026)",
       "value": 15.1,
       "unit": "%",
       "referencePeriod": "2026-02",
@@ -344,7 +312,6 @@
       "countryCode": "NGA",
       "key": "economy.inflation_food_jul_2026_wb",
       "label": "Inflation alimentaire juillet 2026",
-      "topic": "economy",
       "value": 20.3,
       "unit": "%",
       "referencePeriod": "2026-07",
@@ -363,7 +330,6 @@
       "countryCode": "NGA",
       "key": "economy.reserves_jul_2026_wb",
       "label": "Réserves de change brutes fin juillet 2026",
-      "topic": "economy",
       "value": 51.9,
       "unit": "milliards USD",
       "referencePeriod": "2026-07",
@@ -382,7 +348,6 @@
       "countryCode": "NGA",
       "key": "economy.poverty_2025_national_imf",
       "label": "Pauvreté au seuil national, estimation FMI",
-      "topic": "economy",
       "value": 63.0,
       "unit": "%",
       "referencePeriod": "2025",
@@ -401,7 +366,6 @@
       "countryCode": "NGA",
       "key": "humanitarian.idps_oct_2026_unhcr",
       "label": "Personnes déplacées internes (HCR/OIM)",
-      "topic": "humanitarian",
       "value": 3679757,
       "unit": "personnes",
       "referencePeriod": "2026-10-01",
@@ -420,7 +384,6 @@
       "countryCode": "NGA",
       "key": "humanitarian.refugees_asylum_oct_2026_unhcr",
       "label": "Réfugiés et demandeurs d’asile présents au Nigéria",
-      "topic": "humanitarian",
       "value": 141688,
       "unit": "personnes",
       "referencePeriod": "2026-10-01",
@@ -728,16 +691,27 @@
           "subthemes": [
             "Sécurité"
           ],
-          "situation": "Conflits armés, banditisme, enlèvements et violences intercommunautaires ne relèvent pas d’un acteur unique.",
-          "whyStrategic": "La question « diversité des insécurités » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "Les violences dans le Nord-Est, les conflits et le banditisme du Nord-Ouest et certaines tensions locales présentent des dynamiques différentes, difficilement résumables par un seul indicateur national.",
+          "whyStrategic": "La diversité des menaces rend délicat un traitement uniforme de la sécurité intérieure. Les conséquences se lisent dans les mouvements de population, l’accès à l’éducation et la continuité de l’activité agricole et commerciale.",
+          "actors": [
+            "Autorités fédérales et États fédérés",
+            "Communautés déplacées et organisations humanitaires",
+            "Institutions de sécurité et autorités locales"
+          ],
+          "interests": [
+            "Protection des civils et accès humanitaire",
+            "Continuité des marchés et des services"
+          ],
+          "recentDevelopments": [
+            "Les rapports pays de la Banque mondiale et les données opérationnelles du HCR renseignent des pressions géographiquement différenciées."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Déplacements et retours ventilés par État",
+            "Accès humanitaire dans les zones touchées",
+            "Prix et activité agricole dans les zones de conflit"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Les chiffres de déplacés et de réfugiés renvoient à des catégories et dates différentes : aucune addition automatique."
           ],
           "updatedAt": "2026-11-02"
         },
@@ -758,16 +732,27 @@
           "subthemes": [
             "Économie"
           ],
-          "situation": "Écart entre stabilisation macroéconomique et hausse du niveau de vie des ménages.",
-          "whyStrategic": "La question « croissance et inclusion » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "L’économie a progressé au premier semestre 2026, mais l’enjeu de fond reste la transformation de la stabilisation macroéconomique en services, en emploi et en réduction durable de la pauvreté.",
+          "whyStrategic": "Les transferts fédéraux ont augmenté avec les réformes et les recettes pétrolières. Leur impact dépend de la capacité des États fédérés à sélectionner, financer et mettre en œuvre des infrastructures et services efficaces.",
+          "actors": [
+            "Gouvernement fédéral et États fédérés",
+            "Banque mondiale et FMI",
+            "Entreprises, ménages et collectivités"
+          ],
+          "interests": [
+            "Efficacité de la dépense publique infranationale",
+            "Investissement et création d’emplois productifs"
+          ],
+          "recentDevelopments": [
+            "Le Nigeria Development Update d’octobre 2026 met l’accent sur l’utilisation des recettes accrues par les États fédérés."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Investissement effectivement exécuté par État",
+            "Qualité des services d’eau, de santé et d’éducation",
+            "Emploi productif et pauvreté"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Une hausse des recettes publiques n’implique pas mécaniquement des résultats sociaux ; les écarts entre États sont importants."
           ],
           "updatedAt": "2026-11-02"
         },
@@ -788,16 +773,27 @@
             "Économie",
             "Société"
           ],
-          "situation": "Inflation alimentaire et coût des transports demeurent des facteurs de vulnérabilité sociale.",
-          "whyStrategic": "La question « inflation et revenus réels » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "La décrue de l’inflation s’est interrompue temporairement sous l’effet des coûts énergétiques, tandis que les prix alimentaires restent un enjeu majeur pour les ménages.",
+          "whyStrategic": "Les hausses de prix du carburant et du transport se répercutent sur les chaînes alimentaires. Il faut distinguer inflation générale, inflation alimentaire, niveau des prix et érosion des revenus réels.",
+          "actors": [
+            "Banque centrale du Nigéria",
+            "Ménages et distributeurs alimentaires",
+            "Autorités économiques fédérales"
+          ],
+          "interests": [
+            "Pouvoir d’achat et stabilité des prix",
+            "Crédibilité de la politique monétaire"
+          ],
+          "recentDevelopments": [
+            "La Banque mondiale décrit en 2026 un ralentissement de la désinflation et la persistance de tensions alimentaires."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Inflation générale et alimentaire séparément",
+            "Taux de politique monétaire et évolution du naira",
+            "Coût du transport et du carburant"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Les séries et révisions statistiques doivent conserver leur mois de référence ; ne pas comparer des indices de bases différentes comme des niveaux identiques."
           ],
           "updatedAt": "2026-11-02"
         },
@@ -817,16 +813,27 @@
           "subthemes": [
             "Énergie"
           ],
-          "situation": "Les exportations pétrolières renforcent les réserves mais concentrent certains risques.",
-          "whyStrategic": "La question « hydrocarbures et diversification » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "Les recettes tirées des hydrocarbures soutiennent les comptes extérieurs mais exposent les finances publiques aux prix internationaux et aux engagements de financement adossés au pétrole.",
+          "whyStrategic": "Les gains de change et de recettes ne remplacent pas l’investissement dans l’agriculture, les services et l’industrie. Le pays doit arbitrer entre amélioration des réserves et dépendance aux entrées de capitaux parfois volatiles.",
+          "actors": [
+            "Autorités pétrolières et budgétaires",
+            "Banque centrale et investisseurs",
+            "Entreprises des secteurs non pétroliers"
+          ],
+          "interests": [
+            "Stabilité des recettes de l’État",
+            "Diversification des exportations et résilience externe"
+          ],
+          "recentDevelopments": [
+            "Le bilan Banque mondiale d’octobre 2026 met en avant à la fois les effets positifs des prix du pétrole et les contraintes des engagements pétroliers préexistants."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Recettes nettes des hydrocarbures",
+            "Structure des réserves et flux de portefeuille",
+            "Diversification sectorielle des exportations"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Un choc favorable sur le prix du pétrole peut coexister avec une hausse du coût domestique du carburant."
           ],
           "updatedAt": "2026-11-02"
         }
@@ -869,7 +876,7 @@
         {
           "id": "nga-vuln-1",
           "title": "Pression sociale et pauvreté",
-          "summary": "La hausse des prix alimentaires et l’insuffisance d’emplois productifs pèsent sur la population.",
+          "summary": "La pression sécuritaire diffère entre les régions et complique la continuité de l’agriculture, du commerce et des services locaux.",
           "tags": [],
           "sourceIds": [
             "S-NGA-WB",
@@ -879,7 +886,7 @@
         {
           "id": "nga-vuln-2",
           "title": "Insécurité géographiquement diversifiée",
-          "summary": "Insurrection au Nord-Est, banditisme au Nord-Ouest et violences locales.",
+          "summary": "Le maintien de prix alimentaires élevés pèse sur les ménages même lorsque l’inflation générale ralentit.",
           "tags": [],
           "sourceIds": [
             "S-NGA-WB",
@@ -889,7 +896,7 @@
         {
           "id": "nga-vuln-3",
           "title": "Violences et déplacements",
-          "summary": "Les conflits armés et l’insécurité peuvent provoquer de nouveaux déplacements et restreindre l’activité économique.",
+          "summary": "Les réserves extérieures bénéficient de flux dont la composante de portefeuille peut se retirer rapidement.",
           "tags": [],
           "sourceIds": [
             "S-NGA-UNHCR",
@@ -899,7 +906,7 @@
         {
           "id": "nga-vuln-4",
           "title": "Chocs inflationnistes",
-          "summary": "Les prix des carburants et de l’alimentation limitent le pouvoir d’achat et les marges budgétaires.",
+          "summary": "Les recettes pétrolières et les coûts domestiques du carburant répondent différemment aux chocs mondiaux de prix.",
           "tags": [],
           "sourceIds": [
             "S-NGA-WB"
@@ -911,7 +918,7 @@
           {
             "id": "nga-sw-s-1",
             "title": "Taille et diversification économique",
-            "summary": "Marché intérieur étendu, services, agriculture, industrie et hydrocarbures.",
+            "summary": "La taille du marché et la diversité des activités offrent plusieurs sources potentielles de croissance au-delà des hydrocarbures.",
             "tags": [],
             "sourceIds": [
               "S-NGA-WB"
@@ -920,7 +927,7 @@
           {
             "id": "nga-sw-s-2",
             "title": "Redressement des réserves",
-            "summary": "La Banque mondiale relève 51,9 milliards USD de réserves brutes fin juillet 2026.",
+            "summary": "Les réserves reconstituées constituent un amortisseur, mais leur composition importe autant que leur volume.",
             "tags": [],
             "sourceIds": [
               "S-NGA-WB"
@@ -931,7 +938,7 @@
           {
             "id": "nga-sw-w-1",
             "title": "Pression sociale et pauvreté",
-            "summary": "La hausse des prix alimentaires et l’insuffisance d’emplois productifs pèsent sur la population.",
+            "summary": "Le coût de la vie absorbe une partie des gains de stabilisation macroéconomique.",
             "tags": [],
             "sourceIds": [
               "S-NGA-WB",
@@ -941,7 +948,7 @@
           {
             "id": "nga-sw-w-2",
             "title": "Insécurité géographiquement diversifiée",
-            "summary": "Insurrection au Nord-Est, banditisme au Nord-Ouest et violences locales.",
+            "summary": "La géographie des violences rend l’accès aux services et à l’emploi très inégal.",
             "tags": [],
             "sourceIds": [
               "S-NGA-WB",
@@ -953,7 +960,7 @@
           {
             "id": "nga-sw-o-1",
             "title": "Transformation des recettes en services",
-            "summary": "Le rapport d’octobre 2026 met l’accent sur l’efficacité des dépenses publiques et les emplois.",
+            "summary": "De meilleures dépenses des États fédérés pourraient soutenir la productivité et les services publics.",
             "tags": [],
             "sourceIds": [
               "S-NGA-WB_NDU"
@@ -964,7 +971,7 @@
           {
             "id": "nga-sw-t-1",
             "title": "Violences et déplacements",
-            "summary": "Les conflits armés et l’insécurité peuvent provoquer de nouveaux déplacements et restreindre l’activité économique.",
+            "summary": "Une contraction des flux de portefeuille compliquerait la gestion des réserves.",
             "tags": [],
             "sourceIds": [
               "S-NGA-UNHCR",
@@ -974,7 +981,7 @@
           {
             "id": "nga-sw-t-2",
             "title": "Chocs inflationnistes",
-            "summary": "Les prix des carburants et de l’alimentation limitent le pouvoir d’achat et les marges budgétaires.",
+            "summary": "Des tensions persistantes sur le carburant se transmettraient aux prix alimentaires et au transport.",
             "tags": [],
             "sourceIds": [
               "S-NGA-WB"
@@ -985,8 +992,8 @@
       "scenarios": [
         {
           "id": "nga-sc-1",
-          "title": "Consolidation graduelle",
-          "summary": "Scénario conditionnel : amélioration progressive des conditions économiques et institutionnelles si les réformes et la sécurité avancent.",
+          "title": "Recettes fédérales mieux transformées en services",
+          "summary": "Les États fédérés pourraient convertir l’augmentation de leurs recettes en infrastructures utiles, services de base et emplois si les dépenses sont exécutées et suivies efficacement.",
           "tags": [],
           "sourceIds": [
             "S-NGA-WB",
@@ -994,26 +1001,29 @@
           ],
           "kind": "reinforcement",
           "assumptions": [
-            "Stabilité des principales institutions et financements",
-            "Progrès mesurables dans la mise en œuvre des politiques"
+            "Maintien des réformes budgétaires et de change",
+            "Amélioration des procédures de dépense dans les États"
           ],
           "triggers": [
-            "Amélioration documentée des indicateurs de services et d’investissement"
+            "Hausse documentée des réalisations d’équipement et de maintenance",
+            "Amélioration de la qualité des services publics"
           ],
           "weakSignals": [
-            "Diminution durable des perturbations économiques ou sécuritaires"
+            "Baisse des écarts d’accès à l’eau, à l’éducation et à la santé",
+            "Progrès de l’emploi productif au-delà de la hausse du PIB"
           ],
           "consequences": [
-            "Capacité accrue de financement et de prestation de services"
+            "Productivité plus élevée et réduction progressive de la pauvreté",
+            "Moindre dépendance à l’expansion de la dépense non productive"
           ],
           "limits": [
-            "Scénario illustratif sans probabilité et sans projection chiffrée"
+            "Ce scénario suppose des capacités de mise en œuvre différenciées entre États fédérés."
           ]
         },
         {
           "id": "nga-sc-2",
-          "title": "Continuité sous contraintes",
-          "summary": "Scénario conditionnel : les tendances dominantes se prolongent, avec des tensions sur les revenus, l’emploi et la gouvernance.",
+          "title": "Stabilisation macroéconomique sans progrès social rapide",
+          "summary": "La croissance et les réserves se maintiendraient, mais les ménages continueraient à subir des prix alimentaires élevés et des disparités régionales.",
           "tags": [],
           "sourceIds": [
             "S-NGA-WB",
@@ -1022,26 +1032,28 @@
           ],
           "kind": "pressure",
           "assumptions": [
-            "Persistance des difficultés structurelles",
-            "Absence de rupture institutionnelle majeure"
+            "Conservation de l’équilibre macroéconomique",
+            "Investissements insuffisants dans les services essentiels"
           ],
           "triggers": [
-            "Indicateurs stagnants sur plusieurs publications"
+            "Découplage persistant entre croissance et revenu réel des ménages"
           ],
           "weakSignals": [
-            "Difficultés persistantes d’accès aux services et aux financements"
+            "Inflation alimentaire supérieure à l’inflation globale",
+            "Faible amélioration des services dans les États les plus en difficulté"
           ],
           "consequences": [
-            "Progrès inégaux entre territoires et secteurs"
+            "Écarts territoriaux persistants",
+            "Pression sur les dispositifs de protection sociale"
           ],
           "limits": [
-            "Ne préjuge pas de l’évolution effective du pays"
+            "Les taux de croissance semestriels et annuels ne doivent pas être comparés sans préciser leur périmètre."
           ]
         },
         {
           "id": "nga-sc-3",
-          "title": "Dégradation par chocs",
-          "summary": "Scénario conditionnel : combinaison de facteurs de risque économiques, climatiques ou sécuritaires.",
+          "title": "Choc pétrolier défavorable et tensions sociales",
+          "summary": "Une baisse des recettes nettes du pétrole ou une instabilité financière pourrait amplifier les contraintes de financement alors que les coûts de la vie et l’insécurité restent élevés.",
           "tags": [],
           "sourceIds": [
             "S-NGA-UNHCR",
@@ -1049,19 +1061,23 @@
           ],
           "kind": "fragility",
           "assumptions": [
-            "Réalisation d’au moins un choc externe ou intérieur important"
+            "Renversement des prix et recettes pétrolières",
+            "Sorties de capitaux de portefeuille et tensions de change"
           ],
           "triggers": [
-            "Détérioration simultanée de plusieurs indicateurs suivis"
+            "Dégradation de la balance des paiements et des réserves",
+            "Accélération des prix du carburant et des biens alimentaires"
           ],
           "weakSignals": [
-            "Tensions persistantes sur chaînes d’approvisionnement, populations ou recettes"
+            "Retards d’investissements publics",
+            "Renforcement de l’insécurité alimentaire dans certains États"
           ],
           "consequences": [
-            "Pression sur les finances publiques et les moyens d’existence"
+            "Restriction des dépenses d’équipement et sociales",
+            "Affaiblissement de la confiance dans les réformes"
           ],
           "limits": [
-            "Hypothèse de stress, sans probabilité calculée"
+            "Ce scénario n’implique aucune prévision de cours du pétrole ou de taux de change."
           ]
         }
       ],
@@ -1069,7 +1085,7 @@
         {
           "id": "nga-watch-1",
           "title": "Violences et déplacements",
-          "summary": "Les conflits armés et l’insécurité peuvent provoquer de nouveaux déplacements et restreindre l’activité économique.",
+          "summary": "Comparer la progression des recettes des États fédérés à l’exécution budgétaire effective et aux dépenses d’éducation et de santé.",
           "tags": [],
           "sourceIds": [
             "S-NGA-UNHCR",
@@ -1079,7 +1095,7 @@
         {
           "id": "nga-watch-2",
           "title": "Chocs inflationnistes",
-          "summary": "Les prix des carburants et de l’alimentation limitent le pouvoir d’achat et les marges budgétaires.",
+          "summary": "Suivre séparément inflation alimentaire, inflation totale et coût des carburants pour apprécier les contraintes sur le revenu réel.",
           "tags": [],
           "sourceIds": [
             "S-NGA-WB"
@@ -1088,7 +1104,7 @@
         {
           "id": "nga-watch-3",
           "title": "Transformation des recettes en services",
-          "summary": "Le rapport d’octobre 2026 met l’accent sur l’efficacité des dépenses publiques et les emplois.",
+          "summary": "Confronter les réserves extérieures aux entrées de capitaux de portefeuille et à l’évolution des recettes pétrolières.",
           "tags": [],
           "sourceIds": [
             "S-NGA-WB_NDU"

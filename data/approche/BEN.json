@@ -33,18 +33,6 @@
       "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
     },
     {
-      "id": "S-BEN-ECOWAS_HIST",
-      "publisher": "CEDEAO",
-      "title": "Création, histoire et retrait des États de l’AES",
-      "canonicalUrl": "https://www.ecowas.int/creationhistoire/?lang=fr",
-      "accessedAt": "2026-11-02",
-      "license": null,
-      "licenseUrl": null,
-      "reuse": "citation_only",
-      "language": "fr",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
-    },
-    {
       "id": "S-BEN-BCEAO",
       "publisher": "BCEAO",
       "title": "Le franc CFA et les États de l’UEMOA",
@@ -114,7 +102,8 @@
       "licenseUrl": null,
       "reuse": "citation_only",
       "language": "en",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication.",
+      "publishedAt": "2026-06-11"
     },
     {
       "id": "S-BEN-COSO",
@@ -126,7 +115,8 @@
       "licenseUrl": null,
       "reuse": "citation_only",
       "language": "en",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication.",
+      "publishedAt": "2026-06-25"
     },
     {
       "id": "S-BEN-CPF",
@@ -141,16 +131,17 @@
       "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
     },
     {
-      "id": "S-BEN-WB_DATA",
-      "publisher": "Banque mondiale",
-      "title": "Bénin — indicateurs macroéconomiques et sociaux",
-      "canonicalUrl": "https://data.worldbank.org/country/BJ",
+      "id": "S-BEN-NGA-2026",
+      "publisher": "Présidence de la République du Bénin",
+      "title": "Visite d’amitié et de travail du Président de la République au Nigéria (1er juin 2026)",
+      "canonicalUrl": "https://presidence.bj/article/395/visite-amitie-travail-president-republique-nigeria/",
+      "publishedAt": "2026-06-01",
       "accessedAt": "2026-11-02",
-      "license": null,
-      "licenseUrl": null,
+      "license": "Conditions de réutilisation commerciale non confirmées",
+      "licenseUrl": "https://presidence.bj/",
       "reuse": "citation_only",
-      "language": "en",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+      "language": "fr",
+      "methodNotes": "Source officielle utilisée uniquement pour paraphraser le fait de la visite bilatérale ; ni reproduction intégrale ni photographie."
     }
   ],
   "observations": [
@@ -158,8 +149,7 @@
       "id": "ben-identity-capital",
       "countryCode": "BEN",
       "key": "identity.capital",
-      "label": "Capitale constitutionnelle",
-      "topic": "identity",
+      "label": "Capitale",
       "value": "Porto-Novo",
       "unit": null,
       "referencePeriod": "2026",
@@ -177,8 +167,7 @@
       "id": "ben-politics-head-of-state",
       "countryCode": "BEN",
       "key": "politics.head_of_state",
-      "label": "Président de la République",
-      "topic": "politics",
+      "label": "Chef de l’État",
       "value": "Romuald Wadagni",
       "unit": null,
       "referencePeriod": "2026",
@@ -196,8 +185,7 @@
       "id": "ben-politics-regime",
       "countryCode": "BEN",
       "key": "politics.regime",
-      "label": "Régime institutionnel",
-      "topic": "politics",
+      "label": "Régime politique",
       "value": "République à régime présidentiel",
       "unit": null,
       "referencePeriod": "2026",
@@ -216,7 +204,6 @@
       "countryCode": "BEN",
       "key": "identity.currency",
       "label": "Monnaie",
-      "topic": "identity",
       "value": "Franc CFA (XOF)",
       "unit": null,
       "referencePeriod": "2026",
@@ -234,8 +221,7 @@
       "id": "ben-institutions-ecowas",
       "countryCode": "BEN",
       "key": "institutions.ecowas",
-      "label": "Appartenance CEDEAO",
-      "topic": "institutions",
+      "label": "Membre de la CEDEAO",
       "value": true,
       "unit": null,
       "referencePeriod": "2026",
@@ -252,9 +238,8 @@
     {
       "id": "ben-institutions-waemu",
       "countryCode": "BEN",
-      "key": "institutions.waemu",
-      "label": "Appartenance UEMOA",
-      "topic": "institutions",
+      "key": "institutions.uemoa",
+      "label": "Membre de l’UEMOA",
       "value": true,
       "unit": null,
       "referencePeriod": "2026",
@@ -273,7 +258,7 @@
       "countryCode": "BEN",
       "key": "economy.growth_2025_afdb",
       "label": "Croissance réelle du PIB 2025 — BAD",
-      "topic": "economy",
+      "topic": "growth",
       "value": 8.1,
       "unit": "%",
       "referencePeriod": "2025",
@@ -292,7 +277,6 @@
       "countryCode": "BEN",
       "key": "economy.growth_projection_2026_afdb",
       "label": "Croissance projetée du PIB en 2026 — BAD",
-      "topic": "economy",
       "value": 7.0,
       "unit": "%",
       "referencePeriod": "2026",
@@ -311,7 +295,6 @@
       "countryCode": "BEN",
       "key": "economy.growth_projection_2027_afdb",
       "label": "Croissance projetée du PIB en 2027 — BAD",
-      "topic": "economy",
       "value": 7.1,
       "unit": "%",
       "referencePeriod": "2027",
@@ -330,7 +313,7 @@
       "countryCode": "BEN",
       "key": "economy.inflation_2025_afdb",
       "label": "Inflation 2025 — BAD",
-      "topic": "economy",
+      "topic": "inflation",
       "value": 1.1,
       "unit": "%",
       "referencePeriod": "2025",
@@ -349,7 +332,6 @@
       "countryCode": "BEN",
       "key": "economy.fiscal_deficit_2025_afdb",
       "label": "Déficit public 2025 — BAD",
-      "topic": "economy",
       "value": 2.8,
       "unit": "% PIB",
       "referencePeriod": "2025",
@@ -367,8 +349,8 @@
       "id": "ben-demography-population-2024-wb-country",
       "countryCode": "BEN",
       "key": "demography.population_2024_wb_country",
-      "label": "Population 2024 — aperçu Banque mondiale",
-      "topic": "demography",
+      "label": "Population 2024 (source Banque mondiale, millésime distinct)",
+      "topic": "population",
       "value": 14500000,
       "unit": "personnes",
       "referencePeriod": "2024",
@@ -386,13 +368,12 @@
       "id": "ben-economy-national-poverty-2021-2022-wb",
       "countryCode": "BEN",
       "key": "economy.national_poverty_2021_2022_wb",
-      "label": "Pauvreté au seuil national, enquête 2021–2022",
-      "topic": "economy",
+      "label": "Pauvreté nationale, enquête 2021–2022 (ancienne mesure)",
       "value": 36.2,
       "unit": "%",
       "referencePeriod": "2021-2022",
       "geographicScope": "Bénin",
-      "methodology": "Estimation Banque mondiale ; ancienne enquête, ne pas présenter comme situation 2026.",
+      "methodology": "Estimation Banque mondiale ; ancienne enquête, ne pas présenter comme situation 2026. ; valeur historique, ne pas interpréter comme taux actuel.",
       "sourceIds": [
         "S-BEN-WB"
       ],
@@ -406,7 +387,6 @@
       "countryCode": "BEN",
       "key": "security.northern_departments",
       "label": "Départements septentrionaux concernés par l’insécurité",
-      "topic": "security",
       "value": "Alibori et Atacora",
       "unit": null,
       "referencePeriod": "2026",
@@ -424,8 +404,7 @@
       "id": "ben-economy-infrastructure-corridors",
       "countryCode": "BEN",
       "key": "economy.infrastructure_corridors",
-      "label": "Corridors stratégiques",
-      "topic": "economy",
+      "label": "Corridors de transit documentés",
       "value": "Abidjan–Lagos ; Cotonou–Niamey",
       "unit": null,
       "referencePeriod": "2026",
@@ -443,8 +422,7 @@
       "id": "ben-economy-cpf-horizon",
       "countryCode": "BEN",
       "key": "economy.cpf_horizon",
-      "label": "Horizon du cadre de partenariat Banque mondiale",
-      "topic": "economy",
+      "label": "Période du cadre de partenariat Banque mondiale",
       "value": "2027–2036",
       "unit": null,
       "referencePeriod": "2026",
@@ -479,7 +457,8 @@
       "statement": "Le Bénin occupe une position de transit entre le golfe de Guinée et le Sahel, notamment par les corridors Abidjan–Lagos et Cotonou–Niamey.",
       "claimType": "analysis",
       "sourceIds": [
-        "S-BEN-WB"
+        "S-BEN-WB",
+        "S-BEN-NGA-2026"
       ],
       "validAsOf": "2026-11-02",
       "reviewer": null,
@@ -536,11 +515,12 @@
       "relationType": "cooperation",
       "title": "Corridor commercial et voisinage",
       "topics": [],
-      "summary": "Les échanges avec le Nigéria sont structurants pour les activités de transport et de transit du Bénin.",
+      "summary": "La relation bénino-nigériane combine frontière commune, échanges commerciaux et mobilité ; la première visite bilatérale de Romuald Wadagni après son investiture a eu lieu au Nigéria le 1er juin 2026.",
       "validFrom": null,
       "validTo": null,
       "sourceIds": [
-        "S-BEN-WB"
+        "S-BEN-WB",
+        "S-BEN-NGA-2026"
       ],
       "lastReviewedAt": "2026-11-02",
       "status": "verified"
@@ -763,16 +743,27 @@
             "Sécurité",
             "Cohésion"
           ],
-          "situation": "Débordement régional de violences dans les zones frontalières, effets sur la circulation et l’agriculture.",
-          "whyStrategic": "La question « insécurité du nord » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "L’insécurité dans l’Atacora et l’Alibori fragilise l’accès aux terres cultivables, la circulation marchande et la sécurité alimentaire des ménages frontaliers.",
+          "whyStrategic": "La continuité de l’action publique au nord conditionne aussi l’intégration économique entre Cotonou et l’hinterland sahélien. Les contraintes de mobilité ont des effets sur les marchés locaux et sur la cohésion des communes accueillant des déplacés.",
+          "actors": [
+            "Autorités béninoises et collectivités du Nord",
+            "Communautés agricoles et pastorales",
+            "Partenaires du projet régional COSO"
+          ],
+          "interests": [
+            "Accès aux marchés et aux services",
+            "Protection des moyens d’existence dans les communes frontalières"
+          ],
+          "recentDevelopments": [
+            "FEWS NET décrit en juin 2026 les perturbations dans les départements du Nord ; la Banque mondiale annonce le renforcement du programme COSO."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Accès aux marchés ruraux et déplacements documentés",
+            "Fonctionnement des infrastructures et des services publics",
+            "Évolution des évaluations FEWS NET pour Atacora et Alibori"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "La géographie précise des incidents varie selon les sources ; ne pas extrapoler un contrôle territorial à partir de cette analyse."
           ],
           "updatedAt": "2026-11-02"
         },
@@ -793,16 +784,27 @@
             "Commerce",
             "Logistique"
           ],
-          "situation": "Continuité des échanges avec le Nigéria et vers les pays sahéliens via Cotonou.",
-          "whyStrategic": "La question « corridors de transit » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "Les axes Cotonou–Niamey et Abidjan–Lagos articulent les échanges portuaires, le transit régional et les liaisons avec le Sahel ; leur fonctionnement dépend aussi des décisions de pays voisins.",
+          "whyStrategic": "Le rôle de transit du Bénin en fait un point de passage pour les économies enclavées. Une perturbation prolongée des échanges aux frontières affecterait transporteurs, entreprises logistiques et recettes liées au commerce.",
+          "actors": [
+            "Autorités portuaires et douanières béninoises",
+            "Transporteurs, transitaires et entreprises régionales",
+            "Autorités des pays de l’hinterland"
+          ],
+          "interests": [
+            "Fiabilité du transit par Cotonou",
+            "Continuité des débouchés commerciaux transfrontaliers"
+          ],
+          "recentDevelopments": [
+            "Le cadre de partenariat Banque mondiale 2027–2036 insiste sur les infrastructures et l’investissement privé."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Temps et coûts de passage aux frontières",
+            "Volumes de transit publiés par les autorités",
+            "État des accords de circulation transfrontalière"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Les flux commerciaux varient selon les décisions douanières et les itinéraires alternatifs ; ne pas présumer d’une fermeture permanente."
           ],
           "updatedAt": "2026-11-02"
         },
@@ -824,16 +826,27 @@
             "Économie",
             "Emploi"
           ],
-          "situation": "Transformation de la croissance en emplois productifs et réduction de l’informalité.",
-          "whyStrategic": "La question « industrialisation et emplois » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "La croissance estimée pour 2025 ne garantit pas, à elle seule, une progression équivalente de l’emploi formel ou du pouvoir d’achat des ménages.",
+          "whyStrategic": "L’enjeu est de convertir la dynamique d’activité en productivité et en emplois, notamment dans les chaînes de transformation et les services connectés aux infrastructures. La pauvreté rurale et les disparités entre le Sud côtier et le Nord imposent une lecture territoriale.",
+          "actors": [
+            "Ministères économiques béninois",
+            "Entreprises industrielles et logistiques",
+            "Banque africaine de développement et Banque mondiale"
+          ],
+          "interests": [
+            "Emplois créés dans les activités productives",
+            "Diffusion territoriale de la croissance"
+          ],
+          "recentDevelopments": [
+            "La BAD publie des estimations 2025 et projections 2026–2027 ; la Banque mondiale définit un cadre de partenariat 2027–2036."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Emploi salarié et création d’entreprises",
+            "Investissement industriel annoncé puis réalisé",
+            "Pauvreté et accès aux services par région"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Les projections macroéconomiques sont révisables ; l’investissement annoncé ne se confond pas avec une réalisation."
           ],
           "updatedAt": "2026-11-02"
         },
@@ -854,16 +867,27 @@
             "Climat",
             "Agriculture"
           ],
-          "situation": "Crues dans le sud et aléas pluviométriques dans le nord, selon FEWS NET.",
-          "whyStrategic": "La question « adaptation climatique » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "La coexistence d’inondations dans le Sud et de séquences sèches plus marquées dans le Nord expose les producteurs à des risques différents au sein d’un même territoire national.",
+          "whyStrategic": "Les conditions de pluie et l’accès aux terres agricoles déterminent les revenus ruraux. Là où s’ajoutent des restrictions de mouvement, les chocs météorologiques peuvent davantage déstabiliser les marchés vivriers.",
+          "actors": [
+            "Communes et dispositifs de prévention des catastrophes",
+            "Producteurs agricoles et éleveurs",
+            "Services de sécurité alimentaire"
+          ],
+          "interests": [
+            "Résilience des exploitations pluviales",
+            "Accès aux marchés et gestion des inondations"
+          ],
+          "recentDevelopments": [
+            "Le rapport FEWS NET de juin 2026 différencie les aléas du Nord et les risques d’inondation dans les bassins méridionaux."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Anomalies pluviométriques par département",
+            "Prix des denrées et disponibilité des intrants",
+            "Nombre de ménages touchés lors des crues"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Une anomalie météorologique ne suffit pas à conclure à une crise alimentaire sans données locales."
           ],
           "updatedAt": "2026-11-02"
         }
@@ -905,7 +929,7 @@
         {
           "id": "ben-vuln-1",
           "title": "Insécurité au nord",
-          "summary": "FEWS NET signale des atteintes aux moyens d’existence et des déplacements dans l’Alibori et l’Atacora.",
+          "summary": "Les restrictions de mobilité dans le Nord entravent l’accès aux terres, aux marchés et aux services, indépendamment du dynamisme observé sur la côte.",
           "tags": [],
           "sourceIds": [
             "S-BEN-FEWS"
@@ -914,7 +938,7 @@
         {
           "id": "ben-vuln-2",
           "title": "Transformation sociale inégale",
-          "summary": "La Banque mondiale relève la persistance de la pauvreté rurale et de l’informalité.",
+          "summary": "La pauvreté rurale persistante limite les capacités d’investissement des ménages et leur résistance aux fluctuations de prix.",
           "tags": [],
           "sourceIds": [
             "S-BEN-WB",
@@ -924,7 +948,7 @@
         {
           "id": "ben-vuln-3",
           "title": "Propagation de l’insécurité sahélienne",
-          "summary": "L’extension des violences peut restreindre l’accès aux marchés et provoquer des déplacements.",
+          "summary": "Les bassins du Sud sont soumis à des crues, tandis que les zones septentrionales connaissent des épisodes de sécheresse et des aléas de rendement.",
           "tags": [],
           "sourceIds": [
             "S-BEN-FEWS"
@@ -933,7 +957,7 @@
         {
           "id": "ben-vuln-4",
           "title": "Vulnérabilité de la logistique",
-          "summary": "Un choc sur les corridors ou les frontières fragiliserait les revenus de transit.",
+          "summary": "La dépendance au transit transfrontalier expose certaines activités aux décisions de passage et aux changements d’itinéraire.",
           "tags": [],
           "sourceIds": [
             "S-BEN-WB"
@@ -945,7 +969,7 @@
           {
             "id": "ben-sw-s-1",
             "title": "Façade maritime et transit régional",
-            "summary": "Les corridors Cotonou–Niamey et Abidjan–Lagos soutiennent une fonction de plateforme logistique.",
+            "summary": "Atout d’accès maritime pour les opérateurs sahéliens, sous réserve de la fluidité des passages frontaliers.",
             "tags": [],
             "sourceIds": [
               "S-BEN-WB"
@@ -954,7 +978,7 @@
           {
             "id": "ben-sw-s-2",
             "title": "Dynamique de croissance",
-            "summary": "La BAD estime la croissance 2025 à 8,1 %, notamment portée par le commerce et l’industrie.",
+            "summary": "Croissance récente soutenue, à traduire en emplois au-delà des pôles côtiers.",
             "tags": [],
             "sourceIds": [
               "S-BEN-AFDB"
@@ -965,7 +989,7 @@
           {
             "id": "ben-sw-w-1",
             "title": "Insécurité au nord",
-            "summary": "FEWS NET signale des atteintes aux moyens d’existence et des déplacements dans l’Alibori et l’Atacora.",
+            "summary": "Les communes septentrionales subissent des perturbations de marchés et de mobilité qui se cumulent aux contraintes agricoles.",
             "tags": [],
             "sourceIds": [
               "S-BEN-FEWS"
@@ -974,7 +998,7 @@
           {
             "id": "ben-sw-w-2",
             "title": "Transformation sociale inégale",
-            "summary": "La Banque mondiale relève la persistance de la pauvreté rurale et de l’informalité.",
+            "summary": "Les écarts de pauvreté et l’emploi informel limitent la diffusion des gains économiques.",
             "tags": [],
             "sourceIds": [
               "S-BEN-WB",
@@ -986,7 +1010,7 @@
           {
             "id": "ben-sw-o-1",
             "title": "Transformation productive",
-            "summary": "Le cadre 2027–2036 cherche à développer le secteur privé et les emplois.",
+            "summary": "Les investissements privés pourraient renforcer la transformation locale et réduire la dépendance au transit brut.",
             "tags": [],
             "sourceIds": [
               "S-BEN-CPF"
@@ -997,7 +1021,7 @@
           {
             "id": "ben-sw-t-1",
             "title": "Propagation de l’insécurité sahélienne",
-            "summary": "L’extension des violences peut restreindre l’accès aux marchés et provoquer des déplacements.",
+            "summary": "Une aggravation de l’insécurité sur les liaisons septentrionales fragiliserait les routes commerciales.",
             "tags": [],
             "sourceIds": [
               "S-BEN-FEWS"
@@ -1006,7 +1030,7 @@
           {
             "id": "ben-sw-t-2",
             "title": "Vulnérabilité de la logistique",
-            "summary": "Un choc sur les corridors ou les frontières fragiliserait les revenus de transit.",
+            "summary": "Des chocs climatiques répétés risqueraient d’affecter la production et les revenus ruraux.",
             "tags": [],
             "sourceIds": [
               "S-BEN-WB"
@@ -1017,8 +1041,8 @@
       "scenarios": [
         {
           "id": "ben-sc-1",
-          "title": "Consolidation graduelle",
-          "summary": "Scénario conditionnel : amélioration progressive des conditions économiques et institutionnelles si les réformes et la sécurité avancent.",
+          "title": "Sécurisation territoriale et montée en valeur des corridors",
+          "summary": "Si les communes du Nord retrouvent un accès plus régulier aux marchés et si les investissements logistiques aboutissent, le Bénin pourrait mieux relier sa croissance côtière aux zones frontalières.",
           "tags": [],
           "sourceIds": [
             "S-BEN-WB",
@@ -1027,26 +1051,29 @@
           ],
           "kind": "reinforcement",
           "assumptions": [
-            "Stabilité des principales institutions et financements",
-            "Progrès mesurables dans la mise en œuvre des politiques"
+            "Réduction durable des interruptions de circulation dans l’Atacora et l’Alibori",
+            "Mise en œuvre des investissements de transport et d’emploi du cadre 2027–2036"
           ],
           "triggers": [
-            "Amélioration documentée des indicateurs de services et d’investissement"
+            "Reprise des échanges sur les axes de transit",
+            "Exécution documentée des programmes communautaires et d’infrastructures"
           ],
           "weakSignals": [
-            "Diminution durable des perturbations économiques ou sécuritaires"
+            "Évolution des prix et disponibilités alimentaires au Nord",
+            "Amélioration mesurée de l’accès aux services dans les communes concernées"
           ],
           "consequences": [
-            "Capacité accrue de financement et de prestation de services"
+            "Recettes de transit plus régulières",
+            "Amélioration des perspectives de revenus dans l’hinterland"
           ],
           "limits": [
-            "Scénario illustratif sans probabilité et sans projection chiffrée"
+            "Ce scénario est conditionnel ; aucune date de normalisation sécuritaire n’est prévue."
           ]
         },
         {
           "id": "ben-sc-2",
-          "title": "Continuité sous contraintes",
-          "summary": "Scénario conditionnel : les tendances dominantes se prolongent, avec des tensions sur les revenus, l’emploi et la gouvernance.",
+          "title": "Croissance nationale mais fracture Nord–Sud persistante",
+          "summary": "Les pôles urbains et portuaires continueraient à progresser alors que l’insécurité et la pauvreté limiteraient les retombées dans les départements septentrionaux.",
           "tags": [],
           "sourceIds": [
             "S-BEN-FEWS",
@@ -1055,26 +1082,27 @@
           ],
           "kind": "pressure",
           "assumptions": [
-            "Persistance des difficultés structurelles",
-            "Absence de rupture institutionnelle majeure"
+            "Maintien des flux portuaires principaux",
+            "Persistance de restrictions de mobilité au Nord"
           ],
           "triggers": [
-            "Indicateurs stagnants sur plusieurs publications"
+            "Écarts stables entre régions en matière de pauvreté et d’accès aux services"
           ],
           "weakSignals": [
-            "Difficultés persistantes d’accès aux services et aux financements"
+            "Discontinuités locales de marché malgré une croissance nationale positive"
           ],
           "consequences": [
-            "Progrès inégaux entre territoires et secteurs"
+            "Réduction limitée des écarts territoriaux",
+            "Pression durable sur les programmes de cohésion"
           ],
           "limits": [
-            "Ne préjuge pas de l’évolution effective du pays"
+            "Les moyennes économiques nationales ne documentent pas seules la situation de l’Atacora ou de l’Alibori."
           ]
         },
         {
           "id": "ben-sc-3",
-          "title": "Dégradation par chocs",
-          "summary": "Scénario conditionnel : combinaison de facteurs de risque économiques, climatiques ou sécuritaires.",
+          "title": "Rupture des corridors et aggravation des déplacements",
+          "summary": "Une extension des violences dans les espaces frontaliers ou une succession de chocs sur les routes commerciales pourrait simultanément perturber transit, revenus et approvisionnement des ménages.",
           "tags": [],
           "sourceIds": [
             "S-BEN-FEWS",
@@ -1082,19 +1110,23 @@
           ],
           "kind": "fragility",
           "assumptions": [
-            "Réalisation d’au moins un choc externe ou intérieur important"
+            "Aggravation de l’insécurité transfrontalière",
+            "Interruption prolongée d’axes de transport et tension sur les prix des intrants"
           ],
           "triggers": [
-            "Détérioration simultanée de plusieurs indicateurs suivis"
+            "Multiplication de restrictions d’accès au Nord",
+            "Perturbations persistantes des itinéraires de transit"
           ],
           "weakSignals": [
-            "Tensions persistantes sur chaînes d’approvisionnement, populations ou recettes"
+            "Hausse des prix des denrées et du transport",
+            "Nouvelles évaluations faisant état de déplacements et pertes de revenus"
           ],
           "consequences": [
-            "Pression sur les finances publiques et les moyens d’existence"
+            "Affaiblissement des réseaux commerciaux régionaux",
+            "Besoins humanitaires et de cohésion accrus"
           ],
           "limits": [
-            "Hypothèse de stress, sans probabilité calculée"
+            "Aucun risque chiffré ni contrôle territorial supposé sans données indépendantes."
           ]
         }
       ],
@@ -1102,7 +1134,7 @@
         {
           "id": "ben-watch-1",
           "title": "Propagation de l’insécurité sahélienne",
-          "summary": "L’extension des violences peut restreindre l’accès aux marchés et provoquer des déplacements.",
+          "summary": "Suivre les mouvements de population signalés par FEWS NET au nord du Bénin, notamment les difficultés d’accès à la terre et aux marchés.",
           "tags": [],
           "sourceIds": [
             "S-BEN-FEWS"
@@ -1111,7 +1143,7 @@
         {
           "id": "ben-watch-2",
           "title": "Vulnérabilité de la logistique",
-          "summary": "Un choc sur les corridors ou les frontières fragiliserait les revenus de transit.",
+          "summary": "Contrôler les décisions de transit avec le Niger et le Nigéria : les flux dépendent d’accords de passage et de contraintes frontalières.",
           "tags": [],
           "sourceIds": [
             "S-BEN-WB"
@@ -1120,7 +1152,7 @@
         {
           "id": "ben-watch-3",
           "title": "Transformation productive",
-          "summary": "Le cadre 2027–2036 cherche à développer le secteur privé et les emplois.",
+          "summary": "Vérifier l’exécution des engagements du cadre Banque mondiale 2027–2036, en distinguant projets annoncés et investissements réalisés.",
           "tags": [],
           "sourceIds": [
             "S-BEN-CPF"

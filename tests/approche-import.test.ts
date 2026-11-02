@@ -9,7 +9,7 @@ import { COUNTRY_FILES } from "../lib/approche/registry.generated";
 import { getApprocheData, listApprocheCountries, loadApprocheCountry } from "../lib/approche/repository";
 import { CountryDataSchema, type CountryData, type Observation } from "../lib/approche/schema";
 import { listCountryFiles } from "../scripts/lib/approcheContract";
-import { analyzeCountry, checkBatch, moduleStrings, registeredCountries, urlsOf, type ImportContext } from "../scripts/lib/approcheImport";
+import { analyzeCountry, checkBatch, moduleStrings, peerProfile, registeredCountries, urlsOf, type ImportContext } from "../scripts/lib/approcheImport";
 
 // Import par lot : le contrôle d'un fichier ne dépend d'aucun code propre à un pays. Les pays enregistrés (France, Mali, Chine et le lot
 // de cinq pays d'Afrique de l'Ouest) passent tous par le même moteur.
@@ -123,23 +123,39 @@ test("les adresses des sources et des licences sont extraites pour le contrôle 
 
 test("les textes identiques entre pays et les textes répétés sont signalés, sans bloquer (gabarit non personnalisé)", () => {
   assert.deepEqual(moduleStrings({ a: { summary: "Un texte suffisamment long pour compter comme contenu éditorial répété." }, id: "x" }), ["Un texte suffisamment long pour compter comme contenu éditorial répété."]);
+  // Gabarit : un autre pays reprend à l'identique les modules du Bénin.
+  const benin = read("BEN");
+  const twin = peerProfile("XXX", { observations: [], modules: benin.modules });
+  const copied = analyzeCountry(benin, "BEN.json", { ...ctx(), peers: [twin] });
+  assert.ok(copied.warnings.some((warning) => warning.startsWith("[textes identiques entre pays]") && warning.includes("XXX")));
+  assert.equal(copied.ok, true, "un avertissement documentaire ne bloque pas l'enregistrement");
+  // Répétition : le même texte dans trois rubriques de la fiche.
+  const repeated = clone(benin) as typeof benin & { modules: { overview: { strengths: { summary: string }[] } } };
+  const text = "Un même texte de plus de cinquante caractères repris dans plusieurs rubriques de la fiche.";
+  repeated.modules.overview.strengths.forEach((item) => (item.summary = text));
+  repeated.modules.overview.strengths.push({ ...repeated.modules.overview.strengths[0] });
+  assert.ok(analyzeCountry(repeated, "BEN.json", ctx()).warnings.some((warning) => warning.startsWith("[textes répétés]")));
+  // Les cinq fiches corrigées n'ont plus de texte commun avec les autres pays.
   for (const code of BATCH) {
     const report = analyzeCountry(read(code), `${code}.json`, ctx());
-    assert.ok(report.warnings.some((warning) => warning.startsWith("[textes identiques entre pays]")), `${code} : textes de gabarit communs aux autres pays`);
-    assert.ok(report.warnings.some((warning) => warning.startsWith("[textes répétés]")), `${code} : textes répétés dans la fiche`);
-    assert.equal(report.ok, true, "un avertissement documentaire ne bloque pas l'enregistrement");
+    assert.ok(!report.warnings.some((warning) => warning.startsWith("[textes identiques entre pays]")), `${code} : plus de gabarit commun`);
+    assert.ok(!report.warnings.some((warning) => warning.startsWith("[textes répétés]")), `${code} : plus de texte répété`);
   }
-  // Un pays sans texte commun avec les autres n'a pas cet avertissement.
-  const lonely = analyzeCountry(read("FRA"), "FRA.json", { ...ctx(), peers: [] });
-  assert.ok(!lonely.warnings.some((warning) => warning.startsWith("[textes identiques entre pays]")));
 });
 
 test("le rapport signale, en avertissements, les sources jamais référencées, les topics sans regroupement d'indicateurs, les libellés incohérents et les données invisibles", () => {
   const raw = clone(read("BFA"));
   raw.sources.push({ id: "S-BFA-ORPHELINE", publisher: "Organisme", title: "Source jamais citée", canonicalUrl: "https://example.org/orpheline", accessedAt: "2026-11-02", license: null, reuse: "citation_only", language: "fr" });
+  // Topic de domaine : « politics » ne regroupe pas d'indicateurs comparables.
+  raw.observations[1].topic = "politics";
+  raw.observations[2].topic = "politics";
   // Libellé incohérent : une année absente de la période ; même libellé pour deux clés.
   raw.observations[0].label = "Capitale en 2031";
   raw.observations.push({ ...clone(raw.observations[1]), id: "bfa-double", key: "politics.head_of_state_bis", label: String(raw.observations[1].label) });
+  // Clé institutionnelle différente de celle du Mali pour le même libellé (« Membre de l'UEMOA »).
+  const uemoa = raw.observations.find((item) => item.key === "institutions.uemoa");
+  assert.ok(uemoa);
+  uemoa.key = "institutions.waemu";
   // Observation sans label ni rubrique connue : visible nulle part.
   raw.observations.push({ ...clone(raw.observations[1]), id: "bfa-invisible", key: "mystere.sans_rubrique", label: null, topic: null });
   const report = analyzeCountry(raw, "BFA.json", ctx());
@@ -149,9 +165,16 @@ test("le rapport signale, en avertissements, les sources jamais référencées, 
   assert.ok(has("[topic]", "« politics »"), "un mot de domaine ne regroupe pas d'indicateurs");
   assert.ok(has("[libellés]", "identity.capital"), "année du libellé absente de la période");
   assert.ok(has("[libellés]", "même libellé pour plusieurs clés"));
+  assert.ok(has("[libellés]", "clé institutions.waemu"), "clé à harmoniser entre pays");
   assert.ok(has("[données invisibles]", "mystere.sans_rubrique"));
-  // Clés institutionnelles : « Membre de l'UEMOA » est porté par institutions.uemoa (Mali) et institutions.waemu (Burkina).
-  assert.ok(has("[libellés]", "institutions.waemu") || has("[libellés]", "clé institutions.waemu"), "clé à harmoniser entre pays");
+});
+
+test("les cinq fiches corrigées n'ont plus d'avertissement sur les sources, les topics, les clés institutionnelles ni les données invisibles", () => {
+  for (const code of BATCH) {
+    const report = analyzeCountry(read(code), `${code}.json`, ctx());
+    for (const prefix of ["[sources jamais référencées]", "[topic]", "[données invisibles]"]) assert.ok(!report.warnings.some((warning) => warning.startsWith(prefix)), `${code} : ${prefix}`);
+    assert.ok(!report.warnings.some((warning) => warning.includes("institutions.waemu")), `${code} : clé UEMOA harmonisée avec le Mali`);
+  }
 });
 
 test("un topic qui regroupe des mesures comparables de sources différentes, ou rejoint une tuile, n'est pas signalé", () => {
@@ -166,24 +189,20 @@ test("les niveaux ne sont ni calculés ni affichés automatiquement : ils sont d
   assert.ok(!page.includes("assessLevel"));
   for (const code of [...PILOTS, ...BATCH]) assert.equal(read(code).documentationLevel, undefined, `${code} : aucun niveau déclaré`);
 
-  const profile = (code: string) => {
-    const data = loadApprocheCountry(code) as CountryData;
-    const peers = [...PILOTS, ...BATCH].filter((other) => other !== code).flatMap((other) => [...longTexts((loadApprocheCountry(other) as CountryData).modules)]);
-    return coverageProfile(data, new Set(peers));
-  };
-  const fra = profile("FRA");
-  const ben = profile("BEN");
-  for (const item of [fra, ben]) {
-    assert.ok(item.coverage.score >= 0 && item.coverage.score <= 1 && item.sources.score >= 0 && item.sources.score <= 1);
-    assert.ok(item.coverage.blocks.length >= 15, "couverture mesurée bloc par bloc");
-  }
-  assert.ok((ben.specific.score ?? 1) < (fra.specific.score ?? 0), "les textes de gabarit du lot abaissent la part de contenu spécifique");
-  assert.equal(coverageProfile(loadApprocheCountry("FRA") as CountryData, null).specific.parts[0].value, null, "sans autre pays, le caractère spécifique n'est pas évalué");
+  const ben = loadApprocheCountry("BEN") as CountryData;
+  const peers = new Set([...PILOTS, ...BATCH].filter((other) => other !== "BEN").flatMap((other) => [...longTexts((loadApprocheCountry(other) as CountryData).modules)]));
+  const profile = coverageProfile(ben, peers);
+  assert.ok(profile.coverage.score >= 0 && profile.coverage.score <= 1 && profile.sources.score >= 0 && profile.sources.score <= 1);
+  assert.ok(profile.coverage.blocks.length >= 15, "couverture mesurée bloc par bloc");
+  // Le caractère spécifique baisse quand les textes sont ceux d'autres pays, et n'est pas évalué sans autre pays.
+  const copied = coverageProfile(ben, new Set(longTexts(ben.modules)));
+  assert.equal(copied.specific.parts[0].value, 0);
+  assert.ok((copied.specific.score ?? 1) < (profile.specific.score ?? 0));
+  assert.equal(coverageProfile(ben, null).specific.parts[0].value, null);
 
   // Le niveau déclaré n'est qu'une information : le même fichier, avec ou sans niveau, est classé à l'identique par le moteur.
-  const data = loadApprocheCountry("BEN") as CountryData;
-  const withLevel = CountryDataSchema.parse({ ...data, documentationLevel: "extended" });
-  assert.deepEqual([...classifyObservations(withLevel)], [...classifyObservations(data)]);
+  const withLevel = CountryDataSchema.parse({ ...ben, documentationLevel: "extended" });
+  assert.deepEqual([...classifyObservations(withLevel)], [...classifyObservations(ben)]);
 });
 
 test("même grandeur seulement : un chef d'État et une durée de mandat ne sont pas « d'autres sources » l'un de l'autre", () => {

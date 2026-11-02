@@ -45,18 +45,6 @@
       "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
     },
     {
-      "id": "S-GHA-BCEAO",
-      "publisher": "BCEAO",
-      "title": "Le franc CFA et les États de l’UEMOA",
-      "canonicalUrl": "https://www.bceao.int/fr/content/histoire-du-franc-cfa",
-      "accessedAt": "2026-11-02",
-      "license": null,
-      "licenseUrl": null,
-      "reuse": "citation_only",
-      "language": "fr",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
-    },
-    {
       "id": "S-GHA-PRES",
       "publisher": "Présidence du Ghana",
       "title": "Présidence et équipe gouvernementale — Ghana",
@@ -102,25 +90,14 @@
       "licenseUrl": null,
       "reuse": "citation_only",
       "language": "en",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication.",
+      "publishedAt": "2026-08-26"
     },
     {
       "id": "S-GHA-IMF",
       "publisher": "FMI",
       "title": "Ghana — Article IV et revue du programme ECF 2026",
       "canonicalUrl": "https://www.elibrary.imf.org/view/journals/002/2026/212/article-A001-en.xml",
-      "accessedAt": "2026-11-02",
-      "license": null,
-      "licenseUrl": null,
-      "reuse": "citation_only",
-      "language": "en",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
-    },
-    {
-      "id": "S-GHA-AFDB",
-      "publisher": "Banque africaine de développement",
-      "title": "Ghana Country Focus Report 2026",
-      "canonicalUrl": "https://www.afdb.org/en/documents/country-focus-report-2026-ghana-mobilizing-ghanas-development-financing-scale-fragmented-world",
       "accessedAt": "2026-11-02",
       "license": null,
       "licenseUrl": null,
@@ -153,16 +130,16 @@
       "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
     },
     {
-      "id": "S-GHA-CURRENCY",
-      "publisher": "BCEAO",
-      "title": "Étude sur les monnaies de la CEDEAO",
-      "canonicalUrl": "https://cofeb.bceao.int/sites/default/files/2022-03/DER_2020_04%20Alignement%20des%20monnaies%20dans%20la%20CEDEAO.pdf",
+      "id": "S-GHA-BOG-CURRENCY",
+      "publisher": "Bank of Ghana",
+      "title": "Sale and Purchase of Ghana Cedi Notes and Coins — statut de la monnaie",
+      "canonicalUrl": "https://www.bog.gov.gh/notice/sale-and-purchase-of-ghana-cedi-notes-and-coins/",
       "accessedAt": "2026-11-02",
-      "license": null,
-      "licenseUrl": null,
+      "license": "Réutilisation commerciale non établie",
+      "licenseUrl": "https://www.bog.gov.gh/",
       "reuse": "citation_only",
-      "language": "fr",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+      "language": "en",
+      "methodNotes": "Référence institutionnelle pour l’existence de la monnaie cedi, sans reprise d’images ou de textes protégés."
     }
   ],
   "observations": [
@@ -171,7 +148,6 @@
       "countryCode": "GHA",
       "key": "identity.capital",
       "label": "Capitale",
-      "topic": "identity",
       "value": "Accra",
       "unit": null,
       "referencePeriod": "2026",
@@ -189,8 +165,7 @@
       "id": "gha-politics-head-of-state",
       "countryCode": "GHA",
       "key": "politics.head_of_state",
-      "label": "Président",
-      "topic": "politics",
+      "label": "Chef de l’État",
       "value": "John Dramani Mahama",
       "unit": null,
       "referencePeriod": "2026",
@@ -208,8 +183,7 @@
       "id": "gha-politics-vice-president",
       "countryCode": "GHA",
       "key": "politics.vice_president",
-      "label": "Vice-présidente",
-      "topic": "politics",
+      "label": "Vice-présidence",
       "value": "Naana Jane Opoku-Agyemang",
       "unit": null,
       "referencePeriod": "2026",
@@ -227,8 +201,7 @@
       "id": "gha-politics-regime",
       "countryCode": "GHA",
       "key": "politics.regime",
-      "label": "Système politique",
-      "topic": "politics",
+      "label": "Régime politique",
       "value": "République présidentielle multipartite",
       "unit": null,
       "referencePeriod": "2026",
@@ -247,14 +220,13 @@
       "countryCode": "GHA",
       "key": "identity.currency",
       "label": "Monnaie",
-      "topic": "identity",
       "value": "Cedi ghanéen (GHS)",
       "unit": null,
       "referencePeriod": "2026",
       "geographicScope": "Ghana",
       "methodology": "Monnaie nationale distincte du franc CFA.",
       "sourceIds": [
-        "S-GHA-CURRENCY"
+        "S-GHA-BOG-CURRENCY"
       ],
       "collectedAt": "2026-11-02",
       "verifiedAt": "2026-11-02",
@@ -266,7 +238,6 @@
       "countryCode": "GHA",
       "key": "institutions.ecowas",
       "label": "Membre de la CEDEAO",
-      "topic": "institutions",
       "value": true,
       "unit": null,
       "referencePeriod": "2026",
@@ -285,7 +256,7 @@
       "countryCode": "GHA",
       "key": "economy.gdp_growth_2025_wb_report",
       "label": "Croissance réelle du PIB 2025 — Banque mondiale",
-      "topic": "economy",
+      "topic": "growth",
       "value": 6.0,
       "unit": "%",
       "referencePeriod": "2025",
@@ -304,7 +275,6 @@
       "countryCode": "GHA",
       "key": "economy.gdp_growth_projection_2026_wb",
       "label": "Projection de croissance 2026 — Banque mondiale",
-      "topic": "economy",
       "value": 4.8,
       "unit": "%",
       "referencePeriod": "2026",
@@ -322,8 +292,7 @@
       "id": "gha-economy-gdp-growth-projection-2026-imf",
       "countryCode": "GHA",
       "key": "economy.gdp_growth_projection_2026_imf",
-      "label": "Projection de croissance 2026 — FMI",
-      "topic": "economy",
+      "label": "Croissance 2026 projetée par le FMI",
       "value": 4.8,
       "unit": "%",
       "referencePeriod": "2026",
@@ -342,7 +311,6 @@
       "countryCode": "GHA",
       "key": "economy.inflation_aug_2026_wb",
       "label": "Inflation annuelle août 2026",
-      "topic": "economy",
       "value": 5.0,
       "unit": "%",
       "referencePeriod": "2026-08",
@@ -361,7 +329,6 @@
       "countryCode": "GHA",
       "key": "economy.public_debt_2025_wb",
       "label": "Dette publique fin 2025 — Banque mondiale",
-      "topic": "economy",
       "value": 49.0,
       "unit": "% PIB",
       "referencePeriod": "2025-12",
@@ -380,7 +347,6 @@
       "countryCode": "GHA",
       "key": "economy.primary_balance_2025_wb",
       "label": "Solde primaire 2025",
-      "topic": "economy",
       "value": 2.1,
       "unit": "% PIB",
       "referencePeriod": "2025",
@@ -399,7 +365,6 @@
       "countryCode": "GHA",
       "key": "economy.gold_exports_2025_usd",
       "label": "Recettes d’exportation d’or 2025",
-      "topic": "economy",
       "value": 20.0,
       "unit": "milliards USD",
       "referencePeriod": "2025",
@@ -418,7 +383,6 @@
       "countryCode": "GHA",
       "key": "economy.total_exports_2025_usd",
       "label": "Recettes totales d’exportation de biens 2025",
-      "topic": "economy",
       "value": 31.1,
       "unit": "milliards USD",
       "referencePeriod": "2025",
@@ -437,7 +401,6 @@
       "countryCode": "GHA",
       "key": "economy.reserves_cover_2026h1",
       "label": "Réserves internationales — mois d’importation",
-      "topic": "economy",
       "value": 5.0,
       "unit": "mois",
       "referencePeriod": "2026-S1",
@@ -746,16 +709,27 @@
           "subthemes": [
             "Économie"
           ],
-          "situation": "Maintien de la discipline budgétaire et gestion de la dette après le programme de stabilisation.",
-          "whyStrategic": "La question « soutenabilité de la reprise » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "Après la stabilisation des agrégats de 2025, la soutenabilité de la reprise dépend de la discipline budgétaire et de la capacité de l’économie à créer des emplois de qualité.",
+          "whyStrategic": "La restructuration de la dette et la baisse de l’inflation ont desserré certaines contraintes, sans supprimer les besoins de financement ni les difficultés d’insertion de la population active.",
+          "actors": [
+            "Ministère des Finances et Banque du Ghana",
+            "FMI et Banque mondiale",
+            "Entreprises et population active"
+          ],
+          "interests": [
+            "Accès au financement après restructuration",
+            "Croissance des emplois formels et qualité des services"
+          ],
+          "recentDevelopments": [
+            "La mise à jour économique Banque mondiale d’août 2026 souligne la croissance 2025 de 6 % et le caractère encore incomplet de la reprise."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Service de la dette et calendrier de refinancement",
+            "Emploi salarié dans le secteur privé",
+            "Exécution des dépenses prioritaires"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Les gains de stabilité ne prouvent pas à eux seuls une baisse proportionnelle de la pauvreté."
           ],
           "updatedAt": "2026-11-02"
         },
@@ -775,16 +749,27 @@
           "subthemes": [
             "Commerce"
           ],
-          "situation": "La concentration de recettes sur les matières premières rend la position extérieure sensible aux cours mondiaux.",
-          "whyStrategic": "La question « or, cacao et pétrole » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "Les exportations d’or, de cacao et de pétrole procurent des devises mais soumettent le pays aux variations de cours et aux contraintes propres à chaque filière.",
+          "whyStrategic": "La hausse de valeur des exportations aurifères ne mesure pas forcément une hausse identique des volumes. Les revenus du cacao et les coûts énergétiques suivent d’autres cycles, susceptibles de modifier la balance externe.",
+          "actors": [
+            "Producteurs et exportateurs d’or",
+            "Filière cacao et acteurs énergétiques",
+            "Banque du Ghana"
+          ],
+          "interests": [
+            "Diversification des recettes en devises",
+            "Transformation locale et maintien des revenus agricoles"
+          ],
+          "recentDevelopments": [
+            "Les statistiques de la Banque du Ghana et les communiqués de GoldBod documentent le poids des recettes aurifères en 2025."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Volumes exportés et prix moyens par produit",
+            "Revenus réels des producteurs de cacao",
+            "Part des exportations non traditionnelles"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Ne pas assimiler chiffre d’affaires exporté, valeur ajoutée domestique et recettes budgétaires."
           ],
           "updatedAt": "2026-11-02"
         },
@@ -804,16 +789,27 @@
           "subthemes": [
             "Emploi"
           ],
-          "situation": "Créer davantage d’emplois productifs au-delà des gains macroéconomiques.",
-          "whyStrategic": "La question « emploi et transformation productive » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "La croissance des services et de l’agriculture ne crée pas automatiquement des postes productifs à la mesure des nouvelles cohortes entrant sur le marché du travail.",
+          "whyStrategic": "Le renforcement des transports, de la logistique et des compétences peut améliorer l’accès aux marchés, notamment pour les PME et l’agro-industrie.",
+          "actors": [
+            "Entreprises ghanéennes et PME",
+            "Opérateurs de transport et logistique",
+            "Autorités de formation et d’emploi"
+          ],
+          "interests": [
+            "Réduction des coûts logistiques",
+            "Développement de l’emploi productif"
+          ],
+          "recentDevelopments": [
+            "La dixième Ghana Economic Update d’août 2026 consacre un volet aux transports, aux routes et aux systèmes logistiques."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Entretien routier et logistique portuaire",
+            "Créations nettes d’emplois formels",
+            "Accès au crédit pour les PME"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "L’annonce d’un programme d’infrastructure ne suffit pas à mesurer son exécution ou son effet sur l’emploi."
           ],
           "updatedAt": "2026-11-02"
         },
@@ -833,16 +829,27 @@
           "subthemes": [
             "Énergie"
           ],
-          "situation": "Pressions potentielles du secteur énergétique sur les budgets et les réformes.",
-          "whyStrategic": "La question « énergie et finances publiques » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "Les engagements budgétaires et les pertes ou coûts du secteur énergétique peuvent concurrencer les investissements sociaux et peser sur le cadre de stabilisation.",
+          "whyStrategic": "Les infrastructures d’énergie et la solidité des finances publiques doivent être examinées ensemble. Les nouvelles obligations sectorielles pourraient limiter la marge budgétaire nécessaire à l’entretien des réseaux et aux services.",
+          "actors": [
+            "Ministères économiques et autorités de l’énergie",
+            "FMI et bailleurs",
+            "Entreprises utilisatrices d’électricité"
+          ],
+          "interests": [
+            "Financement soutenable des infrastructures",
+            "Continuité et coût de l’approvisionnement électrique"
+          ],
+          "recentDevelopments": [
+            "Les évaluations du FMI et la mise à jour Banque mondiale de 2026 soulignent l’importance de protéger la stabilité macroéconomique."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Engagements budgétaires liés au secteur énergétique",
+            "Coûts et interruptions d’approvisionnement",
+            "Trajectoire du solde primaire"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Les catégories de dette et de passifs contingents doivent rester séparées dans les comparaisons."
           ],
           "updatedAt": "2026-11-02"
         }
@@ -884,7 +891,7 @@
         {
           "id": "gha-vuln-1",
           "title": "Dette et besoin de financement",
-          "summary": "La restructuration n’efface pas les risques de refinancement et de maintien de la discipline budgétaire.",
+          "summary": "Le calendrier de refinancement de la dette demeure une contrainte budgétaire malgré les avancées de restructuration.",
           "tags": [],
           "sourceIds": [
             "S-GHA-IMF"
@@ -893,7 +900,7 @@
         {
           "id": "gha-vuln-2",
           "title": "Création d’emplois",
-          "summary": "La croissance ne génère pas encore assez d’emplois productifs pour les jeunes actifs.",
+          "summary": "La dépendance à l’or, au cacao et au pétrole rend les recettes extérieures sensibles à plusieurs cycles de prix.",
           "tags": [],
           "sourceIds": [
             "S-GHA-WB_UP"
@@ -902,7 +909,7 @@
         {
           "id": "gha-vuln-3",
           "title": "Prix des matières premières",
-          "summary": "La variabilité des cours de l’or, du cacao et du pétrole peut affecter exportations et recettes.",
+          "summary": "Les coûts du transport pénalisent les PME qui cherchent à accéder aux marchés et à créer des emplois.",
           "tags": [],
           "sourceIds": [
             "S-GHA-BOG"
@@ -911,7 +918,7 @@
         {
           "id": "gha-vuln-4",
           "title": "Durabilité budgétaire",
-          "summary": "Un ralentissement de la consolidation pourrait fragiliser le rétablissement.",
+          "summary": "Les obligations et coûts du secteur énergétique peuvent réduire la capacité d’investissement de l’État.",
           "tags": [],
           "sourceIds": [
             "S-GHA-IMF"
@@ -923,7 +930,7 @@
           {
             "id": "gha-sw-s-1",
             "title": "Exportations minières",
-            "summary": "L’or occupe une place prépondérante dans les exportations de 2025.",
+            "summary": "Le redressement macroéconomique fournit un socle de confiance à consolider par des réformes productives.",
             "tags": [],
             "sourceIds": [
               "S-GHA-GOLDBOD"
@@ -932,7 +939,7 @@
           {
             "id": "gha-sw-s-2",
             "title": "Restauration macroéconomique",
-            "summary": "La baisse de l’inflation et le redressement de la position extérieure renforcent les marges d’action.",
+            "summary": "Les exportations d’or ont soutenu les recettes en devises ; leur caractère cyclique reste un facteur à suivre.",
             "tags": [],
             "sourceIds": [
               "S-GHA-WB",
@@ -944,7 +951,7 @@
           {
             "id": "gha-sw-w-1",
             "title": "Dette et besoin de financement",
-            "summary": "La restructuration n’efface pas les risques de refinancement et de maintien de la discipline budgétaire.",
+            "summary": "La restructuration a réduit certains risques immédiats mais laisse des besoins futurs de financement.",
             "tags": [],
             "sourceIds": [
               "S-GHA-IMF"
@@ -953,7 +960,7 @@
           {
             "id": "gha-sw-w-2",
             "title": "Création d’emplois",
-            "summary": "La croissance ne génère pas encore assez d’emplois productifs pour les jeunes actifs.",
+            "summary": "L’emploi formel progresse moins vite que nécessaire pour absorber la population active.",
             "tags": [],
             "sourceIds": [
               "S-GHA-WB_UP"
@@ -964,7 +971,7 @@
           {
             "id": "gha-sw-o-1",
             "title": "Valorisation locale",
-            "summary": "La mobilisation de l’investissement peut soutenir une diversification au-delà des exportations brutes.",
+            "summary": "La modernisation des corridors logistiques pourrait élargir les débouchés des PME et de l’agro-industrie.",
             "tags": [],
             "sourceIds": [
               "S-GHA-WB_UP"
@@ -975,7 +982,7 @@
           {
             "id": "gha-sw-t-1",
             "title": "Prix des matières premières",
-            "summary": "La variabilité des cours de l’or, du cacao et du pétrole peut affecter exportations et recettes.",
+            "summary": "Une inversion des cours des produits de base fragiliserait les recettes extérieures.",
             "tags": [],
             "sourceIds": [
               "S-GHA-BOG"
@@ -984,7 +991,7 @@
           {
             "id": "gha-sw-t-2",
             "title": "Durabilité budgétaire",
-            "summary": "Un ralentissement de la consolidation pourrait fragiliser le rétablissement.",
+            "summary": "Des passifs énergétiques plus lourds réduiraient l’espace pour les investissements sociaux.",
             "tags": [],
             "sourceIds": [
               "S-GHA-IMF"
@@ -995,8 +1002,8 @@
       "scenarios": [
         {
           "id": "gha-sc-1",
-          "title": "Consolidation graduelle",
-          "summary": "Scénario conditionnel : amélioration progressive des conditions économiques et institutionnelles si les réformes et la sécurité avancent.",
+          "title": "Stabilisation durable et désenclavement logistique",
+          "summary": "Le Ghana pourrait prolonger son redressement si la discipline budgétaire est maintenue et si les projets routiers, ferroviaires et logistiques réduisent effectivement les coûts des PME.",
           "tags": [],
           "sourceIds": [
             "S-GHA-GOLDBOD",
@@ -1006,26 +1013,29 @@
           ],
           "kind": "reinforcement",
           "assumptions": [
-            "Stabilité des principales institutions et financements",
-            "Progrès mesurables dans la mise en œuvre des politiques"
+            "Trajectoire budgétaire cohérente après restructuration",
+            "Maintenance et financement des infrastructures de transport"
           ],
           "triggers": [
-            "Amélioration documentée des indicateurs de services et d’investissement"
+            "Baisse vérifiable des délais de transport",
+            "Amélioration de l’accès au crédit et de l’investissement productif"
           ],
           "weakSignals": [
-            "Diminution durable des perturbations économiques ou sécuritaires"
+            "Emplois non miniers supplémentaires",
+            "Réduction des pertes et coûts de transport"
           ],
           "consequences": [
-            "Capacité accrue de financement et de prestation de services"
+            "Diversification des emplois et des exportations",
+            "Résilience accrue face aux prix des matières premières"
           ],
           "limits": [
-            "Scénario illustratif sans probabilité et sans projection chiffrée"
+            "Une infrastructure annoncée ne vaut pas infrastructure achevée et entretenue."
           ]
         },
         {
           "id": "gha-sc-2",
-          "title": "Continuité sous contraintes",
-          "summary": "Scénario conditionnel : les tendances dominantes se prolongent, avec des tensions sur les revenus, l’emploi et la gouvernance.",
+          "title": "Reprise soutenue mais emplois insuffisants",
+          "summary": "Le PIB et les réserves continueraient à se redresser alors que l’emploi formel reste en retrait et que certains ménages ne ressentent pas les gains macroéconomiques.",
           "tags": [],
           "sourceIds": [
             "S-GHA-IMF",
@@ -1033,26 +1043,28 @@
           ],
           "kind": "pressure",
           "assumptions": [
-            "Persistance des difficultés structurelles",
-            "Absence de rupture institutionnelle majeure"
+            "Maintien du programme de stabilisation",
+            "Productivité limitée des activités absorbant la main-d’œuvre"
           ],
           "triggers": [
-            "Indicateurs stagnants sur plusieurs publications"
+            "Résultats macroéconomiques meilleurs que les indicateurs d’emploi"
           ],
           "weakSignals": [
-            "Difficultés persistantes d’accès aux services et aux financements"
+            "Faible création d’emplois salariés",
+            "Coûts de transport durablement élevés"
           ],
           "consequences": [
-            "Progrès inégaux entre territoires et secteurs"
+            "Reprise inégalement répartie",
+            "Pression persistante sur les revenus et les services publics"
           ],
           "limits": [
-            "Ne préjuge pas de l’évolution effective du pays"
+            "Les statistiques d’emploi et de croissance ne mesurent pas la même chose ; éviter toute causalité automatique."
           ]
         },
         {
           "id": "gha-sc-3",
-          "title": "Dégradation par chocs",
-          "summary": "Scénario conditionnel : combinaison de facteurs de risque économiques, climatiques ou sécuritaires.",
+          "title": "Reprise fragilisée par matières premières et passifs",
+          "summary": "Une correction des cours de l’or ou du cacao, combinée à des coûts énergétiques plus élevés, pourrait resserrer les marges de financement et compliquer l’après-restructuration.",
           "tags": [],
           "sourceIds": [
             "S-GHA-BOG",
@@ -1060,19 +1072,23 @@
           ],
           "kind": "fragility",
           "assumptions": [
-            "Réalisation d’au moins un choc externe ou intérieur important"
+            "Retournement des prix d’exportation",
+            "Passifs du secteur énergétique ou besoins de refinancement plus élevés"
           ],
           "triggers": [
-            "Détérioration simultanée de plusieurs indicateurs suivis"
+            "Tensions sur le change et les réserves",
+            "Écart durable par rapport à la trajectoire budgétaire"
           ],
           "weakSignals": [
-            "Tensions persistantes sur chaînes d’approvisionnement, populations ou recettes"
+            "Coût des importations d’énergie",
+            "Taux et conditions du financement public"
           ],
           "consequences": [
-            "Pression sur les finances publiques et les moyens d’existence"
+            "Réduction de l’espace budgétaire pour les dépenses productives",
+            "Risque de ralentissement des investissements privés"
           ],
           "limits": [
-            "Hypothèse de stress, sans probabilité calculée"
+            "Aucune trajectoire de dette chiffrée n’est inférée de ce scénario."
           ]
         }
       ],
@@ -1080,7 +1096,7 @@
         {
           "id": "gha-watch-1",
           "title": "Prix des matières premières",
-          "summary": "La variabilité des cours de l’or, du cacao et du pétrole peut affecter exportations et recettes.",
+          "summary": "Surveiller les conditions de refinancement après restructuration et le respect des trajectoires budgétaires publiées.",
           "tags": [],
           "sourceIds": [
             "S-GHA-BOG"
@@ -1089,7 +1105,7 @@
         {
           "id": "gha-watch-2",
           "title": "Durabilité budgétaire",
-          "summary": "Un ralentissement de la consolidation pourrait fragiliser le rétablissement.",
+          "summary": "Suivre le ratio entre valeur des exportations aurifères, cours mondiaux et volumes pour isoler les effets de prix.",
           "tags": [],
           "sourceIds": [
             "S-GHA-IMF"
@@ -1098,7 +1114,7 @@
         {
           "id": "gha-watch-3",
           "title": "Valorisation locale",
-          "summary": "La mobilisation de l’investissement peut soutenir une diversification au-delà des exportations brutes.",
+          "summary": "Vérifier l’exécution des programmes de transport et leurs effets mesurables sur les coûts logistiques et l’emploi.",
           "tags": [],
           "sourceIds": [
             "S-GHA-WB_UP"

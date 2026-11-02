@@ -21,28 +21,17 @@
       "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
     },
     {
-      "id": "S-BFA-ECOWAS_CAP",
-      "publisher": "Fonds de paix de la CEDEAO",
-      "title": "Fiches États membres : capitales",
-      "canonicalUrl": "https://peacefund.ecowas.int/countries",
-      "accessedAt": "2026-11-02",
-      "license": null,
-      "licenseUrl": null,
-      "reuse": "citation_only",
-      "language": "en",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
-    },
-    {
       "id": "S-BFA-ECOWAS_HIST",
       "publisher": "CEDEAO",
-      "title": "Création, histoire et retrait des États de l’AES",
-      "canonicalUrl": "https://www.ecowas.int/creationhistoire/?lang=fr",
+      "title": "Communiqué CEDEAO — retrait effectif des trois États de l’AES le 29 janvier 2025",
+      "canonicalUrl": "https://www.ecowas.int/communique-de-presse-2/?lang=fr",
       "accessedAt": "2026-11-02",
       "license": null,
       "licenseUrl": null,
       "reuse": "citation_only",
       "language": "fr",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication.",
+      "publishedAt": "2025-01-30"
     },
     {
       "id": "S-BFA-BCEAO",
@@ -90,19 +79,8 @@
       "licenseUrl": null,
       "reuse": "citation_only",
       "language": "en",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
-    },
-    {
-      "id": "S-BFA-WB_DATA",
-      "publisher": "Banque mondiale",
-      "title": "Burkina Faso — données macroéconomiques",
-      "canonicalUrl": "https://data.worldbank.org/country/burkina-faso",
-      "accessedAt": "2026-11-02",
-      "license": null,
-      "licenseUrl": null,
-      "reuse": "citation_only",
-      "language": "en",
-      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication.",
+      "publishedAt": "2026-06-30"
     },
     {
       "id": "S-BFA-CIA",
@@ -123,7 +101,6 @@
       "countryCode": "BFA",
       "key": "identity.capital",
       "label": "Capitale",
-      "topic": "identity",
       "value": "Ouagadougou",
       "unit": null,
       "referencePeriod": "2026",
@@ -142,7 +119,6 @@
       "countryCode": "BFA",
       "key": "politics.head_of_state",
       "label": "Chef de l’État",
-      "topic": "politics",
       "value": "Ibrahim Traoré",
       "unit": null,
       "referencePeriod": "2026",
@@ -160,8 +136,7 @@
       "id": "bfa-politics-head-of-government",
       "countryCode": "BFA",
       "key": "politics.head_of_government",
-      "label": "Premier ministre",
-      "topic": "politics",
+      "label": "Chef du gouvernement",
       "value": "Rimtalba Jean Emmanuel Ouédraogo",
       "unit": null,
       "referencePeriod": "2026",
@@ -180,7 +155,6 @@
       "countryCode": "BFA",
       "key": "politics.regime",
       "label": "Régime politique",
-      "topic": "politics",
       "value": "République en régime de transition",
       "unit": null,
       "referencePeriod": "2026",
@@ -199,7 +173,6 @@
       "countryCode": "BFA",
       "key": "identity.currency",
       "label": "Monnaie",
-      "topic": "identity",
       "value": "Franc CFA (XOF)",
       "unit": null,
       "referencePeriod": "2026",
@@ -216,9 +189,8 @@
     {
       "id": "bfa-institutions-waemu",
       "countryCode": "BFA",
-      "key": "institutions.waemu",
+      "key": "institutions.uemoa",
       "label": "Membre de l’UEMOA",
-      "topic": "institutions",
       "value": true,
       "unit": null,
       "referencePeriod": "2026",
@@ -237,7 +209,6 @@
       "countryCode": "BFA",
       "key": "institutions.ecowas_former_member",
       "label": "Retrait de la CEDEAO effectif",
-      "topic": "institutions",
       "value": true,
       "unit": null,
       "referencePeriod": "2025-01-29",
@@ -256,7 +227,6 @@
       "countryCode": "BFA",
       "key": "institutions.aes",
       "label": "Membre de l’Alliance des États du Sahel",
-      "topic": "institutions",
       "value": true,
       "unit": null,
       "referencePeriod": "2026",
@@ -275,7 +245,7 @@
       "countryCode": "BFA",
       "key": "geography.surface_area_official",
       "label": "Superficie selon France Diplomatie",
-      "topic": "geography",
+      "topic": "area",
       "value": 274500,
       "unit": "km²",
       "referencePeriod": "2026",
@@ -294,7 +264,7 @@
       "countryCode": "BFA",
       "key": "economy.gdp_growth_2025_wb_report",
       "label": "Croissance réelle du PIB 2025 — rapport",
-      "topic": "economy",
+      "topic": "growth",
       "value": 5.3,
       "unit": "%",
       "referencePeriod": "2025",
@@ -313,7 +283,6 @@
       "countryCode": "BFA",
       "key": "economy.gdp_growth_projection_2026_wb",
       "label": "Croissance réelle projetée pour 2026",
-      "topic": "economy",
       "value": 5.0,
       "unit": "%",
       "referencePeriod": "2026",
@@ -332,7 +301,6 @@
       "countryCode": "BFA",
       "key": "economy.inflation_projection_2026_wb",
       "label": "Inflation projetée 2026",
-      "topic": "economy",
       "value": 2.2,
       "unit": "%",
       "referencePeriod": "2026",
@@ -351,7 +319,6 @@
       "countryCode": "BFA",
       "key": "economy.fiscal_deficit_projection_2026_wb",
       "label": "Déficit budgétaire projeté 2026",
-      "topic": "economy",
       "value": 3.5,
       "unit": "% PIB",
       "referencePeriod": "2026",
@@ -369,13 +336,12 @@
       "id": "bfa-humanitarian-idp-last-census-mar2023",
       "countryCode": "BFA",
       "key": "humanitarian.idp_last_census_mar2023",
-      "label": "Déplacés internes au dernier recensement cité",
-      "topic": "humanitarian",
+      "label": "Déplacés internes : dernier recensement cité (30 mars 2023)",
       "value": 2010000,
       "unit": "personnes",
       "referencePeriod": "2023-03-30",
       "geographicScope": "Burkina Faso",
-      "methodology": "Dernier recensement OCHA cité par Banque mondiale, ancien : ne pas présenter comme valeur 2026.",
+      "methodology": "Dernier recensement OCHA cité par Banque mondiale, ancien : ne pas présenter comme valeur 2026. ; stock daté de 2023, non comparable directement aux retours déclarés en septembre 2026.",
       "sourceIds": [
         "S-BFA-WB"
       ],
@@ -389,7 +355,6 @@
       "countryCode": "BFA",
       "key": "humanitarian.idp_returnees_sep2026_government",
       "label": "Retours de déplacés internes déclarés par le gouvernement",
-      "topic": "humanitarian",
       "value": 1400000,
       "unit": "personnes",
       "referencePeriod": "2026-09",
@@ -408,7 +373,6 @@
       "countryCode": "BFA",
       "key": "politics.transition_extension_years",
       "label": "Durée additionnelle de transition prévue en 2024",
-      "topic": "politics",
       "value": 5,
       "unit": "ans",
       "referencePeriod": "2024-07-02",
@@ -427,7 +391,7 @@
     {
       "id": "bfa-claim-1",
       "countryCode": "BFA",
-      "statement": "Ibrahim Traoré dirige le Burkina Faso dans un régime de transition ; Jean Emmanuel Ouédraogo exerce les fonctions de Premier ministre en octobre 2026.",
+      "statement": "Ibrahim Traoré dirige le Burkina Faso dans un régime de transition ; Rimtalba Jean Emmanuel Ouédraogo exerce les fonctions de Premier ministre en octobre 2026.",
       "claimType": "fact",
       "sourceIds": [
         "S-BFA-FD",
@@ -719,16 +683,27 @@
           "subthemes": [
             "Sécurité"
           ],
-          "situation": "L’insécurité affecte marchés, éducation, santé et mobilité.",
-          "whyStrategic": "La question « sécurité et accès aux territoires » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "Le niveau de sécurité et la possibilité de circuler entre localités déterminent l’accès aux marchés, aux écoles et aux structures de santé.",
+          "whyStrategic": "Les perturbations territoriales touchent l’activité économique et les moyens d’existence. L’analyse doit distinguer les annonces de reconquête, le retour durable des services et les conditions réelles d’accès des civils.",
+          "actors": [
+            "Autorités burkinabè et collectivités",
+            "Communautés affectées et acteurs humanitaires",
+            "Opérateurs économiques"
+          ],
+          "interests": [
+            "Continuité des services essentiels",
+            "Libre circulation et approvisionnement commercial"
+          ],
+          "recentDevelopments": [
+            "La Banque mondiale décrit en 2026 les effets de l’insécurité sur l’activité et les déplacements."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Ouverture effective des axes et marchés",
+            "Fonctionnement des services de santé et d’éducation",
+            "Évolution des déplacements et retours durables"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Le nombre de personnes déclarées revenues ne permet pas, seul, d’évaluer la sécurité et les conditions de réinstallation."
           ],
           "updatedAt": "2026-11-02"
         },
@@ -748,16 +723,27 @@
           "subthemes": [
             "Institutions"
           ],
-          "situation": "La durée prolongée de transition et ses modalités de gouvernance constituent un dossier à suivre.",
-          "whyStrategic": "La question « transition politique » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "La transition institutionnelle s’inscrit dans un calendrier prolongé et dans une recomposition régionale liée au retrait de la CEDEAO et à l’AES.",
+          "whyStrategic": "Le pilotage de la transition et les accords régionaux conditionnent le cadre des politiques économiques et sécuritaires. L’appartenance monétaire à l’UEMOA doit être distinguée du retrait de la CEDEAO.",
+          "actors": [
+            "Autorités de transition",
+            "Partenaires de l’AES",
+            "Institutions monétaires de l’UEMOA"
+          ],
+          "interests": [
+            "Prévisibilité du cadre institutionnel",
+            "Continuité des mécanismes financiers régionaux"
+          ],
+          "recentDevelopments": [
+            "La prolongation de la transition décidée en 2024 et l’évolution du cadre CEDEAO sont documentées dans les sources institutionnelles."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Échéances institutionnelles officiellement publiées",
+            "Décisions sur les accords régionaux",
+            "Continuité des mécanismes BCEAO"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Les échéances politiques annoncées peuvent être révisées : ne pas les traiter comme une date certaine d’élection."
           ],
           "updatedAt": "2026-11-02"
         },
@@ -777,16 +763,27 @@
           "subthemes": [
             "Économie"
           ],
-          "situation": "Le secteur minier soutient l’activité et expose les finances aux cours et à la gestion des revenus.",
-          "whyStrategic": "La question « or et recettes publiques » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "Les revenus liés à l’or contribuent à l’activité et aux exportations, mais leur diffusion dans les budgets locaux et dans les emplois dépend de la gouvernance du secteur.",
+          "whyStrategic": "L’évolution des règles minières et la formalisation de certaines activités artisanales peuvent accroître les recettes mesurées sans garantir une diversification rapide de l’économie.",
+          "actors": [
+            "Autorités minières et fiscales",
+            "Exploitants industriels et artisanaux",
+            "Communautés des zones minières"
+          ],
+          "interests": [
+            "Recettes publiques et emplois miniers",
+            "Traçabilité et transformation de l’activité extractive"
+          ],
+          "recentDevelopments": [
+            "La Banque mondiale relie la croissance de 2025 à la performance de l’agriculture, des services et du secteur minier."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Recettes minières effectivement encaissées",
+            "Évolution de la production déclarée",
+            "Emplois et achats locaux de la filière"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Les valeurs d’exportation et les recettes fiscales ne sont pas interchangeables."
           ],
           "updatedAt": "2026-11-02"
         },
@@ -806,16 +803,27 @@
           "subthemes": [
             "Agriculture"
           ],
-          "situation": "La production agricole dépend des saisons et de l’accès aux intrants dans un contexte sécuritaire difficile.",
-          "whyStrategic": "La question « agriculture et climat » a des conséquences sur les capacités d’action publique, le développement ou les relations régionales. Analyse à réévaluer avec les publications ultérieures.",
-          "actors": [],
-          "interests": [],
-          "recentDevelopments": [],
+          "situation": "Le secteur agropastoral subit les effets conjoints de la pluviométrie, du coût des intrants et des restrictions de mobilité.",
+          "whyStrategic": "Les variations de rendement peuvent se transmettre aux prix alimentaires, surtout dans les zones où les marchés sont déjà perturbés par l’insécurité.",
+          "actors": [
+            "Producteurs agricoles et éleveurs",
+            "Services de sécurité alimentaire",
+            "Administrations du développement rural"
+          ],
+          "interests": [
+            "Production vivrière et approvisionnement local",
+            "Résilience des ménages aux chocs climatiques"
+          ],
+          "recentDevelopments": [
+            "La Banque mondiale signale pour 2026 des pluies tardives et une hausse du coût des engrais dans ses perspectives de croissance."
+          ],
           "indicators": [
-            "Évolution des statistiques et communiqués de l’organisme source"
+            "Calendrier et anomalies de pluviométrie",
+            "Prix des engrais et denrées",
+            "Accès aux terres et marchés ruraux"
           ],
           "uncertainties": [
-            "Scénario et relations de causalité à vérifier au fil des mises à jour"
+            "Une hausse agrégée de production nationale ne garantit pas la disponibilité alimentaire dans les localités enclavées."
           ],
           "updatedAt": "2026-11-02"
         }
@@ -857,7 +865,7 @@
         {
           "id": "bfa-vuln-1",
           "title": "Insécurité durable",
-          "summary": "Les violences ont un effet sur les déplacements et l’accès aux services.",
+          "summary": "La discontinuité de l’accès aux localités limite les services essentiels et la circulation commerciale.",
           "tags": [],
           "sourceIds": [
             "S-BFA-WB"
@@ -866,7 +874,7 @@
         {
           "id": "bfa-vuln-2",
           "title": "Diversification et emploi",
-          "summary": "La Banque mondiale souligne le besoin de transformer la croissance en emplois productifs.",
+          "summary": "Les besoins de diversification et de formation se heurtent à des contraintes de sécurité et d’investissement.",
           "tags": [],
           "sourceIds": [
             "S-BFA-WB_UP"
@@ -875,7 +883,7 @@
         {
           "id": "bfa-vuln-3",
           "title": "Violences et déplacements",
-          "summary": "Une recrudescence des violences pourrait aggraver les déplacements et les restrictions d’accès.",
+          "summary": "Les chocs pluviométriques et l’accès aux intrants agricoles influencent les revenus des ménages ruraux.",
           "tags": [],
           "sourceIds": [
             "S-BFA-WB"
@@ -884,7 +892,7 @@
         {
           "id": "bfa-vuln-4",
           "title": "Chocs de prix et de climat",
-          "summary": "Un recul de l’or ou une mauvaise campagne agricole pourrait peser sur revenus et recettes.",
+          "summary": "Les retours de déplacés déclarés doivent être rapprochés de la sécurité locale et de la réouverture des services.",
           "tags": [],
           "sourceIds": [
             "S-BFA-WB"
@@ -896,7 +904,7 @@
           {
             "id": "bfa-sw-s-1",
             "title": "Or et agriculture",
-            "summary": "Les secteurs extractif et agricole alimentent la croissance, malgré les contraintes sécuritaires.",
+            "summary": "Le potentiel aurifère et l’agriculture soutiennent l’activité, malgré des contraintes d’accès territorial.",
             "tags": [],
             "sourceIds": [
               "S-BFA-WB_UP"
@@ -905,7 +913,7 @@
           {
             "id": "bfa-sw-s-2",
             "title": "Intégration monétaire UEMOA",
-            "summary": "La BCEAO conserve son rôle monétaire dans le pays, distinct du cadre CEDEAO.",
+            "summary": "La continuité monétaire dans l’UEMOA maintient un cadre distinct des recompositions politiques régionales.",
             "tags": [],
             "sourceIds": [
               "S-BFA-BCEAO"
@@ -916,7 +924,7 @@
           {
             "id": "bfa-sw-w-1",
             "title": "Insécurité durable",
-            "summary": "Les violences ont un effet sur les déplacements et l’accès aux services.",
+            "summary": "Les restrictions de circulation pèsent sur les marchés et sur la fourniture de services essentiels.",
             "tags": [],
             "sourceIds": [
               "S-BFA-WB"
@@ -925,7 +933,7 @@
           {
             "id": "bfa-sw-w-2",
             "title": "Diversification et emploi",
-            "summary": "La Banque mondiale souligne le besoin de transformer la croissance en emplois productifs.",
+            "summary": "Le besoin d’emplois productifs reste élevé au-delà de l’exportation de matières premières.",
             "tags": [],
             "sourceIds": [
               "S-BFA-WB_UP"
@@ -936,7 +944,7 @@
           {
             "id": "bfa-sw-o-1",
             "title": "Transformation agricole",
-            "summary": "Amélioration de la productivité et accès aux services peuvent soutenir emplois et sécurité alimentaire.",
+            "summary": "La transformation et la formalisation d’activités minières peuvent améliorer la traçabilité des recettes.",
             "tags": [],
             "sourceIds": [
               "S-BFA-WB"
@@ -947,7 +955,7 @@
           {
             "id": "bfa-sw-t-1",
             "title": "Violences et déplacements",
-            "summary": "Une recrudescence des violences pourrait aggraver les déplacements et les restrictions d’accès.",
+            "summary": "La dégradation des axes logistiques pourrait accroître les prix dans les zones enclavées.",
             "tags": [],
             "sourceIds": [
               "S-BFA-WB"
@@ -956,7 +964,7 @@
           {
             "id": "bfa-sw-t-2",
             "title": "Chocs de prix et de climat",
-            "summary": "Un recul de l’or ou une mauvaise campagne agricole pourrait peser sur revenus et recettes.",
+            "summary": "La combinaison de pluies irrégulières et d’insécurité expose davantage les ménages agricoles.",
             "tags": [],
             "sourceIds": [
               "S-BFA-WB"
@@ -967,8 +975,8 @@
       "scenarios": [
         {
           "id": "bfa-sc-1",
-          "title": "Consolidation graduelle",
-          "summary": "Scénario conditionnel : amélioration progressive des conditions économiques et institutionnelles si les réformes et la sécurité avancent.",
+          "title": "Accès territorial et reprise agropastorale",
+          "summary": "Une amélioration durable de l’accès aux localités pourrait faciliter les marchés agricoles, l’activité minière formelle et la réouverture progressive de services.",
           "tags": [],
           "sourceIds": [
             "S-BFA-WB_UP",
@@ -977,26 +985,29 @@
           ],
           "kind": "reinforcement",
           "assumptions": [
-            "Stabilité des principales institutions et financements",
-            "Progrès mesurables dans la mise en œuvre des politiques"
+            "Reprise soutenue de la circulation civile",
+            "Saisons agricoles favorables et intrants accessibles"
           ],
           "triggers": [
-            "Amélioration documentée des indicateurs de services et d’investissement"
+            "Réouverture vérifiée de services essentiels",
+            "Reprise régulière des échanges entre régions"
           ],
           "weakSignals": [
-            "Diminution durable des perturbations économiques ou sécuritaires"
+            "Fonctionnement des écoles et centres de santé",
+            "Baisse documentée des déplacements contraints"
           ],
           "consequences": [
-            "Capacité accrue de financement et de prestation de services"
+            "Activité agricole et commerciale plus prévisible",
+            "Meilleures conditions de réinstallation pour les ménages"
           ],
           "limits": [
-            "Scénario illustratif sans probabilité et sans projection chiffrée"
+            "Le nombre de retours annoncés ne prouve pas à lui seul la sécurité des lieux de retour."
           ]
         },
         {
           "id": "bfa-sc-2",
-          "title": "Continuité sous contraintes",
-          "summary": "Scénario conditionnel : les tendances dominantes se prolongent, avec des tensions sur les revenus, l’emploi et la gouvernance.",
+          "title": "Croissance économique sous contraintes sécuritaires",
+          "summary": "L’activité aurifère et certaines productions agricoles soutiendraient l’économie, tandis que des perturbations territoriales continueraient à limiter les services et les emplois.",
           "tags": [],
           "sourceIds": [
             "S-BFA-WB",
@@ -1004,45 +1015,51 @@
           ],
           "kind": "pressure",
           "assumptions": [
-            "Persistance des difficultés structurelles",
-            "Absence de rupture institutionnelle majeure"
+            "Résilience des secteurs miniers et agricoles",
+            "Persistance d’incidents et restrictions localisées"
           ],
           "triggers": [
-            "Indicateurs stagnants sur plusieurs publications"
+            "Croissance macroéconomique sans accès universel aux services"
           ],
           "weakSignals": [
-            "Difficultés persistantes d’accès aux services et aux financements"
+            "Disparités entre localités sécurisées et enclavées",
+            "Coûts logistiques et alimentaires élevés dans certaines zones"
           ],
           "consequences": [
-            "Progrès inégaux entre territoires et secteurs"
+            "Développement inégal des territoires",
+            "Difficulté à traduire la croissance en amélioration sociale uniforme"
           ],
           "limits": [
-            "Ne préjuge pas de l’évolution effective du pays"
+            "Les données de 2023 sur les déplacements ne sont pas assimilables aux déclarations de retours en 2026."
           ]
         },
         {
           "id": "bfa-sc-3",
-          "title": "Dégradation par chocs",
-          "summary": "Scénario conditionnel : combinaison de facteurs de risque économiques, climatiques ou sécuritaires.",
+          "title": "Dégradation des accès et choc agricole",
+          "summary": "Une nouvelle perturbation prolongée des routes ou une mauvaise campagne agricole pourrait accroître les difficultés d’approvisionnement dans les localités déjà fragilisées.",
           "tags": [],
           "sourceIds": [
             "S-BFA-WB"
           ],
           "kind": "fragility",
           "assumptions": [
-            "Réalisation d’au moins un choc externe ou intérieur important"
+            "Blocages d’axes marchands",
+            "Pluies insuffisantes ou hausse marquée du coût des engrais"
           ],
           "triggers": [
-            "Détérioration simultanée de plusieurs indicateurs suivis"
+            "Dégradation des marchés de produits vivriers",
+            "Fermeture ou difficulté d’accès à des services publics"
           ],
           "weakSignals": [
-            "Tensions persistantes sur chaînes d’approvisionnement, populations ou recettes"
+            "Prix agricoles locaux et disponibilité des semences",
+            "Évaluations de sécurité alimentaire et de déplacements"
           ],
           "consequences": [
-            "Pression sur les finances publiques et les moyens d’existence"
+            "Pression accrue sur les ménages et acteurs humanitaires",
+            "Ralentissement de la reprise économique hors centres urbains"
           ],
           "limits": [
-            "Hypothèse de stress, sans probabilité calculée"
+            "Un risque plausible n’est pas une prévision datée ; aucune probabilité n’est attribuée."
           ]
         }
       ],
@@ -1050,7 +1067,7 @@
         {
           "id": "bfa-watch-1",
           "title": "Violences et déplacements",
-          "summary": "Une recrudescence des violences pourrait aggraver les déplacements et les restrictions d’accès.",
+          "summary": "Vérifier les conditions de retour et la disponibilité des services, au-delà des volumes de déplacés ayant déclaré revenir.",
           "tags": [],
           "sourceIds": [
             "S-BFA-WB"
@@ -1059,7 +1076,7 @@
         {
           "id": "bfa-watch-2",
           "title": "Chocs de prix et de climat",
-          "summary": "Un recul de l’or ou une mauvaise campagne agricole pourrait peser sur revenus et recettes.",
+          "summary": "Distinguer les mécanismes de coopération AES de l’appartenance à l’UEMOA et du retrait effectif de la CEDEAO.",
           "tags": [],
           "sourceIds": [
             "S-BFA-WB"
@@ -1068,7 +1085,7 @@
         {
           "id": "bfa-watch-3",
           "title": "Transformation agricole",
-          "summary": "Amélioration de la productivité et accès aux services peuvent soutenir emplois et sécurité alimentaire.",
+          "summary": "Surveiller l’accès aux engrais, la pluviométrie et les prix alimentaires dans les zones aux marchés perturbés.",
           "tags": [],
           "sourceIds": [
             "S-BFA-WB"
