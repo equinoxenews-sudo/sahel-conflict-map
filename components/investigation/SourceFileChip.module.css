@@ -68,10 +68,10 @@
 }
 
 .remove:hover {
-  color: #ff8c8c;
+  color: var(--status-critical-text);
 }
 
 .missing {
   font-size: 11.5px;
-  color: #ffb4b4;
+  color: var(--status-critical-text);
 }

@@ -327,7 +327,7 @@
   border: 1px solid var(--accent-gold);
   border-radius: 6px;
   background: var(--accent-gold);
-  color: #10161f;
+  color: var(--bg-primary);
   font: inherit;
   font-size: 13px;
   font-weight: 700;

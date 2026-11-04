@@ -109,7 +109,7 @@
 
 .error {
   margin: 0;
-  color: #ffb4b4;
+  color: var(--status-critical-text);
   font-size: 12px;
 }
 
@@ -119,7 +119,7 @@
   border: 1px solid var(--accent-gold);
   border-radius: 7px;
   background: var(--accent-gold);
-  color: #10161f;
+  color: var(--bg-primary);
   font: inherit;
   font-size: 13px;
   font-weight: 700;

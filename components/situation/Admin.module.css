@@ -315,7 +315,7 @@
 .primarySmall {
   border-color: var(--accent-gold);
   background: var(--accent-gold);
-  color: #10161f;
+  color: var(--bg-primary);
   font-weight: 700;
 }
 

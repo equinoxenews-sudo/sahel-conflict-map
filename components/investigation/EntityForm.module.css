@@ -69,7 +69,7 @@ textarea.control {
 .primary {
   border: 1px solid var(--accent-gold);
   background: var(--accent-gold);
-  color: #10161f;
+  color: var(--bg-primary);
   font-weight: 700;
 }
 

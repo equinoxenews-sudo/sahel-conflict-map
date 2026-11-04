@@ -25,6 +25,8 @@
   --status-watch: #e0b44c;
   --status-danger: #e87932;
   --status-critical: #d94a4a;
+  /* Variante claire du rouge pour les messages d'erreur écrits sur fond sombre (contraste de lecture). */
+  --status-critical-text: #ffb4b4;
   --status-info: #3d9be9;
 
   /* Fixed mobile chrome heights — shared by the compact header, the

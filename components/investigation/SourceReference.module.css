@@ -64,5 +64,5 @@
 }
 
 .remove:hover {
-  color: #ff8c8c;
+  color: var(--status-critical-text);
 }
