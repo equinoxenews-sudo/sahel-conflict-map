@@ -882,7 +882,7 @@ export default function Globe3D({
               shared.onEntitySelect(null, null);
               currentViewer.camera.flyToBoundingSphere(sphere, {
                 duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 0.9,
-                offset: new Cesium.HeadingPitchRange(currentViewer.camera.heading, -Math.PI / 2, Math.max(sphere.radius * 3.4, 800_000)),
+                offset: new Cesium.HeadingPitchRange(currentViewer.camera.heading, -Math.PI / 2, Math.max(sphere.radius * 5.5, 1_600_000)),
                 complete: () => {
                   // Un autre clic a relancé un vol, ou le globe a été fermé : cette bulle est périmée.
                   if (flight !== countryFlight || disposed || currentViewer.isDestroyed()) return;
