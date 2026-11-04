@@ -94,7 +94,7 @@
 .gold {
   border: 1px solid var(--accent-gold);
   background: var(--accent-gold);
-  color: #10161f;
+  color: var(--bg-primary);
   font-weight: 700;
 }
 
@@ -1173,7 +1173,7 @@ button.attrChip:hover {
 }
 
 .citeMissing {
-  color: #ffb4b4;
+  color: var(--status-critical-text);
 }
 
 .references {
@@ -1230,7 +1230,7 @@ button.attrChip:hover {
 }
 
 .refMissing {
-  color: #ffb4b4;
+  color: var(--status-critical-text);
 }
 
 /* Image seule sur sa ligne : figure en bloc, jamais coincée à côté du texte. */

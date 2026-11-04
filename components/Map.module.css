@@ -4,14 +4,14 @@
    category color shows up as the inner card's border instead (see
    .popupCard), not on this shared chrome. */
 :global(.leaflet-popup-content-wrapper) {
-  background: #111111;
-  color: #fff;
+  background: var(--bg-panel);
+  color: var(--text-primary);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 :global(.leaflet-popup-tip) {
-  background: #111111;
+  background: var(--bg-panel);
 }
 
 :global(.leaflet-popup-content) {
@@ -20,7 +20,7 @@
 }
 
 :global(.leaflet-popup-close-button) {
-  color: #fff !important;
+  color: var(--text-primary) !important;
   opacity: 0.7;
 }
 
@@ -33,7 +33,7 @@
   flex-direction: column;
   gap: 8px;
   padding: 14px 16px;
-  border: 1px solid #333;
+  border: 1px solid var(--border-subtle);
   border-radius: 12px;
 }
 
@@ -70,7 +70,7 @@
 }
 
 .popupLink {
-  color: #fff;
+  color: var(--text-primary);
   text-decoration: underline;
 }
 

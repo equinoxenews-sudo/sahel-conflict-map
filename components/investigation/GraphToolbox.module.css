@@ -226,5 +226,5 @@
 }
 
 .danger {
-  color: #ff8c8c;
+  color: var(--status-critical-text);
 }

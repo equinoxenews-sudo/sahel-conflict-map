@@ -31,7 +31,7 @@
   border: 1px solid var(--accent-gold);
   border-radius: 8px;
   background: var(--accent-gold);
-  color: #10161f;
+  color: var(--bg-primary);
   font: inherit;
   font-size: 14px;
   font-weight: 700;
@@ -47,5 +47,5 @@
   margin: 0;
   font-size: 13px;
   line-height: 1.5;
-  color: #ffb4b4;
+  color: var(--status-critical-text);
 }

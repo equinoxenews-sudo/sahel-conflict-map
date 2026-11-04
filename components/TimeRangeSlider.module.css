@@ -18,9 +18,9 @@
 
 .resetButton {
   font-size: 11px;
-  color: #999;
+  color: var(--text-secondary);
   background: transparent;
-  border: 1px solid #444;
+  border: 1px solid var(--border-subtle);
   border-radius: 999px;
   padding: 3px 10px;
   cursor: pointer;
@@ -28,7 +28,7 @@
 
 .resetButton:hover {
   color: var(--foreground);
-  border-color: #777;
+  border-color: var(--text-secondary);
 }
 
 .track {
@@ -45,7 +45,7 @@
   right: 0;
   height: 3px;
   transform: translateY(-50%);
-  background: #333;
+  background: var(--border-subtle);
   border-radius: 2px;
 }
 
@@ -67,7 +67,7 @@
   right: 0;
   height: 3px;
   transform: translateY(-50%);
-  background: #e53935;
+  background: var(--accent-gold);
   border-radius: 2px;
 }
 
@@ -81,8 +81,8 @@
   width: 16px;
   height: 16px;
   transform: translate(-50%, -50%);
-  background: #fff;
-  border: 2px solid #e53935;
+  background: var(--text-primary);
+  border: 2px solid var(--accent-gold);
   border-radius: 50%;
   cursor: ew-resize;
   touch-action: none;

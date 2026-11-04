@@ -12,7 +12,7 @@
   align-items: center;
   gap: 5px;
   font-size: 10px;
-  color: #d8dee6;
+  color: var(--text-primary);
   white-space: nowrap;
 }
 

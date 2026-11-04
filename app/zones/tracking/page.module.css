@@ -1,14 +1,14 @@
 .main {
   min-height: 100dvh;
-  background: #000;
-  color: #fff;
+  background: var(--bg-primary);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
 }
 
 .topBar {
   padding: 16px 24px;
-  border-bottom: 1px solid #222;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .title {
