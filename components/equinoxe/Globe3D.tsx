@@ -14,7 +14,8 @@ import type { EntityPopupData, LayerKey } from "@/lib/layers/types";
 import type { VesselPosition } from "@/types/vessel";
 import { CESIUM_BASE_URL } from "@/lib/cesiumCdn";
 import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
-import { ISO3_TO_ZONE, isHomeZone, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
+import { isHomeZone, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
+import { globeCountryInfo } from "@/lib/globeCountry";
 import { getHoveredBrief, onHoveredBrief } from "@/lib/briefHover";
 import { CLUSTER_MIN_SIZE, CLUSTER_PIXEL_RANGE, GLOBE_CLUSTERING_ENABLED, GLOBE_TEST_TOOLS, clusterDotCanvasSize, clusterDotDiameter, distinctIds, explodedAtHeight, isColocated, type EventMode } from "@/lib/globeClustering";
 import styles from "./Globe3D.module.css";
@@ -645,6 +646,8 @@ export default function Globe3D({
     let host: HTMLDivElement | null = null;
     let resizeObserver: ResizeObserver | null = null;
     let clickHandler: CesiumNS.ScreenSpaceEventHandler | null = null;
+    // Numéro du dernier vol de caméra vers un pays : une bulle n'est ouverte que si aucun clic plus récent n'a eu lieu.
+    let countryFlight = 0;
     let removeIntroListeners: () => void = () => {};
     // Vrai tant que l'introduction n'est pas terminée : un globe à moitié « révélé » n'est pas conservé.
     let introPending = false;
@@ -869,12 +872,25 @@ export default function Globe3D({
         if (entity && typeof raw === "string") {
           try {
             const data = JSON.parse(raw) as EntityPopupData;
-            // Un pays d'une zone : le premier clic centre le globe sur la zone, le suivant
-            // (zone déjà au centre) ouvre la bulle du pays, comme avant.
-            const zone = data.layerKey === "risk" ? ISO3_TO_ZONE[String(entity.id)] : undefined;
-            if (zone && zone !== shared.focusZone) {
+            // Un pays : le globe se centre dessus, puis la bulle s'ouvre au-dessus de son centre
+            // (la position écran de la bulle est celle d'après le vol, pas celle du clic).
+            const hierarchy = data.layerKey === "risk" ? (entity.polygon?.hierarchy?.getValue(Cesium.JulianDate.now()) as CesiumNS.PolygonHierarchy | undefined) : undefined;
+            const currentViewer = viewer;
+            if (hierarchy && currentViewer && !currentViewer.isDestroyed()) {
+              const sphere = Cesium.BoundingSphere.fromPoints(hierarchy.positions);
+              const flight = ++countryFlight;
               shared.onEntitySelect(null, null);
-              shared.onZonePick(zone);
+              currentViewer.camera.flyToBoundingSphere(sphere, {
+                duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 0.9,
+                offset: new Cesium.HeadingPitchRange(currentViewer.camera.heading, -Math.PI / 2, Math.max(sphere.radius * 3.4, 800_000)),
+                complete: () => {
+                  // Un autre clic a relancé un vol, ou le globe a été fermé : cette bulle est périmée.
+                  if (flight !== countryFlight || disposed || currentViewer.isDestroyed()) return;
+                  const surface = Cesium.Ellipsoid.WGS84.scaleToGeodeticSurface(sphere.center, new Cesium.Cartesian3()) ?? sphere.center;
+                  const screen = Cesium.SceneTransforms.worldToWindowCoordinates(currentViewer.scene, surface);
+                  shared.onEntitySelect(data, screen ? { x: screen.x, y: screen.y } : { x: click.position.x, y: click.position.y });
+                },
+              });
               return;
             }
             shared.onEntitySelect(data, { x: click.position.x, y: click.position.y });
@@ -1154,12 +1170,16 @@ export default function Globe3D({
         entity.polygon.material = new Cesium.ColorMaterialProperty(color);
         entity.polygon.outline = new Cesium.ConstantProperty(false);
 
-        const name = String(entity.properties?.name?.getValue() ?? iso3);
+        const info = globeCountryInfo(iso3, String(entity.properties?.name?.getValue() ?? iso3));
+        // Bulle d'un pays : nom français, drapeau, niveau, nombre d'articles de la période (calculé à l'ouverture, voir
+        // GlobeWithLayers) et lien vers la fiche Approche.
         const popup: EntityPopupData = {
           layerKey: "risk",
-          badge: "PAYS EN CRISE",
-          title: name,
-          fields: risk ? [{ label: "Niveau", value: risk.label }] : [{ label: "Niveau", value: "Normal" }],
+          badge: risk ? "PAYS EN CRISE" : "PAYS",
+          title: info.name,
+          fields: [],
+          flagIso2: info.iso2 ?? undefined,
+          country: { iso3, tier: risk?.tier ?? null, href: info.href },
         };
         // Overwrites the PropertyBag the GeoJSON loader already built for
         // this entity (feature properties like `name`) — fine here since

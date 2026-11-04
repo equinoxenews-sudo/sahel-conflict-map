@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import HexFlag from "@/components/investigation/HexFlag";
+import { RISK_COLORS, RISK_LABELS } from "@/lib/countryRisk";
 import type { EntityPopupData } from "@/lib/layers/types";
 import styles from "./GlobeEntityPopup.module.css";
 
@@ -80,6 +81,8 @@ interface GlobeEntityPopupProps {
   x: number;
   y: number;
   onClose: () => void;
+  /** Bulle d'un pays : nombre d'articles analysés sur la période du globe et son libellé (« 5 derniers jours »). */
+  countryStats?: { count: number; period: string };
   /** Événement choisi dans une liste d'événements confondus : sa fiche habituelle s'ouvre à la place de la liste. */
   onPickItem?: (item: EntityPopupData) => void;
 }
@@ -88,7 +91,8 @@ interface GlobeEntityPopupProps {
 // Globe3D.tsx's click handler) — deliberately not Cesium's default
 // InfoBox (a large sidebar) or SelectionIndicator, neither of which
 // matches this site's floating glass-card style.
-export default function GlobeEntityPopup({ data, x, y, onClose, onPickItem }: GlobeEntityPopupProps) {
+export default function GlobeEntityPopup({ data, x, y, onClose, onPickItem, countryStats }: GlobeEntityPopupProps) {
+  if (data.country) return <CountryCard data={data} x={x} y={y} onClose={onClose} stats={countryStats} />;
   return (
     <div className={styles.popup} style={{ left: x, top: y }} lang="fr">
       <div className={styles.header}>
@@ -149,6 +153,51 @@ export default function GlobeEntityPopup({ data, x, y, onClose, onPickItem }: Gl
         </div>
       ) : null}
       {data.wikiQuery ? <WikiBlock key={data.wikiQuery} query={data.wikiQuery} photoOnly={data.wikiPhotoOnly} /> : null}
+    </div>
+  );
+}
+
+/** Bulle d'un pays : grand drapeau, nom, niveau d'alerte, articles de la période, lien vers la fiche Approche. */
+function CountryCard({ data, x, y, onClose, stats }: { data: EntityPopupData; x: number; y: number; onClose: () => void; stats?: { count: number; period: string } }) {
+  const country = data.country!;
+  const tier = country.tier;
+  return (
+    <div className={`${styles.popup} ${styles.countryCard}`} style={{ left: x, top: y }} lang="fr">
+      <button type="button" className={`${styles.closeBtn} ${styles.countryClose}`} onClick={onClose} aria-label="Fermer">
+        ✕
+      </button>
+      <div className={styles.countryHead}>
+        {data.flagIso2 ? (
+          <span className={styles.countryFlag}>
+            <HexFlag iso2={data.flagIso2} name={data.title} />
+          </span>
+        ) : null}
+        <div className={styles.countryNames}>
+          <h3 className={styles.countryName}>{data.title}</h3>
+          {tier ? (
+            <span className={styles.tierPill} style={{ color: RISK_COLORS[tier], borderColor: RISK_COLORS[tier] }}>
+              <span className={styles.tierDot} style={{ background: RISK_COLORS[tier] }} aria-hidden="true" />
+              {RISK_LABELS[tier]}
+            </span>
+          ) : (
+            <span className={styles.tierNone}>Pas d’alerte en cours</span>
+          )}
+        </div>
+      </div>
+      {stats ? (
+        <div className={styles.countryStat}>
+          <span className={styles.statValue}>{stats.count.toLocaleString("fr-FR")}</span>
+          <span className={styles.statLabel}>
+            {stats.count > 1 ? "articles analysés" : "article analysé"}
+            <span className={styles.statPeriod}>{stats.period}</span>
+          </span>
+        </div>
+      ) : null}
+      {country.href ? (
+        <a className={styles.countryCta} href={country.href}>
+          Voir la fiche pays Approche →
+        </a>
+      ) : null}
     </div>
   );
 }

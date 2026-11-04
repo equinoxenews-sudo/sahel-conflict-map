@@ -1,4 +1,5 @@
 import { supabase } from "../supabaseClient";
+import { findIso3ByLabel } from "../countries";
 import type { AnalystEvent } from "./analystRisk";
 
 export { countryRiskFromAnalystEvents, type AnalystEvent } from "./analystRisk";
@@ -64,6 +65,7 @@ export async function fetchAnalystEvents(now = Date.now()): Promise<AnalystEvent
           lon: r.longitude,
           place: r.place_name,
           country: r.place_country,
+          iso3: r.place_country ? findIso3ByLabel(r.place_country)?.iso3 ?? null : null,
           confidence: r.confidence,
           confidenceLabel: r.confidence_label,
           claimedBy: r.claimed_by,

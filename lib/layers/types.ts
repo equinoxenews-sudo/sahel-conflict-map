@@ -108,6 +108,8 @@ export interface EntityPopupData {
   wikiQuery?: string;
   /** N'afficher le bloc Wikipédia que s'il a une photo (volcans). */
   wikiPhotoOnly?: boolean;
+  /** Fiche d'un pays (couche « Pays en crise ») : la bulle affiche drapeau, nombre d'articles sur la période et lien Approche. */
+  country?: { iso3: string; tier: "critical" | "danger" | "watch" | null; href: string | null };
   /** Événement analysé : sa zone et sa carte d'article, pour le surligner dans le bandeau. */
   brief?: { zone: string; id: number; title: string; imageUrl: string | null; publishedAt: string; veracity: string | null };
   /** Plusieurs événements au même lieu (regroupement du globe) : leurs fiches, à choisir dans la liste. */
