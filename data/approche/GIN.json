@@ -1,0 +1,1130 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "GIN",
+  "slug": "guinee",
+  "zoneSlug": "afrique",
+  "name": "Guinée",
+  "officialName": "République de Guinée",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-GIN-ECOWAS",
+      "publisher": "CEDEAO",
+      "title": "États membres en 2026",
+      "canonicalUrl": "https://www.ecowas.int/member_states/?lang=fr",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GIN-PRES",
+      "publisher": "Présidence de la République de Guinée",
+      "title": "Conseil des ministres du 30 juillet 2026",
+      "canonicalUrl": "https://presidence.gov.gn/palais-mohammed-v-les-membres-du-gouvernement-pretent-serment-devant-le-president-de-la-republique-en-marge-du-conseil-des-ministres/",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GIN-WB",
+      "publisher": "Banque mondiale",
+      "title": "Guinée — aperçu de la situation en 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/guinea",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GIN-WB_UPDATE",
+      "publisher": "Banque mondiale",
+      "title": "Guinea Economic Update 2026 — Beyond Mining",
+      "canonicalUrl": "https://www.worldbank.org/en/country/guinea/publication/guinea-economic-update-2026-beyond-mining-turning-resource-wealth-into-private-sector-growth-and-job-creation",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GIN-WB_PRESS",
+      "publisher": "Banque mondiale",
+      "title": "Guinea Economic Update 2026 — octobre",
+      "canonicalUrl": "https://www.worldbank.org/en/news/press-release/2026/10/07/guinea-economic-update-2026-natural-resource-wealth-private-sector-growth-jobs",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GIN-IMF",
+      "publisher": "FMI",
+      "title": "Guinée — consultations 2026 et accord préliminaire de FEC",
+      "canonicalUrl": "https://www.imf.org/fr/news/articles/2026/08/11/pr26275-guinea-imf-completes-2026-aiv-mission-reaches-sla-41-month-ecf-arrangement",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication.",
+      "publishedAt": "2026-08-11"
+    },
+    {
+      "id": "S-GIN-RIO",
+      "publisher": "Rio Tinto",
+      "title": "Simandou : mine, rail et ports",
+      "canonicalUrl": "https://www.riotinto.com/en/operations/africa/simandou",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GIN-RIO_AR",
+      "publisher": "Rio Tinto",
+      "title": "Simandou — key project updates",
+      "canonicalUrl": "https://www.riotinto.com/en/invest/reports/annual-report/key-project-updates",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Faits et données paraphrasés à partir de la source ; licence de redistribution intégrale non présumée ; vérifier l’état documentaire avant publication."
+    },
+    {
+      "id": "S-GIN-BCRG-CURRENCY",
+      "publisher": "Banque centrale de la République de Guinée (BCRG)",
+      "title": "BCRG — Billets et monnaie en circulation, franc guinéen",
+      "canonicalUrl": "https://www.bcrg-guinee.org/moyens-de-paiement__trashed/billets-et-monnaie-en-circulation/",
+      "accessedAt": "2026-11-02",
+      "license": "Réutilisation commerciale non établie",
+      "licenseUrl": "https://www.bcrg-guinee.org/",
+      "reuse": "citation_only",
+      "language": "fr",
+      "methodNotes": "La banque centrale publie les cours contre le GNF. Source institutionnelle de l’unité monétaire."
+    },
+    {
+      "id": "S-GIN-WDI-POPTOT",
+      "publisher": "Banque mondiale — World Development Indicators",
+      "title": "Population totale de la Guinée, série SP.POP.TOTL (2025)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=GN",
+      "accessedAt": "2026-11-02",
+      "license": "À consulter sur la fiche de la série, dont les conditions de réutilisation peuvent varier selon la donnée originale",
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "methodNotes": "Valeur 2025 : 15 099 727 ; conservée dans la couche automatique Banque mondiale, non recopiée comme observation éditoriale."
+    }
+  ],
+  "observations": [
+    {
+      "id": "gin-identity-capital",
+      "countryCode": "GIN",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Conakry",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée",
+      "methodology": "Capitale et siège des autorités.",
+      "sourceIds": [
+        "S-GIN-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gin-politics-head-of-state",
+      "countryCode": "GIN",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Mamadi Doumbouya",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée",
+      "methodology": "Président mentionné par la présidence en juillet 2026.",
+      "sourceIds": [
+        "S-GIN-PRES"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gin-politics-head-of-government",
+      "countryCode": "GIN",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Amadou Oury Bah",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée",
+      "methodology": "Premier ministre confirmé lors du Conseil de juillet 2026.",
+      "sourceIds": [
+        "S-GIN-PRES"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gin-politics-regime",
+      "countryCode": "GIN",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République sous la Constitution de 2025",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée",
+      "methodology": "Élection présidentielle de décembre 2025 et investiture en janvier 2026.",
+      "sourceIds": [
+        "S-GIN-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gin-identity-currency",
+      "countryCode": "GIN",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc guinéen (GNF)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée",
+      "methodology": "Unité monétaire attestée par les billets en circulation publiés par la Banque centrale de la République de Guinée (BCRG) ; ne pas confondre avec le franc CFA/UEMOA.",
+      "sourceIds": [
+        "S-GIN-BCRG-CURRENCY"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gin-institutions-ecowas",
+      "countryCode": "GIN",
+      "key": "institutions.ecowas",
+      "label": "Membre de la CEDEAO",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée",
+      "methodology": "État membre selon la liste à jour de la CEDEAO.",
+      "sourceIds": [
+        "S-GIN-ECOWAS"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gin-demography-population-2026-wb-country",
+      "countryCode": "GIN",
+      "key": "demography.population_2026_wb_country",
+      "label": "Population 2026 — aperçu Banque mondiale",
+      "topic": "population",
+      "value": 17520000,
+      "unit": "personnes",
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée",
+      "methodology": "Valeur indiquée dans l’aperçu pays Banque mondiale pour 2026. Elle est divergente de la série statistique World Development Indicators (15 099 727 habitants en 2025), sans méthodologie permettant à ce stade de réconcilier les deux estimations. Ne pas l’afficher comme une valeur démographique validée.",
+      "sourceIds": [
+        "S-GIN-WB",
+        "S-GIN-WDI-POPTOT"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "conflicting",
+      "dataKind": "observed",
+      "uncertainty": "Écart non réconcilié entre l’aperçu Banque mondiale 2026 (17,52 M) et sa série WDI 2025 (15,10 M) ; comparaison de millésimes différents et absence de détail méthodologique."
+    },
+    {
+      "id": "gin-economy-gdp-growth-2025-wb-report",
+      "countryCode": "GIN",
+      "key": "economy.gdp_growth_2025_wb_report",
+      "label": "Croissance du PIB réel 2025 — rapport",
+      "topic": "growth",
+      "value": 7.3,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Guinée",
+      "methodology": "Chiffre arrondi du rapport ; Banque mondiale Data peut présenter une révision différente.",
+      "sourceIds": [
+        "S-GIN-WB_UPDATE"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gin-economy-gdp-growth-projection-avg-2026-2028-wb",
+      "countryCode": "GIN",
+      "key": "economy.gdp_growth_projection_avg_2026_2028_wb",
+      "label": "Croissance moyenne projetée 2026–2028 — rapport",
+      "value": 9.0,
+      "unit": "%",
+      "referencePeriod": "2026-2028",
+      "geographicScope": "Guinée",
+      "methodology": "Projection moyenne de période, pas croissance réalisée annuelle.",
+      "sourceIds": [
+        "S-GIN-WB_UPDATE"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gin-economy-inflation-2025-wb-report",
+      "countryCode": "GIN",
+      "key": "economy.inflation_2025_wb_report",
+      "label": "Inflation 2025 — rapport",
+      "topic": "inflation",
+      "value": 3.2,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Guinée",
+      "methodology": "Taux cité dans Economic Update 2026.",
+      "sourceIds": [
+        "S-GIN-WB_UPDATE"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gin-politics-presidential-election-2025-result",
+      "countryCode": "GIN",
+      "key": "politics.presidential_election_2025_result",
+      "label": "Résultat présidentiel décembre 2025 — candidat proclamé",
+      "value": 86.72,
+      "unit": "%",
+      "referencePeriod": "2025-12-28",
+      "geographicScope": "Guinée",
+      "methodology": "Pourcentage des voix déclaré pour Mamadi Doumbouya selon la Banque mondiale ; taux de participation non inféré.",
+      "sourceIds": [
+        "S-GIN-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gin-politics-constitution-presidential-term-years",
+      "countryCode": "GIN",
+      "key": "politics.constitution_presidential_term_years",
+      "label": "Durée du mandat présidentiel (Constitution 2025)",
+      "value": 7,
+      "unit": "ans",
+      "referencePeriod": "2025",
+      "geographicScope": "Guinée",
+      "methodology": "Mandat renouvelable une fois selon page pays Banque mondiale.",
+      "sourceIds": [
+        "S-GIN-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gin-infrastructure-simandou-rail-length-rio",
+      "countryCode": "GIN",
+      "key": "infrastructure.simandou_rail_length_rio",
+      "label": "Longueur approximative des infrastructures ferroviaires Simandou",
+      "value": 600,
+      "unit": "km",
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée",
+      "methodology": "Ordre de grandeur annoncé par Rio Tinto ; ne pas confondre ligne principale et embranchements.",
+      "sourceIds": [
+        "S-GIN-RIO"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gin-resources-simandou-simfer-reserves",
+      "countryCode": "GIN",
+      "key": "resources.simandou_simfer_reserves",
+      "label": "Réserves estimées des blocs SimFer 3 et 4",
+      "value": 1.5,
+      "unit": "milliards de tonnes",
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée",
+      "methodology": "Estimation de réserves des blocs 3 et 4 selon Rio Tinto ; ne représente pas tout Simandou.",
+      "sourceIds": [
+        "S-GIN-RIO"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gin-infrastructure-simandou-first-shipment",
+      "countryCode": "GIN",
+      "key": "infrastructure.simandou_first_shipment",
+      "label": "Premier embarquement de minerai SimFer",
+      "value": "décembre 2025",
+      "unit": null,
+      "referencePeriod": "2025-12",
+      "geographicScope": "Guinée",
+      "methodology": "Premier chargement, non démarrage de production à capacité nominale.",
+      "sourceIds": [
+        "S-GIN-RIO_AR"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "gin-claim-1",
+      "countryCode": "GIN",
+      "statement": "Mamadi Doumbouya occupe la présidence de la Guinée en 2026 et Amadou Oury Bah est Premier ministre.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GIN-PRES",
+        "S-GIN-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gin-claim-2",
+      "countryCode": "GIN",
+      "statement": "La Guinée a organisé une présidentielle en décembre 2025 puis une investiture en janvier 2026 ; la Constitution de 2025 prévoit un mandat de sept ans renouvelable une fois.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GIN-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gin-claim-3",
+      "countryCode": "GIN",
+      "statement": "La Banque mondiale estime la croissance 2025 à 7,3 % dans son Economic Update 2026, soutenue par le secteur minier, les services et l’agriculture.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GIN-WB_UPDATE"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gin-claim-4",
+      "countryCode": "GIN",
+      "statement": "Simandou comprend des mines de fer dans le Sud-Est, un réseau ferroviaire de plusieurs centaines de kilomètres et des équipements portuaires d’exportation.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GIN-RIO"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gin-claim-5",
+      "countryCode": "GIN",
+      "statement": "La montée en puissance des exportations minières pose un enjeu de diversification et de création d’emplois hors mines.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-GIN-WB_UPDATE"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "gin-rel-chn-1",
+      "countryCode": "GIN",
+      "targetCode": "CHN",
+      "targetIso2": "CN",
+      "targetName": "Chine",
+      "relationType": "cooperation",
+      "title": "Investissements dans Simandou",
+      "topics": [],
+      "summary": "Des partenaires industriels chinois participent aux coentreprises SimFer et WCS du projet minier et logistique.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GIN-RIO"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "gin-rel-gha-2",
+      "countryCode": "GIN",
+      "targetCode": "GHA",
+      "targetIso2": "GH",
+      "targetName": "Ghana",
+      "relationType": "cooperation",
+      "title": "Intégration CEDEAO",
+      "topics": [],
+      "summary": "Les deux États appartiennent à la CEDEAO ; aucune intensité bilatérale chiffrée n’est inférée.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GIN-ECOWAS"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "gin-rel-sle-3",
+      "countryCode": "GIN",
+      "targetCode": "SLE",
+      "targetIso2": "SL",
+      "targetName": "Sierra Leone",
+      "relationType": "cooperation",
+      "title": "Intégration régionale ouest-africaine",
+      "topics": [],
+      "summary": "Coopération institutionnelle dans la CEDEAO ; le détail des accords bilatéraux n’est pas documenté dans ce lot.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GIN-ECOWAS"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "gin-strength-1",
+          "title": "Ressources en bauxite et fer",
+          "summary": "Le pays dispose d’une base extractive majeure, renforcée par Simandou.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB",
+            "S-GIN-RIO"
+          ]
+        },
+        {
+          "id": "gin-strength-2",
+          "title": "Corridor minier-ferroviaire",
+          "summary": "Le projet Simandou mutualise des actifs ferroviaires et portuaires d’importance nationale.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-RIO"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "gin-challenge-1",
+          "title": "Concentration extractive",
+          "summary": "Les exportations minières peuvent accroître la dépendance aux cours et limiter les emplois hors mines.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_UPDATE"
+          ]
+        },
+        {
+          "id": "gin-challenge-2",
+          "title": "Redistribution territoriale",
+          "summary": "L’ampleur des gains de croissance ne garantit pas leur diffusion dans l’agriculture et les services.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_UPDATE"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "gin-timeline-1",
+          "title": "Nouvelle Constitution",
+          "summary": "Constitution promulguée en septembre 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB"
+          ],
+          "date": "2025-09"
+        },
+        {
+          "id": "gin-timeline-2",
+          "title": "Élection présidentielle",
+          "summary": "Scrutin du 28 décembre 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB"
+          ],
+          "date": "2025-12-28"
+        },
+        {
+          "id": "gin-timeline-3",
+          "title": "Investiture",
+          "summary": "Mamadi Doumbouya investi président en janvier 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB"
+          ],
+          "date": "2026-01"
+        },
+        {
+          "id": "gin-timeline-4",
+          "title": "Premières exportations Simandou",
+          "summary": "Rio Tinto date les premiers chargements SimFer de décembre 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-RIO_AR"
+          ],
+          "date": "2025-12"
+        },
+        {
+          "id": "gin-timeline-5",
+          "title": "Rapport économique",
+          "summary": "Economic Update 2026 de la Banque mondiale sur les perspectives minières et l’emploi.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_PRESS"
+          ],
+          "date": "2026-10"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "gin-sector-1",
+          "title": "Bauxite et alumine",
+          "summary": "Activité minière exportatrice importante, avec enjeux d’intégration industrielle et de transport.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB"
+          ]
+        },
+        {
+          "id": "gin-sector-2",
+          "title": "Minerai de fer",
+          "summary": "Simandou engage un changement d’échelle des infrastructures et exportations.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-RIO",
+            "S-GIN-WB_UPDATE"
+          ]
+        },
+        {
+          "id": "gin-sector-3",
+          "title": "Agriculture",
+          "summary": "Principal secteur d’emploi selon la Banque mondiale, malgré la domination minière dans les exportations.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "gin-resource-1",
+          "title": "Bauxite",
+          "summary": "Ressource stratégique du secteur extractif, fortement exposée aux débouchés internationaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB"
+          ]
+        },
+        {
+          "id": "gin-resource-2",
+          "title": "Fer — Simandou",
+          "summary": "Réserves importantes sur les blocs 3 et 4 selon Rio Tinto, sans inférer les réserves du projet entier.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-RIO"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "gin-sec-1",
+          "title": "Cadre institutionnel",
+          "summary": "Les autorités exercent leurs fonctions dans le cadre de la Constitution de 2025 ; les effectifs, budgets et équipements militaires ne sont pas ajoutés sans sources.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "gin-issue-1",
+          "title": "Simandou et corridor d’exportation",
+          "summary": "Montée en production du minerai de fer, fonctionnement ferroviaire et portuaire, partage de valeur.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-RIO",
+            "S-GIN-WB_UPDATE"
+          ],
+          "horizon": "1–5 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Mines",
+            "Infrastructure"
+          ],
+          "situation": "L’entrée en exploitation de Simandou transforme les volumes potentiels d’exportation de minerai de fer et accroît le rôle stratégique des infrastructures communes de transport.",
+          "whyStrategic": "Le projet repose sur un couplage entre mines, voies ferrées et installations portuaires. La fiabilité de chaque maillon détermine le rythme de montée en capacité et les possibilités de retombées économiques.",
+          "actors": [
+            "État guinéen et Compagnie du TransGuinéen",
+            "Partenaires des concessions SimFer et WCS",
+            "Opérateurs ferroviaires et portuaires"
+          ],
+          "interests": [
+            "Continuité des flux de minerai",
+            "Retombées locales des infrastructures mutualisées"
+          ],
+          "recentDevelopments": [
+            "Rio Tinto indique un premier embarquement en décembre 2025 et une montée progressive des capacités."
+          ],
+          "indicators": [
+            "Volumes de minerai expédiés par concession",
+            "Disponibilité du rail et des ports",
+            "Achèvement des infrastructures communes"
+          ],
+          "uncertainties": [
+            "Les capacités de production annoncées ne correspondent pas aux tonnages effectivement exportés."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "gin-issue-2",
+          "title": "Diversification au-delà de la bauxite",
+          "summary": "Développer les emplois et l’activité hors extraction.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_UPDATE"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Économie"
+          ],
+          "situation": "La croissance liée à la bauxite et au fer peut concentrer davantage les exportations dans l’extraction si les activités hors mines ne se développent pas.",
+          "whyStrategic": "L’agriculture représente une part importante de l’emploi ; l’enjeu consiste à transformer les infrastructures et recettes minières en chaînes de valeur agricoles, services et entreprises locales.",
+          "actors": [
+            "Ministères guinéens des Mines et de l’Agriculture",
+            "PME et producteurs agricoles",
+            "Banque mondiale"
+          ],
+          "interests": [
+            "Création d’emplois hors mines",
+            "Intégration de fournisseurs et prestataires locaux"
+          ],
+          "recentDevelopments": [
+            "La Guinea Economic Update 2026 invite à relier ressources naturelles, investissement privé et emplois non miniers."
+          ],
+          "indicators": [
+            "Évolution des emplois hors secteur extractif",
+            "Part des achats locaux des projets miniers",
+            "Infrastructures agricoles et accès aux marchés"
+          ],
+          "uncertainties": [
+            "Une forte croissance du PIB peut coexister avec une faible création d’emplois formels."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "gin-issue-3",
+          "title": "Recettes publiques et transparence",
+          "summary": "Renforcement des cadres budgétaires et de gouvernance discuté avec le FMI.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-IMF"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Gouvernance"
+          ],
+          "situation": "La montée des revenus extractifs rend plus déterminantes la transparence, la mobilisation de recettes et la gestion des risques budgétaires.",
+          "whyStrategic": "Le FMI propose un cadre de réformes portant notamment sur les recettes minières, la gestion de la liquidité et la gouvernance, dans un contexte de besoins de financement.",
+          "actors": [
+            "Ministère des Finances et institutions de contrôle",
+            "Entreprises extractives et administration fiscale",
+            "FMI"
+          ],
+          "interests": [
+            "Transformation des recettes minières en services",
+            "Prévisibilité du financement public"
+          ],
+          "recentDevelopments": [
+            "En août 2026, les équipes du FMI annoncent un accord au niveau des services concernant un programme FEC de 41 mois, sous réserve d’approbation."
+          ],
+          "indicators": [
+            "Recettes extractives effectivement perçues",
+            "Publication des engagements et dépenses publiques",
+            "Avancement des mesures de gouvernance"
+          ],
+          "uncertainties": [
+            "Un accord technique FMI ne constitue pas, à lui seul, une décision d’approbation définitive."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "gin-issue-4",
+          "title": "Agriculture et pauvreté",
+          "summary": "Importance de l’emploi agricole pour diffuser les bénéfices de la croissance.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB"
+          ],
+          "horizon": "3–10 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [
+            "Agriculture",
+            "Société"
+          ],
+          "situation": "L’agriculture emploie une large fraction de la population, mais la progression minière peut masquer des déficits persistants de productivité et d’accès aux marchés ruraux.",
+          "whyStrategic": "Des investissements dans les chaînes agroalimentaires, la logistique et les compétences déterminent la capacité de la croissance extractive à réduire la pauvreté au-delà des zones minières.",
+          "actors": [
+            "Producteurs et transformateurs agricoles",
+            "Institutions de formation et PME",
+            "Banque mondiale et autorités locales"
+          ],
+          "interests": [
+            "Productivité et revenus ruraux",
+            "Liaisons économiques entre mines et territoires"
+          ],
+          "recentDevelopments": [
+            "La Banque mondiale souligne en octobre 2026 le rôle de l’agriculture dans l’emploi et la diversification."
+          ],
+          "indicators": [
+            "Valeur ajoutée de l’agro-industrie",
+            "Accès aux marchés et infrastructures post-récolte",
+            "Évolution de la pauvreté rurale"
+          ],
+          "uncertainties": [
+            "La contribution agricole au PIB et sa part dans l’emploi mesurent des dimensions différentes."
+          ],
+          "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "gin-opp-1",
+          "title": "Transformation économique",
+          "summary": "L’extension minière peut soutenir logistique, emploi et transformation si les réformes de diversification progressent.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_UPDATE"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "gin-risk-1",
+          "title": "Dépendance minière",
+          "summary": "Chocs de prix ou de demande extérieure pourraient réduire les recettes d’exportation.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_UPDATE"
+          ]
+        },
+        {
+          "id": "gin-risk-2",
+          "title": "Défaillances d’infrastructure",
+          "summary": "Les performances minières sont conditionnées aux voies ferrées et aux ports.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-RIO"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "domains": [
+        {
+          "id": "gin-vuln-1",
+          "title": "Concentration extractive",
+          "summary": "La dépendance à la bauxite et au minerai de fer concentre une part déterminante des recettes en devises.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_UPDATE"
+          ]
+        },
+        {
+          "id": "gin-vuln-2",
+          "title": "Redistribution territoriale",
+          "summary": "L’augmentation des exportations minières ne garantit pas une création d’emplois suffisante hors du secteur extractif.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_UPDATE"
+          ]
+        },
+        {
+          "id": "gin-vuln-3",
+          "title": "Gouvernance des recettes minières",
+          "summary": "La traçabilité des recettes et les choix d’investissement public conditionnent la transformation des revenus extractifs en services et en activité non minière.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_UPDATE"
+          ]
+        },
+        {
+          "id": "gin-vuln-4",
+          "title": "Défaillances d’infrastructure",
+          "summary": "Les expéditions de Simandou reposent sur la disponibilité coordonnée des mines, du réseau ferré et des installations portuaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-RIO"
+          ]
+        }
+      ],
+      "swot": {
+        "strengths": [
+          {
+            "id": "gin-sw-s-1",
+            "title": "Ressources en bauxite et fer",
+            "summary": "Les volumes potentiels de minerai et le nouveau système ferroportuaire modifient l’échelle des exportations possibles.",
+            "tags": [],
+            "sourceIds": [
+              "S-GIN-WB",
+              "S-GIN-RIO"
+            ]
+          },
+          {
+            "id": "gin-sw-s-2",
+            "title": "Corridor minier-ferroviaire",
+            "summary": "Les infrastructures de Simandou pourraient aussi bénéficier à certains acteurs économiques non miniers.",
+            "tags": [],
+            "sourceIds": [
+              "S-GIN-RIO"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "gin-sw-w-1",
+            "title": "Concentration extractive",
+            "summary": "La concentration des exportations dans la bauxite et le minerai de fer expose les recettes en devises et les décisions d’investissement aux cycles miniers.",
+            "tags": [],
+            "sourceIds": [
+              "S-GIN-WB_UPDATE"
+            ]
+          },
+          {
+            "id": "gin-sw-w-2",
+            "title": "Redistribution territoriale",
+            "summary": "Les retombées locales ne sont pas automatiques sans achats, compétences et services adaptés.",
+            "tags": [],
+            "sourceIds": [
+              "S-GIN-WB_UPDATE"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "gin-sw-o-1",
+            "title": "Transformation économique",
+            "summary": "Le projet ferroportuaire peut élargir les réseaux de fournisseurs guinéens si leur intégration est mesurable.",
+            "tags": [],
+            "sourceIds": [
+              "S-GIN-WB_UPDATE"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "gin-sw-t-1",
+            "title": "Dépendance minière",
+            "summary": "Le prix du minerai et la disponibilité du rail sont des variables critiques pour les recettes d’exportation.",
+            "tags": [],
+            "sourceIds": [
+              "S-GIN-WB_UPDATE"
+            ]
+          },
+          {
+            "id": "gin-sw-t-2",
+            "title": "Interruption des infrastructures d’exportation",
+            "summary": "Une défaillance prolongée du rail ou des installations portuaires limiterait la continuité des exportations de minerai de fer.",
+            "tags": [],
+            "sourceIds": [
+              "S-GIN-RIO"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "gin-sc-1",
+          "title": "Simandou entraîne une économie de fournisseurs",
+          "summary": "La montée en capacité du corridor minier pourrait soutenir un réseau local de prestataires, de transports et d’activités agricoles si les retombées sont encadrées et effectivement mesurées.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB",
+            "S-GIN-RIO",
+            "S-GIN-WB_UPDATE"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Fiabilité croissante des installations ferroviaires et portuaires",
+            "Politiques concrètes de contenu local et d’accès au financement"
+          ],
+          "triggers": [
+            "Hausse des achats locaux documentés",
+            "Nouveaux débouchés logistiques pour des productions non minières"
+          ],
+          "weakSignals": [
+            "Emplois créés hors extraction",
+            "Progression des PME utilisatrices d’infrastructures"
+          ],
+          "consequences": [
+            "Diffusion territoriale d’une partie des revenus",
+            "Diversification progressive des activités productives"
+          ],
+          "limits": [
+            "Capacité nominale du projet ne préjuge pas des tonnages et emplois réellement réalisés."
+          ]
+        },
+        {
+          "id": "gin-sc-2",
+          "title": "Forte croissance minière, diversification lente",
+          "summary": "Les exportations de minerai augmenteraient sans transformation suffisante de la base d’emploi ; les inégalités entre corridors miniers et espaces ruraux resteraient prononcées.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_UPDATE"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Montée en cadence des mines",
+            "Faible intégration des PME et de l’agriculture"
+          ],
+          "triggers": [
+            "Écart persistant entre croissance du PIB et emplois hors mines"
+          ],
+          "weakSignals": [
+            "Exportations concentrées sur bauxite et fer",
+            "Difficultés d’accès au financement des acteurs agricoles"
+          ],
+          "consequences": [
+            "Retombées territoriales inégales",
+            "Vulnérabilité aux cycles des marchés du minerai"
+          ],
+          "limits": [
+            "La croissance agrégée ne doit pas être présentée comme une hausse uniforme des revenus."
+          ]
+        },
+        {
+          "id": "gin-sc-3",
+          "title": "Choc minier ou logistique et contraintes fiscales",
+          "summary": "Une perturbation prolongée du chemin de fer ou des débouchés portuaires, conjuguée à un recul des cours miniers, pourrait peser sur les recettes et les investissements publics.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_UPDATE",
+            "S-GIN-RIO"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Accident industriel ou interruption logistique majeure",
+            "Baisse des prix ou de la demande extérieure de minerai"
+          ],
+          "triggers": [
+            "Retards répétés de trains et expéditions",
+            "Révisions à la baisse des recettes minières"
+          ],
+          "weakSignals": [
+            "Détérioration des comptes publics",
+            "Report de programmes de formation et d’infrastructures"
+          ],
+          "consequences": [
+            "Moindre espace budgétaire pour la diversification",
+            "Risque de concentration encore accru des arbitrages publics"
+          ],
+          "limits": [
+            "Les effets restent conditionnels : aucune interruption future ni baisse de cours n’est présentée comme acquise."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "gin-watch-1",
+          "title": "Concentration des recettes et exportations minières",
+          "summary": "Suivre la part des minerais dans les exportations et les recettes publiques, en distinguant les effets de volume, de prix et de fiscalité.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_UPDATE"
+          ]
+        },
+        {
+          "id": "gin-watch-2",
+          "title": "Fiabilité des infrastructures ferroportuaires",
+          "summary": "Vérifier la fréquence des trains, le fonctionnement des terminaux et les tonnages effectivement embarqués, séparément des capacités nominales annoncées.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-RIO"
+          ]
+        },
+        {
+          "id": "gin-watch-3",
+          "title": "Transformation économique",
+          "summary": "Comparer l’emploi non minier, la transformation agricole et les retombées locales autour des nouveaux corridors.",
+          "tags": [],
+          "sourceIds": [
+            "S-GIN-WB_UPDATE"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -49,7 +49,7 @@ function labelFeature(name: string | undefined, layer: Layer, className: string)
 // Same reasoning as components/Map.tsx's FitToEvents — fitting bounds
 // imperatively once the map is mounted (and sized) avoids the bogus view
 // a declarative `bounds` prop can produce before layout settles.
-function FitToCountry({ feature }: { feature: WorldGeoFeature }) {
+function FitToCountry({ feature, token }: { feature: WorldGeoFeature; token?: number }) {
   const map = useMap();
 
   useEffect(() => {
@@ -59,7 +59,7 @@ function FitToCountry({ feature }: { feature: WorldGeoFeature }) {
       if (bounds.isValid()) map.fitBounds(bounds, { padding: [30, 30] });
     });
     return () => cancelAnimationFrame(id);
-  }, [map, feature]);
+  }, [map, feature, token]);
 
   return null;
 }
@@ -76,7 +76,7 @@ function MapAutoResize() {
   return null;
 }
 
-export default function CountryLeafletMap({ data }: { data: CountryMapData }) {
+export default function CountryLeafletMap({ data, resetToken }: { data: CountryMapData; resetToken?: number }) {
   return (
     <MapContainer
       center={[0, 0]}
@@ -85,7 +85,7 @@ export default function CountryLeafletMap({ data }: { data: CountryMapData }) {
       style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
     >
       <MapAutoResize />
-      <FitToCountry feature={data.main} />
+      <FitToCountry feature={data.main} token={resetToken} />
       <TileLayer attribution={IMAGERY_CREDIT} url={IMAGERY_URL} maxNativeZoom={17} />
 
       {data.neighbors.map((feature) => (

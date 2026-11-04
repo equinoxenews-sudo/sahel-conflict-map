@@ -1,0 +1,64 @@
+# Ce que l'interface lit — clés d'observations et modules
+
+> Fichier **généré** par `npm run approche:contract` (analyse du code des composants). Un test échoue s'il n'est plus à jour.
+
+## Principe
+
+- Aucun composant n'est écrit pour un pays : tout texte, chiffre, unité, période et source vient du fichier du pays. Un test interdit les noms de pays, d'institutions ou de personnes dans les composants communs.
+- Une donnée absente du fichier est **masquée** (appartenance, section d'énergie, structure économique…) ou affichée « Donnée non disponible » (tuiles de chiffres clés) : jamais complétée.
+- Les **modules** (`modules.hero`, `media`, `overview`, `relations`, `economy`, `defense`, `issues`, `outlook`) sont lus champ par champ comme décrit dans `APPROCHE_CHAMPS_V1.md` : chaque champ du schéma est consommé par l'interface.
+
+## Clés d'observations lues par les composants
+
+Une clé absente du fichier n'est pas une erreur. Une clé nouvelle est acceptée ; elle ne s'affiche que si un composant ou un module (`observationKey`) la référence. Les clés avec `${…}` ou `*` sont des familles (une clé par branche économique, par filière…).
+
+| Clé | Lue par |
+|---|---|
+| `demography.density` | OverviewTab.tsx |
+| `demography.population` | OverviewTab.tsx |
+| `economy.gdp_growth` | EconomyTab.tsx, OverviewTab.tsx |
+| `economy.gdp_nominal_usd` | EconomyTab.tsx, OverviewTab.tsx |
+| `economy.gdp_per_capita_usd` | EconomyTab.tsx, OverviewTab.tsx |
+| `economy.inflation_cpi` | EconomyTab.tsx, OverviewTab.tsx |
+| `economy.public_debt_gdp` | EconomyTab.tsx, OverviewTab.tsx |
+| `economy.value_added_share.${code}` | EconomyTab.tsx |
+| `economy.value_added.${code}` | EconomyTab.tsx |
+| `economy.value_added.total` | EconomyTab.tsx |
+| `energy.import_dependency` | EconomyTab.tsx |
+| `geography.area` | OverviewTab.tsx |
+| `geography.surface_area` | OverviewTab.tsx |
+| `identity.capital` | OverviewTab.tsx |
+| `identity.currency` | OverviewTab.tsx |
+| `identity.language` | OverviewTab.tsx |
+| `institutions.eec_founding` | RelationsTab.tsx |
+| `institutions.eu_membership` | Hero.tsx, OverviewTab.tsx, RelationsTab.tsx |
+| `institutions.euro_area` | OverviewTab.tsx, RelationsTab.tsx |
+| `institutions.g20` | Hero.tsx, RelationsTab.tsx |
+| `institutions.g7` | Hero.tsx, RelationsTab.tsx |
+| `institutions.nato` | Hero.tsx, OverviewTab.tsx, RelationsTab.tsx |
+| `institutions.oecd` | Hero.tsx, RelationsTab.tsx |
+| `institutions.oif` | Hero.tsx, RelationsTab.tsx |
+| `institutions.schengen` | OverviewTab.tsx, RelationsTab.tsx |
+| `institutions.unsc` | Hero.tsx, OverviewTab.tsx, RelationsTab.tsx |
+| `labour.unemployment_ilo` | EconomyTab.tsx, OverviewTab.tsx |
+| `politics.head_of_government` | OverviewTab.tsx |
+| `politics.head_of_state` | OverviewTab.tsx |
+| `politics.regime` | OverviewTab.tsx |
+| `research.rd_gdp` | OverviewTab.tsx |
+
+`geography.area` désigne la première mesure `geography.area.<source>` du fichier (ex. `geography.area.eurostat`, `geography.area.uemoa`) ; à défaut, la série Banque mondiale `geography.surface_area` des fichiers automatiques.
+
+## Familles de clés
+
+- `economy.value_added.<code>` (montant) et `economy.value_added_share.<code>` (part calculée) : codes de branche `A`, `B-E`, `F`, `G-I`, `J`, `K`, `L`, `M_N`, `O-Q`, `R-U` (nomenclature A10), plus `economy.value_added.total`. Le graphique de structure de l'économie n'apparaît que si une branche a son montant **et** sa part, avec le total.
+- `energy.electricity.<clé>` : `production_total`, `nuclear`, `renewable`, `hydro`, `wind_solar`, `solar`, `fossil`, `exports_gross`, `imports`, `net_exports`, `consumption`, `low_carbon`, `low_carbon_share`. La section « électricité » n'apparaît que si au moins une de ces mesures existe ; le graphique de production exige `production_total`. Une filière absente n'est jamais comptée comme nulle : elle tombe dans « non détaillé (calculé) ».
+- **Millésimes de l'électricité** : une mesure d'un autre exercice porte la clé `energy.electricity.<clé>_<AAAA>` (ex. `production_total_2025`) ; la clé sans suffixe garde l'année de sa période de référence. L'année la plus récente est affichée par défaut, un sélecteur ramène aux autres. Chaque année est complète par elle-même : une valeur absente d'une année n'est jamais remplacée par celle d'une autre. Alias de clé : `consumption_corrected` → `consumption`.
+- **Données complémentaires** : une observation vérifiée que ni une tuile, ni un graphique, ni un module n'affiche est rangée, avec son `label`, dans un panneau dépliable de son onglet (rubrique = `theme`, à défaut le préfixe de la clé). Deux observations `<racine>_low` et `<racine>_high` de même période et unité forment une ligne « bas – haut ». Une observation dont le `topic` est celui d'une tuile s'ouvre dans le volet « Autres sources » de cette tuile, pas dans un panneau. Une valeur `pending` apparaît « à vérifier », sans valeur. Une observation sans `label` n'est pas affichée (le validateur la signale).
+- `institutions.*` : une ligne d'appartenance n'est affichée que si le fichier la documente (ou la signale `pending`). **Ne pas créer** d'observation pour une organisation dont le pays n'est pas membre : une observation `institutions.*` produit un badge d'appartenance.
+- `demography.density` : si présente, remplace la ligne « densité non calculée » de la vue d'ensemble.
+- **Politique et identité** : `politics.regime`, `politics.head_of_state` et `politics.head_of_government` (régime, chef de l'État, chef du gouvernement) ; `identity.capital`, `identity.language` et `identity.currency` (capitale, langue, monnaie). **Une clé `identity.regime`, `identity.head_of_state` ou `identity.head_of_government` n'est lue par aucun composant** : la valeur ne s'afficherait pas.
+- **Contrôle** : `npm run approche:validate` signale, pour chaque fichier, les observations sans emplacement (ni tuile, ni module via `observationKey`, ni section d'électricité, ni volet « Autres sources », ni panneau de données complémentaires) avec la raison (sans `label`, rubrique inconnue, statut…) et propose la clé lue de même nom. Un indicateur propre à un pays s'affiche soit par un module qui le référence (`observationKey`), soit par son `label` dans les données complémentaires.
+
+## Libellés
+
+Les libellés des tuiles (« Population », « PIB nominal »…) sont ceux de l'interface, communs à tous les pays. Pour un sujet propre à un pays, utiliser une observation avec `label` et la référencer par `observationKey` dans un chiffre clé de module.

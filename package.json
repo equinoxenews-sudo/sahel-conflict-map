@@ -4,10 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "tsx scripts/approche-media-guard.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "sync:gdelt": "tsx scripts/fetch-gdelt.ts"
+    "sync:gdelt": "tsx scripts/fetch-gdelt.ts",
+    "approche:validate": "tsx scripts/approche-validate.ts",
+    "approche:import": "tsx scripts/approche-import.ts",
+    "approche:smoke": "tsx scripts/approche-smoke.ts",
+    "approche:levels": "tsx scripts/approche-levels.ts",
+    "approche:contract": "tsx scripts/approche-contract.ts",
+    "approche:schema": "tsx scripts/approche-contract.ts"
   },
   "dependencies": {
     "@dagrejs/dagre": "^3.1.1",
@@ -34,7 +41,8 @@
     "react-leaflet": "^5.0.0",
     "satellite.js": "^6.0.2",
     "tesseract.js": "^7.0.0",
-    "ws": "^8.21.3"
+    "ws": "^8.21.3",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.22",

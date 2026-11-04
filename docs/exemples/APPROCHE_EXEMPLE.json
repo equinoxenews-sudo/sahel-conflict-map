@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "XXX",
+  "slug": "exemple-pays",
+  "zoneSlug": "europe",
+  "name": "Pays d'exemple",
+  "officialName": "République d'exemple",
+  "publication": "draft",
+  "lastCheckedAt": "2026-01-15",
+  "sources": [
+    {
+      "id": "S-EXEMPLE-1",
+      "publisher": "Organisme statistique officiel (exemple)",
+      "title": "Titre exact de la série ou de la page consultée",
+      "canonicalUrl": "https://example.org/serie/population",
+      "apiUrl": null,
+      "datasetId": "CODE-DE-SERIE",
+      "datasetVersion": null,
+      "publishedAt": "2025-12-01",
+      "accessedAt": "2026-01-15",
+      "license": "Licence ouverte Etalab 2.0, avec mention de la source",
+      "licenseUrl": "https://www.etalab.gouv.fr/licence-ouverte-open-licence/",
+      "reuse": "allowed",
+      "methodNotes": "Ce qu'il faut savoir pour réutiliser la donnée : définition, révisions, limites.",
+      "language": "fr"
+    },
+    {
+      "id": "S-EXEMPLE-2",
+      "publisher": "Ministère (exemple)",
+      "title": "Page officielle d'un traité",
+      "canonicalUrl": "https://example.org/traites/exemple",
+      "accessedAt": "2026-01-15",
+      "license": null,
+      "reuse": "unknown",
+      "methodNotes": "Licence non vérifiée : à signaler, jamais à deviner.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "xxx-population-2025",
+      "countryCode": "XXX",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 1000000,
+      "unit": "habitants",
+      "referencePeriod": "2025",
+      "geographicScope": "Pays entier, métropole et territoires",
+      "methodology": "Estimation au milieu de l'année ; définition de fait.",
+      "sourceIds": ["S-EXEMPLE-1"],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": "2026-01-15",
+      "status": "verified",
+      "dataKind": "observed",
+      "history": [
+        { "period": "2023", "value": 980000 },
+        { "period": "2024", "value": 990000 },
+        { "period": "2025", "value": 1000000 }
+      ]
+    },
+    {
+      "id": "xxx-head-of-government-2026",
+      "countryCode": "XXX",
+      "key": "politics.head_of_government",
+      "value": null,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Pays entier",
+      "methodology": "Non confirmé : une valeur en attente ne s'affiche jamais comme un fait.",
+      "sourceIds": ["S-EXEMPLE-2"],
+      "collectedAt": "2026-01-15",
+      "verifiedAt": null,
+      "status": "pending",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "xxx-claim-1",
+      "countryCode": "XXX",
+      "statement": "Phrase factuelle, datée, appuyée par au moins une source.",
+      "claimType": "fact",
+      "sourceIds": ["S-EXEMPLE-2"],
+      "validAsOf": "2026-01-15",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "xxx-rel-yyy-traite",
+      "countryCode": "XXX",
+      "targetCode": "YYY",
+      "targetIso2": "YY",
+      "targetName": "Pays partenaire",
+      "relationType": "treaty",
+      "title": "Intitulé exact du traité",
+      "topics": ["Défense", "Énergie"],
+      "summary": "Résumé factuel avec dates de signature et d'entrée en vigueur.",
+      "validFrom": "2020-01-22",
+      "validTo": null,
+      "sourceIds": ["S-EXEMPLE-2"],
+      "lastReviewedAt": "2026-01-15",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "defense": {
+      "kpis": [
+        {
+          "id": "k-budget",
+          "label": "Budget de la défense",
+          "valueText": "12,3",
+          "unit": "Md €",
+          "period": "2025",
+          "note": "Périmètre exact et devise ; jamais une source à licence commerciale non établie (SIPRI).",
+          "sourceIds": ["S-EXEMPLE-1"]
+        }
+      ],
+      "organization": [
+        { "id": "org-1", "label": "Chef d'état-major", "parentId": null, "note": "", "sourceIds": ["S-EXEMPLE-2"] },
+        { "id": "org-2", "label": "Armée de terre", "parentId": "org-1", "note": "", "sourceIds": ["S-EXEMPLE-2"] }
+      ],
+      "threatPosture": {
+        "system": "Dispositif officiel de vigilance (exemple)",
+        "level": "Vigilance renforcée",
+        "validFrom": "2026-01-01",
+        "note": "Seul un dispositif officiel publié est affiché comme niveau de menace.",
+        "sourceIds": ["S-EXEMPLE-2"]
+      },
+      "map": {
+        "id": "implantations",
+        "title": "Implantations publiques",
+        "view": { "lat": 20, "lon": 20, "zoom": 2 },
+        "layers": [
+          {
+            "id": "bases",
+            "title": "Bases permanentes",
+            "theme": "defense",
+            "color": "#e0b44c",
+            "description": "Lieux publics officiels uniquement.",
+            "attribution": "Ministère (exemple)",
+            "license": "Licence ouverte Etalab 2.0",
+            "sourceUrl": "https://example.org/bases",
+            "lastUpdatedAt": "2026-01-01",
+            "features": [
+              { "id": "b1", "name": "Base d'exemple", "lat": 11.55, "lon": 43.15, "kind": "Base permanente", "summary": "Lieu public daté.", "status": "Actif", "sourceIds": ["S-EXEMPLE-2"] }
+            ]
+          }
+        ]
+      }
+    },
+    "outlook": {
+      "scenarios": [
+        {
+          "id": "sc-pression",
+          "kind": "pressure",
+          "title": "Continuité sous pression",
+          "summary": "Scénario narratif, sans probabilité chiffrée.",
+          "assumptions": ["Hypothèse 1"],
+          "triggers": ["Déclencheur 1"],
+          "weakSignals": ["Signal faible 1"],
+          "consequences": ["Conséquence 1"],
+          "limits": ["Aucune probabilité n'est affectée."],
+          "sourceIds": ["S-EXEMPLE-2"]
+        }
+      ]
+    }
+  }
+}

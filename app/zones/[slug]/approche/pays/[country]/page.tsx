@@ -1,41 +1,37 @@
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
+import ApprocheCountryPage from "@/components/approche/ApprocheCountryPage";
 import CountryProfilePage from "@/components/country-profile/CountryProfilePage";
-import { getResolvedCountryProfile } from "@/lib/countryOverlays";
-import { getCountryGeoConfig } from "@/lib/countryGeoConfig";
-import { getWorldCountryFeature } from "@/lib/worldGeo";
-import { getZone } from "@/lib/zones";
+import { getDemoModules, mergeModules } from "@/lib/approche/demo";
+import { approcheMetadata, loadCountryPage } from "@/lib/approche/loadPage";
+import { listApprocheCountries } from "@/lib/approche/repository";
 
+// Pré-rendue (ISR) : pour un pays migré vers le modèle sourcé (data/approche/), la page est construite au déploiement ;
+// les autres pays se construisent à la première visite, comme avant.
 export const revalidate = 3600;
 
-export default async function CountryPage({
-  params,
-}: {
-  params: Promise<{ slug: string; country: string }>;
-}) {
+// Le site calcule ses pages sur 980 px de large sur téléphone (voir app/layout.tsx) ; les fiches pays sont des pages de lecture
+// conçues pour s'adapter à la largeur réelle de l'écran.
+export const viewport: Viewport = { width: "device-width", initialScale: 1 };
+
+type Params = { slug: string; country: string };
+
+export function generateStaticParams(): Params[] {
+  return listApprocheCountries().map(({ slug, zoneSlug }) => ({ slug: zoneSlug, country: slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const { slug, country } = await params;
+  const loaded = loadCountryPage(slug, country);
+  return loaded?.approche ? approcheMetadata(loaded.approche) : {};
+}
+
+export default async function CountryPage({ params }: { params: Promise<Params> }) {
   const { slug, country: countrySlug } = await params;
-  const zone = getZone(slug);
-  const country = getResolvedCountryProfile(countrySlug);
-  const geoConfig = getCountryGeoConfig(countrySlug);
+  const loaded = loadCountryPage(slug, countrySlug);
+  if (!loaded) notFound();
 
-  if (!zone || !country || !geoConfig || country.zoneSlug !== slug) notFound();
-
-  const mainFeature = getWorldCountryFeature(geoConfig.mainIso3);
-  if (!mainFeature) notFound();
-
-  const neighborFeatures = Object.keys(geoConfig.neighbors)
-    .map((iso3) => getWorldCountryFeature(iso3))
-    .filter((f): f is NonNullable<typeof f> => f !== undefined);
-
-  return (
-    <CountryProfilePage
-      country={country}
-      map={{
-        main: mainFeature,
-        mainName: country.name,
-        neighbors: neighborFeatures,
-        neighborNames: geoConfig.neighbors,
-        cities: geoConfig.cities,
-      }}
-    />
-  );
+  // Pays migré : fiche à six onglets (vue d'ensemble ici, autres onglets en sous-pages). Les autres gardent l'ancienne fiche.
+  if (loaded.approche) return <ApprocheCountryPage data={loaded.approche} iso2={loaded.country.iso2} tab="overview" map={loaded.map} modules={mergeModules(loaded.approche.modules, await getDemoModules(loaded.approche.countryCode))} />;
+  return <CountryProfilePage country={loaded.country} map={loaded.map} />;
 }

@@ -1,0 +1,696 @@
+{
+  "countryCode": "CHN",
+  "fetchedAt": "2026-11-01",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=CN",
+      "apiUrl": "https://api.worldbank.org/v2/country/CHN/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-01",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=CN",
+      "apiUrl": "https://api.worldbank.org/v2/country/CHN/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-01",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=CN",
+      "apiUrl": "https://api.worldbank.org/v2/country/CHN/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-01",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=CN",
+      "apiUrl": "https://api.worldbank.org/v2/country/CHN/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-01",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=CN",
+      "apiUrl": "https://api.worldbank.org/v2/country/CHN/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-01",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=CN",
+      "apiUrl": "https://api.worldbank.org/v2/country/CHN/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-01",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=CN",
+      "apiUrl": "https://api.worldbank.org/v2/country/CHN/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-01",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-GB.XPD.RSDV.GD.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Dépenses de recherche-développement (% du PIB)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS?locations=CN",
+      "apiUrl": "https://api.worldbank.org/v2/country/CHN/indicator/GB.XPD.RSDV.GD.ZS?format=json&per_page=18",
+      "datasetId": "GB.XPD.RSDV.GD.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-01",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "chn-demography-population-2025",
+      "countryCode": "CHN",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 1406585000,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "China, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1371860000
+        },
+        {
+          "period": "2015",
+          "value": 1379860000
+        },
+        {
+          "period": "2016",
+          "value": 1387790000
+        },
+        {
+          "period": "2017",
+          "value": 1396215000
+        },
+        {
+          "period": "2018",
+          "value": 1402760000
+        },
+        {
+          "period": "2019",
+          "value": 1407745000
+        },
+        {
+          "period": "2020",
+          "value": 1411100000
+        },
+        {
+          "period": "2021",
+          "value": 1412360000
+        },
+        {
+          "period": "2022",
+          "value": 1412175000
+        },
+        {
+          "period": "2023",
+          "value": 1410710000
+        },
+        {
+          "period": "2024",
+          "value": 1408975000
+        },
+        {
+          "period": "2025",
+          "value": 1406585000
+        }
+      ]
+    },
+    {
+      "id": "chn-economy-gdp_nominal_usd-2025",
+      "countryCode": "CHN",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 19498039388042.6,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "China, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 10674533168257.4
+        },
+        {
+          "period": "2015",
+          "value": 11280814787468.9
+        },
+        {
+          "period": "2016",
+          "value": 11456024084962
+        },
+        {
+          "period": "2017",
+          "value": 12537559062282.9
+        },
+        {
+          "period": "2018",
+          "value": 14147765772963.8
+        },
+        {
+          "period": "2019",
+          "value": 14560167101283.4
+        },
+        {
+          "period": "2020",
+          "value": 14996414166715.1
+        },
+        {
+          "period": "2021",
+          "value": 18201698719564
+        },
+        {
+          "period": "2022",
+          "value": 18316765021690.2
+        },
+        {
+          "period": "2023",
+          "value": 18270356654533.2
+        },
+        {
+          "period": "2024",
+          "value": 18729668435848
+        },
+        {
+          "period": "2025",
+          "value": 19498039388042.6
+        }
+      ]
+    },
+    {
+      "id": "chn-economy-gdp_per_capita_usd-2025",
+      "countryCode": "CHN",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 13861.970224368,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "China, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 7781.06597484974
+        },
+        {
+          "period": "2015",
+          "value": 8175.33285077393
+        },
+        {
+          "period": "2016",
+          "value": 8254.86859320357
+        },
+        {
+          "period": "2017",
+          "value": 8979.67652709856
+        },
+        {
+          "period": "2018",
+          "value": 10085.6638148819
+        },
+        {
+          "period": "2019",
+          "value": 10342.9009524335
+        },
+        {
+          "period": "2020",
+          "value": 10627.4637989619
+        },
+        {
+          "period": "2021",
+          "value": 12887.4357242941
+        },
+        {
+          "period": "2022",
+          "value": 12970.6056414327
+        },
+        {
+          "period": "2023",
+          "value": 12951.1782397043
+        },
+        {
+          "period": "2024",
+          "value": 13293.1162269366
+        },
+        {
+          "period": "2025",
+          "value": 13861.970224368
+        }
+      ]
+    },
+    {
+      "id": "chn-economy-gdp_growth-2025",
+      "countryCode": "CHN",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 4.95994886240992,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "China, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 7.46100735778161
+        },
+        {
+          "period": "2015",
+          "value": 6.98162255562367
+        },
+        {
+          "period": "2016",
+          "value": 6.7736886867727
+        },
+        {
+          "period": "2017",
+          "value": 6.89123916636191
+        },
+        {
+          "period": "2018",
+          "value": 6.757806142324
+        },
+        {
+          "period": "2019",
+          "value": 6.06737806333672
+        },
+        {
+          "period": "2020",
+          "value": 2.33950385203023
+        },
+        {
+          "period": "2021",
+          "value": 8.57038414981781
+        },
+        {
+          "period": "2022",
+          "value": 3.13385438394069
+        },
+        {
+          "period": "2023",
+          "value": 5.41600334492955
+        },
+        {
+          "period": "2024",
+          "value": 4.95830378788091
+        },
+        {
+          "period": "2025",
+          "value": 4.95994886240992
+        }
+      ]
+    },
+    {
+      "id": "chn-economy-inflation_cpi-2025",
+      "countryCode": "CHN",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 0.0595646916565402,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "China, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1.9216416278852
+        },
+        {
+          "period": "2015",
+          "value": 1.43702380935654
+        },
+        {
+          "period": "2016",
+          "value": 2.00000182191943
+        },
+        {
+          "period": "2017",
+          "value": 1.59313600071435
+        },
+        {
+          "period": "2018",
+          "value": 2.07479039965576
+        },
+        {
+          "period": "2019",
+          "value": 2.89923416358226
+        },
+        {
+          "period": "2020",
+          "value": 2.41942189457782
+        },
+        {
+          "period": "2021",
+          "value": 0.981015135544881
+        },
+        {
+          "period": "2022",
+          "value": 1.9735755573905
+        },
+        {
+          "period": "2023",
+          "value": 0.23483682889305
+        },
+        {
+          "period": "2024",
+          "value": 0.218128938439177
+        },
+        {
+          "period": "2025",
+          "value": 0.0595646916565402
+        }
+      ]
+    },
+    {
+      "id": "chn-labour-unemployment_ilo-2025",
+      "countryCode": "CHN",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 4.615,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "China, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 4.63
+        },
+        {
+          "period": "2015",
+          "value": 4.65
+        },
+        {
+          "period": "2016",
+          "value": 4.56
+        },
+        {
+          "period": "2017",
+          "value": 4.47
+        },
+        {
+          "period": "2018",
+          "value": 4.31
+        },
+        {
+          "period": "2019",
+          "value": 4.56
+        },
+        {
+          "period": "2020",
+          "value": 5
+        },
+        {
+          "period": "2021",
+          "value": 4.55
+        },
+        {
+          "period": "2022",
+          "value": 4.98
+        },
+        {
+          "period": "2023",
+          "value": 4.67
+        },
+        {
+          "period": "2024",
+          "value": 4.59
+        },
+        {
+          "period": "2025",
+          "value": 4.615
+        }
+      ]
+    },
+    {
+      "id": "chn-geography-surface_area-2024",
+      "countryCode": "CHN",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 9562910,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "China, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 9562911
+        },
+        {
+          "period": "2014",
+          "value": 9562911
+        },
+        {
+          "period": "2015",
+          "value": 9562911
+        },
+        {
+          "period": "2016",
+          "value": 9562910
+        },
+        {
+          "period": "2017",
+          "value": 9562910
+        },
+        {
+          "period": "2018",
+          "value": 9562910
+        },
+        {
+          "period": "2019",
+          "value": 9562910
+        },
+        {
+          "period": "2020",
+          "value": 9562910
+        },
+        {
+          "period": "2021",
+          "value": 9562910
+        },
+        {
+          "period": "2022",
+          "value": 9562910
+        },
+        {
+          "period": "2023",
+          "value": 9562910
+        },
+        {
+          "period": "2024",
+          "value": 9562910
+        }
+      ]
+    },
+    {
+      "id": "chn-research-rd_gdp-2023",
+      "countryCode": "CHN",
+      "key": "research.rd_gdp",
+      "topic": "rd",
+      "value": 2.57729,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2023",
+      "geographicScope": "China, périmètre Banque mondiale",
+      "methodology": "Dépenses intérieures de recherche-développement, en pourcentage du PIB.",
+      "sourceIds": [
+        "S01-WB-GB.XPD.RSDV.GD.ZS"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2012",
+          "value": 1.88095
+        },
+        {
+          "period": "2013",
+          "value": 1.96246
+        },
+        {
+          "period": "2014",
+          "value": 1.98475
+        },
+        {
+          "period": "2015",
+          "value": 2.01703
+        },
+        {
+          "period": "2016",
+          "value": 2.0595
+        },
+        {
+          "period": "2017",
+          "value": 2.07771
+        },
+        {
+          "period": "2018",
+          "value": 2.10232
+        },
+        {
+          "period": "2019",
+          "value": 2.20144
+        },
+        {
+          "period": "2020",
+          "value": 2.35712
+        },
+        {
+          "period": "2021",
+          "value": 2.38165
+        },
+        {
+          "period": "2022",
+          "value": 2.4945
+        },
+        {
+          "period": "2023",
+          "value": 2.57729
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+import { z } from "zod";
+import { ModulesSchema, SCHEMA_VERSION } from "./modules";
+
+// Modèle de données des fiches pays « Approche » : chaque valeur affichée est une observation qui renvoie à une ou plusieurs
+// sources (organisme, adresse exacte, licence, date de consultation) et porte son unité, sa période de référence, son périmètre
+// et sa méthode. Les fiches sont des fichiers JSON du dépôt (data/approche/<ISO3>.json et <ISO3>.worldbank.json), validés ici
+// avant publication ; rien n'est inventé : une donnée absente reste absente.
+
+const DATE = z.string().regex(/^\d{4}-\d{2}-\d{2}(T[\d:.+Z-]+)?$/, "date AAAA-MM-JJ attendue");
+
+/**
+ * Droits de réutilisation commerciale d'une source. `commercial_license_required` : exclue de toute collecte, import ou
+ * actualisation automatique tant qu'une autorisation écrite n'est pas obtenue (c'est le cas de SIPRI, y compris quand ses
+ * indicateurs sont redistribués par une autre plateforme). `citation_only` : le contenu de la source n'est pas réutilisable
+ * commercialement (OTAN) ; on cite seulement un fait, avec attribution, sans reprendre son texte, ses images ni sa marque.
+ */
+export const REUSE = ["allowed", "citation_only", "unknown", "commercial_license_required"] as const;
+export type Reuse = (typeof REUSE)[number];
+
+export const SourceSchema = z.object({
+  id: z.string().min(1),
+  publisher: z.string().min(1),
+  title: z.string().min(1),
+  /** Adresse exacte de la page, de la série ou du rapport (pas la page d'accueil de l'organisme). */
+  canonicalUrl: z.string().url(),
+  apiUrl: z.string().url().nullable().optional(),
+  datasetId: z.string().nullable().optional(),
+  datasetVersion: z.string().nullable().optional(),
+  publishedAt: z.string().nullable().optional(),
+  accessedAt: DATE,
+  license: z.string().nullable(),
+  /** Adresse des conditions d'utilisation ou de la licence, quand elle a été lue. */
+  licenseUrl: z.string().url().nullable().optional(),
+  reuse: z.enum(REUSE),
+  methodNotes: z.string().nullable().optional(),
+  /** Organisme d’origine de la donnée quand la source la relaie (agrégateur, plateforme) : les droits suivent la donnée d’origine. */
+  originalPublisher: z.string().nullable().optional(),
+  language: z.string().default("fr"),
+});
+
+export const STATUS = ["verified", "pending", "stale", "conflicting", "rejected"] as const;
+export const DATA_KIND = ["observed", "calculated", "official_statement", "editorial_analysis"] as const;
+
+export const ObservationSchema = z.object({
+  id: z.string().min(1),
+  countryCode: z.string().length(3),
+  /** Clé stable, ex. `demography.population`. */
+  key: z.string().min(1),
+  /** Libellé d'affichage quand la clé ne suffit pas (ex. nom d'une branche économique). */
+  label: z.string().nullable().optional(),
+  /** Regroupe plusieurs mesures d'un même sujet (ex. la population selon deux organismes). */
+  topic: z.string().nullable().optional(),
+  /**
+   * Rubrique thématique où ranger la valeur dans les données complémentaires de son onglet (ex. `humanitaire`, `cyber`). Facultatif :
+   * à défaut, la rubrique se déduit du préfixe de la clé (lib/approche/complements.ts).
+   */
+  theme: z.string().nullable().optional(),
+  value: z.union([z.number(), z.string(), z.boolean()]).nullable(),
+  unit: z.string().nullable(),
+  currency: z.string().nullable().optional(),
+  /** Période de la valeur : « 2025 », « 2025-T4 »… Jamais vide : aucun nombre sans année. */
+  referencePeriod: z.string().min(1),
+  geographicScope: z.string().min(1),
+  methodology: z.string().min(1),
+  sourceIds: z.array(z.string()).min(1),
+  collectedAt: DATE,
+  verifiedAt: DATE.nullable(),
+  /** Début de validité du fait (ex. prise de fonctions), quand une source le donne. */
+  validFrom: z.string().nullable().optional(),
+  status: z.enum(STATUS),
+  dataKind: z.enum(DATA_KIND),
+  calculationFormula: z.string().nullable().optional(),
+  /** Incertitude connue (révision, marge, estimation) : texte libre, affiché dans la provenance de la valeur. */
+  uncertainty: z.string().nullable().optional(),
+  /** Valeurs des périodes précédentes, de la plus ancienne à la plus récente (pour les courbes). */
+  history: z.array(z.object({ period: z.string(), value: z.number() })).default([]),
+});
+
+export const ClaimSchema = z.object({
+  id: z.string().min(1),
+  countryCode: z.string().length(3),
+  statement: z.string().min(1),
+  claimType: z.enum(["fact", "attributed_position", "analysis", "scenario"]),
+  sourceIds: z.array(z.string()).min(1),
+  validAsOf: z.string().min(1),
+  reviewer: z.string().nullable(),
+  status: z.enum(["verified", "pending", "stale", "contested"]),
+  caveats: z.array(z.string()).default([]),
+});
+
+/**
+ * Relation entre le pays et un autre acteur (pays ou organisation) : jamais un classement « ami / rival ». Un acteur peut avoir
+ * plusieurs relations (traité et divergence). Chaque relation a ses dates et ses sources.
+ */
+export const RelationshipSchema = z.object({
+  id: z.string().min(1),
+  countryCode: z.string().length(3),
+  targetCode: z.string().nullable(),
+  /** Code ISO 2 du pays visé, pour son drapeau. */
+  targetIso2: z.string().length(2).nullable().optional(),
+  targetName: z.string().min(1),
+  /** « treaty » : engagement conventionnel ; « cooperation » : partenariat documenté ; « tension » : divergence documentée. */
+  relationType: z.enum(["treaty", "cooperation", "tension"]),
+  title: z.string().min(1),
+  topics: z.array(z.string()).default([]),
+  summary: z.string().min(1),
+  validFrom: z.string().nullable(),
+  validTo: z.string().nullable().optional(),
+  sourceIds: z.array(z.string()).min(1),
+  lastReviewedAt: DATE.nullable(),
+  status: z.enum(["verified", "pending", "stale", "contested"]),
+});
+
+export const PUBLICATION = ["draft", "review", "published", "archived"] as const;
+
+/** Une fiche pays : identité, sources, observations et affirmations. */
+export const CountryDataSchema = z.object({
+  /** Version du schéma de fichier (voir docs/APPROCHE_SCHEMA_V1.md). Obligatoire : un fichier sans version n'est pas lu. */
+  schemaVersion: z.literal(SCHEMA_VERSION),
+  countryCode: z.string().length(3),
+  slug: z.string().min(1),
+  zoneSlug: z.string().min(1),
+  name: z.string().min(1),
+  officialName: z.string().nullable().optional(),
+  publication: z.enum(PUBLICATION),
+  /** Niveau documentaire visé : « essential » ou « extended » (voir lib/approche/levels.ts). Facultatif ; le niveau atteint est calculé d'après le contenu. */
+  documentationLevel: z.enum(["essential", "extended"]).nullable().optional(),
+  /** Dernier contrôle de la fiche, même sans changement. */
+  lastCheckedAt: DATE.nullable(),
+  sources: z.array(SourceSchema),
+  observations: z.array(ObservationSchema),
+  claims: z.array(ClaimSchema).default([]),
+  relationships: z.array(RelationshipSchema).default([]),
+  /** Modules optionnels (cartes, défense, enjeux, vulnérabilités…) : un pays peut n'en fournir aucun. */
+  modules: ModulesSchema.default({}),
+});
+
+export type SourceRecord = z.infer<typeof SourceSchema>;
+export type Observation = z.infer<typeof ObservationSchema>;
+export type Claim = z.infer<typeof ClaimSchema>;
+export type Relationship = z.infer<typeof RelationshipSchema>;
+export type CountryData = z.infer<typeof CountryDataSchema>;

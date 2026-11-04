@@ -1,0 +1,915 @@
+{
+  "countryCode": "FRA",
+  "fetchedAt": "2026-10-29",
+  "sources": [
+    {
+      "id": "S03-EUROSTAT-nama_10_a10",
+      "publisher": "Eurostat",
+      "title": "Valeur ajoutée brute par branche (A10), prix courants",
+      "canonicalUrl": "https://ec.europa.eu/eurostat/databrowser/view/nama_10_a10/default/table?lang=en&geo=FR",
+      "apiUrl": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_a10?format=JSON&lang=EN&geo=FR&unit=CP_MEUR&na_item=B1G&sinceTimePeriod=2020",
+      "datasetId": "nama_10_a10",
+      "datasetVersion": "2026-10-22T23:00:00+0200",
+      "publishedAt": "2026-10-22",
+      "accessedAt": "2026-10-29",
+      "license": "CC BY 4.0 (politique de réutilisation de la Commission européenne ; mention de la source et des modifications)",
+      "licenseUrl": "https://european-union.europa.eu/legal-notice_en",
+      "reuse": "allowed",
+      "methodNotes": "Valeur ajoutée brute aux prix courants, en millions d'euros, nomenclature A10 (NACE Rév. 2). La valeur ajoutée n'est ni le PIB ni l'emploi par branche. Licence établie d'après la notice juridique de l'UE ; la page de droits d'auteur propre à Eurostat n'a pas pu être lue.",
+      "language": "en"
+    },
+    {
+      "id": "S03-EUROSTAT-gov_10q_ggdebt",
+      "publisher": "Eurostat",
+      "title": "Dette publique trimestrielle (administrations publiques, % du PIB)",
+      "canonicalUrl": "https://ec.europa.eu/eurostat/databrowser/view/gov_10q_ggdebt/default/table?lang=en&geo=FR",
+      "apiUrl": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/gov_10q_ggdebt?format=JSON&lang=EN&geo=FR&sector=S13&na_item=GD&unit=PC_GDP&sinceTimePeriod=2023-Q1",
+      "datasetId": "gov_10q_ggdebt",
+      "datasetVersion": "2026-10-21T11:00:00+0200",
+      "publishedAt": "2026-10-21",
+      "accessedAt": "2026-10-29",
+      "license": "CC BY 4.0 (politique de réutilisation de la Commission européenne ; mention de la source et des modifications)",
+      "licenseUrl": "https://european-union.europa.eu/legal-notice_en",
+      "reuse": "allowed",
+      "methodNotes": "Dette brute consolidée de l'ensemble des administrations publiques (S13) rapportée au PIB, série trimestrielle. Licence établie d'après la notice juridique de l'UE ; la page de droits d'auteur propre à Eurostat n'a pas pu être lue.",
+      "language": "en"
+    },
+    {
+      "id": "S03-EUROSTAT-nrg_ind_id",
+      "publisher": "Eurostat",
+      "title": "Dépendance aux importations d'énergie, tous produits énergétiques",
+      "canonicalUrl": "https://ec.europa.eu/eurostat/databrowser/view/nrg_ind_id/default/table?lang=en&geo=FR",
+      "apiUrl": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_ind_id?format=JSON&lang=EN&geo=FR&siec=TOTAL&sinceTimePeriod=2020",
+      "datasetId": "nrg_ind_id",
+      "datasetVersion": "2026-07-16T23:00:00+0200",
+      "publishedAt": "2026-07-16",
+      "accessedAt": "2026-10-29",
+      "license": "CC BY 4.0 (politique de réutilisation de la Commission européenne ; mention de la source et des modifications)",
+      "licenseUrl": "https://european-union.europa.eu/legal-notice_en",
+      "reuse": "allowed",
+      "methodNotes": "Part des besoins énergétiques couverte par les importations nettes (importations nettes rapportées à l'énergie brute disponible, soutes maritimes internationales comprises), tous produits énergétiques. Licence établie d'après la notice juridique de l'UE ; la page de droits d'auteur propre à Eurostat n'a pas pu être lue.",
+      "language": "en"
+    }
+  ],
+  "observations": [
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-total-2025",
+      "key": "economy.value_added.total",
+      "topic": "value_added",
+      "label": "Valeur ajoutée brute totale",
+      "value": 2664898200000,
+      "unit": "EUR",
+      "currency": "EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "FR, économie totale",
+      "methodology": "Somme de la valeur ajoutée brute de toutes les branches, aux prix courants.",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2020",
+          "value": 2056545200000
+        },
+        {
+          "period": "2021",
+          "value": 2212764400000
+        },
+        {
+          "period": "2022",
+          "value": 2368609400000
+        },
+        {
+          "period": "2023",
+          "value": 2545652000000
+        },
+        {
+          "period": "2024",
+          "value": 2624893400000
+        },
+        {
+          "period": "2025",
+          "value": 2664898200000
+        }
+      ]
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-a-2025",
+      "key": "economy.value_added.A",
+      "topic": "value_added",
+      "label": "Agriculture, sylviculture et pêche",
+      "value": 41318700000,
+      "unit": "EUR",
+      "currency": "EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche A",
+      "methodology": "Valeur ajoutée brute de la branche A (Agriculture, sylviculture et pêche) aux prix courants.",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2020",
+          "value": 33856900000
+        },
+        {
+          "period": "2021",
+          "value": 36702200000
+        },
+        {
+          "period": "2022",
+          "value": 45653300000
+        },
+        {
+          "period": "2023",
+          "value": 40566500000
+        },
+        {
+          "period": "2024",
+          "value": 37066600000
+        },
+        {
+          "period": "2025",
+          "value": 41318700000
+        }
+      ]
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-share-a-2025",
+      "key": "economy.value_added_share.A",
+      "topic": "value_added_share",
+      "label": "Agriculture, sylviculture et pêche",
+      "value": 1.6,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche A",
+      "methodology": "Part de la branche A dans la valeur ajoutée brute totale (valeur calculée à partir de deux observations Eurostat).",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "calculated",
+      "calculationFormula": "valeur ajoutée de la branche / valeur ajoutée totale × 100, arrondi à 0,1 point",
+      "history": []
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-b-e-2025",
+      "key": "economy.value_added.B-E",
+      "topic": "value_added",
+      "label": "Industrie (hors construction)",
+      "value": 358527600000,
+      "unit": "EUR",
+      "currency": "EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche B-E",
+      "methodology": "Valeur ajoutée brute de la branche B-E (Industrie (hors construction)) aux prix courants.",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2020",
+          "value": 261238000000
+        },
+        {
+          "period": "2021",
+          "value": 277505600000
+        },
+        {
+          "period": "2022",
+          "value": 287583600000
+        },
+        {
+          "period": "2023",
+          "value": 373347900000
+        },
+        {
+          "period": "2024",
+          "value": 366266700000
+        },
+        {
+          "period": "2025",
+          "value": 358527600000
+        }
+      ]
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-share-b-e-2025",
+      "key": "economy.value_added_share.B-E",
+      "topic": "value_added_share",
+      "label": "Industrie (hors construction)",
+      "value": 13.5,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche B-E",
+      "methodology": "Part de la branche B-E dans la valeur ajoutée brute totale (valeur calculée à partir de deux observations Eurostat).",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "calculated",
+      "calculationFormula": "valeur ajoutée de la branche / valeur ajoutée totale × 100, arrondi à 0,1 point",
+      "history": []
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-f-2025",
+      "key": "economy.value_added.F",
+      "topic": "value_added",
+      "label": "Construction",
+      "value": 148501400000,
+      "unit": "EUR",
+      "currency": "EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche F",
+      "methodology": "Valeur ajoutée brute de la branche F (Construction) aux prix courants.",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2020",
+          "value": 116007000000
+        },
+        {
+          "period": "2021",
+          "value": 125991100000
+        },
+        {
+          "period": "2022",
+          "value": 130929300000
+        },
+        {
+          "period": "2023",
+          "value": 142708500000
+        },
+        {
+          "period": "2024",
+          "value": 145655700000
+        },
+        {
+          "period": "2025",
+          "value": 148501400000
+        }
+      ]
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-share-f-2025",
+      "key": "economy.value_added_share.F",
+      "topic": "value_added_share",
+      "label": "Construction",
+      "value": 5.6,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche F",
+      "methodology": "Part de la branche F dans la valeur ajoutée brute totale (valeur calculée à partir de deux observations Eurostat).",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "calculated",
+      "calculationFormula": "valeur ajoutée de la branche / valeur ajoutée totale × 100, arrondi à 0,1 point",
+      "history": []
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-g-i-2025",
+      "key": "economy.value_added.G-I",
+      "topic": "value_added",
+      "label": "Commerce, transports, hébergement et restauration",
+      "value": 444600700000,
+      "unit": "EUR",
+      "currency": "EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche G-I",
+      "methodology": "Valeur ajoutée brute de la branche G-I (Commerce, transports, hébergement et restauration) aux prix courants.",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2020",
+          "value": 324101300000
+        },
+        {
+          "period": "2021",
+          "value": 369322600000
+        },
+        {
+          "period": "2022",
+          "value": 422808400000
+        },
+        {
+          "period": "2023",
+          "value": 428189700000
+        },
+        {
+          "period": "2024",
+          "value": 443910400000
+        },
+        {
+          "period": "2025",
+          "value": 444600700000
+        }
+      ]
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-share-g-i-2025",
+      "key": "economy.value_added_share.G-I",
+      "topic": "value_added_share",
+      "label": "Commerce, transports, hébergement et restauration",
+      "value": 16.7,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche G-I",
+      "methodology": "Part de la branche G-I dans la valeur ajoutée brute totale (valeur calculée à partir de deux observations Eurostat).",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "calculated",
+      "calculationFormula": "valeur ajoutée de la branche / valeur ajoutée totale × 100, arrondi à 0,1 point",
+      "history": []
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-j-2025",
+      "key": "economy.value_added.J",
+      "topic": "value_added",
+      "label": "Information et communication",
+      "value": 147141800000,
+      "unit": "EUR",
+      "currency": "EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche J",
+      "methodology": "Valeur ajoutée brute de la branche J (Information et communication) aux prix courants.",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2020",
+          "value": 115434500000
+        },
+        {
+          "period": "2021",
+          "value": 124843400000
+        },
+        {
+          "period": "2022",
+          "value": 131672500000
+        },
+        {
+          "period": "2023",
+          "value": 138234700000
+        },
+        {
+          "period": "2024",
+          "value": 144044400000
+        },
+        {
+          "period": "2025",
+          "value": 147141800000
+        }
+      ]
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-share-j-2025",
+      "key": "economy.value_added_share.J",
+      "topic": "value_added_share",
+      "label": "Information et communication",
+      "value": 5.5,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche J",
+      "methodology": "Part de la branche J dans la valeur ajoutée brute totale (valeur calculée à partir de deux observations Eurostat).",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "calculated",
+      "calculationFormula": "valeur ajoutée de la branche / valeur ajoutée totale × 100, arrondi à 0,1 point",
+      "history": []
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-k-2025",
+      "key": "economy.value_added.K",
+      "topic": "value_added",
+      "label": "Activités financières et d'assurance",
+      "value": 96252700000,
+      "unit": "EUR",
+      "currency": "EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche K",
+      "methodology": "Valeur ajoutée brute de la branche K (Activités financières et d'assurance) aux prix courants.",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2020",
+          "value": 79816900000
+        },
+        {
+          "period": "2021",
+          "value": 85211700000
+        },
+        {
+          "period": "2022",
+          "value": 87940100000
+        },
+        {
+          "period": "2023",
+          "value": 73116000000
+        },
+        {
+          "period": "2024",
+          "value": 81394600000
+        },
+        {
+          "period": "2025",
+          "value": 96252700000
+        }
+      ]
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-share-k-2025",
+      "key": "economy.value_added_share.K",
+      "topic": "value_added_share",
+      "label": "Activités financières et d'assurance",
+      "value": 3.6,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche K",
+      "methodology": "Part de la branche K dans la valeur ajoutée brute totale (valeur calculée à partir de deux observations Eurostat).",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "calculated",
+      "calculationFormula": "valeur ajoutée de la branche / valeur ajoutée totale × 100, arrondi à 0,1 point",
+      "history": []
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-l-2025",
+      "key": "economy.value_added.L",
+      "topic": "value_added",
+      "label": "Activités immobilières",
+      "value": 376739100000,
+      "unit": "EUR",
+      "currency": "EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche L",
+      "methodology": "Valeur ajoutée brute de la branche L (Activités immobilières) aux prix courants.",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2020",
+          "value": 303856600000
+        },
+        {
+          "period": "2021",
+          "value": 310139400000
+        },
+        {
+          "period": "2022",
+          "value": 325412400000
+        },
+        {
+          "period": "2023",
+          "value": 372697400000
+        },
+        {
+          "period": "2024",
+          "value": 380347300000
+        },
+        {
+          "period": "2025",
+          "value": 376739100000
+        }
+      ]
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-share-l-2025",
+      "key": "economy.value_added_share.L",
+      "topic": "value_added_share",
+      "label": "Activités immobilières",
+      "value": 14.1,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche L",
+      "methodology": "Part de la branche L dans la valeur ajoutée brute totale (valeur calculée à partir de deux observations Eurostat).",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "calculated",
+      "calculationFormula": "valeur ajoutée de la branche / valeur ajoutée totale × 100, arrondi à 0,1 point",
+      "history": []
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-m_n-2025",
+      "key": "economy.value_added.M_N",
+      "topic": "value_added",
+      "label": "Activités scientifiques, techniques et de soutien aux entreprises",
+      "value": 388118500000,
+      "unit": "EUR",
+      "currency": "EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche M_N",
+      "methodology": "Valeur ajoutée brute de la branche M_N (Activités scientifiques, techniques et de soutien aux entreprises) aux prix courants.",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2020",
+          "value": 293333000000
+        },
+        {
+          "period": "2021",
+          "value": 319626300000
+        },
+        {
+          "period": "2022",
+          "value": 343758500000
+        },
+        {
+          "period": "2023",
+          "value": 359839900000
+        },
+        {
+          "period": "2024",
+          "value": 378857800000
+        },
+        {
+          "period": "2025",
+          "value": 388118500000
+        }
+      ]
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-share-m_n-2025",
+      "key": "economy.value_added_share.M_N",
+      "topic": "value_added_share",
+      "label": "Activités scientifiques, techniques et de soutien aux entreprises",
+      "value": 14.6,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche M_N",
+      "methodology": "Part de la branche M_N dans la valeur ajoutée brute totale (valeur calculée à partir de deux observations Eurostat).",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "calculated",
+      "calculationFormula": "valeur ajoutée de la branche / valeur ajoutée totale × 100, arrondi à 0,1 point",
+      "history": []
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-o-q-2025",
+      "key": "economy.value_added.O-Q",
+      "topic": "value_added",
+      "label": "Administration publique, défense, enseignement, santé et action sociale",
+      "value": 579781200000,
+      "unit": "EUR",
+      "currency": "EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche O-Q",
+      "methodology": "Valeur ajoutée brute de la branche O-Q (Administration publique, défense, enseignement, santé et action sociale) aux prix courants.",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2020",
+          "value": 471588300000
+        },
+        {
+          "period": "2021",
+          "value": 501978300000
+        },
+        {
+          "period": "2022",
+          "value": 521099800000
+        },
+        {
+          "period": "2023",
+          "value": 540239100000
+        },
+        {
+          "period": "2024",
+          "value": 564989500000
+        },
+        {
+          "period": "2025",
+          "value": 579781200000
+        }
+      ]
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-share-o-q-2025",
+      "key": "economy.value_added_share.O-Q",
+      "topic": "value_added_share",
+      "label": "Administration publique, défense, enseignement, santé et action sociale",
+      "value": 21.8,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche O-Q",
+      "methodology": "Part de la branche O-Q dans la valeur ajoutée brute totale (valeur calculée à partir de deux observations Eurostat).",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "calculated",
+      "calculationFormula": "valeur ajoutée de la branche / valeur ajoutée totale × 100, arrondi à 0,1 point",
+      "history": []
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-r-u-2025",
+      "key": "economy.value_added.R-U",
+      "topic": "value_added",
+      "label": "Arts, loisirs et autres activités de services",
+      "value": 83916500000,
+      "unit": "EUR",
+      "currency": "EUR",
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche R-U",
+      "methodology": "Valeur ajoutée brute de la branche R-U (Arts, loisirs et autres activités de services) aux prix courants.",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2020",
+          "value": 57312700000
+        },
+        {
+          "period": "2021",
+          "value": 61443800000
+        },
+        {
+          "period": "2022",
+          "value": 71751500000
+        },
+        {
+          "period": "2023",
+          "value": 76712300000
+        },
+        {
+          "period": "2024",
+          "value": 82360400000
+        },
+        {
+          "period": "2025",
+          "value": 83916500000
+        }
+      ]
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-va-share-r-u-2025",
+      "key": "economy.value_added_share.R-U",
+      "topic": "value_added_share",
+      "label": "Arts, loisirs et autres activités de services",
+      "value": 3.1,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "FR, branche R-U",
+      "methodology": "Part de la branche R-U dans la valeur ajoutée brute totale (valeur calculée à partir de deux observations Eurostat).",
+      "sourceIds": [
+        "S03-EUROSTAT-nama_10_a10"
+      ],
+      "dataKind": "calculated",
+      "calculationFormula": "valeur ajoutée de la branche / valeur ajoutée totale × 100, arrondi à 0,1 point",
+      "history": []
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-public-debt-2026-q2",
+      "key": "economy.public_debt_gdp",
+      "topic": "public_debt",
+      "label": "Dette publique",
+      "value": 119.1,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2026-Q2",
+      "geographicScope": "FR, administrations publiques (S13)",
+      "methodology": "Dette brute consolidée des administrations publiques (au sens de Maastricht) en pourcentage du PIB, dernier trimestre publié.",
+      "sourceIds": [
+        "S03-EUROSTAT-gov_10q_ggdebt"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2023-Q1",
+          "value": 111.9
+        },
+        {
+          "period": "2023-Q2",
+          "value": 111.3
+        },
+        {
+          "period": "2023-Q3",
+          "value": 111.1
+        },
+        {
+          "period": "2023-Q4",
+          "value": 109.5
+        },
+        {
+          "period": "2024-Q1",
+          "value": 110.2
+        },
+        {
+          "period": "2024-Q2",
+          "value": 111.8
+        },
+        {
+          "period": "2024-Q3",
+          "value": 113.1
+        },
+        {
+          "period": "2024-Q4",
+          "value": 112.6
+        },
+        {
+          "period": "2025-Q1",
+          "value": 113.6
+        },
+        {
+          "period": "2025-Q2",
+          "value": 115.4
+        },
+        {
+          "period": "2025-Q3",
+          "value": 117.3
+        },
+        {
+          "period": "2025-Q4",
+          "value": 115.7
+        },
+        {
+          "period": "2026-Q1",
+          "value": 117.7
+        },
+        {
+          "period": "2026-Q2",
+          "value": 119.1
+        }
+      ]
+    },
+    {
+      "countryCode": "FRA",
+      "collectedAt": "2026-10-29",
+      "verifiedAt": "2026-10-29",
+      "status": "verified",
+      "id": "fra-energy-import-dependency-2024",
+      "key": "energy.import_dependency",
+      "topic": "energy_dependency",
+      "label": "Dépendance aux importations d'énergie",
+      "value": 41.7,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "FR, tous produits énergétiques",
+      "methodology": "Importations nettes d'énergie rapportées à l'énergie brute disponible (soutes maritimes comprises), tous produits. À distinguer du mix électrique, du mix d'énergie primaire et de la consommation finale.",
+      "sourceIds": [
+        "S03-EUROSTAT-nrg_ind_id"
+      ],
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2020",
+          "value": 44.4
+        },
+        {
+          "period": "2021",
+          "value": 44
+        },
+        {
+          "period": "2022",
+          "value": 51.8
+        },
+        {
+          "period": "2023",
+          "value": 44.8
+        },
+        {
+          "period": "2024",
+          "value": 41.7
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,610 @@
+{
+  "countryCode": "BEN",
+  "fetchedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=BJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/BEN/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=BJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/BEN/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=BJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/BEN/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=BJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/BEN/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=BJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/BEN/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=BJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/BEN/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=BJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/BEN/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-02",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "ben-demography-population-2025",
+      "countryCode": "BEN",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 14814460,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Benin, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 11030004
+        },
+        {
+          "period": "2015",
+          "value": 11360681
+        },
+        {
+          "period": "2016",
+          "value": 11697842
+        },
+        {
+          "period": "2017",
+          "value": 12039780
+        },
+        {
+          "period": "2018",
+          "value": 12383347
+        },
+        {
+          "period": "2019",
+          "value": 12726755
+        },
+        {
+          "period": "2020",
+          "value": 13070169
+        },
+        {
+          "period": "2021",
+          "value": 13413417
+        },
+        {
+          "period": "2022",
+          "value": 13759501
+        },
+        {
+          "period": "2023",
+          "value": 14111034
+        },
+        {
+          "period": "2024",
+          "value": 14462724
+        },
+        {
+          "period": "2025",
+          "value": 14814460
+        }
+      ]
+    },
+    {
+      "id": "ben-economy-gdp_nominal_usd-2025",
+      "countryCode": "BEN",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 24566420903.5337,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Benin, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 13284527846.9081
+        },
+        {
+          "period": "2015",
+          "value": 11388160996.7738
+        },
+        {
+          "period": "2016",
+          "value": 11821065853.3838
+        },
+        {
+          "period": "2017",
+          "value": 12701655836.9467
+        },
+        {
+          "period": "2018",
+          "value": 14262408089.9261
+        },
+        {
+          "period": "2019",
+          "value": 14391686313.4641
+        },
+        {
+          "period": "2020",
+          "value": 15686741883.934
+        },
+        {
+          "period": "2021",
+          "value": 17687623530.3355
+        },
+        {
+          "period": "2022",
+          "value": 17425405090.862
+        },
+        {
+          "period": "2023",
+          "value": 19673291004.1444
+        },
+        {
+          "period": "2024",
+          "value": 21482643706.4249
+        },
+        {
+          "period": "2025",
+          "value": 24566420903.5337
+        }
+      ]
+    },
+    {
+      "id": "ben-economy-gdp_per_capita_usd-2025",
+      "countryCode": "BEN",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 1658.27312662991,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Benin, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1204.39918670094
+        },
+        {
+          "period": "2015",
+          "value": 1002.41886879614
+        },
+        {
+          "period": "2016",
+          "value": 1010.5338961993
+        },
+        {
+          "period": "2017",
+          "value": 1054.97408066814
+        },
+        {
+          "period": "2018",
+          "value": 1151.7409703472
+        },
+        {
+          "period": "2019",
+          "value": 1130.82135339795
+        },
+        {
+          "period": "2020",
+          "value": 1200.19426557789
+        },
+        {
+          "period": "2021",
+          "value": 1318.65158075198
+        },
+        {
+          "period": "2022",
+          "value": 1266.42711031904
+        },
+        {
+          "period": "2023",
+          "value": 1394.17784721831
+        },
+        {
+          "period": "2024",
+          "value": 1485.38018885134
+        },
+        {
+          "period": "2025",
+          "value": 1658.27312662991
+        }
+      ]
+    },
+    {
+      "id": "ben-economy-gdp_growth-2025",
+      "countryCode": "BEN",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 8.07408453688336,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Benin, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 6.35767909791932
+        },
+        {
+          "period": "2015",
+          "value": 1.77815106030278
+        },
+        {
+          "period": "2016",
+          "value": 3.33967342629693
+        },
+        {
+          "period": "2017",
+          "value": 5.67156195150444
+        },
+        {
+          "period": "2018",
+          "value": 6.69725362180888
+        },
+        {
+          "period": "2019",
+          "value": 6.86568662848335
+        },
+        {
+          "period": "2020",
+          "value": 3.84879240030133
+        },
+        {
+          "period": "2021",
+          "value": 7.1554516457574
+        },
+        {
+          "period": "2022",
+          "value": 6.25294705373625
+        },
+        {
+          "period": "2023",
+          "value": 6.3527773854442
+        },
+        {
+          "period": "2024",
+          "value": 7.45311566226201
+        },
+        {
+          "period": "2025",
+          "value": 8.07408453688336
+        }
+      ]
+    },
+    {
+      "id": "ben-economy-inflation_cpi-2025",
+      "countryCode": "BEN",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 1.10155247902977,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Benin, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": -0.54875755094818
+        },
+        {
+          "period": "2015",
+          "value": 0.218785923536245
+        },
+        {
+          "period": "2016",
+          "value": -0.793310145785624
+        },
+        {
+          "period": "2017",
+          "value": 0.0432648555103608
+        },
+        {
+          "period": "2018",
+          "value": 0.919170717886053
+        },
+        {
+          "period": "2019",
+          "value": 0.732849371241066
+        },
+        {
+          "period": "2020",
+          "value": 3.02272119663759
+        },
+        {
+          "period": "2021",
+          "value": 1.73353962694035
+        },
+        {
+          "period": "2022",
+          "value": 1.35077863583527
+        },
+        {
+          "period": "2023",
+          "value": 2.73870078406074
+        },
+        {
+          "period": "2024",
+          "value": 1.16093089640415
+        },
+        {
+          "period": "2025",
+          "value": 1.10155247902977
+        }
+      ]
+    },
+    {
+      "id": "ben-labour-unemployment_ilo-2025",
+      "countryCode": "BEN",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 1.589,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Benin, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1.952
+        },
+        {
+          "period": "2015",
+          "value": 1.886
+        },
+        {
+          "period": "2016",
+          "value": 1.834
+        },
+        {
+          "period": "2017",
+          "value": 1.691
+        },
+        {
+          "period": "2018",
+          "value": 1.426
+        },
+        {
+          "period": "2019",
+          "value": 1.214
+        },
+        {
+          "period": "2020",
+          "value": 1.518
+        },
+        {
+          "period": "2021",
+          "value": 1.833
+        },
+        {
+          "period": "2022",
+          "value": 1.685
+        },
+        {
+          "period": "2023",
+          "value": 1.641
+        },
+        {
+          "period": "2024",
+          "value": 1.637
+        },
+        {
+          "period": "2025",
+          "value": 1.589
+        }
+      ]
+    },
+    {
+      "id": "ben-geography-surface_area-2024",
+      "countryCode": "BEN",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 114760,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Benin, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 114760
+        },
+        {
+          "period": "2014",
+          "value": 114760
+        },
+        {
+          "period": "2015",
+          "value": 114760
+        },
+        {
+          "period": "2016",
+          "value": 114760
+        },
+        {
+          "period": "2017",
+          "value": 114760
+        },
+        {
+          "period": "2018",
+          "value": 114760
+        },
+        {
+          "period": "2019",
+          "value": 114760
+        },
+        {
+          "period": "2020",
+          "value": 114760
+        },
+        {
+          "period": "2021",
+          "value": 114760
+        },
+        {
+          "period": "2022",
+          "value": 114760
+        },
+        {
+          "period": "2023",
+          "value": 114760
+        },
+        {
+          "period": "2024",
+          "value": 114760
+        }
+      ]
+    }
+  ]
+}

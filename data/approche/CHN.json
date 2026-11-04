@@ -1,0 +1,1625 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "CHN",
+  "slug": "chine",
+  "zoneSlug": "indopacifique",
+  "name": "Chine",
+  "officialName": "République populaire de Chine",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-01",
+  "sources": [
+    {
+      "id": "S-CHN-DFAT",
+      "publisher": "Département australien des Affaires étrangères",
+      "title": "China — Heads of Government",
+      "canonicalUrl": "https://www.dfat.gov.au/geo/heads-of-government/china",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en"
+    },
+    {
+      "id": "S-CHN-NBS",
+      "publisher": "Bureau national des statistiques de Chine",
+      "title": "Statistical Communiqué of the PRC on the 2025 National Economic and Social Development",
+      "canonicalUrl": "https://www.stats.gov.cn/english/PressRelease/202602/t20260228_1962661.html",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "publishedAt": "2026-02-28"
+    },
+    {
+      "id": "S-CHN-WB",
+      "publisher": "Banque mondiale",
+      "title": "Rebalancing Growth: China Economic Update",
+      "canonicalUrl": "https://www.worldbank.org/en/news/press-release/2026/07/07/rebalancing-growth-china-economic-update",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "publishedAt": "2026-07-07"
+    },
+    {
+      "id": "S-CHN-WBOV",
+      "publisher": "Banque mondiale",
+      "title": "China — Country Overview",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/china",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en"
+    },
+    {
+      "id": "S-CHN-IMF",
+      "publisher": "Fonds monétaire international",
+      "title": "IMF Executive Board Concludes 2025 Article IV Consultation with China",
+      "canonicalUrl": "https://www.imf.org/en/news/articles/2026/02/18/pr-26053-china-imf-executive-board-concludes-2025-article-iv-consultation",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "publishedAt": "2026-02-18"
+    },
+    {
+      "id": "S-CHN-NPC",
+      "publisher": "Conseil des Affaires d’État de la RPC / Xinhua",
+      "title": "China releases full text of government work report",
+      "canonicalUrl": "https://english.www.gov.cn/news/202603/13/content_WS69b4b144c6d00ca5f9a09dfd.html",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "publishedAt": "2026-03-13",
+      "originalPublisher": "Xinhua"
+    },
+    {
+      "id": "S-CHN-PLAN",
+      "publisher": "Assemblée populaire nationale / gouvernement chinois",
+      "title": "China adopts law on national development planning",
+      "canonicalUrl": "https://english.www.gov.cn/news/202603/13/content_WS69b36c16c6d00ca5f9a09d9a.html",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "publishedAt": "2026-03-13",
+      "originalPublisher": "Xinhua"
+    },
+    {
+      "id": "S-CHN-MOE",
+      "publisher": "Ministère chinois de l’Éducation (republication du plan)",
+      "title": "Outline of the 15th Five-Year Plan 2026–2030",
+      "canonicalUrl": "https://www.moe.gov.cn/jyb_xwfb/xw_zt/moe_357/2026/2026_zt03/yw/202603/t20260314_1430877.html",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "zh",
+      "publishedAt": "2026-03-14",
+      "originalPublisher": "Assemblée populaire nationale de la RPC"
+    },
+    {
+      "id": "S-CHN-MOD",
+      "publisher": "Ministère chinois de la Défense",
+      "title": "Chinese Military Spokesperson Details 2026 Defense Spending Arrangement",
+      "canonicalUrl": "https://eng.mod.gov.cn/2025xb/P/16447711.html",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en"
+    },
+    {
+      "id": "S-CHN-WTO",
+      "publisher": "OMC",
+      "title": "China — Member Information",
+      "canonicalUrl": "https://www.wto.org/english/thewto_e/countries_e/china_e.htm",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en"
+    },
+    {
+      "id": "S-CHN-UNSC",
+      "publisher": "Nations unies",
+      "title": "Membres actuels — Conseil de sécurité",
+      "canonicalUrl": "https://main.un.org/securitycouncil/fr/content/current-members",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr"
+    },
+    {
+      "id": "S-CHN-IEA",
+      "publisher": "Agence internationale de l’énergie",
+      "title": "Global Energy Review 2026 — Coal",
+      "canonicalUrl": "https://www.iea.org/reports/global-energy-review-2026/coal",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en"
+    },
+    {
+      "id": "S-CHN-ENERGY",
+      "publisher": "Conseil des Affaires d’État / Xinhua",
+      "title": "China targets clean, low-carbon new energy system by 2030",
+      "canonicalUrl": "https://english.www.gov.cn/news/202606/25/content_WS6a3d2904c6d00ca5f9a0bcde.html",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "publishedAt": "2026-06-25",
+      "originalPublisher": "Xinhua"
+    },
+    {
+      "id": "S-CHN-MIIT",
+      "publisher": "Conseil des Affaires d’État / Xinhua",
+      "title": "China to nurture emerging, future industries",
+      "canonicalUrl": "https://english.www.gov.cn/2026special/2026npcandcpcc/202603/05/content_WS69a8eea9c6d00ca5f9a09891.html",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "publishedAt": "2026-03-05",
+      "originalPublisher": "Xinhua"
+    },
+    {
+      "id": "S-CHN-MIITG",
+      "publisher": "Conseil des Affaires d’État / Xinhua",
+      "title": "China unveils five-year plan for greener industrial development",
+      "canonicalUrl": "https://english.www.gov.cn/news/202607/31/content_WS6a6c46cec6d00ca5f9a0c802.html",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "publishedAt": "2026-07-31",
+      "originalPublisher": "Xinhua"
+    },
+    {
+      "id": "S-CHN-FMPRC",
+      "publisher": "Ministère chinois des Affaires étrangères",
+      "title": "Conférence de presse du 12 octobre 2026",
+      "canonicalUrl": "https://www.fmprc.gov.cn/fra/wjdt/fyrth/lxjzzdh/202610/t20261014_12039982.html",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "publishedAt": "2026-10-12"
+    },
+    {
+      "id": "S-CHN-TAIWAN",
+      "publisher": "Conseil des affaires continentales de Taïwan",
+      "title": "Taiwan Is Committed to Maintaining Peace Across the Taiwan Strait",
+      "canonicalUrl": "https://www.mac.gov.tw/EN/News_Content.aspx?n=2BA0753CBE348412&s=0BCDBA84D06B489B&sms=E828F60C4AFBAF90",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "publishedAt": "2026-05-14"
+    },
+    {
+      "id": "S-CHN-PCA",
+      "publisher": "Cour permanente d’arbitrage",
+      "title": "The South China Sea Arbitration (Philippines v China)",
+      "canonicalUrl": "https://pca-cpa.org/en/cases/7/",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en"
+    },
+    {
+      "id": "S-CHN-PLANSEP",
+      "publisher": "Conseil des Affaires d’État / Xinhua",
+      "title": "China outlines sci-tech priorities for 2026–2030",
+      "canonicalUrl": "https://english.www.gov.cn/news/202609/30/content_WS6abcbd42c6d00ca5f9a0d8a4.html",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "publishedAt": "2026-09-30",
+      "originalPublisher": "Xinhua"
+    },
+    {
+      "id": "S-CHN-CONST",
+      "publisher": "Commission exécutive du Congrès des États-Unis sur la Chine (CECC)",
+      "title": "Constitution of the People’s Republic of China (traduction anglaise, texte amendé en 2004)",
+      "canonicalUrl": "https://www.cecc.gov/resources/legal-provisions/chinas-constitution",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Assemblée populaire nationale de la RPC",
+      "methodNotes": "Traduction anglaise hébergée par la CECC ; article 19 relevé le 2026-11-01 sur l’édition amendée en 2004. L’édition de 2018 n’a pas été consultée."
+    },
+    {
+      "id": "S-CHN-PBOC",
+      "publisher": "Banque populaire de Chine",
+      "title": "Law of the People’s Republic of China on the People’s Bank of China (amended 2003)",
+      "canonicalUrl": "https://camlmac.pbc.gov.cn/en/3688110/3688172/4048356/2025080817550322452/index.html",
+      "accessedAt": "2026-11-01",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "publishedAt": "2003-12-27"
+    }
+  ],
+  "observations": [
+    {
+      "id": "chn-identity-capital-2026",
+      "countryCode": "CHN",
+      "key": "identity.capital",
+      "value": "Pékin",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Capitale Beijing/Pékin d’après la fiche des chefs de gouvernement du DFAT australien.",
+      "sourceIds": [
+        "S-CHN-DFAT"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "chn-identity-head-of-state-2026",
+      "countryCode": "CHN",
+      "key": "politics.head_of_state",
+      "value": "Xi Jinping",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Président de la République populaire de Chine au moment de la consultation.",
+      "sourceIds": [
+        "S-CHN-DFAT"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "chn-identity-head-of-government-2026",
+      "countryCode": "CHN",
+      "key": "politics.head_of_government",
+      "value": "Li Qiang",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Premier ministre (Premier of the State Council).",
+      "sourceIds": [
+        "S-CHN-DFAT"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "chn-identity-regime-2026",
+      "countryCode": "CHN",
+      "key": "politics.regime",
+      "value": "République socialiste dirigée par le Parti communiste chinois",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Description institutionnelle générale, distincte des évaluations de régime.",
+      "sourceIds": [
+        "S-CHN-DFAT",
+        "S-CHN-PLAN"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "editorial_analysis"
+    },
+    {
+      "id": "chn-institutions-unsc-permanent-2026",
+      "countryCode": "CHN",
+      "key": "institutions.unsc_permanent",
+      "label": "Membre permanent du Conseil de sécurité de l'ONU",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Membre permanent du Conseil de sécurité des Nations unies.",
+      "sourceIds": [
+        "S-CHN-UNSC"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "chn-institutions-wto-2026",
+      "countryCode": "CHN",
+      "key": "institutions.wto",
+      "label": "Membre de l'Organisation mondiale du commerce",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Adhésion de la Chine à l’OMC le 11 décembre 2001.",
+      "sourceIds": [
+        "S-CHN-WTO"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "validFrom": "2001-12-11"
+    },
+    {
+      "id": "chn-demography-population-2025-nbs-2025",
+      "countryCode": "CHN",
+      "key": "demography.population_2025_nbs",
+      "label": "Population (Bureau national des statistiques)",
+      "topic": "population",
+      "value": 1404890000,
+      "unit": "habitants",
+      "referencePeriod": "2025",
+      "geographicScope": "Chine continentale (31 divisions provinciales), hors Hong Kong, Macao, Taïwan et résidents étrangers selon note NBS",
+      "methodology": "Population en fin d’année publiée par le NBS ; périmètre propre à la statistique chinoise.",
+      "sourceIds": [
+        "S-CHN-NBS"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "uncertainty": "Ne pas confondre avec l’estimation FMI ou Banque mondiale de périmètre différent."
+    },
+    {
+      "id": "chn-demography-age-60-plus-share-2025-nbs-2025",
+      "countryCode": "CHN",
+      "key": "demography.age_60_plus_share_2025_nbs",
+      "label": "Part des 60 ans et plus dans la population",
+      "value": 23.0,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Chine continentale, périmètre NBS",
+      "methodology": "Part de la population de 60 ans et plus au 31 décembre 2025.",
+      "sourceIds": [
+        "S-CHN-NBS"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "chn-demography-urban-share-2025-nbs-2025",
+      "countryCode": "CHN",
+      "key": "demography.urban_share_2025_nbs",
+      "label": "Part de la population urbaine",
+      "value": 67.9,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Chine continentale, périmètre NBS",
+      "methodology": "Part des résidents urbains permanents à fin 2025 (arrondi NBS).",
+      "sourceIds": [
+        "S-CHN-NBS"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "chn-economy-gdp-growth-2025-nbs-2025",
+      "countryCode": "CHN",
+      "key": "economy.gdp_growth_2025_nbs",
+      "label": "Croissance du PIB 2025 (Bureau national des statistiques)",
+      "topic": "growth",
+      "value": 5.0,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Chine continentale selon comptabilité nationale chinoise",
+      "methodology": "Croissance annuelle réelle du PIB publiée par le NBS, 2025.",
+      "sourceIds": [
+        "S-CHN-NBS"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "chn-economy-gdp-growth-projection-2026-wb-2026",
+      "countryCode": "CHN",
+      "key": "economy.gdp_growth_projection_2026_wb",
+      "label": "Croissance du PIB, projection 2026 (Banque mondiale)",
+      "value": 4.4,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine, périmètre Banque mondiale",
+      "methodology": "Projection de la Banque mondiale du 7 juillet 2026 ; ne pas confondre avec objectif gouvernemental.",
+      "sourceIds": [
+        "S-CHN-WB"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "uncertainty": "Prévision susceptible d’être révisée."
+    },
+    {
+      "id": "chn-economy-gdp-growth-target-2026-china-low-2026",
+      "countryCode": "CHN",
+      "key": "economy.gdp_growth_target_2026_china_low",
+      "label": "Objectif de croissance du PIB 2026 (fourchette officielle)",
+      "value": 4.5,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Borne basse de l’objectif de croissance du gouvernement (4,5–5 %), pas croissance réalisée.",
+      "sourceIds": [
+        "S-CHN-NPC"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "chn-economy-gdp-growth-target-2026-china-high-2026",
+      "countryCode": "CHN",
+      "key": "economy.gdp_growth_target_2026_china_high",
+      "label": "Objectif de croissance du PIB 2026 (fourchette officielle)",
+      "value": 5.0,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Borne haute de l’objectif de croissance du gouvernement (4,5–5 %).",
+      "sourceIds": [
+        "S-CHN-NPC"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "chn-economy-gdp-per-capita-yuan-2025-nbs-2025",
+      "countryCode": "CHN",
+      "key": "economy.gdp_per_capita_yuan_2025_nbs",
+      "label": "PIB par habitant en yuans",
+      "value": 99665,
+      "unit": "CNY/habitant",
+      "referencePeriod": "2025",
+      "geographicScope": "Chine continentale, périmètre NBS",
+      "methodology": "PIB par habitant en yuans publié par le NBS 2025.",
+      "sourceIds": [
+        "S-CHN-NBS"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "chn-economy-urban-unemployment-2025-nbs-2025",
+      "countryCode": "CHN",
+      "key": "economy.urban_unemployment_2025_nbs",
+      "label": "Chômage urbain (définition nationale)",
+      "value": 5.2,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Zones urbaines de Chine continentale",
+      "methodology": "Taux de chômage urbain enquêté moyen annuel selon le NBS.",
+      "sourceIds": [
+        "S-CHN-NBS"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "chn-research-rd-spend-2025-cny-2025",
+      "countryCode": "CHN",
+      "key": "research.rd_spend_2025_cny",
+      "label": "Dépenses de recherche et développement",
+      "value": 3920000000000,
+      "unit": "CNY",
+      "referencePeriod": "2025",
+      "geographicScope": "Chine continentale",
+      "methodology": "Dépenses de recherche et développement annoncées à plus de 3 920 milliards CNY ; valeur ici plancher publié.",
+      "sourceIds": [
+        "S-CHN-PLANSEP"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "uncertainty": "Source dit « exceeded 3.92 trillion », valeur indicative minimale ; ne pas afficher comme montant exact."
+    },
+    {
+      "id": "chn-defense-budget-2026-national-cny-2026",
+      "countryCode": "CHN",
+      "key": "defense.budget_2026_national_cny",
+      "value": 1940000000000,
+      "unit": "CNY",
+      "referencePeriod": "2026",
+      "geographicScope": "Budget public général national de défense de la RPC",
+      "methodology": "Crédits inscrits au budget 2026 selon le ministère de la Défense, non dépense exécutée.",
+      "sourceIds": [
+        "S-CHN-MOD"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "chn-defense-budget-2026-central-cny-2026",
+      "countryCode": "CHN",
+      "key": "defense.budget_2026_central_cny",
+      "label": "Budget de la défense 2026 : part du budget central",
+      "value": 1910000000000,
+      "unit": "CNY",
+      "referencePeriod": "2026",
+      "geographicScope": "Gouvernement central chinois",
+      "methodology": "Part du budget de défense national de 2026 portée par l’administration centrale.",
+      "sourceIds": [
+        "S-CHN-MOD"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "chn-defense-budget-2026-increase-vs-2025-2026",
+      "countryCode": "CHN",
+      "key": "defense.budget_2026_increase_vs_2025",
+      "value": 6.9,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Budget public général national de défense de la RPC",
+      "methodology": "Hausse du budget 2026 par rapport à l’exécuté 2025, selon la communication officielle.",
+      "sourceIds": [
+        "S-CHN-MOD"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "chn-energy-nonfossil-share-target-2030-2030",
+      "countryCode": "CHN",
+      "key": "energy.nonfossil_share_target_2030",
+      "label": "Objectif 2030 : part des énergies non fossiles dans la consommation d'énergie",
+      "value": 25.0,
+      "unit": "%",
+      "referencePeriod": "2030",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Objectif de part des énergies non fossiles dans la consommation totale d’énergie en 2030 ; ce n’est pas une valeur observée.",
+      "sourceIds": [
+        "S-CHN-ENERGY"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "chn-energy-coal-power-generation-change-2025-iea-2025",
+      "countryCode": "CHN",
+      "key": "energy.coal_power_generation_change_2025_iea",
+      "label": "Production d'électricité à partir du charbon : variation en 2025",
+      "value": -1.5,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Variation estimée de la production électrique au charbon en 2025 selon l’AIE.",
+      "sourceIds": [
+        "S-CHN-IEA"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "observed",
+      "uncertainty": "Estimation sectorielle mondiale AIE, susceptible de révision."
+    },
+    {
+      "id": "chn-energy-wind-solar-installed-capacity-target-2030-2030",
+      "countryCode": "CHN",
+      "key": "energy.wind_solar_installed_capacity_target_2030",
+      "label": "Éolien et solaire : plus de 50 % de la puissance électrique totale installée à l'horizon 2030",
+      "value": 50,
+      "unit": "%",
+      "referencePeriod": "2030",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Objectif officiel : éolien et solaire doivent dépasser 50 % de la capacité électrique installée ; valeur seuil.",
+      "sourceIds": [
+        "S-CHN-ENERGY"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "uncertainty": "Seuil minimal annoncé ; ne pas confondre part de capacité et part de production."
+    },
+    {
+      "id": "chn-identity-language-2026",
+      "countryCode": "CHN",
+      "key": "identity.language",
+      "value": "Chinois (mandarin / putonghua)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Article 19 de la Constitution : l’État promeut l’usage du putonghua sur tout le territoire. La Constitution ne proclame pas expressément le putonghua langue officielle.",
+      "sourceIds": [
+        "S-CHN-CONST"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "uncertainty": "Traduction anglaise de la Constitution (édition amendée en 2004) ; édition de 2018 non consultée."
+    },
+    {
+      "id": "chn-identity-currency-2026",
+      "countryCode": "CHN",
+      "key": "identity.currency",
+      "value": "Yuan / renminbi (CNY)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "République populaire de Chine",
+      "methodology": "Article 16 de la loi sur la Banque populaire de Chine (version amendée en 2003) : la monnaie ayant cours légal en RPC est le renminbi. CNY est le code ISO 4217 du yuan (code non cité par la source).",
+      "sourceIds": [
+        "S-CHN-PBOC"
+      ],
+      "collectedAt": "2026-11-01",
+      "verifiedAt": "2026-11-01",
+      "status": "verified",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "chn-claim-overview",
+      "countryCode": "CHN",
+      "statement": "La Chine est une économie manufacturière majeure dont la croissance repose notamment sur l’industrie, les exportations et l’investissement ; ses autorités cherchent à accroître le rôle de la consommation intérieure.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-CHN-WBOV",
+        "S-CHN-IMF"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "chn-claim-plan",
+      "countryCode": "CHN",
+      "statement": "La Chine a adopté en mars 2026 son quinzième plan quinquennal pour 2026–2030, qui met l’accent sur l’innovation et la modernisation industrielle.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-CHN-PLAN",
+        "S-CHN-MOE"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "chn-claim-leadership",
+      "countryCode": "CHN",
+      "statement": "Xi Jinping est président de la RPC et Li Qiang Premier ministre en 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-CHN-DFAT"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "chn-claim-unsc",
+      "countryCode": "CHN",
+      "statement": "La Chine est membre permanent du Conseil de sécurité des Nations unies et membre de l’OMC depuis décembre 2001.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-CHN-UNSC",
+        "S-CHN-WTO"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "chn-claim-economy",
+      "countryCode": "CHN",
+      "statement": "La Banque mondiale projetait en juillet 2026 une croissance de 4,4 % du PIB chinois en 2026, distincte de l’objectif officiel de 4,5 à 5 %.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-CHN-WB",
+        "S-CHN-NPC"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "chn-claim-taiwan",
+      "countryCode": "CHN",
+      "statement": "Pékin revendique Taïwan comme partie de son territoire, tandis que les autorités taïwanaises affirment que la République de Chine et la RPC ne sont pas subordonnées l’une à l’autre ; les positions sont contradictoires.",
+      "claimType": "attributed_position",
+      "sourceIds": [
+        "S-CHN-FMPRC",
+        "S-CHN-TAIWAN"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Ne pas présenter une revendication de souveraineté contestée comme un constat neutre universel."
+      ]
+    },
+    {
+      "id": "chn-claim-defense",
+      "countryCode": "CHN",
+      "statement": "Le budget national de défense chinois annoncé pour 2026 est de 1 940 milliards de yuans, en crédits budgétaires, et non en dépenses constatées.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-CHN-MOD"
+      ],
+      "validAsOf": "2026-11-01",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "chn-rel-usa",
+      "countryCode": "CHN",
+      "targetCode": "USA",
+      "targetIso2": "US",
+      "targetName": "États-Unis",
+      "relationType": "tension",
+      "title": "Commerce et sécurité en Indopacifique",
+      "topics": [
+        "Commerce",
+        "Taïwan",
+        "Sécurité"
+      ],
+      "summary": "Le FMI souligne les incertitudes liées aux droits de douane et au commerce extérieur ; la question de Taïwan demeure une divergence diplomatique majeure.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-CHN-IMF",
+        "S-CHN-FMPRC"
+      ],
+      "lastReviewedAt": "2026-11-01",
+      "status": "verified"
+    },
+    {
+      "id": "chn-rel-twn",
+      "countryCode": "CHN",
+      "targetCode": "TWN",
+      "targetIso2": "TW",
+      "targetName": "Taïwan",
+      "relationType": "tension",
+      "title": "Divergence de souveraineté et relations entre les deux rives",
+      "topics": [
+        "Souveraineté contestée",
+        "Sécurité",
+        "Relations inter-détroit"
+      ],
+      "summary": "Les autorités de Pékin et de Taïpei expriment des positions incompatibles sur la souveraineté et le statu quo ; présenter les deux attributions sans arbitrage politique.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-CHN-FMPRC",
+        "S-CHN-TAIWAN"
+      ],
+      "lastReviewedAt": "2026-11-01",
+      "status": "verified"
+    },
+    {
+      "id": "chn-rel-phl",
+      "countryCode": "CHN",
+      "targetCode": "PHL",
+      "targetIso2": "PH",
+      "targetName": "Philippines",
+      "relationType": "tension",
+      "title": "Différends maritimes et arbitrage en mer de Chine méridionale",
+      "topics": [
+        "Droit maritime",
+        "Mer de Chine méridionale"
+      ],
+      "summary": "La procédure arbitrale Philippines c. Chine a donné lieu à une sentence le 12 juillet 2016 ; la Chine a déclaré ne pas accepter l’arbitrage.",
+      "validFrom": "2016-07-12",
+      "validTo": null,
+      "sourceIds": [
+        "S-CHN-PCA"
+      ],
+      "lastReviewedAt": "2026-11-01",
+      "status": "verified"
+    },
+    {
+      "id": "chn-rel-wto",
+      "countryCode": "CHN",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "OMC",
+      "relationType": "cooperation",
+      "title": "Participation au système commercial multilatéral",
+      "topics": [
+        "Commerce",
+        "Multilatéralisme"
+      ],
+      "summary": "La Chine est membre de l’Organisation mondiale du commerce depuis le 11 décembre 2001.",
+      "validFrom": "2001-12-11",
+      "validTo": null,
+      "sourceIds": [
+        "S-CHN-WTO"
+      ],
+      "lastReviewedAt": "2026-11-01",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {
+      "tagline": "Grande puissance d’Asie orientale et membre permanent du Conseil de sécurité"
+    },
+    "overview": {
+      "strengths": [
+        {
+          "id": "chn-ov-s1",
+          "title": "Base manufacturière",
+          "summary": "Le secteur industriel et les chaînes de valeur exportatrices constituent une composante majeure de l’économie.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-WBOV",
+            "S-CHN-MOE"
+          ]
+        },
+        {
+          "id": "chn-ov-s2",
+          "title": "Capacité d’investissement et d’innovation",
+          "summary": "Le plan 2026–2030 cible les semi-conducteurs, l’IA, les technologies énergétiques et l’industrie avancée.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOE"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "chn-ov-c1",
+          "title": "Vieillissement démographique",
+          "summary": "Le NBS mesure 23 % de personnes âgées de 60 ans et plus à fin 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-NBS"
+          ]
+        },
+        {
+          "id": "chn-ov-c2",
+          "title": "Demande intérieure et immobilier",
+          "summary": "Le FMI et la Banque mondiale décrivent des fragilités du secteur immobilier et une consommation relativement faible.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-IMF",
+            "S-CHN-WB"
+          ]
+        },
+        {
+          "id": "chn-ov-c3",
+          "title": "Tensions géoéconomiques",
+          "summary": "Les incertitudes tarifaires et commerciales pèsent sur les perspectives de croissance.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-IMF",
+            "S-CHN-WB"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "chn-ov-t2001",
+          "title": "Adhésion à l’OMC",
+          "summary": "La Chine devient membre de l’OMC le 11 décembre 2001.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-WTO"
+          ],
+          "date": "2001-12-11"
+        },
+        {
+          "id": "chn-ov-t2025",
+          "title": "Fin du quatorzième plan",
+          "summary": "Le communiqué statistique 2025 clôt le cycle quinquennal 2021–2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-NBS"
+          ],
+          "date": "2025"
+        },
+        {
+          "id": "chn-ov-t2026",
+          "title": "Quinzième plan quinquennal",
+          "summary": "L’Assemblée populaire nationale approuve le plan 2026–2030 en mars 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-PLAN"
+          ],
+          "date": "2026-03-12"
+        },
+        {
+          "id": "chn-ov-t2030",
+          "title": "Échéance de plusieurs objectifs énergie",
+          "summary": "L’État chinois fixe plusieurs cibles non fossiles à l’horizon 2030 : objectifs, non réalisations.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-ENERGY"
+          ],
+          "date": "2030",
+          "status": "prévu"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "chn-eco-s1",
+          "title": "Industries manufacturières avancées",
+          "summary": "Le plan quinquennal favorise les chaînes industrielles, machines-outils, matériaux et équipements de pointe.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOE"
+          ]
+        },
+        {
+          "id": "chn-eco-s2",
+          "title": "Semi-conducteurs et numérique",
+          "summary": "Les circuits intégrés, logiciels industriels et infrastructures numériques figurent parmi les priorités nationales.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOE"
+          ]
+        },
+        {
+          "id": "chn-eco-s3",
+          "title": "Véhicules électriques et batteries",
+          "summary": "Le développement des véhicules à énergie nouvelle et du stockage est présenté comme un axe industriel.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOE",
+            "S-CHN-MIIT"
+          ]
+        },
+        {
+          "id": "chn-eco-s4",
+          "title": "Commerce extérieur",
+          "summary": "Les exportations restent un moteur de l’économie, dans un contexte de tensions commerciales.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-IMF",
+            "S-CHN-WB"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "chn-eco-r1",
+          "title": "Charbon",
+          "summary": "La production électrique au charbon a reculé en 2025 malgré une hausse de la demande électrique, selon l’AIE.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-IEA"
+          ]
+        },
+        {
+          "id": "chn-eco-r2",
+          "title": "Terres rares et matériaux stratégiques",
+          "summary": "Le plan quinquennal vise à consolider les chaînes d’approvisionnement en minerais critiques et matériaux avancés.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOE"
+          ]
+        },
+        {
+          "id": "chn-eco-r3",
+          "title": "Énergies non fossiles",
+          "summary": "Les objectifs 2030 prévoient une hausse de la part non fossile dans la consommation totale d’énergie.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-ENERGY"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "kpis": [
+        {
+          "id": "chn-kpi-defense-2026",
+          "label": "Budget national de défense (crédits 2026)",
+          "observationKey": "defense.budget_2026_national_cny"
+        },
+        {
+          "id": "chn-kpi-defense-growth",
+          "label": "Progression budgétaire annoncée",
+          "observationKey": "defense.budget_2026_increase_vs_2025"
+        }
+      ],
+      "framework": [
+        {
+          "id": "chn-def-f1",
+          "title": "Budget et modernisation militaire",
+          "summary": "Le ministère de la Défense présente le budget 2026 comme un soutien à la modernisation des forces.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOD"
+          ],
+          "date": "2026"
+        },
+        {
+          "id": "chn-def-f2",
+          "title": "Plan de développement national",
+          "summary": "Le plan 2026–2030 associe modernisation industrielle, sécurité nationale et capacités technologiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOE"
+          ],
+          "date": "2026–2030"
+        }
+      ],
+      "missions": [
+        {
+          "id": "chn-def-m1",
+          "title": "Défense et souveraineté",
+          "summary": "Les objectifs officiels font de la souveraineté et des intérêts de sécurité une priorité des forces armées.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOD"
+          ]
+        }
+      ],
+      "internalSecurity": [
+        {
+          "id": "chn-def-int1",
+          "title": "Résilience technologique",
+          "summary": "Les plans gouvernementaux cherchent à sécuriser les chaînes de valeur et les infrastructures numériques.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOE"
+          ]
+        }
+      ],
+      "strengths": [
+        {
+          "id": "chn-def-s1",
+          "title": "Investissement dans la modernisation",
+          "summary": "Les crédits nationaux 2026 montrent l’importance budgétaire donnée aux capacités de défense.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOD"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "chn-issue-taiwan",
+          "title": "Taïwan et sécurité du détroit",
+          "summary": "Le statut et l’avenir politique de Taïwan font l’objet de positions officielles contradictoires.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-FMPRC",
+            "S-CHN-TAIWAN"
+          ],
+          "scope": [
+            "international"
+          ],
+          "horizon": "1–5 ans",
+          "situation": "Pékin revendique une souveraineté sur Taïwan ; Taïpei affirme l’absence de subordination entre les deux autorités.",
+          "whyStrategic": "Une crise aurait des implications diplomatiques, sécuritaires et économiques importantes.",
+          "actors": [
+            "Autorités de Pékin",
+            "Autorités taïwanaises",
+            "États-Unis"
+          ],
+          "interests": [
+            "Stabilité régionale",
+            "Échanges technologiques"
+          ],
+          "indicators": [
+            "Communiqués officiels",
+            "Incidents publiquement documentés"
+          ],
+          "uncertainties": [
+            "Risque d’escalade difficile à quantifier",
+            "Aucun arbitrage du statut par l’analyse"
+          ],
+          "subthemes": [],
+          "recentDevelopments": [],
+          "updatedAt": "2026-11-01"
+        },
+        {
+          "id": "chn-issue-industry",
+          "title": "Autonomie technologique et chaînes industrielles",
+          "summary": "Le plan 2026–2030 vise à réduire les dépendances dans les technologies et matériaux prioritaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOE",
+            "S-CHN-MIIT"
+          ],
+          "scope": [
+            "national",
+            "international"
+          ],
+          "horizon": "2026–2030",
+          "situation": "Les politiques officielles ciblent circuits intégrés, IA, équipements et matériaux critiques.",
+          "whyStrategic": "La maîtrise industrielle influence la productivité, le commerce et la sécurité économique.",
+          "actors": [
+            "État chinois",
+            "Entreprises industrielles",
+            "Partenaires commerciaux"
+          ],
+          "interests": [
+            "Innovation",
+            "Compétitivité",
+            "Résilience"
+          ],
+          "indicators": [
+            "Brevets",
+            "Production de semi-conducteurs",
+            "Chaînes d’approvisionnement"
+          ],
+          "uncertainties": [
+            "Résultats encore dépendants de l’exécution du plan"
+          ],
+          "subthemes": [],
+          "recentDevelopments": [],
+          "updatedAt": "2026-11-01"
+        },
+        {
+          "id": "chn-issue-rebalancing",
+          "title": "Rééquilibrage de la croissance",
+          "summary": "Consommation insuffisante, difficultés immobilières et vieillissement pèsent sur la demande domestique.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-IMF",
+            "S-CHN-WB"
+          ],
+          "scope": [
+            "national",
+            "international"
+          ],
+          "horizon": "3–10 ans",
+          "situation": "Les institutions financières internationales recommandent de renforcer les filets sociaux et la consommation.",
+          "whyStrategic": "Une croissance moins tributaire des exportations et de l’investissement affecterait la stabilité macroéconomique.",
+          "actors": [
+            "Autorités économiques",
+            "Ménages",
+            "Secteur immobilier"
+          ],
+          "interests": [
+            "Demande intérieure",
+            "Finances locales"
+          ],
+          "indicators": [
+            "Consommation",
+            "Immobilier",
+            "Endettement"
+          ],
+          "uncertainties": [
+            "Rythme des réformes",
+            "Incidence des tensions commerciales"
+          ],
+          "subthemes": [],
+          "recentDevelopments": [],
+          "updatedAt": "2026-11-01"
+        },
+        {
+          "id": "chn-issue-energy",
+          "title": "Transition énergétique et sécurité d’approvisionnement",
+          "summary": "Développement solaire et éolien, maintien du charbon et objectifs de pointe de la consommation fossile coexistent.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-ENERGY",
+            "S-CHN-IEA"
+          ],
+          "scope": [
+            "national",
+            "international"
+          ],
+          "horizon": "2026–2030",
+          "situation": "L’État fixe des cibles d’énergie non fossile tandis que l’AIE constate le rôle encore important du charbon.",
+          "whyStrategic": "La transition transforme l’industrie et la dépendance aux combustibles.",
+          "actors": [
+            "Autorités énergétiques",
+            "Industriels",
+            "Fournisseurs"
+          ],
+          "interests": [
+            "Sécurité électrique",
+            "Décarbonation"
+          ],
+          "indicators": [
+            "Capacités nouvelles",
+            "Production par source",
+            "Importations"
+          ],
+          "uncertainties": [
+            "Différence entre capacité installée et électricité produite"
+          ],
+          "subthemes": [],
+          "recentDevelopments": [],
+          "updatedAt": "2026-11-01"
+        },
+        {
+          "id": "chn-issue-maritime",
+          "title": "Différends en mer de Chine méridionale",
+          "summary": "Le différend avec les Philippines implique des questions de droits maritimes et d’interprétation de la CNUDM.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-PCA"
+          ],
+          "scope": [
+            "international"
+          ],
+          "horizon": "3–10 ans",
+          "situation": "La sentence arbitrale de 2016 est documentée par la Cour permanente d’arbitrage, mais Pékin a contesté la procédure.",
+          "whyStrategic": "La sécurité maritime concerne des routes commerciales régionales majeures.",
+          "actors": [
+            "Chine",
+            "Philippines",
+            "Autres États riverains"
+          ],
+          "interests": [
+            "Sécurité maritime",
+            "Droit international"
+          ],
+          "indicators": [
+            "Incidents publics",
+            "Échanges diplomatiques"
+          ],
+          "uncertainties": [
+            "Contentieux persistants"
+          ],
+          "subthemes": [],
+          "recentDevelopments": [],
+          "updatedAt": "2026-11-01"
+        }
+      ],
+      "calendar": [
+        {
+          "id": "chn-cal1",
+          "title": "Plan quinquennal 2026–2030",
+          "summary": "Plan adopté en mars 2026 ; ses objectifs seront évalués tout au long de la période.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-PLAN"
+          ],
+          "date": "2026–2030",
+          "status": "annoncé"
+        },
+        {
+          "id": "chn-cal2",
+          "title": "Objectifs énergétiques 2030",
+          "summary": "Les seuils annoncés en 2026 visent l’horizon 2030 ; ils ne sont pas encore atteints.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-ENERGY"
+          ],
+          "date": "2030",
+          "status": "prévu"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "chn-opp1",
+          "title": "Montée en gamme industrielle",
+          "summary": "Le plan vise à renforcer les chaînes de valeur à forte intensité technologique.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOE"
+          ]
+        },
+        {
+          "id": "chn-opp2",
+          "title": "Diffusion des énergies renouvelables",
+          "summary": "La croissance des capacités éoliennes et solaires peut soutenir la décarbonation.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-ENERGY",
+            "S-CHN-IEA"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "chn-risk1",
+          "title": "Déséquilibres domestiques",
+          "summary": "Le poids du secteur immobilier et l’endettement local créent des risques macroéconomiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-IMF"
+          ]
+        },
+        {
+          "id": "chn-risk2",
+          "title": "Concurrence et restrictions commerciales",
+          "summary": "L’incertitude autour des barrières commerciales complique les perspectives externes.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-WB"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "domains": [
+        {
+          "id": "chn-out-d1",
+          "title": "Démographie",
+          "summary": "La baisse de population et la hausse de la part des personnes âgées pèsent sur la population active.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-NBS",
+            "S-CHN-WBOV"
+          ]
+        },
+        {
+          "id": "chn-out-d2",
+          "title": "Immobilier et dette locale",
+          "summary": "Le FMI signale des fragilités persistantes dans l’immobilier et les véhicules de financement des collectivités.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-IMF"
+          ]
+        },
+        {
+          "id": "chn-out-d3",
+          "title": "Tensions commerciales",
+          "summary": "Les droits de douane et incertitudes de politique commerciale demeurent un facteur défavorable.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-WB"
+          ]
+        },
+        {
+          "id": "chn-out-d4",
+          "title": "Transition énergétique",
+          "summary": "La croissance du renouvelable coexiste avec la sécurité d’approvisionnement au charbon.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-IEA",
+            "S-CHN-ENERGY"
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "id": "chn-dep1",
+          "title": "Consommation et immobilier",
+          "summary": "Vulnérabilité macroéconomique qualitative, sans score agrégé.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-IMF"
+          ],
+          "state": "needs_methodology",
+          "observationKey": null
+        },
+        {
+          "id": "chn-dep2",
+          "title": "Technologies de pointe",
+          "summary": "Le plan industriel vise des composantes et matériaux dont la maîtrise complète n’est pas acquise.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-MOE"
+          ],
+          "state": "needs_methodology",
+          "observationKey": null
+        }
+      ],
+      "swot": {
+        "strengths": [
+          {
+            "id": "chn-sw-s1",
+            "title": "Capacité industrielle",
+            "summary": "Position manufacturière et industrie à grande échelle.",
+            "tags": [],
+            "sourceIds": [
+              "S-CHN-WBOV"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "chn-sw-w1",
+            "title": "Vieillissement",
+            "summary": "La part des 60 ans et plus atteint 23 % fin 2025 selon le NBS.",
+            "tags": [],
+            "sourceIds": [
+              "S-CHN-NBS"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "chn-sw-o1",
+            "title": "Innovation",
+            "summary": "Le plan 2026–2030 cible les puces, la biotechnologie et les énergies nouvelles.",
+            "tags": [],
+            "sourceIds": [
+              "S-CHN-MOE"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "chn-sw-t1",
+            "title": "Rivalités géopolitiques et barrières commerciales",
+            "summary": "Les tensions commerciales et maritimes peuvent peser sur les perspectives.",
+            "tags": [],
+            "sourceIds": [
+              "S-CHN-WB",
+              "S-CHN-PCA"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "chn-scenario-rebal",
+          "title": "Rééquilibrage graduel vers la consommation",
+          "summary": "Les politiques sociales et les réformes soutiennent la demande domestique.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-WB",
+            "S-CHN-IMF"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Soutien accru aux ménages",
+            "Stabilisation de l’immobilier"
+          ],
+          "triggers": [
+            "Amélioration durable de la consommation"
+          ],
+          "weakSignals": [
+            "Progression des revenus réels"
+          ],
+          "consequences": [
+            "Croissance davantage portée par la demande intérieure"
+          ],
+          "limits": [
+            "Scénario narratif, pas prévision."
+          ]
+        },
+        {
+          "id": "chn-scenario-pressure",
+          "title": "Croissance sous contraintes",
+          "summary": "Les exportations résistent mais les fragilités immobilières persistent.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-WB",
+            "S-CHN-IMF"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Ajustement immobilier progressif",
+            "Pression commerciale durable"
+          ],
+          "triggers": [
+            "Recrudescence des barrières tarifaires"
+          ],
+          "weakSignals": [
+            "Consommation toujours prudente"
+          ],
+          "consequences": [
+            "Ralentissement graduel"
+          ],
+          "limits": [
+            "Aucune probabilité chiffrée."
+          ]
+        },
+        {
+          "id": "chn-scenario-fragility",
+          "title": "Choc commercial et financier",
+          "summary": "Une aggravation simultanée des tensions commerciales et des déséquilibres domestiques fragilise la croissance.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-IMF",
+            "S-CHN-WB"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Tensions tarifaires accrues",
+            "Risques de crédit local"
+          ],
+          "triggers": [
+            "Baisse des exportations",
+            "Dégradation immobilière"
+          ],
+          "weakSignals": [
+            "Repli de l’investissement"
+          ],
+          "consequences": [
+            "Pression sur l’emploi et les finances locales"
+          ],
+          "limits": [
+            "Hypothèses conditionnelles sans anticipation certaine."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "chn-watch1",
+          "title": "Marché immobilier et dette",
+          "summary": "Suivre les évaluations du FMI et les séries officielles NBS.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-IMF",
+            "S-CHN-NBS"
+          ]
+        },
+        {
+          "id": "chn-watch2",
+          "title": "Commerce international",
+          "summary": "Suivre les publications de la Banque mondiale et de l’OMC.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-WB",
+            "S-CHN-WTO"
+          ]
+        },
+        {
+          "id": "chn-watch3",
+          "title": "Sécurité du détroit de Taïwan",
+          "summary": "Comparer les communiqués publics des autorités de Pékin et de Taïpei.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-FMPRC",
+            "S-CHN-TAIWAN"
+          ]
+        },
+        {
+          "id": "chn-watch4",
+          "title": "Transition énergétique",
+          "summary": "Comparer objectifs officiels et réalisations mesurées par l’AIE.",
+          "tags": [],
+          "sourceIds": [
+            "S-CHN-ENERGY",
+            "S-CHN-IEA"
+          ]
+        }
+      ]
+    }
+  }
+}
