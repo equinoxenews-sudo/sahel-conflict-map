@@ -40,7 +40,7 @@
 
 .count {
   font-size: 10px;
-  color: #aab4c0;
+  color: var(--text-secondary);
 }
 
 /* Desktop: la carte remplit exactement la hauteur restante pour que son bas

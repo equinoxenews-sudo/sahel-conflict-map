@@ -15,7 +15,7 @@
 }
 
 .newsItem {
-  border: 1px solid #333;
+  border: 1px solid var(--border-subtle);
   padding: 16px;
 }
 
@@ -29,7 +29,7 @@
 
 .newsSummary {
   font-size: 13px;
-  color: #ccc;
+  color: var(--text-secondary);
   line-height: 1.5;
   margin: 0;
 }
@@ -54,20 +54,20 @@
   padding: 6px 14px;
   border-radius: 999px;
   cursor: pointer;
-  border: 1px solid #fff;
+  border: 1px solid var(--text-primary);
   background: transparent;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .activeBtn {
-  background: #fff;
-  color: #000;
+  background: var(--text-primary);
+  color: var(--bg-primary);
 }
 
 .iframeWrapper {
   flex: 1;
   min-height: 500px;
-  border: 1px solid #333;
+  border: 1px solid var(--border-subtle);
   position: relative;
 }
 
