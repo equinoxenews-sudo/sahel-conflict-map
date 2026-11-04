@@ -10,6 +10,7 @@ import type { NaturalEvent } from "@/lib/layers/naturalEvents";
 import type { SatellitePosition } from "@/lib/layers/satellites";
 import { LAYER_DEFAULTS, type EntityPopupData, type LayerKey } from "@/lib/layers/types";
 import { DEFAULT_EVENT_MODE, GLOBE_CLUSTERING_ENABLED, GLOBE_TEST_TOOLS, type EventMode } from "@/lib/globeClustering";
+import { countryArticleCount, periodLabel } from "@/lib/globeCountry";
 import { fixtureCountFromSearch, syntheticEvents } from "@/lib/globeFixtures";
 import { FOCUS_ZONE_EVENT, ZONE_FOCUSED_EVENT, isHomeZone, type ZoneBriefsByZone, type ZoneSlug } from "@/lib/homeZones";
 import type { VesselPosition } from "@/types/vessel";
@@ -217,6 +218,7 @@ export default function GlobeWithLayers({
               data={selectedEntity.data}
               x={selectedEntity.x}
               y={selectedEntity.y}
+              countryStats={selectedEntity.data.country ? { count: countryArticleCount(analystEvents, selectedEntity.data.country.iso3, dateRange), period: periodLabel(dateRange) } : undefined}
               onClose={() => setSelectedEntity(null)}
               onPickItem={(item) => handleEntitySelect(item, { x: selectedEntity.x, y: selectedEntity.y })}
             />

@@ -12,6 +12,8 @@ export interface AnalystEvent {
   lon: number;
   place: string | null;
   country: string | null;
+  /** Code ISO 3 du pays (calculé à la lecture) : permet de compter les articles d'un pays sans fiches pays côté navigateur. */
+  iso3?: string | null;
   confidence: number | null;
   confidenceLabel: string | null;
   claimedBy: string | null;
