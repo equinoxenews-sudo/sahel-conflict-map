@@ -76,15 +76,15 @@ export function distinctIds(ids: (number | null | undefined)[]): number[] {
 
 // --- Style « anneaux » (essai, piste 2 de docs/PROPOSITIONS_POINTS_GLOBE.md) -------------------------------------------------------
 // Un groupe devient un anneau creux avec un petit point plein au centre ; un événement isolé, un point plein net, sans halo ni reflet.
-// Activé par l'adresse (?points=anneaux) ; sans ce paramètre, l'affichage actuel (disques) est inchangé.
+// Sur cette branche d'essai, les anneaux sont l'affichage par défaut ; ?points=disques rend l'ancien affichage (disques) pour comparer.
 
 export type PointStyle = "disques" | "anneaux";
 
 export const POINT_STYLE_PARAM = "points";
 
-/** Style demandé par l'adresse (« ?points=anneaux ») ; tout le reste donne l'affichage actuel. */
+/** Style demandé par l'adresse : « ?points=disques » rend l'ancien affichage, tout le reste donne les anneaux. */
 export function pointStyleFromSearch(search: string): PointStyle {
-  return new URLSearchParams(search).get(POINT_STYLE_PARAM) === "anneaux" ? "anneaux" : "disques";
+  return new URLSearchParams(search).get(POINT_STYLE_PARAM) === "disques" ? "disques" : "anneaux";
 }
 
 /** À partir de ce nombre d'événements, un second anneau très fin entoure le premier. */
@@ -108,4 +108,16 @@ export function ringDiameter(count: number): number {
 /** Côté de l'image d'un anneau (diamètre, second anneau et marge). */
 export function ringCanvasSize(diameter: number): number {
   return diameter + 2 * (RING_MARGIN + RING_GAP);
+}
+
+/** Durée d'un clignotement (lent) des points du style « anneaux », en millisecondes (le rythme d'origine des points d'événements). */
+export const BLINK_MS = 2600;
+
+/**
+ * Opacité (de `floor` à 1) d'un point à l'instant `nowMs` : un battement lent et régulier. La phase propre à chaque point (0 à 1) évite
+ * qu'ils ne clignotent tous ensemble.
+ */
+export function blinkLevel(nowMs: number, phase: number, floor = 0.35): number {
+  const t = ((nowMs / BLINK_MS + phase) % 1) * 2 * Math.PI;
+  return floor + (1 - floor) * (0.5 + 0.5 * Math.sin(t));
 }

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { explodedAtHeight, clusterDotCanvasSize, clusterDotDiameter, distanceMeters, distinctIds, isColocated, pointStyleFromSearch, ringCanvasSize, ringDiameter, RING_DOUBLE_FROM } from "../lib/globeClustering";
+import { explodedAtHeight, clusterDotCanvasSize, clusterDotDiameter, distanceMeters, distinctIds, isColocated, pointStyleFromSearch, ringCanvasSize, ringDiameter, RING_DOUBLE_FROM, BLINK_MS, blinkLevel } from "../lib/globeClustering";
 
 test("un groupe se forme à partir de 5 événements et son point grandit par paliers de 5, sans jamais être gros", () => {
   assert.equal(clusterDotDiameter(2), 0);
@@ -43,12 +43,12 @@ test("au zoom proche les groupes éclatent, avec un écart pour ne pas osciller 
   assert.equal(explodedAtHeight(true, 800_000), false, "on s'éloigne : regroupé de nouveau");
 });
 
-test("style anneaux : activé seulement par l'adresse, l'affichage actuel reste la valeur par défaut", () => {
-  assert.equal(pointStyleFromSearch(""), "disques");
-  assert.equal(pointStyleFromSearch("?zone=afrique"), "disques");
+test("style anneaux : par défaut sur cette branche d'essai ; ?points=disques rend l'ancien affichage", () => {
+  assert.equal(pointStyleFromSearch(""), "anneaux");
+  assert.equal(pointStyleFromSearch("?zone=afrique"), "anneaux");
   assert.equal(pointStyleFromSearch("?points=anneaux"), "anneaux");
-  assert.equal(pointStyleFromSearch("?evenements-test=1000&points=anneaux"), "anneaux");
-  assert.equal(pointStyleFromSearch("?points=autre"), "disques");
+  assert.equal(pointStyleFromSearch("?evenements-test=1000&points=disques"), "disques");
+  assert.equal(pointStyleFromSearch("?points=autre"), "anneaux");
 });
 
 test("anneaux : diamètre 20 px à 5 événements, croissance logarithmique, plafond à 48 px, second anneau à partir de 100", () => {
@@ -63,4 +63,18 @@ test("anneaux : diamètre 20 px à 5 événements, croissance logarithmique, pla
   for (let count = 5; count < 2000; count++) assert.ok(ringDiameter(count + 1) >= ringDiameter(count));
   assert.equal(RING_DOUBLE_FROM, 100);
   assert.ok(ringCanvasSize(48) >= 48 + 2 * 6, "l'image contient le second anneau");
+});
+
+test("clignotement lent : toujours entre le plancher et 1, périodique, désynchronisé d'un point à l'autre", () => {
+  for (let t = 0; t < 3 * BLINK_MS; t += 37) {
+    for (const phase of [0, 0.25, 0.7]) {
+      const level = blinkLevel(t, phase);
+      assert.ok(level >= 0.35 - 1e-9 && level <= 1 + 1e-9, `${t} / ${phase} → ${level}`);
+    }
+  }
+  assert.ok(Math.abs(blinkLevel(1234, 0.3) - blinkLevel(1234 + BLINK_MS, 0.3)) < 1e-9, "un cycle dure BLINK_MS");
+  assert.notEqual(blinkLevel(500, 0).toFixed(3), blinkLevel(500, 0.5).toFixed(3), "deux phases ne battent pas ensemble");
+  assert.ok(BLINK_MS >= 2000, "un battement lent");
+  const levels = Array.from({ length: 100 }, (_, i) => blinkLevel((i / 100) * BLINK_MS, 0, 0.55));
+  assert.ok(Math.min(...levels) >= 0.55 - 1e-9 && Math.max(...levels) <= 1 + 1e-9, "plancher réglable (groupes plus doux)");
 });

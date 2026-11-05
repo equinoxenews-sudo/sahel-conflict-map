@@ -17,7 +17,7 @@ import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
 import { isHomeZone, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
 import { globeCountryInfo } from "@/lib/globeCountry";
 import { getHoveredBrief, onHoveredBrief } from "@/lib/briefHover";
-import { CLUSTER_MIN_SIZE, CLUSTER_PIXEL_RANGE, GLOBE_CLUSTERING_ENABLED, GLOBE_TEST_TOOLS, RING_DOUBLE_FROM, clusterDotCanvasSize, clusterDotDiameter, distinctIds, explodedAtHeight, isColocated, pointStyleFromSearch, ringCanvasSize, ringDiameter, type EventMode } from "@/lib/globeClustering";
+import { CLUSTER_MIN_SIZE, CLUSTER_PIXEL_RANGE, GLOBE_CLUSTERING_ENABLED, GLOBE_TEST_TOOLS, RING_DOUBLE_FROM, blinkLevel, clusterDotCanvasSize, clusterDotDiameter, distinctIds, explodedAtHeight, isColocated, pointStyleFromSearch, ringCanvasSize, ringDiameter, type EventMode } from "@/lib/globeClustering";
 import styles from "./Globe3D.module.css";
 import type { GlobeDateRange } from "./GlobeTimeRange";
 
@@ -1330,7 +1330,7 @@ export default function Globe3D({
       const eventSource = new Cesium.CustomDataSource("events");
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const EVENT_DOT = 22;
-      // Style des points : « disques » (actuel) ou « anneaux » (essai, ?points=anneaux).
+      // Style des points : « anneaux » (essai, par défaut sur cette branche) ou « disques » (ancien, ?points=disques).
       const ringStyle = pointStyleFromSearch(window.location.search) === "anneaux";
       const spreadOffsets = eventOffsets(analystEvents, EVENT_DOT * 0.6);
       for (const [index, ev] of analystEvents.entries()) {
@@ -1385,6 +1385,15 @@ export default function Globe3D({
           position: Cesium.Cartesian3.fromDegrees(ev.lon, ev.lat, 0),
           billboard: {
             image: ringStyle ? plainDot() : glowDot(),
+            // Style « anneaux » : clignotement lent de chaque point (phase propre), plein feu quand son article est survolé.
+            ...(ringStyle
+              ? {
+                  color: new Cesium.CallbackProperty(
+                    () => Cesium.Color.WHITE.withAlpha(reduceMotion || getHoveredBrief() === ev.id ? 1 : blinkLevel(performance.now(), phase)),
+                    false,
+                  ),
+                }
+              : {}),
             width: size,
             height: size,
             // Article survolé dans le bandeau : point plus gros.
@@ -1408,6 +1417,16 @@ export default function Globe3D({
             if (viewer && !viewer.isDestroyed()) viewer.scene.requestRender();
           }, 150);
         };
+        // Style « anneaux » : les groupes clignotent aussi, plus doucement (l'anneau reste lisible). Leurs marqueurs sont recréés à chaque
+        // recalcul : on garde ceux du dernier recalcul (les événements d'un même recalcul arrivent à moins de 100 ms les uns des autres).
+        const blinkingMarkers: { marker: CesiumNS.Billboard; phase: number }[] = [];
+        let lastClusterEventAt = 0;
+        if (ringStyle && !reduceMotion) {
+          viewer.scene.preRender.addEventListener(() => {
+            const now = performance.now();
+            for (const { marker, phase } of blinkingMarkers) marker.color = Cesium.Color.WHITE.withAlpha(blinkLevel(now, phase, 0.55));
+          });
+        }
         const clustering = eventSource.clustering;
         clustering.enabled = false;
         clustering.pixelRange = CLUSTER_PIXEL_RANGE;
@@ -1430,6 +1449,13 @@ export default function Globe3D({
           // Le point se pose sur un lieu réel du groupe, pas sur son centre de gravité.
           const anchor = clusterAnchor(Cesium, clustered);
           if (anchor) marker.position = cluster.label.position = cluster.point.position = anchor;
+          if (ringStyle && !reduceMotion) {
+            const at = performance.now();
+            if (at - lastClusterEventAt > 100) blinkingMarkers.length = 0;
+            lastClusterEventAt = at;
+            const phase = (((anchor ? (anchor.x + anchor.y) * 1e-3 : count * 0.618034) % 1) + 1) % 1;
+            blinkingMarkers.push({ marker, phase });
+          }
           refreshSoon();
         });
         applyEventMode(eventSource, shared.eventMode);
@@ -1782,10 +1808,12 @@ export default function Globe3D({
   // demande, on le demande donc une vingtaine de fois par seconde tant que la couche est affichée
   // (rien si l'utilisateur a réduit les animations, ni quand l'onglet est caché).
   useEffect(() => {
-    // Mode « Groupes » : pas d'anneau, donc aucun redessin continu.
-    if (!enabledLayers.events || (GLOBE_CLUSTERING_ENABLED && eventMode === "groups") || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Mode « Groupes » : pas d'anneau d'onde ; seul le style « anneaux » redessine (clignotement lent, une dizaine de fois par seconde).
+    const groupsMode = GLOBE_CLUSTERING_ENABLED && eventMode === "groups";
+    const ringStyle = pointStyleFromSearch(window.location.search) === "anneaux";
+    if (!enabledLayers.events || (groupsMode && !ringStyle) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     // Téléphone : 9 redessins par seconde au lieu de 20 (le globe est maintenant net à l'arrêt, donc plus coûteux à redessiner).
-    const everyMs = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 900 ? 110 : 50;
+    const everyMs = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 900 ? 110 : groupsMode ? 100 : 50;
     const id = window.setInterval(() => {
       const viewer = viewerRef.current;
       if (viewer && !viewer.isDestroyed() && !document.hidden) viewer.scene.requestRender();
