@@ -73,8 +73,9 @@ test("panneau d'un pays Approche : identité sourcée, chiffres clés, indice et
   assert.ok(france.identity.some((fact) => fact.label === "Capitale" && fact.value === "Paris"));
   assert.ok(france.figures.some((figure) => figure.label === "Population"));
   assert.ok(france.power && france.power.rank <= 15);
-  assert.ok(france.relations.length > 0 && france.relations.length <= 6);
-  assert.ok(france.memberships.length > 0 && france.memberships.length <= 8);
+  assert.ok(france.relations.length > 0 && france.relations.length <= 14);
+  assert.ok(france.memberships.length > 0 && france.memberships.length <= 12);
+  assert.ok(france.memberships.some((membership) => membership.name === "Union européenne" && membership.logo === "/orgs/eu.svg"));
 });
 
 test("panneau d'un pays sans fiche Approche : identité de l'ancienne fiche, chiffres réels, pas de relations inventées", () => {
@@ -92,4 +93,37 @@ test("un pays inconnu donne un panneau vide, sans erreur", () => {
   assert.equal(unknown.name, null);
   assert.deepEqual(unknown.figures, []);
   assert.equal(unknown.power, null);
+});
+
+test("panneau du Mali : relations regroupées par cible, organisation reconnue pour une cible sans pays, tension séparée", () => {
+  const mali = buildCountryPanel("MLI");
+  const names = mali.relations.map((relation) => relation.name);
+  assert.equal(new Set(names).size, names.length, "une seule pastille par cible");
+  const burkina = mali.relations.find((relation) => relation.iso2 === "BF");
+  assert.ok(burkina && burkina.type === "cooperation");
+  const ecowas = mali.relations.find((relation) => relation.name === "CEDEAO");
+  assert.ok(ecowas && ecowas.iso2 === null && ecowas.type === "tension", "la CEDEAO est une organisation, pas un pays");
+  assert.ok(mali.relations.every((relation) => relation.titles.length > 0));
+});
+
+test("organisations : une ligne par organisation, statut particulier signalé, jamais un libellé deviné", () => {
+  const mali = buildCountryPanel("MLI");
+  const ids = mali.memberships.map((membership) => membership.id);
+  assert.equal(new Set(ids).size, ids.length);
+  const ecowas = mali.memberships.find((membership) => membership.id === "ecowas");
+  assert.equal(ecowas?.note, "ancien membre");
+  assert.ok(mali.memberships.some((membership) => membership.id === "aes"));
+  // Aucune clé inconnue n'apparaît : tout vient de la table lib/orgLogos.ts.
+  for (const membership of mali.memberships) assert.ok(membership.name && membership.acronym);
+});
+
+test("les logos référencés existent dans public/orgs et chaque fichier est listé dans les crédits", async () => {
+  const fs = await import("node:fs");
+  const { ORG_BY_KEY } = await import("../lib/orgLogos");
+  const credits = fs.readFileSync("public/orgs/CREDITS.md", "utf8");
+  for (const definition of Object.values(ORG_BY_KEY)) {
+    if (!definition?.logo) continue;
+    assert.ok(fs.existsSync(`public${definition.logo}`), `${definition.logo} existe`);
+    assert.ok(credits.includes(definition.logo.replace("/orgs/", "")), `${definition.logo} crédité`);
+  }
 });

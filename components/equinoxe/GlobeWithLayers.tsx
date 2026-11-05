@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
-import type { CountryRisk } from "@/lib/countryRisk";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import type { CountryRisk, RiskTier } from "@/lib/countryRisk";
+import { globeCountryInfo } from "@/lib/globeCountry";
 import type { MilitaryAircraft } from "@/lib/layers/aircraft";
 import type { AnalystEvent } from "@/lib/layers/analystEvents";
 import type { Earthquake } from "@/lib/layers/earthquakes";
@@ -15,7 +16,7 @@ import { FOCUS_ZONE_EVENT, ZONE_FOCUSED_EVENT, isHomeZone, type ZoneBriefsByZone
 import type { VesselPosition } from "@/types/vessel";
 import Globe3DLoader from "./Globe3DLoader";
 import GlobeClock from "./GlobeClock";
-import GlobeCountryPanel from "./GlobeCountryPanel";
+import GlobeCountryPanel, { type PanelView } from "./GlobeCountryPanel";
 import GlobeEntityPopup from "./GlobeEntityPopup";
 import GlobeSearchBox from "./GlobeSearchBox";
 import type { GlobeDateRange } from "./GlobeTimeRange";
@@ -25,6 +26,18 @@ import LayersPanel from "./LayersPanel";
 import MobileSheet from "./MobileSheet";
 import RiskLevelPanel from "./RiskLevelPanel";
 import ZoneStage from "./ZoneStage";
+
+/** Pays dont le panneau est ouvert. */
+interface PanelTarget {
+  iso3: string;
+  title: string;
+  flagIso2: string | null;
+  tier: RiskTier | null;
+  href: string | null;
+}
+
+/** Clé de l'état de l'entrée d'historique : permet de retrouver le panneau ouvert quand on revient d'une fiche pays ou d'un article. */
+const PANEL_HISTORY_KEY = "globePanel";
 
 interface GlobeWithLayersProps {
   countryRisk: Record<string, CountryRisk>;
@@ -70,7 +83,8 @@ export default function GlobeWithLayers({
     y: number;
   } | null>(null);
   // Pays cliqué : un panneau à gauche (tiroir en bas sur téléphone) remplace l'ancienne bulle ; il reste ouvert jusqu'à sa fermeture.
-  const [selectedCountry, setSelectedCountry] = useState<EntityPopupData | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<PanelTarget | null>(null);
+  const [panelView, setPanelView] = useState<PanelView>("profil");
   // null until GlobeTimeRange's own effect reports its default (full)
   // bounds on mount — Globe3D treats null as "no date filtering yet".
   const [dateRange, setDateRange] = useState<GlobeDateRange | null>(null);
@@ -90,6 +104,8 @@ export default function GlobeWithLayers({
 
   function setFocusedZone(zone: ZoneSlug | null) {
     setSelectedEntity(null);
+    // La fiche de zone occupe la même colonne de gauche que le panneau pays : choisir une zone referme le panneau.
+    if (zone) setSelectedCountry(null);
     setFocusedZoneState(zone);
     // Le bandeau ouvert par un clic sur un événement laisse la place à la zone choisie.
     setPeekZone(null);
@@ -128,7 +144,8 @@ export default function GlobeWithLayers({
   function handleEntitySelect(data: EntityPopupData | null, screen: { x: number; y: number } | null) {
     if (data?.country) {
       setSelectedEntity(null);
-      setSelectedCountry(data);
+      setSelectedCountry({ iso3: data.country.iso3, title: data.title, flagIso2: data.flagIso2 ?? null, tier: data.country.tier, href: data.country.href });
+      setPanelView("profil");
       return;
     }
     setSelectedEntity(data && screen ? { data, x: screen.x, y: screen.y } : null);
@@ -139,11 +156,48 @@ export default function GlobeWithLayers({
     }
   }
 
+  // Retour depuis une fiche pays ou un article : l'entrée d'historique du globe garde le pays et la vue ouverts, on les rouvre.
+  // L'entrée est lue tout de suite (l'effet suivant l'efface au premier rendu), l'état est posé juste après.
+  useEffect(() => {
+    let saved: { iso3?: string; view?: string } | undefined;
+    try {
+      saved = (window.history.state as Record<string, unknown> | null)?.[PANEL_HISTORY_KEY] as typeof saved;
+    } catch {
+      return;
+    }
+    const iso3 = saved?.iso3;
+    if (!iso3 || !/^[A-Z]{3}$/.test(iso3)) return;
+    const timer = window.setTimeout(() => {
+      const info = globeCountryInfo(iso3, iso3);
+      setSelectedCountry({ iso3, title: info.name, flagIso2: info.iso2, tier: countryRisk[iso3]?.tier ?? null, href: info.href });
+      setPanelView(saved?.view === "actualites" ? "actualites" : "profil");
+    }, 0);
+    return () => window.clearTimeout(timer);
+    // Une seule fois, au montage : le globe ne doit pas rouvrir un panneau que l'utilisateur vient de fermer.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Pays et vue ouverts, inscrits dans l'entrée d'historique courante (sans en créer une) ; effacés à la fermeture seulement (jamais au
+  // montage, où l'entrée est encore à lire pour rouvrir le panneau).
+  const panelWasOpen = useRef(false);
+  useEffect(() => {
+    if (selectedCountry) panelWasOpen.current = true;
+    else if (!panelWasOpen.current) return;
+    try {
+      const state = { ...((window.history.state as Record<string, unknown> | null) ?? {}) };
+      if (selectedCountry) state[PANEL_HISTORY_KEY] = { iso3: selectedCountry.iso3, view: panelView };
+      else delete state[PANEL_HISTORY_KEY];
+      window.history.replaceState(state, "");
+    } catch {
+      /* historique indisponible */
+    }
+  }, [selectedCountry, panelView]);
+
   // Articles analysés du pays cliqué (60 derniers jours), du plus récent au plus ancien.
   const countryArticles = useMemo(() => {
-    const iso3 = selectedCountry?.country?.iso3;
+    const iso3 = selectedCountry?.iso3;
     if (!iso3) return [];
-    return analystEvents.filter((event) => event.iso3 === iso3).sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)).map((event) => ({ id: event.id, title: event.title, publishedAt: event.publishedAt }));
+    return analystEvents.filter((event) => event.iso3 === iso3).sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)).map((event) => ({ id: event.id, title: event.title, publishedAt: event.publishedAt, imageUrl: event.imageUrl ?? null }));
   }, [analystEvents, selectedCountry]);
 
   const stageZone = focusedZone ?? peekZone;
@@ -215,7 +269,8 @@ export default function GlobeWithLayers({
             onZonePick={setFocusedZone}
           />
           <GlobeClock />
-          {stageZone ? (
+          {/* Fiche de zone et panneau pays se partagent la colonne de gauche : la fiche de zone s'efface tant qu'un pays est ouvert (le globe, lui, garde son cadrage). */}
+          {stageZone && !selectedCountry ? (
             <ZoneStage
               zone={stageZone}
               briefs={stageBriefs}
@@ -227,16 +282,18 @@ export default function GlobeWithLayers({
               }}
             />
           ) : null}
-          {selectedCountry?.country ? (
+          {selectedCountry ? (
             <GlobeCountryPanel
-              key={selectedCountry.country.iso3}
-              iso3={selectedCountry.country.iso3}
+              key={selectedCountry.iso3}
+              iso3={selectedCountry.iso3}
               name={selectedCountry.title}
-              flagIso2={selectedCountry.flagIso2 ?? null}
-              tier={selectedCountry.country.tier}
-              href={selectedCountry.country.href}
+              flagIso2={selectedCountry.flagIso2}
+              tier={selectedCountry.tier}
+              href={selectedCountry.href}
               articles={countryArticles}
               range={dateRange}
+              view={panelView}
+              onViewChange={setPanelView}
               onClose={() => setSelectedCountry(null)}
             />
           ) : null}

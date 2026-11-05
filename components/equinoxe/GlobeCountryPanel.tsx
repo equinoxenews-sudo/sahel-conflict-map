@@ -4,15 +4,19 @@ import { useEffect, useMemo, useState } from "react";
 import HexFlag from "@/components/investigation/HexFlag";
 import { RISK_COLORS, RISK_LABELS, type RiskTier } from "@/lib/countryRisk";
 import { itemsInPeriod, periodLabel, type PeriodRange } from "@/lib/globeCountry";
+import { briefImageSrc } from "@/lib/imageUrls";
 import { POWER_COMPONENTS } from "@/lib/powerMethod";
-import type { CountryPanelData } from "@/lib/countryPanel";
+import type { CountryPanelData, PanelMembership, PanelRelation } from "@/lib/countryPanel";
 import styles from "./GlobeCountryPanel.module.css";
 
 export interface PanelArticle {
   id: number;
   title: string;
   publishedAt: string;
+  imageUrl: string | null;
 }
+
+export type PanelView = "profil" | "actualites";
 
 interface GlobeCountryPanelProps {
   iso3: string;
@@ -26,22 +30,21 @@ interface GlobeCountryPanelProps {
   articles: PanelArticle[];
   /** Période choisie sur le globe (curseur) ; null tant qu'il n'a rien choisi. */
   range: PeriodRange | null;
+  /** Vue affichée (profil ou liste d'articles) : tenue par le parent pour la retrouver au retour d'une page. */
+  view: PanelView;
+  onViewChange: (view: PanelView) => void;
   onClose: () => void;
 }
 
-const RELATION_LABELS: Record<string, string> = { treaty: "Traité", cooperation: "Coopération", tension: "Tension" };
 const DATE = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });
 
-type View = "profil" | "actualites";
-
 /** Panneau pays du globe : remplace la petite bulle. À gauche sur ordinateur, tiroir en bas sur téléphone. */
-export default function GlobeCountryPanel({ iso3, name, flagIso2, tier, href, articles, range, onClose }: GlobeCountryPanelProps) {
+export default function GlobeCountryPanel({ iso3, name, flagIso2, tier, href, articles, range, view, onViewChange, onClose }: GlobeCountryPanelProps) {
   const [data, setData] = useState<CountryPanelData | null>(null);
   const [failed, setFailed] = useState(false);
-  const [view, setView] = useState<View>("profil");
   const [expanded, setExpanded] = useState(false);
 
-  // Nouveau pays : on repart de l'onglet « profil » (le composant est recréé via `key={iso3}` par le parent).
+  // Le parent recrée le composant à chaque pays (`key={iso3}`) : l'état repart donc à zéro.
   useEffect(() => {
     const controller = new AbortController();
     fetch(`/api/pays/${iso3}`, { signal: controller.signal })
@@ -102,23 +105,47 @@ export default function GlobeCountryPanel({ iso3, name, flagIso2, tier, href, ar
             Fiche pays
           </span>
         )}
-        <button type="button" className={view === "actualites" ? `${styles.action} ${styles.actionOn}` : styles.action} onClick={() => setView(view === "actualites" ? "profil" : "actualites")} aria-pressed={view === "actualites"}>
+        <button type="button" className={view === "actualites" ? `${styles.action} ${styles.actionOn}` : styles.action} onClick={() => onViewChange(view === "actualites" ? "profil" : "actualites")} aria-pressed={view === "actualites"}>
           Actualités · {inPeriod.length}
         </button>
       </div>
 
       <div className={styles.body}>
         {view === "actualites" ? (
-          <ArticleList articles={inPeriod} period={label} />
+          <>
+            <button type="button" className={styles.back} onClick={() => onViewChange("profil")}>
+              ← Retour au profil
+            </button>
+            <ArticleList articles={inPeriod} period={label} />
+          </>
         ) : failed ? (
           <p className={styles.note}>Données du pays indisponibles pour le moment.</p>
         ) : !data ? (
           <p className={styles.note}>Chargement…</p>
         ) : (
-          <Profile data={data} articles={inPeriod} period={label} onMore={() => setView("actualites")} />
+          <Profile data={data} articles={inPeriod} period={label} onMore={() => onViewChange("actualites")} />
         )}
       </div>
     </aside>
+  );
+}
+
+function ArticleRow({ article }: { article: PanelArticle }) {
+  return (
+    <li>
+      <a className={styles.article} href={`/briefs/${article.id}`}>
+        {article.imageUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img className={styles.thumb} src={briefImageSrc(article.imageUrl)} alt="" loading="lazy" referrerPolicy="no-referrer" />
+        ) : (
+          <span className={styles.thumb} aria-hidden="true" />
+        )}
+        <span className={styles.articleText}>
+          <span className={styles.articleTitle}>{article.title}</span>
+          <span className={styles.articleDate}>{DATE.format(new Date(article.publishedAt))}</span>
+        </span>
+      </a>
+    </li>
   );
 }
 
@@ -131,19 +158,53 @@ function ArticleList({ articles, period }: { articles: PanelArticle[]; period: s
       </h3>
       <ul className={styles.articles}>
         {articles.map((article) => (
-          <li key={article.id}>
-            <a className={styles.article} href={`/briefs/${article.id}`}>
-              <span className={styles.articleTitle}>{article.title}</span>
-              <span className={styles.articleDate}>{DATE.format(new Date(article.publishedAt))}</span>
-            </a>
-          </li>
+          <ArticleRow key={article.id} article={article} />
         ))}
       </ul>
     </section>
   );
 }
 
+/** Hexagone doré du site, avec un logo d'organisation ou, à défaut, son sigle. */
+function OrgHex({ logo, acronym, name }: { logo: string | null; acronym: string; name: string }) {
+  return (
+    <span className={styles.orgHex} title={name}>
+      {logo ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={logo} alt={`Logo ${name}`} className={styles.orgHexLogo} loading="lazy" />
+      ) : (
+        <span className={styles.orgHexText} aria-hidden="true">
+          {acronym}
+        </span>
+      )}
+    </span>
+  );
+}
+
+function RelationChip({ relation }: { relation: PanelRelation }) {
+  return (
+    <li className={styles.chip} title={relation.titles.join(" · ")}>
+      {relation.iso2 ? <HexFlag iso2={relation.iso2} name={relation.name} /> : <OrgHex logo={relation.org?.logo ?? null} acronym={relation.org?.acronym ?? ""} name={relation.name} />}
+      <span className={styles.chipName}>{relation.name}</span>
+    </li>
+  );
+}
+
+function MembershipChip({ membership }: { membership: PanelMembership }) {
+  return (
+    <li className={styles.chip} title={membership.note ? `${membership.name} — ${membership.note}` : membership.name}>
+      <OrgHex logo={membership.logo} acronym={membership.acronym} name={membership.name} />
+      <span className={styles.chipName}>
+        {membership.name}
+        {membership.note ? <small>{membership.note}</small> : null}
+      </span>
+    </li>
+  );
+}
+
 function Profile({ data, articles, period, onMore }: { data: CountryPanelData; articles: PanelArticle[]; period: string; onMore: () => void }) {
+  const partners = data.relations.filter((relation) => relation.type !== "tension");
+  const tensions = data.relations.filter((relation) => relation.type === "tension");
   return (
     <>
       {data.figures.length > 0 ? (
@@ -181,16 +242,22 @@ function Profile({ data, articles, period, onMore }: { data: CountryPanelData; a
 
       {data.approche ? (
         <>
-          {data.relations.length > 0 ? (
+          {partners.length > 0 ? (
             <section>
               <h3 className={styles.sectionTitle}>Relations clés</h3>
-              <ul className={styles.relations}>
-                {data.relations.map((relation) => (
-                  <li key={relation.id} className={styles.relation}>
-                    <span className={styles.relationName}>{relation.name}</span>
-                    <span className={`${styles.chip} ${relation.type === "tension" ? styles.chipTension : ""}`}>{RELATION_LABELS[relation.type]}</span>
-                    <span className={styles.relationTitle}>{relation.title}</span>
-                  </li>
+              <ul className={styles.chips}>
+                {partners.map((relation) => (
+                  <RelationChip key={relation.id} relation={relation} />
+                ))}
+              </ul>
+            </section>
+          ) : null}
+          {tensions.length > 0 ? (
+            <section>
+              <h3 className={styles.sectionTitle}>Tensions et différends</h3>
+              <ul className={styles.chips}>
+                {tensions.map((relation) => (
+                  <RelationChip key={relation.id} relation={relation} />
                 ))}
               </ul>
             </section>
@@ -198,9 +265,9 @@ function Profile({ data, articles, period, onMore }: { data: CountryPanelData; a
           {data.memberships.length > 0 ? (
             <section>
               <h3 className={styles.sectionTitle}>Organisations et alliances</h3>
-              <ul className={styles.memberships}>
+              <ul className={styles.chips}>
                 {data.memberships.map((membership) => (
-                  <li key={membership}>{membership}</li>
+                  <MembershipChip key={membership.id} membership={membership} />
                 ))}
               </ul>
             </section>
@@ -222,12 +289,7 @@ function Profile({ data, articles, period, onMore }: { data: CountryPanelData; a
           <>
             <ul className={styles.articles}>
               {articles.slice(0, 3).map((article) => (
-                <li key={article.id}>
-                  <a className={styles.article} href={`/briefs/${article.id}`}>
-                    <span className={styles.articleTitle}>{article.title}</span>
-                    <span className={styles.articleDate}>{DATE.format(new Date(article.publishedAt))}</span>
-                  </a>
-                </li>
+                <ArticleRow key={article.id} article={article} />
               ))}
             </ul>
             {articles.length > 3 ? (
