@@ -234,3 +234,33 @@ test("aucune donnée de pays n'est écrite dans le moteur ni dans les composants
     assert.ok(!/\b(France|Mali|Chine|China|Eurostat|INSEE|Insee|HAROPA|ANSSI|Banque mondiale|CEDEAO|UEMOA|MINUSMA)\b/.test(text), `${file} : nom de pays ou d'organisme dans du code commun`);
   }
 });
+
+test("rubrique « Développement humain » (vue d'ensemble) : affichée seulement quand un pays a des observations development.*, avec libellé, millésime, statut et sources conservés", () => {
+  const theme = THEMES.find((item) => item.id === "developpement");
+  assert.ok(theme && theme.tab === "overview" && theme.title === "Développement humain");
+  // Rubrique générique : une clé development.* y est rangée sans theme explicite, pour tout pays.
+  const generic = observation({ key: "development.school_enrolment_2024_wb", label: "Scolarisation (Banque mondiale, 2024)", unit: "%", referencePeriod: "2024" });
+  const fra = load("FRA");
+  const base = { ...fra, observations: [...fra.observations, generic] };
+  assert.equal(classifyObservations(base).get(generic.id)?.kind, "panel");
+  const panel = complementPanels(base).find((item) => item.id === "developpement");
+  assert.ok(panel && panel.tab === "overview");
+  assert.deepEqual(panel.rows.map((row) => row.label), ["Scolarisation (Banque mondiale, 2024)"]);
+  // Absente quand le pays n'a aucune observation de ce type.
+  for (const iso3 of COUNTRIES) assert.ok(!complementPanels(load(iso3)).some((item) => item.id === "developpement"), `${iso3} : pas de rubrique vide`);
+});
+
+test("RCA : l'indice de capital humain 2020 apparaît dans « Développement humain », avec son libellé daté, sa valeur, sa période et sa source", () => {
+  const data = loadApprocheCountry("CAF");
+  assert.ok(data);
+  const caf = { ...data, publication: "published" as const };
+  const panel = complementPanels(caf).find((item) => item.id === "developpement");
+  assert.ok(panel, "rubrique présente pour la RCA");
+  assert.equal(panel.tab, "overview");
+  assert.equal(panel.rows.length, 1);
+  const [row] = panel.rows;
+  assert.equal(row.label, "Indice de capital humain (Banque mondiale, 2020)");
+  assert.ok(row.metric, "valeur affichée (observation vérifiée)");
+  assert.equal(row.metric.period, "2020");
+  assert.ok(row.metric.sources.some((source) => source.publisher === "Banque mondiale"));
+});

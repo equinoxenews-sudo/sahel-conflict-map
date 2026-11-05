@@ -236,7 +236,7 @@
               "string",
               "null"
             ],
-            "description": "Rubrique des données complémentaires où ranger la valeur : appartenances, demographie, politique, geographie, projections, conjoncture, energie, infrastructures, ressources, recherche, ports, investissement, defense, humanitaire, cyber, securite ; « none » pour ne pas l'afficher. Facultatif : à défaut, la rubrique se déduit du préfixe de la clé (institutions.*, demography.*, humanitarian.*…)."
+            "description": "Rubrique des données complémentaires où ranger la valeur : appartenances, demographie, developpement, politique, geographie, projections, conjoncture, energie, infrastructures, ressources, recherche, ports, investissement, defense, humanitaire, cyber, securite ; « none » pour ne pas l'afficher. Facultatif : à défaut, la rubrique se déduit du préfixe de la clé (institutions.*, demography.*, humanitarian.*…)."
           },
           "value": {
             "type": [

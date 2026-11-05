@@ -22,6 +22,7 @@ export interface ThemeDefinition {
 export const THEMES: readonly ThemeDefinition[] = [
   { id: "appartenances", tab: "relations", title: "Appartenances", match: /^institutions\./ },
   { id: "demographie", tab: "overview", title: "Démographie", match: /^demography\./ },
+  { id: "developpement", tab: "overview", title: "Développement humain", match: /^development\./ },
   { id: "politique", tab: "overview", title: "Vie politique", match: /^politics\./ },
   { id: "geographie", tab: "overview", title: "Géographie", match: /^geography\./ },
   { id: "projections", tab: "economy", title: "Projections et objectifs", match: /^economy\..*(projection|target)/ },
