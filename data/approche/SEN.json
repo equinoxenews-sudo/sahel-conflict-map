@@ -35,6 +35,34 @@
       "language": "fr",
       "originalPublisher": "France Diplomatie",
       "methodNotes": "Attribution factuelle à France Diplomatie ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-SEN-PRIM",
+      "publisher": "Primature du Sénégal",
+      "title": "Ahmadou Alhaminou Mohamed LO, Premier ministre",
+      "canonicalUrl": "https://www.primature.sn/le-gouvernement/monsieur-ahmadou-alhaminou-mohamed-lo",
+      "publishedAt": null,
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Primature du Sénégal",
+      "methodNotes": "Source institutionnelle spécifique pour les fonctions dirigeantes ; citation factuelle uniquement."
+    },
+    {
+      "id": "S-SEN-PRES",
+      "publisher": "Présidence de la République du Sénégal",
+      "title": "Profil du nouveau Premier Ministre de la République du Sénégal (25 mai 2026)",
+      "canonicalUrl": "https://www.presidence.sn/fr/actualites/profil-du-nouveau-premier-ministre-de-la-republique-du-senegal/",
+      "publishedAt": "2026-05-25",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Présidence de la République du Sénégal",
+      "methodNotes": "La Présidence emploie « Ahmadou Alhaminou Mohamed LO ». Recoupement institutionnel avec la Primature ; citation factuelle sans réutilisation d’éléments éditoriaux ni de média."
     }
   ],
   "observations": [
@@ -115,13 +143,14 @@
       "countryCode": "SEN",
       "key": "politics.head_of_government",
       "label": "Chef du gouvernement",
-      "value": "Ahmadou Al Aminou Mohamed Lô",
+      "value": "Ahmadou Alhaminou Mohamed Lô",
       "unit": null,
       "referencePeriod": "2026",
       "geographicScope": "Sénégal",
-      "methodology": "Titulaire et fonction vérifiés ; ne pas déduire la répartition des pouvoirs du seul intitulé.",
+      "methodology": "Identité et fonction vérifiées à la Présidence et à la Primature du Sénégal ; nomination du 25 mai 2026. Variantes de graphie du prénom présentes sur certaines pages officielles.",
       "sourceIds": [
-        "S-SEN-FD"
+        "S-SEN-PRIM",
+        "S-SEN-PRES"
       ],
       "collectedAt": "2026-11-02",
       "verifiedAt": "2026-11-02",
@@ -132,7 +161,7 @@
       "id": "sen-politics-regime",
       "countryCode": "SEN",
       "key": "politics.regime",
-      "label": "Régime institutionnel",
+      "label": "Régime politique",
       "value": "République à exécutif présidentiel et Premier ministre",
       "unit": null,
       "referencePeriod": "2026",
@@ -463,7 +492,7 @@
         {
           "id": "sen-timeline-2",
           "title": "Nomination d’un nouveau Premier ministre",
-          "summary": "Ahmadou Al Aminou Mohamed Lô succède à Ousmane Sonko.",
+          "summary": "Ahmadou Alhaminou Mohamed Lô succède à Ousmane Sonko.",
           "tags": [],
           "sourceIds": [
             "S-SEN-FD"
@@ -551,7 +580,7 @@
         {
           "id": "sen-issue-1",
           "title": "Fiabilité des comptes publics",
-          "summary": "Fiabilité des comptes publics : La crédibilité statistique et la soutenabilité du refinancement sont centrales pour la stratégi…",
+          "summary": "La crédibilité statistique et la soutenabilité du refinancement sont centrales pour la stratégie économique du gouvernement.",
           "tags": [],
           "sourceIds": [
             "S-SEN-FD"
@@ -572,15 +601,13 @@
             "discussions FMI",
             "coûts de refinancement"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "sen-issue-2",
           "title": "Pétrole, gaz et retombées locales",
-          "summary": "Pétrole, gaz et retombées locales : Les recettes attendues doivent être reliées à la gouvernance budgétaire, à l’investissement pro…",
+          "summary": "Les recettes attendues doivent être reliées à la gouvernance budgétaire, à l’investissement productif et aux besoins sociaux.",
           "tags": [],
           "sourceIds": [
             "S-SEN-WB"
@@ -601,15 +628,13 @@
             "recettes publiques",
             "dépenses d’investissement"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "sen-issue-3",
           "title": "Recomposition du pouvoir en 2026",
-          "summary": "Recomposition du pouvoir en 2026 : La cohérence entre présidence, exécutif et majorité parlementaire conditionne la conduite des r…",
+          "summary": "La cohérence entre présidence, exécutif et majorité parlementaire conditionne la conduite des réformes.",
           "tags": [],
           "sourceIds": [
             "S-SEN-FD"
@@ -620,7 +645,7 @@
             "international"
           ],
           "subthemes": [],
-          "situation": "Le remplacement d’Ousmane Sonko par Ahmadou Al Aminou Mohamed Lô réorganise la direction gouvernementale.",
+          "situation": "Le remplacement d’Ousmane Sonko par Ahmadou Alhaminou Mohamed Lô réorganise la direction gouvernementale.",
           "whyStrategic": "La cohérence entre présidence, exécutif et majorité parlementaire conditionne la conduite des réformes.",
           "actors": [],
           "interests": [],
@@ -630,10 +655,30 @@
             "législation budgétaire",
             "mobilisations sociales"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "sen-op-1",
+          "title": "Usage productif des recettes énergétiques",
+          "summary": "Une gestion transparente des nouvelles ressources pourrait favoriser l’investissement public et la diversification.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "sen-risk-1",
+          "title": "Resserrement du financement public",
+          "summary": "Une crise prolongée de refinancement réduirait les marges budgétaires et pèserait sur les services.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
         }
       ]
     },
@@ -643,7 +688,7 @@
           {
             "id": "sen-swot-s-1",
             "title": "Nouvelle production d’hydrocarbures",
-            "summary": "Un levier pour Sénégal : marge accrue pour l’investissement public",
+            "summary": "L'entrée en production de nouveaux projets pétroliers et gaziers élargit les ressources exportables, sans garantir à elle seule des recettes budgétaires stables.",
             "tags": [],
             "sourceIds": [
               "S-SEN-WB"
@@ -652,7 +697,7 @@
           {
             "id": "sen-swot-s-2",
             "title": "Pôle de Dakar",
-            "summary": "Un levier pour Sénégal : les recettes attendues doivent être reliées à la gouvernance budgétaire, à l’investissement productif et aux besoins sociaux.",
+            "summary": "Dakar concentre des fonctions administratives, portuaires et de services qui structurent les échanges régionaux et les investissements.",
             "tags": [],
             "sourceIds": [
               "S-SEN-WB"
@@ -663,7 +708,7 @@
           {
             "id": "sen-swot-w-1",
             "title": "Crise de transparence budgétaire",
-            "summary": "Cette contrainte pèse sur la réponse à fiabilité des comptes publics et doit être suivie par les indicateurs : publications de dette , discussions fmi , coûts de refinancement.",
+            "summary": "Les révisions et controverses relatives aux comptes publics dégradent la prévisibilité du financement de l'État et imposent une transparence accrue.",
             "tags": [],
             "sourceIds": [
               "S-SEN-FD"
@@ -672,7 +717,7 @@
           {
             "id": "sen-swot-w-2",
             "title": "Emploi et attentes sociales",
-            "summary": "Cette contrainte pèse sur la réponse à pétrole, gaz et retombées locales et doit être suivie par les indicateurs : production constatée , recettes publiques , dépenses d’investissement.",
+            "summary": "Les attentes sociales et les besoins d'emplois restent élevés ; la croissance de secteurs capitalistiques ne résout pas automatiquement cette contrainte.",
             "tags": [],
             "sourceIds": [
               "S-SEN-FD"
@@ -683,7 +728,7 @@
           {
             "id": "sen-swot-o-1",
             "title": "Stabilisation budgétaire et retombées énergétiques",
-            "summary": "Perspective conditionnelle : crédibilité renforcée des comptes et dépenses maîtrisées; son avancement pourrait favoriser marge accrue pour l’investissement public.",
+            "summary": "Une amélioration de la transparence budgétaire permettrait de mieux affecter les retombées énergétiques à des infrastructures et services prioritaires.",
             "tags": [],
             "sourceIds": [
               "S-SEN-FD"
@@ -694,7 +739,7 @@
           {
             "id": "sen-swot-t-1",
             "title": "Crise de liquidité et contestation sociale",
-            "summary": "Le facteur de rupture à contrôler est : accès restreint au crédit et arbitrages budgétaires impopulaires; cela exposerait le pays à révision à la baisse des programmes publics.",
+            "summary": "Des difficultés prolongées d'accès au financement combinées à des arbitrages budgétaires sensibles pourraient attiser les tensions sociales.",
             "tags": [],
             "sourceIds": [
               "S-SEN-FD"
@@ -802,6 +847,35 @@
           "id": "sen-watch-3",
           "title": "Hydrocarbures",
           "summary": "Suivre production, recettes et affectation budgétaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "sen-vuln-1",
+          "title": "Crédibilité des comptes publics",
+          "summary": "Les écarts de déclaration de dette compliquent l’appréciation des besoins de financement et la relation avec les bailleurs.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
+        },
+        {
+          "id": "sen-vuln-2",
+          "title": "Création d’emplois insuffisante",
+          "summary": "Les nouveaux revenus de l’énergie peuvent coexister avec des difficultés persistantes d’insertion professionnelle.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ]
+        },
+        {
+          "id": "sen-vuln-3",
+          "title": "Exposition au financement extérieur",
+          "summary": "Des besoins de refinancement élevés peuvent contraindre les dépenses publiques même en présence de recettes exportatrices nouvelles.",
           "tags": [],
           "sourceIds": [
             "S-SEN-WB"

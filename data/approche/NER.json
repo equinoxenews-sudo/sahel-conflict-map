@@ -128,7 +128,7 @@
       "id": "ner-politics-regime",
       "countryCode": "NER",
       "key": "politics.regime",
-      "label": "Régime institutionnel",
+      "label": "Régime politique",
       "value": "Autorités de transition dirigées par le général Abdourahmane Tiani depuis 2023",
       "unit": null,
       "referencePeriod": "2026",
@@ -146,7 +146,7 @@
       "id": "ner-institutions-ecowas-former-member",
       "countryCode": "NER",
       "key": "institutions.ecowas_former_member",
-      "label": "Ancien membre de la CEDEAO",
+      "label": "Ancien membre de la CEDEAO (retrait)",
       "value": "Retrait effectif le 29 janvier 2025",
       "unit": null,
       "referencePeriod": "2026",
@@ -521,7 +521,7 @@
         {
           "id": "ner-issue-1",
           "title": "Insécurité multisectorielle",
-          "summary": "Insécurité multisectorielle : La situation sécuritaire pèse sur les services, l’agriculture et les marges de manœuvre budgéta…",
+          "summary": "La situation sécuritaire pèse sur les services, l’agriculture et les marges de manœuvre budgétaires.",
           "tags": [],
           "sourceIds": [
             "S-NER-WB"
@@ -542,15 +542,13 @@
             "déplacements",
             "fonctionnement des marchés"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "ner-issue-2",
           "title": "Rapprochement avec le Bénin",
-          "summary": "Rapprochement avec le Bénin : L’ouverture ou la fermeture de débouchés logistiques influence directement les coûts commerciau…",
+          "summary": "L’ouverture ou la fermeture de débouchés logistiques influence directement les coûts commerciaux et énergétiques.",
           "tags": [],
           "sourceIds": [
             "S-NER-WB"
@@ -571,15 +569,13 @@
             "annonces officielles de réouverture",
             "flux déclarés"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "ner-issue-3",
           "title": "Valorisation du pétrole",
-          "summary": "Valorisation du pétrole : Les gains macroéconomiques doivent être distingués de leur traduction en recettes budgétaires e…",
+          "summary": "Les gains macroéconomiques doivent être distingués de leur traduction en recettes budgétaires et niveau de vie.",
           "tags": [],
           "sourceIds": [
             "S-NER-WB"
@@ -600,10 +596,30 @@
             "recettes publiques",
             "indices de pauvreté"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "ner-op-1",
+          "title": "Rétablissement de débouchés logistiques",
+          "summary": "Des modalités stables de transit avec les pays voisins réduiraient le coût de l’acheminement des exportations.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "ner-risk-1",
+          "title": "Perturbation des axes énergétiques",
+          "summary": "La fermeture durable de routes ou des attaques contre la logistique extractive affaibliraient l’économie.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
         }
       ]
     },
@@ -613,7 +629,7 @@
           {
             "id": "ner-swot-s-1",
             "title": "Ressources énergétiques",
-            "summary": "Un levier pour Niger : réduction des coûts de transit",
+            "summary": "Le pétrole et les autres ressources extractives procurent un potentiel de recettes, conditionné par la continuité des infrastructures et des débouchés.",
             "tags": [],
             "sourceIds": [
               "S-NER-WB"
@@ -622,7 +638,7 @@
           {
             "id": "ner-swot-s-2",
             "title": "Position sahélienne",
-            "summary": "Un levier pour Niger : l’ouverture ou la fermeture de débouchés logistiques influence directement les coûts commerciaux et énergétiques.",
+            "summary": "Sa position à l'interface de plusieurs espaces sahéliens en fait un carrefour d'échanges, mais également un territoire exposé aux ruptures de circulation.",
             "tags": [],
             "sourceIds": [
               "S-NER-WB"
@@ -633,7 +649,7 @@
           {
             "id": "ner-swot-w-1",
             "title": "Violences et déplacements",
-            "summary": "Cette contrainte pèse sur la réponse à insécurité multisectorielle et doit être suivie par les indicateurs : accès humanitaire , déplacements , fonctionnement des marchés.",
+            "summary": "Les violences et déplacements de population mobilisent les capacités de l'État et compliquent l'accès aux services et marchés locaux.",
             "tags": [],
             "sourceIds": [
               "S-NER-WB"
@@ -642,7 +658,7 @@
           {
             "id": "ner-swot-w-2",
             "title": "Dépendance à des infrastructures de transit",
-            "summary": "Cette contrainte pèse sur la réponse à rapprochement avec le bénin et doit être suivie par les indicateurs : décisions douanières , annonces officielles de réouverture , flux déclarés.",
+            "summary": "La dépendance à des voies de transit transfrontalières rend les exportations vulnérables aux décisions politiques et aux perturbations logistiques.",
             "tags": [],
             "sourceIds": [
               "S-NER-WB"
@@ -653,7 +669,7 @@
           {
             "id": "ner-swot-o-1",
             "title": "Détente frontalière et sécurisation commerciale",
-            "summary": "Perspective conditionnelle : accord frontalier mis en œuvre et sécurité accrue; son avancement pourrait favoriser réduction des coûts de transit.",
+            "summary": "Une amélioration durable des relations de transit avec les voisins pourrait réduire les surcoûts du commerce et favoriser les recettes extractives.",
             "tags": [],
             "sourceIds": [
               "S-NER-WB"
@@ -664,7 +680,7 @@
           {
             "id": "ner-swot-t-1",
             "title": "Blocages logistiques et attaques répétées",
-            "summary": "Le facteur de rupture à contrôler est : augmentation des entraves au transit; cela exposerait le pays à recettes plus incertaines et vulnérabilité rurale.",
+            "summary": "La répétition d'attaques et de blocages logistiques pourrait détériorer simultanément les revenus publics et l'approvisionnement intérieur.",
             "tags": [],
             "sourceIds": [
               "S-NER-WB"
@@ -772,6 +788,35 @@
           "id": "ner-watch-3",
           "title": "Pétrole et croissance",
           "summary": "Comparer projections et données effectivement publiées.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "ner-vuln-1",
+          "title": "Sécurité et déplacements",
+          "summary": "Les violences dans plusieurs régions compromettent l’accès aux services, l’activité des marchés et les mouvements de population.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        },
+        {
+          "id": "ner-vuln-2",
+          "title": "Couloirs d’exportation sensibles",
+          "summary": "La continuité des ventes de ressources dépend de passages frontaliers et d’infrastructures susceptibles d’être interrompus.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        },
+        {
+          "id": "ner-vuln-3",
+          "title": "Dépendance aux recettes extractives",
+          "summary": "Un choc logistique ou une baisse des prix des matières premières réduirait les ressources disponibles pour l’État.",
           "tags": [],
           "sourceIds": [
             "S-NER-WB"

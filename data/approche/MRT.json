@@ -146,7 +146,7 @@
       "id": "mrt-politics-regime",
       "countryCode": "MRT",
       "key": "politics.regime",
-      "label": "Régime institutionnel",
+      "label": "Régime politique",
       "value": "République islamique à régime semi-présidentiel",
       "unit": null,
       "referencePeriod": "2026",
@@ -550,7 +550,7 @@
         {
           "id": "mrt-issue-1",
           "title": "Gestion des retombées du gaz",
-          "summary": "Gestion des retombées du gaz : La transition vers une économie plus diversifiée dépend des investissements dans les secteurs p…",
+          "summary": "La transition vers une économie plus diversifiée dépend des investissements dans les secteurs productifs et les services.",
           "tags": [],
           "sourceIds": [
             "S-MRT-ECO"
@@ -571,9 +571,7 @@
             "investissements non extractifs",
             "emplois"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
@@ -600,15 +598,13 @@
             "besoins des communes hôtes",
             "services disponibles"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "mrt-issue-3",
           "title": "Stress climatique et pastoral",
-          "summary": "Stress climatique et pastoral : La sécurité alimentaire dépend de la variabilité des pluies et de la capacité à protéger les mo…",
+          "summary": "La sécurité alimentaire dépend de la variabilité des pluies et de la capacité à protéger les moyens d’existence.",
           "tags": [],
           "sourceIds": [
             "S-MRT-WB"
@@ -629,10 +625,30 @@
             "prix alimentaires",
             "mobilité pastorale"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "mrt-op-1",
+          "title": "Retombées locales des activités gazières",
+          "summary": "Des mécanismes de suivi budgétaire et de formation pourraient augmenter les bénéfices internes du développement énergétique.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "mrt-risk-1",
+          "title": "Choc climatique et humanitaire simultané",
+          "summary": "Une sécheresse sévère accompagnée de nouveaux arrivants créerait une surcharge des services des zones d’accueil.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
         }
       ]
     },
@@ -642,7 +658,7 @@
           {
             "id": "mrt-swot-s-1",
             "title": "Minerai de fer et pêche",
-            "summary": "Un levier pour Mauritanie : emploi accru en dehors de l’extraction",
+            "summary": "Les filières du minerai de fer et de la pêche fournissent des recettes d'exportation et des points d'appui pour les activités portuaires.",
             "tags": [],
             "sourceIds": [
               "S-MRT-WB"
@@ -651,7 +667,7 @@
           {
             "id": "mrt-swot-s-2",
             "title": "Diversification énergétique",
-            "summary": "Un levier pour Mauritanie : le financement de l’accueil peut devenir un enjeu social, budgétaire et diplomatique durable.",
+            "summary": "Les projets gaziers élargissent la base énergétique exportable, sous réserve de contrats, d'une gouvernance et de retombées locales maîtrisés.",
             "tags": [],
             "sourceIds": [
               "S-MRT-WB"
@@ -662,7 +678,7 @@
           {
             "id": "mrt-swot-w-1",
             "title": "Dépendance aux industries extractives",
-            "summary": "Cette contrainte pèse sur la réponse à gestion des retombées du gaz et doit être suivie par les indicateurs : recettes gazières , investissements non extractifs , emplois.",
+            "summary": "Le poids des industries extractives accroît la sensibilité des comptes extérieurs aux prix internationaux et aux aléas d'investissement.",
             "tags": [],
             "sourceIds": [
               "S-MRT-ECO"
@@ -671,7 +687,7 @@
           {
             "id": "mrt-swot-w-2",
             "title": "Stress hydrique et ruralité",
-            "summary": "Cette contrainte pèse sur la réponse à réfugiés en provenance du mali et doit être suivie par les indicateurs : estimation hcr , besoins des communes hôtes , services disponibles.",
+            "summary": "La rareté de l'eau et la vulnérabilité du pastoralisme exposent les ménages ruraux aux sécheresses et aux tensions sur les ressources.",
             "tags": [],
             "sourceIds": [
               "S-MRT-WB"
@@ -682,7 +698,7 @@
           {
             "id": "mrt-swot-o-1",
             "title": "Diversification alimentée par la rente extractive",
-            "summary": "Perspective conditionnelle : budgets transparents et projets économiques achevés; son avancement pourrait favoriser emploi accru en dehors de l’extraction.",
+            "summary": "Une gestion transparente des recettes extractives pourrait soutenir les infrastructures et des activités moins dépendantes des matières premières.",
             "tags": [],
             "sourceIds": [
               "S-MRT-ECO"
@@ -693,7 +709,7 @@
           {
             "id": "mrt-swot-t-1",
             "title": "Pression humanitaire et climatique conjointe",
-            "summary": "Le facteur de rupture à contrôler est : nouveaux déplacements et baisse des rendements pastoraux; cela exposerait le pays à besoins de financement humanitaire accrus.",
+            "summary": "L'accroissement des besoins liés aux réfugiés, combiné à des chocs climatiques, exercerait une pression sur les services et les budgets locaux.",
             "tags": [],
             "sourceIds": [
               "S-MRT-WB"
@@ -801,6 +817,35 @@
           "id": "mrt-watch-3",
           "title": "Pluies et pâturages",
           "summary": "Suivre les saisons et le prix des denrées pour anticiper les tensions rurales.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "mrt-vuln-1",
+          "title": "Dépendance aux cours des matières premières",
+          "summary": "L’importance du minerai de fer et des nouveaux projets gaziers expose l’économie aux fluctuations des marchés exportateurs.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        },
+        {
+          "id": "mrt-vuln-2",
+          "title": "Déficit hydrique pastoral",
+          "summary": "Les périodes de sécheresse affectent la disponibilité de l’eau, les déplacements des troupeaux et les revenus ruraux.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        },
+        {
+          "id": "mrt-vuln-3",
+          "title": "Pression sur les territoires d’accueil",
+          "summary": "L’accueil de réfugiés dans des zones déjà contraintes peut accroître la demande de services et l’exposition aux tensions locales.",
           "tags": [],
           "sourceIds": [
             "S-MRT-WB"

@@ -128,7 +128,7 @@
       "id": "lbr-politics-regime",
       "countryCode": "LBR",
       "key": "politics.regime",
-      "label": "Régime institutionnel",
+      "label": "Régime politique",
       "value": "République présidentielle",
       "unit": null,
       "referencePeriod": "2026",
@@ -555,7 +555,7 @@
         {
           "id": "lbr-issue-1",
           "title": "Dépendance à l’activité minière",
-          "summary": "Dépendance à l’activité minière : L’enjeu est de transformer une reprise minière en infrastructures, compétences et recettes publ…",
+          "summary": "L’enjeu est de transformer une reprise minière en infrastructures, compétences et recettes publiques durables.",
           "tags": [],
           "sourceIds": [
             "S-LBR-WB"
@@ -576,15 +576,13 @@
             "fiscalité extractive",
             "emplois locaux"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "lbr-issue-2",
           "title": "Réseaux de stupéfiants",
-          "summary": "Réseaux de stupéfiants : La réponse judiciaire et portuaire peut affecter la réputation commerciale et la coopération ré…",
+          "summary": "La réponse judiciaire et portuaire peut affecter la réputation commerciale et la coopération régionale.",
           "tags": [],
           "sourceIds": [
             "S-LBR-WB"
@@ -605,15 +603,13 @@
             "décisions judiciaires",
             "contrôles douaniers"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "lbr-issue-3",
           "title": "Réformes de gouvernance",
-          "summary": "Réformes de gouvernance : La capacité administrative à mener ces chantiers conditionne la diffusion sociale de la croissa…",
+          "summary": "La capacité administrative à mener ces chantiers conditionne la diffusion sociale de la croissance.",
           "tags": [],
           "sourceIds": [
             "S-LBR-FD"
@@ -634,10 +630,30 @@
             "entretien routier",
             "résultats sanitaires"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "lbr-op-1",
+          "title": "Diversification des revenus miniers",
+          "summary": "La transparence contractuelle et la création de services associés pourraient mieux répartir les gains du secteur extractif.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "lbr-risk-1",
+          "title": "Dégradation de la sécurité économique",
+          "summary": "Des trafics persistants et une baisse des cours miniers fragiliseraient les finances publiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
         }
       ]
     },
@@ -647,7 +663,7 @@
           {
             "id": "lbr-swot-s-1",
             "title": "Reprise du secteur minier",
-            "summary": "Un levier pour Liberia : élargissement de la base productive",
+            "summary": "Le redémarrage et l'expansion de projets miniers peuvent renforcer les exportations, sous réserve de bénéfices locaux et de contrôle des contrats.",
             "tags": [],
             "sourceIds": [
               "S-LBR-WB"
@@ -656,7 +672,7 @@
           {
             "id": "lbr-swot-s-2",
             "title": "Alternances électorales",
-            "summary": "Un levier pour Liberia : la réponse judiciaire et portuaire peut affecter la réputation commerciale et la coopération régionale.",
+            "summary": "L'expérience d'alternances électorales constitue un point d'appui institutionnel, même si la consolidation de l'État de droit reste nécessaire.",
             "tags": [],
             "sourceIds": [
               "S-LBR-FD"
@@ -667,7 +683,7 @@
           {
             "id": "lbr-swot-w-1",
             "title": "Diversification de l’emploi",
-            "summary": "Cette contrainte pèse sur la réponse à dépendance à l’activité minière et doit être suivie par les indicateurs : valeur ajoutée minière , fiscalité extractive , emplois locaux.",
+            "summary": "L'économie demeure exposée à une concentration des emplois formels et des revenus d'exportation autour de quelques activités.",
             "tags": [],
             "sourceIds": [
               "S-LBR-WB"
@@ -676,7 +692,7 @@
           {
             "id": "lbr-swot-w-2",
             "title": "Trafic de stupéfiants",
-            "summary": "Cette contrainte pèse sur la réponse à réseaux de stupéfiants et doit être suivie par les indicateurs : enquêtes annoncées , décisions judiciaires , contrôles douaniers.",
+            "summary": "Les réseaux de trafic de stupéfiants constituent un risque pour la sécurité, l'intégrité administrative et la réputation des circuits commerciaux.",
             "tags": [],
             "sourceIds": [
               "S-LBR-WB"
@@ -687,7 +703,7 @@
           {
             "id": "lbr-swot-o-1",
             "title": "Mine et services diffusent la croissance",
-            "summary": "Perspective conditionnelle : politiques d’emploi et contrats publics transparents; son avancement pourrait favoriser élargissement de la base productive.",
+            "summary": "Des investissements miniers accompagnés d'une meilleure gouvernance pourraient créer des services et emplois au-delà de l'extraction.",
             "tags": [],
             "sourceIds": [
               "S-LBR-WB"
@@ -698,7 +714,7 @@
           {
             "id": "lbr-swot-t-1",
             "title": "Choc de réputation et tensions budgétaires",
-            "summary": "Le facteur de rupture à contrôler est : dégradation des termes de l’échange et lacunes de gouvernance; cela exposerait le pays à financement public moins stable.",
+            "summary": "Une aggravation des trafics et un retournement des cours miniers pourraient peser simultanément sur la crédibilité publique et les finances.",
             "tags": [],
             "sourceIds": [
               "S-LBR-WB"
@@ -809,6 +825,35 @@
           "tags": [],
           "sourceIds": [
             "S-LBR-FD"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "lbr-vuln-1",
+          "title": "Concentration des exportations",
+          "summary": "La dépendance aux activités minières rend les recettes vulnérables aux cycles mondiaux des produits de base.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        },
+        {
+          "id": "lbr-vuln-2",
+          "title": "Risques de criminalité transnationale",
+          "summary": "Les trafics de stupéfiants peuvent fragiliser les institutions et la confiance dans les circuits commerciaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        },
+        {
+          "id": "lbr-vuln-3",
+          "title": "Création d’emplois hors mines",
+          "summary": "L’extension des activités extractives ne garantit pas automatiquement une diversification de l’emploi productif.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
           ]
         }
       ]

@@ -6,7 +6,7 @@
   "name": "Guinée-Bissau",
   "officialName": "République de Guinée-Bissau",
   "publication": "draft",
-  "lastCheckedAt": "2026-11-02",
+  "lastCheckedAt": "2026-11-05",
   "sources": [
     {
       "id": "S-GNB-WB",
@@ -49,6 +49,76 @@
       "language": "en",
       "originalPublisher": "Banque mondiale",
       "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-GNB-AU",
+      "publisher": "Union africaine",
+      "title": "Rencontre avec le Premier ministre de transition Ilídio Vieira Té, 24 septembre 2026",
+      "canonicalUrl": "https://www.au.int/en/pressreleases/20260924/auc-chairperson-met-transitional-prime-minister-republic-guinea-bissau",
+      "publishedAt": "2026-09-24",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Union africaine",
+      "methodNotes": "Source institutionnelle spécifique pour les fonctions dirigeantes ; citation factuelle uniquement."
+    },
+    {
+      "id": "S-GNB-CIA",
+      "publisher": "CIA — World Leaders",
+      "title": "Guinea-Bissau — Leaders and Cabinet Members (mise à jour 4 juin 2026)",
+      "canonicalUrl": "https://www.cia.gov/resources/world-leaders/foreign-governments/guinea-bissau/",
+      "publishedAt": "2026-06-04",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Central Intelligence Agency",
+      "methodNotes": "Vérification factuelle des fonctions de transition ; aucune réutilisation de contenus longs."
+    },
+    {
+      "id": "S-GNB-DW",
+      "publisher": "Deutsche Welle",
+      "title": "Will Guinea-Bissau remain trapped in political chaos? — 24 October 2026",
+      "canonicalUrl": "https://www.dw.com/en/will-guinea-bissau-remain-trapped-in-political-chaos/a-79734069",
+      "publishedAt": "2026-10-24",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Deutsche Welle",
+      "methodNotes": "Report du scrutin annoncé au 6 décembre 2026 : citation factuelle, sans reprise de texte long."
+    },
+    {
+      "id": "S-GNB-IFES",
+      "publisher": "IFES ElectionGuide",
+      "title": "Guinea-Bissau — Constitutional Referendum, 30 August 2026",
+      "canonicalUrl": "https://electionguide.org/elections/id/5198/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "International Foundation for Electoral Systems",
+      "methodNotes": "Référendum constitutionnel tenu le 30 août 2026 ; conserver les autres sources électorales pour les résultats définitifs."
+    },
+    {
+      "id": "S-GNB-ANG",
+      "publisher": "Agência de Notícias da Guiné",
+      "title": "CNT considera inviável realização de eleições gerais a 06 de Dezembro — 9 October 2026",
+      "canonicalUrl": "https://ang.gw/cnt-considera-inviavel-realizacao-de-eleicoes-gerais-a-06-de-dezembro/",
+      "publishedAt": "2026-10-09",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "pt",
+      "originalPublisher": "Agência de Notícias da Guiné",
+      "methodNotes": "Position du Conseil national de transition, annonçant les difficultés de calendrier ; source contextualisant le report."
     }
   ],
   "observations": [
@@ -117,7 +187,7 @@
       "geographicScope": "Guinée-Bissau",
       "methodology": "Fonction et titulaire vérifiés au 2 novembre 2026 ; distinguer les régimes de transition.",
       "sourceIds": [
-        "S-GNB-FD"
+        "S-GNB-CIA"
       ],
       "collectedAt": "2026-11-02",
       "verifiedAt": "2026-11-02",
@@ -135,7 +205,7 @@
       "geographicScope": "Guinée-Bissau",
       "methodology": "Titulaire et fonction vérifiés ; ne pas déduire la répartition des pouvoirs du seul intitulé.",
       "sourceIds": [
-        "S-GNB-FD"
+        "S-GNB-AU"
       ],
       "collectedAt": "2026-11-02",
       "verifiedAt": "2026-11-02",
@@ -146,7 +216,7 @@
       "id": "gnb-politics-regime",
       "countryCode": "GNB",
       "key": "politics.regime",
-      "label": "Régime institutionnel",
+      "label": "Régime politique",
       "value": "Transition militaire depuis novembre 2025",
       "unit": null,
       "referencePeriod": "2026",
@@ -313,7 +383,7 @@
       "statement": "En 2026, la fonction de chef de l’État de Guinée-Bissau est exercée par Horta Inta-A (président de la transition).",
       "claimType": "fact",
       "sourceIds": [
-        "S-GNB-FD"
+        "S-GNB-CIA"
       ],
       "validAsOf": "2026-11-02",
       "reviewer": null,
@@ -353,12 +423,14 @@
     {
       "id": "gnb-claim-5",
       "countryCode": "GNB",
-      "statement": "Les autorités ont annoncé un référendum en 2026 et des élections en décembre après la crise de 2025.",
+      "statement": "Le référendum constitutionnel a eu lieu le 30 août 2026 ; le scrutin présidentiel et législatif prévu le 6 décembre 2026 a ensuite été reporté sans nouvelle date annoncée au 24 octobre 2026.",
       "claimType": "analysis",
       "sourceIds": [
-        "S-GNB-WB"
+        "S-GNB-IFES",
+        "S-GNB-DW",
+        "S-GNB-ANG"
       ],
-      "validAsOf": "2026-11-02",
+      "validAsOf": "2026-11-05",
       "reviewer": null,
       "status": "pending",
       "caveats": [
@@ -477,14 +549,25 @@
           "date": "2025-11-26"
         },
         {
-          "id": "gnb-timeline-2",
-          "title": "Élections annoncées",
-          "summary": "La transition prévoit des élections présidentielle et législatives le 6 décembre 2026.",
+          "id": "gnb-timeline-ref-2026",
+          "title": "Référendum constitutionnel",
+          "summary": "Un référendum sur la nouvelle Constitution s’est tenu le 30 août 2026, dans un contexte de contestation de la transition.",
+          "date": "2026-08-30",
           "tags": [],
           "sourceIds": [
-            "S-GNB-WB"
+            "S-GNB-IFES"
+          ]
+        },
+        {
+          "id": "gnb-timeline-2",
+          "title": "Report des élections prévues le 6 décembre",
+          "summary": "Les autorités de transition ont reporté les scrutins annoncés pour le 6 décembre 2026 ; aucune nouvelle date n’était fixée au 24 octobre.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-DW",
+            "S-GNB-ANG"
           ],
-          "date": "2026-12-06"
+          "date": "2026-10-24"
         }
       ]
     },
@@ -567,10 +650,12 @@
         {
           "id": "gnb-issue-1",
           "title": "Calendrier de sortie de transition",
-          "summary": "Calendrier de sortie de transition : La tenue effective du scrutin et l’acceptation de ses résultats pèseront sur la réintégration r…",
+          "summary": "Le report du scrutin reporte également la perspective d’un retour à des institutions élues et entretient l’incertitude diplomatique.",
           "tags": [],
           "sourceIds": [
-            "S-GNB-WB"
+            "S-GNB-DW",
+            "S-GNB-IFES",
+            "S-GNB-ANG"
           ],
           "horizon": "1–3 ans",
           "scope": [
@@ -578,8 +663,8 @@
             "international"
           ],
           "subthemes": [],
-          "situation": "Les autorités ont annoncé un référendum en 2026 et des élections en décembre après la crise de 2025.",
-          "whyStrategic": "La tenue effective du scrutin et l’acceptation de ses résultats pèseront sur la réintégration régionale.",
+          "situation": "Le référendum constitutionnel du 30 août 2026 a été suivi du report des élections présidentielle et législatives initialement prévues le 6 décembre, sans nouveau calendrier annoncé au 24 octobre.",
+          "whyStrategic": "L’absence de date arrêtée peut affecter la confiance des partenaires et les discussions sur la restauration de l’ordre constitutionnel.",
           "actors": [],
           "interests": [],
           "recentDevelopments": [],
@@ -588,15 +673,13 @@
             "décisions juridictionnelles",
             "garanties d’observation"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "gnb-issue-2",
           "title": "Dépendance à une campagne agricole",
-          "summary": "Dépendance à une campagne agricole : La productivité et la transformation locale sont des leviers pour amortir les variations des ré…",
+          "summary": "La productivité et la transformation locale sont des leviers pour amortir les variations des récoltes.",
           "tags": [],
           "sourceIds": [
             "S-GNB-ECO"
@@ -617,15 +700,13 @@
             "volumes exportés",
             "activité de transformation"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "gnb-issue-3",
           "title": "Financement du secteur privé",
-          "summary": "Financement du secteur privé : Sans accès accru au crédit et marchés fonctionnels, le dynamisme agricole se diffuse mal au tis…",
+          "summary": "Sans accès accru au crédit et marchés fonctionnels, le dynamisme agricole se diffuse mal au tissu d’entreprises.",
           "tags": [],
           "sourceIds": [
             "S-GNB-ECO"
@@ -646,10 +727,30 @@
             "investissement",
             "productivité"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "gnb-op-1",
+          "title": "Normalisation politique et finance privée",
+          "summary": "Un calendrier de transition crédible pourrait améliorer la visibilité des investisseurs et des producteurs.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "gnb-risk-1",
+          "title": "Campagne agricole défavorable dans un contexte de crise",
+          "summary": "La contraction des revenus du cajou risquerait d’aggraver une situation institutionnelle incertaine.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
+          ]
         }
       ]
     },
@@ -659,7 +760,7 @@
           {
             "id": "gnb-swot-s-1",
             "title": "Noix de cajou",
-            "summary": "Un levier pour Guinée-Bissau : prévisibilité accrue pour les investissements",
+            "summary": "La noix de cajou représente une filière d'exportation et de revenus agricoles structurante, malgré une transformation locale encore limitée.",
             "tags": [],
             "sourceIds": [
               "S-GNB-ECO"
@@ -668,7 +769,7 @@
           {
             "id": "gnb-swot-s-2",
             "title": "Littoral des Bijagós",
-            "summary": "Un levier pour Guinée-Bissau : la productivité et la transformation locale sont des leviers pour amortir les variations des récoltes.",
+            "summary": "Le littoral et l'archipel des Bijagós représentent des atouts environnementaux et économiques pour une activité mieux encadrée.",
             "tags": [],
             "sourceIds": [
               "S-GNB-WB"
@@ -679,16 +780,17 @@
           {
             "id": "gnb-swot-w-1",
             "title": "Transition et incertitude électorale",
-            "summary": "Cette contrainte pèse sur la réponse à calendrier de sortie de transition et doit être suivie par les indicateurs : calendrier électoral , décisions juridictionnelles , garanties d’observation.",
+            "summary": "La transition militaire et les incertitudes entourant le calendrier électoral compliquent la visibilité sur les règles du jeu institutionnel.",
             "tags": [],
             "sourceIds": [
-              "S-GNB-WB"
+              "S-GNB-DW",
+              "S-GNB-ANG"
             ]
           },
           {
             "id": "gnb-swot-w-2",
             "title": "Dépendance au cajou",
-            "summary": "Cette contrainte pèse sur la réponse à dépendance à une campagne agricole et doit être suivie par les indicateurs : prix au producteur , volumes exportés , activité de transformation.",
+            "summary": "La concentration des recettes rurales sur la campagne de cajou rend les producteurs et les finances extérieures sensibles aux rendements et aux prix.",
             "tags": [],
             "sourceIds": [
               "S-GNB-FD"
@@ -699,10 +801,11 @@
           {
             "id": "gnb-swot-o-1",
             "title": "Retour civil négocié",
-            "summary": "Perspective conditionnelle : calendrier électoral exécuté et règles acceptées; son avancement pourrait favoriser prévisibilité accrue pour les investissements.",
+            "summary": "Un retour à des institutions civiles assorti de garanties acceptées pourrait améliorer l'environnement du financement privé.",
             "tags": [],
             "sourceIds": [
-              "S-GNB-WB"
+              "S-GNB-DW",
+              "S-GNB-ANG"
             ]
           }
         ],
@@ -710,10 +813,10 @@
           {
             "id": "gnb-swot-t-1",
             "title": "Contentieux électoral et mauvaise récolte",
-            "summary": "Le facteur de rupture à contrôler est : contestations post-électorales et campagne agricole dégradée; cela exposerait le pays à réduction des recettes d’exportation et du crédit.",
+            "summary": "Une contestation des élections combinée à une mauvaise récolte de cajou pourrait prolonger la fragilité politique et économique.",
             "tags": [],
             "sourceIds": [
-              "S-GNB-FD"
+              "S-GNB-AU"
             ]
           }
         ]
@@ -722,17 +825,19 @@
         {
           "id": "gnb-scenario-1",
           "title": "Retour civil négocié",
-          "summary": "Si les élections annoncées se déroulent et sont reconnues, la Guinée-Bissau pourrait restaurer ses relations institutionnelles régionales.",
+          "summary": "Si une nouvelle échéance électorale crédible est fixée et les résultats acceptés, une reprise graduelle des relations institutionnelles serait envisageable.",
           "tags": [],
           "sourceIds": [
+            "S-GNB-DW",
+            "S-GNB-ANG",
             "S-GNB-WB"
           ],
           "kind": "reinforcement",
           "assumptions": [
-            "Calendrier électoral exécuté et règles acceptées"
+            "Publication d’un nouveau calendrier électoral crédible et règles reconnues"
           ],
           "triggers": [
-            "Participation et réactions des organisations régionales"
+            "Décret fixant une nouvelle date et garanties de participation"
           ],
           "weakSignals": [
             "Participation et réactions des organisations régionales"
@@ -747,7 +852,7 @@
         {
           "id": "gnb-scenario-2",
           "title": "Transition prolongée, cajou soutenu",
-          "summary": "Une campagne de cajou favorable pourrait maintenir la croissance sans résoudre la légitimité institutionnelle.",
+          "summary": "Même avec une bonne campagne de cajou, l’absence de nouveau calendrier électoral pourrait prolonger les difficultés de légitimité et d’investissement.",
           "tags": [],
           "sourceIds": [
             "S-GNB-ECO"
@@ -798,11 +903,12 @@
       "watchAxes": [
         {
           "id": "gnb-watch-1",
-          "title": "Échéance du 6 décembre",
-          "summary": "Vérifier la tenue effective des élections, sans anticiper leur résultat.",
+          "title": "Nouveau calendrier de sortie de transition",
+          "summary": "Surveiller tout décret électoral et les conditions de participation des partis après le report du scrutin du 6 décembre.",
           "tags": [],
           "sourceIds": [
-            "S-GNB-WB"
+            "S-GNB-DW",
+            "S-GNB-ANG"
           ]
         },
         {
@@ -821,6 +927,35 @@
           "tags": [],
           "sourceIds": [
             "S-GNB-FD"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "gnb-vuln-1",
+          "title": "Fragilité de la transition",
+          "summary": "Le report des élections initialement annoncées pour décembre 2026 prolonge l’incertitude sur la restauration de l’ordre constitutionnel.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-DW"
+          ]
+        },
+        {
+          "id": "gnb-vuln-2",
+          "title": "Concentration agricole",
+          "summary": "Les revenus des producteurs et les devises dépendent fortement d’une campagne commerciale de cajou réussie.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-FD"
+          ]
+        },
+        {
+          "id": "gnb-vuln-3",
+          "title": "Accès au financement productif",
+          "summary": "Les besoins de crédit et les limites d’investissement peuvent freiner la diversification économique hors filière cajou.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
           ]
         }
       ]

@@ -35,6 +35,20 @@
       "language": "fr",
       "originalPublisher": "France Diplomatie",
       "methodNotes": "Attribution factuelle à France Diplomatie ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-GMB-OP",
+      "publisher": "Présidence de la Gambie",
+      "title": "The Presidency — Adama Barrow",
+      "canonicalUrl": "https://op.gov.gm/presidency",
+      "publishedAt": null,
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Présidence de la Gambie",
+      "methodNotes": "Source institutionnelle spécifique pour les fonctions dirigeantes ; citation factuelle uniquement."
     }
   ],
   "observations": [
@@ -103,7 +117,7 @@
       "geographicScope": "Gambie",
       "methodology": "Fonction et titulaire vérifiés au 2 novembre 2026 ; distinguer les régimes de transition.",
       "sourceIds": [
-        "S-GMB-FD"
+        "S-GMB-OP"
       ],
       "collectedAt": "2026-11-02",
       "verifiedAt": "2026-11-02",
@@ -114,7 +128,7 @@
       "id": "gmb-politics-regime",
       "countryCode": "GMB",
       "key": "politics.regime",
-      "label": "Régime institutionnel",
+      "label": "Régime politique",
       "value": "République présidentielle",
       "unit": null,
       "referencePeriod": "2026",
@@ -278,7 +292,7 @@
       "statement": "En 2026, la fonction de chef de l’État de Gambie est exercée par Adama Barrow.",
       "claimType": "fact",
       "sourceIds": [
-        "S-GMB-FD"
+        "S-GMB-OP"
       ],
       "validAsOf": "2026-11-02",
       "reviewer": null,
@@ -505,7 +519,7 @@
         {
           "id": "gmb-issue-1",
           "title": "Élection présidentielle de décembre 2026",
-          "summary": "Élection présidentielle de décembre 2026 : La confiance électorale et la continuité institutionnelle influenceront les investissements et…",
+          "summary": "La confiance électorale et la continuité institutionnelle influenceront les investissements et les rapports entre partis.",
           "tags": [],
           "sourceIds": [
             "S-GMB-WB"
@@ -526,15 +540,13 @@
             "observation du vote",
             "décisions constitutionnelles"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "gmb-issue-2",
           "title": "Dépendance au Sénégal",
-          "summary": "Dépendance au Sénégal : Les tarifs, ponts et procédures de transit influencent les prix domestiques et la mobilité des…",
+          "summary": "Les tarifs, ponts et procédures de transit influencent les prix domestiques et la mobilité des populations.",
           "tags": [],
           "sourceIds": [
             "S-GMB-FD"
@@ -555,15 +567,13 @@
             "tarifs",
             "fonctionnement des liaisons"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "gmb-issue-3",
           "title": "Soutenabilité de la dette",
-          "summary": "Soutenabilité de la dette : Le financement des infrastructures et services dépendra de l’arbitrage entre investissements et…",
+          "summary": "Le financement des infrastructures et services dépendra de l’arbitrage entre investissements et service de dette.",
           "tags": [],
           "sourceIds": [
             "S-GMB-WB"
@@ -584,10 +594,30 @@
             "dette publique",
             "dépenses d’infrastructure"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "gmb-op-1",
+          "title": "Confiance électorale consolidée",
+          "summary": "Un scrutin accepté pourrait améliorer le climat politique et faciliter les décisions d’investissement.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "gmb-risk-1",
+          "title": "Tensions politiques et recul des visiteurs",
+          "summary": "Une contestation électorale doublée d’un choc touristique limiterait les recettes disponibles.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
         }
       ]
     },
@@ -597,7 +627,7 @@
           {
             "id": "gmb-swot-s-1",
             "title": "Position sur le fleuve Gambie",
-            "summary": "Un levier pour Gambie : prévisibilité accrue pour les acteurs économiques",
+            "summary": "Le fleuve Gambie structure les implantations humaines, les activités agricoles et certaines liaisons au sein d'un territoire étroit.",
             "tags": [],
             "sourceIds": [
               "S-GMB-WB"
@@ -606,7 +636,7 @@
           {
             "id": "gmb-swot-s-2",
             "title": "Revenus touristiques et transferts",
-            "summary": "Un levier pour Gambie : les tarifs, ponts et procédures de transit influencent les prix domestiques et la mobilité des populations.",
+            "summary": "Le tourisme et les transferts reçus de l'étranger diversifient les sources de devises, tout en restant sensibles aux chocs extérieurs.",
             "tags": [],
             "sourceIds": [
               "S-GMB-WB"
@@ -617,7 +647,7 @@
           {
             "id": "gmb-swot-w-1",
             "title": "Risque élevé de dette",
-            "summary": "Cette contrainte pèse sur la réponse à élection présidentielle de décembre 2026 et doit être suivie par les indicateurs : calendrier électoral , observation du vote , décisions constitutionnelles.",
+            "summary": "Le risque élevé d'endettement réduit les marges de manœuvre budgétaires pour l'investissement public et les services essentiels.",
             "tags": [],
             "sourceIds": [
               "S-GMB-WB"
@@ -626,10 +656,10 @@
           {
             "id": "gmb-swot-w-2",
             "title": "Réforme constitutionnelle inaboutie",
-            "summary": "Cette contrainte pèse sur la réponse à dépendance au sénégal et doit être suivie par les indicateurs : temps de passage , tarifs , fonctionnement des liaisons.",
+            "summary": "L'absence d'aboutissement de la réforme constitutionnelle entretient des débats sur les règles institutionnelles avant le scrutin de décembre 2026.",
             "tags": [],
             "sourceIds": [
-              "S-GMB-WB"
+              "S-GMB-FD"
             ]
           }
         ],
@@ -637,10 +667,10 @@
           {
             "id": "gmb-swot-o-1",
             "title": "Scrutin crédible et reprise institutionnelle",
-            "summary": "Perspective conditionnelle : processus électoral accepté par les principales forces; son avancement pourrait favoriser prévisibilité accrue pour les acteurs économiques.",
+            "summary": "Un processus électoral accepté et des réformes concertées pourraient renforcer la confiance des acteurs économiques et politiques.",
             "tags": [],
             "sourceIds": [
-              "S-GMB-WB"
+              "S-GMB-FD"
             ]
           }
         ],
@@ -648,10 +678,10 @@
           {
             "id": "gmb-swot-t-1",
             "title": "Tensions électorales et choc touristique",
-            "summary": "Le facteur de rupture à contrôler est : litiges électoraux combinés à une conjoncture extérieure dégradée; cela exposerait le pays à pression supplémentaire sur le financement public.",
+            "summary": "Un contentieux électoral doublé d'un recul du tourisme accroîtrait la pression sur les recettes publiques et les entrées de devises.",
             "tags": [],
             "sourceIds": [
-              "S-GMB-WB"
+              "S-GMB-FD"
             ]
           }
         ]
@@ -756,6 +786,35 @@
           "id": "gmb-watch-3",
           "title": "Tourisme et dette",
           "summary": "Distinguer arrivées semestrielles, recettes et prévisions annuelles.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "gmb-vuln-1",
+          "title": "Poids du service de la dette",
+          "summary": "Les dépenses de remboursement réduisent la latitude budgétaire nécessaire aux investissements de long terme.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        },
+        {
+          "id": "gmb-vuln-2",
+          "title": "Incertitudes institutionnelles",
+          "summary": "L’absence de consensus sur certains changements constitutionnels peut peser sur la confiance avant les élections.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-FD"
+          ]
+        },
+        {
+          "id": "gmb-vuln-3",
+          "title": "Vulnérabilité du tourisme",
+          "summary": "La dépendance aux visiteurs extérieurs rend les recettes et les emplois sensibles à une baisse de fréquentation.",
           "tags": [],
           "sourceIds": [
             "S-GMB-WB"

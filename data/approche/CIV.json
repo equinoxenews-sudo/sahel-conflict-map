@@ -146,7 +146,7 @@
       "id": "civ-politics-regime",
       "countryCode": "CIV",
       "key": "politics.regime",
-      "label": "Régime institutionnel",
+      "label": "Régime politique",
       "value": "République à régime présidentiel",
       "unit": null,
       "referencePeriod": "2026",
@@ -565,7 +565,7 @@
         {
           "id": "civ-issue-1",
           "title": "Transformation du cacao et du cajou",
-          "summary": "Transformation du cacao et du cajou : La montée dans la chaîne de valeur peut amortir la sensibilité du pays aux cours bruts et accro…",
+          "summary": "La montée dans la chaîne de valeur peut amortir la sensibilité du pays aux cours bruts et accroître les revenus de transformation.",
           "tags": [],
           "sourceIds": [
             "S-CIV-WB"
@@ -586,15 +586,13 @@
             "part de production transformée",
             "prix producteurs"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "civ-issue-2",
           "title": "Croissance et concentration urbaine",
-          "summary": "Croissance et concentration urbaine : La diffusion vers l’intérieur, la formation et l’emploi conditionne la stabilité sociale du mod…",
+          "summary": "La diffusion vers l’intérieur, la formation et l’emploi conditionne la stabilité sociale du modèle de croissance.",
           "tags": [],
           "sourceIds": [
             "S-CIV-FD"
@@ -615,15 +613,13 @@
             "infrastructures régionales",
             "pauvreté"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "civ-issue-3",
           "title": "Sécurité au contact du Sahel",
-          "summary": "Sécurité au contact du Sahel : La protection des populations et la continuité commerciale deviennent une question transversale…",
+          "summary": "La protection des populations et la continuité commerciale deviennent une question transversale de sécurité et de développement.",
           "tags": [],
           "sourceIds": [
             "S-CIV-FD"
@@ -644,10 +640,30 @@
             "services frontaliers",
             "incidents rapportés"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "civ-op-1",
+          "title": "Transformation des filières agricoles",
+          "summary": "Une plus grande part des récoltes transformée localement permettrait de diversifier les revenus tirés du cacao et de l’anacarde.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "civ-risk-1",
+          "title": "Conjonction de chocs agricoles et sécuritaires",
+          "summary": "Les pertes de récolte et les entraves au transit pourraient se cumuler dans les zones frontalières.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ]
         }
       ]
     },
@@ -657,7 +673,7 @@
           {
             "id": "civ-swot-s-1",
             "title": "Cacao et noix de cajou",
-            "summary": "Un levier pour Côte d’Ivoire : diversification des recettes et de l’emploi",
+            "summary": "La production de cacao et d'anacarde soutient les exportations et offre un socle pour développer davantage de transformation locale.",
             "tags": [],
             "sourceIds": [
               "S-CIV-WB"
@@ -666,7 +682,7 @@
           {
             "id": "civ-swot-s-2",
             "title": "Réseaux de transport",
-            "summary": "Un levier pour Côte d’Ivoire : la diffusion vers l’intérieur, la formation et l’emploi conditionne la stabilité sociale du modèle de croissance.",
+            "summary": "Les axes reliant Abidjan et les autres pôles de transport aux régions intérieures facilitent la circulation des biens et l'intégration économique.",
             "tags": [],
             "sourceIds": [
               "S-CIV-FD"
@@ -677,7 +693,7 @@
           {
             "id": "civ-swot-w-1",
             "title": "Dépendance aux produits agricoles",
-            "summary": "Cette contrainte pèse sur la réponse à transformation du cacao et du cajou et doit être suivie par les indicateurs : capacités industrielles , part de production transformée , prix producteurs.",
+            "summary": "Une concentration des recettes sur quelques cultures expose les revenus ruraux aux variations des cours et aux aléas de production.",
             "tags": [],
             "sourceIds": [
               "S-CIV-WB"
@@ -686,7 +702,7 @@
           {
             "id": "civ-swot-w-2",
             "title": "Inégalités territoriales",
-            "summary": "Cette contrainte pèse sur la réponse à croissance et concentration urbaine et doit être suivie par les indicateurs : création d’emplois , infrastructures régionales , pauvreté.",
+            "summary": "L'écart d'accès à l'emploi et aux infrastructures entre les territoires peut limiter la redistribution des bénéfices de la croissance.",
             "tags": [],
             "sourceIds": [
               "S-CIV-FD"
@@ -697,7 +713,7 @@
           {
             "id": "civ-swot-o-1",
             "title": "Essor industriel agro-exportateur",
-            "summary": "Perspective conditionnelle : investissements industriels opérationnels; son avancement pourrait favoriser diversification des recettes et de l’emploi.",
+            "summary": "Le développement d'unités de transformation du cacao et de la noix de cajou pourrait créer davantage de valeur et d'emplois sur place.",
             "tags": [],
             "sourceIds": [
               "S-CIV-WB"
@@ -708,7 +724,7 @@
           {
             "id": "civ-swot-t-1",
             "title": "Choc simultané agricole et frontalier",
-            "summary": "Le facteur de rupture à contrôler est : baisse de revenus agricoles et perturbations frontalières; cela exposerait le pays à tensions budgétaires et difficultés rurales.",
+            "summary": "La combinaison d'un choc sur les récoltes et d'une dégradation de la sécurité aux frontières septentrionales pèserait sur les revenus et la logistique.",
             "tags": [],
             "sourceIds": [
               "S-CIV-FD"
@@ -819,6 +835,35 @@
           "tags": [],
           "sourceIds": [
             "S-CIV-FD"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "civ-vuln-1",
+          "title": "Revenus agricoles volatils",
+          "summary": "Une mauvaise campagne agricole ou une baisse des cours peut affecter les revenus des producteurs de cacao et d’anacarde.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ]
+        },
+        {
+          "id": "civ-vuln-2",
+          "title": "Développement territorial inégal",
+          "summary": "Les bénéfices des activités de services et de transport sont moins accessibles aux régions éloignées des principaux pôles.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ]
+        },
+        {
+          "id": "civ-vuln-3",
+          "title": "Sécurité frontalière septentrionale",
+          "summary": "Les tensions sécuritaires au contact du Sahel risquent de perturber les déplacements et les circuits commerciaux locaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
           ]
         }
       ]

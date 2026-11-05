@@ -174,7 +174,7 @@
       "id": "cpv-politics-regime",
       "countryCode": "CPV",
       "key": "politics.regime",
-      "label": "Régime institutionnel",
+      "label": "Régime politique",
       "value": "République parlementaire",
       "unit": null,
       "referencePeriod": "2026",
@@ -565,7 +565,7 @@
         {
           "id": "cpv-issue-1",
           "title": "Réseau de transport entre les îles",
-          "summary": "Réseau de transport entre les îles : Les coûts de fret réduisent les marges agricoles et halieutiques et limitent la diversification…",
+          "summary": "Les coûts de fret réduisent les marges agricoles et halieutiques et limitent la diversification touristique hors des îles principales.",
           "tags": [],
           "sourceIds": [
             "S-CPV-ECO"
@@ -586,15 +586,13 @@
             "coût du fret",
             "couverture des dessertes"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "cpv-issue-2",
           "title": "Élections et cohabitation institutionnelle",
-          "summary": "Élections et cohabitation institutionnelle : Le résultat du vote pourrait recomposer les équilibres entre présidence et majorité parlementai…",
+          "summary": "Le résultat du vote pourrait recomposer les équilibres entre présidence et majorité parlementaire.",
           "tags": [],
           "sourceIds": [
             "S-CPV-DEC"
@@ -615,15 +613,13 @@
             "taux de participation",
             "composition gouvernementale"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "cpv-issue-3",
           "title": "Tourisme et dette publique",
-          "summary": "Tourisme et dette publique : La soutenabilité dépend de la capacité à diversifier les recettes et à maîtriser le financement…",
+          "summary": "La soutenabilité dépend de la capacité à diversifier les recettes et à maîtriser le financement des transports.",
           "tags": [],
           "sourceIds": [
             "S-CPV-ECO"
@@ -644,10 +640,30 @@
             "recettes touristiques",
             "engagements des entreprises publiques"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "cpv-op-1",
+          "title": "Desserte régulière des îles",
+          "summary": "Des transports inter-îles mieux assurés faciliteraient le tourisme diversifié et l’accès des résidents aux services.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "cpv-risk-1",
+          "title": "Choc sur les arrivées et la logistique",
+          "summary": "Une contraction de la demande touristique combinée à des perturbations de desserte pèserait sur les recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-WB"
+          ]
         }
       ]
     },
@@ -657,7 +673,7 @@
           {
             "id": "cpv-swot-s-1",
             "title": "Tourisme international",
-            "summary": "Un levier pour Cap-Vert : activité mieux répartie entre les îles",
+            "summary": "Le tourisme international soutient une part importante de l'activité et des recettes en devises, bien que ses retombées varient entre les îles.",
             "tags": [],
             "sourceIds": [
               "S-CPV-WB"
@@ -666,7 +682,7 @@
           {
             "id": "cpv-swot-s-2",
             "title": "Alternance institutionnelle",
-            "summary": "Un levier pour Cap-Vert : le résultat du vote pourrait recomposer les équilibres entre présidence et majorité parlementaire.",
+            "summary": "La continuité des institutions et la pratique des alternances offrent un cadre de prévisibilité au débat politique et aux investissements.",
             "tags": [],
             "sourceIds": [
               "S-CPV-DEC"
@@ -677,7 +693,7 @@
           {
             "id": "cpv-swot-w-1",
             "title": "Coût des liaisons inter-îles",
-            "summary": "Cette contrainte pèse sur la réponse à réseau de transport entre les îles et doit être suivie par les indicateurs : fréquence des traversées , coût du fret , couverture des dessertes.",
+            "summary": "Le coût et l'irrégularité possible des liaisons maritimes et aériennes entre îles limitent l'accès aux services et la mobilité économique.",
             "tags": [],
             "sourceIds": [
               "S-CPV-ECO"
@@ -686,7 +702,7 @@
           {
             "id": "cpv-swot-w-2",
             "title": "Dette et entreprises publiques",
-            "summary": "Cette contrainte pèse sur la réponse à élections et cohabitation institutionnelle et doit être suivie par les indicateurs : calendrier cne , taux de participation , composition gouvernementale.",
+            "summary": "Les contraintes d'endettement et la situation financière d'entreprises publiques réduisent les marges pour moderniser les infrastructures.",
             "tags": [],
             "sourceIds": [
               "S-CPV-ECO"
@@ -697,7 +713,7 @@
           {
             "id": "cpv-swot-o-1",
             "title": "Connectivité réformée et diversification",
-            "summary": "Perspective conditionnelle : réforme des contrats et augmentation des fréquences; son avancement pourrait favoriser activité mieux répartie entre les îles.",
+            "summary": "Une desserte inter-îles plus fiable faciliterait la circulation des habitants et une meilleure diffusion des revenus touristiques.",
             "tags": [],
             "sourceIds": [
               "S-CPV-ECO"
@@ -708,7 +724,7 @@
           {
             "id": "cpv-swot-t-1",
             "title": "Choc touristique et isolement inter-îles",
-            "summary": "Le facteur de rupture à contrôler est : conjoncture européenne dégradée et dessertes irrégulières; cela exposerait le pays à pression sur les revenus et les comptes publics.",
+            "summary": "Une baisse de la fréquentation touristique simultanée à des perturbations de transport accentuerait les contraintes sur l'emploi et les recettes.",
             "tags": [],
             "sourceIds": [
               "S-CPV-ECO"
@@ -819,6 +835,35 @@
           "tags": [],
           "sourceIds": [
             "S-CPV-ECO"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "cpv-vuln-1",
+          "title": "Fragilité de la connectivité insulaire",
+          "summary": "Les variations de fréquence et de coût des transports peuvent isoler les îles et désorganiser les chaînes d’approvisionnement.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-WB"
+          ]
+        },
+        {
+          "id": "cpv-vuln-2",
+          "title": "Concentration touristique",
+          "summary": "Une mauvaise saison touristique ou un recul de la demande extérieure se répercuterait sur les revenus et les emplois.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-WB"
+          ]
+        },
+        {
+          "id": "cpv-vuln-3",
+          "title": "Contraintes budgétaires",
+          "summary": "L’endettement et la situation de certains opérateurs publics limitent les investissements de maintenance et de modernisation.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-WB"
           ]
         }
       ]

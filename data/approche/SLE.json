@@ -128,7 +128,7 @@
       "id": "sle-politics-regime",
       "countryCode": "SLE",
       "key": "politics.regime",
-      "label": "Régime institutionnel",
+      "label": "Régime politique",
       "value": "République présidentielle",
       "unit": null,
       "referencePeriod": "2026",
@@ -559,9 +559,7 @@
             "dialogue majorité-opposition",
             "textes promulgués"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
@@ -588,15 +586,13 @@
             "carburants",
             "inflation mensuelle"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
         },
         {
           "id": "sle-issue-3",
           "title": "Agriculture et liens routiers",
-          "summary": "Agriculture et liens routiers : L’accès physique aux marchés peut soutenir la productivité des petites exploitations et le comm…",
+          "summary": "L’accès physique aux marchés peut soutenir la productivité des petites exploitations et le commerce régional.",
           "tags": [],
           "sourceIds": [
             "S-SLE-BR"
@@ -617,10 +613,30 @@
             "prix agricoles",
             "trafic du corridor"
           ],
-          "uncertainties": [
-            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
-          ],
+          "uncertainties": [],
           "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "sle-op-1",
+          "title": "Accord sur les règles électorales",
+          "summary": "Un compromis institutionnel pourrait diminuer la polarisation et rendre les réformes économiques plus prévisibles.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "sle-risk-1",
+          "title": "Choc inflationniste et conflit politique",
+          "summary": "Une accélération des prix pendant un blocage électoral accroîtrait les tensions sociales.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
         }
       ]
     },
@@ -630,7 +646,7 @@
           {
             "id": "sle-swot-s-1",
             "title": "Ressources minérales",
-            "summary": "Un levier pour Sierra Leone : prévisibilité accrue des investissements",
+            "summary": "Les ressources minérales offrent des recettes d'exportation et des possibilités d'investissement, à condition de mieux diffuser leurs retombées.",
             "tags": [],
             "sourceIds": [
               "S-SLE-WB"
@@ -639,7 +655,7 @@
           {
             "id": "sle-swot-s-2",
             "title": "Agriculture et corridors",
-            "summary": "Un levier pour Sierra Leone : la baisse du pouvoir d’achat menace les acquis de la stabilisation monétaire.",
+            "summary": "Le renforcement des liaisons agricoles et routières pourrait faciliter les échanges entre les producteurs, les villes et les marchés.",
             "tags": [],
             "sourceIds": [
               "S-SLE-BR"
@@ -650,7 +666,7 @@
           {
             "id": "sle-swot-w-1",
             "title": "Inflation à nouveau élevée",
-            "summary": "Cette contrainte pèse sur la réponse à réforme électorale avant 2028 et doit être suivie par les indicateurs : décisions de la cour suprême , dialogue majorité-opposition , textes promulgués.",
+            "summary": "Une nouvelle accélération des prix érode le pouvoir d'achat et complique les arbitrages des ménages à faibles revenus.",
             "tags": [],
             "sourceIds": [
               "S-SLE-WB"
@@ -659,7 +675,7 @@
           {
             "id": "sle-swot-w-2",
             "title": "Polarisation du débat électoral",
-            "summary": "Cette contrainte pèse sur la réponse à reprise de l’inflation en 2026 et doit être suivie par les indicateurs : prix alimentaires , carburants , inflation mensuelle.",
+            "summary": "Les désaccords sur la réforme électorale risquent d'entretenir la polarisation entre formations politiques avant le prochain cycle électoral.",
             "tags": [],
             "sourceIds": [
               "S-SLE-WB"
@@ -670,7 +686,7 @@
           {
             "id": "sle-swot-o-1",
             "title": "Réforme électorale négociée",
-            "summary": "Perspective conditionnelle : dialogue politique effectif et arbitrages acceptés; son avancement pourrait favoriser prévisibilité accrue des investissements.",
+            "summary": "Un accord sur les règles électorales renforcerait la prévisibilité institutionnelle et pourrait réduire les tensions politiques.",
             "tags": [],
             "sourceIds": [
               "S-SLE-WB"
@@ -681,7 +697,7 @@
           {
             "id": "sle-swot-t-1",
             "title": "Réforme contestée et choc de prix",
-            "summary": "Le facteur de rupture à contrôler est : impasses institutionnelles et hausse importée des prix; cela exposerait le pays à instabilité sociale et retards de projets.",
+            "summary": "Une réforme électorale contestée conjuguée à un choc inflationniste fragiliserait la confiance politique et les revenus des ménages.",
             "tags": [],
             "sourceIds": [
               "S-SLE-WB"
@@ -792,6 +808,35 @@
           "tags": [],
           "sourceIds": [
             "S-SLE-BR"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "sle-vuln-1",
+          "title": "Risque inflationniste",
+          "summary": "Un nouvel épisode de hausse des prix peut amoindrir le revenu réel et accroître la pression sociale.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        },
+        {
+          "id": "sle-vuln-2",
+          "title": "Polarisation politique",
+          "summary": "Les désaccords sur les règles électorales risquent de freiner la coopération institutionnelle.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-FD"
+          ]
+        },
+        {
+          "id": "sle-vuln-3",
+          "title": "Faible diffusion des revenus miniers",
+          "summary": "Sans investissements et emplois en aval, les exportations de minerais peuvent bénéficier inégalement aux territoires.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
           ]
         }
       ]
