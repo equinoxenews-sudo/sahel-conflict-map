@@ -73,3 +73,39 @@ export function distinctIds(ids: (number | null | undefined)[]): number[] {
   for (const id of ids) if (typeof id === "number") seen.add(id);
   return [...seen];
 }
+
+// --- Style « anneaux » (essai, piste 2 de docs/PROPOSITIONS_POINTS_GLOBE.md) -------------------------------------------------------
+// Un groupe devient un anneau creux avec un petit point plein au centre ; un événement isolé, un point plein net, sans halo ni reflet.
+// Activé par l'adresse (?points=anneaux) ; sans ce paramètre, l'affichage actuel (disques) est inchangé.
+
+export type PointStyle = "disques" | "anneaux";
+
+export const POINT_STYLE_PARAM = "points";
+
+/** Style demandé par l'adresse (« ?points=anneaux ») ; tout le reste donne l'affichage actuel. */
+export function pointStyleFromSearch(search: string): PointStyle {
+  return new URLSearchParams(search).get(POINT_STYLE_PARAM) === "anneaux" ? "anneaux" : "disques";
+}
+
+/** À partir de ce nombre d'événements, un second anneau très fin entoure le premier. */
+export const RING_DOUBLE_FROM = 100;
+const RING_FIRST = 20;
+const RING_MAX = 48;
+/** Marge (pixels) de l'image autour de l'anneau : place du second anneau et du lissage des bords. */
+const RING_MARGIN = 8;
+/** Écart (pixels) entre l'anneau et le second anneau. */
+const RING_GAP = 6;
+
+/**
+ * Diamètre extérieur (pixels) de l'anneau d'un groupe : 5 événements → 20 px, 12 → 25, 30 → 31, 90 → 38, 260 → 44, puis plafond à 48.
+ * Moins de 5 événements : pas de groupe (0).
+ */
+export function ringDiameter(count: number): number {
+  if (count < CLUSTER_MIN_SIZE) return 0;
+  return Math.round(Math.min(RING_MAX, RING_FIRST + 4.2 * Math.log2(count / CLUSTER_MIN_SIZE)));
+}
+
+/** Côté de l'image d'un anneau (diamètre, second anneau et marge). */
+export function ringCanvasSize(diameter: number): number {
+  return diameter + 2 * (RING_MARGIN + RING_GAP);
+}

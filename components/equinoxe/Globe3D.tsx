@@ -17,7 +17,7 @@ import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
 import { isHomeZone, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
 import { globeCountryInfo } from "@/lib/globeCountry";
 import { getHoveredBrief, onHoveredBrief } from "@/lib/briefHover";
-import { CLUSTER_MIN_SIZE, CLUSTER_PIXEL_RANGE, GLOBE_CLUSTERING_ENABLED, GLOBE_TEST_TOOLS, clusterDotCanvasSize, clusterDotDiameter, distinctIds, explodedAtHeight, isColocated, type EventMode } from "@/lib/globeClustering";
+import { CLUSTER_MIN_SIZE, CLUSTER_PIXEL_RANGE, GLOBE_CLUSTERING_ENABLED, GLOBE_TEST_TOOLS, RING_DOUBLE_FROM, clusterDotCanvasSize, clusterDotDiameter, distinctIds, explodedAtHeight, isColocated, pointStyleFromSearch, ringCanvasSize, ringDiameter, type EventMode } from "@/lib/globeClustering";
 import styles from "./Globe3D.module.css";
 import type { GlobeDateRange } from "./GlobeTimeRange";
 
@@ -236,6 +236,69 @@ function clusterDotImage(diameter: number): string {
   const url = canvas.toDataURL();
   clusterDots.set(diameter, url);
   return url;
+}
+
+const clusterRings = new Map<string, string>();
+/** Anneau d'un groupe (style « anneaux ») : liseré rouge net, intérieur presque transparent, petit point plein au centre, second anneau très fin pour les gros groupes. */
+function clusterRingImage(count: number): string {
+  const diameter = ringDiameter(count);
+  const double = count >= RING_DOUBLE_FROM;
+  const key = `${diameter}-${double}`;
+  const cached = clusterRings.get(key);
+  if (cached) return cached;
+  const ratio = 3;
+  const size = ringCanvasSize(diameter);
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size * ratio;
+  const ctx = canvas.getContext("2d")!;
+  ctx.scale(ratio, ratio);
+  const c = size / 2;
+  const r = diameter / 2;
+  if (double) {
+    ctx.beginPath();
+    ctx.arc(c, c, r + 6, 0, Math.PI * 2);
+    ctx.strokeStyle = `${DOT_COLOR}59`;
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+  ctx.beginPath();
+  ctx.arc(c, c, r - 1, 0, Math.PI * 2);
+  ctx.fillStyle = `${DOT_COLOR}1a`;
+  ctx.fill();
+  ctx.strokeStyle = DOT_COLOR;
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  // Point central plein, cerclé de la couleur de fond du site pour rester net sur n'importe quel pays.
+  ctx.beginPath();
+  ctx.arc(c, c, 3.5, 0, Math.PI * 2);
+  ctx.fillStyle = DOT_COLOR;
+  ctx.fill();
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#0c1726";
+  ctx.stroke();
+  const url = canvas.toDataURL();
+  clusterRings.set(key, url);
+  return url;
+}
+
+let plainDotCanvas: HTMLCanvasElement | null = null;
+/** Point isolé du style « anneaux » : disque plein net, contour sombre d'1 px, sans halo ni reflet (même emprise que glowDot). */
+function plainDot(): HTMLCanvasElement {
+  if (plainDotCanvas) return plainDotCanvas;
+  const canvas = document.createElement("canvas");
+  canvas.width = DOT_PX;
+  canvas.height = DOT_PX;
+  const ctx = canvas.getContext("2d")!;
+  const c = DOT_PX / 2;
+  ctx.beginPath();
+  ctx.arc(c, c, DOT_PX * 0.2, 0, Math.PI * 2);
+  ctx.fillStyle = DOT_COLOR;
+  ctx.fill();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = "#0c1726";
+  ctx.stroke();
+  plainDotCanvas = canvas;
+  return canvas;
 }
 
 const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
@@ -1267,6 +1330,8 @@ export default function Globe3D({
       const eventSource = new Cesium.CustomDataSource("events");
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const EVENT_DOT = 22;
+      // Style des points : « disques » (actuel) ou « anneaux » (essai, ?points=anneaux).
+      const ringStyle = pointStyleFromSearch(window.location.search) === "anneaux";
       const spreadOffsets = eventOffsets(analystEvents, EVENT_DOT * 0.6);
       for (const [index, ev] of analystEvents.entries()) {
         const where = [ev.place, ev.country].filter(Boolean).join(", ");
@@ -1319,7 +1384,7 @@ export default function Globe3D({
         eventSource.entities.add({
           position: Cesium.Cartesian3.fromDegrees(ev.lon, ev.lat, 0),
           billboard: {
-            image: glowDot(),
+            image: ringStyle ? plainDot() : glowDot(),
             width: size,
             height: size,
             // Article survolé dans le bandeau : point plus gros.
@@ -1351,14 +1416,14 @@ export default function Globe3D({
           // Jamais de groupe invisible : un groupe de Cesium compte des marqueurs, pas des événements (doublons éventuels dans les
           // données) ; son point a au moins la taille du plus petit palier.
           const count = Math.max(distinctIds(clustered.map((e) => e.properties?.eventId?.getValue())).length, clustered.length, CLUSTER_MIN_SIZE);
-          const diameter = clusterDotDiameter(count);
+          const diameter = ringStyle ? ringDiameter(count) : clusterDotDiameter(count);
           cluster.label.show = false;
           cluster.point.show = false;
           const marker = cluster.billboard;
           marker.show = true;
-          marker.image = clusterDotImage(diameter);
-          marker.width = clusterDotCanvasSize(diameter);
-          marker.height = clusterDotCanvasSize(diameter);
+          marker.image = ringStyle ? clusterRingImage(count) : clusterDotImage(diameter);
+          marker.width = ringStyle ? ringCanvasSize(diameter) : clusterDotCanvasSize(diameter);
+          marker.height = ringStyle ? ringCanvasSize(diameter) : clusterDotCanvasSize(diameter);
           marker.verticalOrigin = Cesium.VerticalOrigin.CENTER;
           marker.eyeOffset = new Cesium.Cartesian3(0, 0, -50);
           marker.id = clustered;

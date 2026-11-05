@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { explodedAtHeight, clusterDotCanvasSize, clusterDotDiameter, distanceMeters, distinctIds, isColocated } from "../lib/globeClustering";
+import { explodedAtHeight, clusterDotCanvasSize, clusterDotDiameter, distanceMeters, distinctIds, isColocated, pointStyleFromSearch, ringCanvasSize, ringDiameter, RING_DOUBLE_FROM } from "../lib/globeClustering";
 
 test("un groupe se forme à partir de 5 événements et son point grandit par paliers de 5, sans jamais être gros", () => {
   assert.equal(clusterDotDiameter(2), 0);
@@ -41,4 +41,26 @@ test("au zoom proche les groupes éclatent, avec un écart pour ne pas osciller 
   assert.equal(explodedAtHeight(false, 600_000), false, "entre les deux seuils, l'état ne change pas");
   assert.equal(explodedAtHeight(true, 600_000), true);
   assert.equal(explodedAtHeight(true, 800_000), false, "on s'éloigne : regroupé de nouveau");
+});
+
+test("style anneaux : activé seulement par l'adresse, l'affichage actuel reste la valeur par défaut", () => {
+  assert.equal(pointStyleFromSearch(""), "disques");
+  assert.equal(pointStyleFromSearch("?zone=afrique"), "disques");
+  assert.equal(pointStyleFromSearch("?points=anneaux"), "anneaux");
+  assert.equal(pointStyleFromSearch("?evenements-test=1000&points=anneaux"), "anneaux");
+  assert.equal(pointStyleFromSearch("?points=autre"), "disques");
+});
+
+test("anneaux : diamètre 20 px à 5 événements, croissance logarithmique, plafond à 48 px, second anneau à partir de 100", () => {
+  assert.equal(ringDiameter(4), 0, "moins de 5 : pas de groupe");
+  assert.equal(ringDiameter(5), 20);
+  assert.equal(ringDiameter(12), 25);
+  assert.equal(ringDiameter(30), 31);
+  assert.equal(ringDiameter(90), 38);
+  assert.equal(ringDiameter(260), 44);
+  assert.equal(ringDiameter(640), 48);
+  assert.equal(ringDiameter(1_000_000), 48, "plafond strict");
+  for (let count = 5; count < 2000; count++) assert.ok(ringDiameter(count + 1) >= ringDiameter(count));
+  assert.equal(RING_DOUBLE_FROM, 100);
+  assert.ok(ringCanvasSize(48) >= 48 + 2 * 6, "l'image contient le second anneau");
 });
