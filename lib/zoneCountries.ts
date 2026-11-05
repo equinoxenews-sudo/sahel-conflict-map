@@ -78,6 +78,7 @@ export const ZONE_COUNTRIES: Record<string, readonly ZoneCountry[]> = {
     {"slug":"burkina-faso","name":"Burkina Faso","iso3":"BFA"},
     {"slug":"burundi","name":"Burundi","iso3":"BDI"},
     {"slug":"cameroun","name":"Cameroun","iso3":"CMR"},
+    {"slug":"cap-vert","name":"Cap-Vert","iso3":"CPV"},
     {"slug":"cote-d-ivoire","name":"Côte d'Ivoire","iso3":"CIV"},
     {"slug":"djibouti","name":"Djibouti","iso3":"DJI"},
     {"slug":"erythree","name":"Érythrée","iso3":"ERI"},

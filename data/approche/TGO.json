@@ -1,0 +1,879 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "TGO",
+  "slug": "togo",
+  "zoneSlug": "afrique",
+  "name": "Togo",
+  "officialName": "République togolaise",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-TGO-WB",
+      "publisher": "Banque mondiale",
+      "title": "Togo — présentation et conjoncture 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/togo",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-TGO-FD",
+      "publisher": "France Diplomatie",
+      "title": "Togo — présentation du Togo, actualisée le 30 octobre 2026",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/togo/presentation-du-togo",
+      "publishedAt": "2026-10-30",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Attribution factuelle à France Diplomatie ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-TGO-GOV",
+      "publisher": "Présidence de la République togolaise",
+      "title": "Jean-Lucien Kwassi Lanyo Savi de Tové — biographie officielle",
+      "canonicalUrl": "https://presidence.gouv.tg/presidents/jean-lucien-kwassi-lanyo-savi-de-tove/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Présidence de la République togolaise",
+      "methodNotes": "Attribution factuelle à Présidence de la République togolaise ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-TGO-COUNCIL",
+      "publisher": "Présidence du Conseil du Togo",
+      "title": "Faure Essozimna Gnassingbé, président du Conseil",
+      "canonicalUrl": "https://presidenceduconseil.gouv.tg/president-du-conseil/sem-faure-essozimna-gnassingbe/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Présidence du Conseil du Togo",
+      "methodNotes": "Source institutionnelle spécifique pour les fonctions dirigeantes ; citation factuelle uniquement."
+    }
+  ],
+  "observations": [
+    {
+      "id": "tgo-identity-capital",
+      "countryCode": "TGO",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Lomé",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Togo",
+      "methodology": "Capitale administrative indiquée par la source de référence du pays.",
+      "sourceIds": [
+        "S-TGO-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tgo-identity-language",
+      "countryCode": "TGO",
+      "key": "identity.language",
+      "label": "Langue officielle",
+      "value": "Français",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Togo",
+      "methodology": "Langue constitutionnelle ou administrative indiquée par la source.",
+      "sourceIds": [
+        "S-TGO-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tgo-identity-currency",
+      "countryCode": "TGO",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc CFA (XOF)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Togo",
+      "methodology": "Devise nationale indiquée par la source pays ; sans conversion de taux de change.",
+      "sourceIds": [
+        "S-TGO-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tgo-politics-head-of-state",
+      "countryCode": "TGO",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Jean-Lucien Savi de Tové",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Togo",
+      "methodology": "Fonction et titulaire vérifiés au 2 novembre 2026 ; distinguer les régimes de transition.",
+      "sourceIds": [
+        "S-TGO-GOV"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tgo-politics-head-of-government",
+      "countryCode": "TGO",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Faure Essozimna Gnassingbé (président du Conseil)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Togo",
+      "methodology": "Titulaire et fonction vérifiés ; ne pas déduire la répartition des pouvoirs du seul intitulé.",
+      "sourceIds": [
+        "S-TGO-COUNCIL"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tgo-politics-regime",
+      "countryCode": "TGO",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République parlementaire ; exécutif conduit par le président du Conseil",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Togo",
+      "methodology": "Qualification politique à la date de consultation ; contexte de transition précisé si nécessaire.",
+      "sourceIds": [
+        "S-TGO-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tgo-geography-area-official",
+      "countryCode": "TGO",
+      "key": "geography.area.official",
+      "label": "Superficie du territoire",
+      "value": 56785,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Togo",
+      "methodology": "Superficie publiée dans la fiche nationale ; vérifier les périmètres en cas d’écart avec la série mondiale.",
+      "sourceIds": [
+        "S-TGO-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "tgo-institutions-ecowas",
+      "countryCode": "TGO",
+      "key": "institutions.ecowas",
+      "label": "Membre de la CEDEAO",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Togo",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-TGO-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tgo-institutions-uemoa",
+      "countryCode": "TGO",
+      "key": "institutions.uemoa",
+      "label": "Membre de l’UEMOA",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Togo",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-TGO-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tgo-economy-growth-2025-imf",
+      "countryCode": "TGO",
+      "key": "economy.growth_2025_imf",
+      "label": "Croissance du PIB, FMI 2025",
+      "value": 5.2,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Togo",
+      "methodology": "Croissance économique citée par France Diplomatie selon le FMI.",
+      "sourceIds": [
+        "S-TGO-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "tgo-demography-rural-poverty-wb",
+      "countryCode": "TGO",
+      "key": "demography.rural_poverty_wb",
+      "label": "Pauvreté en zone rurale",
+      "value": 58.2,
+      "unit": "%",
+      "referencePeriod": "année d’enquête non précisée",
+      "geographicScope": "Togo",
+      "methodology": "Taux de pauvreté national pour le milieu rural ; année d’enquête à confirmer avant comparaison temporelle.",
+      "sourceIds": [
+        "S-TGO-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": null,
+      "status": "pending",
+      "dataKind": "observed",
+      "uncertainty": "Millésime de la donnée non établi : contrôle documentaire nécessaire."
+    },
+    {
+      "id": "tgo-demography-urban-poverty-wb",
+      "countryCode": "TGO",
+      "key": "demography.urban_poverty_wb",
+      "label": "Pauvreté en zone urbaine",
+      "value": 26.2,
+      "unit": "%",
+      "referencePeriod": "année d’enquête non précisée",
+      "geographicScope": "Togo",
+      "methodology": "Taux de pauvreté national pour le milieu urbain ; non comparable directement à une autre définition internationale.",
+      "sourceIds": [
+        "S-TGO-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": null,
+      "status": "pending",
+      "dataKind": "observed",
+      "uncertainty": "Millésime de la donnée non établi : contrôle documentaire nécessaire."
+    },
+    {
+      "id": "tgo-humanitarian-purs-target",
+      "countryCode": "TGO",
+      "key": "humanitarian.purs_target",
+      "label": "Population visée par PURS",
+      "value": 433758,
+      "unit": "personnes",
+      "referencePeriod": "2026",
+      "geographicScope": "Togo",
+      "methodology": "Population ciblée par le programme, incluant déplacés, réfugiés et communautés hôtes ; pas le nombre de déplacés.",
+      "sourceIds": [
+        "S-TGO-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "tgo-claim-1",
+      "countryCode": "TGO",
+      "statement": "Togo : Lomé est la capitale du pays.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-TGO-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "tgo-claim-2",
+      "countryCode": "TGO",
+      "statement": "En 2026, la fonction de chef de l’État de Togo est exercée par Jean-Lucien Savi de Tové.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-TGO-GOV"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "tgo-claim-3",
+      "countryCode": "TGO",
+      "statement": "Le taux publié en milieu rural dépasse fortement celui des villes, illustrant des besoins territoriaux différenciés.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-TGO-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "tgo-claim-4",
+      "countryCode": "TGO",
+      "statement": "La façade maritime et les échanges avec les pays enclavés offrent des débouchés logistiques régionaux.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-TGO-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "tgo-claim-5",
+      "countryCode": "TGO",
+      "statement": "La réforme de 2025 répartit la fonction représentative et la conduite effective de l’exécutif entre deux personnalités.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-TGO-GOV",
+        "S-TGO-COUNCIL"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "tgo-rel-1",
+      "countryCode": "TGO",
+      "targetCode": "BEN",
+      "targetIso2": "BJ",
+      "targetName": "Bénin",
+      "relationType": "cooperation",
+      "title": "Corridor commercial et voisinage",
+      "topics": [],
+      "summary": "Le transit vers Cotonou et les échanges côtiers participent aux connexions économiques du Togo.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-TGO-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "tgo-rel-2",
+      "countryCode": "TGO",
+      "targetCode": "GHA",
+      "targetIso2": "GH",
+      "targetName": "Ghana",
+      "relationType": "cooperation",
+      "title": "Frontière ouest et commerce régional",
+      "topics": [],
+      "summary": "Le voisinage ghanéen structure les échanges terrestres et les services transfrontaliers.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-TGO-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "tgo-rel-3",
+      "countryCode": "TGO",
+      "targetCode": "BFA",
+      "targetIso2": "BF",
+      "targetName": "Burkina Faso",
+      "relationType": "cooperation",
+      "title": "Frontière septentrionale et prévention",
+      "topics": [],
+      "summary": "Les régions frontalières avec le Burkina Faso sont concernées par les effets de l’insécurité sahélienne.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-TGO-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "tgo-overview-strengths-1",
+          "title": "Plateforme portuaire de Lomé",
+          "summary": "La façade maritime et les échanges avec les pays enclavés offrent des débouchés logistiques régionaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        },
+        {
+          "id": "tgo-overview-strengths-2",
+          "title": "Programmes de cohésion territoriale",
+          "summary": "PURS et COSO ciblent les communes fragilisées des régions septentrionales.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "tgo-overview-challenges-1",
+          "title": "Écarts de pauvreté",
+          "summary": "Le taux publié en milieu rural dépasse fortement celui des villes, illustrant des besoins territoriaux différenciés.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        },
+        {
+          "id": "tgo-overview-challenges-2",
+          "title": "Insécurité dans les Savanes",
+          "summary": "Les communautés du nord restent exposées à des risques de violence et de déplacement.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "tgo-timeline-1",
+          "title": "Passage au régime parlementaire",
+          "summary": "Élection du président de la République et installation du président du Conseil.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-FD"
+          ],
+          "date": "2025-05-03"
+        },
+        {
+          "id": "tgo-timeline-2",
+          "title": "Renforcement des programmes de cohésion",
+          "summary": "Financement additionnel annoncé pour le projet COSO, lié aux communautés du Nord.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ],
+          "date": "2026-06"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "tgo-sector-1",
+          "title": "Transit portuaire",
+          "summary": "Lomé relie les marchés côtiers aux chaînes logistiques des pays intérieurs.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        },
+        {
+          "id": "tgo-sector-2",
+          "title": "Services et échanges",
+          "summary": "L’activité de services dépend de la fluidité commerciale et des revenus urbains.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        },
+        {
+          "id": "tgo-sector-3",
+          "title": "Agriculture rurale",
+          "summary": "Les conditions agricoles et la pauvreté rurale jouent un rôle majeur dans le développement territorial.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "tgo-resource-1",
+          "title": "Façade du golfe de Guinée",
+          "summary": "Accès maritime essentiel pour l’économie de transit ; aucune capacité portuaire chiffrée n’est inférée.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "tgo-security-1",
+          "title": "Région des Savanes",
+          "summary": "Les risques liés aux violences sahéliennes affectent localement les moyens d’existence et la mobilité.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        },
+        {
+          "id": "tgo-security-2",
+          "title": "Cohésion et résilience",
+          "summary": "Le programme PURS combine réponses sociales et sécuritaires pour les communautés exposées.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "tgo-issue-1",
+          "title": "Architecture du pouvoir exécutif",
+          "summary": "Le président du Conseil détient les compétences de gouvernement : toute analyse politique doit éviter de le confondre avec le chef de l’État.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-GOV",
+            "S-TGO-COUNCIL"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La réforme de 2025 répartit la fonction représentative et la conduite effective de l’exécutif entre deux personnalités.",
+          "whyStrategic": "Le président du Conseil détient les compétences de gouvernement : toute analyse politique doit éviter de le confondre avec le chef de l’État.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Rôle du président du Conseil",
+            "activité du Parlement",
+            "contestations publiques"
+          ],
+          "uncertainties": [],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "tgo-issue-2",
+          "title": "Sécurité de la frontière nord",
+          "summary": "Le fonctionnement des marchés, des services et des axes de transport du nord conditionne la cohésion territoriale.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La région des Savanes reste exposée aux retombées des violences transfrontalières et aux déplacements de populations.",
+          "whyStrategic": "Le fonctionnement des marchés, des services et des axes de transport du nord conditionne la cohésion territoriale.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Accès aux services dans les Savanes",
+            "déplacements",
+            "financement COSO"
+          ],
+          "uncertainties": [],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "tgo-issue-3",
+          "title": "Inégalités rurales",
+          "summary": "Une croissance tirée par les transports et les services risque de produire peu d’effet social sans gains ruraux.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale signale une pauvreté nettement supérieure en milieu rural à celle des villes.",
+          "whyStrategic": "Une croissance tirée par les transports et les services risque de produire peu d’effet social sans gains ruraux.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolution de la pauvreté rurale",
+            "investissement local",
+            "scolarisation"
+          ],
+          "uncertainties": [],
+          "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "tgo-op-1",
+          "title": "Services locaux et cohésion",
+          "summary": "L’amélioration des équipements et services dans les territoires septentrionaux pourrait réduire les disparités constatées.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "tgo-risk-1",
+          "title": "Extension des violences au Nord",
+          "summary": "Une intensification des attaques fragiliserait les circuits d’approvisionnement et les activités rurales.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "tgo-swot-s-1",
+            "title": "Plateforme portuaire de Lomé",
+            "summary": "Le port de Lomé relie le littoral aux économies de l'hinterland ; sa compétitivité dépend de la fluidité des corridors routiers et douaniers.",
+            "tags": [],
+            "sourceIds": [
+              "S-TGO-WB"
+            ]
+          },
+          {
+            "id": "tgo-swot-s-2",
+            "title": "Programmes de cohésion territoriale",
+            "summary": "Les programmes destinés aux localités du Nord constituent un outil de cohésion, dont les résultats doivent être mesurés au niveau des services et de l'emploi.",
+            "tags": [],
+            "sourceIds": [
+              "S-TGO-WB"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "tgo-swot-w-1",
+            "title": "Écarts de pauvreté",
+            "summary": "La persistance des disparités entre espaces urbains et ruraux limite la diffusion des gains économiques et l'accès équitable aux opportunités.",
+            "tags": [],
+            "sourceIds": [
+              "S-TGO-WB"
+            ]
+          },
+          {
+            "id": "tgo-swot-w-2",
+            "title": "Insécurité dans les Savanes",
+            "summary": "La dégradation de la sécurité dans la région des Savanes perturbe la mobilité, les marchés et certaines activités agricoles.",
+            "tags": [],
+            "sourceIds": [
+              "S-TGO-WB"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "tgo-swot-o-1",
+            "title": "Consolidation de la décentralisation",
+            "summary": "L'amélioration concrète des services territoriaux pourrait renforcer la confiance locale et la résilience des communes septentrionales.",
+            "tags": [],
+            "sourceIds": [
+              "S-TGO-WB"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "tgo-swot-t-1",
+            "title": "Extension de l’insécurité septentrionale",
+            "summary": "Une extension de l'insécurité au nord fragiliserait les échanges avec les pays voisins et accentuerait les besoins des populations touchées.",
+            "tags": [],
+            "sourceIds": [
+              "S-TGO-WB"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "tgo-scenario-1",
+          "title": "Consolidation de la décentralisation",
+          "summary": "Si les programmes COSO atteignent les communes du Nord et que l’accès aux services progresse, la fracture territoriale pourrait diminuer.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Mise en œuvre des projets communautaires"
+          ],
+          "triggers": [
+            "Indicateurs de services et d’accès aux marchés"
+          ],
+          "weakSignals": [
+            "Indicateurs de services et d’accès aux marchés"
+          ],
+          "consequences": [
+            "Réduction des tensions locales"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Togo fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "tgo-scenario-2",
+          "title": "Croissance côtière sans rattrapage rural",
+          "summary": "Si le transit par Lomé progresse tandis que la pauvreté rurale persiste, les écarts sociaux demeureraient élevés.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Décalage durable entre économie portuaire et revenus agricoles"
+          ],
+          "triggers": [
+            "Écart de pauvreté rural-urbain"
+          ],
+          "weakSignals": [
+            "Écart de pauvreté rural-urbain"
+          ],
+          "consequences": [
+            "Pression accrue sur les politiques sociales"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Togo fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "tgo-scenario-3",
+          "title": "Extension de l’insécurité septentrionale",
+          "summary": "Une dégradation de la sécurité dans les Savanes pourrait perturber commerces ruraux et investissements.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Détérioration des conditions de sécurité au nord"
+          ],
+          "triggers": [
+            "Évaluations des déplacements et de l’accès aux marchés"
+          ],
+          "weakSignals": [
+            "Évaluations des déplacements et de l’accès aux marchés"
+          ],
+          "consequences": [
+            "Fragilisation des services et des corridors"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Togo fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "tgo-watch-1",
+          "title": "Compétences du président du Conseil",
+          "summary": "Surveiller les décisions exécutives à la suite de la transformation constitutionnelle.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-FD"
+          ]
+        },
+        {
+          "id": "tgo-watch-2",
+          "title": "Savanes et déplacements",
+          "summary": "Suivre la sécurité communautaire, les retours et la fourniture de services.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        },
+        {
+          "id": "tgo-watch-3",
+          "title": "Pauvreté rural-urbain",
+          "summary": "Comparer les indicateurs territoriaux en conservant les périodes d’enquête.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "tgo-vuln-1",
+          "title": "Inégalités territoriales",
+          "summary": "Les écarts de conditions de vie entre centres urbains et zones rurales peuvent réduire l’effet des investissements sur la cohésion sociale.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        },
+        {
+          "id": "tgo-vuln-2",
+          "title": "Sûreté des liaisons septentrionales",
+          "summary": "L’insécurité dans les Savanes fragilise la fréquentation des marchés et la continuité des échanges vers les pays voisins.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-FD"
+          ]
+        },
+        {
+          "id": "tgo-vuln-3",
+          "title": "Dépendance aux corridors",
+          "summary": "L’importance des opérations portuaires rend certaines chaînes de valeur sensibles aux délais et coûts de transport vers l’hinterland.",
+          "tags": [],
+          "sourceIds": [
+            "S-TGO-WB"
+          ]
+        }
+      ]
+    }
+  }
+}

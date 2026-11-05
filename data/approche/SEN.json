@@ -1,0 +1,887 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "SEN",
+  "slug": "senegal",
+  "zoneSlug": "afrique",
+  "name": "Sénégal",
+  "officialName": "République du Sénégal",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-SEN-WB",
+      "publisher": "Banque mondiale",
+      "title": "Sénégal — situation économique et développement en 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/senegal",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-SEN-FD",
+      "publisher": "France Diplomatie",
+      "title": "Sénégal — présentation actualisée le 29 octobre 2026",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/senegal/presentation-du-senegal",
+      "publishedAt": "2026-10-29",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Attribution factuelle à France Diplomatie ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-SEN-PRIM",
+      "publisher": "Primature du Sénégal",
+      "title": "Ahmadou Alhaminou Mohamed LO, Premier ministre",
+      "canonicalUrl": "https://www.primature.sn/le-gouvernement/monsieur-ahmadou-alhaminou-mohamed-lo",
+      "publishedAt": null,
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Primature du Sénégal",
+      "methodNotes": "Source institutionnelle spécifique pour les fonctions dirigeantes ; citation factuelle uniquement."
+    },
+    {
+      "id": "S-SEN-PRES",
+      "publisher": "Présidence de la République du Sénégal",
+      "title": "Profil du nouveau Premier Ministre de la République du Sénégal (25 mai 2026)",
+      "canonicalUrl": "https://www.presidence.sn/fr/actualites/profil-du-nouveau-premier-ministre-de-la-republique-du-senegal/",
+      "publishedAt": "2026-05-25",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Présidence de la République du Sénégal",
+      "methodNotes": "La Présidence emploie « Ahmadou Alhaminou Mohamed LO ». Recoupement institutionnel avec la Primature ; citation factuelle sans réutilisation d’éléments éditoriaux ni de média."
+    }
+  ],
+  "observations": [
+    {
+      "id": "sen-identity-capital",
+      "countryCode": "SEN",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Dakar",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sénégal",
+      "methodology": "Capitale administrative indiquée par la source de référence du pays.",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sen-identity-language",
+      "countryCode": "SEN",
+      "key": "identity.language",
+      "label": "Langue officielle",
+      "value": "Français",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sénégal",
+      "methodology": "Langue constitutionnelle ou administrative indiquée par la source.",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sen-identity-currency",
+      "countryCode": "SEN",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc CFA (XOF)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sénégal",
+      "methodology": "Devise nationale indiquée par la source pays ; sans conversion de taux de change.",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sen-politics-head-of-state",
+      "countryCode": "SEN",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Bassirou Diomaye Faye",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sénégal",
+      "methodology": "Fonction et titulaire vérifiés au 2 novembre 2026 ; distinguer les régimes de transition.",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sen-politics-head-of-government",
+      "countryCode": "SEN",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Ahmadou Alhaminou Mohamed Lô",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sénégal",
+      "methodology": "Identité et fonction vérifiées à la Présidence et à la Primature du Sénégal ; nomination du 25 mai 2026. Variantes de graphie du prénom présentes sur certaines pages officielles.",
+      "sourceIds": [
+        "S-SEN-PRIM",
+        "S-SEN-PRES"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sen-politics-regime",
+      "countryCode": "SEN",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République à exécutif présidentiel et Premier ministre",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sénégal",
+      "methodology": "Qualification politique à la date de consultation ; contexte de transition précisé si nécessaire.",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sen-geography-area-official",
+      "countryCode": "SEN",
+      "key": "geography.area.official",
+      "label": "Superficie du territoire",
+      "value": 196722,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Sénégal",
+      "methodology": "Superficie publiée dans la fiche nationale ; vérifier les périmètres en cas d’écart avec la série mondiale.",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "sen-institutions-ecowas",
+      "countryCode": "SEN",
+      "key": "institutions.ecowas",
+      "label": "Membre de la CEDEAO",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sénégal",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sen-institutions-uemoa",
+      "countryCode": "SEN",
+      "key": "institutions.uemoa",
+      "label": "Membre de l’UEMOA",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sénégal",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sen-economy-growth-2025-wb",
+      "countryCode": "SEN",
+      "key": "economy.growth_2025_wb",
+      "label": "Croissance réelle en 2025",
+      "value": 6.7,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Sénégal",
+      "methodology": "Croissance portée notamment par les hydrocarbures ; estimation de la Banque mondiale.",
+      "sourceIds": [
+        "S-SEN-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "sen-economy-growth-projection-2026-wb",
+      "countryCode": "SEN",
+      "key": "economy.growth_projection_2026_wb",
+      "label": "Croissance projetée pour 2026",
+      "value": 2.7,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Sénégal",
+      "methodology": "Projection distincte de la croissance effectivement constatée.",
+      "sourceIds": [
+        "S-SEN-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth",
+      "uncertainty": "Projection ou estimation susceptible d’être révisée."
+    },
+    {
+      "id": "sen-economy-fiscal-deficit-2025-wb",
+      "countryCode": "SEN",
+      "key": "economy.fiscal_deficit_2025_wb",
+      "label": "Déficit public 2025",
+      "value": 6.4,
+      "unit": "% du PIB",
+      "referencePeriod": "2025",
+      "geographicScope": "Sénégal",
+      "methodology": "Estimation Banque mondiale ; date et méthodologie distinctes des audits de dette.",
+      "sourceIds": [
+        "S-SEN-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "sen-economy-public-debt-end2024-imf-fd",
+      "countryCode": "SEN",
+      "key": "economy.public_debt_end2024_imf_fd",
+      "label": "Dette publique, fin 2024, FMI cité par France Diplomatie",
+      "value": 132.4,
+      "unit": "% du PIB",
+      "referencePeriod": "2024-12",
+      "geographicScope": "Sénégal",
+      "methodology": "Chiffre FMI rapporté par France Diplomatie ; ne pas confondre avec dette fin 2023 auditée.",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "sen-claim-1",
+      "countryCode": "SEN",
+      "statement": "Sénégal : Dakar est la capitale du pays.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "sen-claim-2",
+      "countryCode": "SEN",
+      "statement": "En 2026, la fonction de chef de l’État de Sénégal est exercée par Bassirou Diomaye Faye.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "sen-claim-3",
+      "countryCode": "SEN",
+      "statement": "Des engagements publics insuffisamment déclarés ont conduit à une révision majeure des niveaux de dette.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "sen-claim-4",
+      "countryCode": "SEN",
+      "statement": "Les exportations pétrolières et gazières contribuent à la croissance et au compte extérieur.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-SEN-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "sen-claim-5",
+      "countryCode": "SEN",
+      "statement": "L’audit a révélé une dette plus élevée que précédemment déclarée, compliquant les relations avec les bailleurs.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "sen-rel-1",
+      "countryCode": "SEN",
+      "targetCode": "MRT",
+      "targetIso2": "MR",
+      "targetName": "Mauritanie",
+      "relationType": "cooperation",
+      "title": "Frontière et ressources gazières",
+      "topics": [],
+      "summary": "La géographie frontalière et les hydrocarbures offshore structurent des intérêts énergétiques communs.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "sen-rel-2",
+      "countryCode": "SEN",
+      "targetCode": "GMB",
+      "targetIso2": "GM",
+      "targetName": "Gambie",
+      "relationType": "cooperation",
+      "title": "Continuité territoriale et corridors",
+      "topics": [],
+      "summary": "La Gambie est entourée par le Sénégal hormis son accès maritime, rendant le transit particulièrement important.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SEN-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "sen-rel-3",
+      "countryCode": "SEN",
+      "targetCode": "FRA",
+      "targetIso2": "FR",
+      "targetName": "France",
+      "relationType": "cooperation",
+      "title": "Coopération diplomatique et économique",
+      "topics": [],
+      "summary": "Le partenariat bilatéral couvre notamment des dimensions économiques et de sécurité.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SEN-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "sen-overview-strengths-1",
+          "title": "Nouvelle production d’hydrocarbures",
+          "summary": "Les exportations pétrolières et gazières contribuent à la croissance et au compte extérieur.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
+        },
+        {
+          "id": "sen-overview-strengths-2",
+          "title": "Pôle de Dakar",
+          "summary": "Concentration d’infrastructures et de services ouvrant sur le commerce atlantique.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "sen-overview-challenges-1",
+          "title": "Crise de transparence budgétaire",
+          "summary": "Des engagements publics insuffisamment déclarés ont conduit à une révision majeure des niveaux de dette.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ]
+        },
+        {
+          "id": "sen-overview-challenges-2",
+          "title": "Emploi et attentes sociales",
+          "summary": "Les besoins d’emplois et de services exposent le gouvernement à de fortes attentes.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "sen-timeline-1",
+          "title": "Élection de Bassirou Diomaye Faye",
+          "summary": "Victoire présidentielle marquant une nouvelle alternance démocratique.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ],
+          "date": "2024-03-24"
+        },
+        {
+          "id": "sen-timeline-2",
+          "title": "Nomination d’un nouveau Premier ministre",
+          "summary": "Ahmadou Alhaminou Mohamed Lô succède à Ousmane Sonko.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ],
+          "date": "2026-05-25"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "sen-sector-1",
+          "title": "Pétrole et gaz",
+          "summary": "Production récente renforçant le poids des hydrocarbures dans le PIB et les exportations.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
+        },
+        {
+          "id": "sen-sector-2",
+          "title": "Agriculture",
+          "summary": "Activité importante pour l’emploi et exposée à la variabilité des saisons.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ]
+        },
+        {
+          "id": "sen-sector-3",
+          "title": "Services dakarois",
+          "summary": "Commerce, transports et télécommunications structurent le tissu urbain.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "sen-resource-1",
+          "title": "Hydrocarbures offshore",
+          "summary": "Production récente à distinguer des réserves et projections de recettes futures.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
+        },
+        {
+          "id": "sen-resource-2",
+          "title": "Pêche et littoral",
+          "summary": "Activités maritimes et halieutiques essentielles aux communautés côtières.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "sen-security-1",
+          "title": "Casamance et cohésion territoriale",
+          "summary": "La proximité régionale et les enjeux de cohésion doivent être suivis sans présumer d’une intensité actuelle des combats.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ]
+        },
+        {
+          "id": "sen-security-2",
+          "title": "Sécurité financière de l’État",
+          "summary": "La capacité à financer les missions publiques dépend des engagements et de la dette publiés.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "sen-issue-1",
+          "title": "Fiabilité des comptes publics",
+          "summary": "La crédibilité statistique et la soutenabilité du refinancement sont centrales pour la stratégie économique du gouvernement.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "L’audit a révélé une dette plus élevée que précédemment déclarée, compliquant les relations avec les bailleurs.",
+          "whyStrategic": "La crédibilité statistique et la soutenabilité du refinancement sont centrales pour la stratégie économique du gouvernement.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Publications de dette",
+            "discussions FMI",
+            "coûts de refinancement"
+          ],
+          "uncertainties": [],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "sen-issue-2",
+          "title": "Pétrole, gaz et retombées locales",
+          "summary": "Les recettes attendues doivent être reliées à la gouvernance budgétaire, à l’investissement productif et aux besoins sociaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La montée de la production d’hydrocarbures tire la croissance sans garantir la création massive d’emplois.",
+          "whyStrategic": "Les recettes attendues doivent être reliées à la gouvernance budgétaire, à l’investissement productif et aux besoins sociaux.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Production constatée",
+            "recettes publiques",
+            "dépenses d’investissement"
+          ],
+          "uncertainties": [],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "sen-issue-3",
+          "title": "Recomposition du pouvoir en 2026",
+          "summary": "La cohérence entre présidence, exécutif et majorité parlementaire conditionne la conduite des réformes.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le remplacement d’Ousmane Sonko par Ahmadou Alhaminou Mohamed Lô réorganise la direction gouvernementale.",
+          "whyStrategic": "La cohérence entre présidence, exécutif et majorité parlementaire conditionne la conduite des réformes.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Décrets gouvernementaux",
+            "législation budgétaire",
+            "mobilisations sociales"
+          ],
+          "uncertainties": [],
+          "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "sen-op-1",
+          "title": "Usage productif des recettes énergétiques",
+          "summary": "Une gestion transparente des nouvelles ressources pourrait favoriser l’investissement public et la diversification.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "sen-risk-1",
+          "title": "Resserrement du financement public",
+          "summary": "Une crise prolongée de refinancement réduirait les marges budgétaires et pèserait sur les services.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "sen-swot-s-1",
+            "title": "Nouvelle production d’hydrocarbures",
+            "summary": "L'entrée en production de nouveaux projets pétroliers et gaziers élargit les ressources exportables, sans garantir à elle seule des recettes budgétaires stables.",
+            "tags": [],
+            "sourceIds": [
+              "S-SEN-WB"
+            ]
+          },
+          {
+            "id": "sen-swot-s-2",
+            "title": "Pôle de Dakar",
+            "summary": "Dakar concentre des fonctions administratives, portuaires et de services qui structurent les échanges régionaux et les investissements.",
+            "tags": [],
+            "sourceIds": [
+              "S-SEN-WB"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "sen-swot-w-1",
+            "title": "Crise de transparence budgétaire",
+            "summary": "Les révisions et controverses relatives aux comptes publics dégradent la prévisibilité du financement de l'État et imposent une transparence accrue.",
+            "tags": [],
+            "sourceIds": [
+              "S-SEN-FD"
+            ]
+          },
+          {
+            "id": "sen-swot-w-2",
+            "title": "Emploi et attentes sociales",
+            "summary": "Les attentes sociales et les besoins d'emplois restent élevés ; la croissance de secteurs capitalistiques ne résout pas automatiquement cette contrainte.",
+            "tags": [],
+            "sourceIds": [
+              "S-SEN-FD"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "sen-swot-o-1",
+            "title": "Stabilisation budgétaire et retombées énergétiques",
+            "summary": "Une amélioration de la transparence budgétaire permettrait de mieux affecter les retombées énergétiques à des infrastructures et services prioritaires.",
+            "tags": [],
+            "sourceIds": [
+              "S-SEN-FD"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "sen-swot-t-1",
+            "title": "Crise de liquidité et contestation sociale",
+            "summary": "Des difficultés prolongées d'accès au financement combinées à des arbitrages budgétaires sensibles pourraient attiser les tensions sociales.",
+            "tags": [],
+            "sourceIds": [
+              "S-SEN-FD"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "sen-scenario-1",
+          "title": "Stabilisation budgétaire et retombées énergétiques",
+          "summary": "Si la publication de données fiables et la gestion des recettes progressent, le Sénégal pourrait desserrer ses contraintes de financement.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Crédibilité renforcée des comptes et dépenses maîtrisées"
+          ],
+          "triggers": [
+            "Conditions de refinancement et rapports du FMI"
+          ],
+          "weakSignals": [
+            "Conditions de refinancement et rapports du FMI"
+          ],
+          "consequences": [
+            "Marge accrue pour l’investissement public"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Sénégal fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "sen-scenario-2",
+          "title": "Hydrocarbures porteurs, dette persistante",
+          "summary": "La production énergétique pourrait continuer de soutenir le PIB tandis que les charges de dette limiteraient les programmes sociaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Recettes énergétiques sans réduction sensible de la charge financière"
+          ],
+          "triggers": [
+            "Service de la dette et crédits sociaux"
+          ],
+          "weakSignals": [
+            "Service de la dette et crédits sociaux"
+          ],
+          "consequences": [
+            "Décalage entre croissance et niveau de vie"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Sénégal fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "sen-scenario-3",
+          "title": "Crise de liquidité et contestation sociale",
+          "summary": "Un durcissement des conditions de financement combiné à des tensions sociales pourrait freiner les réformes annoncées.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Accès restreint au crédit et arbitrages budgétaires impopulaires"
+          ],
+          "triggers": [
+            "Rendements obligataires et mesures fiscales"
+          ],
+          "weakSignals": [
+            "Rendements obligataires et mesures fiscales"
+          ],
+          "consequences": [
+            "Révision à la baisse des programmes publics"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Sénégal fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "sen-watch-1",
+          "title": "Dette publique et transparence",
+          "summary": "Comparer les publications budgétaires en précisant leurs périmètres et leurs dates.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ]
+        },
+        {
+          "id": "sen-watch-2",
+          "title": "Nouvelle équipe gouvernementale",
+          "summary": "Surveiller les décrets et les choix économiques après mai 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ]
+        },
+        {
+          "id": "sen-watch-3",
+          "title": "Hydrocarbures",
+          "summary": "Suivre production, recettes et affectation budgétaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "sen-vuln-1",
+          "title": "Crédibilité des comptes publics",
+          "summary": "Les écarts de déclaration de dette compliquent l’appréciation des besoins de financement et la relation avec les bailleurs.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
+        },
+        {
+          "id": "sen-vuln-2",
+          "title": "Création d’emplois insuffisante",
+          "summary": "Les nouveaux revenus de l’énergie peuvent coexister avec des difficultés persistantes d’insertion professionnelle.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-FD"
+          ]
+        },
+        {
+          "id": "sen-vuln-3",
+          "title": "Exposition au financement extérieur",
+          "summary": "Des besoins de refinancement élevés peuvent contraindre les dépenses publiques même en présence de recettes exportatrices nouvelles.",
+          "tags": [],
+          "sourceIds": [
+            "S-SEN-WB"
+          ]
+        }
+      ]
+    }
+  }
+}

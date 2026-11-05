@@ -222,3 +222,46 @@ test("même grandeur seulement : un chef d'État et une durée de mandat ne sont
   assert.equal(unitFamily("milliards EUR"), unitFamily("USD"));
   assert.equal(comparableMeasures(populationA, make({ id: "e", value: 3, unit: "%" })), false);
 });
+
+const BATCH2 = ["TGO", "CIV", "SEN", "NER", "MRT", "GMB", "GNB", "SLE", "LBR", "CPV"];
+
+test("le second lot (Afrique de l'Ouest, dix pays) est enregistré en brouillon et sans erreur", () => {
+  for (const code of BATCH2) {
+    assert.ok(COUNTRY_FILES[code], `${code} enregistré`);
+    assert.equal(read(code).publication, "draft", code);
+    assert.equal(getApprocheData(code), null, `${code} n'est pas servi au public tant qu'il est en brouillon`);
+    const report = analyzeCountry(read(code), `${code}.json`, ctx());
+    assert.deepEqual(Object.values(report.errors).flat(), [], `${code} : ${JSON.stringify(report.errors)}`);
+  }
+  assert.deepEqual(
+    listApprocheCountries().map((country) => country.slug),
+    ["france"],
+    "seule la France est publiée",
+  );
+});
+
+test("une observation en attente n'affiche aucune valeur : elle est signalée « à vérifier », jamais présentée comme vérifiée", () => {
+  const pending: [string, string][] = [
+    ["TGO", "demography.rural_poverty_wb"],
+    ["TGO", "demography.urban_poverty_wb"],
+    ["GNB", "economy.cashew_exports_share_fd"],
+  ];
+  for (const [code, key] of pending) {
+    const data = loadApprocheCountry(code) as CountryData;
+    const observation = data.observations.find((item) => item.key === key);
+    assert.ok(observation, `${code} ${key}`);
+    assert.equal(observation.status, "pending");
+    const placement = classifyObservations(data).get(observation.id);
+    assert.ok(placement && placement.kind === "panel" && placement.pending, `${code} ${key} : panneau « en attente de vérification »`);
+  }
+});
+
+test("le Cap-Vert a de quoi s'afficher : fiche de l'ancien modèle, configuration de carte et contour dans le fond de carte du site", () => {
+  const world = JSON.parse(fs.readFileSync("public/data/world-countries.geo.json", "utf8")) as { features: { id: string; geometry: { type: string } }[] };
+  const cpv = world.features.find((feature) => feature.id === "CPV");
+  assert.ok(cpv && cpv.geometry.type === "MultiPolygon", "contour des îles (Natural Earth, domaine public)");
+  const zones = fs.readFileSync("lib/zoneCountries.ts", "utf8");
+  assert.ok(zones.includes('"slug":"cap-vert","name":"Cap-Vert","iso3":"CPV"'), "listé dans la zone Afrique");
+  const geo = fs.readFileSync("lib/countryGeoConfig.ts", "utf8");
+  assert.ok(geo.includes('"cap-vert": { mainIso3: "CPV"'), "configuration de carte");
+});

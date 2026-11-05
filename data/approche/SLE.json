@@ -1,0 +1,845 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "SLE",
+  "slug": "sierra-leone",
+  "zoneSlug": "afrique",
+  "name": "Sierra Leone",
+  "officialName": "République de Sierra Leone",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-SLE-WB",
+      "publisher": "Banque mondiale",
+      "title": "Sierra Leone — développement, politique et économie 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/sierraleone",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-SLE-FD",
+      "publisher": "France Diplomatie",
+      "title": "Sierra Leone — présentation actualisée le 29 octobre 2026",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/sierra-leone/presentation-de-la-sierra-leone",
+      "publishedAt": "2026-10-29",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Attribution factuelle à France Diplomatie ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-SLE-BR",
+      "publisher": "Banque mondiale",
+      "title": "Bridge over the Sewa River — transport et agriculture, janvier 2026",
+      "canonicalUrl": "https://www.worldbank.org/en/news/feature/2026/01/08/from-canoe-to-concrete-how-a-bridge-over-the-sewa-river-is-turning-sierra-leone-harvests-into-wealth",
+      "publishedAt": "2026-01-08",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    }
+  ],
+  "observations": [
+    {
+      "id": "sle-identity-capital",
+      "countryCode": "SLE",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Freetown",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sierra Leone",
+      "methodology": "Capitale administrative indiquée par la source de référence du pays.",
+      "sourceIds": [
+        "S-SLE-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sle-identity-language",
+      "countryCode": "SLE",
+      "key": "identity.language",
+      "label": "Langue officielle",
+      "value": "Anglais",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sierra Leone",
+      "methodology": "Langue constitutionnelle ou administrative indiquée par la source.",
+      "sourceIds": [
+        "S-SLE-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sle-identity-currency",
+      "countryCode": "SLE",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Leone (SLE)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sierra Leone",
+      "methodology": "Devise nationale indiquée par la source pays ; sans conversion de taux de change.",
+      "sourceIds": [
+        "S-SLE-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sle-politics-head-of-state",
+      "countryCode": "SLE",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Julius Maada Bio",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sierra Leone",
+      "methodology": "Fonction et titulaire vérifiés au 2 novembre 2026 ; distinguer les régimes de transition.",
+      "sourceIds": [
+        "S-SLE-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sle-politics-regime",
+      "countryCode": "SLE",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République présidentielle",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sierra Leone",
+      "methodology": "Qualification politique à la date de consultation ; contexte de transition précisé si nécessaire.",
+      "sourceIds": [
+        "S-SLE-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sle-geography-area-official",
+      "countryCode": "SLE",
+      "key": "geography.area.official",
+      "label": "Superficie du territoire",
+      "value": 71740,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Sierra Leone",
+      "methodology": "Superficie publiée dans la fiche nationale ; vérifier les périmètres en cas d’écart avec la série mondiale.",
+      "sourceIds": [
+        "S-SLE-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "sle-institutions-ecowas",
+      "countryCode": "SLE",
+      "key": "institutions.ecowas",
+      "label": "Membre de la CEDEAO",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sierra Leone",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-SLE-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sle-institutions-mano-river-union",
+      "countryCode": "SLE",
+      "key": "institutions.mano_river_union",
+      "label": "Membre de l’Union du fleuve Mano",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Sierra Leone",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-SLE-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sle-economy-growth-2025-wb",
+      "countryCode": "SLE",
+      "key": "economy.growth_2025_wb",
+      "label": "Croissance réelle 2025",
+      "value": 4.8,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Sierra Leone",
+      "methodology": "Croissance rapportée par la Banque mondiale.",
+      "sourceIds": [
+        "S-SLE-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "sle-economy-growth-projection-2026-wb",
+      "countryCode": "SLE",
+      "key": "economy.growth_projection_2026_wb",
+      "label": "Croissance prévue 2026",
+      "value": 4.0,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Sierra Leone",
+      "methodology": "Projection sous politique budgétaire restrictive et coûts énergétiques élevés.",
+      "sourceIds": [
+        "S-SLE-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth",
+      "uncertainty": "Projection ou estimation susceptible d’être révisée."
+    },
+    {
+      "id": "sle-economy-inflation-aug2026-yoy",
+      "countryCode": "SLE",
+      "key": "economy.inflation_aug2026_yoy",
+      "label": "Inflation annuelle en août 2026",
+      "value": 15.7,
+      "unit": "%",
+      "referencePeriod": "2026-08",
+      "geographicScope": "Sierra Leone",
+      "methodology": "Glissement annuel d’août, ne pas comparer directement à une moyenne annuelle.",
+      "sourceIds": [
+        "S-SLE-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "sle-economy-fiscal-deficit-2025-wb",
+      "countryCode": "SLE",
+      "key": "economy.fiscal_deficit_2025_wb",
+      "label": "Déficit public 2025",
+      "value": 4.1,
+      "unit": "% du PIB",
+      "referencePeriod": "2025",
+      "geographicScope": "Sierra Leone",
+      "methodology": "Estimation du déficit public, non service de dette.",
+      "sourceIds": [
+        "S-SLE-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "sle-claim-1",
+      "countryCode": "SLE",
+      "statement": "Sierra Leone : Freetown est la capitale du pays.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SLE-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "sle-claim-2",
+      "countryCode": "SLE",
+      "statement": "En 2026, la fonction de chef de l’État de Sierra Leone est exercée par Julius Maada Bio.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SLE-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "sle-claim-3",
+      "countryCode": "SLE",
+      "statement": "La hausse des prix énergétiques et alimentaires a entraîné une remontée rapide de l’inflation en 2026.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-SLE-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "sle-claim-4",
+      "countryCode": "SLE",
+      "statement": "Fer, rutile, or et diamants représentent un potentiel exportateur important.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-SLE-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "sle-claim-5",
+      "countryCode": "SLE",
+      "statement": "Les changements votés en août 2026 doivent encore faire l’objet d’un examen juridictionnel.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-SLE-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "sle-rel-1",
+      "countryCode": "SLE",
+      "targetCode": "LBR",
+      "targetIso2": "LR",
+      "targetName": "Liberia",
+      "relationType": "cooperation",
+      "title": "Interconnexion commerciale",
+      "topics": [],
+      "summary": "Un nouveau pont sur la Sewa facilite la continuité de certains échanges vers le Liberia.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SLE-BR"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "sle-rel-2",
+      "countryCode": "SLE",
+      "targetCode": "GIN",
+      "targetIso2": "GN",
+      "targetName": "Guinée",
+      "relationType": "cooperation",
+      "title": "Commerce régional du fleuve Mano",
+      "topics": [],
+      "summary": "L’appartenance à l’Union du fleuve Mano inscrit les échanges avec la Guinée dans un cadre de coopération.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SLE-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "sle-rel-3",
+      "countryCode": "SLE",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "CEDEAO",
+      "relationType": "cooperation",
+      "title": "Accord pour l’unité nationale",
+      "topics": [],
+      "summary": "L’organisation régionale a participé au dialogue politique après l’élection contestée de 2023.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SLE-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "sle-overview-strengths-1",
+          "title": "Ressources minérales",
+          "summary": "Fer, rutile, or et diamants représentent un potentiel exportateur important.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        },
+        {
+          "id": "sle-overview-strengths-2",
+          "title": "Agriculture et corridors",
+          "summary": "Des travaux routiers et ponts cherchent à faciliter les débouchés des petits exploitants.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-BR"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "sle-overview-challenges-1",
+          "title": "Inflation à nouveau élevée",
+          "summary": "La hausse des prix énergétiques et alimentaires a entraîné une remontée rapide de l’inflation en 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        },
+        {
+          "id": "sle-overview-challenges-2",
+          "title": "Polarisation du débat électoral",
+          "summary": "Le contentieux de 2023 et les réformes de 2026 nourrissent des inquiétudes institutionnelles.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "sle-timeline-1",
+          "title": "Accord pour l’unité nationale",
+          "summary": "Accord entre pouvoir et opposition après les tensions électorales.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ],
+          "date": "2023-10"
+        },
+        {
+          "id": "sle-timeline-2",
+          "title": "Réforme électorale débattue",
+          "summary": "Adoption parlementaire d’un texte de réforme transmis ensuite à la Cour suprême.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ],
+          "date": "2026-08-10"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "sle-sector-1",
+          "title": "Agriculture",
+          "summary": "Les revenus ruraux dépendent de la productivité et de l’accès aux infrastructures.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-BR"
+          ]
+        },
+        {
+          "id": "sle-sector-2",
+          "title": "Mine et extraction",
+          "summary": "L’activité minière joue un rôle majeur dans les exportations et la volatilité de croissance.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        },
+        {
+          "id": "sle-sector-3",
+          "title": "Services et commerce",
+          "summary": "Marchés urbains et transports soutiennent la diversification hors minerai.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "sle-resource-1",
+          "title": "Fer, rutile, diamants et or",
+          "summary": "Diversité minérale dont la valorisation dépend des investissements et des cours.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "sle-security-1",
+          "title": "Réconciliation politique",
+          "summary": "L’accord d’octobre 2023 n’a pas supprimé les tensions électorales.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        },
+        {
+          "id": "sle-security-2",
+          "title": "Services et sécurité humaine",
+          "summary": "L’accès à l’électricité, à la santé et à l’éducation reste central pour la résilience.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "sle-issue-1",
+          "title": "Réforme électorale avant 2028",
+          "summary": "Réforme électorale avant 2028 : Le consensus sur les règles du scrutin conditionne la stabilité politique à l’approche de 2028.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Les changements votés en août 2026 doivent encore faire l’objet d’un examen juridictionnel.",
+          "whyStrategic": "Le consensus sur les règles du scrutin conditionne la stabilité politique à l’approche de 2028.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Décisions de la Cour suprême",
+            "dialogue majorité-opposition",
+            "textes promulgués"
+          ],
+          "uncertainties": [],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "sle-issue-2",
+          "title": "Reprise de l’inflation en 2026",
+          "summary": "Reprise de l’inflation en 2026 : La baisse du pouvoir d’achat menace les acquis de la stabilisation monétaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le taux en glissement annuel a fortement augmenté entre janvier et août à mesure que les prix importés se redressaient.",
+          "whyStrategic": "La baisse du pouvoir d’achat menace les acquis de la stabilisation monétaire.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Prix alimentaires",
+            "carburants",
+            "inflation mensuelle"
+          ],
+          "uncertainties": [],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "sle-issue-3",
+          "title": "Agriculture et liens routiers",
+          "summary": "L’accès physique aux marchés peut soutenir la productivité des petites exploitations et le commerce régional.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-BR"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La construction d’un pont sur la Sewa facilite l’acheminement de produits agricoles vers les marchés.",
+          "whyStrategic": "L’accès physique aux marchés peut soutenir la productivité des petites exploitations et le commerce régional.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Temps de transport",
+            "prix agricoles",
+            "trafic du corridor"
+          ],
+          "uncertainties": [],
+          "updatedAt": "2026-11-02"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "sle-op-1",
+          "title": "Accord sur les règles électorales",
+          "summary": "Un compromis institutionnel pourrait diminuer la polarisation et rendre les réformes économiques plus prévisibles.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "sle-risk-1",
+          "title": "Choc inflationniste et conflit politique",
+          "summary": "Une accélération des prix pendant un blocage électoral accroîtrait les tensions sociales.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "sle-swot-s-1",
+            "title": "Ressources minérales",
+            "summary": "Les ressources minérales offrent des recettes d'exportation et des possibilités d'investissement, à condition de mieux diffuser leurs retombées.",
+            "tags": [],
+            "sourceIds": [
+              "S-SLE-WB"
+            ]
+          },
+          {
+            "id": "sle-swot-s-2",
+            "title": "Agriculture et corridors",
+            "summary": "Le renforcement des liaisons agricoles et routières pourrait faciliter les échanges entre les producteurs, les villes et les marchés.",
+            "tags": [],
+            "sourceIds": [
+              "S-SLE-BR"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "sle-swot-w-1",
+            "title": "Inflation à nouveau élevée",
+            "summary": "Une nouvelle accélération des prix érode le pouvoir d'achat et complique les arbitrages des ménages à faibles revenus.",
+            "tags": [],
+            "sourceIds": [
+              "S-SLE-WB"
+            ]
+          },
+          {
+            "id": "sle-swot-w-2",
+            "title": "Polarisation du débat électoral",
+            "summary": "Les désaccords sur la réforme électorale risquent d'entretenir la polarisation entre formations politiques avant le prochain cycle électoral.",
+            "tags": [],
+            "sourceIds": [
+              "S-SLE-WB"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "sle-swot-o-1",
+            "title": "Réforme électorale négociée",
+            "summary": "Un accord sur les règles électorales renforcerait la prévisibilité institutionnelle et pourrait réduire les tensions politiques.",
+            "tags": [],
+            "sourceIds": [
+              "S-SLE-WB"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "sle-swot-t-1",
+            "title": "Réforme contestée et choc de prix",
+            "summary": "Une réforme électorale contestée conjuguée à un choc inflationniste fragiliserait la confiance politique et les revenus des ménages.",
+            "tags": [],
+            "sourceIds": [
+              "S-SLE-WB"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "sle-scenario-1",
+          "title": "Réforme électorale négociée",
+          "summary": "Si la juridiction et les partis convergent vers des règles partagées, la préparation de 2028 pourrait se dérouler dans un climat apaisé.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Dialogue politique effectif et arbitrages acceptés"
+          ],
+          "triggers": [
+            "Décisions de justice et consultations multipartites"
+          ],
+          "weakSignals": [
+            "Décisions de justice et consultations multipartites"
+          ],
+          "consequences": [
+            "Prévisibilité accrue des investissements"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Sierra Leone fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "sle-scenario-2",
+          "title": "Consolidation budgétaire sous inflation",
+          "summary": "La croissance pourrait se maintenir autour des services et de l’agriculture malgré un pouvoir d’achat sous tension.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Mesures monétaires prudentes et dépenses contraintes"
+          ],
+          "triggers": [
+            "Prix mensuels et déficit"
+          ],
+          "weakSignals": [
+            "Prix mensuels et déficit"
+          ],
+          "consequences": [
+            "Progression sociale plus lente que l’activité"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Sierra Leone fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "sle-scenario-3",
+          "title": "Réforme contestée et choc de prix",
+          "summary": "Des tensions sur le code électoral associées à une nouvelle accélération des prix pourraient polariser les mobilisations.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Impasses institutionnelles et hausse importée des prix"
+          ],
+          "triggers": [
+            "Recours judiciaires et inflation alimentaire"
+          ],
+          "weakSignals": [
+            "Recours judiciaires et inflation alimentaire"
+          ],
+          "consequences": [
+            "Instabilité sociale et retards de projets"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Sierra Leone fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "sle-watch-1",
+          "title": "Avis judiciaire sur la réforme électorale",
+          "summary": "Suivre l’état réel du texte et ses procédures.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        },
+        {
+          "id": "sle-watch-2",
+          "title": "Inflation mensuelle",
+          "summary": "Ne pas confondre glissement annuel et moyenne annuelle.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        },
+        {
+          "id": "sle-watch-3",
+          "title": "Corridors agricoles",
+          "summary": "Évaluer le trafic et l’accès aux marchés après les investissements.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-BR"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "sle-vuln-1",
+          "title": "Risque inflationniste",
+          "summary": "Un nouvel épisode de hausse des prix peut amoindrir le revenu réel et accroître la pression sociale.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        },
+        {
+          "id": "sle-vuln-2",
+          "title": "Polarisation politique",
+          "summary": "Les désaccords sur les règles électorales risquent de freiner la coopération institutionnelle.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-FD"
+          ]
+        },
+        {
+          "id": "sle-vuln-3",
+          "title": "Faible diffusion des revenus miniers",
+          "summary": "Sans investissements et emplois en aval, les exportations de minerais peuvent bénéficier inégalement aux territoires.",
+          "tags": [],
+          "sourceIds": [
+            "S-SLE-WB"
+          ]
+        }
+      ]
+    }
+  }
+}
