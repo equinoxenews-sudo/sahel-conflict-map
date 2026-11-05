@@ -109,6 +109,7 @@ import { ROYAUME_UNI } from "./royaume-uni";
 import { RUSSIE } from "./russie";
 import { RWANDA } from "./rwanda";
 import { SAHARA_OCCIDENTAL } from "./sahara-occidental";
+import { SAO_TOME_ET_PRINCIPE } from "./sao-tome-et-principe";
 import { SENEGAL } from "./senegal";
 import { SERBIE } from "./serbie";
 import { SIERRA_LEONE } from "./sierra-leone";
@@ -268,6 +269,7 @@ const COUNTRY_PROFILES: Record<string, CountryProfile> = {
   "sahara-occidental": SAHARA_OCCIDENTAL,
   soudan: SOUDAN,
   "soudan-du-sud": SOUDAN_DU_SUD,
+  "sao-tome-et-principe": SAO_TOME_ET_PRINCIPE,
   senegal: SENEGAL,
   "sierra-leone": SIERRA_LEONE,
   somalie: SOMALIE,

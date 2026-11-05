@@ -1,6 +1,6 @@
-# Rapport consolidé — lot Afrique centrale V1.1 (dix fichiers livrés, neuf enregistrés)
+# Rapport consolidé — lot Afrique centrale V1.1 (dix fichiers livrés, dix enregistrés)
 
-Branche `approche-v1`. Archive utilisée : `EQUINOXE_APPROCHE_LOT_10_PAYS_AFRIQUE_CENTRALE_V1_1.zip`, seule, sans mélange avec le lot 2 Afrique de l'Ouest. Les neuf pays enregistrés sont en `draft`, identiques octet pour octet aux fichiers livrés. Rien n'est dans `main`. Aucun contenu n'a été modifié.
+Branche `approche-v1`. Archive utilisée : `EQUINOXE_APPROCHE_LOT_10_PAYS_AFRIQUE_CENTRALE_V1_1.zip`, seule, sans mélange avec le lot 2 Afrique de l'Ouest. Les dix pays enregistrés sont en `draft`, identiques octet pour octet aux fichiers livrés. Rien n'est dans `main`. Aucun contenu n'a été modifié.
 
 ## Résultat de l'import
 
@@ -15,20 +15,13 @@ Branche `approche-v1`. Archive utilisée : `EQUINOXE_APPROCHE_LOT_10_PAYS_AFRIQU
 | Gabon (GAB) | enregistré | 0 | 4 | 11 (11) |
 | Guinée équatoriale (GNQ) | enregistré | 0 | 3 | 12 (12) |
 | Tchad (TCD) | enregistré | 0 | 3 | 12 (12) |
-| **São Tomé-et-Príncipe (STP)** | **refusé, non enregistré** | **2** | 4 | 12 (12) |
+| São Tomé-et-Príncipe (STP) | enregistré après ajout de sa fiche, de sa carte et de son contour (accord de Nicolas) | 0 | 4 | 12 (12) |
 
-Zod, publication, sources, licences, collisions avec les séries Banque mondiale : aucune anomalie pour les dix. Séries Banque mondiale générées pour les neuf pays enregistrés. Tests : 540 passent. TypeScript : propre. ESLint (`app`, `components`, `lib`, `scripts`) : propre. Validateur Zod : 9 fichiers valides. Smoke test : 9 pays × 6 onglets, tous les libellés retrouvés. 104 observations : aucune valeur sans unité, aucun pourcentage hors plage, toutes les périodes sont bien formées, toutes sont `verified`.
+Zod, publication, sources, licences, collisions avec les séries Banque mondiale : aucune anomalie pour les dix. Séries Banque mondiale générées pour les dix pays. Tests : 541 passent. TypeScript : propre. ESLint (`app`, `components`, `lib`, `scripts`) : propre. Validateur Zod : 10 fichiers valides. Smoke test : 10 pays × 6 onglets, tous les libellés retrouvés. 116 observations : aucune valeur sans unité, aucun pourcentage hors plage, toutes les périodes sont bien formées, toutes sont `verified`.
 
-## À décider avant de créer : São Tomé-et-Príncipe
+## São Tomé-et-Príncipe : débloqué par un ajout au site (accord de Nicolas, 05/11)
 
-Le fichier est valide. Il manque quatre éléments au site, que je n'ai pas créés :
-
-1. aucune fiche pays dans le modèle historique (`lib/countries/`) ;
-2. aucune configuration de carte (`lib/countryGeoConfig.ts`) ;
-3. aucune entrée dans la liste des pays de la zone Afrique (`lib/zoneCountries.ts`, régénérée à partir des fiches) ;
-4. aucun contour dans le fond de carte du site (`public/data/world-countries.geo.json`). Comme pour le Cap-Vert, le contour viendrait de Natural Earth 50 m (domaine public, téléchargement).
-
-Les neuf autres pays disposent des quatre éléments. Le fichier STP reste dans le dossier de travail.
+Le fichier était valide ; l'import le refusait faute de support dans le site. Ajoutés : la fiche du modèle historique (`lib/countries/sao-tome-et-principe.ts`, contenu de démonstration comme les autres pays), sa configuration de carte (voisins : Gabon, Guinée équatoriale), son entrée dans la liste de la zone Afrique (`lib/zoneCountries.ts`, régénérée ; la liste des drapeaux est régénérée aussi : le nom passe de « Sao Tomé-et-Principe » à « São Tomé-et-Príncipe », comme dans le fichier), et son contour (2 îles, 22 points) extrait de Natural Earth 50 m (domaine public, fichier déjà téléchargé pour le Cap-Vert) et ajouté à `public/data/world-countries.geo.json`. Aucun autre pays du fond de carte n'est modifié. Le fichier `STP.json` est importé tel que livré, en `draft`.
 
 ## Points de vigilance demandés
 
@@ -47,7 +40,9 @@ Les neuf autres pays disposent des quatre éléments. Le fichier STP reste dans 
 
 ## Incohérences éditoriales à transmettre à ChatGPT (non corrigées par moi)
 
-1. **Fiches plus légères que le lot Afrique de l'Ouest V2.1 :** 3 à 4 sources, 1 à 2 relations (3 ailleurs), un seul élément par case du SWOT, aucune vulnérabilité (0 sur 3). Les SWOT lus (neuf pays) sont cohérents avec leurs titres, et les signaux faibles se rapportent bien à leur scénario.
+0. **São Tomé-et-Príncipe :** la réélection du président en juillet 2026 n'est sourcée que par une page de la **Présidence de la RDC** (un État tiers), page injoignable depuis mon poste ; la source France Diplomatie date du 15 mai 2026, avant ce scrutin, et c'est elle qui sert aussi pour le Premier ministre (Américo Ramos). La superficie du fichier (1 001 km²) diffère de la série Banque mondiale (960 km², 2024). Le PIB par habitant (4 044 USD) diffère un peu de la série Banque mondiale (4 084 USD) : deux estimations de 2025 à rapprocher.
+
+1. **Fiches plus légères que le lot Afrique de l'Ouest V2.1 :** 3 à 4 sources, 1 à 2 relations (3 ailleurs), un seul élément par case du SWOT, aucune vulnérabilité (0 sur 3). Les SWOT lus (dix pays) sont cohérents avec leurs titres, et les signaux faibles se rapportent bien à leur scénario.
 2. **Phrases d'affirmation mécaniques :** « Mandat de la MINUSCA prolongé jusqu'au  : 2026-11-15  (2025-11-13) selon la source citée. », « Croissance du PIB réel estimée en 2025  : 5,5 % (2025) selon la source citée. » : doubles espaces, dates ISO dans le texte, période répétée.
 3. **Sources sans date de publication :** la plupart des pages Banque mondiale, Primature, BEAC.
 4. **Nom officiel dans le modèle historique :** voir Guinée équatoriale ci-dessus.

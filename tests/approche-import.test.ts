@@ -257,9 +257,9 @@ test("le Cap-Vert a de quoi s'afficher : fiche de l'ancien modèle, configuratio
   assert.ok(geo.includes('"cap-vert": { mainIso3: "CPV"'), "configuration de carte");
 });
 
-const BATCH_AC = ["CMR", "TCD", "CAF", "COG", "COD", "GAB", "GNQ", "AGO", "BDI"];
+const BATCH_AC = ["CMR", "TCD", "CAF", "COG", "COD", "GAB", "GNQ", "AGO", "BDI", "STP"];
 
-test("le lot Afrique centrale (neuf pays) est enregistré en brouillon, sans erreur, et n'est pas servi tant qu'il n'est pas validé ; São Tomé-et-Príncipe reste à l'extérieur", () => {
+test("le lot Afrique centrale (dix pays) est enregistré en brouillon, sans erreur, et n'est pas servi tant qu'il n'est pas validé", () => {
   for (const code of BATCH_AC) {
     assert.ok(COUNTRY_FILES[code], `${code} enregistré`);
     assert.equal(read(code).publication, "draft", code);
@@ -267,6 +267,12 @@ test("le lot Afrique centrale (neuf pays) est enregistré en brouillon, sans err
     const report = analyzeCountry(read(code), `${code}.json`, ctx());
     assert.deepEqual(Object.values(report.errors).flat(), [], `${code} : ${JSON.stringify(report.errors)}`);
   }
-  assert.equal(COUNTRY_FILES.STP, undefined, "São Tomé-et-Príncipe n'a ni fiche pays, ni configuration de carte, ni contour dans le fond de carte du site");
   assert.equal(listApprocheCountries().length, 18, "les dix-huit fiches validées restent seules servies");
+});
+
+test("São Tomé-et-Príncipe a de quoi s'afficher : fiche de l'ancien modèle, configuration de carte, liste de la zone Afrique et contour dans le fond de carte du site", () => {
+  const world = JSON.parse(fs.readFileSync("public/data/world-countries.geo.json", "utf8")) as { features: { id: string; geometry: { type: string } }[] };
+  assert.equal(world.features.find((feature) => feature.id === "STP")?.geometry.type, "MultiPolygon", "contour des deux îles (Natural Earth, domaine public)");
+  assert.ok(fs.readFileSync("lib/zoneCountries.ts", "utf8").includes('"slug":"sao-tome-et-principe","name":"São Tomé-et-Príncipe","iso3":"STP"'), "listé dans la zone Afrique");
+  assert.ok(fs.readFileSync("lib/countryGeoConfig.ts", "utf8").includes('"sao-tome-et-principe": { mainIso3: "STP"'), "configuration de carte");
 });

@@ -109,6 +109,7 @@ export const ZONE_COUNTRIES: Record<string, readonly ZoneCountry[]> = {
     {"slug":"republique-du-congo","name":"République du Congo","iso3":"COG"},
     {"slug":"rwanda","name":"Rwanda","iso3":"RWA"},
     {"slug":"sahara-occidental","name":"Sahara occidental","iso3":"ESH"},
+    {"slug":"sao-tome-et-principe","name":"São Tomé-et-Príncipe","iso3":"STP"},
     {"slug":"senegal","name":"Sénégal","iso3":"SEN"},
     {"slug":"sierra-leone","name":"Sierra Leone","iso3":"SLE"},
     {"slug":"somalie","name":"Somalie","iso3":"SOM"},

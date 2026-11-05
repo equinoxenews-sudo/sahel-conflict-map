@@ -1,0 +1,725 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "STP",
+  "slug": "sao-tome-et-principe",
+  "zoneSlug": "afrique",
+  "name": "São Tomé-et-Príncipe",
+  "officialName": "République démocratique de São Tomé-et-Príncipe",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-04",
+  "sources": [
+    {
+      "id": "S-STP-W",
+      "publisher": "Banque mondiale",
+      "title": "São Tomé-et-Príncipe — économie et développement",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/saotome",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "STP : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-STP-P",
+      "publisher": "France Diplomatie",
+      "title": "São Tomé-et-Príncipe — Présentation",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/sao-tome-et-principe/presentation-de-sao-tome-et-principe",
+      "publishedAt": "2026-05-15",
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "STP : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-STP-X",
+      "publisher": "Présidence de la RDC",
+      "title": "Investiture de Carlos Vila Nova après sa réélection en juillet 2026",
+      "canonicalUrl": "https://www.presidence.cd/actualite-detail/actualite/le_president_de_la_republique_a_participe_a_la_ceremonie_dinvestiture_de_son_homologue_santomeen_carlos_vila_nova",
+      "publishedAt": "2026-09-03",
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Présidence de la RDC",
+      "methodNotes": "STP : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    }
+  ],
+  "observations": [
+    {
+      "id": "stp-identity-capital",
+      "countryCode": "STP",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "São Tomé",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "São Tomé-et-Príncipe",
+      "methodology": "Situation institutionnelle ou géographique de São Tomé-et-Príncipe indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-STP-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "stp-politics-head-of-state",
+      "countryCode": "STP",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Carlos Manuel Vila Nova",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "São Tomé-et-Príncipe",
+      "methodology": "Situation institutionnelle ou géographique de São Tomé-et-Príncipe indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-STP-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "stp-politics-head-of-government",
+      "countryCode": "STP",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Américo Ramos",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "São Tomé-et-Príncipe",
+      "methodology": "Situation institutionnelle ou géographique de São Tomé-et-Príncipe indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-STP-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "stp-politics-regime",
+      "countryCode": "STP",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République multipartite semi-présidentielle",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "São Tomé-et-Príncipe",
+      "methodology": "Situation institutionnelle ou géographique de São Tomé-et-Príncipe indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-STP-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "stp-identity-language",
+      "countryCode": "STP",
+      "key": "identity.language",
+      "label": "Langue(s) officielle(s)",
+      "value": "Portugais",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "São Tomé-et-Príncipe",
+      "methodology": "Situation institutionnelle ou géographique de São Tomé-et-Príncipe indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-STP-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "stp-identity-currency",
+      "countryCode": "STP",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Dobra (STN)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "São Tomé-et-Príncipe",
+      "methodology": "Situation institutionnelle ou géographique de São Tomé-et-Príncipe indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-STP-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "stp-geography-area-official",
+      "countryCode": "STP",
+      "key": "geography.area.official",
+      "label": "Superficie",
+      "value": 1001,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "São Tomé-et-Príncipe",
+      "methodology": "Situation institutionnelle ou géographique de São Tomé-et-Príncipe indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-STP-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "stp-economy-growth-estimate-2025-wb",
+      "countryCode": "STP",
+      "key": "economy.growth_estimate_2025_wb",
+      "label": "Croissance du PIB estimée en 2025",
+      "value": 1,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "São Tomé-et-Príncipe",
+      "methodology": "Estimation annuelle 2025 affectée par les coupures d’électricité.",
+      "sourceIds": [
+        "S-STP-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "stp-economy-growth-projection-2026-wb",
+      "countryCode": "STP",
+      "key": "economy.growth_projection_2026_wb",
+      "label": "Croissance du PIB projetée en 2026",
+      "value": 0.4,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "São Tomé-et-Príncipe",
+      "methodology": "Projection annuelle dans le panorama de la Banque mondiale.",
+      "sourceIds": [
+        "S-STP-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "stp-economy-gdp-per-capita-2025-wb",
+      "countryCode": "STP",
+      "key": "economy.gdp_per_capita_2025_wb",
+      "label": "PIB par habitant estimé en 2025",
+      "value": 4044,
+      "unit": "USD/habitant",
+      "referencePeriod": "2025",
+      "geographicScope": "São Tomé-et-Príncipe",
+      "methodology": "Valeur approximative exprimée en dollars US, sans conversion implicite.",
+      "sourceIds": [
+        "S-STP-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "stp-economy-inflation-may-2026-wb",
+      "countryCode": "STP",
+      "key": "economy.inflation_may_2026_wb",
+      "label": "Inflation annuelle en mai 2026",
+      "value": 9.2,
+      "unit": "%",
+      "referencePeriod": "2026-05",
+      "geographicScope": "São Tomé-et-Príncipe",
+      "methodology": "Taux annuel observé au mois de mai.",
+      "sourceIds": [
+        "S-STP-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "stp-politics-presidential-reelection-july-2026",
+      "countryCode": "STP",
+      "key": "politics.presidential_reelection_july_2026",
+      "label": "Président réélu en juillet 2026",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026-07-19",
+      "geographicScope": "São Tomé-et-Príncipe",
+      "methodology": "Réélection présidentielle, investiture en septembre 2026.",
+      "sourceIds": [
+        "S-STP-X"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "stp-claim-1",
+      "countryCode": "STP",
+      "statement": "Carlos Manuel Vila Nova est le chef de l’État de São Tomé-et-Príncipe au 4 novembre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-STP-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "stp-claim-2",
+      "countryCode": "STP",
+      "statement": "La capitale déclarée de São Tomé-et-Príncipe est São Tomé.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-STP-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "stp-claim-3",
+      "countryCode": "STP",
+      "statement": "Croissance du PIB estimée en 2025 (estimation) : 1 % (2025) selon la source citée.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-STP-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "stp-claim-4",
+      "countryCode": "STP",
+      "statement": "Atouts de tourisme naturel : Biodiversité insulaire, plages et écosystèmes offrent un potentiel de tourisme à valeur ajoutée.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-STP-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    },
+    {
+      "id": "stp-claim-5",
+      "countryCode": "STP",
+      "statement": "Coupures électriques : L’instabilité de l’approvisionnement en courant freine agriculture, commerce et services.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-STP-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "stp-rel-wb",
+      "countryCode": "STP",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Groupe de la Banque mondiale",
+      "relationType": "cooperation",
+      "title": "Coopération pour le développement",
+      "topics": [
+        "financement",
+        "développement"
+      ],
+      "summary": "Le Groupe de la Banque mondiale accompagne des programmes économiques et sociaux en São Tomé-et-Príncipe.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-STP-W"
+      ],
+      "lastReviewedAt": "2026-11-04",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "stp-strength-1",
+          "title": "Atouts de tourisme naturel",
+          "summary": "Biodiversité insulaire, plages et écosystèmes offrent un potentiel de tourisme à valeur ajoutée.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        },
+        {
+          "id": "stp-strength-2",
+          "title": "Pluralisme électoral",
+          "summary": "L’archipel connaît une pratique de compétition électorale et d’alternance institutionnelle.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "stp-challenge-1",
+          "title": "Coupures électriques",
+          "summary": "L’instabilité de l’approvisionnement en courant freine agriculture, commerce et services.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        },
+        {
+          "id": "stp-challenge-2",
+          "title": "Petite taille et isolement",
+          "summary": "Le transport des marchandises importées est coûteux pour une économie de faible volume.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "stp-event-1",
+          "title": "Nouveau Premier ministre",
+          "summary": "Américo Ramos est nommé chef du gouvernement en janvier 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-P"
+          ],
+          "date": "2025-01-12"
+        },
+        {
+          "id": "stp-event-2",
+          "title": "Réélection présidentielle",
+          "summary": "Carlos Vila Nova remporte un nouveau mandat en juillet 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-X"
+          ],
+          "date": "2026-07-19"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "stp-sector-1",
+          "title": "Tourisme nature",
+          "summary": "Les activités touristiques sont prometteuses mais sensibles à la desserte aérienne et à l’énergie.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        },
+        {
+          "id": "stp-sector-2",
+          "title": "Cacao et cultures de rente",
+          "summary": "La production agricole exportatrice est exposée aux cours et à la logistique maritime.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        },
+        {
+          "id": "stp-sector-3",
+          "title": "Électricité et services",
+          "summary": "La fourniture de courant conditionne l’activité des petites entreprises et des administrations.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "stp-resource-1",
+          "title": "Biodiversité et littoral",
+          "summary": "Les milieux marins et forestiers offrent un capital écologique fragile.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "stp-security-1",
+          "title": "Continuité des services vitaux",
+          "summary": "La résilience électrique et l’insularité constituent des enjeux de sécurité économique.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "stp-issue-1",
+          "title": "Réforme de la compagnie électrique",
+          "summary": "Les pannes d’électricité perturbent la production et augmentent les coûts des entreprises.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le réseau électrique et l’approvisionnement en combustible constituent des contraintes récurrentes pour les ménages et les entreprises. L’insularité augmente la difficulté et le coût des solutions de secours.",
+          "whyStrategic": "La fiabilité des réseaux est un préalable aux recettes touristiques et à l’activité agroalimentaire.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Durée des coupures",
+            "coût du carburant",
+            "investissements EMAE"
+          ],
+          "uncertainties": [
+            "Les données de continuité du service ne sont pas forcément publiées à une fréquence homogène."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "stp-issue-2",
+          "title": "Finances publiques et aide extérieure",
+          "summary": "La baisse de certains financements extérieurs fragilise le modèle de dépenses publiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "La petite taille de l’économie accroît la dépendance aux financements extérieurs pour des services et investissements publics. La capacité de mobilisation fiscale reste limitée.",
+          "whyStrategic": "Une base fiscale plus large permettrait de mieux entretenir les infrastructures insulaires.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Décaissements des partenaires",
+            "déficit budgétaire",
+            "dette"
+          ],
+          "uncertainties": [
+            "Les engagements des bailleurs doivent être distingués des versements effectivement effectués."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "stp-issue-3",
+          "title": "Tourisme et dépendance aux liaisons",
+          "summary": "L’archipel dépend d’un réseau restreint de transports aérien et maritime.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "Les échanges de l’archipel reposent sur un nombre réduit de liaisons aériennes et maritimes. Leur coût et leur fréquence influencent simultanément le tourisme et l’approvisionnement.",
+          "whyStrategic": "Les coûts et la régularité des liaisons déterminent la compétitivité et l’accès aux marchés.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Fréquences aériennes",
+            "coûts du fret",
+            "fréquentation touristique"
+          ],
+          "uncertainties": [
+            "Les perspectives touristiques sont conditionnelles à la qualité des accès et aux capacités d’accueil."
+          ],
+          "updatedAt": "2026-11-04"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "stp-swot-s-1",
+            "title": "Paysages insulaires remarquables",
+            "summary": "Les actifs naturels soutiennent une économie touristique potentielle à faible empreinte.",
+            "tags": [],
+            "sourceIds": [
+              "S-STP-W"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "stp-swot-w-1",
+            "title": "Réseau électrique coûteux",
+            "summary": "Les coupures et le carburant importé pénalisent les producteurs et services.",
+            "tags": [],
+            "sourceIds": [
+              "S-STP-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "stp-swot-o-1",
+            "title": "Réforme du secteur énergétique",
+            "summary": "Des investissements ciblés dans la continuité électrique réduiraient les coûts pour les entreprises.",
+            "tags": [],
+            "sourceIds": [
+              "S-STP-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "stp-swot-t-1",
+            "title": "Hausse des coûts du transport maritime",
+            "summary": "Les produits de base importés seraient plus coûteux dans un petit marché isolé.",
+            "tags": [],
+            "sourceIds": [
+              "S-STP-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "stp-scenario-1",
+          "title": "Approvisionnement électrique stabilisé",
+          "summary": "Une amélioration durable de l’électricité pourrait soutenir l’hôtellerie, la transformation du cacao et les commerces.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Réformes techniques et financières de l’EMAE appliquées"
+          ],
+          "triggers": [
+            "Baisse mesurée des coupures"
+          ],
+          "weakSignals": [
+            "Fréquence et durée des interruptions électriques"
+          ],
+          "consequences": [
+            "Croissance des petites activités privées"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Approvisionnement électrique stabilisé » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "stp-scenario-2",
+          "title": "Financement extérieur ralenti",
+          "summary": "La diminution des appuis budgétaires pourrait entraîner des reports d’investissements malgré les besoins sociaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Décaissements inférieurs aux plans"
+          ],
+          "triggers": [
+            "Accumulation de retards de projets"
+          ],
+          "weakSignals": [
+            "Décaissements effectifs des partenaires et recettes fiscales"
+          ],
+          "consequences": [
+            "Dégradation de certains services"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Financement extérieur ralenti » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "stp-scenario-3",
+          "title": "Choc énergétique insulaire",
+          "summary": "Une nouvelle hausse des coûts de carburant couplée à des pannes pourrait peser sur les prix et l’activité touristique.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Hausse des prix importés et incidents techniques"
+          ],
+          "triggers": [
+            "Retour d’inflation et coupures longues"
+          ],
+          "weakSignals": [
+            "Prix des carburants importés, fréquence des coupures et disponibilité du fret maritime"
+          ],
+          "consequences": [
+            "Recul des revenus des ménages"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Choc énergétique insulaire » ; les hypothèses ne sont pas des faits établis."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "stp-watch-1",
+          "title": "Électricité et aide extérieure",
+          "summary": "Confronter les annonces de réforme aux heures de service électrique.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        },
+        {
+          "id": "stp-watch-2",
+          "title": "Tourisme et cacao",
+          "summary": "Suivre flux touristiques et revenus agricoles avec leurs saisons propres.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        }
+      ]
+    }
+  }
+}

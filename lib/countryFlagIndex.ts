@@ -216,7 +216,7 @@ export const FLAG_COUNTRIES: readonly FlagCountry[] = [
   { iso2: "SV", name: "Salvador" },
   { iso2: "WS", name: "Samoa" },
   { iso2: "AS", name: "Samoa américaines" },
-  { iso2: "ST", name: "Sao Tomé-et-Principe" },
+  { iso2: "ST", name: "São Tomé-et-Príncipe" },
   { iso2: "SN", name: "Sénégal" },
   { iso2: "RS", name: "Serbie" },
   { iso2: "SC", name: "Seychelles" },

@@ -50,6 +50,8 @@ import SEN from "@/data/approche/SEN.json";
 import SEN_WORLDBANK from "@/data/approche/SEN.worldbank.json";
 import SLE from "@/data/approche/SLE.json";
 import SLE_WORLDBANK from "@/data/approche/SLE.worldbank.json";
+import STP from "@/data/approche/STP.json";
+import STP_WORLDBANK from "@/data/approche/STP.worldbank.json";
 import TCD from "@/data/approche/TCD.json";
 import TCD_WORLDBANK from "@/data/approche/TCD.worldbank.json";
 import TGO from "@/data/approche/TGO.json";
@@ -81,6 +83,7 @@ export const COUNTRY_FILES: Record<string, { curated: unknown; worldbank?: unkno
   NGA: { curated: NGA, worldbank: NGA_WORLDBANK },
   SEN: { curated: SEN, worldbank: SEN_WORLDBANK },
   SLE: { curated: SLE, worldbank: SLE_WORLDBANK },
+  STP: { curated: STP, worldbank: STP_WORLDBANK },
   TCD: { curated: TCD, worldbank: TCD_WORLDBANK },
   TGO: { curated: TGO, worldbank: TGO_WORLDBANK },
 };

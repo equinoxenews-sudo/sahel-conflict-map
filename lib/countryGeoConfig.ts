@@ -292,6 +292,7 @@ export const COUNTRY_GEO_CONFIG: Record<string, CountryGeoConfig> = {
   "sahara-occidental": { mainIso3: "ESH", neighbors: { DZA: "Algérie", MAR: "Maroc", MLI: "Mali", MRT: "Mauritanie" }, cities: [] },
   soudan: { mainIso3: "SDN", neighbors: { CAF: "République centrafricaine", EGY: "Égypte", ERI: "Érythrée", ETH: "Éthiopie", LBY: "Libye", SAU: "Arabie saoudite", SSD: "Soudan du Sud", TCD: "Tchad" }, cities: [] },
   "soudan-du-sud": { mainIso3: "SSD", neighbors: { CAF: "République centrafricaine", COD: "République démocratique du Congo", ETH: "Éthiopie", KEN: "Kenya", SDN: "Soudan", TCD: "Tchad", UGA: "Ouganda" }, cities: [] },
+  "sao-tome-et-principe": { mainIso3: "STP", neighbors: { GAB: "Gabon", GNQ: "Guinée équatoriale" }, cities: [] },
   senegal: { mainIso3: "SEN", neighbors: { GIN: "Guinée", GMB: "Gambie", GNB: "Guinée-Bissau", MLI: "Mali", MRT: "Mauritanie" }, cities: [] },
   "sierra-leone": { mainIso3: "SLE", neighbors: { GIN: "Guinée", LBR: "Liberia", MLI: "Mali" }, cities: [] },
   somalie: { mainIso3: "SOM", neighbors: { DJI: "Djibouti", ERI: "Érythrée", ETH: "Éthiopie", KEN: "Kenya", TZA: "Tanzanie", YEM: "Yémen" }, cities: [] },
