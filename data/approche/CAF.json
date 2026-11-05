@@ -6,7 +6,7 @@
   "name": "République centrafricaine",
   "officialName": "République centrafricaine",
   "publication": "draft",
-  "lastCheckedAt": "2026-11-04",
+  "lastCheckedAt": "2026-11-05",
   "sources": [
     {
       "id": "S-CAF-W",
@@ -63,6 +63,20 @@
       "language": "fr",
       "originalPublisher": "Banque des États de l’Afrique centrale",
       "methodNotes": "CAF : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-CAF-UN26",
+      "publisher": "Conseil de sécurité des Nations unies",
+      "title": "Séance du Conseil de sécurité consacrée à la MINUSCA et rapport S/2026/812, 20 octobre 2026",
+      "canonicalUrl": "https://main.un.org/securitycouncil/en/events/10249th-meeting-minusca",
+      "publishedAt": "2026-10-20",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Nations unies — Conseil de sécurité",
+      "methodNotes": "Agenda officiel de la séance du 20 octobre 2026 et rapport S/2026/812. Établit la tenue du suivi en 2026, ne documente pas à lui seul l’identité du Premier ministre. Pour les détails de situation, consulter le rapport officiel."
     }
   ],
   "observations": [
@@ -233,7 +247,7 @@
       "id": "caf-development-human-capital-index-2020-wb",
       "countryCode": "CAF",
       "key": "development.human_capital_index_2020_wb",
-      "label": "Indice de capital humain",
+      "label": "Indice de capital humain (Banque mondiale, 2020)",
       "value": 0.26,
       "unit": "indice",
       "referencePeriod": "2020",
@@ -245,7 +259,8 @@
       "collectedAt": "2026-11-04",
       "verifiedAt": "2026-11-04",
       "status": "verified",
-      "dataKind": "observed"
+      "dataKind": "observed",
+      "theme": "Développement humain"
     },
     {
       "id": "caf-politics-presidential-election-2025",
@@ -270,10 +285,11 @@
     {
       "id": "caf-claim-1",
       "countryCode": "CAF",
-      "statement": "Faustin-Archange Touadéra est le chef de l’État de République centrafricaine au 4 novembre 2026.",
+      "statement": "Faustin-Archange Touadéra est le chef de l’État de la République centrafricaine au 4 novembre 2026.",
       "claimType": "fact",
       "sourceIds": [
-        "S-CAF-P"
+        "S-CAF-P",
+        "S-CAF-UN26"
       ],
       "validAsOf": "2026-11-04",
       "reviewer": null,
@@ -283,7 +299,7 @@
     {
       "id": "caf-claim-2",
       "countryCode": "CAF",
-      "statement": "La capitale déclarée de République centrafricaine est Bangui.",
+      "statement": "La capitale déclarée de la République centrafricaine est Bangui.",
       "claimType": "fact",
       "sourceIds": [
         "S-CAF-P"
@@ -296,7 +312,7 @@
     {
       "id": "caf-claim-3",
       "countryCode": "CAF",
-      "statement": "Mandat de la MINUSCA prolongé jusqu’au  : 2026-11-15  (2025-11-13) selon la source citée.",
+      "statement": "La résolution 2800 (2025) a prolongé le mandat de la MINUSCA jusqu’au 15 novembre 2026 ; son éventuel renouvellement reste à confirmer.",
       "claimType": "fact",
       "sourceIds": [
         "S-CAF-X"
@@ -520,7 +536,8 @@
           "summary": "Des zones hors des principaux centres restent exposées à la violence de groupes armés.",
           "tags": [],
           "sourceIds": [
-            "S-CAF-X"
+            "S-CAF-X",
+            "S-CAF-UN26"
           ],
           "horizon": "1–3 ans",
           "scope": [
@@ -599,6 +616,48 @@
           ],
           "updatedAt": "2026-11-04"
         }
+      ],
+      "opportunities": [
+        {
+          "id": "caf-v12-opp-1",
+          "title": "Consolidation des tâches transférées",
+          "summary": "Une coordination vérifiable entre les autorités centrafricaines et la MINUSCA pourrait rendre les services et la protection plus durables.",
+          "tags": [],
+          "sourceIds": [
+            "S-CAF-X",
+            "S-CAF-UN26"
+          ]
+        },
+        {
+          "id": "caf-v12-opp-2",
+          "title": "Valorisation agricole locale",
+          "summary": "L’accès plus sûr aux routes et aux marchés offrirait des débouchés supplémentaires aux producteurs ruraux.",
+          "tags": [],
+          "sourceIds": [
+            "S-CAF-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "caf-v12-risk-1",
+          "title": "Recrudescence d’attaques localisées",
+          "summary": "Une reprise des violences contre les civils interromprait les retours et l’accès aux services dans les préfectures touchées.",
+          "tags": [],
+          "sourceIds": [
+            "S-CAF-X",
+            "S-CAF-UN26"
+          ]
+        },
+        {
+          "id": "caf-v12-risk-2",
+          "title": "Transition onusienne mal séquencée",
+          "summary": "Des transferts de responsabilités sans capacités logistiques suffisantes risqueraient de fragiliser les progrès sécuritaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-CAF-UN26"
+          ]
+        }
       ]
     },
     "outlook": {
@@ -612,6 +671,15 @@
             "sourceIds": [
               "S-CAF-W"
             ]
+          },
+          {
+            "id": "caf-v12-swot-strengths-2",
+            "title": "Appui international de stabilisation",
+            "summary": "La présence de la MINUSCA offre des capacités de protection et d’accompagnement institutionnel dans son mandat courant.",
+            "tags": [],
+            "sourceIds": [
+              "S-CAF-X"
+            ]
           }
         ],
         "weaknesses": [
@@ -623,6 +691,15 @@
             "sourceIds": [
               "S-CAF-W"
             ]
+          },
+          {
+            "id": "caf-v12-swot-weaknesses-2",
+            "title": "Sécurité des axes secondaires",
+            "summary": "Les violences localisées entravent la mobilité des habitants et l’accès des services publics aux territoires.",
+            "tags": [],
+            "sourceIds": [
+              "S-CAF-UN26"
+            ]
           }
         ],
         "opportunities": [
@@ -630,6 +707,15 @@
             "id": "caf-swot-o-1",
             "title": "Relais civil de la stabilisation",
             "summary": "Le déploiement de personnels civils après sécurisation pourrait rendre les services plus durables.",
+            "tags": [],
+            "sourceIds": [
+              "S-CAF-W"
+            ]
+          },
+          {
+            "id": "caf-v12-swot-opportunities-2",
+            "title": "Reprise agricole et marchés",
+            "summary": "Un accès plus sûr aux routes secondaires permettrait aux producteurs de mieux écouler leurs récoltes.",
             "tags": [],
             "sourceIds": [
               "S-CAF-W"
@@ -644,6 +730,15 @@
             "tags": [],
             "sourceIds": [
               "S-CAF-W"
+            ]
+          },
+          {
+            "id": "caf-v12-swot-threats-2",
+            "title": "Transfert de responsabilités précipité",
+            "summary": "Un retrait d’appui sécuritaire sans capacités nationales suffisantes pourrait fragiliser les gains de protection.",
+            "tags": [],
+            "sourceIds": [
+              "S-CAF-X"
             ]
           }
         ]
@@ -729,7 +824,7 @@
         {
           "id": "caf-watch-1",
           "title": "Mandat de la MINUSCA",
-          "summary": "Suivre les décisions onusiennes après l’échéance du 15 novembre 2026.",
+          "summary": "Suivre le vote du Conseil de sécurité avant le 15 novembre 2026 : le mandat actuel expire à cette date, sans renouvellement présumé.",
           "tags": [],
           "sourceIds": [
             "S-CAF-X"
@@ -739,6 +834,36 @@
           "id": "caf-watch-2",
           "title": "Décentralisation réelle",
           "summary": "Observer les services disponibles hors des capitales préfectorales.",
+          "tags": [],
+          "sourceIds": [
+            "S-CAF-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "caf-v12-vuln-1",
+          "title": "Protection civile hors des grands centres",
+          "summary": "Des groupes armés actifs dans certaines zones rurales continuent de menacer les habitants et les axes de circulation.",
+          "tags": [],
+          "sourceIds": [
+            "S-CAF-X",
+            "S-CAF-UN26"
+          ]
+        },
+        {
+          "id": "caf-v12-vuln-2",
+          "title": "Services publics territoriaux",
+          "summary": "La faible densité d’infrastructures et de personnel public complique l’accès régulier aux soins, à l’école et à la justice.",
+          "tags": [],
+          "sourceIds": [
+            "S-CAF-W"
+          ]
+        },
+        {
+          "id": "caf-v12-vuln-3",
+          "title": "Capital humain et pauvreté",
+          "summary": "L’indice de capital humain mesuré en 2020 rappelle une fragilité structurelle de l’éducation et de la santé, sans décrire à lui seul la situation de 2026.",
           "tags": [],
           "sourceIds": [
             "S-CAF-W"

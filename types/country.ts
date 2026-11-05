@@ -45,6 +45,8 @@ export interface CountryProfile {
   iso2?: string;
   iso3?: string;
   capital?: string;
+  /** Faux : la capitale ne sert pas de repli pour placer sur la carte une information d'ordre national (capitale en cours de transfert, par exemple). Par défaut : vrai. */
+  capitalAnchorsNationalInfo?: boolean;
   population?: string;
   area?: string;
   languages?: string[];

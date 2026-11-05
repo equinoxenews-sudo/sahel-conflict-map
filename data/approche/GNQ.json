@@ -6,7 +6,7 @@
   "name": "Guinée équatoriale",
   "officialName": "République de Guinée équatoriale",
   "publication": "draft",
-  "lastCheckedAt": "2026-11-04",
+  "lastCheckedAt": "2026-11-05",
   "sources": [
     {
       "id": "S-GNQ-W",
@@ -46,7 +46,7 @@
       "license": null,
       "licenseUrl": null,
       "reuse": "citation_only",
-      "language": "fr",
+      "language": "es",
       "originalPublisher": "Gouvernement de Guinée équatoriale",
       "methodNotes": "GNQ : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
     },
@@ -71,7 +71,7 @@
       "countryCode": "GNQ",
       "key": "identity.capital",
       "label": "Capitale",
-      "value": "Ciudad de la Paz (capitale officielle depuis janvier 2026 ; transfert progressif)",
+      "value": "Ciudad de la Paz (capitale officielle depuis le 2 janvier 2026 ; transfert administratif progressif)",
       "unit": null,
       "referencePeriod": "2026-01-02",
       "geographicScope": "Guinée équatoriale",
@@ -215,7 +215,7 @@
       "id": "gnq-politics-capital-designated-2026",
       "countryCode": "GNQ",
       "key": "politics.capital_designated_2026",
-      "label": "Ciudad de la Paz officiellement capitale depuis",
+      "label": "Désignation de Ciudad de la Paz comme capitale (décret-loi n° 1/2026)",
       "value": "2026-01-02",
       "unit": null,
       "referencePeriod": "2026-01-02",
@@ -245,7 +245,8 @@
       "collectedAt": "2026-11-04",
       "verifiedAt": "2026-11-04",
       "status": "verified",
-      "dataKind": "observed"
+      "dataKind": "observed",
+      "topic": "growth"
     },
     {
       "id": "gnq-economy-poverty-estimate-2025-wb",
@@ -288,7 +289,7 @@
     {
       "id": "gnq-claim-1",
       "countryCode": "GNQ",
-      "statement": "Teodoro Obiang Nguema Mbasogo est le chef de l’État de Guinée équatoriale au 4 novembre 2026.",
+      "statement": "Teodoro Obiang Nguema Mbasogo est le chef de l’État de la Guinée équatoriale au 4 novembre 2026.",
       "claimType": "fact",
       "sourceIds": [
         "S-GNQ-P"
@@ -301,7 +302,7 @@
     {
       "id": "gnq-claim-2",
       "countryCode": "GNQ",
-      "statement": "La capitale déclarée de Guinée équatoriale est Ciudad de la Paz (capitale officielle depuis janvier 2026 ; transfert progressif).",
+      "statement": "La capitale déclarée de la Guinée équatoriale est Ciudad de la Paz (capitale officielle depuis janvier 2026 ; transfert progressif).",
       "claimType": "fact",
       "sourceIds": [
         "S-GNQ-X"
@@ -314,7 +315,7 @@
     {
       "id": "gnq-claim-3",
       "countryCode": "GNQ",
-      "statement": "Ciudad de la Paz officiellement capitale depuis  : 2026-01-02  (2026-01-02) selon la source citée.",
+      "statement": "Le décret-loi n° 1/2026 du 2 janvier 2026 désigne Ciudad de la Paz comme capitale et prévoit le transfert progressif des services de l’État.",
       "claimType": "fact",
       "sourceIds": [
         "S-GNQ-X"
@@ -598,6 +599,47 @@
           ],
           "updatedAt": "2026-11-04"
         }
+      ],
+      "opportunities": [
+        {
+          "id": "gnq-v12-opp-1",
+          "title": "Nouvelle organisation territoriale",
+          "summary": "Une implantation administrative effectivement opérationnelle pourrait redistribuer des services vers l’intérieur du territoire continental.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-X"
+          ]
+        },
+        {
+          "id": "gnq-v12-opp-2",
+          "title": "Reconversions économiques",
+          "summary": "Les installations portuaires et énergétiques existantes pourraient soutenir des activités non pétrolières si les investissements se concrétisent.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "gnq-v12-risk-1",
+          "title": "Coût excessif de relocalisation",
+          "summary": "Un transfert coûteux sans gains opérationnels risquerait d’accentuer la pression sur les finances publiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-X",
+            "S-GNQ-W"
+          ]
+        },
+        {
+          "id": "gnq-v12-risk-2",
+          "title": "Retrait de la rente pétrolière",
+          "summary": "Si les investissements non pétroliers restent insuffisants, le recul de l’extraction pourrait peser sur la croissance et l’emploi.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ]
+        }
       ]
     },
     "outlook": {
@@ -611,6 +653,15 @@
             "sourceIds": [
               "S-GNQ-W"
             ]
+          },
+          {
+            "id": "gnq-v12-swot-strengths-2",
+            "title": "Position continentale de Ciudad de la Paz",
+            "summary": "La désignation d’une capitale sur le territoire continental peut faciliter la redistribution de certaines administrations.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNQ-X"
+            ]
           }
         ],
         "weaknesses": [
@@ -621,6 +672,15 @@
             "tags": [],
             "sourceIds": [
               "S-GNQ-W"
+            ]
+          },
+          {
+            "id": "gnq-v12-swot-weaknesses-2",
+            "title": "Concentration historique des services",
+            "summary": "La prédominance de Malabo et Bata dans l’administration et les infrastructures rend la relocalisation difficile.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNQ-X"
             ]
           }
         ],
@@ -633,6 +693,15 @@
             "sourceIds": [
               "S-GNQ-W"
             ]
+          },
+          {
+            "id": "gnq-v12-swot-opportunities-2",
+            "title": "Diversification au-delà des hydrocarbures",
+            "summary": "Des investissements dans les services et les activités non pétrolières limiteraient la dépendance à l’extraction.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNQ-W"
+            ]
           }
         ],
         "threats": [
@@ -640,6 +709,15 @@
             "id": "gnq-swot-t-1",
             "title": "Double coût administratif",
             "summary": "Le maintien de fonctions à Malabo en parallèle de Djibloho risquerait d’alourdir la dépense.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNQ-W"
+            ]
+          },
+          {
+            "id": "gnq-v12-swot-threats-2",
+            "title": "Contraction des recettes pétrolières",
+            "summary": "La poursuite du déclin de la production pourrait peser sur les moyens nécessaires au transfert administratif.",
             "tags": [],
             "sourceIds": [
               "S-GNQ-W"
@@ -741,6 +819,35 @@
           "tags": [],
           "sourceIds": [
             "S-GNQ-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "gnq-v12-vuln-1",
+          "title": "Décalage du transfert administratif",
+          "summary": "Le décret de janvier 2026 prévoit une relocalisation progressive : la continuité des services doit être suivie entre Malabo et Ciudad de la Paz.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-X"
+          ]
+        },
+        {
+          "id": "gnq-v12-vuln-2",
+          "title": "Réduction des recettes d’hydrocarbures",
+          "summary": "Le déclin des volumes pétroliers expose le budget et le marché intérieur à une contraction prolongée.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ]
+        },
+        {
+          "id": "gnq-v12-vuln-3",
+          "title": "Accès inégal aux services",
+          "summary": "La concentration historique des services à Malabo et Bata rend le transfert institutionnel sensible à la qualité des infrastructures.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-X"
           ]
         }
       ]

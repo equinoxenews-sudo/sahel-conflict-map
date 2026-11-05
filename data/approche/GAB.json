@@ -6,7 +6,7 @@
   "name": "Gabon",
   "officialName": "République gabonaise",
   "publication": "draft",
-  "lastCheckedAt": "2026-11-04",
+  "lastCheckedAt": "2026-11-05",
   "sources": [
     {
       "id": "S-GAB-W",
@@ -63,6 +63,34 @@
       "language": "fr",
       "originalPublisher": "Banque des États de l’Afrique centrale",
       "methodNotes": "GAB : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-GAB-PRS26",
+      "publisher": "Présidence de la République gabonaise",
+      "title": "Communiqué du Conseil des ministres : approvisionnement en carburants et défis économiques, 8 octobre 2026",
+      "canonicalUrl": "https://presidence.ga/2026/10/09/8662/",
+      "publishedAt": "2026-10-09",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Présidence de la République gabonaise",
+      "methodNotes": "Référence de contexte et de recoupement ; faits paraphrasés avec attribution. Licence de réutilisation intégrale non examinée."
+    },
+    {
+      "id": "S-GAB-GOV26",
+      "publisher": "Gouvernement gabonais",
+      "title": "Composition du gouvernement et organisation de l’exécutif",
+      "canonicalUrl": "https://gouvernement.ga/le-gouvernement-/",
+      "publishedAt": "2026-10-11",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Gouvernement gabonais",
+      "methodNotes": "Composition du troisième gouvernement de la Ve République datée du 11 octobre 2026 : le président de la République est chef du gouvernement ; vice-président du gouvernement distinct. Citation factuelle uniquement."
     }
   ],
   "observations": [
@@ -107,13 +135,13 @@
       "countryCode": "GAB",
       "key": "politics.head_of_government",
       "label": "Chef du gouvernement",
-      "value": "Brice Clotaire Oligui Nguema (chef du gouvernement dans le régime de 2025)",
+      "value": "Brice Clotaire Oligui Nguema (président de la République et chef du gouvernement)",
       "unit": null,
       "referencePeriod": "2026-11",
       "geographicScope": "Gabon",
       "methodology": "Situation institutionnelle ou géographique de Gabon indiquée par l’organisme cité, consultée le 2026-11-04.",
       "sourceIds": [
-        "S-GAB-P"
+        "S-GAB-GOV26"
       ],
       "collectedAt": "2026-11-04",
       "verifiedAt": "2026-11-04",
@@ -271,10 +299,10 @@
     {
       "id": "gab-claim-1",
       "countryCode": "GAB",
-      "statement": "Brice Clotaire Oligui Nguema est le chef de l’État de Gabon au 4 novembre 2026.",
+      "statement": "Brice Clotaire Oligui Nguema est le chef de l’État du Gabon au 4 novembre 2026.",
       "claimType": "fact",
       "sourceIds": [
-        "S-GAB-P"
+        "S-GAB-GOV26"
       ],
       "validAsOf": "2026-11-04",
       "reviewer": null,
@@ -284,7 +312,7 @@
     {
       "id": "gab-claim-2",
       "countryCode": "GAB",
-      "statement": "La capitale déclarée de Gabon est Libreville.",
+      "statement": "La capitale déclarée du Gabon est Libreville.",
       "claimType": "fact",
       "sourceIds": [
         "S-GAB-P"
@@ -591,6 +619,47 @@
           ],
           "updatedAt": "2026-11-04"
         }
+      ],
+      "opportunities": [
+        {
+          "id": "gab-v12-opp-1",
+          "title": "Transformation locale des ressources",
+          "summary": "Des investissements dans le bois et les minerais transformés pourraient élargir l’emploi industriel hors pétrole.",
+          "tags": [],
+          "sourceIds": [
+            "S-GAB-W",
+            "S-GAB-PRS26"
+          ]
+        },
+        {
+          "id": "gab-v12-opp-2",
+          "title": "Coopérations productives",
+          "summary": "La diplomatie économique peut favoriser des projets industriels et de transport si leur financement et leurs retombées sont vérifiables.",
+          "tags": [],
+          "sourceIds": [
+            "S-GAB-PRS26"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "gab-v12-risk-1",
+          "title": "Ruptures d’approvisionnement",
+          "summary": "De nouvelles perturbations logistiques ou énergétiques pourraient pénaliser le transport et l’activité des entreprises.",
+          "tags": [],
+          "sourceIds": [
+            "S-GAB-PRS26"
+          ]
+        },
+        {
+          "id": "gab-v12-risk-2",
+          "title": "Arbitrages d’investissement contraints",
+          "summary": "Des besoins de trésorerie plus élevés limiteraient le rythme des projets d’infrastructure.",
+          "tags": [],
+          "sourceIds": [
+            "S-GAB-W"
+          ]
+        }
       ]
     },
     "outlook": {
@@ -600,6 +669,15 @@
             "id": "gab-swot-s-1",
             "title": "Capital forestier",
             "summary": "La biodiversité gabonaise peut soutenir des projets climatiques rigoureux et des activités de transformation.",
+            "tags": [],
+            "sourceIds": [
+              "S-GAB-W"
+            ]
+          },
+          {
+            "id": "gab-v12-swot-strengths-2",
+            "title": "Ressources minérales",
+            "summary": "Le potentiel minier offre des possibilités de transformation industrielle si les infrastructures suivent.",
             "tags": [],
             "sourceIds": [
               "S-GAB-W"
@@ -615,6 +693,15 @@
             "sourceIds": [
               "S-GAB-W"
             ]
+          },
+          {
+            "id": "gab-v12-swot-weaknesses-2",
+            "title": "Concentration extractive",
+            "summary": "La dépendance aux activités pétrolières et minières limite la variété des recettes extérieures.",
+            "tags": [],
+            "sourceIds": [
+              "S-GAB-W"
+            ]
           }
         ],
         "opportunities": [
@@ -626,6 +713,15 @@
             "sourceIds": [
               "S-GAB-W"
             ]
+          },
+          {
+            "id": "gab-v12-swot-opportunities-2",
+            "title": "Chaînes d’approvisionnement plus fiables",
+            "summary": "Des améliorations de stockage et de distribution du carburant réduiraient les interruptions affectant les transports et les entreprises.",
+            "tags": [],
+            "sourceIds": [
+              "S-GAB-PRS26"
+            ]
           }
         ],
         "threats": [
@@ -636,6 +732,15 @@
             "tags": [],
             "sourceIds": [
               "S-GAB-W"
+            ]
+          },
+          {
+            "id": "gab-v12-swot-threats-2",
+            "title": "Perturbations énergétiques",
+            "summary": "Des pénuries de carburant ou tensions d’approvisionnement pèseraient sur la mobilité et l’activité économique.",
+            "tags": [],
+            "sourceIds": [
+              "S-GAB-PRS26"
             ]
           }
         ]
@@ -734,6 +839,44 @@
           "tags": [],
           "sourceIds": [
             "S-GAB-W"
+          ]
+        },
+        {
+          "id": "gab-v12-watch-3",
+          "title": "Distribution du carburant",
+          "summary": "Vérifier la normalisation effective de l’approvisionnement après les perturbations signalées par la Présidence en octobre 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-GAB-PRS26"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "gab-v12-vuln-1",
+          "title": "Trésorerie et investissements publics",
+          "summary": "Les programmes d’infrastructure peuvent être différés si les recettes et financements disponibles ne couvrent pas les engagements.",
+          "tags": [],
+          "sourceIds": [
+            "S-GAB-W"
+          ]
+        },
+        {
+          "id": "gab-v12-vuln-2",
+          "title": "Dépendance à l’extraction",
+          "summary": "Pétrole et minerais restent sensibles aux cours mondiaux, alors que la diversification crée des besoins d’investissement.",
+          "tags": [],
+          "sourceIds": [
+            "S-GAB-W"
+          ]
+        },
+        {
+          "id": "gab-v12-vuln-3",
+          "title": "Chaîne d’approvisionnement en carburants",
+          "summary": "Les perturbations de distribution observées en octobre 2026 montrent la fragilité potentielle de l’approvisionnement intérieur.",
+          "tags": [],
+          "sourceIds": [
+            "S-GAB-PRS26"
           ]
         }
       ]

@@ -6,7 +6,7 @@
   "name": "Cameroun",
   "officialName": "République du Cameroun",
   "publication": "draft",
-  "lastCheckedAt": "2026-11-04",
+  "lastCheckedAt": "2026-11-05",
   "sources": [
     {
       "id": "S-CMR-W",
@@ -608,6 +608,46 @@
           ],
           "updatedAt": "2026-11-04"
         }
+      ],
+      "opportunities": [
+        {
+          "id": "cmr-v12-opp-1",
+          "title": "Logistique Douala–Kribi",
+          "summary": "Une amélioration des connexions douanières et routières entre Douala, Kribi et l’arrière-pays pourrait renforcer les échanges régionaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        },
+        {
+          "id": "cmr-v12-opp-2",
+          "title": "Électricité et transformation locale",
+          "summary": "Une fourniture plus régulière d’électricité pourrait aider les entreprises à transformer sur place une plus grande part des productions.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "cmr-v12-risk-1",
+          "title": "Intensification des foyers de violence",
+          "summary": "Une détérioration dans l’Extrême-Nord ou les régions anglophones augmenterait les déplacements et perturberait les circuits commerciaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-P"
+          ]
+        },
+        {
+          "id": "cmr-v12-risk-2",
+          "title": "Arbitrages budgétaires défavorables",
+          "summary": "Le poids de la dette pourrait retarder entretien des routes et investissements énergétiques en cas de recettes inférieures aux prévisions.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        }
       ]
     },
     "outlook": {
@@ -617,6 +657,15 @@
             "id": "cmr-swot-s-1",
             "title": "Accès aux marchés de l’intérieur",
             "summary": "Les infrastructures côtières facilitent le commerce régional, notamment lorsque les axes terrestres restent sûrs.",
+            "tags": [],
+            "sourceIds": [
+              "S-CMR-W"
+            ]
+          },
+          {
+            "id": "cmr-v12-swot-strengths-2",
+            "title": "Production agricole diversifiée",
+            "summary": "Les filières agricoles créent des débouchés de transformation à condition de bénéficier de routes et d’électricité fiables.",
             "tags": [],
             "sourceIds": [
               "S-CMR-W"
@@ -632,6 +681,15 @@
             "sourceIds": [
               "S-CMR-W"
             ]
+          },
+          {
+            "id": "cmr-v12-swot-weaknesses-2",
+            "title": "Alimentation électrique irrégulière",
+            "summary": "Le coût des coupures limite l’attractivité des investissements industriels hors des grands centres.",
+            "tags": [],
+            "sourceIds": [
+              "S-CMR-W"
+            ]
           }
         ],
         "opportunities": [
@@ -643,6 +701,15 @@
             "sourceIds": [
               "S-CMR-W"
             ]
+          },
+          {
+            "id": "cmr-v12-swot-opportunities-2",
+            "title": "Fluidité douanière et logistique",
+            "summary": "Des procédures mieux coordonnées entre ports et axes intérieurs pourraient réduire les délais de transit.",
+            "tags": [],
+            "sourceIds": [
+              "S-CMR-W"
+            ]
           }
         ],
         "threats": [
@@ -650,6 +717,15 @@
             "id": "cmr-swot-t-1",
             "title": "Détérioration des services locaux",
             "summary": "Une extension des violences provoquerait de nouvelles pertes scolaires et déplacements.",
+            "tags": [],
+            "sourceIds": [
+              "S-CMR-W"
+            ]
+          },
+          {
+            "id": "cmr-v12-swot-threats-2",
+            "title": "Contrainte de financement",
+            "summary": "Une réduction des marges budgétaires freinerait l’entretien des infrastructures et l’investissement énergétique.",
             "tags": [],
             "sourceIds": [
               "S-CMR-W"
@@ -748,6 +824,35 @@
           "id": "cmr-watch-2",
           "title": "Dette et réseau électrique",
           "summary": "Croiser les tendances de financement public avec la disponibilité énergétique.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "cmr-v12-vuln-1",
+          "title": "Crises sécuritaires simultanées",
+          "summary": "Les régions anglophones et l’Extrême-Nord subissent des formes de violence distinctes qui fragilisent les déplacements, l’école et les services publics.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-P"
+          ]
+        },
+        {
+          "id": "cmr-v12-vuln-2",
+          "title": "Fragilité des réseaux électriques",
+          "summary": "Les interruptions d’alimentation et les contraintes du réseau réduisent la compétitivité des activités industrielles et de transformation.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        },
+        {
+          "id": "cmr-v12-vuln-3",
+          "title": "Risque de contrainte budgétaire",
+          "summary": "Les charges de dette et les besoins d’infrastructures peuvent limiter la capacité de réponse de l’État aux crises territoriales.",
           "tags": [],
           "sourceIds": [
             "S-CMR-W"

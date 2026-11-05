@@ -6,7 +6,7 @@
   "name": "Angola",
   "officialName": "République d’Angola",
   "publication": "draft",
-  "lastCheckedAt": "2026-11-04",
+  "lastCheckedAt": "2026-11-05",
   "sources": [
     {
       "id": "S-AGO-W",
@@ -49,6 +49,20 @@
       "language": "fr",
       "originalPublisher": "Ambassade d’Angola",
       "methodNotes": "AGO : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-AGO-GOV26",
+      "publisher": "Gouvernement angolais",
+      "title": "Discours sur l’état de la Nation : gouvernance, économie et diversification, 15 octobre 2026",
+      "canonicalUrl": "https://www.governo.gov.ao/noticias/3216/governo/estado-da-nacao-2026/integra-da-mensagem-do-presidente-da-republica",
+      "publishedAt": "2026-10-15",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "pt",
+      "originalPublisher": "Gouvernement angolais",
+      "methodNotes": "Référence de contexte et de recoupement ; faits paraphrasés avec attribution. Licence de réutilisation intégrale non examinée."
     }
   ],
   "observations": [
@@ -93,13 +107,13 @@
       "countryCode": "AGO",
       "key": "politics.head_of_government",
       "label": "Chef du gouvernement",
-      "value": "João Manuel Gonçalves Lourenço (président et chef du gouvernement)",
+      "value": "João Manuel Gonçalves Lourenço (président de la République, titulaire du pouvoir exécutif)",
       "unit": null,
       "referencePeriod": "2026-11",
       "geographicScope": "Angola",
       "methodology": "Situation institutionnelle ou géographique de Angola indiquée par l’organisme cité, consultée le 2026-11-04.",
       "sourceIds": [
-        "S-AGO-P"
+        "S-AGO-GOV26"
       ],
       "collectedAt": "2026-11-04",
       "verifiedAt": "2026-11-04",
@@ -256,10 +270,10 @@
     {
       "id": "ago-claim-1",
       "countryCode": "AGO",
-      "statement": "João Manuel Gonçalves Lourenço est le chef de l’État de Angola au 4 novembre 2026.",
+      "statement": "João Manuel Gonçalves Lourenço est le chef de l’État de l’Angola au 4 novembre 2026.",
       "claimType": "fact",
       "sourceIds": [
-        "S-AGO-G"
+        "S-AGO-GOV26"
       ],
       "validAsOf": "2026-11-04",
       "reviewer": null,
@@ -269,7 +283,7 @@
     {
       "id": "ago-claim-2",
       "countryCode": "AGO",
-      "statement": "La capitale déclarée de Angola est Luanda.",
+      "statement": "La capitale déclarée de l’Angola est Luanda.",
       "claimType": "fact",
       "sourceIds": [
         "S-AGO-P"
@@ -282,7 +296,7 @@
     {
       "id": "ago-claim-3",
       "countryCode": "AGO",
-      "statement": "Part des hydrocarbures dans les exportations  : 95 % (profil structurel 2026) selon la source citée.",
+      "statement": "La source citée évalue à 95 % la part des hydrocarbures dans les exportations angolaises pour le profil considéré.",
       "claimType": "fact",
       "sourceIds": [
         "S-AGO-W"
@@ -555,6 +569,47 @@
           ],
           "updatedAt": "2026-11-04"
         }
+      ],
+      "opportunities": [
+        {
+          "id": "ago-v12-opp-1",
+          "title": "Corridor du Lobito",
+          "summary": "Une meilleure connexion du port aux réseaux ferroviaires régionaux pourrait favoriser le transit et les services de transport.",
+          "tags": [],
+          "sourceIds": [
+            "S-AGO-W"
+          ]
+        },
+        {
+          "id": "ago-v12-opp-2",
+          "title": "Secteurs non pétroliers",
+          "summary": "L’investissement dans l’agriculture, la transformation et les services pourrait rendre la croissance moins dépendante du brut.",
+          "tags": [],
+          "sourceIds": [
+            "S-AGO-W",
+            "S-AGO-GOV26"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "ago-v12-risk-1",
+          "title": "Baisse durable du prix du brut",
+          "summary": "Une diminution des prix pétroliers réduirait les entrées de devises et compliquerait les arbitrages budgétaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-AGO-W"
+          ]
+        },
+        {
+          "id": "ago-v12-risk-2",
+          "title": "Goulets logistiques sur le corridor",
+          "summary": "Des retards d’infrastructure ou de coordination frontalière limiteraient les bénéfices attendus du Lobito.",
+          "tags": [],
+          "sourceIds": [
+            "S-AGO-W"
+          ]
+        }
       ]
     },
     "outlook": {
@@ -564,6 +619,15 @@
             "id": "ago-swot-s-1",
             "title": "Position logistique du Lobito",
             "summary": "Le couloir ferroviaire et portuaire peut connecter l’Atlantique aux bassins productifs régionaux.",
+            "tags": [],
+            "sourceIds": [
+              "S-AGO-W"
+            ]
+          },
+          {
+            "id": "ago-v12-swot-strengths-2",
+            "title": "Ressources agricoles",
+            "summary": "Les productions rurales offrent un potentiel de valorisation supplémentaire au-delà de la rente pétrolière.",
             "tags": [],
             "sourceIds": [
               "S-AGO-W"
@@ -579,6 +643,15 @@
             "sourceIds": [
               "S-AGO-W"
             ]
+          },
+          {
+            "id": "ago-v12-swot-weaknesses-2",
+            "title": "Emploi hors hydrocarbures insuffisant",
+            "summary": "Une part importante de la population ne bénéficie pas directement de la croissance du secteur pétrolier.",
+            "tags": [],
+            "sourceIds": [
+              "S-AGO-W"
+            ]
           }
         ],
         "opportunities": [
@@ -590,6 +663,15 @@
             "sourceIds": [
               "S-AGO-W"
             ]
+          },
+          {
+            "id": "ago-v12-swot-opportunities-2",
+            "title": "Chaîne logistique régionale",
+            "summary": "Des services de transit et de maintenance autour du Lobito pourraient créer des emplois complémentaires aux exportations de brut.",
+            "tags": [],
+            "sourceIds": [
+              "S-AGO-W"
+            ]
           }
         ],
         "threats": [
@@ -597,6 +679,15 @@
             "id": "ago-swot-t-1",
             "title": "Réduction des prix du brut",
             "summary": "Un choc de valeur des exportations aurait des effets rapides sur les devises et l’investissement.",
+            "tags": [],
+            "sourceIds": [
+              "S-AGO-W"
+            ]
+          },
+          {
+            "id": "ago-v12-swot-threats-2",
+            "title": "Goulets du corridor",
+            "summary": "Des retards ferroviaires et des formalités frontalières ralentiraient les échanges attendus sur l’axe du Lobito.",
             "tags": [],
             "sourceIds": [
               "S-AGO-W"
@@ -695,6 +786,35 @@
           "id": "ago-watch-2",
           "title": "Emploi et inflation",
           "summary": "Mettre en regard les statistiques mensuelles de prix avec l’activité hors pétrole.",
+          "tags": [],
+          "sourceIds": [
+            "S-AGO-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "ago-v12-vuln-1",
+          "title": "Concentration des exportations pétrolières",
+          "summary": "La dépendance au brut expose les devises et les finances publiques aux variations de prix et de production.",
+          "tags": [],
+          "sourceIds": [
+            "S-AGO-W"
+          ]
+        },
+        {
+          "id": "ago-v12-vuln-2",
+          "title": "Faibles retombées en emploi",
+          "summary": "Une croissance tirée par les secteurs capitalistiques peut laisser subsister l’informalité et les inégalités territoriales.",
+          "tags": [],
+          "sourceIds": [
+            "S-AGO-W"
+          ]
+        },
+        {
+          "id": "ago-v12-vuln-3",
+          "title": "Défis de desserte intérieure",
+          "summary": "La performance du corridor du Lobito dépend de l’entretien ferroviaire, de la douane et des connexions logistiques.",
           "tags": [],
           "sourceIds": [
             "S-AGO-W"

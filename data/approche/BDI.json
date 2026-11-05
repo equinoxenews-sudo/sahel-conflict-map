@@ -6,7 +6,7 @@
   "name": "Burundi",
   "officialName": "République du Burundi",
   "publication": "draft",
-  "lastCheckedAt": "2026-11-04",
+  "lastCheckedAt": "2026-11-05",
   "sources": [
     {
       "id": "S-BDI-W",
@@ -214,7 +214,8 @@
       "collectedAt": "2026-11-04",
       "verifiedAt": "2026-11-04",
       "status": "verified",
-      "dataKind": "observed"
+      "dataKind": "observed",
+      "topic": "inflation"
     },
     {
       "id": "bdi-economy-inflation-aug-2026-wb",
@@ -275,7 +276,7 @@
     {
       "id": "bdi-claim-1",
       "countryCode": "BDI",
-      "statement": "Évariste Ndayishimiye est le chef de l’État de Burundi au 4 novembre 2026.",
+      "statement": "Évariste Ndayishimiye est le chef de l’État du Burundi au 4 novembre 2026.",
       "claimType": "fact",
       "sourceIds": [
         "S-BDI-P"
@@ -288,7 +289,7 @@
     {
       "id": "bdi-claim-2",
       "countryCode": "BDI",
-      "statement": "La capitale déclarée de Burundi est Gitega.",
+      "statement": "La capitale déclarée du Burundi est Gitega.",
       "claimType": "fact",
       "sourceIds": [
         "S-BDI-P"
@@ -301,7 +302,7 @@
     {
       "id": "bdi-claim-3",
       "countryCode": "BDI",
-      "statement": "Croissance réelle du PIB en 2025  : 4,2 % (2025) selon la source citée.",
+      "statement": "La Banque mondiale indique une croissance réelle du PIB burundais de 4,2 % en 2025.",
       "claimType": "fact",
       "sourceIds": [
         "S-BDI-W"
@@ -574,6 +575,46 @@
           ],
           "updatedAt": "2026-11-04"
         }
+      ],
+      "opportunities": [
+        {
+          "id": "bdi-v12-opp-1",
+          "title": "Services de proximité",
+          "summary": "Une administration territoriale mieux équipée pourrait réduire les coûts d’accès aux démarches essentielles.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        },
+        {
+          "id": "bdi-v12-opp-2",
+          "title": "Chaînes de valeur agricoles",
+          "summary": "L’amélioration du stockage et des débouchés pourrait accroître la valeur des productions vivrières et du café.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "bdi-v12-risk-1",
+          "title": "Renforcement des tensions de change",
+          "summary": "Un nouvel épisode de pénurie de devises pourrait bloquer importations et transport.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        },
+        {
+          "id": "bdi-v12-risk-2",
+          "title": "Chocs sur les récoltes",
+          "summary": "Une campagne agricole défavorable pourrait alimenter les tensions sur les prix et le pouvoir d’achat.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        }
       ]
     },
     "outlook": {
@@ -583,6 +624,15 @@
             "id": "bdi-swot-s-1",
             "title": "Capacité agricole locale",
             "summary": "La production vivrière peut soutenir les revenus lorsque les marchés et les intrants fonctionnent.",
+            "tags": [],
+            "sourceIds": [
+              "S-BDI-W"
+            ]
+          },
+          {
+            "id": "bdi-v12-swot-strengths-2",
+            "title": "Position dans les Grands Lacs",
+            "summary": "La proximité des marchés régionaux offre un potentiel d’échanges lorsque les corridors de transport sont fonctionnels.",
             "tags": [],
             "sourceIds": [
               "S-BDI-W"
@@ -598,6 +648,15 @@
             "sourceIds": [
               "S-BDI-W"
             ]
+          },
+          {
+            "id": "bdi-v12-swot-weaknesses-2",
+            "title": "Pénuries de devises et carburant",
+            "summary": "Les restrictions d’importation pèsent sur les coûts de mobilité et d’activité des entreprises.",
+            "tags": [],
+            "sourceIds": [
+              "S-BDI-W"
+            ]
           }
         ],
         "opportunities": [
@@ -609,6 +668,15 @@
             "sourceIds": [
               "S-BDI-W"
             ]
+          },
+          {
+            "id": "bdi-v12-swot-opportunities-2",
+            "title": "Valorisation du café",
+            "summary": "De meilleures capacités de transformation, de stockage et de commercialisation pourraient accroître les recettes des producteurs.",
+            "tags": [],
+            "sourceIds": [
+              "S-BDI-W"
+            ]
           }
         ],
         "threats": [
@@ -616,6 +684,15 @@
             "id": "bdi-swot-t-1",
             "title": "Choc de récolte",
             "summary": "Des intempéries pourraient réaccélérer les prix alimentaires et affaiblir les revenus ruraux.",
+            "tags": [],
+            "sourceIds": [
+              "S-BDI-W"
+            ]
+          },
+          {
+            "id": "bdi-v12-swot-threats-2",
+            "title": "Blocage des importations",
+            "summary": "Une dégradation de la disponibilité des devises ralentirait l’approvisionnement en carburant et en intrants.",
             "tags": [],
             "sourceIds": [
               "S-BDI-W"
@@ -714,6 +791,35 @@
           "id": "bdi-watch-2",
           "title": "Carte des provinces",
           "summary": "Vérifier les nouveaux services après la réforme de juillet 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "bdi-v12-vuln-1",
+          "title": "Rareté des devises",
+          "summary": "Les difficultés de financement des importations se répercutent sur le carburant et les équipements nécessaires à la production.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        },
+        {
+          "id": "bdi-v12-vuln-2",
+          "title": "Exposition des récoltes au climat",
+          "summary": "La dépendance de nombreux ménages à l’agriculture accroît leur vulnérabilité aux aléas de production et aux prix alimentaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        },
+        {
+          "id": "bdi-v12-vuln-3",
+          "title": "Capacité de services territoriaux",
+          "summary": "La réorganisation administrative doit se traduire par des moyens humains et financiers pour améliorer les services en province.",
           "tags": [],
           "sourceIds": [
             "S-BDI-W"

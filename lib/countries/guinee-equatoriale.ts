@@ -12,7 +12,10 @@ export const GUINEE_EQUATORIALE: CountryProfile = {
   name: "Guinée équatoriale",
   iso3: "GNQ",
   iso2: "GQ",
-  capital: "Malabo",
+  // Ciudad de la Paz (Djibloho) : capitale officielle depuis le décret-loi 1/2026 du 2 janvier 2026, avec un délai légal d'un an pour
+  // le transfert des services de l'État. Elle ne sert pas de point aux informations d'ordre national (voir capitalAnchorsNationalInfo).
+  capital: "Ciudad de la Paz (capitale officielle depuis le 2 janvier 2026 ; transfert progressif des services de l'État)",
+  capitalAnchorsNationalInfo: false,
   population: "Donnée de démonstration — à compléter",
   area: "Donnée de démonstration — à compléter",
   languages: ["Espagnol","Français"],

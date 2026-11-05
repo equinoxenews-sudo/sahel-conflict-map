@@ -6,7 +6,7 @@
   "name": "São Tomé-et-Príncipe",
   "officialName": "République démocratique de São Tomé-et-Príncipe",
   "publication": "draft",
-  "lastCheckedAt": "2026-11-04",
+  "lastCheckedAt": "2026-11-05",
   "sources": [
     {
       "id": "S-STP-W",
@@ -38,17 +38,17 @@
     },
     {
       "id": "S-STP-X",
-      "publisher": "Présidence de la RDC",
-      "title": "Investiture de Carlos Vila Nova après sa réélection en juillet 2026",
-      "canonicalUrl": "https://www.presidence.cd/actualite-detail/actualite/le_president_de_la_republique_a_participe_a_la_ceremonie_dinvestiture_de_son_homologue_santomeen_carlos_vila_nova",
-      "publishedAt": "2026-09-03",
+      "publisher": "Tribunal Constitucional de São Tomé e Príncipe",
+      "title": "Proclamation des résultats de la présidentielle du 19 juillet 2026 (28 juillet 2026)",
+      "canonicalUrl": "https://tribunalconstitucional.st/noticia.php?slug=tribunal-constitucional-conclui-apuramento-geral-e-declara-carlos-vila-nova-vencedor-da-elei-o-presidencial-de-19-de-julho-de-2026-",
+      "publishedAt": "2026-07-28",
       "accessedAt": "2026-11-04",
       "license": null,
       "licenseUrl": null,
       "reuse": "citation_only",
-      "language": "fr",
-      "originalPublisher": "Présidence de la RDC",
-      "methodNotes": "STP : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+      "language": "pt",
+      "originalPublisher": "Tribunal Constitucional de São Tomé e Príncipe",
+      "methodNotes": "Le Tribunal constitutionnel déclare Carlos Vila Nova vainqueur du scrutin du 19 juillet 2026. Aucune donnée en pourcentage n’est reprise car le texte en ligne contient une incohérence arithmétique (31 613 voix sur 56 574 suffrages valides). Usage limité à la proclamation, avec attribution."
     }
   ],
   "observations": [
@@ -574,6 +574,46 @@
           ],
           "updatedAt": "2026-11-04"
         }
+      ],
+      "opportunities": [
+        {
+          "id": "stp-v12-opp-1",
+          "title": "Électricité et transformation du cacao",
+          "summary": "Un approvisionnement plus stable pourrait améliorer le stockage, la transformation et les services touristiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        },
+        {
+          "id": "stp-v12-opp-2",
+          "title": "Tourisme à faible impact",
+          "summary": "Des offres touristiques préservant la biodiversité pourraient augmenter la valeur ajoutée locale si les liaisons s’améliorent.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "stp-v12-risk-1",
+          "title": "Hausse des coûts des carburants",
+          "summary": "Une augmentation du prix des importations énergétiques pourrait peser sur l’électricité et l’inflation.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        },
+        {
+          "id": "stp-v12-risk-2",
+          "title": "Perturbation des liaisons insulaires",
+          "summary": "Une réduction des connexions aériennes ou maritimes nuirait aux revenus touristiques et à l’approvisionnement.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        }
       ]
     },
     "outlook": {
@@ -583,6 +623,15 @@
             "id": "stp-swot-s-1",
             "title": "Paysages insulaires remarquables",
             "summary": "Les actifs naturels soutiennent une économie touristique potentielle à faible empreinte.",
+            "tags": [],
+            "sourceIds": [
+              "S-STP-W"
+            ]
+          },
+          {
+            "id": "stp-v12-swot-strengths-2",
+            "title": "Filière cacaoyère",
+            "summary": "La production de cacao offre des possibilités de transformation locale lorsque l’accès à l’électricité est assuré.",
             "tags": [],
             "sourceIds": [
               "S-STP-W"
@@ -598,6 +647,15 @@
             "sourceIds": [
               "S-STP-W"
             ]
+          },
+          {
+            "id": "stp-v12-swot-weaknesses-2",
+            "title": "Dépendance aux financements extérieurs",
+            "summary": "Le financement d’investissements et de services demeure sensible à la disponibilité des appuis des partenaires.",
+            "tags": [],
+            "sourceIds": [
+              "S-STP-W"
+            ]
           }
         ],
         "opportunities": [
@@ -609,6 +667,15 @@
             "sourceIds": [
               "S-STP-W"
             ]
+          },
+          {
+            "id": "stp-v12-swot-opportunities-2",
+            "title": "Tourisme durable",
+            "summary": "Une offre diversifiée pourrait créer davantage d’emplois locaux si les infrastructures et l’environnement sont protégés.",
+            "tags": [],
+            "sourceIds": [
+              "S-STP-W"
+            ]
           }
         ],
         "threats": [
@@ -616,6 +683,15 @@
             "id": "stp-swot-t-1",
             "title": "Hausse des coûts du transport maritime",
             "summary": "Les produits de base importés seraient plus coûteux dans un petit marché isolé.",
+            "tags": [],
+            "sourceIds": [
+              "S-STP-W"
+            ]
+          },
+          {
+            "id": "stp-v12-swot-threats-2",
+            "title": "Décaissements extérieurs ralentis",
+            "summary": "Des reports de financement affecteraient les investissements indispensables à l’électricité et aux services publics.",
             "tags": [],
             "sourceIds": [
               "S-STP-W"
@@ -714,6 +790,35 @@
           "id": "stp-watch-2",
           "title": "Tourisme et cacao",
           "summary": "Suivre flux touristiques et revenus agricoles avec leurs saisons propres.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "stp-v12-vuln-1",
+          "title": "Électricité instable et coûteuse",
+          "summary": "Les coupures et l’utilisation de carburants importés augmentent les coûts de production et de transport.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        },
+        {
+          "id": "stp-v12-vuln-2",
+          "title": "Insularité logistique",
+          "summary": "Les liaisons aériennes et maritimes conditionnent l’arrivée des visiteurs, des produits alimentaires et des équipements.",
+          "tags": [],
+          "sourceIds": [
+            "S-STP-W"
+          ]
+        },
+        {
+          "id": "stp-v12-vuln-3",
+          "title": "Dépendance aux financements extérieurs",
+          "summary": "Les investissements publics et certains services essentiels restent sensibles aux décaissements des partenaires internationaux.",
           "tags": [],
           "sourceIds": [
             "S-STP-W"

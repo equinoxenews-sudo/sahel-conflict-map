@@ -6,7 +6,7 @@
   "name": "République démocratique du Congo",
   "officialName": "République démocratique du Congo",
   "publication": "draft",
-  "lastCheckedAt": "2026-11-04",
+  "lastCheckedAt": "2026-11-05",
   "sources": [
     {
       "id": "S-COD-W",
@@ -49,6 +49,34 @@
       "language": "fr",
       "originalPublisher": "Primature de la RDC",
       "methodNotes": "COD : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-COD-SC26",
+      "publisher": "Conseil de sécurité des Nations unies",
+      "title": "RDC : séance du Conseil de sécurité du 29 septembre 2026",
+      "canonicalUrl": "https://transcripts.un.org/en/sc/10232",
+      "publishedAt": "2026-09-29",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Conseil de sécurité des Nations unies",
+      "methodNotes": "Transcription automatique non officielle publiée sur le portail UN Transcripts ; recouper tout chiffre ou citation directe avec un document officiel de l’ONU. Référence de contexte 2026 uniquement."
+    },
+    {
+      "id": "S-COD-UN26",
+      "publisher": "Nations unies / Coordination humanitaire",
+      "title": "Crise humanitaire et déplacements en RDC, point de presse d’octobre 2026",
+      "canonicalUrl": "https://transcripts.un.org/en/briefing/geneva/2026-10-09",
+      "publishedAt": "2026-10-09",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Nations unies / Coordination humanitaire",
+      "methodNotes": "Transcription automatique non officielle publiée sur le portail UN Transcripts ; recouper tout chiffre ou citation directe avec un document officiel de l’ONU. Référence de contexte 2026 uniquement."
     }
   ],
   "observations": [
@@ -214,7 +242,8 @@
       "collectedAt": "2026-11-04",
       "verifiedAt": "2026-11-04",
       "status": "verified",
-      "dataKind": "observed"
+      "dataKind": "observed",
+      "topic": "inflation"
     },
     {
       "id": "cod-economy-growth-projection-avg-2026-2028-wb",
@@ -257,7 +286,7 @@
     {
       "id": "cod-claim-1",
       "countryCode": "COD",
-      "statement": "Félix-Antoine Tshisekedi Tshilombo est le chef de l’État de République démocratique du Congo au 4 novembre 2026.",
+      "statement": "Félix-Antoine Tshisekedi Tshilombo est le chef de l’État de la République démocratique du Congo au 4 novembre 2026.",
       "claimType": "fact",
       "sourceIds": [
         "S-COD-P"
@@ -270,7 +299,7 @@
     {
       "id": "cod-claim-2",
       "countryCode": "COD",
-      "statement": "La capitale déclarée de République démocratique du Congo est Kinshasa.",
+      "statement": "La capitale déclarée de la République démocratique du Congo est Kinshasa.",
       "claimType": "fact",
       "sourceIds": [
         "S-COD-P"
@@ -283,7 +312,7 @@
     {
       "id": "cod-claim-3",
       "countryCode": "COD",
-      "statement": "Croissance du PIB réel estimée en 2025  : 5,5 % (2025) selon la source citée.",
+      "statement": "La Banque mondiale estime la croissance réelle du PIB de la RDC à 5,5 % pour 2025.",
       "claimType": "fact",
       "sourceIds": [
         "S-COD-W"
@@ -495,7 +524,8 @@
           "summary": "Des accords diplomatiques ont été annoncés en 2025 alors que des zones restent sous influence armée.",
           "tags": [],
           "sourceIds": [
-            "S-COD-W"
+            "S-COD-W",
+            "S-COD-SC26"
           ],
           "horizon": "1–3 ans",
           "scope": [
@@ -503,11 +533,14 @@
             "international"
           ],
           "subthemes": [],
-          "situation": "Les annonces diplomatiques intervenues en 2025 n’ont pas mis fin à tous les affrontements dans les Kivu. La situation doit être appréciée à partir de l’accès des civils et du contrôle local des territoires.",
+          "situation": "Au 29 septembre 2026, le Conseil de sécurité examinait la persistance des hostilités dans l’Est et les mécanismes de vérification associés aux processus de Doha et Washington.",
           "whyStrategic": "Le succès dépend de vérifications sur le terrain, de mécanismes de désarmement et de sécurité civile.",
           "actors": [],
           "interests": [],
-          "recentDevelopments": [],
+          "recentDevelopments": [
+            "29 septembre 2026 : examen du dossier congolais au Conseil de sécurité des Nations unies.",
+            "Septembre 2026 : opérations de vérification du cessez-le-feu dans les Kivus évoquées au Conseil de sécurité."
+          ],
           "indicators": [
             "Contrôle territorial",
             "cessez-le-feu vérifiés",
@@ -552,14 +585,15 @@
           "summary": "Les conflits dans les Kivu et l’Ituri multiplient les interruptions de services essentiels.",
           "tags": [],
           "sourceIds": [
-            "S-COD-W"
+            "S-COD-W",
+            "S-COD-UN26"
           ],
           "horizon": "1–3 ans",
           "scope": [
             "national"
           ],
           "subthemes": [],
-          "situation": "Les violences dans l’Est entraînent des déplacements prolongés et fragilisent l’accès aux soins, aux terres et à l’éducation. La sécurité des retours doit être observée territoire par territoire.",
+          "situation": "En octobre 2026, les Nations unies soulignent la persistance de déplacements et de difficultés d’accès humanitaire dans les provinces orientales.",
           "whyStrategic": "Les retours durables exigent des garanties de sécurité et de propriété au niveau local.",
           "actors": [],
           "interests": [],
@@ -574,6 +608,46 @@
           ],
           "updatedAt": "2026-11-04"
         }
+      ],
+      "opportunities": [
+        {
+          "id": "cod-v12-opp-1",
+          "title": "Vérification du cessez-le-feu",
+          "summary": "Un fonctionnement effectif du mécanisme de vérification soutenu par la MONUSCO pourrait réduire les incidents et faciliter l’accès humanitaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-SC26"
+          ]
+        },
+        {
+          "id": "cod-v12-opp-2",
+          "title": "Transformation du cuivre et du cobalt",
+          "summary": "Un meilleur accès à l’énergie et au transport pourrait faciliter des activités de transformation locale et d’emploi.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "cod-v12-risk-1",
+          "title": "Poursuite des hostilités malgré les accords",
+          "summary": "L’absence d’application des engagements de Washington et Doha pourrait prolonger les combats et les déplacements.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-SC26"
+          ]
+        },
+        {
+          "id": "cod-v12-risk-2",
+          "title": "Dégradation humanitaire à l’Est",
+          "summary": "Une extension des violences perturberait davantage l’accès aux soins, à la nourriture et aux moyens de subsistance.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-UN26"
+          ]
+        }
       ]
     },
     "outlook": {
@@ -583,6 +657,15 @@
             "id": "cod-swot-s-1",
             "title": "Minerais stratégiques",
             "summary": "Le cuivre et le cobalt donnent au pays un rôle majeur dans les chaînes industrielles mondiales.",
+            "tags": [],
+            "sourceIds": [
+              "S-COD-W"
+            ]
+          },
+          {
+            "id": "cod-v12-swot-strengths-2",
+            "title": "Potentiel énergétique",
+            "summary": "L’amélioration de la disponibilité d’électricité pourrait appuyer la transformation locale des minerais et des autres productions.",
             "tags": [],
             "sourceIds": [
               "S-COD-W"
@@ -598,6 +681,15 @@
             "sourceIds": [
               "S-COD-W"
             ]
+          },
+          {
+            "id": "cod-v12-swot-weaknesses-2",
+            "title": "Déplacements et services interrompus",
+            "summary": "Les violences dans l’Est perturbent la scolarité, la santé et la mobilité des ménages déplacés.",
+            "tags": [],
+            "sourceIds": [
+              "S-COD-UN26"
+            ]
           }
         ],
         "opportunities": [
@@ -609,6 +701,15 @@
             "sourceIds": [
               "S-COD-W"
             ]
+          },
+          {
+            "id": "cod-v12-swot-opportunities-2",
+            "title": "Mécanisme conjoint de vérification",
+            "summary": "La surveillance du cessez-le-feu pourrait renforcer la confiance si les engagements sont appliqués sur le terrain.",
+            "tags": [],
+            "sourceIds": [
+              "S-COD-SC26"
+            ]
           }
         ],
         "threats": [
@@ -619,6 +720,15 @@
             "tags": [],
             "sourceIds": [
               "S-COD-W"
+            ]
+          },
+          {
+            "id": "cod-v12-swot-threats-2",
+            "title": "Accès humanitaire entravé",
+            "summary": "Des opérations humanitaires interrompues aggraveraient la vulnérabilité des personnes déplacées, même sans changement majeur de front.",
+            "tags": [],
+            "sourceIds": [
+              "S-COD-UN26"
             ]
           }
         ]
@@ -714,6 +824,45 @@
           "id": "cod-watch-2",
           "title": "Cuivre, cobalt et énergie",
           "summary": "Suivre exportations minières, disponibilité électrique et investissement industriel.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        },
+        {
+          "id": "cod-v12-watch-3",
+          "title": "Accès humanitaire dans l’Est",
+          "summary": "Suivre les variations d’accès aux populations déplacées et les alertes des Nations unies, sans extrapoler aux territoires non documentés.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-UN26"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "cod-v12-vuln-1",
+          "title": "Déplacements liés aux combats dans l’Est",
+          "summary": "Les affrontements et les restrictions d’accès dans les Kivus et en Ituri compliquent la protection, la santé et les retours volontaires des populations.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-UN26",
+            "S-COD-W"
+          ]
+        },
+        {
+          "id": "cod-v12-vuln-2",
+          "title": "Accès humanitaire discontinu",
+          "summary": "L’insécurité et les contraintes logistiques perturbent la livraison de l’aide dans certaines zones de conflit.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-UN26"
+          ]
+        },
+        {
+          "id": "cod-v12-vuln-3",
+          "title": "Rente minière peu diffusée",
+          "summary": "La croissance liée aux exportations de cuivre et cobalt ne garantit pas une amélioration équivalente des infrastructures locales.",
           "tags": [],
           "sourceIds": [
             "S-COD-W"

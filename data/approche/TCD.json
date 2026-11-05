@@ -6,7 +6,7 @@
   "name": "Tchad",
   "officialName": "République du Tchad",
   "publication": "draft",
-  "lastCheckedAt": "2026-11-04",
+  "lastCheckedAt": "2026-11-05",
   "sources": [
     {
       "id": "S-TCD-W",
@@ -63,6 +63,20 @@
       "language": "fr",
       "originalPublisher": "Banque des États de l’Afrique centrale",
       "methodNotes": "TCD : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-TCD-LEAD26",
+      "publisher": "Africanews",
+      "title": "Africanews — Démission du ministre Tom Erdimi, communiqué signé par le Premier ministre (6 mars 2026)",
+      "canonicalUrl": "https://www.africanews.com/2026/03/06/chad-former-rebel-leader-erdimi-quits-ministerial-post/",
+      "publishedAt": "2026-03-06",
+      "accessedAt": "2026-11-05",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Africanews",
+      "methodNotes": "Source de presse secondaire : rapporte une déclaration signée le 5 mars 2026 par le Premier ministre Allah-Maye Halina ; ne remplace pas une confirmation sur le site du Gouvernement tchadien."
     }
   ],
   "observations": [
@@ -113,7 +127,8 @@
       "geographicScope": "Tchad",
       "methodology": "Situation institutionnelle ou géographique de Tchad indiquée par l’organisme cité, consultée le 2026-11-04.",
       "sourceIds": [
-        "S-TCD-P"
+        "S-TCD-P",
+        "S-TCD-LEAD26"
       ],
       "collectedAt": "2026-11-04",
       "verifiedAt": "2026-11-04",
@@ -288,7 +303,7 @@
     {
       "id": "tcd-claim-1",
       "countryCode": "TCD",
-      "statement": "Mahamat Idriss Déby Itno est le chef de l’État de Tchad au 4 novembre 2026.",
+      "statement": "Mahamat Idriss Déby Itno est le chef de l’État du Tchad au 4 novembre 2026.",
       "claimType": "fact",
       "sourceIds": [
         "S-TCD-P"
@@ -301,7 +316,7 @@
     {
       "id": "tcd-claim-2",
       "countryCode": "TCD",
-      "statement": "La capitale déclarée de Tchad est N’Djamena.",
+      "statement": "La capitale déclarée du Tchad est N’Djamena.",
       "claimType": "fact",
       "sourceIds": [
         "S-TCD-P"
@@ -617,6 +632,46 @@
           ],
           "updatedAt": "2026-11-04"
         }
+      ],
+      "opportunities": [
+        {
+          "id": "tcd-v12-opp-1",
+          "title": "Soutien aux communautés d’accueil",
+          "summary": "Un financement prévisible des services dans l’Est pourrait bénéficier à la fois aux réfugiés et aux populations hôtes.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-X"
+          ]
+        },
+        {
+          "id": "tcd-v12-opp-2",
+          "title": "Activités non pétrolières",
+          "summary": "Les filières agricoles et de transport pourraient diversifier l’emploi si l’accès aux marchés et aux intrants progresse.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "tcd-v12-risk-1",
+          "title": "Débordement de la guerre soudanaise",
+          "summary": "De nouveaux déplacements transfrontaliers pourraient accroître la charge humanitaire et les tensions sur les ressources locales.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-X"
+          ]
+        },
+        {
+          "id": "tcd-v12-risk-2",
+          "title": "Contraction des recettes pétrolières",
+          "summary": "Une diminution durable des recettes pétrolières obligerait à réviser les priorités de dépenses publiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ]
+        }
       ]
     },
     "outlook": {
@@ -626,6 +681,15 @@
             "id": "tcd-swot-s-1",
             "title": "Plaque tournante humanitaire",
             "summary": "Les mécanismes d’enregistrement des arrivées constituent une base pour planifier l’assistance à l’Est.",
+            "tags": [],
+            "sourceIds": [
+              "S-TCD-W"
+            ]
+          },
+          {
+            "id": "tcd-v12-swot-strengths-2",
+            "title": "Base agricole et pastorale",
+            "summary": "Les productions rurales peuvent fournir des revenus non pétroliers si l’accès aux marchés et aux intrants s’améliore.",
             "tags": [],
             "sourceIds": [
               "S-TCD-W"
@@ -641,6 +705,15 @@
             "sourceIds": [
               "S-TCD-W"
             ]
+          },
+          {
+            "id": "tcd-v12-swot-weaknesses-2",
+            "title": "Services ruraux peu accessibles",
+            "summary": "La distance aux équipements de santé, routes et points d’eau accroît les coûts de desserte de certaines zones.",
+            "tags": [],
+            "sourceIds": [
+              "S-TCD-W"
+            ]
           }
         ],
         "opportunities": [
@@ -652,6 +725,15 @@
             "sourceIds": [
               "S-TCD-W"
             ]
+          },
+          {
+            "id": "tcd-v12-swot-opportunities-2",
+            "title": "Débouchés agricoles locaux",
+            "summary": "Une meilleure circulation des produits ruraux pourrait diversifier l’activité économique hors pétrole.",
+            "tags": [],
+            "sourceIds": [
+              "S-TCD-W"
+            ]
           }
         ],
         "threats": [
@@ -659,6 +741,15 @@
             "id": "tcd-swot-t-1",
             "title": "Extension du conflit soudanais",
             "summary": "Une augmentation soudaine des passages frontaliers pourrait excéder les capacités d’hébergement et de santé.",
+            "tags": [],
+            "sourceIds": [
+              "S-TCD-W"
+            ]
+          },
+          {
+            "id": "tcd-v12-swot-threats-2",
+            "title": "Baisse des revenus pétroliers",
+            "summary": "Un choc sur les exportations d’hydrocarbures réduirait la capacité de financement des services et de l’accueil.",
             "tags": [],
             "sourceIds": [
               "S-TCD-W"
@@ -757,6 +848,35 @@
           "id": "tcd-watch-2",
           "title": "Recettes de l’État",
           "summary": "Comparer les budgets avec les prix et volumes pétroliers.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "tcd-v12-vuln-1",
+          "title": "Capacité d’accueil dans l’Est",
+          "summary": "La pression sur les localités d’accueil augmente lorsque les arrivées depuis le Soudan dépassent les capacités d’hébergement, d’eau et de soins.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-X"
+          ]
+        },
+        {
+          "id": "tcd-v12-vuln-2",
+          "title": "Dépendance aux recettes pétrolières",
+          "summary": "Les revenus extérieurs restent sensibles aux prix et aux volumes de pétrole, avec des effets sur l’exécution budgétaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ]
+        },
+        {
+          "id": "tcd-v12-vuln-3",
+          "title": "Accès inégal aux services ruraux",
+          "summary": "Les besoins en routes, soins et eau compliquent le maintien des services dans les régions éloignées de N’Djamena.",
           "tags": [],
           "sourceIds": [
             "S-TCD-W"

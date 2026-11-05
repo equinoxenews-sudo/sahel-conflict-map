@@ -6,7 +6,7 @@
   "name": "République du Congo",
   "officialName": "République du Congo",
   "publication": "draft",
-  "lastCheckedAt": "2026-11-04",
+  "lastCheckedAt": "2026-11-05",
   "sources": [
     {
       "id": "S-COG-W",
@@ -288,7 +288,7 @@
     {
       "id": "cog-claim-1",
       "countryCode": "COG",
-      "statement": "Denis Sassou N’Guesso est le chef de l’État de République du Congo au 4 novembre 2026.",
+      "statement": "Denis Sassou N’Guesso est le chef de l’État de la République du Congo au 4 novembre 2026.",
       "claimType": "fact",
       "sourceIds": [
         "S-COG-P"
@@ -301,7 +301,7 @@
     {
       "id": "cog-claim-2",
       "countryCode": "COG",
-      "statement": "La capitale déclarée de République du Congo est Brazzaville.",
+      "statement": "La capitale déclarée de la République du Congo est Brazzaville.",
       "claimType": "fact",
       "sourceIds": [
         "S-COG-P"
@@ -314,7 +314,7 @@
     {
       "id": "cog-claim-3",
       "countryCode": "COG",
-      "statement": "Score officiel de Denis Sassou N’Guesso à la présidentielle  : 94,9 % des suffrages (2026-03-15) selon la source citée.",
+      "statement": "La source citée rapporte 94,9 % des suffrages attribués à Denis Sassou N’Guesso lors du scrutin présidentiel du 15 mars 2026.",
       "claimType": "fact",
       "sourceIds": [
         "S-COG-W"
@@ -598,6 +598,46 @@
           ],
           "updatedAt": "2026-11-04"
         }
+      ],
+      "opportunities": [
+        {
+          "id": "cog-v12-opp-1",
+          "title": "Fiscalité non pétrolière",
+          "summary": "Un élargissement de la collecte hors hydrocarbures pourrait stabiliser le budget et financer les services essentiels.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        },
+        {
+          "id": "cog-v12-opp-2",
+          "title": "Forêts et finance climatique",
+          "summary": "Des programmes vérifiables de gestion forestière pourraient attirer des financements sans compromettre la conservation.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "cog-v12-risk-1",
+          "title": "Coût de refinancement accru",
+          "summary": "Une remontée des coûts d’emprunt pourrait annuler une partie des marges budgétaires attendues.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        },
+        {
+          "id": "cog-v12-risk-2",
+          "title": "Retournement pétrolier",
+          "summary": "Une baisse prolongée des prix du pétrole pèserait simultanément sur les exportations et les recettes de l’État.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        }
       ]
     },
     "outlook": {
@@ -607,6 +647,15 @@
             "id": "cog-swot-s-1",
             "title": "Port atlantique et rente pétrolière",
             "summary": "Les recettes et installations existantes peuvent financer une diversification sous réserve de discipline budgétaire.",
+            "tags": [],
+            "sourceIds": [
+              "S-COG-W"
+            ]
+          },
+          {
+            "id": "cog-v12-swot-strengths-2",
+            "title": "Capital forestier",
+            "summary": "Les écosystèmes du bassin du Congo constituent un actif naturel et un enjeu de conservation.",
             "tags": [],
             "sourceIds": [
               "S-COG-W"
@@ -622,6 +671,15 @@
             "sourceIds": [
               "S-COG-W"
             ]
+          },
+          {
+            "id": "cog-v12-swot-weaknesses-2",
+            "title": "Concentration des exportations",
+            "summary": "La place du pétrole limite la diversification des recettes en devises.",
+            "tags": [],
+            "sourceIds": [
+              "S-COG-W"
+            ]
           }
         ],
         "opportunities": [
@@ -633,6 +691,15 @@
             "sourceIds": [
               "S-COG-W"
             ]
+          },
+          {
+            "id": "cog-v12-swot-opportunities-2",
+            "title": "Gestion durable du bassin forestier",
+            "summary": "La forêt peut constituer un axe de coopération climatique si les garanties environnementales sont solides.",
+            "tags": [],
+            "sourceIds": [
+              "S-COG-W"
+            ]
           }
         ],
         "threats": [
@@ -640,6 +707,15 @@
             "id": "cog-swot-t-1",
             "title": "Recul des recettes d’exportation",
             "summary": "Les chocs pétroliers affectent simultanément les comptes extérieurs et les finances publiques.",
+            "tags": [],
+            "sourceIds": [
+              "S-COG-W"
+            ]
+          },
+          {
+            "id": "cog-v12-swot-threats-2",
+            "title": "Pression sur le refinancement",
+            "summary": "Une hausse durable des coûts d’emprunt pourrait réduire l’investissement public indépendamment du niveau de production pétrolière.",
             "tags": [],
             "sourceIds": [
               "S-COG-W"
@@ -738,6 +814,35 @@
           "id": "cog-watch-2",
           "title": "Forêts et hydrocarbures",
           "summary": "Comparer les annonces de diversification aux exportations réellement observées.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "cog-v12-vuln-1",
+          "title": "Refinancement de la dette",
+          "summary": "L’endettement public peut absorber une part importante des recettes et réduire la marge d’investissement hors pétrole.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        },
+        {
+          "id": "cog-v12-vuln-2",
+          "title": "Volatilité des hydrocarbures",
+          "summary": "La concentration des exportations sur le pétrole expose les recettes externes aux cours et à la production.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        },
+        {
+          "id": "cog-v12-vuln-3",
+          "title": "Débouchés économiques concentrés",
+          "summary": "L’économie dépend fortement de la chaîne pétrolière et des infrastructures autour de Pointe-Noire.",
           "tags": [],
           "sourceIds": [
             "S-COG-W"

@@ -374,11 +374,13 @@ export function findIso3ByLabel(label: string): { iso3: string; name: string } |
 }
 
 /** Nom et capitale d'un pays désigné par un libellé courant (« RDC », « Burkina Faso »…),
- *  pour placer sur la carte une information d'ordre national. null si inconnu. */
+ *  pour placer sur la carte une information d'ordre national. null si inconnu, ou si la capitale ne doit pas servir de point
+ *  (capitalAnchorsNationalInfo faux : l'information reste alors publiée, sans marqueur local). */
 export function findCapitalByLabel(label: string): { country: string; capital: string } | null {
   const found = findCountryByLabel(label);
   if (!found) return null;
   const profile = Object.values(COUNTRY_PROFILES).find((p) => p.name === found.name);
+  if (profile?.capitalAnchorsNationalInfo === false) return null;
   return profile?.capital ? { country: profile.name, capital: profile.capital } : null;
 }
 
