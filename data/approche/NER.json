@@ -1,0 +1,783 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "NER",
+  "slug": "niger",
+  "zoneSlug": "afrique",
+  "name": "Niger",
+  "officialName": "République du Niger",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-NER-WB",
+      "publisher": "Banque mondiale",
+      "title": "Niger — situation institutionnelle, sécuritaire et économique 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/niger",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-NER-ECOWAS",
+      "publisher": "CEDEAO",
+      "title": "Communiqué du 29 janvier 2025 — retrait effectif du Niger, du Mali et du Burkina Faso",
+      "canonicalUrl": "https://www.ecowas.int/communique-de-presse-2/?lang=fr",
+      "publishedAt": "2025-01-29",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "CEDEAO",
+      "methodNotes": "Attribution factuelle à CEDEAO ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-NER-CHARTER",
+      "publisher": "Autorités nigériennes, texte juridique indexé par le HCR",
+      "title": "Charte de la Refondation du Niger du 26 mars 2025",
+      "canonicalUrl": "https://www.refworld.org/legal/legislation/natlegbod/2025/122645",
+      "publishedAt": "2025-03-26",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Autorités nigériennes, texte juridique indexé par le HCR",
+      "methodNotes": "Attribution factuelle à Autorités nigériennes, texte juridique indexé par le HCR ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    }
+  ],
+  "observations": [
+    {
+      "id": "ner-identity-capital",
+      "countryCode": "NER",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Niamey",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Niger",
+      "methodology": "Capitale administrative indiquée par la source de référence du pays.",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ner-identity-language",
+      "countryCode": "NER",
+      "key": "identity.language",
+      "label": "Langue nationale et langues de travail",
+      "value": "Haoussa (langue nationale) ; français et anglais (langues de travail)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Niger",
+      "methodology": "Charte de la Refondation de 2025, article 12.",
+      "sourceIds": [
+        "S-NER-CHARTER"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ner-identity-currency",
+      "countryCode": "NER",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc CFA (XOF)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Niger",
+      "methodology": "Devise nationale indiquée par la source pays ; sans conversion de taux de change.",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ner-politics-head-of-state",
+      "countryCode": "NER",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Abdourahmane Tiani",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Niger",
+      "methodology": "Fonction et titulaire vérifiés au 2 novembre 2026 ; distinguer les régimes de transition.",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ner-politics-regime",
+      "countryCode": "NER",
+      "key": "politics.regime",
+      "label": "Régime institutionnel",
+      "value": "Autorités de transition dirigées par le général Abdourahmane Tiani depuis 2023",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Niger",
+      "methodology": "Qualification politique à la date de consultation ; contexte de transition précisé si nécessaire.",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ner-institutions-ecowas-former-member",
+      "countryCode": "NER",
+      "key": "institutions.ecowas_former_member",
+      "label": "Ancien membre de la CEDEAO",
+      "value": "Retrait effectif le 29 janvier 2025",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Niger",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-NER-ECOWAS"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ner-institutions-aes",
+      "countryCode": "NER",
+      "key": "institutions.aes",
+      "label": "Membre de la Confédération AES",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Niger",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-NER-CHARTER"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ner-economy-growth-estimate-2026-wb",
+      "countryCode": "NER",
+      "key": "economy.growth_estimate_2026_wb",
+      "label": "Croissance estimée pour 2026",
+      "value": 7.0,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Niger",
+      "methodology": "Estimation de la Banque mondiale, non résultat annuel définitif.",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth",
+      "uncertainty": "Projection ou estimation susceptible d’être révisée."
+    },
+    {
+      "id": "ner-economy-inflation-estimate-2026-wb",
+      "countryCode": "NER",
+      "key": "economy.inflation_estimate_2026_wb",
+      "label": "Inflation estimée en 2026",
+      "value": -1.9,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Niger",
+      "methodology": "Estimation de la Banque mondiale ; valeur négative correspondant à une baisse moyenne de l’indice.",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "inflation",
+      "uncertainty": "Projection ou estimation susceptible d’être révisée."
+    },
+    {
+      "id": "ner-humanitarian-forcibly-displaced-aug2026-wb",
+      "countryCode": "NER",
+      "key": "humanitarian.forcibly_displaced_aug2026_wb",
+      "label": "Personnes déplacées de force",
+      "value": 1000000,
+      "unit": "personnes (seuil minimal)",
+      "referencePeriod": "2026-08-31",
+      "geographicScope": "Niger",
+      "methodology": "Plus d’un million de réfugiés et déplacés internes ; valeur saisie comme seuil inférieur, non dénombrement exact.",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "ner-economy-poverty-projection-2026-wb",
+      "countryCode": "NER",
+      "key": "economy.poverty_projection_2026_wb",
+      "label": "Taux de pauvreté projeté 2026",
+      "value": 47.7,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Niger",
+      "methodology": "Projection conditionnelle de la Banque mondiale.",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "uncertainty": "Projection ou estimation susceptible d’être révisée."
+    }
+  ],
+  "claims": [
+    {
+      "id": "ner-claim-1",
+      "countryCode": "NER",
+      "statement": "Niger : Niamey est la capitale du pays.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "ner-claim-2",
+      "countryCode": "NER",
+      "statement": "En 2026, la fonction de chef de l’État de Niger est exercée par Abdourahmane Tiani.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "ner-claim-3",
+      "countryCode": "NER",
+      "statement": "La Banque mondiale recense plus d’un million de personnes déplacées de force au 31 août 2026.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "ner-claim-4",
+      "countryCode": "NER",
+      "statement": "La production pétrolière contribue à la croissance macroéconomique constatée ou estimée.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "ner-claim-5",
+      "countryCode": "NER",
+      "statement": "Les attaques touchent plusieurs régions, notamment Tillabéri, Diffa et Dosso, avec des effets sur les civils.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "ner-rel-1",
+      "countryCode": "NER",
+      "targetCode": "BEN",
+      "targetIso2": "BJ",
+      "targetName": "Bénin",
+      "relationType": "tension",
+      "title": "Frontière fermée et feuille de route",
+      "topics": [],
+      "summary": "Les autorités du Niger et du Bénin ont évoqué en juin 2026 une feuille de route vers une réouverture éventuelle de la frontière.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "ner-rel-2",
+      "countryCode": "NER",
+      "targetCode": "DZA",
+      "targetIso2": "DZ",
+      "targetName": "Algérie",
+      "relationType": "cooperation",
+      "title": "Coopération énergétique en 2026",
+      "topics": [],
+      "summary": "Des accords bilatéraux ont relancé des échanges techniques sur le projet de gazoduc transsaharien.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "ner-rel-3",
+      "countryCode": "NER",
+      "targetCode": "NGA",
+      "targetIso2": "NG",
+      "targetName": "Nigéria",
+      "relationType": "cooperation",
+      "title": "Corridor pétrolier et voisinage",
+      "topics": [],
+      "summary": "Le pays partage avec le Nigéria des enjeux commerciaux et énergétiques, dans un contexte de sécurité variable.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-NER-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "ner-overview-strengths-1",
+          "title": "Ressources énergétiques",
+          "summary": "La production pétrolière contribue à la croissance macroéconomique constatée ou estimée.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        },
+        {
+          "id": "ner-overview-strengths-2",
+          "title": "Position sahélienne",
+          "summary": "Le Niger relie des axes transsahariens et plusieurs marchés voisins, malgré des difficultés d’accès.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "ner-overview-challenges-1",
+          "title": "Violences et déplacements",
+          "summary": "La Banque mondiale recense plus d’un million de personnes déplacées de force au 31 août 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        },
+        {
+          "id": "ner-overview-challenges-2",
+          "title": "Dépendance à des infrastructures de transit",
+          "summary": "Les tensions frontalières influencent les débouchés du pétrole et des marchandises.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "ner-timeline-1",
+          "title": "Prise du pouvoir par l’armée",
+          "summary": "Renversement du président élu et installation d’autorités de transition.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ],
+          "date": "2023-07-26"
+        },
+        {
+          "id": "ner-timeline-2",
+          "title": "Accords de coopération avec l’Algérie",
+          "summary": "Signature de plusieurs accords économiques incluant une dimension énergétique.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ],
+          "date": "2026-03"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "ner-sector-1",
+          "title": "Pétrole",
+          "summary": "Expansion de la production contribuant aux estimations de croissance 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        },
+        {
+          "id": "ner-sector-2",
+          "title": "Agriculture",
+          "summary": "Activité exposée à l’insécurité, aux aléas climatiques et aux marchés régionaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        },
+        {
+          "id": "ner-sector-3",
+          "title": "Commerce transfrontalier",
+          "summary": "Débouchés fortement liés aux frontières et aux corridors de transport.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "ner-resource-1",
+          "title": "Hydrocarbures",
+          "summary": "Production à relier aux prix, aux recettes publiques et à la capacité d’exportation.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "ner-security-1",
+          "title": "Liptako-Gourma",
+          "summary": "Insécurité persistante dans l’espace de Tillabéri signalée par la Banque mondiale.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        },
+        {
+          "id": "ner-security-2",
+          "title": "Bassin du lac Tchad",
+          "summary": "La région de Diffa reste concernée par des attaques et des déplacements.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "ner-issue-1",
+          "title": "Insécurité multisectorielle",
+          "summary": "Insécurité multisectorielle : La situation sécuritaire pèse sur les services, l’agriculture et les marges de manœuvre budgéta…",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Les attaques touchent plusieurs régions, notamment Tillabéri, Diffa et Dosso, avec des effets sur les civils.",
+          "whyStrategic": "La situation sécuritaire pèse sur les services, l’agriculture et les marges de manœuvre budgétaires.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Accès humanitaire",
+            "déplacements",
+            "fonctionnement des marchés"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "ner-issue-2",
+          "title": "Rapprochement avec le Bénin",
+          "summary": "Rapprochement avec le Bénin : L’ouverture ou la fermeture de débouchés logistiques influence directement les coûts commerciau…",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La fermeture frontalière persiste malgré des gestes diplomatiques et un travail sur une feuille de route.",
+          "whyStrategic": "L’ouverture ou la fermeture de débouchés logistiques influence directement les coûts commerciaux et énergétiques.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Décisions douanières",
+            "annonces officielles de réouverture",
+            "flux déclarés"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "ner-issue-3",
+          "title": "Valorisation du pétrole",
+          "summary": "Valorisation du pétrole : Les gains macroéconomiques doivent être distingués de leur traduction en recettes budgétaires e…",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "L’activité pétrolière apporte une contribution importante à la croissance estimée en 2026.",
+          "whyStrategic": "Les gains macroéconomiques doivent être distingués de leur traduction en recettes budgétaires et niveau de vie.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Production et exportations",
+            "recettes publiques",
+            "indices de pauvreté"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "ner-swot-s-1",
+            "title": "Ressources énergétiques",
+            "summary": "Un levier pour Niger : réduction des coûts de transit",
+            "tags": [],
+            "sourceIds": [
+              "S-NER-WB"
+            ]
+          },
+          {
+            "id": "ner-swot-s-2",
+            "title": "Position sahélienne",
+            "summary": "Un levier pour Niger : l’ouverture ou la fermeture de débouchés logistiques influence directement les coûts commerciaux et énergétiques.",
+            "tags": [],
+            "sourceIds": [
+              "S-NER-WB"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "ner-swot-w-1",
+            "title": "Violences et déplacements",
+            "summary": "Cette contrainte pèse sur la réponse à insécurité multisectorielle et doit être suivie par les indicateurs : accès humanitaire , déplacements , fonctionnement des marchés.",
+            "tags": [],
+            "sourceIds": [
+              "S-NER-WB"
+            ]
+          },
+          {
+            "id": "ner-swot-w-2",
+            "title": "Dépendance à des infrastructures de transit",
+            "summary": "Cette contrainte pèse sur la réponse à rapprochement avec le bénin et doit être suivie par les indicateurs : décisions douanières , annonces officielles de réouverture , flux déclarés.",
+            "tags": [],
+            "sourceIds": [
+              "S-NER-WB"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "ner-swot-o-1",
+            "title": "Détente frontalière et sécurisation commerciale",
+            "summary": "Perspective conditionnelle : accord frontalier mis en œuvre et sécurité accrue; son avancement pourrait favoriser réduction des coûts de transit.",
+            "tags": [],
+            "sourceIds": [
+              "S-NER-WB"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "ner-swot-t-1",
+            "title": "Blocages logistiques et attaques répétées",
+            "summary": "Le facteur de rupture à contrôler est : augmentation des entraves au transit; cela exposerait le pays à recettes plus incertaines et vulnérabilité rurale.",
+            "tags": [],
+            "sourceIds": [
+              "S-NER-WB"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "ner-scenario-1",
+          "title": "Détente frontalière et sécurisation commerciale",
+          "summary": "Une reprise négociée du trafic avec le Bénin, combinée à une stabilisation locale, améliorerait les accès au marché.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Accord frontalier mis en œuvre et sécurité accrue"
+          ],
+          "triggers": [
+            "Ouverture effective des points de passage"
+          ],
+          "weakSignals": [
+            "Ouverture effective des points de passage"
+          ],
+          "consequences": [
+            "Réduction des coûts de transit"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Niger fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "ner-scenario-2",
+          "title": "Croissance pétrolière sans inflexion humanitaire",
+          "summary": "La contribution du pétrole au PIB pourrait coexister avec le maintien de déplacements massifs et de besoins sociaux élevés.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Production maintenue avec insécurité persistante"
+          ],
+          "triggers": [
+            "Exportations d’énergie et chiffres humanitaires"
+          ],
+          "weakSignals": [
+            "Exportations d’énergie et chiffres humanitaires"
+          ],
+          "consequences": [
+            "Amélioration limitée des conditions locales"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Niger fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "ner-scenario-3",
+          "title": "Blocages logistiques et attaques répétées",
+          "summary": "Des sabotages et ruptures transfrontalières pourraient freiner les gains de croissance attendus en 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Augmentation des entraves au transit"
+          ],
+          "triggers": [
+            "Rapports sur pipelines et frontières"
+          ],
+          "weakSignals": [
+            "Rapports sur pipelines et frontières"
+          ],
+          "consequences": [
+            "Recettes plus incertaines et vulnérabilité rurale"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Niger fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "ner-watch-1",
+          "title": "Tillabéri, Dosso et Diffa",
+          "summary": "Suivre les effets sur les populations sans publier de positions tactiques non vérifiées.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        },
+        {
+          "id": "ner-watch-2",
+          "title": "Frontière Bénin–Niger",
+          "summary": "Distinguer dialogue diplomatique et ouverture effective.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        },
+        {
+          "id": "ner-watch-3",
+          "title": "Pétrole et croissance",
+          "summary": "Comparer projections et données effectivement publiées.",
+          "tags": [],
+          "sourceIds": [
+            "S-NER-WB"
+          ]
+        }
+      ]
+    }
+  }
+}

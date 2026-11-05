@@ -222,3 +222,37 @@ test("même grandeur seulement : un chef d'État et une durée de mandat ne sont
   assert.equal(unitFamily("milliards EUR"), unitFamily("USD"));
   assert.equal(comparableMeasures(populationA, make({ id: "e", value: 3, unit: "%" })), false);
 });
+
+const BATCH2 = ["TGO", "CIV", "SEN", "NER", "MRT", "GMB", "GNB", "SLE", "LBR"];
+
+test("le second lot (Afrique de l'Ouest, neuf pays) est enregistré en brouillon, sans erreur, et le Cap-Vert refusé n'est pas écrit", () => {
+  for (const code of BATCH2) {
+    assert.ok(COUNTRY_FILES[code], `${code} enregistré`);
+    assert.equal(read(code).publication, "draft", code);
+    assert.equal(getApprocheData(code), null, `${code} n'est pas servi au public tant qu'il est en brouillon`);
+    const report = analyzeCountry(read(code), `${code}.json`, ctx());
+    assert.deepEqual(Object.values(report.errors).flat(), [], `${code} : ${JSON.stringify(report.errors)}`);
+  }
+  assert.equal(COUNTRY_FILES.CPV, undefined, "le Cap-Vert n'a pas de fiche pays ni de carte sur le site : il reste à l'extérieur");
+  assert.deepEqual(
+    listApprocheCountries().map((country) => country.slug),
+    ["france"],
+    "seule la France est publiée",
+  );
+});
+
+test("une observation en attente n'affiche aucune valeur : elle est signalée « à vérifier », jamais présentée comme vérifiée", () => {
+  const pending: [string, string][] = [
+    ["TGO", "demography.rural_poverty_wb"],
+    ["TGO", "demography.urban_poverty_wb"],
+    ["GNB", "economy.cashew_exports_share_fd"],
+  ];
+  for (const [code, key] of pending) {
+    const data = loadApprocheCountry(code) as CountryData;
+    const observation = data.observations.find((item) => item.key === key);
+    assert.ok(observation, `${code} ${key}`);
+    assert.equal(observation.status, "pending");
+    const placement = classifyObservations(data).get(observation.id);
+    assert.ok(placement && placement.kind === "panel" && placement.pending, `${code} ${key} : panneau « en attente de vérification »`);
+  }
+});

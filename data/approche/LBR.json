@@ -1,0 +1,817 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "LBR",
+  "slug": "liberia",
+  "zoneSlug": "afrique",
+  "name": "Liberia",
+  "officialName": "République du Liberia",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-LBR-WB",
+      "publisher": "Banque mondiale",
+      "title": "Liberia — politique et économie 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/liberia",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-LBR-FD",
+      "publisher": "France Diplomatie",
+      "title": "Libéria — présentation actualisée le 27 octobre 2026",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/liberia/presentation-du-liberia",
+      "publishedAt": "2026-10-27",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Attribution factuelle à France Diplomatie ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-LBR-CBL",
+      "publisher": "Banque centrale du Liberia",
+      "title": "Currency — dollar libérien et cours légal du dollar américain",
+      "canonicalUrl": "https://www.cbl.org.lr/index.php/general/currency",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque centrale du Liberia",
+      "methodNotes": "Attribution factuelle à Banque centrale du Liberia ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    }
+  ],
+  "observations": [
+    {
+      "id": "lbr-identity-capital",
+      "countryCode": "LBR",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Monrovia",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Liberia",
+      "methodology": "Capitale administrative indiquée par la source de référence du pays.",
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "lbr-identity-language",
+      "countryCode": "LBR",
+      "key": "identity.language",
+      "label": "Langue officielle",
+      "value": "Anglais",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Liberia",
+      "methodology": "Langue constitutionnelle ou administrative indiquée par la source.",
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "lbr-identity-currency",
+      "countryCode": "LBR",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Dollar libérien (LRD)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Liberia",
+      "methodology": "Dollar libérien officiel, avec dollar américain également admis comme monnaie légale.",
+      "sourceIds": [
+        "S-LBR-CBL"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "lbr-politics-head-of-state",
+      "countryCode": "LBR",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Joseph Boakai",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Liberia",
+      "methodology": "Fonction et titulaire vérifiés au 2 novembre 2026 ; distinguer les régimes de transition.",
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "lbr-politics-regime",
+      "countryCode": "LBR",
+      "key": "politics.regime",
+      "label": "Régime institutionnel",
+      "value": "République présidentielle",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Liberia",
+      "methodology": "Qualification politique à la date de consultation ; contexte de transition précisé si nécessaire.",
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "lbr-geography-area-official",
+      "countryCode": "LBR",
+      "key": "geography.area.official",
+      "label": "Superficie du territoire",
+      "value": 111370,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Liberia",
+      "methodology": "Superficie publiée dans la fiche nationale ; vérifier les périmètres en cas d’écart avec la série mondiale.",
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "lbr-institutions-ecowas",
+      "countryCode": "LBR",
+      "key": "institutions.ecowas",
+      "label": "Membre de la CEDEAO",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Liberia",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "lbr-institutions-mano-river-union",
+      "countryCode": "LBR",
+      "key": "institutions.mano_river_union",
+      "label": "Membre de l’Union du fleuve Mano",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Liberia",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "lbr-institutions-unsc-2026-2027",
+      "countryCode": "LBR",
+      "key": "institutions.unsc_2026_2027",
+      "label": "Siège non permanent au Conseil de sécurité",
+      "value": "2026–2027",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Liberia",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "lbr-economy-growth-2025-wb",
+      "countryCode": "LBR",
+      "key": "economy.growth_2025_wb",
+      "label": "Croissance réelle en 2025",
+      "value": 5.1,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Liberia",
+      "methodology": "Croissance estimée soutenue par le redressement minier et les services.",
+      "sourceIds": [
+        "S-LBR-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "lbr-economy-mining-growth-2025-wb",
+      "countryCode": "LBR",
+      "key": "economy.mining_growth_2025_wb",
+      "label": "Croissance du secteur minier 2025",
+      "value": 17.0,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Liberia",
+      "methodology": "Dynamique propre au secteur minier, non croissance du PIB total.",
+      "sourceIds": [
+        "S-LBR-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "lbr-economy-inflation-2025-wb",
+      "countryCode": "LBR",
+      "key": "economy.inflation_2025_wb",
+      "label": "Inflation moyenne 2025",
+      "value": 8.5,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Liberia",
+      "methodology": "Moyenne annuelle ; distincte des variations mensuelles 2026.",
+      "sourceIds": [
+        "S-LBR-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "inflation"
+    },
+    {
+      "id": "lbr-economy-inflation-jun2026-yoy-wb",
+      "countryCode": "LBR",
+      "key": "economy.inflation_jun2026_yoy_wb",
+      "label": "Inflation en juin 2026",
+      "value": 5.0,
+      "unit": "%",
+      "referencePeriod": "2026-06",
+      "geographicScope": "Liberia",
+      "methodology": "Glissement annuel approximatif selon la Banque mondiale.",
+      "sourceIds": [
+        "S-LBR-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "lbr-claim-1",
+      "countryCode": "LBR",
+      "statement": "Liberia : Monrovia est la capitale du pays.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "lbr-claim-2",
+      "countryCode": "LBR",
+      "statement": "En 2026, la fonction de chef de l’État de Liberia est exercée par Joseph Boakai.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "lbr-claim-3",
+      "countryCode": "LBR",
+      "statement": "La croissance extractive ne garantit pas la multiplication des emplois formels.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-LBR-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "lbr-claim-4",
+      "countryCode": "LBR",
+      "statement": "La progression des activités extractives contribue significativement à la croissance.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-LBR-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "lbr-claim-5",
+      "countryCode": "LBR",
+      "statement": "La croissance sectorielle de 2025 dépasse nettement celle de l’économie globale.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-LBR-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "lbr-rel-1",
+      "countryCode": "LBR",
+      "targetCode": "SLE",
+      "targetIso2": "SL",
+      "targetName": "Sierra Leone",
+      "relationType": "cooperation",
+      "title": "Intégration du fleuve Mano",
+      "topics": [],
+      "summary": "Le Liberia partage avec la Sierra Leone un cadre régional d’intégration économique.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "lbr-rel-2",
+      "countryCode": "LBR",
+      "targetCode": "CIV",
+      "targetIso2": "CI",
+      "targetName": "Côte d’Ivoire",
+      "relationType": "cooperation",
+      "title": "Coopération économique de voisinage",
+      "topics": [],
+      "summary": "La façade ouest-africaine et les corridors côtiers créent des intérêts commerciaux partagés.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "lbr-rel-3",
+      "countryCode": "LBR",
+      "targetCode": "USA",
+      "targetIso2": "US",
+      "targetName": "États-Unis",
+      "relationType": "cooperation",
+      "title": "Liens historiques et développement",
+      "topics": [],
+      "summary": "L’histoire politique libérienne et ses relations extérieures maintiennent un lien important avec les États-Unis.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-LBR-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "lbr-overview-strengths-1",
+          "title": "Reprise du secteur minier",
+          "summary": "La progression des activités extractives contribue significativement à la croissance.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        },
+        {
+          "id": "lbr-overview-strengths-2",
+          "title": "Alternances électorales",
+          "summary": "Le changement de pouvoir en 2023 s’est opéré après reconnaissance de la défaite par le sortant.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-FD"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "lbr-overview-challenges-1",
+          "title": "Diversification de l’emploi",
+          "summary": "La croissance extractive ne garantit pas la multiplication des emplois formels.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        },
+        {
+          "id": "lbr-overview-challenges-2",
+          "title": "Trafic de stupéfiants",
+          "summary": "La Banque mondiale relate plusieurs saisies importantes en 2026 et l’enjeu des réseaux transnationaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "lbr-timeline-1",
+          "title": "Entrée en fonctions de Joseph Boakai",
+          "summary": "Nouvelle alternance après la victoire électorale de 2023.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-FD"
+          ],
+          "date": "2024-01-22"
+        },
+        {
+          "id": "lbr-timeline-2",
+          "title": "Début du mandat au Conseil de sécurité",
+          "summary": "Le Liberia prend un siège non permanent pour 2026–2027.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-FD"
+          ],
+          "date": "2026-01-01"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "lbr-sector-1",
+          "title": "Mines",
+          "summary": "Le rebond de l’extraction constitue un moteur conjoncturel.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        },
+        {
+          "id": "lbr-sector-2",
+          "title": "Caoutchouc et agriculture",
+          "summary": "Les cultures commerciales sont sensibles aux prix et aux performances de récolte.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        },
+        {
+          "id": "lbr-sector-3",
+          "title": "Services urbains",
+          "summary": "Commerce, transport et énergie accompagnent la croissance du secteur tertiaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "lbr-resource-1",
+          "title": "Fer et ressources minières",
+          "summary": "La ressource extractive soutient les exportations mais accroît la concentration sectorielle.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "lbr-security-1",
+          "title": "Trafic transnational",
+          "summary": "Les saisies de cocaïne en 2026 soulignent l’importance du contrôle portuaire et de l’enquête judiciaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        },
+        {
+          "id": "lbr-security-2",
+          "title": "État de droit et réforme institutionnelle",
+          "summary": "La gouvernance et la lutte contre la corruption figurent parmi les débats politiques nationaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-FD"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "lbr-issue-1",
+          "title": "Dépendance à l’activité minière",
+          "summary": "Dépendance à l’activité minière : L’enjeu est de transformer une reprise minière en infrastructures, compétences et recettes publ…",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La croissance sectorielle de 2025 dépasse nettement celle de l’économie globale.",
+          "whyStrategic": "L’enjeu est de transformer une reprise minière en infrastructures, compétences et recettes publiques durables.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Valeur ajoutée minière",
+            "fiscalité extractive",
+            "emplois locaux"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "lbr-issue-2",
+          "title": "Réseaux de stupéfiants",
+          "summary": "Réseaux de stupéfiants : La réponse judiciaire et portuaire peut affecter la réputation commerciale et la coopération ré…",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Les saisies de cocaïne en 2026 ont mis en lumière des circuits criminels potentiellement transnationaux.",
+          "whyStrategic": "La réponse judiciaire et portuaire peut affecter la réputation commerciale et la coopération régionale.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Enquêtes annoncées",
+            "décisions judiciaires",
+            "contrôles douaniers"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "lbr-issue-3",
+          "title": "Réformes de gouvernance",
+          "summary": "Réformes de gouvernance : La capacité administrative à mener ces chantiers conditionne la diffusion sociale de la croissa…",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-FD"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le gouvernement Boakai met en avant les routes, l’éducation, l’État de droit et la santé.",
+          "whyStrategic": "La capacité administrative à mener ces chantiers conditionne la diffusion sociale de la croissance.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Budgets sectoriels",
+            "entretien routier",
+            "résultats sanitaires"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "lbr-swot-s-1",
+            "title": "Reprise du secteur minier",
+            "summary": "Un levier pour Liberia : élargissement de la base productive",
+            "tags": [],
+            "sourceIds": [
+              "S-LBR-WB"
+            ]
+          },
+          {
+            "id": "lbr-swot-s-2",
+            "title": "Alternances électorales",
+            "summary": "Un levier pour Liberia : la réponse judiciaire et portuaire peut affecter la réputation commerciale et la coopération régionale.",
+            "tags": [],
+            "sourceIds": [
+              "S-LBR-FD"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "lbr-swot-w-1",
+            "title": "Diversification de l’emploi",
+            "summary": "Cette contrainte pèse sur la réponse à dépendance à l’activité minière et doit être suivie par les indicateurs : valeur ajoutée minière , fiscalité extractive , emplois locaux.",
+            "tags": [],
+            "sourceIds": [
+              "S-LBR-WB"
+            ]
+          },
+          {
+            "id": "lbr-swot-w-2",
+            "title": "Trafic de stupéfiants",
+            "summary": "Cette contrainte pèse sur la réponse à réseaux de stupéfiants et doit être suivie par les indicateurs : enquêtes annoncées , décisions judiciaires , contrôles douaniers.",
+            "tags": [],
+            "sourceIds": [
+              "S-LBR-WB"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "lbr-swot-o-1",
+            "title": "Mine et services diffusent la croissance",
+            "summary": "Perspective conditionnelle : politiques d’emploi et contrats publics transparents; son avancement pourrait favoriser élargissement de la base productive.",
+            "tags": [],
+            "sourceIds": [
+              "S-LBR-WB"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "lbr-swot-t-1",
+            "title": "Choc de réputation et tensions budgétaires",
+            "summary": "Le facteur de rupture à contrôler est : dégradation des termes de l’échange et lacunes de gouvernance; cela exposerait le pays à financement public moins stable.",
+            "tags": [],
+            "sourceIds": [
+              "S-LBR-WB"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "lbr-scenario-1",
+          "title": "Mine et services diffusent la croissance",
+          "summary": "Si les investissements extractifs se traduisent en marchés locaux et infrastructures, les bénéfices pourraient toucher davantage de ménages.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Politiques d’emploi et contrats publics transparents"
+          ],
+          "triggers": [
+            "Emploi et investissement hors mines"
+          ],
+          "weakSignals": [
+            "Emploi et investissement hors mines"
+          ],
+          "consequences": [
+            "Élargissement de la base productive"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Liberia fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "lbr-scenario-2",
+          "title": "Croissance sans emplois suffisants",
+          "summary": "Les exportations minières pourraient progresser tandis que le caoutchouc et l’emploi rural resteraient moins dynamiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Concentration des investissements dans l’extraction"
+          ],
+          "triggers": [
+            "Écart de croissance sectorielle et revenus ruraux"
+          ],
+          "weakSignals": [
+            "Écart de croissance sectorielle et revenus ruraux"
+          ],
+          "consequences": [
+            "Disparités persistantes"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Liberia fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "lbr-scenario-3",
+          "title": "Choc de réputation et tensions budgétaires",
+          "summary": "Des affaires criminelles non résolues et des prix internationaux défavorables pourraient compliquer investissements et recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Dégradation des termes de l’échange et lacunes de gouvernance"
+          ],
+          "triggers": [
+            "Prix des minerais et décisions judiciaires"
+          ],
+          "weakSignals": [
+            "Prix des minerais et décisions judiciaires"
+          ],
+          "consequences": [
+            "Financement public moins stable"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Liberia fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "lbr-watch-1",
+          "title": "Prix des matières premières",
+          "summary": "Suivre leur effet sur l’extraction et les recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        },
+        {
+          "id": "lbr-watch-2",
+          "title": "Suites judiciaires des saisies",
+          "summary": "Distinguer soupçons, enquêtes et condamnations définitives.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-WB"
+          ]
+        },
+        {
+          "id": "lbr-watch-3",
+          "title": "Programme ARREST",
+          "summary": "Comparer annonces, budgets et réalisations dans les services publics.",
+          "tags": [],
+          "sourceIds": [
+            "S-LBR-FD"
+          ]
+        }
+      ]
+    }
+  }
+}

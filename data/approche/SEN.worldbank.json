@@ -1,0 +1,660 @@
+{
+  "countryCode": "SEN",
+  "fetchedAt": "2026-11-05",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=SN",
+      "apiUrl": "https://api.worldbank.org/v2/country/SEN/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=SN",
+      "apiUrl": "https://api.worldbank.org/v2/country/SEN/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=SN",
+      "apiUrl": "https://api.worldbank.org/v2/country/SEN/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=SN",
+      "apiUrl": "https://api.worldbank.org/v2/country/SEN/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=SN",
+      "apiUrl": "https://api.worldbank.org/v2/country/SEN/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=SN",
+      "apiUrl": "https://api.worldbank.org/v2/country/SEN/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=SN",
+      "apiUrl": "https://api.worldbank.org/v2/country/SEN/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-GB.XPD.RSDV.GD.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Dépenses de recherche-développement (% du PIB)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS?locations=SN",
+      "apiUrl": "https://api.worldbank.org/v2/country/SEN/indicator/GB.XPD.RSDV.GD.ZS?format=json&per_page=18",
+      "datasetId": "GB.XPD.RSDV.GD.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "sen-demography-population-2025",
+      "countryCode": "SEN",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 18931966,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Senegal, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 14152102
+        },
+        {
+          "period": "2015",
+          "value": 14593331
+        },
+        {
+          "period": "2016",
+          "value": 15034521
+        },
+        {
+          "period": "2017",
+          "value": 15475002
+        },
+        {
+          "period": "2018",
+          "value": 15914498
+        },
+        {
+          "period": "2019",
+          "value": 16352922
+        },
+        {
+          "period": "2020",
+          "value": 16789219
+        },
+        {
+          "period": "2021",
+          "value": 17220867
+        },
+        {
+          "period": "2022",
+          "value": 17651103
+        },
+        {
+          "period": "2023",
+          "value": 18077573
+        },
+        {
+          "period": "2024",
+          "value": 18501984
+        },
+        {
+          "period": "2025",
+          "value": 18931966
+        }
+      ]
+    },
+    {
+      "id": "sen-economy-gdp_nominal_usd-2025",
+      "countryCode": "SEN",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 37006536238.3731,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Senegal, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 19797253440.2679
+        },
+        {
+          "period": "2015",
+          "value": 17774766696.1759
+        },
+        {
+          "period": "2016",
+          "value": 19040312333.1864
+        },
+        {
+          "period": "2017",
+          "value": 20965069572.7168
+        },
+        {
+          "period": "2018",
+          "value": 23116701556.1381
+        },
+        {
+          "period": "2019",
+          "value": 23403995992.1354
+        },
+        {
+          "period": "2020",
+          "value": 24530513037.7518
+        },
+        {
+          "period": "2021",
+          "value": 27520784129.7508
+        },
+        {
+          "period": "2022",
+          "value": 27783332222.6759
+        },
+        {
+          "period": "2023",
+          "value": 30696331295.7826
+        },
+        {
+          "period": "2024",
+          "value": 32169996051.8502
+        },
+        {
+          "period": "2025",
+          "value": 37006536238.3731
+        }
+      ]
+    },
+    {
+      "id": "sen-economy-gdp_per_capita_usd-2025",
+      "countryCode": "SEN",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 1954.71174194867,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Senegal, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1398.89137601382
+        },
+        {
+          "period": "2015",
+          "value": 1218.00613555438
+        },
+        {
+          "period": "2016",
+          "value": 1266.43957151587
+        },
+        {
+          "period": "2017",
+          "value": 1354.77007193387
+        },
+        {
+          "period": "2018",
+          "value": 1452.55612562445
+        },
+        {
+          "period": "2019",
+          "value": 1431.18128932159
+        },
+        {
+          "period": "2020",
+          "value": 1461.08720350553
+        },
+        {
+          "period": "2021",
+          "value": 1598.10676952274
+        },
+        {
+          "period": "2022",
+          "value": 1574.0281059306
+        },
+        {
+          "period": "2023",
+          "value": 1698.03387300843
+        },
+        {
+          "period": "2024",
+          "value": 1738.73223822106
+        },
+        {
+          "period": "2025",
+          "value": 1954.71174194867
+        }
+      ]
+    },
+    {
+      "id": "sen-economy-gdp_growth-2025",
+      "countryCode": "SEN",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 6.68227744849194,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Senegal, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 6.22407443790986
+        },
+        {
+          "period": "2015",
+          "value": 6.36704365066983
+        },
+        {
+          "period": "2016",
+          "value": 6.35606857208136
+        },
+        {
+          "period": "2017",
+          "value": 7.40748618589598
+        },
+        {
+          "period": "2018",
+          "value": 6.20924103388887
+        },
+        {
+          "period": "2019",
+          "value": 4.6136280976221
+        },
+        {
+          "period": "2020",
+          "value": 1.34207377285524
+        },
+        {
+          "period": "2021",
+          "value": 6.5440010991951
+        },
+        {
+          "period": "2022",
+          "value": 3.85043193752725
+        },
+        {
+          "period": "2023",
+          "value": 4.25743083300657
+        },
+        {
+          "period": "2024",
+          "value": 6.46220577412338
+        },
+        {
+          "period": "2025",
+          "value": 6.68227744849194
+        }
+      ]
+    },
+    {
+      "id": "sen-economy-inflation_cpi-2025",
+      "countryCode": "SEN",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 1.45900719841384,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Senegal, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": -1.09025507446894
+        },
+        {
+          "period": "2015",
+          "value": 0.135211933635164
+        },
+        {
+          "period": "2016",
+          "value": 0.837284942557434
+        },
+        {
+          "period": "2017",
+          "value": 1.31815314847789
+        },
+        {
+          "period": "2018",
+          "value": 0.460985642464188
+        },
+        {
+          "period": "2019",
+          "value": 1.76011151192938
+        },
+        {
+          "period": "2020",
+          "value": 2.54314685681661
+        },
+        {
+          "period": "2021",
+          "value": 2.18032278088146
+        },
+        {
+          "period": "2022",
+          "value": 9.69681899081073
+        },
+        {
+          "period": "2023",
+          "value": 5.93947798773214
+        },
+        {
+          "period": "2024",
+          "value": 0.804503298792438
+        },
+        {
+          "period": "2025",
+          "value": 1.45900719841384
+        }
+      ]
+    },
+    {
+      "id": "sen-labour-unemployment_ilo-2025",
+      "countryCode": "SEN",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 2.735,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Senegal, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 5.849
+        },
+        {
+          "period": "2015",
+          "value": 6.757
+        },
+        {
+          "period": "2016",
+          "value": 4.455
+        },
+        {
+          "period": "2017",
+          "value": 4.078
+        },
+        {
+          "period": "2018",
+          "value": 3.453
+        },
+        {
+          "period": "2019",
+          "value": 2.863
+        },
+        {
+          "period": "2020",
+          "value": 3.432
+        },
+        {
+          "period": "2021",
+          "value": 3.436
+        },
+        {
+          "period": "2022",
+          "value": 2.837
+        },
+        {
+          "period": "2023",
+          "value": 2.784
+        },
+        {
+          "period": "2024",
+          "value": 2.788
+        },
+        {
+          "period": "2025",
+          "value": 2.735
+        }
+      ]
+    },
+    {
+      "id": "sen-geography-surface_area-2024",
+      "countryCode": "SEN",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 196710,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Senegal, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 196710
+        },
+        {
+          "period": "2014",
+          "value": 196710
+        },
+        {
+          "period": "2015",
+          "value": 196710
+        },
+        {
+          "period": "2016",
+          "value": 196710
+        },
+        {
+          "period": "2017",
+          "value": 196710
+        },
+        {
+          "period": "2018",
+          "value": 196710
+        },
+        {
+          "period": "2019",
+          "value": 196710
+        },
+        {
+          "period": "2020",
+          "value": 196710
+        },
+        {
+          "period": "2021",
+          "value": 196710
+        },
+        {
+          "period": "2022",
+          "value": 196710
+        },
+        {
+          "period": "2023",
+          "value": 196710
+        },
+        {
+          "period": "2024",
+          "value": 196710
+        }
+      ]
+    },
+    {
+      "id": "sen-research-rd_gdp-2015",
+      "countryCode": "SEN",
+      "key": "research.rd_gdp",
+      "topic": "rd",
+      "value": 0.5772,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2015",
+      "geographicScope": "Senegal, périmètre Banque mondiale",
+      "methodology": "Dépenses intérieures de recherche-développement, en pourcentage du PIB.",
+      "sourceIds": [
+        "S01-WB-GB.XPD.RSDV.GD.ZS"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2008",
+          "value": 0.29374
+        },
+        {
+          "period": "2010",
+          "value": 0.4343
+        },
+        {
+          "period": "2015",
+          "value": 0.5772
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,767 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "GMB",
+  "slug": "gambie",
+  "zoneSlug": "afrique",
+  "name": "Gambie",
+  "officialName": "République de Gambie",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-GMB-WB",
+      "publisher": "Banque mondiale",
+      "title": "The Gambia — politique, économie et perspectives 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/gambia",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-GMB-FD",
+      "publisher": "France Diplomatie",
+      "title": "Gambie — présentation actualisée le 11 mai 2026",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/gambie/presentation-de-la-gambie",
+      "publishedAt": "2026-05-11",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Attribution factuelle à France Diplomatie ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    }
+  ],
+  "observations": [
+    {
+      "id": "gmb-identity-capital",
+      "countryCode": "GMB",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Banjul",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Gambie",
+      "methodology": "Capitale administrative indiquée par la source de référence du pays.",
+      "sourceIds": [
+        "S-GMB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gmb-identity-language",
+      "countryCode": "GMB",
+      "key": "identity.language",
+      "label": "Langue officielle",
+      "value": "Anglais",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Gambie",
+      "methodology": "Langue constitutionnelle ou administrative indiquée par la source.",
+      "sourceIds": [
+        "S-GMB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gmb-identity-currency",
+      "countryCode": "GMB",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Dalasi (GMD)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Gambie",
+      "methodology": "Devise nationale indiquée par la source pays ; sans conversion de taux de change.",
+      "sourceIds": [
+        "S-GMB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gmb-politics-head-of-state",
+      "countryCode": "GMB",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Adama Barrow",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Gambie",
+      "methodology": "Fonction et titulaire vérifiés au 2 novembre 2026 ; distinguer les régimes de transition.",
+      "sourceIds": [
+        "S-GMB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gmb-politics-regime",
+      "countryCode": "GMB",
+      "key": "politics.regime",
+      "label": "Régime institutionnel",
+      "value": "République présidentielle",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Gambie",
+      "methodology": "Qualification politique à la date de consultation ; contexte de transition précisé si nécessaire.",
+      "sourceIds": [
+        "S-GMB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gmb-geography-area-official",
+      "countryCode": "GMB",
+      "key": "geography.area.official",
+      "label": "Superficie du territoire",
+      "value": 11295,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Gambie",
+      "methodology": "Superficie publiée dans la fiche nationale ; vérifier les périmètres en cas d’écart avec la série mondiale.",
+      "sourceIds": [
+        "S-GMB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "gmb-institutions-ecowas",
+      "countryCode": "GMB",
+      "key": "institutions.ecowas",
+      "label": "Membre de la CEDEAO",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Gambie",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-GMB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gmb-institutions-commonwealth",
+      "countryCode": "GMB",
+      "key": "institutions.commonwealth",
+      "label": "Membre du Commonwealth depuis son retour en 2018",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Gambie",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-GMB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gmb-economy-growth-projection-2026-wb",
+      "countryCode": "GMB",
+      "key": "economy.growth_projection_2026_wb",
+      "label": "Croissance projetée en 2026",
+      "value": 5.3,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Gambie",
+      "methodology": "Projection Banque mondiale, sous réserve d’évolution des investissements et du tourisme.",
+      "sourceIds": [
+        "S-GMB-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth",
+      "uncertainty": "Projection ou estimation susceptible d’être révisée."
+    },
+    {
+      "id": "gmb-economy-inflation-july2026-wb",
+      "countryCode": "GMB",
+      "key": "economy.inflation_july2026_wb",
+      "label": "Inflation sur un an en juillet 2026",
+      "value": 7.0,
+      "unit": "%",
+      "referencePeriod": "2026-07",
+      "geographicScope": "Gambie",
+      "methodology": "Chiffre mensuel en glissement annuel, non moyenne annuelle.",
+      "sourceIds": [
+        "S-GMB-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gmb-economy-debt-risk-2026-wb",
+      "countryCode": "GMB",
+      "key": "economy.debt_risk_2026_wb",
+      "label": "Risque de surendettement",
+      "value": "Élevé",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Gambie",
+      "methodology": "Appréciation de soutenabilité de la dette, pas un taux de dette.",
+      "sourceIds": [
+        "S-GMB-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gmb-economy-tourism-arrivals-h1-2026",
+      "countryCode": "GMB",
+      "key": "economy.tourism_arrivals_h1_2026",
+      "label": "Arrivées touristiques au premier semestre",
+      "value": 120713,
+      "unit": "arrivées",
+      "referencePeriod": "2026-S1",
+      "geographicScope": "Gambie",
+      "methodology": "Statistique semestrielle ; ne pas l’additionner à une statistique annuelle.",
+      "sourceIds": [
+        "S-GMB-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "gmb-claim-1",
+      "countryCode": "GMB",
+      "statement": "Gambie : Banjul est la capitale du pays.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GMB-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gmb-claim-2",
+      "countryCode": "GMB",
+      "statement": "En 2026, la fonction de chef de l’État de Gambie est exercée par Adama Barrow.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GMB-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gmb-claim-3",
+      "countryCode": "GMB",
+      "statement": "Le service de la dette limite la capacité de l’État à investir et protéger les ménages.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-GMB-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "gmb-claim-4",
+      "countryCode": "GMB",
+      "statement": "Le fleuve structure l’agriculture, les voies de passage et les communautés nationales.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-GMB-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "gmb-claim-5",
+      "countryCode": "GMB",
+      "statement": "Le scrutin doit intervenir alors que la réforme constitutionnelle n’a pas abouti.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-GMB-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "gmb-rel-1",
+      "countryCode": "GMB",
+      "targetCode": "SEN",
+      "targetIso2": "SN",
+      "targetName": "Sénégal",
+      "relationType": "cooperation",
+      "title": "Interdépendance territoriale",
+      "topics": [],
+      "summary": "Le territoire gambien est presque entièrement entouré par le Sénégal, facteur majeur de transit et d’échanges.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GMB-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "gmb-rel-2",
+      "countryCode": "GMB",
+      "targetCode": "GBR",
+      "targetIso2": "GB",
+      "targetName": "Royaume-Uni",
+      "relationType": "cooperation",
+      "title": "Liens historiques et linguistiques",
+      "topics": [],
+      "summary": "L’anglais et l’appartenance au Commonwealth inscrivent la Gambie dans des réseaux institutionnels internationaux.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GMB-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "gmb-overview-strengths-1",
+          "title": "Position sur le fleuve Gambie",
+          "summary": "Le fleuve structure l’agriculture, les voies de passage et les communautés nationales.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        },
+        {
+          "id": "gmb-overview-strengths-2",
+          "title": "Revenus touristiques et transferts",
+          "summary": "Le tourisme et les envois de fonds sont des soutiens importants aux revenus extérieurs.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "gmb-overview-challenges-1",
+          "title": "Risque élevé de dette",
+          "summary": "Le service de la dette limite la capacité de l’État à investir et protéger les ménages.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        },
+        {
+          "id": "gmb-overview-challenges-2",
+          "title": "Réforme constitutionnelle inaboutie",
+          "summary": "Le projet présenté en 2025 a été rejeté par le Parlement avant la présidentielle de 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "gmb-timeline-1",
+          "title": "Alternance présidentielle",
+          "summary": "Adama Barrow entre en fonction après la fin du régime de Yahya Jammeh.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-FD"
+          ],
+          "date": "2017"
+        },
+        {
+          "id": "gmb-timeline-2",
+          "title": "Présidentielle programmée",
+          "summary": "La prochaine élection présidentielle est annoncée pour le 5 décembre 2026 ; résultat inconnu au 2 novembre.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ],
+          "date": "2026-12-05"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "gmb-sector-1",
+          "title": "Tourisme",
+          "summary": "Source de devises et d’emploi sensible à la conjoncture internationale.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        },
+        {
+          "id": "gmb-sector-2",
+          "title": "Agriculture riveraine",
+          "summary": "La production dépend des pluies, des intrants et de l’accès aux marchés.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        },
+        {
+          "id": "gmb-sector-3",
+          "title": "Commerce avec le Sénégal",
+          "summary": "Les flux routiers et les liaisons par le fleuve jouent un rôle national important.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-FD"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "gmb-resource-1",
+          "title": "Fleuve Gambie",
+          "summary": "Axe de mobilité, d’agriculture et d’écosystèmes ; aucune ressource chiffrée non sourcée.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "gmb-security-1",
+          "title": "Consolidation post-Jammeh",
+          "summary": "Les réformes institutionnelles et la reddition de comptes demeurent importantes pour l’État de droit.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        },
+        {
+          "id": "gmb-security-2",
+          "title": "Sécurité des frontières et du transit",
+          "summary": "Le Sénégal intervient comme partenaire indispensable à la circulation et à la stabilité de l’espace gambien.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-FD"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "gmb-issue-1",
+          "title": "Élection présidentielle de décembre 2026",
+          "summary": "Élection présidentielle de décembre 2026 : La confiance électorale et la continuité institutionnelle influenceront les investissements et…",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le scrutin doit intervenir alors que la réforme constitutionnelle n’a pas abouti.",
+          "whyStrategic": "La confiance électorale et la continuité institutionnelle influenceront les investissements et les rapports entre partis.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Calendrier électoral",
+            "observation du vote",
+            "décisions constitutionnelles"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "gmb-issue-2",
+          "title": "Dépendance au Sénégal",
+          "summary": "Dépendance au Sénégal : Les tarifs, ponts et procédures de transit influencent les prix domestiques et la mobilité des…",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-FD"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le territoire fluvial gambien est presque enclavé dans celui du Sénégal.",
+          "whyStrategic": "Les tarifs, ponts et procédures de transit influencent les prix domestiques et la mobilité des populations.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Temps de passage",
+            "tarifs",
+            "fonctionnement des liaisons"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "gmb-issue-3",
+          "title": "Soutenabilité de la dette",
+          "summary": "Soutenabilité de la dette : Le financement des infrastructures et services dépendra de l’arbitrage entre investissements et…",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale maintient un risque élevé de surendettement malgré les efforts budgétaires.",
+          "whyStrategic": "Le financement des infrastructures et services dépendra de l’arbitrage entre investissements et service de dette.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Service de dette",
+            "dette publique",
+            "dépenses d’infrastructure"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "gmb-swot-s-1",
+            "title": "Position sur le fleuve Gambie",
+            "summary": "Un levier pour Gambie : prévisibilité accrue pour les acteurs économiques",
+            "tags": [],
+            "sourceIds": [
+              "S-GMB-WB"
+            ]
+          },
+          {
+            "id": "gmb-swot-s-2",
+            "title": "Revenus touristiques et transferts",
+            "summary": "Un levier pour Gambie : les tarifs, ponts et procédures de transit influencent les prix domestiques et la mobilité des populations.",
+            "tags": [],
+            "sourceIds": [
+              "S-GMB-WB"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "gmb-swot-w-1",
+            "title": "Risque élevé de dette",
+            "summary": "Cette contrainte pèse sur la réponse à élection présidentielle de décembre 2026 et doit être suivie par les indicateurs : calendrier électoral , observation du vote , décisions constitutionnelles.",
+            "tags": [],
+            "sourceIds": [
+              "S-GMB-WB"
+            ]
+          },
+          {
+            "id": "gmb-swot-w-2",
+            "title": "Réforme constitutionnelle inaboutie",
+            "summary": "Cette contrainte pèse sur la réponse à dépendance au sénégal et doit être suivie par les indicateurs : temps de passage , tarifs , fonctionnement des liaisons.",
+            "tags": [],
+            "sourceIds": [
+              "S-GMB-WB"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "gmb-swot-o-1",
+            "title": "Scrutin crédible et reprise institutionnelle",
+            "summary": "Perspective conditionnelle : processus électoral accepté par les principales forces; son avancement pourrait favoriser prévisibilité accrue pour les acteurs économiques.",
+            "tags": [],
+            "sourceIds": [
+              "S-GMB-WB"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "gmb-swot-t-1",
+            "title": "Tensions électorales et choc touristique",
+            "summary": "Le facteur de rupture à contrôler est : litiges électoraux combinés à une conjoncture extérieure dégradée; cela exposerait le pays à pression supplémentaire sur le financement public.",
+            "tags": [],
+            "sourceIds": [
+              "S-GMB-WB"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "gmb-scenario-1",
+          "title": "Scrutin crédible et reprise institutionnelle",
+          "summary": "Une élection reconnue et des réformes négociées pourraient renforcer la confiance dans le système politique gambien.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Processus électoral accepté par les principales forces"
+          ],
+          "triggers": [
+            "Rapports des observateurs et décisions parlementaires"
+          ],
+          "weakSignals": [
+            "Rapports des observateurs et décisions parlementaires"
+          ],
+          "consequences": [
+            "Prévisibilité accrue pour les acteurs économiques"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Gambie fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "gmb-scenario-2",
+          "title": "Stabilité politique, contraintes financières",
+          "summary": "Le pays pourrait maintenir une croissance tirée par le tourisme tout en réduisant lentement sa vulnérabilité à la dette.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Fréquentation touristique soutenue et rigueur budgétaire"
+          ],
+          "triggers": [
+            "Arrivées et ratios de dette"
+          ],
+          "weakSignals": [
+            "Arrivées et ratios de dette"
+          ],
+          "consequences": [
+            "Marge d’investissement toujours limitée"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Gambie fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "gmb-scenario-3",
+          "title": "Tensions électorales et choc touristique",
+          "summary": "Des contestations autour du vote ou une baisse des arrivées pourraient fragiliser les devises et les recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Litiges électoraux combinés à une conjoncture extérieure dégradée"
+          ],
+          "triggers": [
+            "Contentieux officiels et statistiques d’arrivées"
+          ],
+          "weakSignals": [
+            "Contentieux officiels et statistiques d’arrivées"
+          ],
+          "consequences": [
+            "Pression supplémentaire sur le financement public"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Gambie fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "gmb-watch-1",
+          "title": "Présidentielle du 5 décembre 2026",
+          "summary": "Ne pas anticiper le résultat et suivre les décisions de la commission électorale.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        },
+        {
+          "id": "gmb-watch-2",
+          "title": "Flux sénégambiens",
+          "summary": "Documenter la continuité des transports et les coûts des échanges.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-FD"
+          ]
+        },
+        {
+          "id": "gmb-watch-3",
+          "title": "Tourisme et dette",
+          "summary": "Distinguer arrivées semestrielles, recettes et prévisions annuelles.",
+          "tags": [],
+          "sourceIds": [
+            "S-GMB-WB"
+          ]
+        }
+      ]
+    }
+  }
+}

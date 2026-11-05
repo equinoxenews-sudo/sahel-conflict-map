@@ -1,0 +1,610 @@
+{
+  "countryCode": "SLE",
+  "fetchedAt": "2026-11-05",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=SL",
+      "apiUrl": "https://api.worldbank.org/v2/country/SLE/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=SL",
+      "apiUrl": "https://api.worldbank.org/v2/country/SLE/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=SL",
+      "apiUrl": "https://api.worldbank.org/v2/country/SLE/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=SL",
+      "apiUrl": "https://api.worldbank.org/v2/country/SLE/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=SL",
+      "apiUrl": "https://api.worldbank.org/v2/country/SLE/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=SL",
+      "apiUrl": "https://api.worldbank.org/v2/country/SLE/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=SL",
+      "apiUrl": "https://api.worldbank.org/v2/country/SLE/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "sle-demography-population-2025",
+      "countryCode": "SLE",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 8819794,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Sierra Leone, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 6876385
+        },
+        {
+          "period": "2015",
+          "value": 7037655
+        },
+        {
+          "period": "2016",
+          "value": 7205328
+        },
+        {
+          "period": "2017",
+          "value": 7379299
+        },
+        {
+          "period": "2018",
+          "value": 7554563
+        },
+        {
+          "period": "2019",
+          "value": 7731991
+        },
+        {
+          "period": "2020",
+          "value": 7912558
+        },
+        {
+          "period": "2021",
+          "value": 8094602
+        },
+        {
+          "period": "2022",
+          "value": 8276807
+        },
+        {
+          "period": "2023",
+          "value": 8460512
+        },
+        {
+          "period": "2024",
+          "value": 8642022
+        },
+        {
+          "period": "2025",
+          "value": 8819794
+        }
+      ]
+    },
+    {
+      "id": "sle-economy-gdp_nominal_usd-2025",
+      "countryCode": "SLE",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 7464157904.43509,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Sierra Leone, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 7686138790.90872
+        },
+        {
+          "period": "2015",
+          "value": 6788352974.78329
+        },
+        {
+          "period": "2016",
+          "value": 6084297211.10217
+        },
+        {
+          "period": "2017",
+          "value": 5749846528.48046
+        },
+        {
+          "period": "2018",
+          "value": 6390514688.52816
+        },
+        {
+          "period": "2019",
+          "value": 6523577590.38319
+        },
+        {
+          "period": "2020",
+          "value": 6688307705.64217
+        },
+        {
+          "period": "2021",
+          "value": 7166931483.2953
+        },
+        {
+          "period": "2022",
+          "value": 7121125277.18159
+        },
+        {
+          "period": "2023",
+          "value": 6415852766.09227
+        },
+        {
+          "period": "2024",
+          "value": 6971127234.07241
+        },
+        {
+          "period": "2025",
+          "value": 7464157904.43509
+        }
+      ]
+    },
+    {
+      "id": "sle-economy-gdp_per_capita_usd-2025",
+      "countryCode": "SLE",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 846.296172499617,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Sierra Leone, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1117.7586465721
+        },
+        {
+          "period": "2015",
+          "value": 964.575980888989
+        },
+        {
+          "period": "2016",
+          "value": 844.416411175476
+        },
+        {
+          "period": "2017",
+          "value": 779.186007841728
+        },
+        {
+          "period": "2018",
+          "value": 845.914540460932
+        },
+        {
+          "period": "2019",
+          "value": 843.71251730417
+        },
+        {
+          "period": "2020",
+          "value": 845.277558236182
+        },
+        {
+          "period": "2021",
+          "value": 885.396401613729
+        },
+        {
+          "period": "2022",
+          "value": 860.371067874555
+        },
+        {
+          "period": "2023",
+          "value": 758.329137301888
+        },
+        {
+          "period": "2024",
+          "value": 806.654650274255
+        },
+        {
+          "period": "2025",
+          "value": 846.296172499617
+        }
+      ]
+    },
+    {
+      "id": "sle-economy-gdp_growth-2025",
+      "countryCode": "SLE",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 4.60865077581276,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Sierra Leone, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": -7.81501512457241
+        },
+        {
+          "period": "2015",
+          "value": -4.36333262093788
+        },
+        {
+          "period": "2016",
+          "value": 6.43743652764257
+        },
+        {
+          "period": "2017",
+          "value": 3.20786087715987
+        },
+        {
+          "period": "2018",
+          "value": 2.8938564123677
+        },
+        {
+          "period": "2019",
+          "value": 5.50270937378153
+        },
+        {
+          "period": "2020",
+          "value": -1.2533490322766
+        },
+        {
+          "period": "2021",
+          "value": 5.8968527047094
+        },
+        {
+          "period": "2022",
+          "value": 5.3135546141915
+        },
+        {
+          "period": "2023",
+          "value": 5.7100218981806
+        },
+        {
+          "period": "2024",
+          "value": 4.29322334404611
+        },
+        {
+          "period": "2025",
+          "value": 4.60865077581276
+        }
+      ]
+    },
+    {
+      "id": "sle-economy-inflation_cpi-2025",
+      "countryCode": "SLE",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 7.48750166612985,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Sierra Leone, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 4.63931171409666
+        },
+        {
+          "period": "2015",
+          "value": 6.68943562498681
+        },
+        {
+          "period": "2016",
+          "value": 10.8860609413903
+        },
+        {
+          "period": "2017",
+          "value": 18.2215094003386
+        },
+        {
+          "period": "2018",
+          "value": 16.0295447693698
+        },
+        {
+          "period": "2019",
+          "value": 14.804999090602
+        },
+        {
+          "period": "2020",
+          "value": 13.4468711101052
+        },
+        {
+          "period": "2021",
+          "value": 11.8739588840234
+        },
+        {
+          "period": "2022",
+          "value": 27.2082883814653
+        },
+        {
+          "period": "2023",
+          "value": 47.6428733253178
+        },
+        {
+          "period": "2024",
+          "value": 28.6337500014114
+        },
+        {
+          "period": "2025",
+          "value": 7.48750166612985
+        }
+      ]
+    },
+    {
+      "id": "sle-labour-unemployment_ilo-2025",
+      "countryCode": "SLE",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 3.15,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Sierra Leone, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 4.678
+        },
+        {
+          "period": "2015",
+          "value": 4.483
+        },
+        {
+          "period": "2016",
+          "value": 4.182
+        },
+        {
+          "period": "2017",
+          "value": 3.656
+        },
+        {
+          "period": "2018",
+          "value": 3.192
+        },
+        {
+          "period": "2019",
+          "value": 3.204
+        },
+        {
+          "period": "2020",
+          "value": 3.509
+        },
+        {
+          "period": "2021",
+          "value": 3.551
+        },
+        {
+          "period": "2022",
+          "value": 3.137
+        },
+        {
+          "period": "2023",
+          "value": 3.092
+        },
+        {
+          "period": "2024",
+          "value": 3.103
+        },
+        {
+          "period": "2025",
+          "value": 3.15
+        }
+      ]
+    },
+    {
+      "id": "sle-geography-surface_area-2024",
+      "countryCode": "SLE",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 72300,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Sierra Leone, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 72300
+        },
+        {
+          "period": "2014",
+          "value": 72300
+        },
+        {
+          "period": "2015",
+          "value": 72300
+        },
+        {
+          "period": "2016",
+          "value": 72300
+        },
+        {
+          "period": "2017",
+          "value": 72300
+        },
+        {
+          "period": "2018",
+          "value": 72300
+        },
+        {
+          "period": "2019",
+          "value": 72300
+        },
+        {
+          "period": "2020",
+          "value": 72300
+        },
+        {
+          "period": "2021",
+          "value": 72300
+        },
+        {
+          "period": "2022",
+          "value": 72300
+        },
+        {
+          "period": "2023",
+          "value": 72300
+        },
+        {
+          "period": "2024",
+          "value": 72300
+        }
+      ]
+    }
+  ]
+}

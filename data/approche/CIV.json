@@ -1,0 +1,827 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "CIV",
+  "slug": "cote-d-ivoire",
+  "zoneSlug": "afrique",
+  "name": "Côte d’Ivoire",
+  "officialName": "République de Côte d’Ivoire",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-CIV-WB",
+      "publisher": "Banque mondiale",
+      "title": "Côte d’Ivoire — présentation et perspectives économiques",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/cotedivoire",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-CIV-FD",
+      "publisher": "France Diplomatie",
+      "title": "Côte d’Ivoire — présentation, actualisée le 22 octobre 2026",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/cote-d-ivoire/presentation-de-la-cote-d-ivoire",
+      "publishedAt": "2026-10-22",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Attribution factuelle à France Diplomatie ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-CIV-GOV",
+      "publisher": "Présidence de Côte d’Ivoire",
+      "title": "Nomination du Premier ministre Robert Beugré Mambé, 21 janvier 2026",
+      "canonicalUrl": "https://www.presidence.ci/communiques-presidence/communique-de-la-presidence-de-la-republique-7/",
+      "publishedAt": "2026-01-21",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Présidence de Côte d’Ivoire",
+      "methodNotes": "Attribution factuelle à Présidence de Côte d’Ivoire ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    }
+  ],
+  "observations": [
+    {
+      "id": "civ-identity-capital",
+      "countryCode": "CIV",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Yamoussoukro",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "Capitale administrative indiquée par la source de référence du pays.",
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "civ-identity-language",
+      "countryCode": "CIV",
+      "key": "identity.language",
+      "label": "Langue officielle",
+      "value": "Français",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "Langue constitutionnelle ou administrative indiquée par la source.",
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "civ-identity-currency",
+      "countryCode": "CIV",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc CFA (XOF)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "Devise nationale indiquée par la source pays ; sans conversion de taux de change.",
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "civ-politics-head-of-state",
+      "countryCode": "CIV",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Alassane Ouattara",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "Fonction et titulaire vérifiés au 2 novembre 2026 ; distinguer les régimes de transition.",
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "civ-politics-head-of-government",
+      "countryCode": "CIV",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Robert Beugré Mambé",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "Titulaire et fonction vérifiés ; ne pas déduire la répartition des pouvoirs du seul intitulé.",
+      "sourceIds": [
+        "S-CIV-GOV"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "civ-politics-regime",
+      "countryCode": "CIV",
+      "key": "politics.regime",
+      "label": "Régime institutionnel",
+      "value": "République à régime présidentiel",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "Qualification politique à la date de consultation ; contexte de transition précisé si nécessaire.",
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "civ-geography-area-official",
+      "countryCode": "CIV",
+      "key": "geography.area.official",
+      "label": "Superficie du territoire",
+      "value": 322463,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "Superficie publiée dans la fiche nationale ; vérifier les périmètres en cas d’écart avec la série mondiale.",
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "civ-institutions-ecowas",
+      "countryCode": "CIV",
+      "key": "institutions.ecowas",
+      "label": "Membre de la CEDEAO",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "civ-institutions-uemoa",
+      "countryCode": "CIV",
+      "key": "institutions.uemoa",
+      "label": "Membre de l’UEMOA",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "civ-economy-growth-2025-wb",
+      "countryCode": "CIV",
+      "key": "economy.growth_2025_wb",
+      "label": "Croissance réelle 2025, Banque mondiale",
+      "value": 6.3,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "Résultat 2025 présenté par la Banque mondiale ; source et série à distinguer.",
+      "sourceIds": [
+        "S-CIV-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "civ-economy-growth-projection-2026-wb",
+      "countryCode": "CIV",
+      "key": "economy.growth_projection_2026_wb",
+      "label": "Croissance prévue en 2026",
+      "value": 5.8,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "Projection conditionnée notamment à l’environnement international.",
+      "sourceIds": [
+        "S-CIV-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth",
+      "uncertainty": "Projection ou estimation susceptible d’être révisée."
+    },
+    {
+      "id": "civ-economy-cocoa-role",
+      "countryCode": "CIV",
+      "key": "economy.cocoa_role",
+      "label": "Position sur le cacao mondial",
+      "value": "Premier producteur mondial",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "Qualification économique, pas un volume annuel.",
+      "sourceIds": [
+        "S-CIV-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "civ-economy-cashew-processed-export-share",
+      "countryCode": "CIV",
+      "key": "economy.cashew_processed_export_share",
+      "label": "Part de noix de cajou transformées dans la production",
+      "value": "Plus de 30",
+      "unit": "%",
+      "referencePeriod": "date statistique non précisée",
+      "geographicScope": "Côte d’Ivoire",
+      "methodology": "La Banque mondiale indique une part strictement supérieure à 30 %, sans millésime directement identifié.",
+      "sourceIds": [
+        "S-CIV-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "civ-claim-1",
+      "countryCode": "CIV",
+      "statement": "Côte d’Ivoire : Yamoussoukro est la capitale du pays.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "civ-claim-2",
+      "countryCode": "CIV",
+      "statement": "En 2026, la fonction de chef de l’État de Côte d’Ivoire est exercée par Alassane Ouattara.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "civ-claim-3",
+      "countryCode": "CIV",
+      "statement": "Les prix mondiaux et la variabilité climatique affectent les revenus des producteurs.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-CIV-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "civ-claim-4",
+      "countryCode": "CIV",
+      "statement": "La Côte d’Ivoire occupe des positions majeures dans ces filières mondiales et développe leur transformation.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-CIV-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "civ-claim-5",
+      "countryCode": "CIV",
+      "statement": "La valeur de la production agricole ne se traduit pas automatiquement par des emplois industriels sur place.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-CIV-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "civ-rel-1",
+      "countryCode": "CIV",
+      "targetCode": "BFA",
+      "targetIso2": "BF",
+      "targetName": "Burkina Faso",
+      "relationType": "cooperation",
+      "title": "Frontière et protection des populations",
+      "topics": [],
+      "summary": "Les arrivées de personnes fuyant l’insécurité burkinabè constituent un enjeu humanitaire au nord ivoirien.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "civ-rel-2",
+      "countryCode": "CIV",
+      "targetCode": "GHA",
+      "targetIso2": "GH",
+      "targetName": "Ghana",
+      "relationType": "cooperation",
+      "title": "Filières cacao et proximité régionale",
+      "topics": [],
+      "summary": "Le voisinage ghanéen place les politiques agricoles et les marchés régionaux au cœur des relations économiques.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "civ-rel-3",
+      "countryCode": "CIV",
+      "targetCode": "FRA",
+      "targetIso2": "FR",
+      "targetName": "France",
+      "relationType": "cooperation",
+      "title": "Partenariat économique et commercial",
+      "topics": [],
+      "summary": "Les échanges et les implantations d’entreprises françaises sont documentés dans la relation bilatérale.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-CIV-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "civ-overview-strengths-1",
+          "title": "Cacao et noix de cajou",
+          "summary": "La Côte d’Ivoire occupe des positions majeures dans ces filières mondiales et développe leur transformation.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ]
+        },
+        {
+          "id": "civ-overview-strengths-2",
+          "title": "Réseaux de transport",
+          "summary": "Les infrastructures d’Abidjan, de San Pedro et de l’arrière-pays facilitent le commerce régional.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-FD"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "civ-overview-challenges-1",
+          "title": "Dépendance aux produits agricoles",
+          "summary": "Les prix mondiaux et la variabilité climatique affectent les revenus des producteurs.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ]
+        },
+        {
+          "id": "civ-overview-challenges-2",
+          "title": "Inégalités territoriales",
+          "summary": "Le dynamisme d’Abidjan ne garantit pas une diffusion de la prospérité dans les régions rurales.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-FD"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "civ-timeline-1",
+          "title": "Élection présidentielle",
+          "summary": "Réélection d’Alassane Ouattara lors du scrutin d’octobre 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-FD"
+          ],
+          "date": "2025-10"
+        },
+        {
+          "id": "civ-timeline-2",
+          "title": "Reconfirmation du Premier ministre",
+          "summary": "Robert Beugré Mambé est reconduit à la tête du gouvernement.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-GOV"
+          ],
+          "date": "2026-01-21"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "civ-sector-1",
+          "title": "Cacao",
+          "summary": "Production et exportation de fèves, avec enjeu de transformation locale.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ]
+        },
+        {
+          "id": "civ-sector-2",
+          "title": "Cajou",
+          "summary": "Développement industriel des unités de décorticage et de transformation.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ]
+        },
+        {
+          "id": "civ-sector-3",
+          "title": "Hydrocarbures et construction",
+          "summary": "Le développement énergétique et les chantiers soutiennent les perspectives économiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "civ-resource-1",
+          "title": "Cacao et anacarde",
+          "summary": "Deux produits agricoles structurants pour les recettes d’exportation.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ]
+        },
+        {
+          "id": "civ-resource-2",
+          "title": "Hydrocarbures offshore",
+          "summary": "Le développement de la production pétrolière et gazière complète les filières traditionnelles.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-FD"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "civ-security-1",
+          "title": "Frontière avec le Burkina Faso",
+          "summary": "Les risques de débordement de l’insécurité sahélienne restent un enjeu du Nord ivoirien.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-FD"
+          ]
+        },
+        {
+          "id": "civ-security-2",
+          "title": "Accueil de déplacés régionaux",
+          "summary": "Les arrivées de personnes fuyant les violences voisines sollicitent des dispositifs de protection.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-FD"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "civ-issue-1",
+          "title": "Transformation du cacao et du cajou",
+          "summary": "Transformation du cacao et du cajou : La montée dans la chaîne de valeur peut amortir la sensibilité du pays aux cours bruts et accro…",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La valeur de la production agricole ne se traduit pas automatiquement par des emplois industriels sur place.",
+          "whyStrategic": "La montée dans la chaîne de valeur peut amortir la sensibilité du pays aux cours bruts et accroître les revenus de transformation.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Capacités industrielles",
+            "part de production transformée",
+            "prix producteurs"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "civ-issue-2",
+          "title": "Croissance et concentration urbaine",
+          "summary": "Croissance et concentration urbaine : La diffusion vers l’intérieur, la formation et l’emploi conditionne la stabilité sociale du mod…",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-FD"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La croissance ivoirienne repose sur un pôle abidjanais particulièrement puissant.",
+          "whyStrategic": "La diffusion vers l’intérieur, la formation et l’emploi conditionne la stabilité sociale du modèle de croissance.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Création d’emplois",
+            "infrastructures régionales",
+            "pauvreté"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "civ-issue-3",
+          "title": "Sécurité au contact du Sahel",
+          "summary": "Sécurité au contact du Sahel : La protection des populations et la continuité commerciale deviennent une question transversale…",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-FD"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La frontière du Burkina Faso est un espace de vigilance face à la violence régionale.",
+          "whyStrategic": "La protection des populations et la continuité commerciale deviennent une question transversale de sécurité et de développement.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Accueil de réfugiés",
+            "services frontaliers",
+            "incidents rapportés"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "civ-swot-s-1",
+            "title": "Cacao et noix de cajou",
+            "summary": "Un levier pour Côte d’Ivoire : diversification des recettes et de l’emploi",
+            "tags": [],
+            "sourceIds": [
+              "S-CIV-WB"
+            ]
+          },
+          {
+            "id": "civ-swot-s-2",
+            "title": "Réseaux de transport",
+            "summary": "Un levier pour Côte d’Ivoire : la diffusion vers l’intérieur, la formation et l’emploi conditionne la stabilité sociale du modèle de croissance.",
+            "tags": [],
+            "sourceIds": [
+              "S-CIV-FD"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "civ-swot-w-1",
+            "title": "Dépendance aux produits agricoles",
+            "summary": "Cette contrainte pèse sur la réponse à transformation du cacao et du cajou et doit être suivie par les indicateurs : capacités industrielles , part de production transformée , prix producteurs.",
+            "tags": [],
+            "sourceIds": [
+              "S-CIV-WB"
+            ]
+          },
+          {
+            "id": "civ-swot-w-2",
+            "title": "Inégalités territoriales",
+            "summary": "Cette contrainte pèse sur la réponse à croissance et concentration urbaine et doit être suivie par les indicateurs : création d’emplois , infrastructures régionales , pauvreté.",
+            "tags": [],
+            "sourceIds": [
+              "S-CIV-FD"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "civ-swot-o-1",
+            "title": "Essor industriel agro-exportateur",
+            "summary": "Perspective conditionnelle : investissements industriels opérationnels; son avancement pourrait favoriser diversification des recettes et de l’emploi.",
+            "tags": [],
+            "sourceIds": [
+              "S-CIV-WB"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "civ-swot-t-1",
+            "title": "Choc simultané agricole et frontalier",
+            "summary": "Le facteur de rupture à contrôler est : baisse de revenus agricoles et perturbations frontalières; cela exposerait le pays à tensions budgétaires et difficultés rurales.",
+            "tags": [],
+            "sourceIds": [
+              "S-CIV-FD"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "civ-scenario-1",
+          "title": "Essor industriel agro-exportateur",
+          "summary": "Si la transformation du cacao et du cajou gagne en capacité, une part accrue de valeur pourrait rester sur le territoire.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Investissements industriels opérationnels"
+          ],
+          "triggers": [
+            "Volumes transformés et emplois créés"
+          ],
+          "weakSignals": [
+            "Volumes transformés et emplois créés"
+          ],
+          "consequences": [
+            "Diversification des recettes et de l’emploi"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Côte d’Ivoire fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "civ-scenario-2",
+          "title": "Croissance forte mais peu inclusive",
+          "summary": "Une croissance soutenue principalement par les grands pôles urbains pourrait entretenir les disparités avec les campagnes.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-FD"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Concentration des investissements à Abidjan"
+          ],
+          "triggers": [
+            "Pauvreté régionale et accès à la formation"
+          ],
+          "weakSignals": [
+            "Pauvreté régionale et accès à la formation"
+          ],
+          "consequences": [
+            "Écarts sociaux persistants"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Côte d’Ivoire fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "civ-scenario-3",
+          "title": "Choc simultané agricole et frontalier",
+          "summary": "Une baisse des cours agricoles combinée à des tensions dans les zones septentrionales pourrait exercer une double pression.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-FD"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Baisse de revenus agricoles et perturbations frontalières"
+          ],
+          "triggers": [
+            "Prix producteurs et flux humanitaires"
+          ],
+          "weakSignals": [
+            "Prix producteurs et flux humanitaires"
+          ],
+          "consequences": [
+            "Tensions budgétaires et difficultés rurales"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Côte d’Ivoire fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "civ-watch-1",
+          "title": "Transformation du cacao",
+          "summary": "Distinguer volumes cultivés, transformés et exportés.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-WB"
+          ]
+        },
+        {
+          "id": "civ-watch-2",
+          "title": "Frontière burkinabè",
+          "summary": "Suivre les déplacements et les dispositifs de protection dans le Nord.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-FD"
+          ]
+        },
+        {
+          "id": "civ-watch-3",
+          "title": "Plan national 2026–2030",
+          "summary": "Vérifier l’exécution des investissements plutôt que les seules annonces.",
+          "tags": [],
+          "sourceIds": [
+            "S-CIV-FD"
+          ]
+        }
+      ]
+    }
+  }
+}

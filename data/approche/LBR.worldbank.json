@@ -1,0 +1,610 @@
+{
+  "countryCode": "LBR",
+  "fetchedAt": "2026-11-05",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=LR",
+      "apiUrl": "https://api.worldbank.org/v2/country/LBR/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=LR",
+      "apiUrl": "https://api.worldbank.org/v2/country/LBR/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=LR",
+      "apiUrl": "https://api.worldbank.org/v2/country/LBR/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=LR",
+      "apiUrl": "https://api.worldbank.org/v2/country/LBR/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=LR",
+      "apiUrl": "https://api.worldbank.org/v2/country/LBR/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=LR",
+      "apiUrl": "https://api.worldbank.org/v2/country/LBR/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=LR",
+      "apiUrl": "https://api.worldbank.org/v2/country/LBR/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "lbr-demography-population-2025",
+      "countryCode": "LBR",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 5731206,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Liberia, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 4564293
+        },
+        {
+          "period": "2015",
+          "value": 4659431
+        },
+        {
+          "period": "2016",
+          "value": 4755608
+        },
+        {
+          "period": "2017",
+          "value": 4848925
+        },
+        {
+          "period": "2018",
+          "value": 4944726
+        },
+        {
+          "period": "2019",
+          "value": 5043721
+        },
+        {
+          "period": "2020",
+          "value": 5149463
+        },
+        {
+          "period": "2021",
+          "value": 5259323
+        },
+        {
+          "period": "2022",
+          "value": 5373294
+        },
+        {
+          "period": "2023",
+          "value": 5493031
+        },
+        {
+          "period": "2024",
+          "value": 5612817
+        },
+        {
+          "period": "2025",
+          "value": 5731206
+        }
+      ]
+    },
+    {
+      "id": "lbr-economy-gdp_nominal_usd-2025",
+      "countryCode": "LBR",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 5245938900,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Liberia, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 3225652000
+        },
+        {
+          "period": "2015",
+          "value": 3227075700
+        },
+        {
+          "period": "2016",
+          "value": 3398419600
+        },
+        {
+          "period": "2017",
+          "value": 3390703400
+        },
+        {
+          "period": "2018",
+          "value": 3422754800
+        },
+        {
+          "period": "2019",
+          "value": 3319596500
+        },
+        {
+          "period": "2020",
+          "value": 3176126300
+        },
+        {
+          "period": "2021",
+          "value": 3513049500
+        },
+        {
+          "period": "2022",
+          "value": 4001047000
+        },
+        {
+          "period": "2023",
+          "value": 4390000000
+        },
+        {
+          "period": "2024",
+          "value": 4779300900
+        },
+        {
+          "period": "2025",
+          "value": 5245938900
+        }
+      ]
+    },
+    {
+      "id": "lbr-economy-gdp_per_capita_usd-2025",
+      "countryCode": "LBR",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 915.328972645548,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Liberia, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 706.714490064507
+        },
+        {
+          "period": "2015",
+          "value": 692.590082351257
+        },
+        {
+          "period": "2016",
+          "value": 714.613063145659
+        },
+        {
+          "period": "2017",
+          "value": 699.269095727404
+        },
+        {
+          "period": "2018",
+          "value": 692.203127129794
+        },
+        {
+          "period": "2019",
+          "value": 658.164180770507
+        },
+        {
+          "period": "2020",
+          "value": 616.787867006715
+        },
+        {
+          "period": "2021",
+          "value": 667.96610514319
+        },
+        {
+          "period": "2022",
+          "value": 744.617175237387
+        },
+        {
+          "period": "2023",
+          "value": 799.194470229642
+        },
+        {
+          "period": "2024",
+          "value": 851.497723870206
+        },
+        {
+          "period": "2025",
+          "value": 915.328972645548
+        }
+      ]
+    },
+    {
+      "id": "lbr-economy-gdp_growth-2025",
+      "countryCode": "LBR",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 5.01656107992214,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Liberia, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 0.701393100287518
+        },
+        {
+          "period": "2015",
+          "value": -0.0185649695590939
+        },
+        {
+          "period": "2016",
+          "value": -1.5549586174878
+        },
+        {
+          "period": "2017",
+          "value": 2.45515592012239
+        },
+        {
+          "period": "2018",
+          "value": 1.15757512207355
+        },
+        {
+          "period": "2019",
+          "value": -2.46729763532686
+        },
+        {
+          "period": "2020",
+          "value": -2.98249127649473
+        },
+        {
+          "period": "2021",
+          "value": 4.98671283481617
+        },
+        {
+          "period": "2022",
+          "value": 4.80810517290655
+        },
+        {
+          "period": "2023",
+          "value": 4.68375688761311
+        },
+        {
+          "period": "2024",
+          "value": 4.02185464964835
+        },
+        {
+          "period": "2025",
+          "value": 5.01656107992214
+        }
+      ]
+    },
+    {
+      "id": "lbr-economy-inflation_cpi-2025",
+      "countryCode": "LBR",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 8.31564329402951,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Liberia, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 9.86111285574903
+        },
+        {
+          "period": "2015",
+          "value": 7.74869687621322
+        },
+        {
+          "period": "2016",
+          "value": 8.83424868336487
+        },
+        {
+          "period": "2017",
+          "value": 12.4196323907137
+        },
+        {
+          "period": "2018",
+          "value": 23.5635148953741
+        },
+        {
+          "period": "2019",
+          "value": 26.9662760197878
+        },
+        {
+          "period": "2020",
+          "value": 16.9557241496254
+        },
+        {
+          "period": "2021",
+          "value": 7.81559385858648
+        },
+        {
+          "period": "2022",
+          "value": 7.59298486560313
+        },
+        {
+          "period": "2023",
+          "value": 10.0944535665551
+        },
+        {
+          "period": "2024",
+          "value": 8.21497439118963
+        },
+        {
+          "period": "2025",
+          "value": 8.31564329402951
+        }
+      ]
+    },
+    {
+      "id": "lbr-labour-unemployment_ilo-2025",
+      "countryCode": "LBR",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 2.884,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Liberia, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 2.079
+        },
+        {
+          "period": "2015",
+          "value": 2.557
+        },
+        {
+          "period": "2016",
+          "value": 3.081
+        },
+        {
+          "period": "2017",
+          "value": 3.067
+        },
+        {
+          "period": "2018",
+          "value": 3.058
+        },
+        {
+          "period": "2019",
+          "value": 3.071
+        },
+        {
+          "period": "2020",
+          "value": 4.102
+        },
+        {
+          "period": "2021",
+          "value": 3.844
+        },
+        {
+          "period": "2022",
+          "value": 2.956
+        },
+        {
+          "period": "2023",
+          "value": 2.905
+        },
+        {
+          "period": "2024",
+          "value": 2.914
+        },
+        {
+          "period": "2025",
+          "value": 2.884
+        }
+      ]
+    },
+    {
+      "id": "lbr-geography-surface_area-2024",
+      "countryCode": "LBR",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 111370,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Liberia, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 111370
+        },
+        {
+          "period": "2014",
+          "value": 111370
+        },
+        {
+          "period": "2015",
+          "value": 111370
+        },
+        {
+          "period": "2016",
+          "value": 111370
+        },
+        {
+          "period": "2017",
+          "value": 111370
+        },
+        {
+          "period": "2018",
+          "value": 111370
+        },
+        {
+          "period": "2019",
+          "value": 111370
+        },
+        {
+          "period": "2020",
+          "value": 111370
+        },
+        {
+          "period": "2021",
+          "value": 111370
+        },
+        {
+          "period": "2022",
+          "value": 111370
+        },
+        {
+          "period": "2023",
+          "value": 111370
+        },
+        {
+          "period": "2024",
+          "value": 111370
+        }
+      ]
+    }
+  ]
+}

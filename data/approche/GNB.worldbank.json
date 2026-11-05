@@ -1,0 +1,610 @@
+{
+  "countryCode": "GNB",
+  "fetchedAt": "2026-11-05",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=GW",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNB/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=GW",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNB/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=GW",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNB/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=GW",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNB/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=GW",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNB/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=GW",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNB/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=GW",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNB/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "gnb-demography-population-2025",
+      "countryCode": "GNB",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 2249515,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Guinea-Bissau, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1741122
+        },
+        {
+          "period": "2015",
+          "value": 1786457
+        },
+        {
+          "period": "2016",
+          "value": 1831893
+        },
+        {
+          "period": "2017",
+          "value": 1877072
+        },
+        {
+          "period": "2018",
+          "value": 1922168
+        },
+        {
+          "period": "2019",
+          "value": 1967696
+        },
+        {
+          "period": "2020",
+          "value": 2013255
+        },
+        {
+          "period": "2021",
+          "value": 2058841
+        },
+        {
+          "period": "2022",
+          "value": 2105529
+        },
+        {
+          "period": "2023",
+          "value": 2153339
+        },
+        {
+          "period": "2024",
+          "value": 2201352
+        },
+        {
+          "period": "2025",
+          "value": 2249515
+        }
+      ]
+    },
+    {
+      "id": "gnb-economy-gdp_nominal_usd-2025",
+      "countryCode": "GNB",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 2527930272.92988,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Guinea-Bissau, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1135250721.0374
+        },
+        {
+          "period": "2015",
+          "value": 1152384166.79638
+        },
+        {
+          "period": "2016",
+          "value": 1245074264.10396
+        },
+        {
+          "period": "2017",
+          "value": 1469978606.12143
+        },
+        {
+          "period": "2018",
+          "value": 1554133593.91699
+        },
+        {
+          "period": "2019",
+          "value": 1596214680.12925
+        },
+        {
+          "period": "2020",
+          "value": 1705062169.81422
+        },
+        {
+          "period": "2021",
+          "value": 1907611288.23036
+        },
+        {
+          "period": "2022",
+          "value": 1856239954.81555
+        },
+        {
+          "period": "2023",
+          "value": 2076748678.11987
+        },
+        {
+          "period": "2024",
+          "value": 2197777209.94218
+        },
+        {
+          "period": "2025",
+          "value": 2527930272.92988
+        }
+      ]
+    },
+    {
+      "id": "gnb-economy-gdp_per_capita_usd-2025",
+      "countryCode": "GNB",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 1123.76679992349,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Guinea-Bissau, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 652.022501029449
+        },
+        {
+          "period": "2015",
+          "value": 645.066837207039
+        },
+        {
+          "period": "2016",
+          "value": 679.665386626818
+        },
+        {
+          "period": "2017",
+          "value": 783.123186602022
+        },
+        {
+          "period": "2018",
+          "value": 808.531613218504
+        },
+        {
+          "period": "2019",
+          "value": 811.210004050041
+        },
+        {
+          "period": "2020",
+          "value": 846.918134967613
+        },
+        {
+          "period": "2021",
+          "value": 926.54619187706
+        },
+        {
+          "period": "2022",
+          "value": 881.602654162231
+        },
+        {
+          "period": "2023",
+          "value": 964.431832665395
+        },
+        {
+          "period": "2024",
+          "value": 998.376093392688
+        },
+        {
+          "period": "2025",
+          "value": 1123.76679992349
+        }
+      ]
+    },
+    {
+      "id": "gnb-economy-gdp_growth-2025",
+      "countryCode": "GNB",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 5.81813762310792,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Guinea-Bissau, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 0.964525745841428
+        },
+        {
+          "period": "2015",
+          "value": 6.1340893623123
+        },
+        {
+          "period": "2016",
+          "value": 5.4326782650304
+        },
+        {
+          "period": "2017",
+          "value": 4.66367943913264
+        },
+        {
+          "period": "2018",
+          "value": 3.76145359637003
+        },
+        {
+          "period": "2019",
+          "value": 5.32749571119344
+        },
+        {
+          "period": "2020",
+          "value": 2.89149979806913
+        },
+        {
+          "period": "2021",
+          "value": 5.0173096003907
+        },
+        {
+          "period": "2022",
+          "value": 5.45776090019501
+        },
+        {
+          "period": "2023",
+          "value": 4.63052364601562
+        },
+        {
+          "period": "2024",
+          "value": 4.40920107183611
+        },
+        {
+          "period": "2025",
+          "value": 5.81813762310792
+        }
+      ]
+    },
+    {
+      "id": "gnb-economy-inflation_cpi-2025",
+      "countryCode": "GNB",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 0.874929691038717,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Guinea-Bissau, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": -1.50924460570493
+        },
+        {
+          "period": "2015",
+          "value": 1.47672048910484
+        },
+        {
+          "period": "2016",
+          "value": 1.50312055861088
+        },
+        {
+          "period": "2017",
+          "value": 1.69111461822297
+        },
+        {
+          "period": "2018",
+          "value": 0.381324702790991
+        },
+        {
+          "period": "2019",
+          "value": 0.246600268147829
+        },
+        {
+          "period": "2020",
+          "value": 1.14000939393222
+        },
+        {
+          "period": "2021",
+          "value": 2.24248879577658
+        },
+        {
+          "period": "2022",
+          "value": 9.39075933985203
+        },
+        {
+          "period": "2023",
+          "value": 7.10220928557059
+        },
+        {
+          "period": "2024",
+          "value": 3.76555825770114
+        },
+        {
+          "period": "2025",
+          "value": 0.874929691038717
+        }
+      ]
+    },
+    {
+      "id": "gnb-labour-unemployment_ilo-2025",
+      "countryCode": "GNB",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 2.673,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Guinea-Bissau, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 3.285
+        },
+        {
+          "period": "2015",
+          "value": 3.168
+        },
+        {
+          "period": "2016",
+          "value": 3.139
+        },
+        {
+          "period": "2017",
+          "value": 3.089
+        },
+        {
+          "period": "2018",
+          "value": 3.127
+        },
+        {
+          "period": "2019",
+          "value": 2.413
+        },
+        {
+          "period": "2020",
+          "value": 2.887
+        },
+        {
+          "period": "2021",
+          "value": 3.016
+        },
+        {
+          "period": "2022",
+          "value": 2.666
+        },
+        {
+          "period": "2023",
+          "value": 2.632
+        },
+        {
+          "period": "2024",
+          "value": 2.647
+        },
+        {
+          "period": "2025",
+          "value": 2.673
+        }
+      ]
+    },
+    {
+      "id": "gnb-geography-surface_area-2024",
+      "countryCode": "GNB",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 36125,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Guinea-Bissau, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 36130
+        },
+        {
+          "period": "2014",
+          "value": 36130
+        },
+        {
+          "period": "2015",
+          "value": 36130
+        },
+        {
+          "period": "2016",
+          "value": 36130
+        },
+        {
+          "period": "2017",
+          "value": 36130
+        },
+        {
+          "period": "2018",
+          "value": 36130
+        },
+        {
+          "period": "2019",
+          "value": 36130
+        },
+        {
+          "period": "2020",
+          "value": 36130
+        },
+        {
+          "period": "2021",
+          "value": 36130
+        },
+        {
+          "period": "2022",
+          "value": 36125
+        },
+        {
+          "period": "2023",
+          "value": 36125
+        },
+        {
+          "period": "2024",
+          "value": 36125
+        }
+      ]
+    }
+  ]
+}

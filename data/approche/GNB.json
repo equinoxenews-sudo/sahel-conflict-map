@@ -1,0 +1,829 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "GNB",
+  "slug": "guinee-bissau",
+  "zoneSlug": "afrique",
+  "name": "Guinée-Bissau",
+  "officialName": "République de Guinée-Bissau",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-GNB-WB",
+      "publisher": "Banque mondiale",
+      "title": "Guinea-Bissau — situation politique et économie 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/guineabissau",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-GNB-FD",
+      "publisher": "France Diplomatie",
+      "title": "Guinée-Bissao — présentation du 2 juillet 2026",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/guinee-bissao/presentation-de-la-guinee-bissao",
+      "publishedAt": "2026-07-02",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Attribution factuelle à France Diplomatie ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-GNB-ECO",
+      "publisher": "Banque mondiale",
+      "title": "Guinea-Bissau Economic Update — productivité privée, juin 2026",
+      "canonicalUrl": "https://www.worldbank.org/en/news/press-release/2026/06/24/world-bank-group-report-pathways-for-unlocking-productivity-led-private-sector-growth-in-guinea-bissau",
+      "publishedAt": "2026-06-24",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    }
+  ],
+  "observations": [
+    {
+      "id": "gnb-identity-capital",
+      "countryCode": "GNB",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Bissau",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Capitale administrative indiquée par la source de référence du pays.",
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnb-identity-language",
+      "countryCode": "GNB",
+      "key": "identity.language",
+      "label": "Langue officielle",
+      "value": "Portugais",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Langue constitutionnelle ou administrative indiquée par la source.",
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnb-identity-currency",
+      "countryCode": "GNB",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc CFA (XOF)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Devise nationale indiquée par la source pays ; sans conversion de taux de change.",
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnb-politics-head-of-state",
+      "countryCode": "GNB",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Horta Inta-A (président de la transition)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Fonction et titulaire vérifiés au 2 novembre 2026 ; distinguer les régimes de transition.",
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnb-politics-head-of-government",
+      "countryCode": "GNB",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Ilídio Vieira Té",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Titulaire et fonction vérifiés ; ne pas déduire la répartition des pouvoirs du seul intitulé.",
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnb-politics-regime",
+      "countryCode": "GNB",
+      "key": "politics.regime",
+      "label": "Régime institutionnel",
+      "value": "Transition militaire depuis novembre 2025",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Qualification politique à la date de consultation ; contexte de transition précisé si nécessaire.",
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnb-geography-area-official",
+      "countryCode": "GNB",
+      "key": "geography.area.official",
+      "label": "Superficie du territoire",
+      "value": 36125,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Superficie publiée dans la fiche nationale ; vérifier les périmètres en cas d’écart avec la série mondiale.",
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "gnb-institutions-ecowas-suspended",
+      "countryCode": "GNB",
+      "key": "institutions.ecowas_suspended",
+      "label": "Suspension de la CEDEAO",
+      "value": "Oui depuis novembre 2025",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnb-institutions-uemoa",
+      "countryCode": "GNB",
+      "key": "institutions.uemoa",
+      "label": "Membre de l’UEMOA",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnb-economy-growth-2025-wb",
+      "countryCode": "GNB",
+      "key": "economy.growth_2025_wb",
+      "label": "Croissance réelle 2025",
+      "value": 5.8,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Croissance estimée, soutenue par la récolte de noix de cajou.",
+      "sourceIds": [
+        "S-GNB-ECO"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "gnb-economy-growth-projection-2026-wb",
+      "countryCode": "GNB",
+      "key": "economy.growth_projection_2026_wb",
+      "label": "Croissance projetée pour 2026",
+      "value": 4.9,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Prévision et non croissance constatée.",
+      "sourceIds": [
+        "S-GNB-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth",
+      "uncertainty": "Projection ou estimation susceptible d’être révisée."
+    },
+    {
+      "id": "gnb-economy-inflation-2025-wb",
+      "countryCode": "GNB",
+      "key": "economy.inflation_2025_wb",
+      "label": "Inflation 2025",
+      "value": 0.9,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Inflation moyenne déclarée par la Banque mondiale.",
+      "sourceIds": [
+        "S-GNB-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "inflation"
+    },
+    {
+      "id": "gnb-economy-cashew-exports-share-fd",
+      "countryCode": "GNB",
+      "key": "economy.cashew_exports_share_fd",
+      "label": "Part de la noix de cajou dans les exportations",
+      "value": 91,
+      "unit": "%",
+      "referencePeriod": "année statistique non précisée",
+      "geographicScope": "Guinée-Bissau",
+      "methodology": "Part indiquée par France Diplomatie ; année statistique précise à vérifier.",
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": null,
+      "status": "pending",
+      "dataKind": "observed",
+      "uncertainty": "Millésime de la donnée non établi : contrôle documentaire nécessaire."
+    }
+  ],
+  "claims": [
+    {
+      "id": "gnb-claim-1",
+      "countryCode": "GNB",
+      "statement": "Guinée-Bissau : Bissau est la capitale du pays.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gnb-claim-2",
+      "countryCode": "GNB",
+      "statement": "En 2026, la fonction de chef de l’État de Guinée-Bissau est exercée par Horta Inta-A (président de la transition).",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gnb-claim-3",
+      "countryCode": "GNB",
+      "statement": "La suspension du processus en 2025 a créé une incertitude sur les garanties institutionnelles.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-GNB-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "gnb-claim-4",
+      "countryCode": "GNB",
+      "statement": "Exportation structurante pour les recettes et les revenus de nombreux producteurs.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-GNB-ECO"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "gnb-claim-5",
+      "countryCode": "GNB",
+      "statement": "Les autorités ont annoncé un référendum en 2026 et des élections en décembre après la crise de 2025.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-GNB-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "gnb-rel-1",
+      "countryCode": "GNB",
+      "targetCode": "SEN",
+      "targetIso2": "SN",
+      "targetName": "Sénégal",
+      "relationType": "cooperation",
+      "title": "Frontière et échanges",
+      "topics": [],
+      "summary": "Le voisinage sénégalais relie la Guinée-Bissau au commerce et aux espaces de mobilité de Casamance.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "gnb-rel-2",
+      "countryCode": "GNB",
+      "targetCode": "GIN",
+      "targetIso2": "GN",
+      "targetName": "Guinée",
+      "relationType": "cooperation",
+      "title": "Frontière sud et intégration régionale",
+      "topics": [],
+      "summary": "Les échanges avec la Guinée contribuent aux débouchés régionaux au-delà des exportations de cajou.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GNB-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "gnb-rel-3",
+      "countryCode": "GNB",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "CEDEAO",
+      "relationType": "tension",
+      "title": "Suspension institutionnelle",
+      "topics": [],
+      "summary": "La Guinée-Bissau a été suspendue des instances de la CEDEAO après la prise de pouvoir militaire de novembre 2025.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GNB-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "gnb-overview-strengths-1",
+          "title": "Noix de cajou",
+          "summary": "Exportation structurante pour les recettes et les revenus de nombreux producteurs.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-ECO"
+          ]
+        },
+        {
+          "id": "gnb-overview-strengths-2",
+          "title": "Littoral des Bijagós",
+          "summary": "L’archipel et les ressources marines constituent un potentiel de développement sous contraintes écologiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "gnb-overview-challenges-1",
+          "title": "Transition et incertitude électorale",
+          "summary": "La suspension du processus en 2025 a créé une incertitude sur les garanties institutionnelles.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
+          ]
+        },
+        {
+          "id": "gnb-overview-challenges-2",
+          "title": "Dépendance au cajou",
+          "summary": "La production agricole d’exportation concentre fortement les risques de prix et de récolte.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-FD"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "gnb-timeline-1",
+          "title": "Prise du pouvoir par des militaires",
+          "summary": "Interruption du processus électoral et renversement de l’exécutif précédent.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
+          ],
+          "date": "2025-11-26"
+        },
+        {
+          "id": "gnb-timeline-2",
+          "title": "Élections annoncées",
+          "summary": "La transition prévoit des élections présidentielle et législatives le 6 décembre 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
+          ],
+          "date": "2026-12-06"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "gnb-sector-1",
+          "title": "Noix de cajou",
+          "summary": "La récolte et la vente extérieure conditionnent de nombreux revenus ruraux.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-ECO"
+          ]
+        },
+        {
+          "id": "gnb-sector-2",
+          "title": "Agriculture et petits services",
+          "summary": "La productivité du secteur privé est freinée par des contraintes financières et institutionnelles.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-ECO"
+          ]
+        },
+        {
+          "id": "gnb-sector-3",
+          "title": "Pêche et littoral",
+          "summary": "L’accès à l’Atlantique soutient un potentiel de ressources marines et de marchés.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "gnb-resource-1",
+          "title": "Cajou",
+          "summary": "Culture commerciale centrale dont la production fluctue chaque campagne.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-FD"
+          ]
+        },
+        {
+          "id": "gnb-resource-2",
+          "title": "Archipel des Bijagós",
+          "summary": "Ensemble insulaire reconnu pour ses écosystèmes et activités littorales.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "gnb-security-1",
+          "title": "Transition militaire",
+          "summary": "La prise de pouvoir de 2025 a suspendu le processus électoral et plusieurs engagements institutionnels.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
+          ]
+        },
+        {
+          "id": "gnb-security-2",
+          "title": "Gestion de la stabilité régionale",
+          "summary": "La suspension des organisations régionales modifie les conditions du dialogue diplomatique.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-FD"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "gnb-issue-1",
+          "title": "Calendrier de sortie de transition",
+          "summary": "Calendrier de sortie de transition : La tenue effective du scrutin et l’acceptation de ses résultats pèseront sur la réintégration r…",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Les autorités ont annoncé un référendum en 2026 et des élections en décembre après la crise de 2025.",
+          "whyStrategic": "La tenue effective du scrutin et l’acceptation de ses résultats pèseront sur la réintégration régionale.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Calendrier électoral",
+            "décisions juridictionnelles",
+            "garanties d’observation"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "gnb-issue-2",
+          "title": "Dépendance à une campagne agricole",
+          "summary": "Dépendance à une campagne agricole : La productivité et la transformation locale sont des leviers pour amortir les variations des ré…",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-ECO"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La noix de cajou domine les exportations et influence fortement consommation et devises.",
+          "whyStrategic": "La productivité et la transformation locale sont des leviers pour amortir les variations des récoltes.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Prix au producteur",
+            "volumes exportés",
+            "activité de transformation"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "gnb-issue-3",
+          "title": "Financement du secteur privé",
+          "summary": "Financement du secteur privé : Sans accès accru au crédit et marchés fonctionnels, le dynamisme agricole se diffuse mal au tis…",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-ECO"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale décrit une productivité fragile et des contraintes du financement malgré une croissance récente.",
+          "whyStrategic": "Sans accès accru au crédit et marchés fonctionnels, le dynamisme agricole se diffuse mal au tissu d’entreprises.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Crédit aux entreprises",
+            "investissement",
+            "productivité"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "gnb-swot-s-1",
+            "title": "Noix de cajou",
+            "summary": "Un levier pour Guinée-Bissau : prévisibilité accrue pour les investissements",
+            "tags": [],
+            "sourceIds": [
+              "S-GNB-ECO"
+            ]
+          },
+          {
+            "id": "gnb-swot-s-2",
+            "title": "Littoral des Bijagós",
+            "summary": "Un levier pour Guinée-Bissau : la productivité et la transformation locale sont des leviers pour amortir les variations des récoltes.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNB-WB"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "gnb-swot-w-1",
+            "title": "Transition et incertitude électorale",
+            "summary": "Cette contrainte pèse sur la réponse à calendrier de sortie de transition et doit être suivie par les indicateurs : calendrier électoral , décisions juridictionnelles , garanties d’observation.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNB-WB"
+            ]
+          },
+          {
+            "id": "gnb-swot-w-2",
+            "title": "Dépendance au cajou",
+            "summary": "Cette contrainte pèse sur la réponse à dépendance à une campagne agricole et doit être suivie par les indicateurs : prix au producteur , volumes exportés , activité de transformation.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNB-FD"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "gnb-swot-o-1",
+            "title": "Retour civil négocié",
+            "summary": "Perspective conditionnelle : calendrier électoral exécuté et règles acceptées; son avancement pourrait favoriser prévisibilité accrue pour les investissements.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNB-WB"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "gnb-swot-t-1",
+            "title": "Contentieux électoral et mauvaise récolte",
+            "summary": "Le facteur de rupture à contrôler est : contestations post-électorales et campagne agricole dégradée; cela exposerait le pays à réduction des recettes d’exportation et du crédit.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNB-FD"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "gnb-scenario-1",
+          "title": "Retour civil négocié",
+          "summary": "Si les élections annoncées se déroulent et sont reconnues, la Guinée-Bissau pourrait restaurer ses relations institutionnelles régionales.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Calendrier électoral exécuté et règles acceptées"
+          ],
+          "triggers": [
+            "Participation et réactions des organisations régionales"
+          ],
+          "weakSignals": [
+            "Participation et réactions des organisations régionales"
+          ],
+          "consequences": [
+            "Prévisibilité accrue pour les investissements"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Guinée-Bissau fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "gnb-scenario-2",
+          "title": "Transition prolongée, cajou soutenu",
+          "summary": "Une campagne de cajou favorable pourrait maintenir la croissance sans résoudre la légitimité institutionnelle.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-ECO"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Exportations soutenues et calendrier politique incertain"
+          ],
+          "triggers": [
+            "Prix de cajou et décisions de transition"
+          ],
+          "weakSignals": [
+            "Prix de cajou et décisions de transition"
+          ],
+          "consequences": [
+            "Dépendance agricole prolongée"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Guinée-Bissau fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "gnb-scenario-3",
+          "title": "Contentieux électoral et mauvaise récolte",
+          "summary": "La conjugaison d’une crise politique et de faibles recettes de cajou pourrait accroître les tensions économiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-FD"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Contestations post-électorales et campagne agricole dégradée"
+          ],
+          "triggers": [
+            "Décisions électorales et prix au producteur"
+          ],
+          "weakSignals": [
+            "Décisions électorales et prix au producteur"
+          ],
+          "consequences": [
+            "Réduction des recettes d’exportation et du crédit"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Guinée-Bissau fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "gnb-watch-1",
+          "title": "Échéance du 6 décembre",
+          "summary": "Vérifier la tenue effective des élections, sans anticiper leur résultat.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-WB"
+          ]
+        },
+        {
+          "id": "gnb-watch-2",
+          "title": "Récolte de cajou",
+          "summary": "Distinguer volumes physiques et recettes en devises.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-ECO"
+          ]
+        },
+        {
+          "id": "gnb-watch-3",
+          "title": "Relations avec la CEDEAO",
+          "summary": "Suivre les décisions de suspension ou de réintégration.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNB-FD"
+          ]
+        }
+      ]
+    }
+  }
+}

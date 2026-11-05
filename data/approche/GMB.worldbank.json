@@ -1,0 +1,664 @@
+{
+  "countryCode": "GMB",
+  "fetchedAt": "2026-11-05",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=GM",
+      "apiUrl": "https://api.worldbank.org/v2/country/GMB/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=GM",
+      "apiUrl": "https://api.worldbank.org/v2/country/GMB/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=GM",
+      "apiUrl": "https://api.worldbank.org/v2/country/GMB/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=GM",
+      "apiUrl": "https://api.worldbank.org/v2/country/GMB/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=GM",
+      "apiUrl": "https://api.worldbank.org/v2/country/GMB/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=GM",
+      "apiUrl": "https://api.worldbank.org/v2/country/GMB/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=GM",
+      "apiUrl": "https://api.worldbank.org/v2/country/GMB/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-GB.XPD.RSDV.GD.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Dépenses de recherche-développement (% du PIB)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS?locations=GM",
+      "apiUrl": "https://api.worldbank.org/v2/country/GMB/indicator/GB.XPD.RSDV.GD.ZS?format=json&per_page=18",
+      "datasetId": "GB.XPD.RSDV.GD.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "gmb-demography-population-2025",
+      "countryCode": "GMB",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 2822093,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Gambia, The, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 2164528
+        },
+        {
+          "period": "2015",
+          "value": 2224529
+        },
+        {
+          "period": "2016",
+          "value": 2283769
+        },
+        {
+          "period": "2017",
+          "value": 2342189
+        },
+        {
+          "period": "2018",
+          "value": 2399632
+        },
+        {
+          "period": "2019",
+          "value": 2456844
+        },
+        {
+          "period": "2020",
+          "value": 2515733
+        },
+        {
+          "period": "2021",
+          "value": 2576010
+        },
+        {
+          "period": "2022",
+          "value": 2636470
+        },
+        {
+          "period": "2023",
+          "value": 2697845
+        },
+        {
+          "period": "2024",
+          "value": 2759988
+        },
+        {
+          "period": "2025",
+          "value": 2822093
+        }
+      ]
+    },
+    {
+      "id": "gmb-economy-gdp_nominal_usd-2025",
+      "countryCode": "GMB",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 2593673987.53306,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Gambia, The, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1229461721.40861
+        },
+        {
+          "period": "2015",
+          "value": 1378176608.93204
+        },
+        {
+          "period": "2016",
+          "value": 1484578885.97132
+        },
+        {
+          "period": "2017",
+          "value": 1504909462.69521
+        },
+        {
+          "period": "2018",
+          "value": 1670671327.81651
+        },
+        {
+          "period": "2019",
+          "value": 1813609692.49994
+        },
+        {
+          "period": "2020",
+          "value": 1812170891.19069
+        },
+        {
+          "period": "2021",
+          "value": 2014158842.14596
+        },
+        {
+          "period": "2022",
+          "value": 2204734527.88096
+        },
+        {
+          "period": "2023",
+          "value": 2382262185.38179
+        },
+        {
+          "period": "2024",
+          "value": 2404888737.54853
+        },
+        {
+          "period": "2025",
+          "value": 2593673987.53306
+        }
+      ]
+    },
+    {
+      "id": "gmb-economy-gdp_per_capita_usd-2025",
+      "countryCode": "GMB",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 919.060423427951,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Gambia, The, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 568.00453558864
+        },
+        {
+          "period": "2015",
+          "value": 619.536364296461
+        },
+        {
+          "period": "2016",
+          "value": 650.056501323611
+        },
+        {
+          "period": "2017",
+          "value": 642.522641296331
+        },
+        {
+          "period": "2018",
+          "value": 696.219806960615
+        },
+        {
+          "period": "2019",
+          "value": 738.186751987483
+        },
+        {
+          "period": "2020",
+          "value": 720.335143352133
+        },
+        {
+          "period": "2021",
+          "value": 781.890925169531
+        },
+        {
+          "period": "2022",
+          "value": 836.244875868476
+        },
+        {
+          "period": "2023",
+          "value": 883.024111978927
+        },
+        {
+          "period": "2024",
+          "value": 871.340287547821
+        },
+        {
+          "period": "2025",
+          "value": 919.060423427951
+        }
+      ]
+    },
+    {
+      "id": "gmb-economy-gdp_growth-2025",
+      "countryCode": "GMB",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 5.89309208233146,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Gambia, The, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": -1.40738249510954
+        },
+        {
+          "period": "2015",
+          "value": 4.0580738039996
+        },
+        {
+          "period": "2016",
+          "value": 1.94335965478776
+        },
+        {
+          "period": "2017",
+          "value": 4.8226112492757
+        },
+        {
+          "period": "2018",
+          "value": 7.23489033258579
+        },
+        {
+          "period": "2019",
+          "value": 6.22205315994859
+        },
+        {
+          "period": "2020",
+          "value": 0.591487287873974
+        },
+        {
+          "period": "2021",
+          "value": 5.25596878816744
+        },
+        {
+          "period": "2022",
+          "value": 5.49299823010114
+        },
+        {
+          "period": "2023",
+          "value": 5.91679576551141
+        },
+        {
+          "period": "2024",
+          "value": 5.55126065805138
+        },
+        {
+          "period": "2025",
+          "value": 5.89309208233146
+        }
+      ]
+    },
+    {
+      "id": "gmb-economy-inflation_cpi-2024",
+      "countryCode": "GMB",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 11.5610532897511,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Gambia, The, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 5.69912989637382
+        },
+        {
+          "period": "2014",
+          "value": 5.94799935696625
+        },
+        {
+          "period": "2015",
+          "value": 6.80845494579609
+        },
+        {
+          "period": "2016",
+          "value": 7.22879272057922
+        },
+        {
+          "period": "2017",
+          "value": 8.03418974545911
+        },
+        {
+          "period": "2018",
+          "value": 6.52096823946572
+        },
+        {
+          "period": "2019",
+          "value": 7.11567625631192
+        },
+        {
+          "period": "2020",
+          "value": 5.9312763656244
+        },
+        {
+          "period": "2021",
+          "value": 7.37034758876617
+        },
+        {
+          "period": "2022",
+          "value": 11.5131198380504
+        },
+        {
+          "period": "2023",
+          "value": 16.9742129632326
+        },
+        {
+          "period": "2024",
+          "value": 11.5610532897511
+        }
+      ]
+    },
+    {
+      "id": "gmb-labour-unemployment_ilo-2025",
+      "countryCode": "GMB",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 6.521,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Gambia, The, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 8.191
+        },
+        {
+          "period": "2015",
+          "value": 7.226
+        },
+        {
+          "period": "2016",
+          "value": 6.244
+        },
+        {
+          "period": "2017",
+          "value": 5.097
+        },
+        {
+          "period": "2018",
+          "value": 4.055
+        },
+        {
+          "period": "2019",
+          "value": 4.481
+        },
+        {
+          "period": "2020",
+          "value": 5.84
+        },
+        {
+          "period": "2021",
+          "value": 6.213
+        },
+        {
+          "period": "2022",
+          "value": 6.067
+        },
+        {
+          "period": "2023",
+          "value": 6.479
+        },
+        {
+          "period": "2024",
+          "value": 6.48
+        },
+        {
+          "period": "2025",
+          "value": 6.521
+        }
+      ]
+    },
+    {
+      "id": "gmb-geography-surface_area-2024",
+      "countryCode": "GMB",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 11295,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Gambia, The, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 11300
+        },
+        {
+          "period": "2014",
+          "value": 11300
+        },
+        {
+          "period": "2015",
+          "value": 11300
+        },
+        {
+          "period": "2016",
+          "value": 11300
+        },
+        {
+          "period": "2017",
+          "value": 11300
+        },
+        {
+          "period": "2018",
+          "value": 11300
+        },
+        {
+          "period": "2019",
+          "value": 11300
+        },
+        {
+          "period": "2020",
+          "value": 11300
+        },
+        {
+          "period": "2021",
+          "value": 11300
+        },
+        {
+          "period": "2022",
+          "value": 11295
+        },
+        {
+          "period": "2023",
+          "value": 11300
+        },
+        {
+          "period": "2024",
+          "value": 11295
+        }
+      ]
+    },
+    {
+      "id": "gmb-research-rd_gdp-2018",
+      "countryCode": "GMB",
+      "key": "research.rd_gdp",
+      "topic": "rd",
+      "value": 0.06933,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2018",
+      "geographicScope": "Gambia, The, périmètre Banque mondiale",
+      "methodology": "Dépenses intérieures de recherche-développement, en pourcentage du PIB.",
+      "sourceIds": [
+        "S01-WB-GB.XPD.RSDV.GD.ZS"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2008",
+          "value": 0.01261
+        },
+        {
+          "period": "2009",
+          "value": 0.01086
+        },
+        {
+          "period": "2011",
+          "value": 0.0848
+        },
+        {
+          "period": "2018",
+          "value": 0.06933
+        }
+      ]
+    }
+  ]
+}

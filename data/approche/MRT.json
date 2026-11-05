@@ -1,0 +1,812 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "MRT",
+  "slug": "mauritanie",
+  "zoneSlug": "afrique",
+  "name": "Mauritanie",
+  "officialName": "République islamique de Mauritanie",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-MRT-WB",
+      "publisher": "Banque mondiale",
+      "title": "Mauritanie — situation économique et sociale 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/mauritania",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-MRT-FD",
+      "publisher": "France Diplomatie",
+      "title": "Mauritanie — présentation actualisée le 13 mai 2026",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/mauritanie/presentation-de-la-mauritanie",
+      "publishedAt": "2026-05-13",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Attribution factuelle à France Diplomatie ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-MRT-ECO",
+      "publisher": "Banque mondiale",
+      "title": "Mauritanie — renforcer la résilience économique et les filets sociaux",
+      "canonicalUrl": "https://www.worldbank.org/en/country/mauritania/publication/strengthening-economic-resilience-and-social-safety-nets-for-sustainable-development-in-mauritania",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    }
+  ],
+  "observations": [
+    {
+      "id": "mrt-identity-capital",
+      "countryCode": "MRT",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Nouakchott",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mauritanie",
+      "methodology": "Capitale administrative indiquée par la source de référence du pays.",
+      "sourceIds": [
+        "S-MRT-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mrt-identity-language",
+      "countryCode": "MRT",
+      "key": "identity.language",
+      "label": "Langue officielle",
+      "value": "Arabe",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mauritanie",
+      "methodology": "Langue constitutionnelle ou administrative indiquée par la source.",
+      "sourceIds": [
+        "S-MRT-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mrt-identity-currency",
+      "countryCode": "MRT",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Ouguiya (MRU)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mauritanie",
+      "methodology": "Devise nationale indiquée par la source pays ; sans conversion de taux de change.",
+      "sourceIds": [
+        "S-MRT-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mrt-politics-head-of-state",
+      "countryCode": "MRT",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Mohamed Ould Cheikh El Ghazouani",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mauritanie",
+      "methodology": "Fonction et titulaire vérifiés au 2 novembre 2026 ; distinguer les régimes de transition.",
+      "sourceIds": [
+        "S-MRT-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mrt-politics-head-of-government",
+      "countryCode": "MRT",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Mokhtar Ould Diay",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mauritanie",
+      "methodology": "Titulaire et fonction vérifiés ; ne pas déduire la répartition des pouvoirs du seul intitulé.",
+      "sourceIds": [
+        "S-MRT-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mrt-politics-regime",
+      "countryCode": "MRT",
+      "key": "politics.regime",
+      "label": "Régime institutionnel",
+      "value": "République islamique à régime semi-présidentiel",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mauritanie",
+      "methodology": "Qualification politique à la date de consultation ; contexte de transition précisé si nécessaire.",
+      "sourceIds": [
+        "S-MRT-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mrt-geography-area-official",
+      "countryCode": "MRT",
+      "key": "geography.area.official",
+      "label": "Superficie du territoire",
+      "value": 1030700,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Mauritanie",
+      "methodology": "Superficie publiée dans la fiche nationale ; vérifier les périmètres en cas d’écart avec la série mondiale.",
+      "sourceIds": [
+        "S-MRT-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "mrt-institutions-au",
+      "countryCode": "MRT",
+      "key": "institutions.au",
+      "label": "Membre de l’Union africaine",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Mauritanie",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-MRT-FD"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "mrt-demography-population-2026-wb-overview",
+      "countryCode": "MRT",
+      "key": "demography.population_2026_wb_overview",
+      "label": "Population estimée en 2026",
+      "value": 5500000,
+      "unit": "personnes",
+      "referencePeriod": "2026",
+      "geographicScope": "Mauritanie",
+      "methodology": "Valeur approximative ; la Banque mondiale écrit « approximately 5.5 million ». ",
+      "sourceIds": [
+        "S-MRT-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "population",
+      "uncertainty": "Projection ou estimation susceptible d’être révisée."
+    },
+    {
+      "id": "mrt-economy-growth-estimate-2025-wb",
+      "countryCode": "MRT",
+      "key": "economy.growth_estimate_2025_wb",
+      "label": "Croissance estimée 2025",
+      "value": 3.6,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Mauritanie",
+      "methodology": "Estimation ; baisse par rapport à 2024 selon la Banque mondiale.",
+      "sourceIds": [
+        "S-MRT-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth",
+      "uncertainty": "Projection ou estimation susceptible d’être révisée."
+    },
+    {
+      "id": "mrt-economy-growth-projection-2026-wb",
+      "countryCode": "MRT",
+      "key": "economy.growth_projection_2026_wb",
+      "label": "Croissance projetée 2026",
+      "value": 4.6,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Mauritanie",
+      "methodology": "Projection portée par le gaz, l’or et les services.",
+      "sourceIds": [
+        "S-MRT-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth",
+      "uncertainty": "Projection ou estimation susceptible d’être révisée."
+    },
+    {
+      "id": "mrt-humanitarian-refugees-asylum-mid2025-unhcr-in-wb",
+      "countryCode": "MRT",
+      "key": "humanitarian.refugees_asylum_mid2025_unhcr_in_wb",
+      "label": "Réfugiés et demandeurs d’asile accueillis",
+      "value": 309000,
+      "unit": "personnes environ",
+      "referencePeriod": "2025-S1",
+      "geographicScope": "Mauritanie",
+      "methodology": "Estimation du HCR reprise par la Banque mondiale ; personnes enregistrées et totales à distinguer.",
+      "sourceIds": [
+        "S-MRT-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "mrt-claim-1",
+      "countryCode": "MRT",
+      "statement": "Mauritanie : Nouakchott est la capitale du pays.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-MRT-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "mrt-claim-2",
+      "countryCode": "MRT",
+      "statement": "En 2026, la fonction de chef de l’État de Mauritanie est exercée par Mohamed Ould Cheikh El Ghazouani.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-MRT-FD"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "mrt-claim-3",
+      "countryCode": "MRT",
+      "statement": "La croissance reste sensible aux prix et aux volumes du fer, de l’or et du gaz.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-MRT-ECO"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "mrt-claim-4",
+      "countryCode": "MRT",
+      "statement": "Les recettes extractives et halieutiques constituent des piliers économiques complémentaires.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-MRT-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "mrt-claim-5",
+      "countryCode": "MRT",
+      "statement": "Le démarrage gazier peut améliorer les recettes, sans éliminer la volatilité extractive.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-MRT-ECO"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "mrt-rel-1",
+      "countryCode": "MRT",
+      "targetCode": "MLI",
+      "targetIso2": "ML",
+      "targetName": "Mali",
+      "relationType": "cooperation",
+      "title": "Frontière et accueil de réfugiés",
+      "topics": [],
+      "summary": "Les déplacements liés à la situation malienne exercent une pression sur l’accueil et les services en Mauritanie.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-MRT-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "mrt-rel-2",
+      "countryCode": "MRT",
+      "targetCode": "SEN",
+      "targetIso2": "SN",
+      "targetName": "Sénégal",
+      "relationType": "cooperation",
+      "title": "Voisinage et ressources offshore",
+      "topics": [],
+      "summary": "La frontière et les activités énergétiques atlantiques motivent une coopération régionale.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-MRT-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "mrt-rel-3",
+      "countryCode": "MRT",
+      "targetCode": "DZA",
+      "targetIso2": "DZ",
+      "targetName": "Algérie",
+      "relationType": "cooperation",
+      "title": "Relations transsahariennes",
+      "topics": [],
+      "summary": "Le voisinage saharien fait de la circulation et des enjeux frontaliers un sujet de coopération.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-MRT-FD"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "mrt-overview-strengths-1",
+          "title": "Minerai de fer et pêche",
+          "summary": "Les recettes extractives et halieutiques constituent des piliers économiques complémentaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        },
+        {
+          "id": "mrt-overview-strengths-2",
+          "title": "Diversification énergétique",
+          "summary": "Le gaz apporte une nouvelle source d’activité au-delà des métaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "mrt-overview-challenges-1",
+          "title": "Dépendance aux industries extractives",
+          "summary": "La croissance reste sensible aux prix et aux volumes du fer, de l’or et du gaz.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-ECO"
+          ]
+        },
+        {
+          "id": "mrt-overview-challenges-2",
+          "title": "Stress hydrique et ruralité",
+          "summary": "La faible surface cultivable et les aléas climatiques rendent l’économie rurale vulnérable.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "mrt-timeline-1",
+          "title": "Réélection présidentielle",
+          "summary": "Mohamed Ould Cheikh El Ghazouani obtient un nouveau mandat.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ],
+          "date": "2024-06"
+        },
+        {
+          "id": "mrt-timeline-2",
+          "title": "Démarrage de la production de gaz",
+          "summary": "La Banque mondiale souligne la contribution du début de production gazière à l’économie.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ],
+          "date": "2025"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "mrt-sector-1",
+          "title": "Minerai de fer",
+          "summary": "Exportations minières exposées aux cycles de la demande mondiale.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        },
+        {
+          "id": "mrt-sector-2",
+          "title": "Gaz",
+          "summary": "Nouvelle production contribuant aux performances et perspectives économiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        },
+        {
+          "id": "mrt-sector-3",
+          "title": "Pêche",
+          "summary": "La façade atlantique soutient une ressource importante mais dépend de la gestion des stocks.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "mrt-resource-1",
+          "title": "Fer, or et cuivre",
+          "summary": "Ressources minières structurantes mais à forte intensité capitalistique.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        },
+        {
+          "id": "mrt-resource-2",
+          "title": "Ressources halieutiques",
+          "summary": "Activité littorale stratégique pour les recettes et l’emploi.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "mrt-security-1",
+          "title": "Accueil des populations maliennes",
+          "summary": "La pression sur les communautés d’accueil nécessite des services et dispositifs de protection.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        },
+        {
+          "id": "mrt-security-2",
+          "title": "Sécurité des régions sahariennes",
+          "summary": "Les vastes espaces faiblement peuplés rendent la gouvernance et les transports complexes.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-FD"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "mrt-issue-1",
+          "title": "Gestion des retombées du gaz",
+          "summary": "Gestion des retombées du gaz : La transition vers une économie plus diversifiée dépend des investissements dans les secteurs p…",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-ECO"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le démarrage gazier peut améliorer les recettes, sans éliminer la volatilité extractive.",
+          "whyStrategic": "La transition vers une économie plus diversifiée dépend des investissements dans les secteurs productifs et les services.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Recettes gazières",
+            "investissements non extractifs",
+            "emplois"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "mrt-issue-2",
+          "title": "Réfugiés en provenance du Mali",
+          "summary": "Réfugiés en provenance du Mali : Le financement de l’accueil peut devenir un enjeu social, budgétaire et diplomatique durable.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Les mouvements transfrontaliers ont accru la population réfugiée et les besoins d’assistance.",
+          "whyStrategic": "Le financement de l’accueil peut devenir un enjeu social, budgétaire et diplomatique durable.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Estimation HCR",
+            "besoins des communes hôtes",
+            "services disponibles"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "mrt-issue-3",
+          "title": "Stress climatique et pastoral",
+          "summary": "Stress climatique et pastoral : La sécurité alimentaire dépend de la variabilité des pluies et de la capacité à protéger les mo…",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Les terres arables sont très limitées et les sécheresses menacent les revenus agro-pastoraux.",
+          "whyStrategic": "La sécurité alimentaire dépend de la variabilité des pluies et de la capacité à protéger les moyens d’existence.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Pluviométrie",
+            "prix alimentaires",
+            "mobilité pastorale"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "mrt-swot-s-1",
+            "title": "Minerai de fer et pêche",
+            "summary": "Un levier pour Mauritanie : emploi accru en dehors de l’extraction",
+            "tags": [],
+            "sourceIds": [
+              "S-MRT-WB"
+            ]
+          },
+          {
+            "id": "mrt-swot-s-2",
+            "title": "Diversification énergétique",
+            "summary": "Un levier pour Mauritanie : le financement de l’accueil peut devenir un enjeu social, budgétaire et diplomatique durable.",
+            "tags": [],
+            "sourceIds": [
+              "S-MRT-WB"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "mrt-swot-w-1",
+            "title": "Dépendance aux industries extractives",
+            "summary": "Cette contrainte pèse sur la réponse à gestion des retombées du gaz et doit être suivie par les indicateurs : recettes gazières , investissements non extractifs , emplois.",
+            "tags": [],
+            "sourceIds": [
+              "S-MRT-ECO"
+            ]
+          },
+          {
+            "id": "mrt-swot-w-2",
+            "title": "Stress hydrique et ruralité",
+            "summary": "Cette contrainte pèse sur la réponse à réfugiés en provenance du mali et doit être suivie par les indicateurs : estimation hcr , besoins des communes hôtes , services disponibles.",
+            "tags": [],
+            "sourceIds": [
+              "S-MRT-WB"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "mrt-swot-o-1",
+            "title": "Diversification alimentée par la rente extractive",
+            "summary": "Perspective conditionnelle : budgets transparents et projets économiques achevés; son avancement pourrait favoriser emploi accru en dehors de l’extraction.",
+            "tags": [],
+            "sourceIds": [
+              "S-MRT-ECO"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "mrt-swot-t-1",
+            "title": "Pression humanitaire et climatique conjointe",
+            "summary": "Le facteur de rupture à contrôler est : nouveaux déplacements et baisse des rendements pastoraux; cela exposerait le pays à besoins de financement humanitaire accrus.",
+            "tags": [],
+            "sourceIds": [
+              "S-MRT-WB"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "mrt-scenario-1",
+          "title": "Diversification alimentée par la rente extractive",
+          "summary": "Si les recettes de gaz et de minerais financent des investissements productifs, la croissance pourrait mieux bénéficier au secteur privé.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-ECO"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Budgets transparents et projets économiques achevés"
+          ],
+          "triggers": [
+            "Investissements hors mines et hydrocarbures"
+          ],
+          "weakSignals": [
+            "Investissements hors mines et hydrocarbures"
+          ],
+          "consequences": [
+            "Emploi accru en dehors de l’extraction"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Mauritanie fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "mrt-scenario-2",
+          "title": "Croissance extractive sans diffusion sociale",
+          "summary": "Une hausse du secteur gazier pourrait améliorer les agrégats tout en laissant persister les contraintes agricoles et sociales.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Rentabilité du gaz sans diversification suffisante"
+          ],
+          "triggers": [
+            "Emplois hors extraction et pauvreté"
+          ],
+          "weakSignals": [
+            "Emplois hors extraction et pauvreté"
+          ],
+          "consequences": [
+            "Disparités territoriales persistantes"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Mauritanie fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "mrt-scenario-3",
+          "title": "Pression humanitaire et climatique conjointe",
+          "summary": "L’augmentation des arrivées depuis le Mali et des épisodes de sécheresse pourrait tendre les capacités d’accueil.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Nouveaux déplacements et baisse des rendements pastoraux"
+          ],
+          "triggers": [
+            "Enregistrements HCR et évaluations agricoles"
+          ],
+          "weakSignals": [
+            "Enregistrements HCR et évaluations agricoles"
+          ],
+          "consequences": [
+            "Besoins de financement humanitaire accrus"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Mauritanie fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "mrt-watch-1",
+          "title": "Retombées de la production gazière",
+          "summary": "Distinguer volumes, recettes publiques et investissement réel.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-ECO"
+          ]
+        },
+        {
+          "id": "mrt-watch-2",
+          "title": "Flux de réfugiés du Mali",
+          "summary": "Comparer chiffres HCR enregistrés et estimations totales.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        },
+        {
+          "id": "mrt-watch-3",
+          "title": "Pluies et pâturages",
+          "summary": "Suivre les saisons et le prix des denrées pour anticiper les tensions rurales.",
+          "tags": [],
+          "sourceIds": [
+            "S-MRT-WB"
+          ]
+        }
+      ]
+    }
+  }
+}
