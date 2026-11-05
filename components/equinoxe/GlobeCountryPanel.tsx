@@ -26,8 +26,6 @@ interface GlobeCountryPanelProps {
   tier: RiskTier | null;
   /** Fiche pays Approche, quand le pays en a une. */
   href: string | null;
-  /** Articles analysés rattachés à ce pays (60 derniers jours), du plus récent au plus ancien. */
-  articles: PanelArticle[];
   /** Période choisie sur le globe (curseur) ; null tant qu'il n'a rien choisi. */
   range: PeriodRange | null;
   /** Vue affichée (profil ou liste d'articles) : tenue par le parent pour la retrouver au retour d'une page. */
@@ -39,10 +37,12 @@ interface GlobeCountryPanelProps {
 const DATE = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });
 
 /** Panneau pays du globe : remplace la petite bulle. À gauche sur ordinateur, tiroir en bas sur téléphone. */
-export default function GlobeCountryPanel({ iso3, name, flagIso2, tier, href, articles, range, view, onViewChange, onClose }: GlobeCountryPanelProps) {
+export default function GlobeCountryPanel({ iso3, name, flagIso2, tier, href, range, view, onViewChange, onClose }: GlobeCountryPanelProps) {
   const [data, setData] = useState<CountryPanelData | null>(null);
   const [failed, setFailed] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  // Articles du pays : étiquetés avec lui ou le nommant (60 derniers jours), placés sur la carte ou non.
+  const [articles, setArticles] = useState<PanelArticle[]>([]);
 
   // Le parent recrée le composant à chaque pays (`key={iso3}`) : l'état repart donc à zéro.
   useEffect(() => {
@@ -52,6 +52,12 @@ export default function GlobeCountryPanel({ iso3, name, flagIso2, tier, href, ar
       .then((payload) => setData(payload))
       .catch((error: unknown) => {
         if ((error as { name?: string })?.name !== "AbortError") setFailed(true);
+      });
+    fetch(`/api/pays/${iso3}/articles`, { signal: controller.signal })
+      .then((response) => (response.ok ? (response.json() as Promise<{ articles: PanelArticle[] }>) : Promise.reject(new Error(String(response.status)))))
+      .then((payload) => setArticles(payload.articles))
+      .catch(() => {
+        /* liste vide : le panneau le dit */
       });
     return () => controller.abort();
   }, [iso3]);
@@ -184,7 +190,13 @@ function OrgHex({ logo, acronym, name }: { logo: string | null; acronym: string;
 function RelationChip({ relation }: { relation: PanelRelation }) {
   return (
     <li className={styles.chip} title={relation.titles.join(" · ")}>
-      {relation.iso2 ? <HexFlag iso2={relation.iso2} name={relation.name} /> : <OrgHex logo={relation.org?.logo ?? null} acronym={relation.org?.acronym ?? ""} name={relation.name} />}
+      {relation.iso2 ? (
+        <span className={styles.chipFlag}>
+          <HexFlag iso2={relation.iso2} name={relation.name} />
+        </span>
+      ) : (
+        <OrgHex logo={relation.org?.logo ?? null} acronym={relation.org?.acronym ?? ""} name={relation.name} />
+      )}
       <span className={styles.chipName}>{relation.name}</span>
     </li>
   );

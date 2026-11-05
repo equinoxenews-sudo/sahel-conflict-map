@@ -24,17 +24,21 @@
   display: none;
 }
 
+/* Drapeau, nom et niveau d'alerte centrés ; la croix reste dans le coin. */
 .head {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
-  padding: 12px 12px 10px;
+  gap: 6px;
+  padding: 14px 28px 10px;
+  text-align: center;
 }
 
 /* Le drapeau hexagonal se dimensionne en « em » : une taille de police suffit. */
 .flag {
   display: inline-flex;
-  font-size: 32px;
+  font-size: 36px;
   line-height: 1;
   flex: 0 0 auto;
 }
@@ -42,10 +46,9 @@
 .names {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
+  align-items: center;
+  gap: 5px;
   min-width: 0;
-  flex: 1;
 }
 
 .name {
@@ -83,7 +86,9 @@
 }
 
 .close {
-  align-self: flex-start;
+  position: absolute;
+  top: 8px;
+  right: 8px;
   background: none;
   border: none;
   color: var(--text-secondary);
@@ -340,6 +345,14 @@
   font-size: 11px;
 }
 
+/* Drapeaux de pays et hexagones d'organisations à la même échelle (environ 19 x 22 px). */
+.chipFlag {
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 18px;
+  line-height: 1;
+}
+
 .chipName {
   display: flex;
   flex-direction: column;
@@ -359,8 +372,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 22px;
+  width: 19px;
+  height: 21.6px;
   flex: 0 0 auto;
   background: var(--accent-gold);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
@@ -371,8 +384,8 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 17px;
-  height: 20px;
+  width: 17.1px;
+  height: 19.8px;
   transform: translate(-50%, -50%);
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   background: #f4f1e8;
@@ -522,6 +535,6 @@
   }
 
   .head {
-    padding-top: 6px;
+    padding-top: 4px;
   }
 }

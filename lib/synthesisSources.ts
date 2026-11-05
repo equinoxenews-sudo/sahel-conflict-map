@@ -20,6 +20,13 @@ export const SYNTHESIS_ALLOWED_DOMAINS = [
   "thediplomat.com",
   "insightcrime.org",
   "agenciabrasil.ebc.com.br",
+  // Ajoutés le 5 nov. 2026 (voir lib/rssFeeds.ts)
+  "iranintl.com",
+  "haaretz.com",
+  "al-monitor.com",
+  "kyivindependent.com",
+  "thehindu.com",
+  "straitstimes.com",
   // Institutionnel et humanitaire
   "news.un.org",
   "reliefweb.int",

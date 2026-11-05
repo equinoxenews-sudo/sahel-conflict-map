@@ -193,13 +193,6 @@ export default function GlobeWithLayers({
     }
   }, [selectedCountry, panelView]);
 
-  // Articles analysés du pays cliqué (60 derniers jours), du plus récent au plus ancien.
-  const countryArticles = useMemo(() => {
-    const iso3 = selectedCountry?.iso3;
-    if (!iso3) return [];
-    return analystEvents.filter((event) => event.iso3 === iso3).sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)).map((event) => ({ id: event.id, title: event.title, publishedAt: event.publishedAt, imageUrl: event.imageUrl ?? null }));
-  }, [analystEvents, selectedCountry]);
-
   const stageZone = focusedZone ?? peekZone;
   // Carte surlignée ajoutée en tête si elle ne figure pas parmi les derniers articles.
   const stageBriefs = (() => {
@@ -290,7 +283,6 @@ export default function GlobeWithLayers({
               flagIso2={selectedCountry.flagIso2}
               tier={selectedCountry.tier}
               href={selectedCountry.href}
-              articles={countryArticles}
               range={dateRange}
               view={panelView}
               onViewChange={setPanelView}

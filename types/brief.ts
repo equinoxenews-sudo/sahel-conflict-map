@@ -29,6 +29,8 @@ export interface ZoneBrief {
   source_count?: number | null;
   place_name?: string | null;
   place_country?: string | null;
+  /** Tags pays (codes ISO 3) : colonne ajoutée par supabase/add-brief-countries.sql. */
+  countries?: string[] | null;
   latitude?: number | null;
   longitude?: number | null;
   geo_precision?: string | null;

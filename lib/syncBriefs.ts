@@ -68,6 +68,13 @@ interface BatchResult {
   deferred?: string;
 }
 
+/** Colonne `countries` (tags pays) présente ? Sinon les articles sont publiés sans tags en attendant supabase/add-brief-countries.sql. */
+async function countriesColumnReady(): Promise<boolean> {
+  const { error } = await getSupabaseAdmin().from("zone_briefs").select("countries").limit(1);
+  if (error) console.warn("Tags pays : appliquer supabase/add-brief-countries.sql ; articles publiés sans tags en attendant.");
+  return !error;
+}
+
 /** Colonnes et tables de la V2 présentes ? Sinon, la zone garde l'ancien fonctionnement. */
 async function analystSchemaReady(): Promise<boolean> {
   const db = getSupabaseAdmin();
@@ -255,6 +262,7 @@ async function briefBatch(
   if (imageError) throw new Error(`Cannot load recent images: ${imageError.message}`);
   const usedImages = new Set<string>((recentImages ?? []).map((row) => row.image_url).filter(Boolean));
 
+  const tagsReady = analyst ? await countriesColumnReady() : false;
   let telegramUsed = 0;
   let held = 0;
   // Only acknowledge sources after their corresponding brief was persisted.
@@ -274,6 +282,7 @@ async function briefBatch(
       const photo = await placeImage(brief.place.city, brief.place.country);
       if (photo) row.image_url = photo;
     }
+    if (analyst && tagsReady && brief.countries.length) row.countries = brief.countries;
     if (analyst && brief.confidence) {
       row.confidence = brief.confidence.percent;
       row.confidence_label = brief.confidence.label;

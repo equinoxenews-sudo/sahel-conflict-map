@@ -12,6 +12,9 @@ const BRIEF_COLUMNS =
 export const BRIEF_V2_COLUMNS =
   "confidence, confidence_label, claimed_by, source_count, place_name, place_country, latitude, longitude, geo_precision";
 
+/** Tags pays (codes ISO 3) : ajoutés par supabase/add-brief-countries.sql, lus à part pour que leur absence ne retire rien d'autre. */
+export const BRIEF_TAG_COLUMN = "countries";
+
 /** Synthèses récentes d'une zone ; l'historique est conservé en base, `days`
  * borne seulement la fenêtre affichée (90 jours par défaut). */
 export async function getZoneBriefs(zoneSlug: string, limit = 12, days = BRIEF_HISTORY_DAYS): Promise<ZoneBrief[]> {
@@ -26,7 +29,8 @@ export async function getZoneBriefs(zoneSlug: string, limit = 12, days = BRIEF_H
         .order("published_at", { ascending: false })
         .limit(limit);
     // Sans la migration V2, on relit sans les nouvelles colonnes plutôt que d'échouer.
-    let { data, error } = await load(`${BRIEF_COLUMNS}, ${BRIEF_V2_COLUMNS}`);
+    let { data, error } = await load(`${BRIEF_COLUMNS}, ${BRIEF_V2_COLUMNS}, ${BRIEF_TAG_COLUMN}`);
+    if (error) ({ data, error } = await load(`${BRIEF_COLUMNS}, ${BRIEF_V2_COLUMNS}`));
     if (error) ({ data, error } = await load(BRIEF_COLUMNS));
 
     if (error) {

@@ -1,10 +1,14 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import BackLink from "@/components/BackLink";
 import ConfidenceBar from "@/components/ConfidenceBar";
 import Header from "@/components/equinoxe/Header";
 import { formatDate } from "@/lib/formatDate";
 import { supabase } from "@/lib/supabaseClient";
-import { BRIEF_V2_COLUMNS } from "@/lib/zoneBriefs";
+import { BRIEF_TAG_COLUMN, BRIEF_V2_COLUMNS } from "@/lib/zoneBriefs";
+import HexFlag from "@/components/investigation/HexFlag";
+import { globeCountryInfo } from "@/lib/globeCountry";
+import { countryNameOf, iso2Of } from "@/lib/countryTags";
 import { eventTypeLabel, importanceLabel, resolveEventType, resolveTheme, themeLabel } from "@/lib/themes";
 import { isValidVeracity, VERACITY_COLORS } from "@/lib/veracity";
 import { getZone } from "@/lib/zones";
@@ -23,7 +27,8 @@ async function getBrief(id: string): Promise<ZoneBrief | null> {
       "id, zone_slug, title, category, primary_theme, secondary_themes, event_type, importance, veracity, summary, sections, source_urls, source_domains, image_url, published_at, updated_at";
     const load = (cols: string) => supabase.from("zone_briefs").select(cols).eq("id", numericId).maybeSingle();
     // Colonnes V2 (indice de confiance, lieu) si la migration est passée, sinon sans elles.
-    let { data, error } = await load(`${columns}, ${BRIEF_V2_COLUMNS}`);
+    let { data, error } = await load(`${columns}, ${BRIEF_V2_COLUMNS}, ${BRIEF_TAG_COLUMN}`);
+    if (error) ({ data, error } = await load(`${columns}, ${BRIEF_V2_COLUMNS}`));
     if (error) ({ data, error } = await load(columns));
 
     if (error) {
@@ -58,6 +63,12 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
   brief.source_urls.forEach((url, i) => {
     const domain = brief.source_domains[i] ?? url;
     sourcesByDomain.set(domain, [...(sourcesByDomain.get(domain) ?? []), url]);
+  });
+
+  // Pays dont l'article traite (tags posés à la rédaction), avec le lien vers leur fiche Approche quand elle existe.
+  const countryTags = (brief.countries ?? []).flatMap((iso3) => {
+    const name = countryNameOf(iso3);
+    return name ? [{ iso3, name, iso2: iso2Of(iso3), href: globeCountryInfo(iso3, name).href }] : [];
   });
 
   return (
@@ -152,6 +163,29 @@ export default async function BriefPage({ params }: { params: Promise<{ id: stri
             ))}
           </ul>
         </section>
+
+        {countryTags.length > 0 ? (
+          <section className={styles.sources}>
+            <h2 className={styles.sourcesHeading}>Tags</h2>
+            <ul className={styles.countryTags}>
+              {countryTags.map((tag) => (
+                <li key={tag.iso3}>
+                  {tag.href ? (
+                    <Link href={tag.href} className={styles.countryTag}>
+                      {tag.iso2 ? <HexFlag iso2={tag.iso2} name={tag.name} /> : null}
+                      {tag.name}
+                    </Link>
+                  ) : (
+                    <span className={styles.countryTag}>
+                      {tag.iso2 ? <HexFlag iso2={tag.iso2} name={tag.name} /> : null}
+                      {tag.name}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ) : null}
       </article>
     </main>
   );

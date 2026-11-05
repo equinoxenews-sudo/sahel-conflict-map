@@ -211,3 +211,31 @@
   font-size: 0.85rem;
   color: var(--text-secondary, #8f9baa);
 }
+
+/* Tags pays : hexagone du drapeau et nom, sous les sources. */
+.countryTags {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.countryTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  background: var(--bg-panel);
+  font-size: 13px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+a.countryTag:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold-bright);
+}

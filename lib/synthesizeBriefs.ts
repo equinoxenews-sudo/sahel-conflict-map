@@ -1,3 +1,4 @@
+import { parseCountryTags } from "./countryTags";
 import {
   eventTypePromptList, isEventTypeKey, isImportanceKey, isThemeKey, MAX_SECONDARY_THEMES, themePromptList,
   type EventTypeKey, type ImportanceKey, type ThemeKey,
@@ -84,6 +85,8 @@ export interface SynthesizedBrief {
   /** Analystes V2 uniquement (null sinon). */
   confidence: Confidence | null;
   place: { city: string | null; country: string | null } | null;
+  /** Analystes V2 : tags pays (codes ISO 3) des pays dont l'article traite, le plus concerné en premier. Vide sinon. */
+  countries: string[];
   /** Analystes V2 : raison du doute ; l'article attend alors la décision de Nicolas. */
   doubt: string | null;
 }
@@ -97,7 +100,8 @@ RÈGLES DE L'ANALYSTE DE ZONE (obligatoires) :
 - Plusieurs canaux Telegram sont des canaux d'acteurs ou de propagande (leur ligne éditoriale est indiquée) : leurs affirmations sont des revendications ou des narratifs, à attribuer explicitement (« selon le canal pro-russe X… »). Ils ne suffisent jamais seuls à dépasser 70 %.
 - Indice de confiance : juge la PROBABILITÉ QUE L'ÉVÉNEMENT SOIT RÉEL, même avec une seule source. confidence = un entier de 0 à 100 ; confidenceLabel = EXACTEMENT une étiquette parmi : ${scale}. Critères : nombre et indépendance des sources, confirmation officielle ou indépendante, précision (lieu, date, acteurs), cohérence avec le contexte, orientation des sources. « Revendiqué » = une partie prenante annonce ou s'attribue l'événement sans confirmation indépendante : renseigne alors claimedBy (qui revendique). Si une source indépendante confirme le fait, choisis l'étiquette du pourcentage et garde claimedBy. Dans le doute, choisis le niveau le plus prudent. Renseigne aussi veracity (ancienne échelle) de façon cohérente.
 - Doute : si tu doutes sérieusement de la PERTINENCE de l'information pour le site (sujet hors sécurité ou géopolitique, intérêt douteux) ou de sa FIABILITÉ au point de ne pas savoir s'il faut la publier (information grave reposant sur une seule source orientée, contradiction majeure non tranchée, image ou chiffre invérifiable), renseigne doubt en une phrase qui explique le doute à ton rédacteur en chef ; il décidera de publier ou non. Sinon doubt vaut null. Ne l'utilise pas pour une simple prudence déjà reflétée par un indice de confiance bas.
-- Lieu : place.city = la localité précise de l'événement (ville, village, ou région si rien de plus précis), ou null si l'information est d'ordre national ou général ; place.country = le pays concerné, en français (ex. « Burkina Faso », « République démocratique du Congo »), ou null si plusieurs pays sans dominante.`;
+- Lieu : place.city = la localité précise de l'événement (ville, village, ou région si rien de plus précis), ou null si l'information est d'ordre national ou général ; place.country = le pays concerné, en français (ex. « Burkina Faso », « République démocratique du Congo »), ou null si plusieurs pays sans dominante.
+- Tags pays : countries = la liste de 1 à 5 pays dont l'article traite réellement, en noms français courants (ex. « Mali », « Russie », « États-Unis », « Corée du Sud »), le pays le plus concerné en premier. Inclus les pays acteurs ou directement touchés (par exemple « Russie » et « Ukraine » pour une frappe russe sur l'Ukraine, « Algérie » et « Mali » pour une tension entre les deux), pas ceux qui ne sont cités qu'en passant. Uniquement des pays : jamais une organisation, une région ou une ville. Place ce champ en dernier dans chaque objet, après sourceIndexes.`;
 }
 
 function buildPrompt(zoneName: string, articles: SourceArticle[], previous: PreviousBrief[], analyst = false): string {
@@ -145,7 +149,7 @@ Réponds UNIQUEMENT avec un tableau JSON valide, sans texte ni markdown autour, 
 ${analyst ? ANALYST_FORMAT : CLASSIC_FORMAT}`;
 }
 
-const CLASSIC_FORMAT = `[{"existingBriefId": null, "title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "primaryTheme": "conflicts", "secondaryThemes": ["energy_resources"], "eventType": "drone_strike", "importance": "medium", "veracity": "Confirmé", "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
+const CLASSIC_FORMAT = `[{"existingBriefId": null, "title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "primaryTheme": "conflicts", "secondaryThemes": ["energy_resources"], "eventType": "drone_strike", "importance": "medium", "veracity": "Confirmé", "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2], "countries": ["Burkina Faso"]}]`;
 const ANALYST_FORMAT = `[{"existingBriefId": null, "title": "Titre de l'article", "excerpt": "Une phrase d'accroche pour la vignette.", "primaryTheme": "conflicts", "secondaryThemes": ["energy_resources"], "eventType": "drone_strike", "importance": "medium", "veracity": "Très probable", "confidence": 78, "confidenceLabel": "Très probable", "claimedBy": null, "doubt": null, "place": {"city": "Djibo", "country": "Burkina Faso"}, "sections": [{"heading": null, "body": "Texte du paragraphe."}], "sourceIndexes": [0, 2]}]`;
 
 /** Règle Telegram : un groupe sans aucune source de presse n'est retenu que si
@@ -212,8 +216,9 @@ export function parseResponse(
     }
     const {
       title, excerpt, sections, primaryTheme, secondaryThemes, eventType, importance, veracity, sourceIndexes, existingBriefId,
-      confidence, confidenceLabel, claimedBy, place, doubt,
+      confidence, confidenceLabel, claimedBy, place, doubt, countries,
     } = item as {
+      countries?: unknown;
       doubt?: unknown;
       confidence?: unknown;
       confidenceLabel?: unknown;
@@ -307,6 +312,7 @@ export function parseResponse(
         .map((s) => s.imageUrl).filter((u): u is string => !!u))],
       confidence: analyst ? normalizeConfidence(confidence, confidenceLabel, claimedBy) : null,
       place: analyst ? parsePlace(place) : null,
+      countries: analyst ? parseCountryTags(countries).iso3 : [],
       doubt: analyst && typeof doubt === "string" && doubt.trim() ? doubt.trim().slice(0, 500) : null,
     });
   }
