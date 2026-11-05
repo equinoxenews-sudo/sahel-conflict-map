@@ -1,4 +1,4 @@
-import { draftsVisible } from "./demo";
+import { demoEnabled } from "./demo";
 import type { CountryData, Observation, Relationship, SourceRecord } from "./schema";
 import { referenceProblems } from "./integrity";
 
@@ -103,11 +103,11 @@ export function publishProblems(data: CountryData): string[] {
 }
 
 /**
- * Une fiche est visible quand elle est « published ». En Preview (variable de démonstration, refusée en production) ou quand
- * APPROCHE_SHOW_DRAFTS=1 (relecture sur le site principal, voir demo.ts), une fiche « draft » ou « review » l'est aussi, sous un bandeau
+ * Une fiche est visible quand elle est « published ». En Preview (même variable que la démonstration, posée dans Vercel pour
+ * l'environnement Preview seulement, refusée en production), une fiche « draft » ou « review » l'est aussi, sous un bandeau
  * « non validée éditorialement » : c'est ainsi qu'une livraison est relue sans la publier.
  */
-export function isVisible(data: Pick<CountryData, "publication">, preview: boolean = draftsVisible()): boolean {
+export function isVisible(data: Pick<CountryData, "publication">, preview: boolean = demoEnabled()): boolean {
   return data.publication === "published" || (preview && (data.publication === "draft" || data.publication === "review"));
 }
 

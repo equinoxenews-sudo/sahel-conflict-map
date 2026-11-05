@@ -16,7 +16,7 @@ export function PreviewBanner({ status }: { status: string }) {
   return (
     <div className={styles.demoBanner} role="note">
       <strong>PRÉVISUALISATION</strong>
-      <span>Fiche non validée éditorialement (statut « {status} ») : livraison documentaire en attente de relecture, visible uniquement pour la relecture. Ne pas diffuser.</span>
+      <span>Fiche non validée éditorialement (statut « {status} ») : livraison documentaire en attente de relecture, visible uniquement en préversion. Ne pas diffuser.</span>
     </div>
   );
 }
