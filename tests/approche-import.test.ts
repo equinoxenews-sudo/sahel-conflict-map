@@ -223,9 +223,9 @@ test("même grandeur seulement : un chef d'État et une durée de mandat ne sont
   assert.equal(comparableMeasures(populationA, make({ id: "e", value: 3, unit: "%" })), false);
 });
 
-const BATCH2 = ["TGO", "CIV", "SEN", "NER", "MRT", "GMB", "GNB", "SLE", "LBR"];
+const BATCH2 = ["TGO", "CIV", "SEN", "NER", "MRT", "GMB", "GNB", "SLE", "LBR", "CPV"];
 
-test("le second lot (Afrique de l'Ouest, neuf pays) est enregistré en brouillon, sans erreur, et le Cap-Vert refusé n'est pas écrit", () => {
+test("le second lot (Afrique de l'Ouest, dix pays) est enregistré en brouillon et sans erreur", () => {
   for (const code of BATCH2) {
     assert.ok(COUNTRY_FILES[code], `${code} enregistré`);
     assert.equal(read(code).publication, "draft", code);
@@ -233,7 +233,6 @@ test("le second lot (Afrique de l'Ouest, neuf pays) est enregistré en brouillon
     const report = analyzeCountry(read(code), `${code}.json`, ctx());
     assert.deepEqual(Object.values(report.errors).flat(), [], `${code} : ${JSON.stringify(report.errors)}`);
   }
-  assert.equal(COUNTRY_FILES.CPV, undefined, "le Cap-Vert n'a pas de fiche pays ni de carte sur le site : il reste à l'extérieur");
   assert.deepEqual(
     listApprocheCountries().map((country) => country.slug),
     ["france"],
@@ -255,4 +254,14 @@ test("une observation en attente n'affiche aucune valeur : elle est signalée «
     const placement = classifyObservations(data).get(observation.id);
     assert.ok(placement && placement.kind === "panel" && placement.pending, `${code} ${key} : panneau « en attente de vérification »`);
   }
+});
+
+test("le Cap-Vert a de quoi s'afficher : fiche de l'ancien modèle, configuration de carte et contour dans le fond de carte du site", () => {
+  const world = JSON.parse(fs.readFileSync("public/data/world-countries.geo.json", "utf8")) as { features: { id: string; geometry: { type: string } }[] };
+  const cpv = world.features.find((feature) => feature.id === "CPV");
+  assert.ok(cpv && cpv.geometry.type === "MultiPolygon", "contour des îles (Natural Earth, domaine public)");
+  const zones = fs.readFileSync("lib/zoneCountries.ts", "utf8");
+  assert.ok(zones.includes('"slug":"cap-vert","name":"Cap-Vert","iso3":"CPV"'), "listé dans la zone Afrique");
+  const geo = fs.readFileSync("lib/countryGeoConfig.ts", "utf8");
+  assert.ok(geo.includes('"cap-vert": { mainIso3: "CPV"'), "configuration de carte");
 });

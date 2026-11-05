@@ -1,0 +1,827 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "CPV",
+  "slug": "cap-vert",
+  "zoneSlug": "afrique",
+  "name": "Cap-Vert",
+  "officialName": "République de Cabo Verde",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-02",
+  "sources": [
+    {
+      "id": "S-CPV-WB",
+      "publisher": "Banque mondiale",
+      "title": "Cabo Verde — situation politique et économie en 2026",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/caboverde",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-CPV-ECO",
+      "publisher": "Banque mondiale",
+      "title": "Cabo Verde Economic Update 2026 — connectivité inter-îles",
+      "canonicalUrl": "https://www.worldbank.org/en/news/press-release/2026/07/14/cabo-verde-economic-update-2026-connecting-islands-unlocking-potential",
+      "publishedAt": "2026-07-14",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Attribution factuelle à Banque mondiale ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-CPV-DEC",
+      "publisher": "Boletim Oficial de Cabo Verde",
+      "title": "Decreto Presidencial n.º 14/2026 — nomination du Premier ministre",
+      "canonicalUrl": "https://boe.incv.cv/Bulletins/View?id=102081",
+      "publishedAt": "2026-06-19",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Boletim Oficial de Cabo Verde",
+      "methodNotes": "Attribution factuelle à Boletim Oficial de Cabo Verde ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-CPV-CNE",
+      "publisher": "Comissão Nacional de Eleições",
+      "title": "Élection présidentielle du 15 novembre 2026 — candidatures",
+      "canonicalUrl": "https://cne.cv/sala_de_imprensa_/presidenciais-2026-candidaturas-definitivamente-admitidas/",
+      "publishedAt": "2026-09-28",
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Comissão Nacional de Eleições",
+      "methodNotes": "Attribution factuelle à Comissão Nacional de Eleições ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    },
+    {
+      "id": "S-CPV-ECOWAS",
+      "publisher": "CEDEAO",
+      "title": "Cabo Verde — fiche État membre",
+      "canonicalUrl": "https://www.ecowas.int/member_states/cabo-verde/?lang=fr",
+      "publishedAt": null,
+      "accessedAt": "2026-11-02",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "CEDEAO",
+      "methodNotes": "Attribution factuelle à CEDEAO ; vérifier la date de mise à jour et les droits de redistribution avant publication. Ne reprendre ni texte long ni média."
+    }
+  ],
+  "observations": [
+    {
+      "id": "cpv-identity-capital",
+      "countryCode": "CPV",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Praia",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Cap-Vert",
+      "methodology": "Capitale administrative indiquée par la source de référence du pays.",
+      "sourceIds": [
+        "S-CPV-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cpv-identity-language",
+      "countryCode": "CPV",
+      "key": "identity.language",
+      "label": "Langue officielle",
+      "value": "Portugais",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Cap-Vert",
+      "methodology": "Langue constitutionnelle ou administrative indiquée par la source.",
+      "sourceIds": [
+        "S-CPV-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cpv-identity-currency",
+      "countryCode": "CPV",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Escudo cap-verdien (CVE)",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Cap-Vert",
+      "methodology": "Devise nationale indiquée par la source pays ; sans conversion de taux de change.",
+      "sourceIds": [
+        "S-CPV-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cpv-politics-head-of-state",
+      "countryCode": "CPV",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "José Maria Neves",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Cap-Vert",
+      "methodology": "Fonction et titulaire vérifiés au 2 novembre 2026 ; distinguer les régimes de transition.",
+      "sourceIds": [
+        "S-CPV-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cpv-politics-head-of-government",
+      "countryCode": "CPV",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Francisco Avelino Vieira de Carvalho",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Cap-Vert",
+      "methodology": "Titulaire et fonction vérifiés ; ne pas déduire la répartition des pouvoirs du seul intitulé.",
+      "sourceIds": [
+        "S-CPV-DEC"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cpv-politics-regime",
+      "countryCode": "CPV",
+      "key": "politics.regime",
+      "label": "Régime institutionnel",
+      "value": "République parlementaire",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Cap-Vert",
+      "methodology": "Qualification politique à la date de consultation ; contexte de transition précisé si nécessaire.",
+      "sourceIds": [
+        "S-CPV-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cpv-geography-area-official",
+      "countryCode": "CPV",
+      "key": "geography.area.official",
+      "label": "Superficie du territoire",
+      "value": 4033,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Cap-Vert",
+      "methodology": "Superficie publiée dans la fiche nationale ; vérifier les périmètres en cas d’écart avec la série mondiale.",
+      "sourceIds": [
+        "S-CPV-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "cpv-institutions-ecowas",
+      "countryCode": "CPV",
+      "key": "institutions.ecowas",
+      "label": "Membre de la CEDEAO",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Cap-Vert",
+      "methodology": "Statut institutionnel précisé à la date de consultation, sans inférer des droits actuellement exercés.",
+      "sourceIds": [
+        "S-CPV-ECOWAS"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cpv-economy-growth-2025-wb",
+      "countryCode": "CPV",
+      "key": "economy.growth_2025_wb",
+      "label": "Croissance réelle 2025",
+      "value": 6.3,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Cap-Vert",
+      "methodology": "Taux du rapport économique Banque mondiale publié le 14 juillet 2026.",
+      "sourceIds": [
+        "S-CPV-ECO"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "cpv-economy-growth-projection-2026-wb-july",
+      "countryCode": "CPV",
+      "key": "economy.growth_projection_2026_wb_july",
+      "label": "Croissance projetée pour 2026",
+      "value": 4.8,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Cap-Vert",
+      "methodology": "Projection juillet 2026 ; une autre page Banque mondiale indique 5,3 %, ne pas les fusionner.",
+      "sourceIds": [
+        "S-CPV-ECO"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed",
+      "uncertainty": "Projection ou estimation susceptible d’être révisée."
+    },
+    {
+      "id": "cpv-economy-debt-2025-wb-update",
+      "countryCode": "CPV",
+      "key": "economy.debt_2025_wb_update",
+      "label": "Dette publique 2025",
+      "value": 100.7,
+      "unit": "% du PIB",
+      "referencePeriod": "2025",
+      "geographicScope": "Cap-Vert",
+      "methodology": "Ratio du rapport Banque mondiale de juillet 2026, susceptible de révisions.",
+      "sourceIds": [
+        "S-CPV-ECO"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "cpv-economy-tourism-2025-arrivals-wb",
+      "countryCode": "CPV",
+      "key": "economy.tourism_2025_arrivals_wb",
+      "label": "Arrivées touristiques 2025",
+      "value": 1250000,
+      "unit": "arrivées environ",
+      "referencePeriod": "2025",
+      "geographicScope": "Cap-Vert",
+      "methodology": "La Banque mondiale indique un record de 1,25 million, valeur arrondie.",
+      "sourceIds": [
+        "S-CPV-WB"
+      ],
+      "collectedAt": "2026-11-02",
+      "verifiedAt": "2026-11-02",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "cpv-claim-1",
+      "countryCode": "CPV",
+      "statement": "Cap-Vert : Praia est la capitale du pays.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-CPV-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "cpv-claim-2",
+      "countryCode": "CPV",
+      "statement": "En 2026, la fonction de chef de l’État de Cap-Vert est exercée par José Maria Neves.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-CPV-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "cpv-claim-3",
+      "countryCode": "CPV",
+      "statement": "L’irrégularité des transports domestiques entrave les échanges économiques internes.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-CPV-ECO"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "cpv-claim-4",
+      "countryCode": "CPV",
+      "statement": "Les arrivées record soutiennent les services et les entrées de devises.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-CPV-WB"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    },
+    {
+      "id": "cpv-claim-5",
+      "countryCode": "CPV",
+      "statement": "Les services aériens et maritimes irréguliers fragmentent les marchés de l’archipel.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-CPV-ECO"
+      ],
+      "validAsOf": "2026-11-02",
+      "reviewer": null,
+      "status": "pending",
+      "caveats": [
+        "Synthèse éditoriale à valider ; la source documente les facteurs, non l’inférence."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "cpv-rel-1",
+      "countryCode": "CPV",
+      "targetCode": "PRT",
+      "targetIso2": "PT",
+      "targetName": "Portugal",
+      "relationType": "cooperation",
+      "title": "Langue et réseaux de coopération",
+      "topics": [],
+      "summary": "Le portugais et l’histoire institutionnelle du pays structurent les échanges internationaux.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-CPV-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "cpv-rel-2",
+      "countryCode": "CPV",
+      "targetCode": "SEN",
+      "targetIso2": "SN",
+      "targetName": "Sénégal",
+      "relationType": "cooperation",
+      "title": "Voisinage atlantique",
+      "topics": [],
+      "summary": "Les routes maritimes et aériennes rapprochent l’archipel des marchés d’Afrique de l’Ouest.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-CPV-WB"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    },
+    {
+      "id": "cpv-rel-3",
+      "countryCode": "CPV",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "CEDEAO",
+      "relationType": "cooperation",
+      "title": "Intégration régionale",
+      "topics": [],
+      "summary": "Le Cap-Vert figure dans la liste officielle des États membres de la communauté ouest-africaine.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-CPV-ECOWAS"
+      ],
+      "lastReviewedAt": "2026-11-02",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "cpv-overview-strengths-1",
+          "title": "Tourisme international",
+          "summary": "Les arrivées record soutiennent les services et les entrées de devises.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-WB"
+          ]
+        },
+        {
+          "id": "cpv-overview-strengths-2",
+          "title": "Alternance institutionnelle",
+          "summary": "La victoire parlementaire de 2026 a entraîné un changement de Premier ministre.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-DEC"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "cpv-overview-challenges-1",
+          "title": "Coût des liaisons inter-îles",
+          "summary": "L’irrégularité des transports domestiques entrave les échanges économiques internes.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ]
+        },
+        {
+          "id": "cpv-overview-challenges-2",
+          "title": "Dette et entreprises publiques",
+          "summary": "La dette et les engagements des entreprises publiques pèsent sur les équilibres budgétaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "cpv-timeline-1",
+          "title": "Changement de Premier ministre",
+          "summary": "Francisco Carvalho est nommé par décret présidentiel après les législatives.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-DEC"
+          ],
+          "date": "2026-06-19"
+        },
+        {
+          "id": "cpv-timeline-2",
+          "title": "Présidentielle à venir",
+          "summary": "L’élection présidentielle est programmée au 15 novembre 2026 ; son résultat n’est pas encore connu.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-CNE"
+          ],
+          "date": "2026-11-15"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "cpv-sector-1",
+          "title": "Tourisme",
+          "summary": "Les flux touristiques concentrent une part importante de l’activité des services.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ]
+        },
+        {
+          "id": "cpv-sector-2",
+          "title": "Transport aérien et maritime",
+          "summary": "Les liaisons entre îles conditionnent l’approvisionnement et la diversification.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ]
+        },
+        {
+          "id": "cpv-sector-3",
+          "title": "Pêche et agroalimentaire",
+          "summary": "Les chaînes locales peuvent bénéficier d’une meilleure connectivité.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "cpv-resource-1",
+          "title": "Littoral et ressources marines",
+          "summary": "La pêche et les activités maritimes représentent un potentiel de diversification sous contraintes environnementales.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "cpv-security-1",
+          "title": "Sécurité des transports",
+          "summary": "La continuité des liaisons insulaires est indispensable aux services essentiels et à la résilience en cas de crise.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ]
+        },
+        {
+          "id": "cpv-security-2",
+          "title": "Résilience budgétaire",
+          "summary": "Les risques liés aux entreprises publiques peuvent réduire la marge d’intervention de l’État.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "cpv-issue-1",
+          "title": "Réseau de transport entre les îles",
+          "summary": "Réseau de transport entre les îles : Les coûts de fret réduisent les marges agricoles et halieutiques et limitent la diversification…",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Les services aériens et maritimes irréguliers fragmentent les marchés de l’archipel.",
+          "whyStrategic": "Les coûts de fret réduisent les marges agricoles et halieutiques et limitent la diversification touristique hors des îles principales.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Fréquence des traversées",
+            "coût du fret",
+            "couverture des dessertes"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "cpv-issue-2",
+          "title": "Élections et cohabitation institutionnelle",
+          "summary": "Élections et cohabitation institutionnelle : Le résultat du vote pourrait recomposer les équilibres entre présidence et majorité parlementai…",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-DEC"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le Premier ministre a changé en juin 2026 tandis qu’une présidentielle est prévue le 15 novembre.",
+          "whyStrategic": "Le résultat du vote pourrait recomposer les équilibres entre présidence et majorité parlementaire.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Calendrier CNE",
+            "taux de participation",
+            "composition gouvernementale"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        },
+        {
+          "id": "cpv-issue-3",
+          "title": "Tourisme et dette publique",
+          "summary": "Tourisme et dette publique : La soutenabilité dépend de la capacité à diversifier les recettes et à maîtriser le financement…",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La vigueur touristique coexiste avec une dette encore élevée et des engagements des entreprises publiques.",
+          "whyStrategic": "La soutenabilité dépend de la capacité à diversifier les recettes et à maîtriser le financement des transports.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Ratio de dette",
+            "recettes touristiques",
+            "engagements des entreprises publiques"
+          ],
+          "uncertainties": [
+            "Analyses prospectives conditionnelles ; le contexte peut évoluer après le 2 novembre 2026."
+          ],
+          "updatedAt": "2026-11-02"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "cpv-swot-s-1",
+            "title": "Tourisme international",
+            "summary": "Un levier pour Cap-Vert : activité mieux répartie entre les îles",
+            "tags": [],
+            "sourceIds": [
+              "S-CPV-WB"
+            ]
+          },
+          {
+            "id": "cpv-swot-s-2",
+            "title": "Alternance institutionnelle",
+            "summary": "Un levier pour Cap-Vert : le résultat du vote pourrait recomposer les équilibres entre présidence et majorité parlementaire.",
+            "tags": [],
+            "sourceIds": [
+              "S-CPV-DEC"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "cpv-swot-w-1",
+            "title": "Coût des liaisons inter-îles",
+            "summary": "Cette contrainte pèse sur la réponse à réseau de transport entre les îles et doit être suivie par les indicateurs : fréquence des traversées , coût du fret , couverture des dessertes.",
+            "tags": [],
+            "sourceIds": [
+              "S-CPV-ECO"
+            ]
+          },
+          {
+            "id": "cpv-swot-w-2",
+            "title": "Dette et entreprises publiques",
+            "summary": "Cette contrainte pèse sur la réponse à élections et cohabitation institutionnelle et doit être suivie par les indicateurs : calendrier cne , taux de participation , composition gouvernementale.",
+            "tags": [],
+            "sourceIds": [
+              "S-CPV-ECO"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "cpv-swot-o-1",
+            "title": "Connectivité réformée et diversification",
+            "summary": "Perspective conditionnelle : réforme des contrats et augmentation des fréquences; son avancement pourrait favoriser activité mieux répartie entre les îles.",
+            "tags": [],
+            "sourceIds": [
+              "S-CPV-ECO"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "cpv-swot-t-1",
+            "title": "Choc touristique et isolement inter-îles",
+            "summary": "Le facteur de rupture à contrôler est : conjoncture européenne dégradée et dessertes irrégulières; cela exposerait le pays à pression sur les revenus et les comptes publics.",
+            "tags": [],
+            "sourceIds": [
+              "S-CPV-ECO"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "cpv-scenario-1",
+          "title": "Connectivité réformée et diversification",
+          "summary": "Si les concessions de transport deviennent plus fiables, les filières de pêche et d’agriculture pourraient accéder à de nouveaux marchés insulaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Réforme des contrats et augmentation des fréquences"
+          ],
+          "triggers": [
+            "Coûts du fret et fiabilité des lignes"
+          ],
+          "weakSignals": [
+            "Coûts du fret et fiabilité des lignes"
+          ],
+          "consequences": [
+            "Activité mieux répartie entre les îles"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Cap-Vert fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "cpv-scenario-2",
+          "title": "Tourisme résilient, dette élevée",
+          "summary": "Le pays pourrait conserver une demande touristique forte tout en supportant une charge de financement public importante.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Arrivées soutenues et réduction lente de l’endettement"
+          ],
+          "triggers": [
+            "Fréquentation et ratios de dette"
+          ],
+          "weakSignals": [
+            "Fréquentation et ratios de dette"
+          ],
+          "consequences": [
+            "Investissement domestique contraint"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Cap-Vert fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        },
+        {
+          "id": "cpv-scenario-3",
+          "title": "Choc touristique et isolement inter-îles",
+          "summary": "Une baisse des visiteurs et des perturbations de transport pourraient frapper simultanément les devises et les marchés locaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Conjoncture européenne dégradée et dessertes irrégulières"
+          ],
+          "triggers": [
+            "Réservations et rotations maritimes"
+          ],
+          "weakSignals": [
+            "Réservations et rotations maritimes"
+          ],
+          "consequences": [
+            "Pression sur les revenus et les comptes publics"
+          ],
+          "limits": [
+            "Construction conditionnelle pour Cap-Vert fondée sur les facteurs identifiés ; il ne s’agit pas d’une prévision probabilisée."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "cpv-watch-1",
+          "title": "Présidentielle du 15 novembre 2026",
+          "summary": "Ne pas anticiper les résultats et actualiser après les annonces certifiées.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-CNE"
+          ]
+        },
+        {
+          "id": "cpv-watch-2",
+          "title": "Fréquence des ferries et vols",
+          "summary": "Suivre la fiabilité effective des dessertes entre îles.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ]
+        },
+        {
+          "id": "cpv-watch-3",
+          "title": "Tourisme et dette",
+          "summary": "Distinguer chiffres réalisés et projections de juillet 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-CPV-ECO"
+          ]
+        }
+      ]
+    }
+  }
+}

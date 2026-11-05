@@ -22,6 +22,7 @@ import { BURKINA_FASO } from "./burkina-faso";
 import { BURUNDI } from "./burundi";
 import { CAMBODGE } from "./cambodge";
 import { CAMEROUN } from "./cameroun";
+import { CAP_VERT } from "./cap-vert";
 import { CHILI } from "./chili";
 import { CHINE } from "./chine";
 import { CHYPRE } from "./chypre";
@@ -237,6 +238,7 @@ const COUNTRY_PROFILES: Record<string, CountryProfile> = {
   "republique-centrafricaine": REPUBLIQUE_CENTRAFRICAINE,
   "cote-d-ivoire": COTE_D_IVOIRE,
   cameroun: CAMEROUN,
+  "cap-vert": CAP_VERT,
   "republique-democratique-du-congo": REPUBLIQUE_DEMOCRATIQUE_DU_CONGO,
   "republique-du-congo": REPUBLIQUE_DU_CONGO,
   djibouti: DJIBOUTI,

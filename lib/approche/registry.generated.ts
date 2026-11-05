@@ -7,6 +7,8 @@ import CHN from "@/data/approche/CHN.json";
 import CHN_WORLDBANK from "@/data/approche/CHN.worldbank.json";
 import CIV from "@/data/approche/CIV.json";
 import CIV_WORLDBANK from "@/data/approche/CIV.worldbank.json";
+import CPV from "@/data/approche/CPV.json";
+import CPV_WORLDBANK from "@/data/approche/CPV.worldbank.json";
 import FRA from "@/data/approche/FRA.json";
 import FRA_WORLDBANK from "@/data/approche/FRA.worldbank.json";
 import FRA_EUROSTAT from "@/data/approche/FRA.eurostat.json";
@@ -40,6 +42,7 @@ export const COUNTRY_FILES: Record<string, { curated: unknown; worldbank?: unkno
   BFA: { curated: BFA, worldbank: BFA_WORLDBANK },
   CHN: { curated: CHN, worldbank: CHN_WORLDBANK },
   CIV: { curated: CIV, worldbank: CIV_WORLDBANK },
+  CPV: { curated: CPV, worldbank: CPV_WORLDBANK },
   FRA: { curated: FRA, worldbank: FRA_WORLDBANK, eurostat: FRA_EUROSTAT },
   GHA: { curated: GHA, worldbank: GHA_WORLDBANK },
   GIN: { curated: GIN, worldbank: GIN_WORLDBANK },
