@@ -179,9 +179,9 @@ test("un brouillon n'est visible qu'en Preview ; en production le pays garde son
   }
   assert.equal(isVisible({ publication: "published" }, false), true);
   assert.equal(isVisible({ publication: "archived" }, true), false, "une fiche archivée n'est jamais visible");
-  // Les dix-huit fiches ont été validées par Nicolas le 05/11/2026 et sont publiées ; une nouvelle livraison reste en brouillon
+  // Les vingt-huit fiches ont été validées par Nicolas le 05/11/2026 et sont publiées ; une nouvelle livraison reste en brouillon
   // (donc invisible hors Preview) jusqu'à sa validation.
-  for (const iso3 of ["BEN", "BFA", "CHN", "CIV", "CPV", "FRA", "GHA", "GIN", "GMB", "GNB", "LBR", "MLI", "MRT", "NER", "NGA", "SEN", "SLE", "TGO"]) {
+  for (const iso3 of ["AGO", "BDI", "BEN", "BFA", "CAF", "CHN", "CIV", "CMR", "COD", "COG", "CPV", "FRA", "GAB", "GHA", "GIN", "GMB", "GNB", "GNQ", "LBR", "MLI", "MRT", "NER", "NGA", "SEN", "SLE", "STP", "TCD", "TGO"]) {
     const file = JSON.parse(fs.readFileSync(`data/approche/${iso3}.json`, "utf8")) as { publication: string };
     assert.equal(file.publication, "published", `${iso3} est publiée`);
     assert.ok(getApprocheData(iso3), `${iso3} : fiche servie par le nouveau modèle`);
@@ -235,9 +235,9 @@ test("les onglets sont des sous-pages pré-rendues, la vue d'ensemble est la pag
   assert.equal(tabHref("/zones/europe/approche/pays/france", "defense"), "/zones/europe/approche/pays/france/defense");
   assert.equal(validateTab("defense"), "defense");
   assert.equal(validateTab("nimporte-quoi"), "overview");
-  // Les dix-huit fiches validées sont publiées : toutes sont pré-rendues, la France comprise.
+  // Les vingt-huit fiches validées sont publiées : toutes sont pré-rendues, la France comprise.
   const served = listApprocheCountries();
-  assert.equal(served.length, 18);
+  assert.equal(served.length, 28);
   assert.ok(served.some((country) => country.slug === "france" && country.zoneSlug === "europe"));
   assert.ok(served.some((country) => country.slug === "cap-vert" && country.zoneSlug === "afrique"));
 });

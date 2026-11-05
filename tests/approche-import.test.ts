@@ -228,7 +228,7 @@ test("le second lot (Afrique de l'Ouest, dix pays) est enregistré, publié et s
     const report = analyzeCountry(read(code), `${code}.json`, ctx());
     assert.deepEqual(Object.values(report.errors).flat(), [], `${code} : ${JSON.stringify(report.errors)}`);
   }
-  assert.equal(listApprocheCountries().length, 18, "les dix-huit fiches validées sont servies");
+  assert.ok(listApprocheCountries().length >= 18, "au moins les dix-huit premières fiches validées sont servies");
 });
 
 test("une observation en attente n'affiche aucune valeur : elle est signalée « à vérifier », jamais présentée comme vérifiée", () => {
@@ -259,15 +259,15 @@ test("le Cap-Vert a de quoi s'afficher : fiche de l'ancien modèle, configuratio
 
 const BATCH_AC = ["CMR", "TCD", "CAF", "COG", "COD", "GAB", "GNQ", "AGO", "BDI", "STP"];
 
-test("le lot Afrique centrale (dix pays) est enregistré en brouillon, sans erreur, et n'est pas servi tant qu'il n'est pas validé", () => {
+test("le lot Afrique centrale (dix pays) est enregistré, publié (validation de Nicolas, 05/11/2026) et sans erreur", () => {
   for (const code of BATCH_AC) {
     assert.ok(COUNTRY_FILES[code], `${code} enregistré`);
-    assert.equal(read(code).publication, "draft", code);
-    assert.equal(getApprocheData(code), null, `${code} n'est pas servi au public tant qu'il est en brouillon`);
+    assert.equal(read(code).publication, "published", code);
+    assert.ok(getApprocheData(code), `${code} est servi par le nouveau modèle`);
     const report = analyzeCountry(read(code), `${code}.json`, ctx());
     assert.deepEqual(Object.values(report.errors).flat(), [], `${code} : ${JSON.stringify(report.errors)}`);
   }
-  assert.equal(listApprocheCountries().length, 18, "les dix-huit fiches validées restent seules servies");
+  assert.equal(listApprocheCountries().length, 28, "les vingt-huit fiches validées sont servies");
 });
 
 test("São Tomé-et-Príncipe a de quoi s'afficher : fiche de l'ancien modèle, configuration de carte, liste de la zone Afrique et contour dans le fond de carte du site", () => {
