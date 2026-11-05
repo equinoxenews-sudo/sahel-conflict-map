@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import test from "node:test";
 import { classifyObservations } from "../lib/approche/complements";
@@ -264,4 +265,27 @@ test("le Cap-Vert a de quoi s'afficher : fiche de l'ancien modèle, configuratio
   assert.ok(zones.includes('"slug":"cap-vert","name":"Cap-Vert","iso3":"CPV"'), "listé dans la zone Afrique");
   const geo = fs.readFileSync("lib/countryGeoConfig.ts", "utf8");
   assert.ok(geo.includes('"cap-vert": { mainIso3: "CPV"'), "configuration de carte");
+});
+
+// Relecture des brouillons sur le site principal : APPROCHE_SHOW_DRAFTS lit une variable d'environnement au chargement du module, donc
+// chaque cas tourne dans un processus séparé.
+function visibleSlugs(env: Record<string, string>): { slugs: string[]; demo: boolean } {
+  const script = `
+    const { listApprocheCountries } = require("./lib/approche/repository");
+    const { getDemoModules } = require("./lib/approche/demo");
+    getDemoModules("FRA").then((demo) => console.log(JSON.stringify({ slugs: listApprocheCountries().map((c) => c.slug).sort(), demo: demo !== null })));
+  `;
+  const run = spawnSync(process.execPath, ["--import", "tsx", "-e", script], { cwd: ROOT, encoding: "utf8", env: { ...process.env, NEXT_PUBLIC_APPROCHE_DEMO: "", APPROCHE_SHOW_DRAFTS: "", ...env } });
+  assert.equal(run.status, 0, run.stderr);
+  return JSON.parse(run.stdout.trim().split("\n").pop() as string);
+}
+
+test("APPROCHE_SHOW_DRAFTS rend les brouillons visibles pour la relecture sans jamais charger la démonstration ; sans elle, seule la France est servie", () => {
+  const off = visibleSlugs({});
+  assert.deepEqual(off.slugs, ["france"]);
+  const on = visibleSlugs({ APPROCHE_SHOW_DRAFTS: "1" });
+  assert.equal(on.slugs.length, 18, "les dix-huit fiches (France publiée, dix-sept brouillons) sont servies");
+  assert.ok(on.slugs.includes("cap-vert") && on.slugs.includes("senegal") && on.slugs.includes("france"));
+  assert.equal(on.demo, false, "le contenu fictif de démonstration reste exclu");
+  assert.equal(visibleSlugs({ APPROCHE_SHOW_DRAFTS: "0" }).slugs.length, 1, "seule la valeur « 1 » active le mode");
 });

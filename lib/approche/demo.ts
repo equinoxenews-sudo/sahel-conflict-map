@@ -18,6 +18,16 @@ export function demoEnabled(): boolean {
   return DEMO_FLAG;
 }
 
+// Relecture des brouillons sur le site principal : APPROCHE_SHOW_DRAFTS=1 (variable serveur, posée dans Vercel pour l'environnement
+// « Production » par Nicolas, retirée dès que les fiches sont validées) rend visibles les fiches « draft » et « review », sous leur
+// bandeau « non validée ». Elle ne charge JAMAIS la démonstration (contenu fictif) : seule la variable ci-dessus le fait, et elle reste
+// refusée en production. Le site est derrière la porte d'accès : à retirer avant toute ouverture au public.
+const DRAFTS_FLAG = process.env.APPROCHE_SHOW_DRAFTS === "1";
+
+export function draftsVisible(): boolean {
+  return DEMO_FLAG || DRAFTS_FLAG;
+}
+
 /** Marque `demo: true` tout objet identifiable (qui porte un `id`), à tous les niveaux. */
 export function markDemo<T>(value: T): T {
   if (Array.isArray(value)) return value.map(markDemo) as unknown as T;
