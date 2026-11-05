@@ -10,12 +10,12 @@ import type { NaturalEvent } from "@/lib/layers/naturalEvents";
 import type { SatellitePosition } from "@/lib/layers/satellites";
 import { LAYER_DEFAULTS, type EntityPopupData, type LayerKey } from "@/lib/layers/types";
 import { DEFAULT_EVENT_MODE, GLOBE_CLUSTERING_ENABLED, GLOBE_TEST_TOOLS, type EventMode } from "@/lib/globeClustering";
-import { countryArticleCount, periodLabel } from "@/lib/globeCountry";
 import { fixtureCountFromSearch, syntheticEvents } from "@/lib/globeFixtures";
 import { FOCUS_ZONE_EVENT, ZONE_FOCUSED_EVENT, isHomeZone, type ZoneBriefsByZone, type ZoneSlug } from "@/lib/homeZones";
 import type { VesselPosition } from "@/types/vessel";
 import Globe3DLoader from "./Globe3DLoader";
 import GlobeClock from "./GlobeClock";
+import GlobeCountryPanel from "./GlobeCountryPanel";
 import GlobeEntityPopup from "./GlobeEntityPopup";
 import GlobeSearchBox from "./GlobeSearchBox";
 import type { GlobeDateRange } from "./GlobeTimeRange";
@@ -69,6 +69,8 @@ export default function GlobeWithLayers({
     x: number;
     y: number;
   } | null>(null);
+  // Pays cliqué : un panneau à gauche (tiroir en bas sur téléphone) remplace l'ancienne bulle ; il reste ouvert jusqu'à sa fermeture.
+  const [selectedCountry, setSelectedCountry] = useState<EntityPopupData | null>(null);
   // null until GlobeTimeRange's own effect reports its default (full)
   // bounds on mount — Globe3D treats null as "no date filtering yet".
   const [dateRange, setDateRange] = useState<GlobeDateRange | null>(null);
@@ -124,6 +126,11 @@ export default function GlobeWithLayers({
   }, []);
 
   function handleEntitySelect(data: EntityPopupData | null, screen: { x: number; y: number } | null) {
+    if (data?.country) {
+      setSelectedEntity(null);
+      setSelectedCountry(data);
+      return;
+    }
     setSelectedEntity(data && screen ? { data, x: screen.x, y: screen.y } : null);
     const brief = data?.brief;
     if (brief && isHomeZone(brief.zone)) {
@@ -131,6 +138,13 @@ export default function GlobeWithLayers({
       if (focusedZone !== brief.zone) setPeekZone(brief.zone);
     }
   }
+
+  // Articles analysés du pays cliqué (60 derniers jours), du plus récent au plus ancien.
+  const countryArticles = useMemo(() => {
+    const iso3 = selectedCountry?.country?.iso3;
+    if (!iso3) return [];
+    return analystEvents.filter((event) => event.iso3 === iso3).sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt)).map((event) => ({ id: event.id, title: event.title, publishedAt: event.publishedAt }));
+  }, [analystEvents, selectedCountry]);
 
   const stageZone = focusedZone ?? peekZone;
   // Carte surlignée ajoutée en tête si elle ne figure pas parmi les derniers articles.
@@ -213,12 +227,24 @@ export default function GlobeWithLayers({
               }}
             />
           ) : null}
+          {selectedCountry?.country ? (
+            <GlobeCountryPanel
+              key={selectedCountry.country.iso3}
+              iso3={selectedCountry.country.iso3}
+              name={selectedCountry.title}
+              flagIso2={selectedCountry.flagIso2 ?? null}
+              tier={selectedCountry.country.tier}
+              href={selectedCountry.country.href}
+              articles={countryArticles}
+              range={dateRange}
+              onClose={() => setSelectedCountry(null)}
+            />
+          ) : null}
           {selectedEntity ? (
             <GlobeEntityPopup
               data={selectedEntity.data}
               x={selectedEntity.x}
               y={selectedEntity.y}
-              countryStats={selectedEntity.data.country ? { count: countryArticleCount(analystEvents, selectedEntity.data.country.iso3, dateRange), period: periodLabel(dateRange) } : undefined}
               onClose={() => setSelectedEntity(null)}
               onPickItem={(item) => handleEntitySelect(item, { x: selectedEntity.x, y: selectedEntity.y })}
             />

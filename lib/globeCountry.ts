@@ -54,14 +54,18 @@ export function effectivePeriod(range: PeriodRange | null, now = Date.now()): Pe
   return { start: start.getTime(), end: end.getTime() };
 }
 
+/** Éléments publiés dans la période (celle du curseur du globe, ou les 5 derniers jours). */
+export function itemsInPeriod<T extends { publishedAt: string }>(items: readonly T[], range: PeriodRange | null, now = Date.now()): T[] {
+  const { start, end } = effectivePeriod(range, now);
+  return items.filter((item) => {
+    const time = Date.parse(item.publishedAt);
+    return time >= start && time <= end;
+  });
+}
+
 /** Articles analysés d'un pays (clé ISO 3) publiés dans la période. */
 export function countryArticleCount(events: readonly { iso3?: string | null; publishedAt: string }[], iso3: string, range: PeriodRange | null, now = Date.now()): number {
-  const { start, end } = effectivePeriod(range, now);
-  return events.filter((event) => {
-    if (event.iso3 !== iso3) return false;
-    const time = Date.parse(event.publishedAt);
-    return time >= start && time <= end;
-  }).length;
+  return itemsInPeriod(events.filter((event) => event.iso3 === iso3), range, now).length;
 }
 
 const SHORT_DATE = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" });

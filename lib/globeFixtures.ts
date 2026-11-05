@@ -20,10 +20,10 @@ const HOTSPOTS: { zone: string; lat: number; lon: number; spread: number; weight
   { zone: "amerique-du-sud", lat: 4.5, lon: -74, spread: 5, weight: 1 },
 ];
 const CAPITALS = [
-  { zone: "afrique", lat: 12.6392, lon: -8.0029, place: "Bamako", country: "Mali" },
-  { zone: "afrique", lat: 12.3714, lon: -1.5197, place: "Ouagadougou", country: "Burkina Faso" },
-  { zone: "europe", lat: 50.4501, lon: 30.5234, place: "Kiev", country: "Ukraine" },
-  { zone: "moyen-orient", lat: 33.5138, lon: 36.2765, place: "Damas", country: "Syrie" },
+  { zone: "afrique", lat: 12.6392, lon: -8.0029, place: "Bamako", country: "Mali", iso3: "MLI" },
+  { zone: "afrique", lat: 12.3714, lon: -1.5197, place: "Ouagadougou", country: "Burkina Faso", iso3: "BFA" },
+  { zone: "europe", lat: 50.4501, lon: 30.5234, place: "Kiev", country: "Ukraine", iso3: "UKR" },
+  { zone: "moyen-orient", lat: 33.5138, lon: 36.2765, place: "Damas", country: "Syrie", iso3: "SYR" },
 ];
 
 /** Générateur pseudo-aléatoire déterministe (mulberry32). */
@@ -74,6 +74,7 @@ export function syntheticEvents(count: number, now: number = Date.UTC(2026, 10, 
       lon,
       place: capital?.place ?? null,
       country: capital?.country ?? null,
+      iso3: capital?.iso3 ?? null,
       confidence: null,
       confidenceLabel: null,
       claimedBy: null,

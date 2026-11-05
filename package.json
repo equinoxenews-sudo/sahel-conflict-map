@@ -9,6 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "sync:gdelt": "tsx scripts/fetch-gdelt.ts",
+    "sync:world-indicators": "tsx scripts/sync-world-indicators.ts",
     "approche:validate": "tsx scripts/approche-validate.ts",
     "approche:import": "tsx scripts/approche-import.ts",
     "approche:smoke": "tsx scripts/approche-smoke.ts",
