@@ -311,7 +311,9 @@ const NATURAL_EVENT_LABELS: Record<NaturalEventCategory, string> = {
 
 /** Finesse des tuiles de la carte sur téléphone (plus petit = plus fin) : à l'arrêt, puis pendant un geste. */
 const MOBILE_IDLE_SSE = 1.5;
-const MOBILE_MOVING_SSE = 2.5;
+const MOBILE_MOVING_SSE = 3.5;
+/** Attribut posé sur <html> pendant un geste au doigt sur le globe (téléphone) ; le bandeau LATEST s'en sert pour se mettre en pause. */
+const GLOBE_MOVING_ATTR = "data-globe-moving";
 
 // --- Points lumineux des événements des analystes ---------------------------------------
 
@@ -1026,14 +1028,24 @@ export default function Globe3D({
         const nativeRatio = window.devicePixelRatio || 1;
         const idleRatio = Math.min(nativeRatio, 1.5);
         const idleScale = idleRatio / nativeRatio;
-        const movingScale = (idleRatio * 0.7) / nativeRatio;
+        // Pendant un geste : 60 % de la définition d'arrêt (au lieu de 70 %), rétablie 0,2 s après. Le flou ne dure que le temps du geste.
+        const movingScale = (idleRatio * 0.6) / nativeRatio;
         viewer.resolutionScale = idleScale;
         const qualityViewer = viewer;
         let sharpenTimer: number | undefined;
+        // Garde-fou : si la fin d'un geste n'est jamais signalée, le bandeau LATEST repart quand même au bout de 2,5 s.
+        let movingGuard: number | undefined;
         const setQuality = (idle: boolean) => {
           if (qualityViewer.isDestroyed()) return;
           qualityViewer.resolutionScale = idle ? idleScale : movingScale;
           qualityViewer.scene.globe.maximumScreenSpaceError = idle ? MOBILE_IDLE_SSE : MOBILE_MOVING_SSE;
+          // Le globe prend toute la puissance pendant un geste : le bandeau LATEST se met en pause (voir Ticker.module.css) au lieu de saccader.
+          window.clearTimeout(movingGuard);
+          if (idle) document.documentElement.removeAttribute(GLOBE_MOVING_ATTR);
+          else {
+            document.documentElement.setAttribute(GLOBE_MOVING_ATTR, "1");
+            movingGuard = window.setTimeout(() => document.documentElement.removeAttribute(GLOBE_MOVING_ATTR), 2500);
+          }
           qualityViewer.scene.requestRender();
         };
         qualityViewer.camera.moveStart.addEventListener(() => {
@@ -1332,6 +1344,9 @@ export default function Globe3D({
       const EVENT_DOT = 22;
       // Style des points : « anneaux » (essai, par défaut sur cette branche) ou « disques » (ancien, ?points=disques).
       const ringStyle = pointStyleFromSearch(window.location.search) === "anneaux";
+      // Clignotement lent : ordinateur seulement. Sur téléphone il obligerait à redessiner tout le globe en continu (batterie, bandeau
+      // LATEST saccadé, gestes au doigt lents) : les points y restent fixes et nets.
+      const blinkOn = ringStyle && !reduceMotion && !window.matchMedia("(pointer: coarse)").matches;
       const spreadOffsets = eventOffsets(analystEvents, EVENT_DOT * 0.6);
       for (const [index, ev] of analystEvents.entries()) {
         const where = [ev.place, ev.country].filter(Boolean).join(", ");
@@ -1386,12 +1401,9 @@ export default function Globe3D({
           billboard: {
             image: ringStyle ? plainDot() : glowDot(),
             // Style « anneaux » : clignotement lent de chaque point (phase propre), plein feu quand son article est survolé.
-            ...(ringStyle
+            ...(blinkOn
               ? {
-                  color: new Cesium.CallbackProperty(
-                    () => Cesium.Color.WHITE.withAlpha(reduceMotion || getHoveredBrief() === ev.id ? 1 : blinkLevel(performance.now(), phase)),
-                    false,
-                  ),
+                  color: new Cesium.CallbackProperty(() => Cesium.Color.WHITE.withAlpha(getHoveredBrief() === ev.id ? 1 : blinkLevel(performance.now(), phase)), false),
                 }
               : {}),
             width: size,
@@ -1421,7 +1433,7 @@ export default function Globe3D({
         // recalcul : on garde ceux du dernier recalcul (les événements d'un même recalcul arrivent à moins de 100 ms les uns des autres).
         const blinkingMarkers: { marker: CesiumNS.Billboard; phase: number }[] = [];
         let lastClusterEventAt = 0;
-        if (ringStyle && !reduceMotion) {
+        if (blinkOn) {
           viewer.scene.preRender.addEventListener(() => {
             const now = performance.now();
             for (const { marker, phase } of blinkingMarkers) marker.color = Cesium.Color.WHITE.withAlpha(blinkLevel(now, phase, 0.55));
@@ -1449,7 +1461,7 @@ export default function Globe3D({
           // Le point se pose sur un lieu réel du groupe, pas sur son centre de gravité.
           const anchor = clusterAnchor(Cesium, clustered);
           if (anchor) marker.position = cluster.label.position = cluster.point.position = anchor;
-          if (ringStyle && !reduceMotion) {
+          if (blinkOn) {
             const at = performance.now();
             if (at - lastClusterEventAt > 100) blinkingMarkers.length = 0;
             lastClusterEventAt = at;
@@ -1810,8 +1822,8 @@ export default function Globe3D({
   useEffect(() => {
     // Mode « Groupes » : pas d'anneau d'onde ; seul le style « anneaux » redessine (clignotement lent, une dizaine de fois par seconde).
     const groupsMode = GLOBE_CLUSTERING_ENABLED && eventMode === "groups";
-    const ringStyle = pointStyleFromSearch(window.location.search) === "anneaux";
-    if (!enabledLayers.events || (groupsMode && !ringStyle) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const blinking = pointStyleFromSearch(window.location.search) === "anneaux" && !window.matchMedia("(pointer: coarse)").matches;
+    if (!enabledLayers.events || (groupsMode && !blinking) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     // Téléphone : 9 redessins par seconde au lieu de 20 (le globe est maintenant net à l'arrêt, donc plus coûteux à redessiner).
     const everyMs = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 900 ? 110 : groupsMode ? 100 : 50;
     const id = window.setInterval(() => {
