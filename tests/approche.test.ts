@@ -166,7 +166,7 @@ test("une fiche non publiée ne montre rien", () => {
 });
 
 test("un pays non migré garde l'ancienne fiche", () => {
-  assert.equal(getApprocheData("NER"), null);
+  assert.equal(getApprocheData("RUS"), null);
   assert.equal(getApprocheData(undefined), null);
 });
 
@@ -179,11 +179,12 @@ test("un brouillon n'est visible qu'en Preview ; en production le pays garde son
   }
   assert.equal(isVisible({ publication: "published" }, false), true);
   assert.equal(isVisible({ publication: "archived" }, true), false, "une fiche archivée n'est jamais visible");
-  assert.equal(getApprocheData("MLI"), null, "Mali est en brouillon : l'ancienne fiche reste servie");
-  assert.equal(getApprocheData("CHN"), null);
-  for (const iso3 of ["MLI", "CHN"]) {
-    const draft = JSON.parse(fs.readFileSync(`data/approche/${iso3}.json`, "utf8")) as { publication: string };
-    assert.equal(draft.publication, "draft", `${iso3} reste en brouillon jusqu'à l'accord du responsable éditorial`);
+  // Les dix-huit fiches ont été validées par Nicolas le 05/11/2026 et sont publiées ; une nouvelle livraison reste en brouillon
+  // (donc invisible hors Preview) jusqu'à sa validation.
+  for (const iso3 of ["BEN", "BFA", "CHN", "CIV", "CPV", "FRA", "GHA", "GIN", "GMB", "GNB", "LBR", "MLI", "MRT", "NER", "NGA", "SEN", "SLE", "TGO"]) {
+    const file = JSON.parse(fs.readFileSync(`data/approche/${iso3}.json`, "utf8")) as { publication: string };
+    assert.equal(file.publication, "published", `${iso3} est publiée`);
+    assert.ok(getApprocheData(iso3), `${iso3} : fiche servie par le nouveau modèle`);
   }
 });
 
@@ -234,8 +235,11 @@ test("les onglets sont des sous-pages pré-rendues, la vue d'ensemble est la pag
   assert.equal(tabHref("/zones/europe/approche/pays/france", "defense"), "/zones/europe/approche/pays/france/defense");
   assert.equal(validateTab("defense"), "defense");
   assert.equal(validateTab("nimporte-quoi"), "overview");
-  // Mali et Chine sont en brouillon : hors Preview, seule la France (publiée) est servie par le nouveau modèle.
-  assert.deepEqual(listApprocheCountries(), [{ slug: "france", zoneSlug: "europe" }]);
+  // Les dix-huit fiches validées sont publiées : toutes sont pré-rendues, la France comprise.
+  const served = listApprocheCountries();
+  assert.equal(served.length, 18);
+  assert.ok(served.some((country) => country.slug === "france" && country.zoneSlug === "europe"));
+  assert.ok(served.some((country) => country.slug === "cap-vert" && country.zoneSlug === "afrique"));
 });
 
 test("les relations bilatérales publiées ont chacune leurs sources lues et sont classées par nature, sans classement ami / rival", () => {

@@ -31,17 +31,12 @@ test("le registre des pays est généré à partir de data/approche : aucun pays
   assert.ok(!/\b(FRA|MLI|CHN|BEN|NGA|GHA|GIN|BFA)\b/.test(repository.replace(/\/\/.*$/gm, "")), "repository.ts ne cite aucun pays");
 });
 
-test("les cinq pays du lot restent en brouillon : rien n'est publié par l'import", () => {
+test("les cinq pays du lot sont publiés (validation de Nicolas, 05/11/2026) : l'import seul ne publie rien, le statut est celui du fichier", () => {
   for (const code of BATCH) {
-    assert.equal(read(code).publication, "draft", code);
-    assert.equal(getApprocheData(code), null, `${code} n'est pas servi au public tant qu'il est en brouillon`);
-    assert.ok(loadApprocheCountry(code), `${code} : fiche valide et publiable une fois validée`);
+    assert.equal(read(code).publication, "published", code);
+    assert.ok(getApprocheData(code), `${code} est servi par le nouveau modèle`);
+    assert.ok(loadApprocheCountry(code), `${code} : fiche valide`);
   }
-  assert.deepEqual(
-    listApprocheCountries().map((country) => country.slug),
-    ["france"],
-    "seule la France est publiée",
-  );
 });
 
 test("les clés des séries automatiques réservées correspondent à celles du script de la Banque mondiale", () => {
@@ -225,19 +220,15 @@ test("même grandeur seulement : un chef d'État et une durée de mandat ne sont
 
 const BATCH2 = ["TGO", "CIV", "SEN", "NER", "MRT", "GMB", "GNB", "SLE", "LBR", "CPV"];
 
-test("le second lot (Afrique de l'Ouest, dix pays) est enregistré en brouillon et sans erreur", () => {
+test("le second lot (Afrique de l'Ouest, dix pays) est enregistré, publié et sans erreur", () => {
   for (const code of BATCH2) {
     assert.ok(COUNTRY_FILES[code], `${code} enregistré`);
-    assert.equal(read(code).publication, "draft", code);
-    assert.equal(getApprocheData(code), null, `${code} n'est pas servi au public tant qu'il est en brouillon`);
+    assert.equal(read(code).publication, "published", code);
+    assert.ok(getApprocheData(code), `${code} est servi par le nouveau modèle`);
     const report = analyzeCountry(read(code), `${code}.json`, ctx());
     assert.deepEqual(Object.values(report.errors).flat(), [], `${code} : ${JSON.stringify(report.errors)}`);
   }
-  assert.deepEqual(
-    listApprocheCountries().map((country) => country.slug),
-    ["france"],
-    "seule la France est publiée",
-  );
+  assert.equal(listApprocheCountries().length, 18, "les dix-huit fiches validées sont servies");
 });
 
 test("une observation en attente n'affiche aucune valeur : elle est signalée « à vérifier », jamais présentée comme vérifiée", () => {
