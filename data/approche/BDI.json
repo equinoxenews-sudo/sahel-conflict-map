@@ -1,0 +1,725 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "BDI",
+  "slug": "burundi",
+  "zoneSlug": "afrique",
+  "name": "Burundi",
+  "officialName": "République du Burundi",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-04",
+  "sources": [
+    {
+      "id": "S-BDI-W",
+      "publisher": "Banque mondiale",
+      "title": "Burundi — économie, institutions et développement",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/burundi",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "BDI : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-BDI-P",
+      "publisher": "France Diplomatie",
+      "title": "Burundi — Présentation du Burundi",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/burundi/presentation-du-burundi",
+      "publishedAt": "2026-10-22",
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "BDI : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-BDI-G",
+      "publisher": "Primature du Burundi",
+      "title": "Nestor Ntahontuye — Premier ministre",
+      "canonicalUrl": "https://primature.gov.bi/le-premier-ministre/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Primature du Burundi",
+      "methodNotes": "BDI : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    }
+  ],
+  "observations": [
+    {
+      "id": "bdi-identity-capital",
+      "countryCode": "BDI",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Gitega",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Burundi",
+      "methodology": "Situation institutionnelle ou géographique de Burundi indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-BDI-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bdi-politics-head-of-state",
+      "countryCode": "BDI",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Évariste Ndayishimiye",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Burundi",
+      "methodology": "Situation institutionnelle ou géographique de Burundi indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-BDI-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bdi-politics-head-of-government",
+      "countryCode": "BDI",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Nestor Ntahontuye",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Burundi",
+      "methodology": "Situation institutionnelle ou géographique de Burundi indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-BDI-G"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bdi-politics-regime",
+      "countryCode": "BDI",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République présidentielle",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Burundi",
+      "methodology": "Situation institutionnelle ou géographique de Burundi indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-BDI-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bdi-identity-language",
+      "countryCode": "BDI",
+      "key": "identity.language",
+      "label": "Langue(s) officielle(s)",
+      "value": "Kirundi et français",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Burundi",
+      "methodology": "Situation institutionnelle ou géographique de Burundi indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-BDI-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bdi-identity-currency",
+      "countryCode": "BDI",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc burundais (BIF)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Burundi",
+      "methodology": "Situation institutionnelle ou géographique de Burundi indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-BDI-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "bdi-geography-area-official",
+      "countryCode": "BDI",
+      "key": "geography.area.official",
+      "label": "Superficie",
+      "value": 27834,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Burundi",
+      "methodology": "Situation institutionnelle ou géographique de Burundi indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-BDI-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "bdi-economy-growth-2025-wb",
+      "countryCode": "BDI",
+      "key": "economy.growth_2025_wb",
+      "label": "Croissance réelle du PIB en 2025",
+      "value": 4.2,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Burundi",
+      "methodology": "Croissance estimée 2025 dans le panorama Banque mondiale.",
+      "sourceIds": [
+        "S-BDI-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "bdi-economy-inflation-avg-2025-wb",
+      "countryCode": "BDI",
+      "key": "economy.inflation_avg_2025_wb",
+      "label": "Inflation moyenne en 2025",
+      "value": 34,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Burundi",
+      "methodology": "Moyenne annuelle 2025, différente de l’inflation observée à un mois donné.",
+      "sourceIds": [
+        "S-BDI-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "bdi-economy-inflation-aug-2026-wb",
+      "countryCode": "BDI",
+      "key": "economy.inflation_aug_2026_wb",
+      "label": "Inflation annuelle en août 2026",
+      "value": 8.4,
+      "unit": "%",
+      "referencePeriod": "2026-08",
+      "geographicScope": "Burundi",
+      "methodology": "Taux annuel observé au mois d’août 2026.",
+      "sourceIds": [
+        "S-BDI-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "bdi-politics-provinces-after-reform-2025",
+      "countryCode": "BDI",
+      "key": "politics.provinces_after_reform_2025",
+      "label": "Nombre de provinces depuis la réforme territoriale",
+      "value": 5,
+      "unit": "provinces",
+      "referencePeriod": "2025-07",
+      "geographicScope": "Burundi",
+      "methodology": "Passage de 18 à 5 provinces en juillet 2025.",
+      "sourceIds": [
+        "S-BDI-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "bdi-politics-assembly-cndd-fdd-seats-2025",
+      "countryCode": "BDI",
+      "key": "politics.assembly_cndd_fdd_seats_2025",
+      "label": "Sièges CNDD-FDD à l’Assemblée nationale",
+      "value": 100,
+      "unit": "sièges sur 103",
+      "referencePeriod": "2025",
+      "geographicScope": "Burundi",
+      "methodology": "Répartition annoncée après les législatives de 2025.",
+      "sourceIds": [
+        "S-BDI-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "bdi-claim-1",
+      "countryCode": "BDI",
+      "statement": "Évariste Ndayishimiye est le chef de l’État de Burundi au 4 novembre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-BDI-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "bdi-claim-2",
+      "countryCode": "BDI",
+      "statement": "La capitale déclarée de Burundi est Gitega.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-BDI-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "bdi-claim-3",
+      "countryCode": "BDI",
+      "statement": "Croissance réelle du PIB en 2025  : 4,2 % (2025) selon la source citée.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-BDI-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "bdi-claim-4",
+      "countryCode": "BDI",
+      "statement": "Base vivrière et caféière : Les activités agricoles soutiennent une grande partie des moyens d’existence.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-BDI-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    },
+    {
+      "id": "bdi-claim-5",
+      "countryCode": "BDI",
+      "statement": "Tension sur les devises : Les pénuries de devises et de carburant compliquent les importations et les coûts de transport.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-BDI-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "bdi-rel-wb",
+      "countryCode": "BDI",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Groupe de la Banque mondiale",
+      "relationType": "cooperation",
+      "title": "Coopération pour le développement",
+      "topics": [
+        "financement",
+        "développement"
+      ],
+      "summary": "Le Groupe de la Banque mondiale accompagne des programmes économiques et sociaux en Burundi.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-BDI-W"
+      ],
+      "lastReviewedAt": "2026-11-04",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "bdi-strength-1",
+          "title": "Base vivrière et caféière",
+          "summary": "Les activités agricoles soutiennent une grande partie des moyens d’existence.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        },
+        {
+          "id": "bdi-strength-2",
+          "title": "Accès au lac Tanganyika",
+          "summary": "La position lacustre favorise des échanges régionaux sous réserve d’infrastructures fiables.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-P"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "bdi-challenge-1",
+          "title": "Tension sur les devises",
+          "summary": "Les pénuries de devises et de carburant compliquent les importations et les coûts de transport.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        },
+        {
+          "id": "bdi-challenge-2",
+          "title": "Inflation et vulnérabilité des ménages",
+          "summary": "Les hausses de prix réduisent le pouvoir d’achat dans une économie très agricole.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "bdi-event-1",
+          "title": "Réforme administrative",
+          "summary": "Le Burundi passe de 18 à 5 provinces en juillet 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ],
+          "date": "2025-07"
+        },
+        {
+          "id": "bdi-event-2",
+          "title": "Nomination du Premier ministre",
+          "summary": "Nestor Ntahontuye est nommé en août 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-G"
+          ],
+          "date": "2025-08-05"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "bdi-sector-1",
+          "title": "Agriculture et café",
+          "summary": "Café et productions vivrières restent déterminants pour les revenus et les exportations.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        },
+        {
+          "id": "bdi-sector-2",
+          "title": "Services",
+          "summary": "Le commerce et les services constituent la première composante du PIB.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        },
+        {
+          "id": "bdi-sector-3",
+          "title": "Énergie et petites industries",
+          "summary": "Des améliorations électriques pourraient soutenir la transformation locale, freinée par les pénuries de carburant.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "bdi-resource-1",
+          "title": "Terres agricoles et rives du Tanganyika",
+          "summary": "La densité de population accroît la pression sur les terres et les écosystèmes lacustres.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "bdi-security-1",
+          "title": "Région des Grands Lacs",
+          "summary": "L’environnement frontalier avec la RDC et le Rwanda nécessite une vigilance sur les flux et les tensions régionales.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "bdi-issue-1",
+          "title": "Réformes monétaires et carburant",
+          "summary": "Les déséquilibres en devises perturbent les importations de combustibles et certains biens de base.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Les restrictions de change compliquent l’approvisionnement en carburant et en produits importés. Les coûts de transport se répercutent alors sur l’activité économique et les marchés locaux.",
+          "whyStrategic": "La continuité de l’activité dépend d’un meilleur accès aux intrants importés.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Écart de change",
+            "approvisionnement en carburant",
+            "inflation mensuelle"
+          ],
+          "uncertainties": [
+            "Les mesures officielles de change ne décrivent pas nécessairement toutes les difficultés réelles d’approvisionnement."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "bdi-issue-2",
+          "title": "Effets de la réforme territoriale",
+          "summary": "La réorganisation administrative de 2025 réduit le nombre de provinces et de communes.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "La réforme administrative engagée en 2025 a réduit le nombre de provinces. Son effet concret reste à apprécier dans la couverture territoriale et l’accès aux guichets publics.",
+          "whyStrategic": "L’évaluation porte sur l’accès aux services, au-delà des seuls changements de carte.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Desserte administrative",
+            "budgets provinciaux",
+            "délais de délivrance des actes"
+          ],
+          "uncertainties": [
+            "La carte administrative ne permet pas, seule, de mesurer l’amélioration effective des services publics."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "bdi-issue-3",
+          "title": "Agriculture face aux chocs",
+          "summary": "La pression foncière et la dépendance agricole amplifient l’effet des aléas climatiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "L’agriculture concentre une part importante des moyens d’existence. Les récoltes dépendent de l’accès aux terres, aux intrants et de la régularité des saisons.",
+          "whyStrategic": "La résilience rurale conditionne sécurité alimentaire et revenus d’exportation.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Rendements",
+            "prix alimentaires",
+            "stocks d’intrants"
+          ],
+          "uncertainties": [
+            "Les effets des aléas agricoles varient selon les provinces et doivent être appréciés à l’échelle des campagnes."
+          ],
+          "updatedAt": "2026-11-04"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "bdi-swot-s-1",
+            "title": "Capacité agricole locale",
+            "summary": "La production vivrière peut soutenir les revenus lorsque les marchés et les intrants fonctionnent.",
+            "tags": [],
+            "sourceIds": [
+              "S-BDI-W"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "bdi-swot-w-1",
+            "title": "Rareté de devises",
+            "summary": "Le manque de devises retarde importations et approvisionnement en carburant.",
+            "tags": [],
+            "sourceIds": [
+              "S-BDI-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "bdi-swot-o-1",
+            "title": "Décentralisation effective",
+            "summary": "Le passage à cinq provinces peut faciliter des services territoriaux si ressources et personnels suivent.",
+            "tags": [],
+            "sourceIds": [
+              "S-BDI-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "bdi-swot-t-1",
+            "title": "Choc de récolte",
+            "summary": "Des intempéries pourraient réaccélérer les prix alimentaires et affaiblir les revenus ruraux.",
+            "tags": [],
+            "sourceIds": [
+              "S-BDI-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "bdi-scenario-1",
+          "title": "Services territoriaux renforcés",
+          "summary": "Si la nouvelle carte administrative facilite réellement les démarches, l’accès aux services de proximité pourrait progresser.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Budgets et personnel déployés dans les cinq provinces"
+          ],
+          "triggers": [
+            "Réduction des délais de service"
+          ],
+          "weakSignals": [
+            "Ouverture effective des services publics et déploiement des agents dans les cinq provinces"
+          ],
+          "consequences": [
+            "Meilleure couverture territoriale"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Services territoriaux renforcés » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "bdi-scenario-2",
+          "title": "Croissance sous contrainte de devises",
+          "summary": "L’activité pourrait croître sans amélioration équivalente du pouvoir d’achat si carburant et importations restent difficiles.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Accès limité aux devises"
+          ],
+          "triggers": [
+            "Maintien de pénuries et inflation volatile"
+          ],
+          "weakSignals": [
+            "Écart entre les taux de change et disponibilité effective de carburant et de devises"
+          ],
+          "consequences": [
+            "Érosion des revenus réels"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Croissance sous contrainte de devises » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "bdi-scenario-3",
+          "title": "Choc agricole et prix alimentaires",
+          "summary": "Un épisode climatique défavorable pourrait toucher récoltes, prix et revenus ruraux.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Conditions météorologiques défavorables"
+          ],
+          "triggers": [
+            "Flambée des prix vivriers"
+          ],
+          "weakSignals": [
+            "Rendements agricoles et prix alimentaires locaux"
+          ],
+          "consequences": [
+            "Pression accrue sur les ménages"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Choc agricole et prix alimentaires » ; les hypothèses ne sont pas des faits établis."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "bdi-watch-1",
+          "title": "Devises et carburant",
+          "summary": "Distinguer inflation moyenne annuelle, mensuelle et pénuries physiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        },
+        {
+          "id": "bdi-watch-2",
+          "title": "Carte des provinces",
+          "summary": "Vérifier les nouveaux services après la réforme de juillet 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-BDI-W"
+          ]
+        }
+      ]
+    }
+  }
+}

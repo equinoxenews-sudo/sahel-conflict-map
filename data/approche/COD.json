@@ -1,0 +1,725 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "COD",
+  "slug": "republique-democratique-du-congo",
+  "zoneSlug": "afrique",
+  "name": "République démocratique du Congo",
+  "officialName": "République démocratique du Congo",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-04",
+  "sources": [
+    {
+      "id": "S-COD-W",
+      "publisher": "Banque mondiale",
+      "title": "RDC — ressources, développement et conflit à l’Est",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/drc",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "COD : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-COD-P",
+      "publisher": "France Diplomatie",
+      "title": "République démocratique du Congo — Présentation",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/republique-democratique-du-congo/presentation-de-la-republique-democratique-du-congo",
+      "publishedAt": "2026-10-29",
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "COD : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-COD-G",
+      "publisher": "Primature de la RDC",
+      "title": "Biographie de Judith Suminwa Tuluka",
+      "canonicalUrl": "https://www.primature.gouv.cd/primature/birographie-de-la-premiere-ministre/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Primature de la RDC",
+      "methodNotes": "COD : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    }
+  ],
+  "observations": [
+    {
+      "id": "cod-identity-capital",
+      "countryCode": "COD",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Kinshasa",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "République démocratique du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République démocratique du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cod-politics-head-of-state",
+      "countryCode": "COD",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Félix-Antoine Tshisekedi Tshilombo",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "République démocratique du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République démocratique du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cod-politics-head-of-government",
+      "countryCode": "COD",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Judith Suminwa Tuluka",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "République démocratique du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République démocratique du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COD-G"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cod-politics-regime",
+      "countryCode": "COD",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République semi-présidentielle",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "République démocratique du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République démocratique du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cod-identity-language",
+      "countryCode": "COD",
+      "key": "identity.language",
+      "label": "Langue(s) officielle(s)",
+      "value": "Français (officiel) ; lingala, kikongo, tshiluba et swahili (langues nationales)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "République démocratique du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République démocratique du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cod-identity-currency",
+      "countryCode": "COD",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc congolais (CDF)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "République démocratique du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République démocratique du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cod-geography-area-official",
+      "countryCode": "COD",
+      "key": "geography.area.official",
+      "label": "Superficie",
+      "value": 2345409,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "République démocratique du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République démocratique du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "cod-economy-real-gdp-growth-2025-wb",
+      "countryCode": "COD",
+      "key": "economy.real_gdp_growth_2025_wb",
+      "label": "Croissance du PIB réel estimée en 2025",
+      "value": 5.5,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "République démocratique du Congo",
+      "methodology": "Estimation Banque mondiale : activité portée notamment par les mines.",
+      "sourceIds": [
+        "S-COD-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "cod-economy-inflation-2025-wb",
+      "countryCode": "COD",
+      "key": "economy.inflation_2025_wb",
+      "label": "Inflation en 2025",
+      "value": 7.5,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "République démocratique du Congo",
+      "methodology": "Inflation moyenne/indicateur résumé selon le panorama Banque mondiale ; contrôler la définition exacte avant une comparaison.",
+      "sourceIds": [
+        "S-COD-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "cod-economy-growth-projection-avg-2026-2028-wb",
+      "countryCode": "COD",
+      "key": "economy.growth_projection_avg_2026_2028_wb",
+      "label": "Croissance annuelle moyenne projetée en 2026–2028",
+      "value": 5.1,
+      "unit": "%",
+      "referencePeriod": "2026-2028",
+      "geographicScope": "République démocratique du Congo",
+      "methodology": "Projection multianuelle, distincte d’un résultat annuel.",
+      "sourceIds": [
+        "S-COD-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "cod-economy-mining-growth-2025-wb",
+      "countryCode": "COD",
+      "key": "economy.mining_growth_2025_wb",
+      "label": "Croissance de la production minière en 2025",
+      "value": 10.1,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "République démocratique du Congo",
+      "methodology": "Taux sectoriel pour les activités minières en 2025.",
+      "sourceIds": [
+        "S-COD-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "cod-claim-1",
+      "countryCode": "COD",
+      "statement": "Félix-Antoine Tshisekedi Tshilombo est le chef de l’État de République démocratique du Congo au 4 novembre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-COD-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "cod-claim-2",
+      "countryCode": "COD",
+      "statement": "La capitale déclarée de République démocratique du Congo est Kinshasa.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-COD-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "cod-claim-3",
+      "countryCode": "COD",
+      "statement": "Croissance du PIB réel estimée en 2025  : 5,5 % (2025) selon la source citée.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-COD-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "cod-claim-4",
+      "countryCode": "COD",
+      "statement": "Cuivre et cobalt : Les ressources de la ceinture minière soutiennent les exportations et l’attractivité industrielle.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-COD-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    },
+    {
+      "id": "cod-claim-5",
+      "countryCode": "COD",
+      "statement": "Conflit prolongé à l’Est : La persistance du M23 et d’autres groupes armés perturbe territoires, marchés et déplacements.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-COD-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "cod-rel-wb",
+      "countryCode": "COD",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Groupe de la Banque mondiale",
+      "relationType": "cooperation",
+      "title": "Coopération pour le développement",
+      "topics": [
+        "financement",
+        "développement"
+      ],
+      "summary": "Le Groupe de la Banque mondiale accompagne des programmes économiques et sociaux en République démocratique du Congo.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-COD-W"
+      ],
+      "lastReviewedAt": "2026-11-04",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "cod-strength-1",
+          "title": "Cuivre et cobalt",
+          "summary": "Les ressources de la ceinture minière soutiennent les exportations et l’attractivité industrielle.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        },
+        {
+          "id": "cod-strength-2",
+          "title": "Potentiel hydroélectrique",
+          "summary": "Le réseau hydrographique et les capacités énergétiques théoriques offrent une base de développement.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "cod-challenge-1",
+          "title": "Conflit prolongé à l’Est",
+          "summary": "La persistance du M23 et d’autres groupes armés perturbe territoires, marchés et déplacements.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        },
+        {
+          "id": "cod-challenge-2",
+          "title": "Faibles retombées des ressources",
+          "summary": "La croissance minière ne suffit pas à elle seule à réduire la pauvreté et la vulnérabilité.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "cod-event-1",
+          "title": "Accord de Washington",
+          "summary": "Un accord conclu entre la RDC et le Rwanda en juin 2025 sert de cadre diplomatique de désescalade.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ],
+          "date": "2025-06"
+        },
+        {
+          "id": "cod-event-2",
+          "title": "Déclaration de principes de Doha",
+          "summary": "Les discussions de juillet 2025 établissent une étape politique distincte de la mise en œuvre sur le terrain.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ],
+          "date": "2025-07"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "cod-sector-1",
+          "title": "Mines de cuivre et cobalt",
+          "summary": "La production extractive est un moteur important de la croissance et des recettes extérieures.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        },
+        {
+          "id": "cod-sector-2",
+          "title": "Construction et services",
+          "summary": "Le secteur non minier profite d’activités urbaines et de projets d’infrastructure.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        },
+        {
+          "id": "cod-sector-3",
+          "title": "Agriculture et forêts",
+          "summary": "L’abondance des terres et la forêt du bassin du Congo contrastent avec les contraintes d’accès et d’investissement.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "cod-resource-1",
+          "title": "Cuivre et cobalt du sud-est",
+          "summary": "Le poids industriel des minerais critiques rend le pays sensible aux chaînes d’approvisionnement mondiales.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        },
+        {
+          "id": "cod-resource-2",
+          "title": "Bassin forestier du Congo",
+          "summary": "La forêt tropicale est un enjeu central de biodiversité, de climat et de gouvernance foncière.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "cod-security-1",
+          "title": "M23 et zones des Kivu",
+          "summary": "L’insécurité à l’Est continue d’affecter les populations malgré les démarches de médiation.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        },
+        {
+          "id": "cod-security-2",
+          "title": "Ituri",
+          "summary": "Les violences communautaires et la compétition autour des ressources aggravent les défis de protection.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "cod-issue-1",
+          "title": "Application des arrangements de paix",
+          "summary": "Des accords diplomatiques ont été annoncés en 2025 alors que des zones restent sous influence armée.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Les annonces diplomatiques intervenues en 2025 n’ont pas mis fin à tous les affrontements dans les Kivu. La situation doit être appréciée à partir de l’accès des civils et du contrôle local des territoires.",
+          "whyStrategic": "Le succès dépend de vérifications sur le terrain, de mécanismes de désarmement et de sécurité civile.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Contrôle territorial",
+            "cessez-le-feu vérifiés",
+            "retours de déplacés"
+          ],
+          "uncertainties": [
+            "Les déclarations de paix et l’évolution des combats doivent être documentées séparément."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "cod-issue-2",
+          "title": "Transformation locale du cuivre et du cobalt",
+          "summary": "La croissance minière soutient le PIB mais demeure peu intégrée à de nombreuses économies provinciales.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "Le cuivre et le cobalt soutiennent l’activité extractive, mais l’intégration industrielle et les emplois locaux sont limités par les besoins en énergie, transport et transformation.",
+          "whyStrategic": "Les investissements électriques et logistiques conditionnent les emplois et la valeur ajoutée locale.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Investissements industriels",
+            "énergie disponible",
+            "exportations transformées"
+          ],
+          "uncertainties": [
+            "La croissance du secteur minier ne mesure pas directement les revenus ou les emplois des populations riveraines."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "cod-issue-3",
+          "title": "Protéger les populations déplacées",
+          "summary": "Les conflits dans les Kivu et l’Ituri multiplient les interruptions de services essentiels.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "Les violences dans l’Est entraînent des déplacements prolongés et fragilisent l’accès aux soins, aux terres et à l’éducation. La sécurité des retours doit être observée territoire par territoire.",
+          "whyStrategic": "Les retours durables exigent des garanties de sécurité et de propriété au niveau local.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Accès humanitaire",
+            "réouverture d’écoles",
+            "mouvements de populations"
+          ],
+          "uncertainties": [
+            "Le nombre de retours ne suffit pas à établir leur caractère volontaire et durable."
+          ],
+          "updatedAt": "2026-11-04"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "cod-swot-s-1",
+            "title": "Minerais stratégiques",
+            "summary": "Le cuivre et le cobalt donnent au pays un rôle majeur dans les chaînes industrielles mondiales.",
+            "tags": [],
+            "sourceIds": [
+              "S-COD-W"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "cod-swot-w-1",
+            "title": "Infrastructures territoriales inégales",
+            "summary": "Les coûts énergétiques et sécuritaires limitent la diffusion des retombées de l’extraction.",
+            "tags": [],
+            "sourceIds": [
+              "S-COD-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "cod-swot-o-1",
+            "title": "Transformation minière sur place",
+            "summary": "Une meilleure disponibilité électrique pourrait soutenir des activités industrielles plus élaborées.",
+            "tags": [],
+            "sourceIds": [
+              "S-COD-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "cod-swot-t-1",
+            "title": "Instabilité des Kivu",
+            "summary": "Une reprise des combats élargirait déplacements, coûts humanitaires et restrictions commerciales.",
+            "tags": [],
+            "sourceIds": [
+              "S-COD-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "cod-scenario-1",
+          "title": "Accès sécurisé aux corridors de l’Est",
+          "summary": "Si les arrangements de sécurité sont appliqués, les échanges et les services pourraient se rétablir autour de certains axes.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Mécanismes de contrôle de cessez-le-feu opérationnels"
+          ],
+          "triggers": [
+            "Rétablissement durable des routes et marchés"
+          ],
+          "weakSignals": [
+            "Mise en œuvre vérifiable des engagements de sécurité"
+          ],
+          "consequences": [
+            "Réduction des coûts de transport et des risques civils"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Accès sécurisé aux corridors de l’Est » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "cod-scenario-2",
+          "title": "Croissance minière sans inclusion",
+          "summary": "La poursuite des exportations de minerais pourrait coexister avec des services publics insuffisants et une pauvreté élevée.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Faibles retombées fiscales locales"
+          ],
+          "triggers": [
+            "Écart entre PIB minier et indicateurs sociaux"
+          ],
+          "weakSignals": [
+            "Emplois locaux dans les filières minières et retombées fiscales dans les territoires producteurs"
+          ],
+          "consequences": [
+            "Frustrations et vulnérabilités persistantes"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Croissance minière sans inclusion » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "cod-scenario-3",
+          "title": "Fragmentation durable à l’Est",
+          "summary": "Une nouvelle escalade entre groupes armés pourrait compromettre des arrangements diplomatiques récents.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Échecs des mécanismes de cessez-le-feu"
+          ],
+          "triggers": [
+            "Élargissement des zones non accessibles"
+          ],
+          "weakSignals": [
+            "Accès humanitaire et conditions de retour des déplacés"
+          ],
+          "consequences": [
+            "Déplacements et insécurité alimentaire aggravés"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Fragmentation durable à l’Est » ; les hypothèses ne sont pas des faits établis."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "cod-watch-1",
+          "title": "Mise en œuvre des négociations",
+          "summary": "Distinguer signatures diplomatiques, positions officielles et effets observés localement.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        },
+        {
+          "id": "cod-watch-2",
+          "title": "Cuivre, cobalt et énergie",
+          "summary": "Suivre exportations minières, disponibilité électrique et investissement industriel.",
+          "tags": [],
+          "sourceIds": [
+            "S-COD-W"
+          ]
+        }
+      ]
+    }
+  }
+}

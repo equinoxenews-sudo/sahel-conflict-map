@@ -1,0 +1,768 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "TCD",
+  "slug": "tchad",
+  "zoneSlug": "afrique",
+  "name": "Tchad",
+  "officialName": "République du Tchad",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-04",
+  "sources": [
+    {
+      "id": "S-TCD-W",
+      "publisher": "Banque mondiale",
+      "title": "Tchad — présentation et perspectives économiques",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/chad",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "TCD : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-TCD-P",
+      "publisher": "France Diplomatie",
+      "title": "Tchad — Présentation du Tchad",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/tchad/presentation-du-tchad",
+      "publishedAt": "2026-05-15",
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "TCD : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-TCD-X",
+      "publisher": "Organisation internationale pour les migrations",
+      "title": "Tchad — situation des retournés de la crise soudanaise, septembre 2026",
+      "canonicalUrl": "https://dtm.iom.int/reports/chad-sudan-crisis-response-returnee-situation-update-eastern-region-round-69-september-2026",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Organisation internationale pour les migrations",
+      "methodNotes": "TCD : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-TCD-C",
+      "publisher": "Banque des États de l’Afrique centrale",
+      "title": "La BEAC — six États de la CEMAC",
+      "canonicalUrl": "https://www.beac.int/beac/la-beac/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Banque des États de l’Afrique centrale",
+      "methodNotes": "TCD : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    }
+  ],
+  "observations": [
+    {
+      "id": "tcd-identity-capital",
+      "countryCode": "TCD",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "N’Djamena",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tchad",
+      "methodology": "Situation institutionnelle ou géographique de Tchad indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-TCD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tcd-politics-head-of-state",
+      "countryCode": "TCD",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Mahamat Idriss Déby Itno",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tchad",
+      "methodology": "Situation institutionnelle ou géographique de Tchad indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-TCD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tcd-politics-head-of-government",
+      "countryCode": "TCD",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Allamaye Halina",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tchad",
+      "methodology": "Situation institutionnelle ou géographique de Tchad indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-TCD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tcd-politics-regime",
+      "countryCode": "TCD",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République présidentielle",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tchad",
+      "methodology": "Situation institutionnelle ou géographique de Tchad indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-TCD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tcd-identity-language",
+      "countryCode": "TCD",
+      "key": "identity.language",
+      "label": "Langue(s) officielle(s)",
+      "value": "Arabe et français",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tchad",
+      "methodology": "Situation institutionnelle ou géographique de Tchad indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-TCD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tcd-identity-currency",
+      "countryCode": "TCD",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc CFA d’Afrique centrale (XAF)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tchad",
+      "methodology": "Situation institutionnelle ou géographique de Tchad indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-TCD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tcd-geography-area-official",
+      "countryCode": "TCD",
+      "key": "geography.area.official",
+      "label": "Superficie",
+      "value": 1284000,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Tchad",
+      "methodology": "Situation institutionnelle ou géographique de Tchad indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-TCD-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "tcd-institutions-cemac",
+      "countryCode": "TCD",
+      "key": "institutions.cemac",
+      "label": "Membre de la CEMAC",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Tchad",
+      "methodology": "L’appartenance aux six États de la BEAC/CEMAC est explicitement confirmée.",
+      "sourceIds": [
+        "S-TCD-C"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tcd-economy-growth-projection-avg-2026-2027-wb",
+      "countryCode": "TCD",
+      "key": "economy.growth_projection_avg_2026_2027_wb",
+      "label": "Croissance moyenne projetée en 2026–2027",
+      "value": 3.9,
+      "unit": "%",
+      "referencePeriod": "2026-2027",
+      "geographicScope": "Tchad",
+      "methodology": "Moyenne projetée, à ne pas confondre avec une réalisation annuelle.",
+      "sourceIds": [
+        "S-TCD-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "tcd-economy-poverty-national-2022-wb",
+      "countryCode": "TCD",
+      "key": "economy.poverty_national_2022_wb",
+      "label": "Pauvreté selon le seuil national",
+      "value": 44.8,
+      "unit": "%",
+      "referencePeriod": "2022",
+      "geographicScope": "Tchad",
+      "methodology": "Enquête de 2022 ; statistique historique et non valeur 2026.",
+      "sourceIds": [
+        "S-TCD-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "tcd-humanitarian-chadian-returnees-sudan-sep-2026-iom",
+      "countryCode": "TCD",
+      "key": "humanitarian.chadian_returnees_sudan_sep_2026_iom",
+      "label": "Retournés tchadiens depuis le Soudan",
+      "value": 404256,
+      "unit": "personnes",
+      "referencePeriod": "2026-09-30",
+      "geographicScope": "Tchad",
+      "methodology": "Cumul des retournés enregistrés depuis mai 2023, au 30 septembre 2026.",
+      "sourceIds": [
+        "S-TCD-X"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "tcd-humanitarian-crossings-sudan-crisis-sep-2026-iom",
+      "countryCode": "TCD",
+      "key": "humanitarian.crossings_sudan_crisis_sep_2026_iom",
+      "label": "Franchissements vers le Tchad depuis le début de la crise au Soudan",
+      "value": 1368694,
+      "unit": "personnes",
+      "referencePeriod": "2026-09-30",
+      "geographicScope": "Tchad",
+      "methodology": "Estimation cumulative des traversées recensées dans le contexte de la crise soudanaise ; ne pas assimiler à un stock actuel de réfugiés.",
+      "sourceIds": [
+        "S-TCD-X"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "tcd-claim-1",
+      "countryCode": "TCD",
+      "statement": "Mahamat Idriss Déby Itno est le chef de l’État de Tchad au 4 novembre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-TCD-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "tcd-claim-2",
+      "countryCode": "TCD",
+      "statement": "La capitale déclarée de Tchad est N’Djamena.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-TCD-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "tcd-claim-3",
+      "countryCode": "TCD",
+      "statement": "Croissance moyenne projetée en 2026–2027 (projection) : 3,9 % (2026-2027) selon la source citée.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-TCD-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "tcd-claim-4",
+      "countryCode": "TCD",
+      "statement": "Rôle d’accueil régional : L’est du pays sert de refuge et de zone de transit pour les personnes fuyant le Soudan.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-TCD-X"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    },
+    {
+      "id": "tcd-claim-5",
+      "countryCode": "TCD",
+      "statement": "Pression humanitaire à l’Est : Les arrivées depuis le Soudan mettent à l’épreuve les capacités d’accueil et les services.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-TCD-X"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "tcd-rel-wb",
+      "countryCode": "TCD",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Groupe de la Banque mondiale",
+      "relationType": "cooperation",
+      "title": "Coopération pour le développement",
+      "topics": [
+        "financement",
+        "développement"
+      ],
+      "summary": "Le Groupe de la Banque mondiale accompagne des programmes économiques et sociaux en Tchad.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-TCD-W"
+      ],
+      "lastReviewedAt": "2026-11-04",
+      "status": "verified"
+    },
+    {
+      "id": "tcd-rel-cemac",
+      "countryCode": "TCD",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "CEMAC / BEAC",
+      "relationType": "treaty",
+      "title": "Union monétaire et économique d’Afrique centrale",
+      "topics": [
+        "monnaie",
+        "intégration"
+      ],
+      "summary": "Tchad fait partie des six États de la CEMAC utilisant la BEAC comme banque centrale commune.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-TCD-C"
+      ],
+      "lastReviewedAt": "2026-11-04",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "tcd-strength-1",
+          "title": "Rôle d’accueil régional",
+          "summary": "L’est du pays sert de refuge et de zone de transit pour les personnes fuyant le Soudan.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-X"
+          ]
+        },
+        {
+          "id": "tcd-strength-2",
+          "title": "Activités agricoles et pastorales",
+          "summary": "L’élevage et la production vivrière sont essentiels aux revenus hors pétrole.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "tcd-challenge-1",
+          "title": "Pression humanitaire à l’Est",
+          "summary": "Les arrivées depuis le Soudan mettent à l’épreuve les capacités d’accueil et les services.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-X"
+          ]
+        },
+        {
+          "id": "tcd-challenge-2",
+          "title": "Vulnérabilité climatique et pétrolière",
+          "summary": "Sécheresses, inondations et dépendance aux recettes pétrolières exposent le budget aux chocs.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "tcd-event-1",
+          "title": "Élection présidentielle",
+          "summary": "Mahamat Idriss Déby Itno est élu à la présidence en mai 2024.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-P"
+          ],
+          "date": "2024-05-06"
+        },
+        {
+          "id": "tcd-event-2",
+          "title": "Révision de la Constitution",
+          "summary": "La réforme d’octobre 2025 porte le mandat présidentiel à sept ans renouvelable sans limite.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ],
+          "date": "2025-10-08"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "tcd-sector-1",
+          "title": "Exportation de pétrole",
+          "summary": "Les hydrocarbures restent une source majeure de revenus publics et de devises.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ]
+        },
+        {
+          "id": "tcd-sector-2",
+          "title": "Agriculture pluviale",
+          "summary": "Les récoltes sont sensibles à la pluviométrie et à l’évolution des marchés locaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ]
+        },
+        {
+          "id": "tcd-sector-3",
+          "title": "Élevage et commerce régional",
+          "summary": "La mobilité pastorale relie les marchés du Sahel et d’Afrique centrale.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "tcd-resource-1",
+          "title": "Bassin pétrolier",
+          "summary": "Le pétrole apporte des recettes mais concentre les risques de prix et de production.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "tcd-security-1",
+          "title": "Répercussions de la guerre au Soudan",
+          "summary": "L’afflux de réfugiés et retournés pose des défis de protection dans les provinces orientales.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-X"
+          ]
+        },
+        {
+          "id": "tcd-security-2",
+          "title": "Risques du bassin du lac Tchad",
+          "summary": "La zone lacustre est exposée à des violences et à des trafics transfrontaliers.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "tcd-issue-1",
+          "title": "Accueil des populations venues du Soudan",
+          "summary": "Les mouvements cumulés vers l’est tchadien ont augmenté depuis 2023.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-X"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La crise soudanaise entraîne des entrées de réfugiés et des retours de ressortissants tchadiens, selon des définitions distinctes. Ces flux pèsent sur l’offre locale d’eau, de soins et de terres.",
+          "whyStrategic": "L’accès à l’eau, aux soins et aux terres peut créer des tensions locales si les ressources restent insuffisantes.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Retournés enregistrés",
+            "points d’entrée",
+            "financements humanitaires"
+          ],
+          "uncertainties": [
+            "Les décomptes de passages cumulés et les populations présentes ne doivent jamais être additionnés."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "tcd-issue-2",
+          "title": "Équilibre budgétaire hors pétrole",
+          "summary": "Les prix pétroliers conditionnent une part importante des recettes de l’État.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "Une partie substantielle des recettes publiques dépend du pétrole. Les besoins de financement des services ruraux rendent particulièrement sensible la variation des revenus extractifs.",
+          "whyStrategic": "La diversification fiscale détermine la capacité à financer les services ruraux.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Production pétrolière",
+            "recettes non pétrolières",
+            "prix du brut"
+          ],
+          "uncertainties": [
+            "Les prévisions de recettes et les encaissements budgétaires peuvent diverger."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "tcd-issue-3",
+          "title": "Réformes politiques de 2025",
+          "summary": "La durée du mandat présidentiel a été prolongée par révision constitutionnelle.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "Les réformes institutionnelles de 2025 modifient la durée du mandat présidentiel et les règles de compétition. Leur portée politique se mesure aussi dans les modalités d’application.",
+          "whyStrategic": "Le changement des règles institutionnelles influence la compétition politique et le dialogue intérieur.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Application de la Constitution",
+            "participation de l’opposition",
+            "échéances parlementaires"
+          ],
+          "uncertainties": [
+            "L’existence d’un changement constitutionnel ne permet pas de déduire son acceptation sociale."
+          ],
+          "updatedAt": "2026-11-04"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "tcd-swot-s-1",
+            "title": "Plaque tournante humanitaire",
+            "summary": "Les mécanismes d’enregistrement des arrivées constituent une base pour planifier l’assistance à l’Est.",
+            "tags": [],
+            "sourceIds": [
+              "S-TCD-W"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "tcd-swot-w-1",
+            "title": "Faible diversification fiscale",
+            "summary": "Une grande dépendance au pétrole réduit la résilience du budget aux variations des cours.",
+            "tags": [],
+            "sourceIds": [
+              "S-TCD-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "tcd-swot-o-1",
+            "title": "Investissements dans les services d’accueil",
+            "summary": "Un appui prévisible aux localités frontalières pourrait renforcer la cohésion avec les communautés hôtes.",
+            "tags": [],
+            "sourceIds": [
+              "S-TCD-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "tcd-swot-t-1",
+            "title": "Extension du conflit soudanais",
+            "summary": "Une augmentation soudaine des passages frontaliers pourrait excéder les capacités d’hébergement et de santé.",
+            "tags": [],
+            "sourceIds": [
+              "S-TCD-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "tcd-scenario-1",
+          "title": "Capacité d’accueil consolidée",
+          "summary": "Une aide pérenne aux provinces orientales améliorerait la prise en charge des déplacés et des communautés hôtes.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-X"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Financements et accès humanitaire maintenus"
+          ],
+          "triggers": [
+            "Ouverture et capacité des structures de santé"
+          ],
+          "weakSignals": [
+            "Évolution des flux ventilés par catégories et lieux d’accueil"
+          ],
+          "consequences": [
+            "Réduction des tensions liées aux services"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Capacité d’accueil consolidée » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "tcd-scenario-2",
+          "title": "Recettes pétrolières sous tension",
+          "summary": "Une baisse durable des recettes d’hydrocarbures réduirait la marge de manœuvre budgétaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Prix ou volumes d’exportation en baisse"
+          ],
+          "triggers": [
+            "Révisions du budget et retards de paiement"
+          ],
+          "weakSignals": [
+            "Prix et volumes pétroliers et recettes non pétrolières"
+          ],
+          "consequences": [
+            "Investissements sociaux reportés"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Recettes pétrolières sous tension » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "tcd-scenario-3",
+          "title": "Nouvelle vague de déplacement",
+          "summary": "Une aggravation du conflit soudanais pourrait accélérer les passages frontaliers vers le Tchad.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-X"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Intensification des combats près du Darfour"
+          ],
+          "triggers": [
+            "Accélération des enregistrements OIM/HCR"
+          ],
+          "weakSignals": [
+            "Intensité des combats au Darfour et capacité résiduelle d’accueil des sites frontaliers"
+          ],
+          "consequences": [
+            "Saturation de structures d’accueil locales"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Nouvelle vague de déplacement » ; les hypothèses ne sont pas des faits établis."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "tcd-watch-1",
+          "title": "Flux de l’Est",
+          "summary": "Suivre les retournés, réfugiés et financements sans fusionner des catégories différentes.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-X"
+          ]
+        },
+        {
+          "id": "tcd-watch-2",
+          "title": "Recettes de l’État",
+          "summary": "Comparer les budgets avec les prix et volumes pétroliers.",
+          "tags": [],
+          "sourceIds": [
+            "S-TCD-W"
+          ]
+        }
+      ]
+    }
+  }
+}

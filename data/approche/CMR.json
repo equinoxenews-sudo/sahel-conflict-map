@@ -1,0 +1,759 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "CMR",
+  "slug": "cameroun",
+  "zoneSlug": "afrique",
+  "name": "Cameroun",
+  "officialName": "République du Cameroun",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-04",
+  "sources": [
+    {
+      "id": "S-CMR-W",
+      "publisher": "Banque mondiale",
+      "title": "Cameroun — présentation, économie et défis sécuritaires",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/cameroon",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "CMR : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-CMR-P",
+      "publisher": "France Diplomatie",
+      "title": "Cameroun — Présentation du Cameroun",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/cameroun/presentation-du-cameroun",
+      "publishedAt": "2026-05-11",
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "CMR : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-CMR-G",
+      "publisher": "Services du Premier ministre du Cameroun",
+      "title": "Joseph Dion Ngute — Premier ministre",
+      "canonicalUrl": "https://spm.gov.cm/site/?q=fr%2Fcontent%2Fdion-ngute-joseph",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Services du Premier ministre du Cameroun",
+      "methodNotes": "CMR : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-CMR-C",
+      "publisher": "Banque des États de l’Afrique centrale",
+      "title": "La BEAC — six États de la CEMAC",
+      "canonicalUrl": "https://www.beac.int/beac/la-beac/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Banque des États de l’Afrique centrale",
+      "methodNotes": "CMR : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    }
+  ],
+  "observations": [
+    {
+      "id": "cmr-identity-capital",
+      "countryCode": "CMR",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Yaoundé",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Cameroun",
+      "methodology": "Situation institutionnelle ou géographique du Cameroun indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-CMR-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cmr-politics-head-of-state",
+      "countryCode": "CMR",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Paul Biya",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Cameroun",
+      "methodology": "Situation institutionnelle ou géographique du Cameroun indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-CMR-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cmr-politics-head-of-government",
+      "countryCode": "CMR",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Joseph Dion Ngute",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Cameroun",
+      "methodology": "Situation institutionnelle ou géographique du Cameroun indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-CMR-G"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cmr-politics-regime",
+      "countryCode": "CMR",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République à régime présidentiel",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Cameroun",
+      "methodology": "Situation institutionnelle ou géographique du Cameroun indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-CMR-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cmr-identity-language",
+      "countryCode": "CMR",
+      "key": "identity.language",
+      "label": "Langue(s) officielle(s)",
+      "value": "Français et anglais",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Cameroun",
+      "methodology": "Situation institutionnelle ou géographique du Cameroun indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-CMR-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cmr-identity-currency",
+      "countryCode": "CMR",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc CFA d’Afrique centrale (XAF)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Cameroun",
+      "methodology": "Situation institutionnelle ou géographique du Cameroun indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-CMR-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cmr-geography-area-official",
+      "countryCode": "CMR",
+      "key": "geography.area.official",
+      "label": "Superficie",
+      "value": 475442,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Cameroun",
+      "methodology": "Situation institutionnelle ou géographique du Cameroun indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-CMR-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "cmr-institutions-cemac",
+      "countryCode": "CMR",
+      "key": "institutions.cemac",
+      "label": "Membre de la CEMAC",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Cameroun",
+      "methodology": "L’appartenance aux six États de la BEAC/CEMAC est explicitement confirmée.",
+      "sourceIds": [
+        "S-CMR-C"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cmr-economy-growth-estimate-2025-wb",
+      "countryCode": "CMR",
+      "key": "economy.growth_estimate_2025_wb",
+      "label": "Croissance réelle du PIB estimée en 2025",
+      "value": 3.4,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Cameroun",
+      "methodology": "Estimation de croissance 2025 publiée par la Banque mondiale.",
+      "sourceIds": [
+        "S-CMR-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "cmr-economy-growth-projection-2026-2028-wb",
+      "countryCode": "CMR",
+      "key": "economy.growth_projection_2026_2028_wb",
+      "label": "Croissance annuelle moyenne projetée en 2026–2028",
+      "value": 3.7,
+      "unit": "%",
+      "referencePeriod": "2026-2028",
+      "geographicScope": "Cameroun",
+      "methodology": "Prévision pluriannuelle, non un taux effectivement observé.",
+      "sourceIds": [
+        "S-CMR-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "cmr-economy-public-debt-march-2026-wb",
+      "countryCode": "CMR",
+      "key": "economy.public_debt_march_2026_wb",
+      "label": "Dette publique et garantie / PIB",
+      "value": 42.9,
+      "unit": "% du PIB",
+      "referencePeriod": "2026-03",
+      "geographicScope": "Cameroun",
+      "methodology": "Estimation de l’encours public et garanti en mars 2026.",
+      "sourceIds": [
+        "S-CMR-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "cmr-humanitarian-refugees-hosted-aug-2026-wb-unhcr",
+      "countryCode": "CMR",
+      "key": "humanitarian.refugees_hosted_aug_2026_wb_unhcr",
+      "label": "Réfugiés accueillis au Cameroun",
+      "value": 414573,
+      "unit": "personnes",
+      "referencePeriod": "2026-08-31",
+      "geographicScope": "Cameroun",
+      "methodology": "Chiffre HCR repris par la Banque mondiale, daté du 31 août 2026.",
+      "sourceIds": [
+        "S-CMR-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "cmr-claim-1",
+      "countryCode": "CMR",
+      "statement": "Paul Biya est le chef de l’État du Cameroun au 4 novembre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-CMR-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "cmr-claim-2",
+      "countryCode": "CMR",
+      "statement": "La capitale déclarée du Cameroun est Yaoundé.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-CMR-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "cmr-claim-3",
+      "countryCode": "CMR",
+      "statement": "Croissance réelle du PIB estimée en 2025 (estimation) : 3,4 % (2025) selon la source citée.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-CMR-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "cmr-claim-4",
+      "countryCode": "CMR",
+      "statement": "Ouverture sur le golfe de Guinée : Douala et Kribi constituent des portes de transit vers l’arrière-pays d’Afrique centrale.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-CMR-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    },
+    {
+      "id": "cmr-claim-5",
+      "countryCode": "CMR",
+      "statement": "Violences dans le Nord-Ouest et le Sud-Ouest : Le conflit dans les régions anglophones continue de perturber les services et la mobilité.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-CMR-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "cmr-rel-wb",
+      "countryCode": "CMR",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Groupe de la Banque mondiale",
+      "relationType": "cooperation",
+      "title": "Coopération pour le développement",
+      "topics": [
+        "financement",
+        "développement"
+      ],
+      "summary": "Le Groupe de la Banque mondiale accompagne des programmes économiques et sociaux en Cameroun.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-CMR-W"
+      ],
+      "lastReviewedAt": "2026-11-04",
+      "status": "verified"
+    },
+    {
+      "id": "cmr-rel-cemac",
+      "countryCode": "CMR",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "CEMAC / BEAC",
+      "relationType": "treaty",
+      "title": "Union monétaire et économique d’Afrique centrale",
+      "topics": [
+        "monnaie",
+        "intégration"
+      ],
+      "summary": "Cameroun fait partie des six États de la CEMAC utilisant la BEAC comme banque centrale commune.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-CMR-C"
+      ],
+      "lastReviewedAt": "2026-11-04",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "cmr-strength-1",
+          "title": "Ouverture sur le golfe de Guinée",
+          "summary": "Douala et Kribi constituent des portes de transit vers l’arrière-pays d’Afrique centrale.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        },
+        {
+          "id": "cmr-strength-2",
+          "title": "Base agricole et industrielle diversifiée",
+          "summary": "Cacao, coton, bois, industries et services coexistent dans le tissu productif.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "cmr-challenge-1",
+          "title": "Violences dans le Nord-Ouest et le Sud-Ouest",
+          "summary": "Le conflit dans les régions anglophones continue de perturber les services et la mobilité.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        },
+        {
+          "id": "cmr-challenge-2",
+          "title": "Pression sur l’Extrême-Nord",
+          "summary": "Les violences transfrontalières dans le bassin du lac Tchad pèsent sur les communautés locales.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "cmr-event-1",
+          "title": "Résultat de la présidentielle",
+          "summary": "Le Conseil constitutionnel proclame Paul Biya vainqueur du scrutin d’octobre 2025.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ],
+          "date": "2025-10-27"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "cmr-sector-1",
+          "title": "Agriculture d’exportation",
+          "summary": "Cacao, coton et cultures vivrières donnent au pays une base agricole variée.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        },
+        {
+          "id": "cmr-sector-2",
+          "title": "Services et transformation",
+          "summary": "Les services urbains et l’industrie soutiennent l’activité malgré le coût des infrastructures.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        },
+        {
+          "id": "cmr-sector-3",
+          "title": "Hydrocarbures et énergie",
+          "summary": "La baisse des productions pétrolières contraste avec les besoins de capacités électriques.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "cmr-resource-1",
+          "title": "Bassin agricole et forestier",
+          "summary": "Les ressources agricoles et forestières requièrent des filières logistiques résilientes.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "cmr-security-1",
+          "title": "Crise anglophone",
+          "summary": "Déplacements et perturbations économiques persistent dans les régions du Nord-Ouest et du Sud-Ouest.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        },
+        {
+          "id": "cmr-security-2",
+          "title": "Bassin du lac Tchad",
+          "summary": "L’Extrême-Nord demeure exposé aux attaques de groupes armés et aux mouvements de populations.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "cmr-issue-1",
+          "title": "Deux foyers sécuritaires distincts",
+          "summary": "L’insurrection dans les régions anglophones et la menace dans l’Extrême-Nord mobilisent des réponses territoriales différentes.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Dans le Nord-Ouest et le Sud-Ouest, les violences s’inscrivent dans la crise anglophone. Dans l’Extrême-Nord, la pression sécuritaire est liée à la dynamique transfrontalière du bassin du lac Tchad.",
+          "whyStrategic": "La simultanéité des crises grève les capacités administratives et réduit l’accès aux services.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Déplacements par région",
+            "fonctionnement des écoles",
+            "incidents dans l’Extrême-Nord"
+          ],
+          "uncertainties": [
+            "Les deux crises diffèrent par leurs acteurs, leurs géographies et leur cadence ; éviter les agrégations trompeuses."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "cmr-issue-2",
+          "title": "Financement et dette",
+          "summary": "La baisse des recettes d’hydrocarbures s’ajoute aux besoins d’investissement public.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "Les besoins de financement des infrastructures s’ajoutent à des contraintes budgétaires et à l’évolution des recettes des secteurs exportateurs. La disponibilité électrique demeure un point de compétitivité.",
+          "whyStrategic": "L’accès au financement conditionne la mise à niveau des transports et de l’électricité.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Service de la dette",
+            "déficit budgétaire",
+            "investissements énergétiques"
+          ],
+          "uncertainties": [
+            "Les projections budgétaires et les décaissements effectifs doivent être distingués."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "cmr-issue-3",
+          "title": "Transition institutionnelle et gouvernance",
+          "summary": "Le scrutin présidentiel d’octobre 2025 a reconduit Paul Biya au pouvoir.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "Après la proclamation des résultats de la présidentielle d’octobre 2025, les questions de gouvernance, de confiance institutionnelle et d’accès aux services demeurent structurantes.",
+          "whyStrategic": "La continuité politique pose des enjeux de participation, de confiance et de services publics.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Échéances électorales",
+            "réformes de gouvernance",
+            "mobilisations"
+          ],
+          "uncertainties": [
+            "Le résultat électoral est un fait institutionnel ; il ne résume pas à lui seul la participation ou l’adhésion politique."
+          ],
+          "updatedAt": "2026-11-04"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "cmr-swot-s-1",
+            "title": "Accès aux marchés de l’intérieur",
+            "summary": "Les infrastructures côtières facilitent le commerce régional, notamment lorsque les axes terrestres restent sûrs.",
+            "tags": [],
+            "sourceIds": [
+              "S-CMR-W"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "cmr-swot-w-1",
+            "title": "Crises territoriales cumulées",
+            "summary": "Les réponses aux violences anglophones et au bassin du lac Tchad sollicitent durablement les ressources publiques.",
+            "tags": [],
+            "sourceIds": [
+              "S-CMR-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "cmr-swot-o-1",
+            "title": "Gains d’efficacité électrique",
+            "summary": "Une fourniture énergétique plus régulière réduirait les interruptions de production manufacturière.",
+            "tags": [],
+            "sourceIds": [
+              "S-CMR-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "cmr-swot-t-1",
+            "title": "Détérioration des services locaux",
+            "summary": "Une extension des violences provoquerait de nouvelles pertes scolaires et déplacements.",
+            "tags": [],
+            "sourceIds": [
+              "S-CMR-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "cmr-scenario-1",
+          "title": "Allègement du déficit électrique",
+          "summary": "Si l’offre énergétique devient plus fiable, la transformation industrielle pourrait gagner en compétitivité.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Financement et réalisation des investissements électriques"
+          ],
+          "triggers": [
+            "Amélioration mesurée de la continuité du réseau"
+          ],
+          "weakSignals": [
+            "Fréquence des coupures électriques, mises en service et disponibilité effective du réseau"
+          ],
+          "consequences": [
+            "Progression des activités manufacturières"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Allègement du déficit électrique » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "cmr-scenario-2",
+          "title": "Tensions budgétaires prolongées",
+          "summary": "Une contraction des recettes d’exportation pourrait freiner l’investissement et l’entretien des infrastructures.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Faiblesse durable des recettes pétrolières"
+          ],
+          "triggers": [
+            "Hausse des coûts de refinancement"
+          ],
+          "weakSignals": [
+            "Service de la dette et engagements d’investissement public"
+          ],
+          "consequences": [
+            "Décalage des dépenses de développement"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Tensions budgétaires prolongées » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "cmr-scenario-3",
+          "title": "Reprise des déplacements",
+          "summary": "Une aggravation des violences dans les régions anglophones ou l’Extrême-Nord pourrait entraîner de nouveaux mouvements de population.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Persistance de foyers armés localisés"
+          ],
+          "triggers": [
+            "Alertes humanitaires et fermetures d’écoles"
+          ],
+          "weakSignals": [
+            "Déplacements de population et incidents ventilés entre régions anglophones et Extrême-Nord"
+          ],
+          "consequences": [
+            "Pression supplémentaire sur les services locaux"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Reprise des déplacements » ; les hypothèses ne sont pas des faits établis."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "cmr-watch-1",
+          "title": "Deux crises, deux géographies",
+          "summary": "Suivre séparément les régions anglophones et le bassin du lac Tchad.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        },
+        {
+          "id": "cmr-watch-2",
+          "title": "Dette et réseau électrique",
+          "summary": "Croiser les tendances de financement public avec la disponibilité énergétique.",
+          "tags": [],
+          "sourceIds": [
+            "S-CMR-W"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,610 @@
+{
+  "countryCode": "GNQ",
+  "fetchedAt": "2026-11-05",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=GQ",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNQ/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=GQ",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNQ/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=GQ",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNQ/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=GQ",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNQ/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=GQ",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNQ/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=GQ",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNQ/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=GQ",
+      "apiUrl": "https://api.worldbank.org/v2/country/GNQ/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "gnq-demography-population-2025",
+      "countryCode": "GNQ",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 1938431,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Equatorial Guinea, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1399828
+        },
+        {
+          "period": "2015",
+          "value": 1453923
+        },
+        {
+          "period": "2016",
+          "value": 1508186
+        },
+        {
+          "period": "2017",
+          "value": 1562396
+        },
+        {
+          "period": "2018",
+          "value": 1616422
+        },
+        {
+          "period": "2019",
+          "value": 1670177
+        },
+        {
+          "period": "2020",
+          "value": 1716468
+        },
+        {
+          "period": "2021",
+          "value": 1758786
+        },
+        {
+          "period": "2022",
+          "value": 1803545
+        },
+        {
+          "period": "2023",
+          "value": 1847549
+        },
+        {
+          "period": "2024",
+          "value": 1892516
+        },
+        {
+          "period": "2025",
+          "value": 1938431
+        }
+      ]
+    },
+    {
+      "id": "gnq-economy-gdp_nominal_usd-2025",
+      "countryCode": "GNQ",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 12823210425.9217,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Equatorial Guinea, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 21765453081.9826
+        },
+        {
+          "period": "2015",
+          "value": 13185496881.0174
+        },
+        {
+          "period": "2016",
+          "value": 11240808847.8878
+        },
+        {
+          "period": "2017",
+          "value": 12200913878.9827
+        },
+        {
+          "period": "2018",
+          "value": 13097012133.6159
+        },
+        {
+          "period": "2019",
+          "value": 11364133549.7478
+        },
+        {
+          "period": "2020",
+          "value": 9893816007.7398
+        },
+        {
+          "period": "2021",
+          "value": 12215878032.7166
+        },
+        {
+          "period": "2022",
+          "value": 13687643435.6249
+        },
+        {
+          "period": "2023",
+          "value": 12541814272.8021
+        },
+        {
+          "period": "2024",
+          "value": 13254388261.1258
+        },
+        {
+          "period": "2025",
+          "value": 12823210425.9217
+        }
+      ]
+    },
+    {
+      "id": "gnq-economy-gdp_per_capita_usd-2025",
+      "countryCode": "GNQ",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 6615.25245207167,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Equatorial Guinea, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 15548.6624656619
+        },
+        {
+          "period": "2015",
+          "value": 9068.91003238645
+        },
+        {
+          "period": "2016",
+          "value": 7453.19797948517
+        },
+        {
+          "period": "2017",
+          "value": 7809.10465655488
+        },
+        {
+          "period": "2018",
+          "value": 8102.47084834031
+        },
+        {
+          "period": "2019",
+          "value": 6804.14923073888
+        },
+        {
+          "period": "2020",
+          "value": 5764.05502912947
+        },
+        {
+          "period": "2021",
+          "value": 6945.63069794539
+        },
+        {
+          "period": "2022",
+          "value": 7589.29964909381
+        },
+        {
+          "period": "2023",
+          "value": 6788.35271638376
+        },
+        {
+          "period": "2024",
+          "value": 7003.58055684906
+        },
+        {
+          "period": "2025",
+          "value": 6615.25245207167
+        }
+      ]
+    },
+    {
+      "id": "gnq-economy-gdp_growth-2025",
+      "countryCode": "GNQ",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": -5.84678505700693,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Equatorial Guinea, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 0.415066301596866
+        },
+        {
+          "period": "2015",
+          "value": -9.11004114881537
+        },
+        {
+          "period": "2016",
+          "value": -8.81641723219757
+        },
+        {
+          "period": "2017",
+          "value": -5.66750850486686
+        },
+        {
+          "period": "2018",
+          "value": -6.23654406734575
+        },
+        {
+          "period": "2019",
+          "value": -5.48182537893445
+        },
+        {
+          "period": "2020",
+          "value": -4.79108083383294
+        },
+        {
+          "period": "2021",
+          "value": 0.860269956382069
+        },
+        {
+          "period": "2022",
+          "value": 3.22350831658598
+        },
+        {
+          "period": "2023",
+          "value": -7.4250553172124
+        },
+        {
+          "period": "2024",
+          "value": 0.39622552095193
+        },
+        {
+          "period": "2025",
+          "value": -5.84678505700693
+        }
+      ]
+    },
+    {
+      "id": "gnq-economy-inflation_cpi-2024",
+      "countryCode": "GNQ",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 2.92140227309103,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Equatorial Guinea, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 2.94887694639662
+        },
+        {
+          "period": "2014",
+          "value": 4.30999866149107
+        },
+        {
+          "period": "2015",
+          "value": 1.67663085315988
+        },
+        {
+          "period": "2016",
+          "value": 1.41193915479015
+        },
+        {
+          "period": "2017",
+          "value": 0.74435474661241
+        },
+        {
+          "period": "2018",
+          "value": 1.06007410662171
+        },
+        {
+          "period": "2019",
+          "value": 1.53027528964189
+        },
+        {
+          "period": "2020",
+          "value": 4.76669523944228
+        },
+        {
+          "period": "2021",
+          "value": -0.0971007664640198
+        },
+        {
+          "period": "2022",
+          "value": 4.78671704710803
+        },
+        {
+          "period": "2023",
+          "value": 2.85949506037321
+        },
+        {
+          "period": "2024",
+          "value": 2.92140227309103
+        }
+      ]
+    },
+    {
+      "id": "gnq-labour-unemployment_ilo-2025",
+      "countryCode": "GNQ",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 8.337,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Equatorial Guinea, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 7.669
+        },
+        {
+          "period": "2015",
+          "value": 7.778
+        },
+        {
+          "period": "2016",
+          "value": 7.798
+        },
+        {
+          "period": "2017",
+          "value": 7.843
+        },
+        {
+          "period": "2018",
+          "value": 7.818
+        },
+        {
+          "period": "2019",
+          "value": 7.917
+        },
+        {
+          "period": "2020",
+          "value": 8.625
+        },
+        {
+          "period": "2021",
+          "value": 8.821
+        },
+        {
+          "period": "2022",
+          "value": 8.334
+        },
+        {
+          "period": "2023",
+          "value": 8.218
+        },
+        {
+          "period": "2024",
+          "value": 8.293
+        },
+        {
+          "period": "2025",
+          "value": 8.337
+        }
+      ]
+    },
+    {
+      "id": "gnq-geography-surface_area-2024",
+      "countryCode": "GNQ",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 28051.5,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Equatorial Guinea, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 28050
+        },
+        {
+          "period": "2014",
+          "value": 28050
+        },
+        {
+          "period": "2015",
+          "value": 28050
+        },
+        {
+          "period": "2016",
+          "value": 28050
+        },
+        {
+          "period": "2017",
+          "value": 28050
+        },
+        {
+          "period": "2018",
+          "value": 28050
+        },
+        {
+          "period": "2019",
+          "value": 28050
+        },
+        {
+          "period": "2020",
+          "value": 28050
+        },
+        {
+          "period": "2021",
+          "value": 28050
+        },
+        {
+          "period": "2022",
+          "value": 28051.5
+        },
+        {
+          "period": "2023",
+          "value": 28051.5
+        },
+        {
+          "period": "2024",
+          "value": 28051.5
+        }
+      ]
+    }
+  ]
+}

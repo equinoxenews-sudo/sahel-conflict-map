@@ -1,0 +1,656 @@
+{
+  "countryCode": "GAB",
+  "fetchedAt": "2026-11-05",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=GA",
+      "apiUrl": "https://api.worldbank.org/v2/country/GAB/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=GA",
+      "apiUrl": "https://api.worldbank.org/v2/country/GAB/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=GA",
+      "apiUrl": "https://api.worldbank.org/v2/country/GAB/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=GA",
+      "apiUrl": "https://api.worldbank.org/v2/country/GAB/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=GA",
+      "apiUrl": "https://api.worldbank.org/v2/country/GAB/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=GA",
+      "apiUrl": "https://api.worldbank.org/v2/country/GAB/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=GA",
+      "apiUrl": "https://api.worldbank.org/v2/country/GAB/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-GB.XPD.RSDV.GD.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Dépenses de recherche-développement (% du PIB)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS?locations=GA",
+      "apiUrl": "https://api.worldbank.org/v2/country/GAB/indicator/GB.XPD.RSDV.GD.ZS?format=json&per_page=18",
+      "datasetId": "GB.XPD.RSDV.GD.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "gab-demography-population-2025",
+      "countryCode": "GAB",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 2593130,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Gabon, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1978399
+        },
+        {
+          "period": "2015",
+          "value": 2040989
+        },
+        {
+          "period": "2016",
+          "value": 2100306
+        },
+        {
+          "period": "2017",
+          "value": 2156900
+        },
+        {
+          "period": "2018",
+          "value": 2212318
+        },
+        {
+          "period": "2019",
+          "value": 2267706
+        },
+        {
+          "period": "2020",
+          "value": 2322539
+        },
+        {
+          "period": "2021",
+          "value": 2376722
+        },
+        {
+          "period": "2022",
+          "value": 2430747
+        },
+        {
+          "period": "2023",
+          "value": 2484789
+        },
+        {
+          "period": "2024",
+          "value": 2538952
+        },
+        {
+          "period": "2025",
+          "value": 2593130
+        }
+      ]
+    },
+    {
+      "id": "gab-economy-gdp_nominal_usd-2025",
+      "countryCode": "GAB",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 21427119323.2764,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Gabon, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 18203966895.8433
+        },
+        {
+          "period": "2015",
+          "value": 14383107762.6952
+        },
+        {
+          "period": "2016",
+          "value": 14023890265.3665
+        },
+        {
+          "period": "2017",
+          "value": 14929487485.1623
+        },
+        {
+          "period": "2018",
+          "value": 16867326401.9626
+        },
+        {
+          "period": "2019",
+          "value": 16874405465.391
+        },
+        {
+          "period": "2020",
+          "value": 15342236163.9943
+        },
+        {
+          "period": "2021",
+          "value": 19444935097.2333
+        },
+        {
+          "period": "2022",
+          "value": 20440655695.229
+        },
+        {
+          "period": "2023",
+          "value": 19388372070.9778
+        },
+        {
+          "period": "2024",
+          "value": 20895684425.6752
+        },
+        {
+          "period": "2025",
+          "value": 21427119323.2764
+        }
+      ]
+    },
+    {
+      "id": "gab-economy-gdp_per_capita_usd-2025",
+      "countryCode": "GAB",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 8263.03321595,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Gabon, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 9201.36276648105
+        },
+        {
+          "period": "2015",
+          "value": 7047.12654634355
+        },
+        {
+          "period": "2016",
+          "value": 6677.07003901644
+        },
+        {
+          "period": "2017",
+          "value": 6921.73373135624
+        },
+        {
+          "period": "2018",
+          "value": 7624.2775233771
+        },
+        {
+          "period": "2019",
+          "value": 7441.1786472281
+        },
+        {
+          "period": "2020",
+          "value": 6605.80346077904
+        },
+        {
+          "period": "2021",
+          "value": 8181.40914134398
+        },
+        {
+          "period": "2022",
+          "value": 8409.20741452279
+        },
+        {
+          "period": "2023",
+          "value": 7802.82433276138
+        },
+        {
+          "period": "2024",
+          "value": 8230.04311451151
+        },
+        {
+          "period": "2025",
+          "value": 8263.03321595
+        }
+      ]
+    },
+    {
+      "id": "gab-economy-gdp_growth-2025",
+      "countryCode": "GAB",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 2.47287961498321,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Gabon, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 4.31496444107469
+        },
+        {
+          "period": "2015",
+          "value": 3.8788993950789
+        },
+        {
+          "period": "2016",
+          "value": 2.09144220829562
+        },
+        {
+          "period": "2017",
+          "value": 0.472642030911146
+        },
+        {
+          "period": "2018",
+          "value": 0.83791658082157
+        },
+        {
+          "period": "2019",
+          "value": 3.92080879452831
+        },
+        {
+          "period": "2020",
+          "value": -1.8377610635094
+        },
+        {
+          "period": "2021",
+          "value": 1.46795731508091
+        },
+        {
+          "period": "2022",
+          "value": 3.03761449525692
+        },
+        {
+          "period": "2023",
+          "value": 2.43893665041031
+        },
+        {
+          "period": "2024",
+          "value": 3.39403899521831
+        },
+        {
+          "period": "2025",
+          "value": 2.47287961498321
+        }
+      ]
+    },
+    {
+      "id": "gab-economy-inflation_cpi-2025",
+      "countryCode": "GAB",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 1.7676660900348,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Gabon, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 4.69045751826283
+        },
+        {
+          "period": "2015",
+          "value": -0.338795188753405
+        },
+        {
+          "period": "2016",
+          "value": 2.10670712784054
+        },
+        {
+          "period": "2017",
+          "value": 2.65192583143901
+        },
+        {
+          "period": "2018",
+          "value": 4.74906652083221
+        },
+        {
+          "period": "2019",
+          "value": 2.46456756151186
+        },
+        {
+          "period": "2020",
+          "value": 1.35276110675332
+        },
+        {
+          "period": "2021",
+          "value": 1.08690746519409
+        },
+        {
+          "period": "2022",
+          "value": 4.23124798274579
+        },
+        {
+          "period": "2023",
+          "value": 3.62901534185375
+        },
+        {
+          "period": "2024",
+          "value": 1.17311998381218
+        },
+        {
+          "period": "2025",
+          "value": 1.7676660900348
+        }
+      ]
+    },
+    {
+      "id": "gab-labour-unemployment_ilo-2025",
+      "countryCode": "GAB",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 20.154,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Gabon, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 19.873
+        },
+        {
+          "period": "2015",
+          "value": 19.943
+        },
+        {
+          "period": "2016",
+          "value": 20.117
+        },
+        {
+          "period": "2017",
+          "value": 20.307
+        },
+        {
+          "period": "2018",
+          "value": 20.459
+        },
+        {
+          "period": "2019",
+          "value": 20.371
+        },
+        {
+          "period": "2020",
+          "value": 21.279
+        },
+        {
+          "period": "2021",
+          "value": 21.223
+        },
+        {
+          "period": "2022",
+          "value": 20.319
+        },
+        {
+          "period": "2023",
+          "value": 20.161
+        },
+        {
+          "period": "2024",
+          "value": 20.091
+        },
+        {
+          "period": "2025",
+          "value": 20.154
+        }
+      ]
+    },
+    {
+      "id": "gab-geography-surface_area-2024",
+      "countryCode": "GAB",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 267670,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Gabon, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 267670
+        },
+        {
+          "period": "2014",
+          "value": 267670
+        },
+        {
+          "period": "2015",
+          "value": 267670
+        },
+        {
+          "period": "2016",
+          "value": 267670
+        },
+        {
+          "period": "2017",
+          "value": 267670
+        },
+        {
+          "period": "2018",
+          "value": 267670
+        },
+        {
+          "period": "2019",
+          "value": 267670
+        },
+        {
+          "period": "2020",
+          "value": 267670
+        },
+        {
+          "period": "2021",
+          "value": 267670
+        },
+        {
+          "period": "2022",
+          "value": 267670
+        },
+        {
+          "period": "2023",
+          "value": 267670
+        },
+        {
+          "period": "2024",
+          "value": 267670
+        }
+      ]
+    },
+    {
+      "id": "gab-research-rd_gdp-2009",
+      "countryCode": "GAB",
+      "key": "research.rd_gdp",
+      "topic": "rd",
+      "value": 0.57924,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2009",
+      "geographicScope": "Gabon, périmètre Banque mondiale",
+      "methodology": "Dépenses intérieures de recherche-développement, en pourcentage du PIB.",
+      "sourceIds": [
+        "S01-WB-GB.XPD.RSDV.GD.ZS"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2008",
+          "value": 0.5109
+        },
+        {
+          "period": "2009",
+          "value": 0.57924
+        }
+      ]
+    }
+  ]
+}

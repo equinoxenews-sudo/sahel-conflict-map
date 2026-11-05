@@ -1,0 +1,652 @@
+{
+  "countryCode": "COG",
+  "fetchedAt": "2026-11-05",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=CG",
+      "apiUrl": "https://api.worldbank.org/v2/country/COG/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=CG",
+      "apiUrl": "https://api.worldbank.org/v2/country/COG/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=CG",
+      "apiUrl": "https://api.worldbank.org/v2/country/COG/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=CG",
+      "apiUrl": "https://api.worldbank.org/v2/country/COG/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=CG",
+      "apiUrl": "https://api.worldbank.org/v2/country/COG/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=CG",
+      "apiUrl": "https://api.worldbank.org/v2/country/COG/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=CG",
+      "apiUrl": "https://api.worldbank.org/v2/country/COG/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-GB.XPD.RSDV.GD.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Dépenses de recherche-développement (% du PIB)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS?locations=CG",
+      "apiUrl": "https://api.worldbank.org/v2/country/COG/indicator/GB.XPD.RSDV.GD.ZS?format=json&per_page=18",
+      "datasetId": "GB.XPD.RSDV.GD.ZS",
+      "datasetVersion": "2026-10-08",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-05",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "cog-demography-population-2025",
+      "countryCode": "COG",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 6484437,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Congo, Rep., périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 4975880
+        },
+        {
+          "period": "2015",
+          "value": 5097581
+        },
+        {
+          "period": "2016",
+          "value": 5222536
+        },
+        {
+          "period": "2017",
+          "value": 5351011
+        },
+        {
+          "period": "2018",
+          "value": 5483118
+        },
+        {
+          "period": "2019",
+          "value": 5616661
+        },
+        {
+          "period": "2020",
+          "value": 5752791
+        },
+        {
+          "period": "2021",
+          "value": 5892183
+        },
+        {
+          "period": "2022",
+          "value": 6035104
+        },
+        {
+          "period": "2023",
+          "value": 6182885
+        },
+        {
+          "period": "2024",
+          "value": 6332961
+        },
+        {
+          "period": "2025",
+          "value": 6484437
+        }
+      ]
+    },
+    {
+      "id": "cog-economy-gdp_nominal_usd-2025",
+      "countryCode": "COG",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 16306633778.765,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Congo, Rep., périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 17919321078.0284
+        },
+        {
+          "period": "2015",
+          "value": 12434793867.3568
+        },
+        {
+          "period": "2016",
+          "value": 10931328150.8478
+        },
+        {
+          "period": "2017",
+          "value": 11834473039.3645
+        },
+        {
+          "period": "2018",
+          "value": 14773900288.5135
+        },
+        {
+          "period": "2019",
+          "value": 13976637779.9763
+        },
+        {
+          "period": "2020",
+          "value": 11468687464.0046
+        },
+        {
+          "period": "2021",
+          "value": 14825690210.9157
+        },
+        {
+          "period": "2022",
+          "value": 15817030154.6941
+        },
+        {
+          "period": "2023",
+          "value": 15321055822.5167
+        },
+        {
+          "period": "2024",
+          "value": 15719986076.6464
+        },
+        {
+          "period": "2025",
+          "value": 16306633778.765
+        }
+      ]
+    },
+    {
+      "id": "cog-economy-gdp_per_capita_usd-2025",
+      "countryCode": "COG",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 2514.73393584747,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Congo, Rep., périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 3601.2365808718
+        },
+        {
+          "period": "2015",
+          "value": 2439.35189403696
+        },
+        {
+          "period": "2016",
+          "value": 2093.10728558843
+        },
+        {
+          "period": "2017",
+          "value": 2211.63309874797
+        },
+        {
+          "period": "2018",
+          "value": 2694.43413191427
+        },
+        {
+          "period": "2019",
+          "value": 2488.42466724916
+        },
+        {
+          "period": "2020",
+          "value": 1993.586671931
+        },
+        {
+          "period": "2021",
+          "value": 2516.16255145432
+        },
+        {
+          "period": "2022",
+          "value": 2620.83804267402
+        },
+        {
+          "period": "2023",
+          "value": 2477.97845544866
+        },
+        {
+          "period": "2024",
+          "value": 2482.2489948456
+        },
+        {
+          "period": "2025",
+          "value": 2514.73393584747
+        }
+      ]
+    },
+    {
+      "id": "cog-economy-gdp_growth-2025",
+      "countryCode": "COG",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 3.08292728120063,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Congo, Rep., périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 6.64606540928447
+        },
+        {
+          "period": "2015",
+          "value": 0.415193061293763
+        },
+        {
+          "period": "2016",
+          "value": -8.68524343913786
+        },
+        {
+          "period": "2017",
+          "value": -5.59477371915547
+        },
+        {
+          "period": "2018",
+          "value": -2.30431780125842
+        },
+        {
+          "period": "2019",
+          "value": 1.12447391976529
+        },
+        {
+          "period": "2020",
+          "value": -6.26777227963225
+        },
+        {
+          "period": "2021",
+          "value": 1.01507036990908
+        },
+        {
+          "period": "2022",
+          "value": 1.47535613247133
+        },
+        {
+          "period": "2023",
+          "value": 1.90686426346754
+        },
+        {
+          "period": "2024",
+          "value": 2.09998918002519
+        },
+        {
+          "period": "2025",
+          "value": 3.08292728120063
+        }
+      ]
+    },
+    {
+      "id": "cog-economy-inflation_cpi-2025",
+      "countryCode": "COG",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 2.40069559361747,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Congo, Rep., périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 0.912139545450097
+        },
+        {
+          "period": "2015",
+          "value": 3.16909796750829
+        },
+        {
+          "period": "2016",
+          "value": 3.19056179723773
+        },
+        {
+          "period": "2017",
+          "value": 0.450063823285546
+        },
+        {
+          "period": "2018",
+          "value": 1.15277896375523
+        },
+        {
+          "period": "2019",
+          "value": 2.20607305781525
+        },
+        {
+          "period": "2020",
+          "value": 1.79537147083107
+        },
+        {
+          "period": "2021",
+          "value": 1.7156427545126
+        },
+        {
+          "period": "2022",
+          "value": 3.04344334698477
+        },
+        {
+          "period": "2023",
+          "value": 4.30174563591016
+        },
+        {
+          "period": "2024",
+          "value": 3.09143630919166
+        },
+        {
+          "period": "2025",
+          "value": 2.40069559361747
+        }
+      ]
+    },
+    {
+      "id": "cog-labour-unemployment_ilo-2025",
+      "countryCode": "COG",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 19.876,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Congo, Rep., périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 19.696
+        },
+        {
+          "period": "2015",
+          "value": 20.02
+        },
+        {
+          "period": "2016",
+          "value": 20.298
+        },
+        {
+          "period": "2017",
+          "value": 20.737
+        },
+        {
+          "period": "2018",
+          "value": 20.84
+        },
+        {
+          "period": "2019",
+          "value": 20.494
+        },
+        {
+          "period": "2020",
+          "value": 22.286
+        },
+        {
+          "period": "2021",
+          "value": 21.998
+        },
+        {
+          "period": "2022",
+          "value": 20.131
+        },
+        {
+          "period": "2023",
+          "value": 19.919
+        },
+        {
+          "period": "2024",
+          "value": 19.895
+        },
+        {
+          "period": "2025",
+          "value": 19.876
+        }
+      ]
+    },
+    {
+      "id": "cog-geography-surface_area-2024",
+      "countryCode": "COG",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 342000,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Congo, Rep., périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 342000
+        },
+        {
+          "period": "2014",
+          "value": 342000
+        },
+        {
+          "period": "2015",
+          "value": 342000
+        },
+        {
+          "period": "2016",
+          "value": 342000
+        },
+        {
+          "period": "2017",
+          "value": 342000
+        },
+        {
+          "period": "2018",
+          "value": 342000
+        },
+        {
+          "period": "2019",
+          "value": 342000
+        },
+        {
+          "period": "2020",
+          "value": 342000
+        },
+        {
+          "period": "2021",
+          "value": 342000
+        },
+        {
+          "period": "2022",
+          "value": 342000
+        },
+        {
+          "period": "2023",
+          "value": 342000
+        },
+        {
+          "period": "2024",
+          "value": 342000
+        }
+      ]
+    },
+    {
+      "id": "cog-research-rd_gdp-2022",
+      "countryCode": "COG",
+      "key": "research.rd_gdp",
+      "topic": "rd",
+      "value": 0.38339,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2022",
+      "geographicScope": "Congo, Rep., périmètre Banque mondiale",
+      "methodology": "Dépenses intérieures de recherche-développement, en pourcentage du PIB.",
+      "sourceIds": [
+        "S01-WB-GB.XPD.RSDV.GD.ZS"
+      ],
+      "collectedAt": "2026-11-05",
+      "verifiedAt": "2026-11-05",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2022",
+          "value": 0.38339
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,749 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "COG",
+  "slug": "republique-du-congo",
+  "zoneSlug": "afrique",
+  "name": "République du Congo",
+  "officialName": "République du Congo",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-04",
+  "sources": [
+    {
+      "id": "S-COG-W",
+      "publisher": "Banque mondiale",
+      "title": "République du Congo — situation politique et finances publiques",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/congo",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "COG : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-COG-P",
+      "publisher": "France Diplomatie",
+      "title": "Congo — Présentation du Congo",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/congo/presentation-du-congo",
+      "publishedAt": "2026-10-22",
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "COG : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-COG-G",
+      "publisher": "Présidence de la République du Congo",
+      "title": "Le Gouvernement — Premier ministre et ministres",
+      "canonicalUrl": "https://presidence.cg/le-gouvernement/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Présidence de la République du Congo",
+      "methodNotes": "COG : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-COG-C",
+      "publisher": "Banque des États de l’Afrique centrale",
+      "title": "La BEAC — six États de la CEMAC",
+      "canonicalUrl": "https://www.beac.int/beac/la-beac/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Banque des États de l’Afrique centrale",
+      "methodNotes": "COG : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    }
+  ],
+  "observations": [
+    {
+      "id": "cog-identity-capital",
+      "countryCode": "COG",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Brazzaville",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "République du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COG-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cog-politics-head-of-state",
+      "countryCode": "COG",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Denis Sassou N’Guesso",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "République du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COG-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cog-politics-head-of-government",
+      "countryCode": "COG",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Anatole Collinet Makosso",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "République du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COG-G"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cog-politics-regime",
+      "countryCode": "COG",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République présidentielle",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "République du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COG-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cog-identity-language",
+      "countryCode": "COG",
+      "key": "identity.language",
+      "label": "Langue(s) officielle(s)",
+      "value": "Français",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "République du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COG-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cog-identity-currency",
+      "countryCode": "COG",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc CFA d’Afrique centrale (XAF)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "République du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COG-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cog-geography-area-official",
+      "countryCode": "COG",
+      "key": "geography.area.official",
+      "label": "Superficie",
+      "value": 342000,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "République du Congo",
+      "methodology": "Situation institutionnelle ou géographique de République du Congo indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-COG-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "cog-institutions-cemac",
+      "countryCode": "COG",
+      "key": "institutions.cemac",
+      "label": "Membre de la CEMAC",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "République du Congo",
+      "methodology": "L’appartenance aux six États de la BEAC/CEMAC est explicitement confirmée.",
+      "sourceIds": [
+        "S-COG-C"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "cog-politics-presidential-vote-2026-wb",
+      "countryCode": "COG",
+      "key": "politics.presidential_vote_2026_wb",
+      "label": "Score officiel de Denis Sassou N’Guesso à la présidentielle",
+      "value": 94.9,
+      "unit": "% des suffrages",
+      "referencePeriod": "2026-03-15",
+      "geographicScope": "République du Congo",
+      "methodology": "Résultat officiel rapporté par la Banque mondiale ; ne constitue pas un jugement sur la qualité du scrutin.",
+      "sourceIds": [
+        "S-COG-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "cog-economy-public-debt-2026-wb",
+      "countryCode": "COG",
+      "key": "economy.public_debt_2026_wb",
+      "label": "Dette publique estimée / PIB",
+      "value": 95,
+      "unit": "% du PIB",
+      "referencePeriod": "2026",
+      "geographicScope": "République du Congo",
+      "methodology": "Estimation arrondie pour 2026.",
+      "sourceIds": [
+        "S-COG-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "cog-economy-oil-share-exports-wb",
+      "countryCode": "COG",
+      "key": "economy.oil_share_exports_wb",
+      "label": "Part du pétrole dans les exportations",
+      "value": 80,
+      "unit": "%",
+      "referencePeriod": "profil structurel 2026",
+      "geographicScope": "République du Congo",
+      "methodology": "Ordre de grandeur structurel annoncé dans le panorama de la Banque mondiale ; pas une série annuelle.",
+      "sourceIds": [
+        "S-COG-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "cog-economy-fiscal-surplus-projection-2026-wb",
+      "countryCode": "COG",
+      "key": "economy.fiscal_surplus_projection_2026_wb",
+      "label": "Solde budgétaire projeté",
+      "value": 3.7,
+      "unit": "% du PIB",
+      "referencePeriod": "2026",
+      "geographicScope": "République du Congo",
+      "methodology": "Prévision budgétaire 2026, non résultat exécuté.",
+      "sourceIds": [
+        "S-COG-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "cog-claim-1",
+      "countryCode": "COG",
+      "statement": "Denis Sassou N’Guesso est le chef de l’État de République du Congo au 4 novembre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-COG-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "cog-claim-2",
+      "countryCode": "COG",
+      "statement": "La capitale déclarée de République du Congo est Brazzaville.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-COG-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "cog-claim-3",
+      "countryCode": "COG",
+      "statement": "Score officiel de Denis Sassou N’Guesso à la présidentielle  : 94,9 % des suffrages (2026-03-15) selon la source citée.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-COG-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "cog-claim-4",
+      "countryCode": "COG",
+      "statement": "Accès maritime par Pointe-Noire : L’économie pétrolière et les liaisons portuaires donnent au pays un débouché sur l’Atlantique.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-COG-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    },
+    {
+      "id": "cog-claim-5",
+      "countryCode": "COG",
+      "statement": "Endettement élevé : Le niveau de dette réduit la capacité de financement non pétrolier malgré les excédents projetés.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-COG-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "cog-rel-wb",
+      "countryCode": "COG",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Groupe de la Banque mondiale",
+      "relationType": "cooperation",
+      "title": "Coopération pour le développement",
+      "topics": [
+        "financement",
+        "développement"
+      ],
+      "summary": "Le Groupe de la Banque mondiale accompagne des programmes économiques et sociaux en République du Congo.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-COG-W"
+      ],
+      "lastReviewedAt": "2026-11-04",
+      "status": "verified"
+    },
+    {
+      "id": "cog-rel-cemac",
+      "countryCode": "COG",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "CEMAC / BEAC",
+      "relationType": "treaty",
+      "title": "Union monétaire et économique d’Afrique centrale",
+      "topics": [
+        "monnaie",
+        "intégration"
+      ],
+      "summary": "République du Congo fait partie des six États de la CEMAC utilisant la BEAC comme banque centrale commune.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-COG-C"
+      ],
+      "lastReviewedAt": "2026-11-04",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "cog-strength-1",
+          "title": "Accès maritime par Pointe-Noire",
+          "summary": "L’économie pétrolière et les liaisons portuaires donnent au pays un débouché sur l’Atlantique.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        },
+        {
+          "id": "cog-strength-2",
+          "title": "Patrimoine forestier et tourbières",
+          "summary": "Les écosystèmes du bassin du Congo constituent un enjeu majeur de régulation climatique.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "cog-challenge-1",
+          "title": "Endettement élevé",
+          "summary": "Le niveau de dette réduit la capacité de financement non pétrolier malgré les excédents projetés.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        },
+        {
+          "id": "cog-challenge-2",
+          "title": "Concentration des exportations",
+          "summary": "Le pétrole domine les recettes d’exportation, exposant l’économie aux chocs de marché.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "cog-event-1",
+          "title": "Nouvelle élection présidentielle",
+          "summary": "Denis Sassou N’Guesso est reconduit au scrutin de mars 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ],
+          "date": "2026-03-15"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "cog-sector-1",
+          "title": "Pétrole",
+          "summary": "Les exportations restent très concentrées sur le brut et les activités associées.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        },
+        {
+          "id": "cog-sector-2",
+          "title": "Économie forestière",
+          "summary": "Les forêts et tourbières exigent une gouvernance conciliant protection et revenus.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        },
+        {
+          "id": "cog-sector-3",
+          "title": "Services urbains",
+          "summary": "Brazzaville et Pointe-Noire concentrent une part importante de la population et des échanges.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "cog-resource-1",
+          "title": "Hydrocarbures offshore",
+          "summary": "Les recettes pétrolières soutiennent le budget tout en amplifiant la cyclicité.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "cog-security-1",
+          "title": "Gestion des frontières fluviales",
+          "summary": "Les échanges avec la RDC et les zones forestières impliquent des enjeux de contrôle et de mobilité.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "cog-issue-1",
+          "title": "Risque de refinancement",
+          "summary": "Les besoins de liquidité et les arriérés affaiblissent la crédibilité budgétaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le poids de la dette et des arriérés réduit la flexibilité des finances publiques. Même lorsque le solde budgétaire est positif, les échéances de remboursement peuvent maintenir des tensions de trésorerie.",
+          "whyStrategic": "La structure de la dette importe autant que le ratio dette/PIB pour soutenir l’investissement.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Service de la dette",
+            "arriérés",
+            "échéances de refinancement"
+          ],
+          "uncertainties": [
+            "Un ratio agrégé de dette ne rend pas compte du calendrier d’échéance ni des conditions de refinancement."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "cog-issue-2",
+          "title": "Diversification après la rente",
+          "summary": "Une part importante des exportations dépend du pétrole et de son prix.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "Le secteur pétrolier domine une part importante des ventes extérieures. La montée en puissance d’autres filières suppose une logistique fiable et un accès au financement privé.",
+          "whyStrategic": "Les chaînes locales hors hydrocarbures limitent la vulnérabilité de l’emploi aux cours mondiaux.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Exportations non pétrolières",
+            "investissement privé",
+            "emploi urbain"
+          ],
+          "uncertainties": [
+            "La diversification doit être mesurée sur plusieurs années et pas uniquement par l’annonce de projets."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "cog-issue-3",
+          "title": "Forêts et finance climatique",
+          "summary": "Les tourbières tropicales stockent du carbone et occupent des zones sensibles.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "Les forêts du bassin du Congo et les tourbières ont une importance écologique majeure. Leur préservation soulève la question des incitations locales et du suivi des mécanismes climatiques.",
+          "whyStrategic": "Les mécanismes de conservation nécessitent des règles de bénéfices partagés et un suivi environnemental.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Aires protégées",
+            "projets de conservation",
+            "recettes locales"
+          ],
+          "uncertainties": [
+            "Les effets réels d’un financement climatique nécessitent des données de terrain et des règles de partage vérifiables."
+          ],
+          "updatedAt": "2026-11-04"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "cog-swot-s-1",
+            "title": "Port atlantique et rente pétrolière",
+            "summary": "Les recettes et installations existantes peuvent financer une diversification sous réserve de discipline budgétaire.",
+            "tags": [],
+            "sourceIds": [
+              "S-COG-W"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "cog-swot-w-1",
+            "title": "Risque de trésorerie publique",
+            "summary": "Les arriérés et la dette limitent les marges malgré des soldes pétroliers parfois positifs.",
+            "tags": [],
+            "sourceIds": [
+              "S-COG-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "cog-swot-o-1",
+            "title": "Recettes hors hydrocarbures",
+            "summary": "Une meilleure collecte et des activités privées non pétrolières atténueraient la cyclicité budgétaire.",
+            "tags": [],
+            "sourceIds": [
+              "S-COG-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "cog-swot-t-1",
+            "title": "Recul des recettes d’exportation",
+            "summary": "Les chocs pétroliers affectent simultanément les comptes extérieurs et les finances publiques.",
+            "tags": [],
+            "sourceIds": [
+              "S-COG-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "cog-scenario-1",
+          "title": "Rééquilibrage des recettes",
+          "summary": "Une hausse des ressources fiscales non pétrolières pourrait réduire la dépendance budgétaire aux cours mondiaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Réformes de collecte exécutées"
+          ],
+          "triggers": [
+            "Progression des recettes hors pétrole"
+          ],
+          "weakSignals": [
+            "Part des recettes fiscales hors pétrole dans les ressources budgétaires"
+          ],
+          "consequences": [
+            "Plus de marge pour les services"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Rééquilibrage des recettes » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "cog-scenario-2",
+          "title": "Dette sous tension malgré l’excédent",
+          "summary": "Un coût de refinancement plus élevé pourrait absorber les ressources dégagées par le pétrole.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Émissions coûteuses et arriérés persistants"
+          ],
+          "triggers": [
+            "Écart entre solde primaire et trésorerie"
+          ],
+          "weakSignals": [
+            "Service de la dette et évolution des arriérés de paiement"
+          ],
+          "consequences": [
+            "Réduction de l’investissement"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Dette sous tension malgré l’excédent » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "cog-scenario-3",
+          "title": "Choc de prix pétrolier",
+          "summary": "Une chute prolongée des prix ou de la production réduirait simultanément exportations et recettes fiscales.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Marché pétrolier dégradé"
+          ],
+          "triggers": [
+            "Repli des recettes d’exportation"
+          ],
+          "weakSignals": [
+            "Cours du pétrole, volumes exportés et recettes pétrolières effectives"
+          ],
+          "consequences": [
+            "Nouvelle compression budgétaire"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Choc de prix pétrolier » ; les hypothèses ne sont pas des faits établis."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "cog-watch-1",
+          "title": "Finances publiques et échéances",
+          "summary": "Suivre dette, arriérés et émissions plutôt que le seul excédent annuel.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        },
+        {
+          "id": "cog-watch-2",
+          "title": "Forêts et hydrocarbures",
+          "summary": "Comparer les annonces de diversification aux exportations réellement observées.",
+          "tags": [],
+          "sourceIds": [
+            "S-COG-W"
+          ]
+        }
+      ]
+    }
+  }
+}

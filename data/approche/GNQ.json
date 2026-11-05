@@ -1,0 +1,749 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "GNQ",
+  "slug": "guinee-equatoriale",
+  "zoneSlug": "afrique",
+  "name": "Guinée équatoriale",
+  "officialName": "République de Guinée équatoriale",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-04",
+  "sources": [
+    {
+      "id": "S-GNQ-W",
+      "publisher": "Banque mondiale",
+      "title": "Guinée équatoriale — économie et institutions",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/equatorialguinea",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "GNQ : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-GNQ-P",
+      "publisher": "France Diplomatie",
+      "title": "Guinée équatoriale — Présentation",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/guinee-equatoriale/presentation-de-la-guinee-equatoriale",
+      "publishedAt": "2026-09-10",
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "GNQ : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-GNQ-X",
+      "publisher": "Gouvernement de Guinée équatoriale",
+      "title": "Decreto Ley 1/2026 — Ciudad de la Paz déclarée capitale",
+      "canonicalUrl": "https://www.guineaecuatorialpress.com/noticias/decreto_ley_por_el_que_se_declara_la_ciudad_de_la_paz_djibloho_capital_de_la_republica_de_guinea_ecuatorial",
+      "publishedAt": "2026-01-02",
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Gouvernement de Guinée équatoriale",
+      "methodNotes": "GNQ : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    },
+    {
+      "id": "S-GNQ-C",
+      "publisher": "Banque des États de l’Afrique centrale",
+      "title": "La BEAC — six États de la CEMAC",
+      "canonicalUrl": "https://www.beac.int/beac/la-beac/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-04",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Banque des États de l’Afrique centrale",
+      "methodNotes": "GNQ : faits paraphrasés avec attribution ; aucun média ni extrait long réutilisé. Conditions de réutilisation non examinées pour cette page."
+    }
+  ],
+  "observations": [
+    {
+      "id": "gnq-identity-capital",
+      "countryCode": "GNQ",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Ciudad de la Paz (capitale officielle depuis janvier 2026 ; transfert progressif)",
+      "unit": null,
+      "referencePeriod": "2026-01-02",
+      "geographicScope": "Guinée équatoriale",
+      "methodology": "Situation institutionnelle ou géographique de Guinée équatoriale indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-GNQ-X"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnq-politics-head-of-state",
+      "countryCode": "GNQ",
+      "key": "politics.head_of_state",
+      "label": "Chef de l’État",
+      "value": "Teodoro Obiang Nguema Mbasogo",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Guinée équatoriale",
+      "methodology": "Situation institutionnelle ou géographique de Guinée équatoriale indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-GNQ-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnq-politics-head-of-government",
+      "countryCode": "GNQ",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Teodoro Obiang Nguema Mbasogo (chef du gouvernement) ; Manuel Osa Nsue Nsua (Premier ministre)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Guinée équatoriale",
+      "methodology": "Situation institutionnelle ou géographique de Guinée équatoriale indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-GNQ-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnq-politics-regime",
+      "countryCode": "GNQ",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République présidentielle à parti dominant",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Guinée équatoriale",
+      "methodology": "Situation institutionnelle ou géographique de Guinée équatoriale indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-GNQ-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnq-identity-language",
+      "countryCode": "GNQ",
+      "key": "identity.language",
+      "label": "Langue(s) officielle(s)",
+      "value": "Espagnol, français et portugais",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Guinée équatoriale",
+      "methodology": "Situation institutionnelle ou géographique de Guinée équatoriale indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-GNQ-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnq-identity-currency",
+      "countryCode": "GNQ",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc CFA d’Afrique centrale (XAF)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Guinée équatoriale",
+      "methodology": "Situation institutionnelle ou géographique de Guinée équatoriale indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-GNQ-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnq-geography-area-official",
+      "countryCode": "GNQ",
+      "key": "geography.area.official",
+      "label": "Superficie",
+      "value": 28051,
+      "unit": "km²",
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée équatoriale",
+      "methodology": "Situation institutionnelle ou géographique de Guinée équatoriale indiquée par l’organisme cité, consultée le 2026-11-04.",
+      "sourceIds": [
+        "S-GNQ-P"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "gnq-institutions-cemac",
+      "countryCode": "GNQ",
+      "key": "institutions.cemac",
+      "label": "Membre de la CEMAC",
+      "value": true,
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Guinée équatoriale",
+      "methodology": "L’appartenance aux six États de la BEAC/CEMAC est explicitement confirmée.",
+      "sourceIds": [
+        "S-GNQ-C"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnq-politics-capital-designated-2026",
+      "countryCode": "GNQ",
+      "key": "politics.capital_designated_2026",
+      "label": "Ciudad de la Paz officiellement capitale depuis",
+      "value": "2026-01-02",
+      "unit": null,
+      "referencePeriod": "2026-01-02",
+      "geographicScope": "Guinée équatoriale",
+      "methodology": "Décret-loi n°1/2026 ; transfert des administrations prévu sur un an à compter de l’entrée en vigueur.",
+      "sourceIds": [
+        "S-GNQ-X"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "gnq-economy-gdp-growth-estimate-2025-wb",
+      "countryCode": "GNQ",
+      "key": "economy.gdp_growth_estimate_2025_wb",
+      "label": "Croissance réelle du PIB estimée en 2025",
+      "value": -5.4,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Guinée équatoriale",
+      "methodology": "Contraction 2025 attribuée notamment au recul des hydrocarbures.",
+      "sourceIds": [
+        "S-GNQ-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gnq-economy-poverty-estimate-2025-wb",
+      "countryCode": "GNQ",
+      "key": "economy.poverty_estimate_2025_wb",
+      "label": "Pauvreté estimée en 2025",
+      "value": 61,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Guinée équatoriale",
+      "methodology": "Estimation de pauvreté issue du panorama de la Banque mondiale ; seuil exact à confirmer pour comparaison internationale.",
+      "sourceIds": [
+        "S-GNQ-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "gnq-economy-gdp-growth-projection-2026-2027-wb",
+      "countryCode": "GNQ",
+      "key": "economy.gdp_growth_projection_2026_2027_wb",
+      "label": "Contraction projetée de l’économie en 2026–2027",
+      "value": -3.5,
+      "unit": "%",
+      "referencePeriod": "2026-2027",
+      "geographicScope": "Guinée équatoriale",
+      "methodology": "Projection du panorama Banque mondiale ; vérifier si le taux s’applique à chacune des années ou correspond à la moyenne avant comparaison.",
+      "sourceIds": [
+        "S-GNQ-W"
+      ],
+      "collectedAt": "2026-11-04",
+      "verifiedAt": "2026-11-04",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "gnq-claim-1",
+      "countryCode": "GNQ",
+      "statement": "Teodoro Obiang Nguema Mbasogo est le chef de l’État de Guinée équatoriale au 4 novembre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GNQ-P"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gnq-claim-2",
+      "countryCode": "GNQ",
+      "statement": "La capitale déclarée de Guinée équatoriale est Ciudad de la Paz (capitale officielle depuis janvier 2026 ; transfert progressif).",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GNQ-X"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gnq-claim-3",
+      "countryCode": "GNQ",
+      "statement": "Ciudad de la Paz officiellement capitale depuis  : 2026-01-02  (2026-01-02) selon la source citée.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-GNQ-X"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "gnq-claim-4",
+      "countryCode": "GNQ",
+      "statement": "Infrastructure hydrocarbures : Les installations pétrolières et gazières constituent une base industrielle existante.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-GNQ-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    },
+    {
+      "id": "gnq-claim-5",
+      "countryCode": "GNQ",
+      "statement": "Baisse structurelle des hydrocarbures : La diminution des volumes extraits entraîne une contraction de l’activité et des recettes.",
+      "claimType": "analysis",
+      "sourceIds": [
+        "S-GNQ-W"
+      ],
+      "validAsOf": "2026-11-04",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": [
+        "Synthèse analytique de la source ; interprétation éditoriale."
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "id": "gnq-rel-wb",
+      "countryCode": "GNQ",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Groupe de la Banque mondiale",
+      "relationType": "cooperation",
+      "title": "Coopération pour le développement",
+      "topics": [
+        "financement",
+        "développement"
+      ],
+      "summary": "Le Groupe de la Banque mondiale accompagne des programmes économiques et sociaux en Guinée équatoriale.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GNQ-W"
+      ],
+      "lastReviewedAt": "2026-11-04",
+      "status": "verified"
+    },
+    {
+      "id": "gnq-rel-cemac",
+      "countryCode": "GNQ",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "CEMAC / BEAC",
+      "relationType": "treaty",
+      "title": "Union monétaire et économique d’Afrique centrale",
+      "topics": [
+        "monnaie",
+        "intégration"
+      ],
+      "summary": "Guinée équatoriale fait partie des six États de la CEMAC utilisant la BEAC comme banque centrale commune.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-GNQ-C"
+      ],
+      "lastReviewedAt": "2026-11-04",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "gnq-strength-1",
+          "title": "Infrastructure hydrocarbures",
+          "summary": "Les installations pétrolières et gazières constituent une base industrielle existante.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ]
+        },
+        {
+          "id": "gnq-strength-2",
+          "title": "Position insulaire et continentale",
+          "summary": "La combinaison Bioko, Río Muni et façade maritime élargit les possibilités de connexion régionale.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "gnq-challenge-1",
+          "title": "Baisse structurelle des hydrocarbures",
+          "summary": "La diminution des volumes extraits entraîne une contraction de l’activité et des recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ]
+        },
+        {
+          "id": "gnq-challenge-2",
+          "title": "Inégalités et accès aux services",
+          "summary": "Malgré les infrastructures, la Banque mondiale relève des difficultés d’accès à l’eau et à l’électricité.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "gnq-event-1",
+          "title": "Déclaration de la nouvelle capitale",
+          "summary": "Le décret-loi n°1/2026 fait de Ciudad de la Paz la capitale officielle.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-X"
+          ],
+          "date": "2026-01-02"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "gnq-sector-1",
+          "title": "Pétrole et gaz",
+          "summary": "La production d’hydrocarbures constitue une ressource exportatrice en déclin.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ]
+        },
+        {
+          "id": "gnq-sector-2",
+          "title": "Services urbains",
+          "summary": "Malabo et Bata concentrent encore des fonctions économiques et administratives pendant la relocalisation.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ]
+        },
+        {
+          "id": "gnq-sector-3",
+          "title": "Diversification annoncée",
+          "summary": "Le programme Agenda 2035 vise des activités liées au numérique, au tourisme et à l’économie bleue.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "gnq-resource-1",
+          "title": "Réserves pétrolières et gazières",
+          "summary": "Les ressources du sous-sol soutiennent les exportations mais ne garantissent pas une croissance pérenne.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "gnq-security-1",
+          "title": "Transfert des institutions",
+          "summary": "La relocalisation prévue de Malabo vers Ciudad de la Paz pose des défis logistiques et budgétaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-X"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "gnq-issue-1",
+          "title": "Transfert effectif de capitale",
+          "summary": "Ciudad de la Paz est capitale de droit depuis janvier 2026, mais des ministères fonctionnent encore à Malabo et Bata.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-X"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le décret-loi du 2 janvier 2026 fait de Ciudad de la Paz la capitale de droit et prévoit un délai d’un an pour le transfert des institutions. L’installation effective reste progressive.",
+          "whyStrategic": "La mise en service réelle de la nouvelle capitale déterminera coûts publics et accès administratif.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Décrets d’application",
+            "transfert de ministères",
+            "infrastructures de Djibloho"
+          ],
+          "uncertainties": [
+            "Le calendrier légal de transfert n’établit pas le degré réel d’occupation des bâtiments."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "gnq-issue-2",
+          "title": "Déclin du secteur pétrolier",
+          "summary": "La production décroissante réduit le moteur traditionnel de croissance et de devises.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "La contraction des hydrocarbures affaiblit l’ancien moteur des recettes et des exportations. Les secteurs non pétroliers doivent absorber une part croissante de l’activité future.",
+          "whyStrategic": "La diversification requiert un investissement privé capable de remplacer des recettes extractives.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Volumes d’hydrocarbures",
+            "recettes non pétrolières",
+            "emplois formels"
+          ],
+          "uncertainties": [
+            "Les hypothèses de croissance pétrolière sont sensibles aux volumes physiques et aux cours."
+          ],
+          "updatedAt": "2026-11-04"
+        },
+        {
+          "id": "gnq-issue-3",
+          "title": "Accès aux services de base",
+          "summary": "La richesse passée des hydrocarbures n’a pas éliminé les écarts de fourniture d’eau ou d’énergie.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national"
+          ],
+          "subthemes": [],
+          "situation": "L’accumulation passée de ressources extractives n’a pas mécaniquement assuré l’accès homogène aux services essentiels. L’écart entre dépenses et résultats doit rester central dans le suivi.",
+          "whyStrategic": "La réduction des disparités est un test de l’efficacité des investissements publics.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Accès à l’eau",
+            "raccordements électriques",
+            "financement social"
+          ],
+          "uncertainties": [
+            "Les moyennes nationales masquent de possibles écarts territoriaux ; données fines à confirmer."
+          ],
+          "updatedAt": "2026-11-04"
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "gnq-swot-s-1",
+            "title": "Infrastructures offshore établies",
+            "summary": "Les équipements d’extraction représentent un socle technique pour une transition industrielle réfléchie.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNQ-W"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "gnq-swot-w-1",
+            "title": "Déclin de la rente",
+            "summary": "L’économie peine à compenser la baisse persistante des hydrocarbures par d’autres activités.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNQ-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "gnq-swot-o-1",
+            "title": "Planification de Ciudad de la Paz",
+            "summary": "Le transfert pourrait rapprocher certaines administrations du territoire continental, si les services suivent.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNQ-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "gnq-swot-t-1",
+            "title": "Double coût administratif",
+            "summary": "Le maintien de fonctions à Malabo en parallèle de Djibloho risquerait d’alourdir la dépense.",
+            "tags": [],
+            "sourceIds": [
+              "S-GNQ-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "gnq-scenario-1",
+          "title": "Capitale progressivement opérationnelle",
+          "summary": "Si administrations et transports sont transférés de façon coordonnée, Ciudad de la Paz pourrait devenir un centre public fonctionnel.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-X"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Financement et calendrier de transfert respectés"
+          ],
+          "triggers": [
+            "Ouverture des ministères et services publics"
+          ],
+          "weakSignals": [
+            "Transferts administratifs effectifs et ouverture des services"
+          ],
+          "consequences": [
+            "Rééquilibrage territorial partiel"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Capitale progressivement opérationnelle » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "gnq-scenario-2",
+          "title": "Diversification retardée",
+          "summary": "Si les projets non pétroliers ne prennent pas le relais, les recettes et l’emploi pourraient continuer de reculer.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Investissements privés trop faibles"
+          ],
+          "triggers": [
+            "Recul des exportations de brut et de gaz"
+          ],
+          "weakSignals": [
+            "Volumes produits et investissements hors hydrocarbures"
+          ],
+          "consequences": [
+            "Marges budgétaires réduites"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Diversification retardée » ; les hypothèses ne sont pas des faits établis."
+          ]
+        },
+        {
+          "id": "gnq-scenario-3",
+          "title": "Coûts de relocalisation aggravés",
+          "summary": "Un transfert administratif incomplet et coûteux pourrait accentuer les tensions sur les finances publiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-X"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Dépassements budgétaires et réseaux inachevés"
+          ],
+          "triggers": [
+            "Coûts d’exploitation des deux pôles administratifs"
+          ],
+          "weakSignals": [
+            "Dépenses de fonctionnement des deux pôles administratifs et avancement des réseaux"
+          ],
+          "consequences": [
+            "Moins de ressources pour les services sociaux"
+          ],
+          "limits": [
+            "Scénario prospectif non probabilisé : « Coûts de relocalisation aggravés » ; les hypothèses ne sont pas des faits établis."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "gnq-watch-1",
+          "title": "Capitale de droit et capitale de fait",
+          "summary": "Distinguer le statut légal 2026 des ministères réellement déplacés.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-X"
+          ]
+        },
+        {
+          "id": "gnq-watch-2",
+          "title": "Hydrocarbures et services",
+          "summary": "Suivre les recettes pétrolières et l’amélioration de l’eau et de l’électricité.",
+          "tags": [],
+          "sourceIds": [
+            "S-GNQ-W"
+          ]
+        }
+      ]
+    }
+  }
+}

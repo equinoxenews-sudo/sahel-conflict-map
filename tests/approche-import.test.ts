@@ -256,3 +256,17 @@ test("le Cap-Vert a de quoi s'afficher : fiche de l'ancien modèle, configuratio
   const geo = fs.readFileSync("lib/countryGeoConfig.ts", "utf8");
   assert.ok(geo.includes('"cap-vert": { mainIso3: "CPV"'), "configuration de carte");
 });
+
+const BATCH_AC = ["CMR", "TCD", "CAF", "COG", "COD", "GAB", "GNQ", "AGO", "BDI"];
+
+test("le lot Afrique centrale (neuf pays) est enregistré en brouillon, sans erreur, et n'est pas servi tant qu'il n'est pas validé ; São Tomé-et-Príncipe reste à l'extérieur", () => {
+  for (const code of BATCH_AC) {
+    assert.ok(COUNTRY_FILES[code], `${code} enregistré`);
+    assert.equal(read(code).publication, "draft", code);
+    assert.equal(getApprocheData(code), null, `${code} n'est pas servi au public tant qu'il est en brouillon`);
+    const report = analyzeCountry(read(code), `${code}.json`, ctx());
+    assert.deepEqual(Object.values(report.errors).flat(), [], `${code} : ${JSON.stringify(report.errors)}`);
+  }
+  assert.equal(COUNTRY_FILES.STP, undefined, "São Tomé-et-Príncipe n'a ni fiche pays, ni configuration de carte, ni contour dans le fond de carte du site");
+  assert.equal(listApprocheCountries().length, 18, "les dix-huit fiches validées restent seules servies");
+});
