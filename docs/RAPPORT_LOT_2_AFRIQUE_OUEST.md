@@ -1,6 +1,6 @@
-# Rapport consolidé — lot 2 Afrique de l'Ouest (dix fichiers livrés, neuf enregistrés)
+# Rapport consolidé — lot 2 Afrique de l'Ouest (dix fichiers livrés, dix enregistrés)
 
-Branche `approche-v1`, commit 51ac0fe. Tous les pays enregistrés restent en `draft`. Rien n'est dans `main`. Les fichiers sont identiques, octet pour octet, à ceux livrés par ChatGPT : aucun contenu n'a été modifié.
+Branche `approche-v1`, commits 51ac0fe (neuf pays) et 621bbd2 (Cap-Vert). Tous les pays enregistrés restent en `draft`. Rien n'est dans `main`. Les fichiers sont identiques, octet pour octet, à ceux livrés par ChatGPT : aucun contenu n'a été modifié.
 
 ## Résultat de l'import
 
@@ -15,15 +15,15 @@ Branche `approche-v1`, commit 51ac0fe. Tous les pays enregistrés restent en `dr
 | Guinée-Bissau (GNB) | enregistré | 0 | 5 | 13 (12) | 0 |
 | Sierra Leone (SLE) | enregistré | 0 | 6 | 12 (12) | 0 |
 | Liberia (LBR) | enregistré | 0 | 6 | 13 (13) | 0 |
-| **Cap-Vert (CPV)** | **refusé, non enregistré** | **2** | 5 | 12 (12) | 1 |
+| Cap-Vert (CPV) | enregistré le 05/11 (après ajout de sa fiche et de sa carte) | 0 | 5 | 12 (12) | 1 |
 
 Contrôles : Zod, publication, sources et références, collisions avec les séries automatiques : aucune anomalie, pour les dix. Séries Banque mondiale générées pour les neuf pays enregistrés.
 
 Tests : 538 passent. TypeScript : propre. ESLint : propre sur `app`, `components`, `lib`, `scripts` (les erreurs restantes du dépôt sont dans `tests/` et dans des copies de travail `.claude/`, antérieures). Validateur Zod : 9 fichiers valides. Smoke test : 17 pays × 6 onglets, tous les libellés retrouvés.
 
-## Cap-Vert : bloqué par le site, pas par le contenu
+## Cap-Vert : débloqué par un ajout au site (accord de Nicolas, 05/11)
 
-Le fichier est valide. Deux erreurs d'enregistrement : le slug « cap-vert » n'a ni fiche pays dans l'ancien modèle (`lib/countries/`, qui fournit la carte, le drapeau et le titre de la page) ni configuration de carte (`lib/countryGeoConfig.ts`). Créer ces deux éléments ajouterait un pays à la liste de la zone Afrique, donc ce n'est pas un simple import : décision à prendre. Le fichier est conservé dans le dossier de travail, rien n'est perdu.
+Le fichier était valide ; l'import le refusait faute de fiche pays dans l'ancien modèle et de configuration de carte. Ajoutés sur `approche-v1` : `lib/countries/cap-vert.ts` (fiche de démonstration, comme les autres pays), son entrée dans `lib/countryGeoConfig.ts` (voisins : Mauritanie, Sénégal), la liste des pays de la zone Afrique régénérée. Troisième manque découvert : le fond de carte du site (`public/data/world-countries.geo.json`) n'avait aucun contour pour le Cap-Vert, donc sa page répondait 404. Le contour (8 polygones, 87 points) est extrait de Natural Earth 50 m (domaine public) et ajouté au fichier ; il sert aussi au globe. Aucun autre pays du fond de carte n'est modifié. Le fichier `CPV.json` est importé tel que livré, en `draft`.
 
 ## Points de vigilance demandés
 
@@ -36,6 +36,8 @@ Le fichier est valide. Deux erreurs d'enregistrement : le slug « cap-vert » n'
 - **Observations `pending` :** trois (Togo : pauvreté rurale et urbaine ; Guinée-Bissau : part du cajou dans les exportations). Aucune valeur n'est affichée : le panneau indique « À vérifier sur la source officielle » et « Valeurs en attente de vérification ». Un test le garantit désormais.
 
 ## Anomalies éditoriales à transmettre à ChatGPT (non corrigées par moi)
+
+0. **Dirigeants (vérifications de Nicolas, 05/11) :** Sénégal, Premier ministre depuis le 25 mai 2026, orthographe donnée par Nicolas « Ahmadou Alhaminou Mohamed Lô » (le fichier écrit « Ahmadou Al Aminou Mohamed Lô » : harmoniser sur le nom officiel) avec une source sénégalaise directe (Présidence ou Primature) à la place de France Diplomatie. Togo, Guinée-Bissau (Horta Inta-a, Ilídio Vieira Té), Gambie (Adama Barrow) : confirmés, sources officielles à substituer à France Diplomatie quand c'est possible.
 
 1. **SWOT : titres et résumés décalés, dans les neuf pays.** Les résumés semblent assemblés automatiquement et rattachés au mauvais élément. Exemples :
    - Togo, faiblesse « Écarts de pauvreté » : le résumé parle de « l'architecture du pouvoir exécutif ».
