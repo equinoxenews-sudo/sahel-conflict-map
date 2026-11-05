@@ -1,20 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import {
+  MIN_RANGE_MS,
+  absoluteLimits,
+  clampSelection,
+  defaultBounds,
+  defaultSelection,
+  fromInputValue,
+  sameBounds,
+  toInputValue,
+  withEdge,
+  type TimeBounds,
+} from "@/lib/globeTimeRange";
 import styles from "./GlobeTimeRange.module.css";
-
-const DAY_MS = 24 * 60 * 60 * 1000;
-// Covers the layers that actually carry a per-item date (séismes, feux
-// de forêt/tempêtes/volcans/inondations, lancements) — wide enough to
-// hold a EONET "open" event's recent history and Launch Library's
-// upcoming window without being so wide the handles are hard to place.
-// Décision de Nicolas : deux mois d'historique, un mois à venir (lancements), et cinq jours
-// sélectionnés par défaut (20/10/2026, comme le bandeau d'articles d'une zone ; une semaine
-// auparavant). Un événement sorti de la période disparaît.
-const PAST_DAYS = 60;
-const FUTURE_DAYS = 30;
-const DEFAULT_DAYS = 5;
-const MIN_RANGE_MS = DAY_MS;
 
 export interface GlobeDateRange {
   start: number;
@@ -32,39 +31,38 @@ function formatDate(t: number): string {
 }
 
 /**
- * Compact date-range band for the globe's time-bound layers (séismes,
- * événements naturels, lancements) — aircraft/navires/satellites/pays en
- * crise have no meaningful per-item date and are unaffected regardless
- * of the selection (see Globe3D.tsx's eventTime filtering effect).
- * Interaction mirrors components/TimeRangeSlider.tsx (drag a handle to
- * resize, drag the middle to shift the window) restyled for this panel.
+ * Bande de période du globe (couches datées : événements analysés, séismes, événements naturels, lancements ; avions, navires, satellites
+ * et pays en crise n'ont pas de date propre et ne sont pas filtrés, voir l'effet de filtrage de Globe3D.tsx).
+ *
+ * Par défaut : les 5 derniers jours sélectionnés sur une frise de 10 jours, pour que la plage et ses poignées soient larges. Deux calendriers,
+ * à gauche et à droite de la frise, l'allongent ou la raccourcissent (jusqu'à 60 jours d'historique et 30 jours à venir). Glisser une
+ * poignée redimensionne la sélection, glisser la barre la déplace.
  */
-export default function GlobeTimeRange({ onChange }: GlobeTimeRangeProps) {
-  const bounds = useMemo(() => {
-    const now = new Date().getTime();
-    return { start: now - PAST_DAYS * DAY_MS, end: now + FUTURE_DAYS * DAY_MS };
-  }, []);
-  const totalMs = bounds.end - bounds.start;
+export default function GlobeTimeRange(props: GlobeTimeRangeProps) {
+  // Les dates dépendent du jour et du fuseau de la personne : le serveur ne peut pas les calculer. Il envoie un cadre vide de la bonne
+  // hauteur, la bande se dessine dès que la page est chargée (sinon React garderait les positions calculées par le serveur).
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+  return mounted ? <TimeRangeBand {...props} /> : <div className={styles.panel} style={{ minHeight: 150 }} aria-hidden />;
+}
 
-  // Par défaut : les 5 derniers jours, jusqu'à la fin de la journée en cours.
-  const [selStart, setSelStart] = useState(() => {
-    const d = new Date(bounds.start + PAST_DAYS * DAY_MS - (DEFAULT_DAYS - 1) * DAY_MS);
-    d.setHours(0, 0, 0, 0);
-    return d.getTime();
-  });
-  const [selEnd, setSelEnd] = useState(() => {
-    const d = new Date(bounds.start + PAST_DAYS * DAY_MS);
-    d.setHours(23, 59, 59, 999);
-    return d.getTime();
-  });
+function TimeRangeBand({ onChange }: GlobeTimeRangeProps) {
+  // L'horloge n'est lue qu'au montage : la frise reste ancrée sur le jour d'ouverture de la page.
+  const [now] = useState(() => Date.now());
+  const [bounds, setBounds] = useState<TimeBounds>(() => defaultBounds(now));
+  const [selection, setSelection] = useState<TimeBounds>(() => defaultSelection(now));
   const trackRef = useRef<HTMLDivElement>(null);
+  const totalMs = bounds.end - bounds.start;
+  const limits = absoluteLimits(now);
 
   useEffect(() => {
-    onChange({ start: selStart, end: selEnd });
-    // `onChange` is an inline callback from the parent, not stable across
-    // renders — only the selection itself should retrigger this.
+    onChange({ start: selection.start, end: selection.end });
+    // `onChange` est un rappel en ligne du parent, instable d'un rendu à l'autre : seule la sélection doit relancer l'effet.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selStart, selEnd]);
+  }, [selection.start, selection.end]);
 
   const handlePointerDown = (downEvent: React.PointerEvent<HTMLDivElement>) => {
     downEvent.preventDefault();
@@ -79,30 +77,18 @@ export default function GlobeTimeRange({ onChange }: GlobeTimeRangeProps) {
     };
 
     const originTime = xToTime(downEvent.clientX);
-    const originSel = { start: selStart, end: selEnd };
+    const origin = { ...selection };
 
     const handleMove = (e: PointerEvent) => {
       if (mode === "start") {
-        const t = Math.min(xToTime(e.clientX), originSel.end - MIN_RANGE_MS);
-        setSelStart(Math.max(t, bounds.start));
+        const t = Math.min(xToTime(e.clientX), origin.end - MIN_RANGE_MS);
+        setSelection({ start: Math.max(t, bounds.start), end: origin.end });
       } else if (mode === "end") {
-        const t = Math.max(xToTime(e.clientX), originSel.start + MIN_RANGE_MS);
-        setSelEnd(Math.min(t, bounds.end));
+        const t = Math.max(xToTime(e.clientX), origin.start + MIN_RANGE_MS);
+        setSelection({ start: origin.start, end: Math.min(t, bounds.end) });
       } else {
-        const deltaMs = xToTime(e.clientX) - originTime;
-        const width = originSel.end - originSel.start;
-        let newStart = originSel.start + deltaMs;
-        let newEnd = originSel.end + deltaMs;
-        if (newStart < bounds.start) {
-          newStart = bounds.start;
-          newEnd = newStart + width;
-        }
-        if (newEnd > bounds.end) {
-          newEnd = bounds.end;
-          newStart = newEnd - width;
-        }
-        setSelStart(newStart);
-        setSelEnd(newEnd);
+        const delta = xToTime(e.clientX) - originTime;
+        setSelection(clampSelection({ start: origin.start + delta, end: origin.end + delta }, bounds));
       }
     };
 
@@ -115,18 +101,25 @@ export default function GlobeTimeRange({ onChange }: GlobeTimeRangeProps) {
     window.addEventListener("pointerup", handleUp);
   };
 
-  const resetFull = () => {
-    setSelStart(bounds.start);
-    setSelEnd(bounds.end);
+  /** Calendrier de gauche ou de droite : allonge ou raccourcit la frise ; la sélection reste dedans. */
+  const changeEdge = (edge: "start" | "end", value: string) => {
+    const next = withEdge(bounds, edge, value, now);
+    if (sameBounds(next, bounds)) return;
+    setBounds(next);
+    setSelection((current) => clampSelection(current, next));
   };
 
-  const startPct = ((selStart - bounds.start) / totalMs) * 100;
-  const endPct = ((selEnd - bounds.start) / totalMs) * 100;
-  const isFullRange = selStart === bounds.start && selEnd === bounds.end;
-  // bounds itself is anchored to "now" (see the useMemo above), so this
-  // fraction is fixed by the two day-count constants — no need to read
-  // the clock again here.
-  const nowPct = (PAST_DAYS / (PAST_DAYS + FUTURE_DAYS)) * 100;
+  const reset = () => {
+    setBounds(defaultBounds(now));
+    setSelection(defaultSelection(now));
+  };
+
+  const startPct = ((selection.start - bounds.start) / totalMs) * 100;
+  const endPct = ((selection.end - bounds.start) / totalMs) * 100;
+  const isDefault = sameBounds(bounds, defaultBounds(now)) && sameBounds(selection, defaultSelection(now));
+  // Repère « maintenant » : visible seulement si la frise s'étend au-delà d'aujourd'hui (lancements à venir).
+  const nowPct = ((now - bounds.start) / totalMs) * 100;
+  const showNow = now < bounds.end - 24 * 60 * 60 * 1000 && nowPct > 0;
 
   return (
     <div className={styles.panel}>
@@ -140,43 +133,50 @@ export default function GlobeTimeRange({ onChange }: GlobeTimeRangeProps) {
           </span>
           Période
         </h2>
-        {!isFullRange ? (
-          <button type="button" className={styles.resetBtn} onClick={resetFull}>
+        {!isDefault ? (
+          <button type="button" className={styles.resetBtn} onClick={reset}>
             Réinitialiser
           </button>
         ) : null}
       </div>
 
       <p className={styles.rangeLabel}>
-        {formatDate(selStart)} — {formatDate(selEnd)}
+        {formatDate(selection.start)} — {formatDate(selection.end)}
       </p>
 
       <div className={styles.track} ref={trackRef}>
         <div className={styles.trackBg} />
-        <div className={styles.nowMark} style={{ left: `${nowPct}%` }} title="Maintenant" />
-        <div
-          className={styles.selectedRange}
-          style={{ left: `${startPct}%`, width: `${endPct - startPct}%` }}
-          data-mode="range"
-          onPointerDown={handlePointerDown}
-        />
-        <div
-          className={styles.handle}
-          style={{ left: `${startPct}%` }}
-          data-mode="start"
-          onPointerDown={handlePointerDown}
-        />
-        <div
-          className={styles.handle}
-          style={{ left: `${endPct}%` }}
-          data-mode="end"
-          onPointerDown={handlePointerDown}
-        />
+        {showNow ? <div className={styles.nowMark} style={{ left: `${nowPct}%` }} title="Aujourd’hui" /> : null}
+        <div className={styles.selectedRange} style={{ left: `${startPct}%`, width: `${endPct - startPct}%` }} data-mode="range" onPointerDown={handlePointerDown} />
+        <div className={styles.handle} style={{ left: `${startPct}%` }} data-mode="start" onPointerDown={handlePointerDown} />
+        <div className={styles.handle} style={{ left: `${endPct}%` }} data-mode="end" onPointerDown={handlePointerDown} />
       </div>
 
       <div className={styles.boundsLabels}>
-        <span>{formatDate(bounds.start)}</span>
-        <span>{formatDate(bounds.end)}</span>
+        <label className={styles.calendar} title="Début de la frise : choisir une date pour l’allonger ou la raccourcir">
+          <span className={styles.calendarLabel}>Du</span>
+          <input
+            type="date"
+            className={styles.dateInput}
+            value={toInputValue(bounds.start)}
+            min={toInputValue(limits.start)}
+            max={toInputValue(bounds.end)}
+            onChange={(event) => event.target.value && fromInputValue(event.target.value, false) !== null && changeEdge("start", event.target.value)}
+            aria-label="Début de la frise"
+          />
+        </label>
+        <label className={`${styles.calendar} ${styles.calendarEnd}`} title="Fin de la frise : choisir une date pour l’allonger ou la raccourcir">
+          <span className={styles.calendarLabel}>Au</span>
+          <input
+            type="date"
+            className={styles.dateInput}
+            value={toInputValue(bounds.end)}
+            min={toInputValue(bounds.start)}
+            max={toInputValue(limits.end)}
+            onChange={(event) => event.target.value && fromInputValue(event.target.value, true) !== null && changeEdge("end", event.target.value)}
+            aria-label="Fin de la frise"
+          />
+        </label>
       </div>
       <p className={styles.scope}>Événements analysés · Séismes · Événements naturels · Lancements</p>
     </div>

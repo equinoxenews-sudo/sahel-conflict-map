@@ -1832,12 +1832,14 @@ export default function Globe3D({
     [],
   );
 
-  // Mise au point sur une zone : la caméra vole vers elle ; sans zone, elle revient à la vue
-  // d'ensemble. Le premier rendu (aucune zone) ne bouge pas la caméra.
+  // Mise au point sur une zone : la caméra vole vers elle. Quand la fiche de zone se ferme (« Retour au globe », Échap), la caméra ne
+  // bouge pas : on reste là où l'on avait zoomé (la vue d'ensemble se retrouve avec le bouton de recentrage). Le premier rendu
+  // (aucune zone) ne bouge pas non plus la caméra.
   const previousZoneRef = useRef<ZoneSlug | null>(null);
   useEffect(() => {
     if (previousZoneRef.current === focusZone) return;
     previousZoneRef.current = focusZone;
+    if (focusZone === null) return;
     const viewer = viewerRef.current;
     const Cesium = window.Cesium;
     if (!viewer || !Cesium) return;
