@@ -5,6 +5,7 @@ import HexFlag from "@/components/investigation/HexFlag";
 import { RISK_COLORS, RISK_LABELS, type RiskTier } from "@/lib/countryRisk";
 import { itemsInPeriod, periodLabel, type PeriodRange } from "@/lib/globeCountry";
 import { briefImageSrc } from "@/lib/imageUrls";
+import { getZoneHeroImage } from "@/lib/zoneHeroImages";
 import { POWER_COMPONENTS } from "@/lib/powerMethod";
 import type { CountryPanelData, PanelMembership, PanelRelation } from "@/lib/countryPanel";
 import styles from "./GlobeCountryPanel.module.css";
@@ -14,6 +15,8 @@ export interface PanelArticle {
   title: string;
   publishedAt: string;
   imageUrl: string | null;
+  /** Zone de l'article, pour son image par défaut. */
+  zone?: string | null;
 }
 
 export type PanelView = "profil" | "actualites";
@@ -136,16 +139,35 @@ export default function GlobeCountryPanel({ iso3, name, flagIso2, tier, href, ra
   );
 }
 
+/**
+ * Miniature d'un article : sa propre image ; si elle manque ou ne se charge pas (adresse expirée, site qui refuse l'affichage), l'image par
+ * défaut de sa zone ; à défaut, un fond neutre. Jamais d'icône d'image cassée.
+ */
+function Thumb({ article }: { article: PanelArticle }) {
+  const own = article.imageUrl ? briefImageSrc(article.imageUrl) : null;
+  const fallback = (article.zone && getZoneHeroImage(article.zone)) || null;
+  // 0 : image de l'article, 1 : image de la zone, 2 : fond neutre.
+  const [stage, setStage] = useState<0 | 1 | 2>(own ? 0 : fallback ? 1 : 2);
+  const src = stage === 0 ? own : stage === 1 ? fallback : null;
+  if (!src) return <span className={styles.thumb} aria-hidden="true" />;
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      className={styles.thumb}
+      src={src}
+      alt=""
+      loading="lazy"
+      referrerPolicy="no-referrer"
+      onError={() => setStage(stage === 0 && fallback ? 1 : 2)}
+    />
+  );
+}
+
 function ArticleRow({ article }: { article: PanelArticle }) {
   return (
     <li>
       <a className={styles.article} href={`/briefs/${article.id}`}>
-        {article.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img className={styles.thumb} src={briefImageSrc(article.imageUrl)} alt="" loading="lazy" referrerPolicy="no-referrer" />
-        ) : (
-          <span className={styles.thumb} aria-hidden="true" />
-        )}
+        <Thumb article={article} />
         <span className={styles.articleText}>
           <span className={styles.articleTitle}>{article.title}</span>
           <span className={styles.articleDate}>{DATE.format(new Date(article.publishedAt))}</span>

@@ -16,6 +16,8 @@ export interface CountryArticle {
   title: string;
   publishedAt: string;
   imageUrl: string | null;
+  /** Zone de l'article : sa photo de remplacement quand l'image de l'article manque ou ne se charge pas. */
+  zone: string | null;
 }
 
 interface Row {
@@ -24,10 +26,11 @@ interface Row {
   summary: string | null;
   published_at: string;
   image_url: string | null;
+  zone_slug: string | null;
   countries?: string[] | null;
 }
 
-const COLUMNS = "id, title, summary, published_at, image_url";
+const COLUMNS = "id, title, summary, published_at, image_url, zone_slug";
 
 /** Une base lente ne doit pas bloquer le panneau : passé ce délai, la liste est vide (comme la recherche du site). */
 const TIMEOUT_MS = 6000;
@@ -82,5 +85,5 @@ async function loadCountryArticles(iso3: string, now: number): Promise<CountryAr
     .filter((row) => !isSportsTitle(row.title))
     .sort((a, b) => Date.parse(b.published_at) - Date.parse(a.published_at))
     .slice(0, MAX_ARTICLES)
-    .map((row) => ({ id: row.id, title: row.title, publishedAt: row.published_at, imageUrl: row.image_url }));
+    .map((row) => ({ id: row.id, title: row.title, publishedAt: row.published_at, imageUrl: row.image_url, zone: row.zone_slug }));
 }
