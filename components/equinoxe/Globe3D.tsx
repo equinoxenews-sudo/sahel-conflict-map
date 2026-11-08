@@ -1220,6 +1220,10 @@ export default function Globe3D({
       // large-vertex-count rings avoids building that doomed geometry at
       // all; the renderError handler above is the general safety net for
       // anything this specific heuristic doesn't catch.
+      // Russia's main ring (447 vertices) used to be dropped by this rule, leaving
+      // the country uncoloured and unclickable; it is now lightened to 279 vertices
+      // in the GeoJSON itself (scripts/simplify-world-polygons.ts, test in
+      // tests/simplify-ring.test.ts). Only Antarctica is still dropped.
       const MAX_SAFE_VERTICES = 300;
       function countVertices(hierarchy: CesiumNS.PolygonHierarchy): number {
         return (
