@@ -18,6 +18,15 @@ export interface GlobeCountryInfo {
   href: string | null;
 }
 
+/**
+ * Code ISO 3 d'un pays d'après l'identifiant de son polygone sur le globe. Cesium crée un polygone par île ou morceau d'un pays
+ * (MultiPolygon) et suffixe l'identifiant des suivants : « FRA » est le premier morceau, « FRA_2 » le deuxième (la France métropolitaine
+ * dans le fond de carte du site), « GBR_2 » la Grande-Bretagne. Sans cette lecture, cliquer ces morceaux ne reconnaissait pas le pays.
+ */
+export function countryCodeOfEntityId(id: unknown): string {
+  return String(id).replace(/_\d+$/, "");
+}
+
 const FLAG_BY_NAME = new Map(FLAG_COUNTRIES.map((country) => [country.name, country.iso2]));
 
 const BY_ISO3: ReadonlyMap<string, GlobeCountryInfo> = new Map(

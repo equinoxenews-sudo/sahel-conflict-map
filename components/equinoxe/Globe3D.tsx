@@ -15,7 +15,7 @@ import type { VesselPosition } from "@/types/vessel";
 import { CESIUM_BASE_URL } from "@/lib/cesiumCdn";
 import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
 import { isHomeZone, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
-import { globeCountryInfo } from "@/lib/globeCountry";
+import { countryCodeOfEntityId, globeCountryInfo } from "@/lib/globeCountry";
 import { getHoveredBrief, onHoveredBrief } from "@/lib/briefHover";
 import { CLUSTER_MIN_SIZE, CLUSTER_PIXEL_RANGE, GLOBE_CLUSTERING_ENABLED, GLOBE_TEST_TOOLS, RING_DOUBLE_FROM, blinkLevel, clusterDotCanvasSize, clusterDotDiameter, distinctIds, explodedAtHeight, isColocated, pointStyleFromSearch, ringCanvasSize, ringDiameter, type EventMode } from "@/lib/globeClustering";
 import styles from "./Globe3D.module.css";
@@ -1243,7 +1243,8 @@ export default function Globe3D({
           continue;
         }
 
-        const iso3 = String(entity.id);
+        // Un pays en plusieurs morceaux (France, Royaume-Uni, Italie, Japon…) : les polygones suivants ont un identifiant suffixé (« FRA_2 »).
+        const iso3 = countryCodeOfEntityId(entity.id);
         const risk = countryRisk[iso3];
         const color = risk
           ? Cesium.Color.fromCssColorString(RISK_COLORS[risk.tier]).withAlpha(0.28)
