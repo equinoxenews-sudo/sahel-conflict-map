@@ -1033,21 +1033,28 @@ export default function Globe3D({
         viewer.resolutionScale = idleScale;
         const qualityViewer = viewer;
         let sharpenTimer: number | undefined;
-        // Garde-fou : si la fin d'un geste n'est jamais signalée, le bandeau LATEST repart quand même au bout de 2,5 s.
-        let movingGuard: number | undefined;
         const setQuality = (idle: boolean) => {
           if (qualityViewer.isDestroyed()) return;
           qualityViewer.resolutionScale = idle ? idleScale : movingScale;
           qualityViewer.scene.globe.maximumScreenSpaceError = idle ? MOBILE_IDLE_SSE : MOBILE_MOVING_SSE;
-          // Le globe prend toute la puissance pendant un geste : le bandeau LATEST se met en pause (voir Ticker.module.css) au lieu de saccader.
-          window.clearTimeout(movingGuard);
-          if (idle) document.documentElement.removeAttribute(GLOBE_MOVING_ATTR);
-          else {
-            document.documentElement.setAttribute(GLOBE_MOVING_ATTR, "1");
-            movingGuard = window.setTimeout(() => document.documentElement.removeAttribute(GLOBE_MOVING_ATTR), 2500);
-          }
           qualityViewer.scene.requestRender();
         };
+        // Le bandeau LATEST fait une pause tant qu'un doigt est posé sur le globe (voir Ticker.module.css), puis repart tout de suite. La pause
+        // suit le doigt (pointerdown / pointerup), jamais les événements de caméra : un événement de fin manqué ne peut donc pas la figer.
+        // Garde-fou : elle s'arrête d'elle-même au bout de 4 s, et dès que la page est masquée.
+        const gestureCanvas = viewer.scene.canvas;
+        let pauseGuard: number | undefined;
+        const releaseTicker = () => {
+          window.clearTimeout(pauseGuard);
+          document.documentElement.removeAttribute(GLOBE_MOVING_ATTR);
+        };
+        gestureCanvas.addEventListener("pointerdown", () => {
+          document.documentElement.setAttribute(GLOBE_MOVING_ATTR, "1");
+          window.clearTimeout(pauseGuard);
+          pauseGuard = window.setTimeout(releaseTicker, 4000);
+        });
+        for (const type of ["pointerup", "pointercancel", "pointerleave", "lostpointercapture"]) gestureCanvas.addEventListener(type, releaseTicker);
+        document.addEventListener("visibilitychange", releaseTicker);
         qualityViewer.camera.moveStart.addEventListener(() => {
           window.clearTimeout(sharpenTimer);
           setQuality(false);

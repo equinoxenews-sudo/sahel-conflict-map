@@ -32,8 +32,6 @@
   height: 100%;
   display: flex;
   align-items: center;
-  /* Le défilement ne redessine que ce cadre. */
-  contain: layout paint;
 }
 
 .track {
@@ -44,8 +42,8 @@
   animation: scroll 45s linear infinite;
 }
 
-/* Téléphone : pendant qu'un doigt fait tourner le globe (attribut posé par Globe3D.tsx), le bandeau fait une pause plutôt que de
-   saccader : le globe a besoin de toute la puissance de l'appareil. Il repart 0,2 s après la fin du geste. */
+/* Téléphone : tant qu'un doigt est posé sur le globe (attribut posé par Globe3D.tsx), le bandeau fait une pause plutôt que de saccader :
+   le globe a besoin de toute la puissance de l'appareil. Il repart dès que le doigt se lève. */
 :global(html[data-globe-moving]) .track {
   animation-play-state: paused;
 }
@@ -73,10 +71,10 @@
 
 @keyframes scroll {
   from {
-    transform: translate3d(0, 0, 0);
+    transform: translateX(0);
   }
   to {
-    transform: translate3d(-50%, 0, 0);
+    transform: translateX(-50%);
   }
 }
 
