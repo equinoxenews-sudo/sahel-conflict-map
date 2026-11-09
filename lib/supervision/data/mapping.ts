@@ -41,6 +41,12 @@ export interface MatchRow {
   reason: string;
   terms: string[];
   sv_items: { id: string; url: string; title: string; excerpt: string | null; source_name: string | null; published_at: string | null } | null;
+  /** Position déduite du texte (dictionnaire GeoNames) ; absente si aucun lieu sûr n'a été reconnu. */
+  place_name?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  geo_precision?: "ville" | "zone" | null;
+  geo_source?: string | null;
 }
 
 export interface EventRow {
@@ -218,6 +224,7 @@ export function matchToEvent(row: MatchRow, placeLabel: string): BoardEvent | nu
   } catch {
     /* adresse illisible : pas de domaine */
   }
+  const geo = row.geo_source === "geonames" && row.geo_precision && validCoords(row.latitude ?? null, row.longitude ?? null) && row.place_name;
   return {
     id: `p-${item.id}`,
     kind: "publication",
@@ -227,7 +234,10 @@ export function matchToEvent(row: MatchRow, placeLabel: string): BoardEvent | nu
     priority: "information",
     verification: "signalement",
     at: new Date(item.published_at).toISOString(),
-    place: placeLabel,
+    place: geo ? row.place_name! : placeLabel,
+    lat: geo ? row.latitude! : undefined,
+    lon: geo ? row.longitude! : undefined,
+    geo: geo ? { source: "geonames", precision: row.geo_precision!, name: row.place_name! } : undefined,
     publications: 1,
     url: item.url,
     domains: [item.source_name, host].filter((value): value is string => !!value),

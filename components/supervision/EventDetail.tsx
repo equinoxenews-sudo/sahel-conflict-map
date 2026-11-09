@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
+import { GEONAMES_ATTRIBUTION } from "@/lib/supervision/geo/gazetteer";
 import { PRIORITY_LABELS, VERIFICATION_LABELS, type BoardEvent } from "@/lib/supervision/dashboard/fixtures";
 import styles from "./Lab.module.css";
 
@@ -70,7 +71,7 @@ export default function EventDetailPanel({ event, onClose }: { event: BoardEvent
             <dt>Lieu</dt>
             <dd>
               {event.place}
-              {event.lat !== undefined && event.lon !== undefined ? <span className={styles.muted}> — {event.lat.toFixed(2)}, {event.lon.toFixed(2)} (position approximative)</span> : <span className={styles.muted}> — pas de position retrouvée</span>}
+              {event.lat !== undefined && event.lon !== undefined ? <span className={styles.muted}> — {event.lat.toFixed(2)}, {event.lon.toFixed(2)} ({event.geo ? `déduite du nom « ${event.geo.name} » cité dans le texte, précision ${event.geo.precision === "ville" ? "localité" : "région"}` : "position approximative"})</span> : <span className={styles.muted}> — pas de position retrouvée</span>}
             </dd>
             <dt>Publications</dt>
             <dd>
@@ -99,6 +100,7 @@ export default function EventDetailPanel({ event, onClose }: { event: BoardEvent
           ) : (
             <p className={styles.muted}>Aucune adresse de source enregistrée pour cet élément.</p>
           )}
+          {event.geo ? <p className={styles.muted}>{GEONAMES_ATTRIBUTION}. La position est déduite automatiquement d&apos;un nom de lieu du texte, sans IA : elle peut être imprécise.</p> : null}
           {event.domains && event.domains.length > 0 ? <p className={styles.muted}>Domaines : {event.domains.join(", ")}</p> : null}
           <p className={styles.muted}>Équinoxe affiche ce qui a été retrouvé ; il ne garantit ni l&apos;exhaustivité ni l&apos;exactitude de la source citée.</p>
         </>

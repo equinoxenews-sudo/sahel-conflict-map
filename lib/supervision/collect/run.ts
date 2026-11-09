@@ -7,7 +7,9 @@
 //  - chaque passage laisse une ligne de journal, même en cas d'échec ;
 //  - un flux en panne n'arrête pas les autres : le passage est alors « partiel », jamais présenté comme complet.
 
+import { COUNTRY_CODES } from "../../countryCodes";
 import { fetchFeed as realFetchFeed, type FeedItem } from "../../rss";
+import { GEO_SOURCE, candidateKeys, locate, type Located, type PlaceRow } from "../geo/gazetteer";
 import { StoreError, adminDb, callRpc, getScopeSnapshot, getSupervision, type Db, type FailureCode } from "../core/store";
 import { matchItem } from "./match";
 import { normalizeFeedItem, type ItemRow } from "./normalize";
@@ -29,6 +31,10 @@ export interface CollectStats {
   matched: number;
   newItems: number;
   newMatches: number;
+  /** Publications retenues auxquelles un lieu a été trouvé dans le texte (dictionnaire GeoNames, sans IA). */
+  located: number;
+  /** Faux si le dictionnaire de lieux n'est pas installé dans cette base : rien n'est localisé. */
+  locationAvailable: boolean;
   truncated: boolean;
 }
 
@@ -53,6 +59,24 @@ async function mapPool<T, R>(items: readonly T[], limit: number, fn: (item: T) =
   }
   await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
   return results;
+}
+
+const missingTable = (error: { code?: string; message?: string }) => error.code === "42P01" || error.code === "PGRST205" || /does not exist|schema cache/i.test(error.message ?? "");
+
+/** Lieux du dictionnaire dont le nom figure dans les textes, pour les pays donnés. Table absente : « indisponible », sans erreur. */
+async function loadPlaceRows(db: Db, texts: readonly string[], countries: readonly string[]): Promise<{ available: boolean; rows: PlaceRow[] }> {
+  if (countries.length === 0) return { available: false, rows: [] };
+  const rows: PlaceRow[] = [];
+  const keys = candidateKeys(texts);
+  for (let start = 0; start < keys.length; start += 150) {
+    const { data, error } = await db.from("sv_place_names").select("geoname_id, name_key, name, country, latitude, longitude, feature_code, population, is_main").in("country", [...countries]).in("name_key", keys.slice(start, start + 150));
+    if (error) {
+      if (missingTable(error)) return { available: false, rows: [] };
+      throw new StoreError("Lecture des lieux : " + error.message, error);
+    }
+    rows.push(...((data ?? []) as PlaceRow[]));
+  }
+  return { available: true, rows };
 }
 
 const chunks = <T,>(values: readonly T[], size: number): T[][] => Array.from({ length: Math.ceil(values.length / size) }, (_, index) => values.slice(index * size, (index + 1) * size));
@@ -95,7 +119,7 @@ export async function collectForSupervision(
 
     // 1. Recherche : un flux en panne donne une liste vide (fetchFeed ne lève pas) ; on compte les requêtes sans aucun résultat.
     const feeds = await mapPool(queries, FETCH_CONCURRENCY, (query) => fetchFeed(query.url));
-    const stats: CollectStats = { queries: queries.length, failedQueries: feeds.filter((items) => items.length === 0).length, fetched: 0, skipped: {}, rejected: 0, matched: 0, newItems: 0, newMatches: 0, truncated: false };
+    const stats: CollectStats = { queries: queries.length, failedQueries: feeds.filter((items) => items.length === 0).length, fetched: 0, skipped: {}, rejected: 0, matched: 0, newItems: 0, newMatches: 0, located: 0, locationAvailable: false, truncated: false };
 
     // 2. Normalisation, dédoublonnage par adresse canonique, correspondance.
     const matched = new Map<string, { row: ItemRow; score: number; reason: string; terms: string[]; theme: string }>();
@@ -129,6 +153,20 @@ export async function collectForSupervision(
     }
     stats.matched = kept.length;
 
+    // 2b. Localisation d'après les noms de lieux du texte (dictionnaire GeoNames, sans IA) : aucun lieu reconnu ou lieu ambigu = pas de position.
+    const zone = snapshot.scope.primaryZone;
+    const iso2 = zone.kind === "countries" ? zone.codes.flatMap((code) => COUNTRY_CODES.find((entry) => entry.iso3 === code)?.iso2 ?? []) : [];
+    const places = await loadPlaceRows(db, kept.flatMap((entry) => [entry.row.title, entry.row.excerpt ?? ""]), iso2);
+    stats.locationAvailable = places.available;
+    const located = new Map<string, Located>();
+    if (places.available) {
+      for (const entry of kept) {
+        const found = locate(entry.row.title, entry.row.excerpt, places.rows);
+        if (found) located.set(entry.row.url_canonical, found);
+      }
+    }
+    stats.located = located.size;
+
     // 3. Rangement idempotent : publications (partagées), puis rattachements (propres à la Supervision).
     const canonicals = kept.map((entry) => entry.row.url_canonical);
     const known = new Set<string>();
@@ -157,13 +195,30 @@ export async function collectForSupervision(
       if (error) throw new StoreError(`Lecture des rattachements : ${error.message}`, error);
       for (const row of (data ?? []) as { item_id: string }[]) alreadyMatched.add(row.item_id);
     }
+    // Position : seulement si le dictionnaire est installé (sinon les colonnes de position n'existent peut-être pas encore).
+    const geoFields = (entry: (typeof kept)[number]) => {
+      if (!places.available) return {};
+      const found = located.get(entry.row.url_canonical);
+      return { place_name: found?.name ?? null, latitude: found?.latitude ?? null, longitude: found?.longitude ?? null, geo_precision: found?.precision ?? null, geo_source: found ? GEO_SOURCE : null };
+    };
     const links = kept.flatMap((entry) => {
       const itemId = idByCanonical.get(entry.row.url_canonical);
-      return itemId && !alreadyMatched.has(itemId) ? [{ supervision_id: supervisionId, item_id: itemId, score: entry.score, reason: entry.reason, terms: entry.terms, theme: entry.theme, matched_at: now.toISOString() }] : [];
+      return itemId && !alreadyMatched.has(itemId) ? [{ supervision_id: supervisionId, item_id: itemId, score: entry.score, reason: entry.reason, terms: entry.terms, theme: entry.theme, matched_at: now.toISOString(), ...geoFields(entry) }] : [];
     });
     for (const part of chunks(links, CHUNK)) {
       const { error } = await db.from("sv_matches").upsert(part, { onConflict: "supervision_id,item_id", ignoreDuplicates: true });
-      if (error) throw new StoreError(`Rattachement des publications : ${error.message}`, error);
+      if (error) throw new StoreError("Rattachement des publications : " + error.message, error);
+    }
+    // Rattachements déjà connus : leur position est mise à jour (dictionnaire enrichi depuis), rien d'autre ne change.
+    if (places.available) {
+      const known = kept.flatMap((entry) => {
+        const itemId = idByCanonical.get(entry.row.url_canonical);
+        return itemId && alreadyMatched.has(itemId) ? [{ supervision_id: supervisionId, item_id: itemId, ...geoFields(entry) }] : [];
+      });
+      for (const part of chunks(known, CHUNK)) {
+        const { error } = await db.from("sv_matches").upsert(part, { onConflict: "supervision_id,item_id" });
+        if (error) throw new StoreError("Mise à jour des positions : " + error.message, error);
+      }
     }
     stats.newMatches = links.length;
 

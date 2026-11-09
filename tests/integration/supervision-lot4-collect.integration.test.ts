@@ -1,6 +1,6 @@
 // Tests d'INTÉGRATION de la collecte (sans IA) : base de PRÉPRODUCTION seulement. AUCUN accès réseau : les flux sont simulés.
 //   npm run test:staging
-// Il faut avoir exécuté supabase/supervision-lot4-collection.sql dans la préproduction.
+// Il faut avoir exécuté supabase/supervision-lot4-collection.sql PUIS supabase/supervision-lot4b-gazetteer.sql dans la préproduction.
 
 import assert from "node:assert/strict";
 import { after, before, test } from "node:test";
@@ -51,10 +51,17 @@ const OTHER_COUNTRY = item("niger", "Attaque au Niger : trois morts - Journal Te
 const TOO_OLD = item("vieux", "Nigeria : attaque ancienne - Journal Test", "2026-08-01T09:00:00.000Z");
 const feed = async () => [GOOD, OTHER_COUNTRY, TOO_OLD];
 
+// Lieu fictif du dictionnaire (identifiant improbable, retiré à la fin) : les tests ne dépendent pas des vraies données GeoNames.
+const TEST_PLACE_ID = 9_000_000_000 + Math.floor(Math.random() * 1_000_000);
+const LOCATED = item("testville", "Nigeria : attaque contre un convoi militaire près de Testville - Journal Test", "2026-11-09T10:00:00.000Z");
+const addTestPlace = () => admin!.from("sv_place_names").upsert({ geoname_id: TEST_PLACE_ID, name_key: "testville", name: "Testville", country: "NG", latitude: 11.5, longitude: 13.25, feature_code: "PPL", population: 1234, is_main: true });
+
 before(async () => {
   if (skip || !admin) return;
   const { error } = await admin.from("sv_collection_runs").select("id").limit(1);
   if (error) throw new Error(`La préproduction n'a pas les tables de la collecte (${error.message}). Exécute supabase/supervision-lot4-collection.sql dans le SQL Editor de equinoxe-staging.`);
+  const places = await admin.from("sv_place_names").select("geoname_id").limit(1);
+  if (places.error) throw new Error(`La préproduction n'a pas le dictionnaire de lieux (${places.error.message}). Exécute supabase/supervision-lot4b-gazetteer.sql dans le SQL Editor de equinoxe-staging.`);
 });
 
 after(async () => {
@@ -64,6 +71,7 @@ after(async () => {
     await admin.from("sv_supervisions").delete().eq("owner_id", id); // supprime journal et rattachements (cascade)
   }
   await admin.from("sv_items").delete().like("url", `https://test.example.com/${runId}/%`);
+  await admin.from("sv_place_names").delete().eq("geoname_id", TEST_PLACE_ID);
 });
 
 test("premier passage : seules les publications qui correspondent sont rangées, avec leur raison, et le journal le dit", { skip }, async () => {
@@ -190,4 +198,58 @@ test("sécurité : la clé publique n'atteint ni les publications, ni les rattac
   }
   const rpc = await anon.rpc("sv_begin_collection", { p_owner: "x", p_supervision_id: "00000000-0000-0000-0000-000000000000", p_trigger: "manual" });
   assert.ok(rpc.error, "fonction exécutable avec la clé publique");
+});
+
+test("localisation : un lieu du dictionnaire cité dans le texte donne une position, avec sa source ; sans lieu connu, aucune position", { skip }, async () => {
+  const added = await addTestPlace();
+  assert.equal(added.error, null);
+  const o = owner("geo");
+  const id = await draft(o);
+  const out = await collectForSupervision(o, id, { trigger: "manual", deps: { db: admin!, fetchFeed: async () => [LOCATED, GOOD], now: NOW } });
+  assert.ok(out.ok, JSON.stringify(out));
+  if (!out.ok) return;
+  assert.equal(out.stats.locationAvailable, true);
+  assert.equal(out.stats.matched, 2);
+  assert.equal(out.stats.located, 1, "seule la publication qui cite Testville est localisée");
+  const { data } = await admin!.from("sv_matches").select("place_name, latitude, longitude, geo_precision, geo_source, sv_items(title)").eq("supervision_id", id);
+  const byTitle = new Map((data ?? []).map((row) => [(row.sv_items as unknown as { title: string }).title, row]));
+  const withPlace = byTitle.get("Nigeria : attaque contre un convoi militaire près de Testville");
+  assert.equal(withPlace?.place_name, "Testville");
+  assert.deepEqual([withPlace?.latitude, withPlace?.longitude], [11.5, 13.25]);
+  assert.equal(withPlace?.geo_precision, "ville");
+  assert.equal(withPlace?.geo_source, "geonames");
+  const without = byTitle.get("Nigeria : attaque contre un convoi militaire");
+  assert.equal(without?.latitude, null);
+  assert.equal(without?.geo_source, null);
+  // Côté tableau : l'événement localisé a des coordonnées et la mention de source ; l'autre n'en a pas (il reste dans le flux).
+  const board = await loadBoardData(snap, NOW, admin!, id);
+  const events = board.events.filter((e) => e.kind === "publication");
+  const placed = events.find((e) => e.geo);
+  assert.deepEqual([placed?.lat, placed?.lon, placed?.geo?.source, placed?.place], [11.5, 13.25, "geonames", "Testville"]);
+  assert.equal(events.filter((e) => e.lat !== undefined).length, 1);
+});
+
+test("localisation : un rattachement déjà connu reçoit sa position quand le dictionnaire s'enrichit, sans toucher à sa date ni à sa raison", { skip }, async () => {
+  const o = owner("geo-later");
+  const id = await draft(o);
+  await admin!.from("sv_place_names").delete().eq("geoname_id", TEST_PLACE_ID);
+  const first = await collectForSupervision(o, id, { trigger: "manual", deps: { db: admin!, fetchFeed: async () => [LOCATED], now: NOW } });
+  assert.ok(first.ok && first.stats.located === 0, JSON.stringify(first));
+  const before = await admin!.from("sv_matches").select("matched_at, reason, score, latitude").eq("supervision_id", id);
+  assert.equal(before.data?.[0].latitude, null);
+  await addTestPlace();
+  const later = await collectForSupervision(o, id, { trigger: "manual", deps: { db: admin!, fetchFeed: async () => [LOCATED], now: new Date(NOW.getTime() + 20 * 60_000) } });
+  assert.ok(later.ok && later.stats.located === 1 && later.stats.newMatches === 0, JSON.stringify(later));
+  const after = await admin!.from("sv_matches").select("matched_at, reason, score, latitude, place_name").eq("supervision_id", id);
+  assert.equal(after.data?.length, 1);
+  assert.equal(after.data?.[0].place_name, "Testville");
+  assert.equal(after.data?.[0].matched_at, before.data?.[0].matched_at, "la date de rattachement ne change pas");
+  assert.equal(after.data?.[0].reason, before.data?.[0].reason);
+  assert.equal(after.data?.[0].score, before.data?.[0].score);
+});
+
+test("sécurité : la clé publique n'atteint pas le dictionnaire de lieux", { skip }, async () => {
+  const anon = createClient(url, anonKey, { auth: { persistSession: false } });
+  const { data, error } = await anon.from("sv_place_names").select("*").limit(1);
+  assert.ok(error || (data ?? []).length === 0);
 });

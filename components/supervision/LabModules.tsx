@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, memo, useContext, useMemo, useState } from "react";
+import { GEONAMES_ATTRIBUTION } from "@/lib/supervision/geo/gazetteer";
 import { useOpenEvent } from "./EventDetail";
 import { PRIORITY_LABELS, VERIFICATION_LABELS, type BoardEvent, type Priority } from "@/lib/supervision/dashboard/fixtures";
 import { fitProjection, ringsToPath, type DataContext } from "@/lib/supervision/dashboard/geo";
@@ -193,6 +194,7 @@ function RealMapBody({ band, events, data }: BodyProps) {
             {located.length} localisé{located.length > 1 ? "s" : ""}
             {withoutPlace + outside > 0 ? ` · ${withoutPlace + outside} sans position utilisable (dans le flux)` : ""}
           </span>
+          {located.some((e) => e.geo) ? <span className={styles.muted}>{GEONAMES_ATTRIBUTION}</span> : null}
         </div>
       ) : null}
     </div>

@@ -33,6 +33,8 @@ export interface BoardEvent {
   merged?: number;
   /** Pourquoi cet élément est rattaché à la Supervision (publications collectées) ; absent sinon. */
   reason?: string;
+  /** Position DÉDUITE DU TEXTE avec le dictionnaire GeoNames (mention CC BY 4.0 obligatoire à l'affichage) ; absent sinon. */
+  geo?: { source: "geonames"; precision: "ville" | "zone"; name: string };
 }
 
 /** Ancien nom, gardé pour le prototype. */

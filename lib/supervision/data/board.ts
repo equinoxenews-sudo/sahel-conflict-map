@@ -14,6 +14,8 @@ export const SIGNAL_LIMIT = 2000;
 export const PUBLICATION_LIMIT = 1500;
 
 const BRIEF_COLUMNS = "id, zone_slug, title, summary, source_urls, source_domains, published_at, countries, primary_theme, event_type, importance, veracity, source_count, place_name, place_country, latitude, longitude";
+const MATCH_COLUMNS = "theme, reason, terms, place_name, latitude, longitude, geo_precision, geo_source, sv_items(id, url, title, excerpt, source_name, published_at)";
+const MATCH_COLUMNS_BASIC = "theme, reason, terms, sv_items(id, url, title, excerpt, source_name, published_at)";
 const EVENT_COLUMNS = "id, event_date, country, latitude, longitude, category, source, num_mentions, summary";
 
 export interface BoardData {
@@ -52,6 +54,14 @@ const quoted = (value: string) => `"${value.replace(/"/g, "")}"`;
 /** La table n'existe pas encore (script SQL du moteur de veille pas exécuté) : on affiche le reste plutôt que d'échouer. */
 const isMissingTable = (error: { code?: string; message?: string }) => error.code === "42P01" || error.code === "PGRST205" || /does not exist|schema cache/i.test(error.message ?? "");
 
+/** Rattachements de la Supervision. Si les colonnes de position n'existent pas encore (script du dictionnaire pas exécuté), on relit sans elles. */
+async function readMatches(client: Db, supervisionId: string): Promise<{ data: unknown[] | null; error: { code?: string; message?: string } | null }> {
+  const read = (columns: string) => client.from("sv_matches").select(columns).eq("supervision_id", supervisionId).order("matched_at", { ascending: false }).limit(PUBLICATION_LIMIT);
+  const first = await read(MATCH_COLUMNS);
+  if (first.error && (first.error.code === "42703" || /column .* does not exist/i.test(first.error.message ?? ""))) return read(MATCH_COLUMNS_BASIC);
+  return first;
+}
+
 export async function loadBoardData(snapshot: ScopeSnapshot, now: Date = new Date(), client: Db = adminDb(), supervisionId?: string): Promise<BoardData> {
   const countries = countriesOf(snapshot);
   const sample = process.env.SUPERVISION_DATA_SAMPLE !== "0";
@@ -79,14 +89,7 @@ export async function loadBoardData(snapshot: ScopeSnapshot, now: Date = new Dat
       .gte("event_date", since.toISOString().slice(0, 10))
       .order("event_date", { ascending: false })
       .limit(SIGNAL_LIMIT),
-    supervisionId
-      ? client
-          .from("sv_matches")
-          .select("theme, reason, terms, sv_items(id, url, title, excerpt, source_name, published_at)")
-          .eq("supervision_id", supervisionId)
-          .order("matched_at", { ascending: false })
-          .limit(PUBLICATION_LIMIT)
-      : Promise.resolve({ data: [] as unknown[], error: null as { code?: string; message?: string } | null }),
+    supervisionId ? readMatches(client, supervisionId) : Promise.resolve({ data: [] as unknown[], error: null as { code?: string; message?: string } | null }),
   ]);
   if (articles.error) throw new DataError(`Lecture des articles impossible : ${articles.error.message}`);
   if (signals.error) throw new DataError(`Lecture des signalements impossible : ${signals.error.message}`);
