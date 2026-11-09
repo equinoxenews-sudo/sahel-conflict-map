@@ -1,5 +1,7 @@
 # Supervision V1 — Lot 2 : prototype du tableau de bord et comparatif GridStack / React Grid Layout
 
+> **Décision du 09/11/2026 : React Grid Layout 2 est retenu.** GridStack a été retiré de la branche (dépendance, adaptateur et page de comparaison supprimés) ; ce document reste comme trace du comparatif. Le prototype est désormais une seule page, `/supervision-lab` (les anciennes adresses `/supervision-lab/gridstack` et `/supervision-lab/rgl` y redirigent). Le panneau de configuration est un volet qui **glisse depuis la droite** et recouvre le tableau sans changer sa largeur (plein écran sur smartphone), comme demandé. Dispositions validées : ordinateur 12 colonnes, tablette 6 colonnes indépendantes, smartphone 1 colonne indépendante.
+
 Branche : `supervision-lot2-prototype` (créée depuis `main`, rien fusionné). Rédigé le 9 novembre 2026.
 Données **entièrement fictives** (chaque titre porte « [DÉMO] »), **aucune base**, **aucun appel IA**, aucune écriture hors du navigateur (sauvegarde locale).
 

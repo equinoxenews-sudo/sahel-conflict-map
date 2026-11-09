@@ -1,4 +1,4 @@
-// Prototype du Lot 2 : géométrie de la grille, indépendante de la bibliothèque utilisée (GridStack ou React Grid Layout).
+// Prototype du Lot 2 : géométrie de la grille, indépendante de la bibliothèque de grille (React Grid Layout 2 aujourd'hui).
 // Tout est pur et testé : c'est CE modèle qui est sauvegardé, les moteurs ne font que l'afficher et nous renvoyer des positions.
 
 import { moduleDef, type ModuleKind } from "./modules";

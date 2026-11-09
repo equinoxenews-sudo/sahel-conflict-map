@@ -7,7 +7,7 @@ export const ROW_HEIGHT = 64;
 export const GAP = 12;
 
 /**
- * Ce qu'un moteur de grille doit savoir faire. Les deux adaptateurs (GridStack, React Grid Layout) implémentent EXACTEMENT
+ * Ce qu'un moteur de grille doit savoir faire. L'adaptateur de React Grid Layout (le seul, GridStack ayant été écarté le 09/11/2026) implémente
  * cette interface : la disposition, les filtres et les modules sont à nous, le moteur n'affiche que des cases et nous
  * renvoie leurs positions. C'est ce qui rend la comparaison équitable et le choix final réversible.
  */

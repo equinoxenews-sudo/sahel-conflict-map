@@ -195,23 +195,40 @@
 }
 
 /* --- Panneau de configuration --- */
-/* Volet superposé : il ne change JAMAIS la largeur de la grille (sinon ouvrir un module ferait passer de 12 à 6 colonnes). */
+/*
+ * Volet de configuration : glisse depuis la droite et RECOUVRE le tableau sans jamais changer sa largeur ni ses positions
+ * (sinon ouvrir un module ferait passer la grille de 12 à 6 colonnes). Plein écran sur smartphone.
+ */
 .panel {
   position: fixed;
-  right: 16px;
-  top: 72px;
-  width: 300px;
-  z-index: 60;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: min(340px, 92vw);
+  /* Au-dessus de l'en-tête (1200) et de la barre du bas (1500) du site, sous la recherche (2100) : sur téléphone le volet est plein écran. */
+  z-index: 2000;
   background: var(--lab-panel);
-  border: 1px solid var(--lab-border);
-  border-radius: 12px;
-  padding: 12px;
+  border-left: 1px solid var(--lab-border);
+  padding: 14px 14px 24px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: calc(100vh - 88px);
   overflow-y: auto;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.45);
+  transform: translateX(calc(100% + 40px));
+  visibility: hidden;
+  transition: transform 220ms ease, visibility 0s linear 220ms;
+}
+.panel[data-open] {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 220ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .panel[data-open] {
+    transition: none;
+  }
 }
 .panelHead {
   display: flex;
@@ -592,12 +609,12 @@
 .fullscreen {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 1900;
   background: var(--lab-bg);
   padding: 12px;
 }
 
-/* --- Habillage des deux moteurs (même rendu pour les comparer à armes égales) --- */
+/* --- Habillage de React Grid Layout --- */
 .canvas :global(.react-grid-item.react-grid-placeholder) {
   background: rgba(224, 180, 76, 0.28);
   border-radius: 10px;
@@ -606,34 +623,19 @@
 .canvas :global(.react-grid-item > .react-resizable-handle::after) {
   border-color: var(--lab-gold);
 }
-.canvas :global(.grid-stack-placeholder > .placeholder-content) {
-  background: rgba(224, 180, 76, 0.28);
-  border: 0;
-  border-radius: 10px;
-}
-.canvas :global(.grid-stack-item-content) {
-  overflow: visible;
-  inset: 0 !important;
-}
-.canvas :global(.grid-stack > .grid-stack-item > .grid-stack-item-content) {
-  overflow: hidden;
-}
-.canvas :global(.ui-resizable-handle) {
-  filter: invert(0.75) sepia(1) saturate(4) hue-rotate(5deg);
-}
 
 /* --- Téléphone --- */
-@media (max-width: 900px) {
+/* --- Smartphone : le volet occupe tout l'écran --- */
+@media (max-width: 640px) {
   .panel {
-    left: 0;
-    right: 0;
-    top: auto;
-    bottom: 0;
-    width: auto;
-    max-height: 52vh;
-    border-radius: 14px 14px 0 0;
+    width: 100%;
+    border-left: 0;
+    padding-top: 12px;
   }
-  .work[data-panel] {
-    padding-bottom: 52vh;
+  /* Bouton de fermeture assez grand pour le doigt. */
+  .panelHead .iconBtn {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
   }
 }

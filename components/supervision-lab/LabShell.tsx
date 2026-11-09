@@ -28,24 +28,22 @@ import {
   type Theme,
 } from "@/lib/supervision/lab/state";
 import LabFrame, { type LabActions } from "./LabFrame";
-import ScrollWatch from "./ScrollWatch";
 import type { GridEngineProps } from "./engines/types";
 import styles from "./Lab.module.css";
 
-export type EngineName = "gridstack" | "rgl";
-
-const GridStackEngine = dynamic<GridEngineProps>(() => import("./engines/GridStackEngine"), { ssr: false });
+// Moteur de grille retenu (décision du 09/11/2026) : React Grid Layout 2. L'interface GridEngineProps garde un changement de moteur peu coûteux.
 const RglEngine = dynamic<GridEngineProps>(() => import("./engines/RglEngine"), { ssr: false });
 
-const STORAGE_PREFIX = "equinoxe-supervision-lab-v1-";
+// Clé gardée telle quelle pour ne pas perdre les dispositions déjà enregistrées pendant la comparaison des moteurs.
+const STORAGE_KEY = "equinoxe-supervision-lab-v1-rgl";
 const SAVE_DELAY_MS = 600;
 
 type Simulated = "auto" | Breakpoint;
 const SIM_WIDTH: Record<Simulated, string | undefined> = { auto: undefined, desktop: undefined, tablet: "720px", mobile: "380px" };
 
-function loadState(engine: EngineName): LabState {
+function loadState(): LabState {
   try {
-    return parseState(window.localStorage.getItem(STORAGE_PREFIX + engine)) ?? emptyState();
+    return parseState(window.localStorage.getItem(STORAGE_KEY)) ?? emptyState();
   } catch {
     return emptyState();
   }
@@ -55,8 +53,8 @@ function timeLabel(at: number): string {
   return new Intl.DateTimeFormat("fr-FR", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).format(new Date(at));
 }
 
-export default function LabShell({ engine }: { engine: EngineName }) {
-  const [state, setState] = useState<LabState>(() => loadState(engine));
+export default function LabShell() {
+  const [state, setState] = useState<LabState>(() => loadState());
   const [now] = useState(() => Date.now());
   const events = useMemo(() => fakeEvents(now), [now]);
   const [editMode, setEditMode] = useState(true);
@@ -66,8 +64,6 @@ export default function LabShell({ engine }: { engine: EngineName }) {
   const [simulated, setSimulated] = useState<Simulated>("auto");
   const [saveStatus, setSaveStatus] = useState<{ kind: "saved" | "pending"; at: number }>({ kind: "saved", at: 0 });
   const [copied, setCopied] = useState(false);
-  // Journal de diagnostic du défilement : seulement avec « ?debug=scroll » dans l'adresse.
-  const [watchScroll] = useState(() => new URLSearchParams(window.location.search).get("debug") === "scroll");
   const libraryDragRef = useRef<ModuleKind | null>(null);
 
   // Largeur de la grille, mesurée : elle fixe le nombre de colonnes (12, 6 ou 1) et donc quelle disposition on édite.
@@ -95,14 +91,14 @@ export default function LabShell({ engine }: { engine: EngineName }) {
     }
     const timer = window.setTimeout(() => {
       try {
-        window.localStorage.setItem(STORAGE_PREFIX + engine, serializeState(state));
+        window.localStorage.setItem(STORAGE_KEY, serializeState(state));
       } catch {
         /* stockage indisponible : la démonstration continue sans sauvegarde */
       }
       setSaveStatus({ kind: "saved", at: Date.now() });
     }, SAVE_DELAY_MS);
     return () => window.clearTimeout(timer);
-  }, [state, engine]);
+  }, [state]);
 
   const change = useCallback((update: (current: LabState) => LabState) => {
     setSaveStatus((s) => ({ ...s, kind: "pending" }));
@@ -154,13 +150,18 @@ export default function LabShell({ engine }: { engine: EngineName }) {
   };
 
   const selected = selectedId ? state.widgets[selectedId] : undefined;
+  // Le panneau garde le dernier module affiché : il se referme en glissant au lieu de disparaître d'un coup (état dérivé pendant le rendu).
+  const [shownId, setShownId] = useState<string | null>(null);
+  if (selectedId !== null && selectedId !== shownId) setShownId(selectedId);
+  const shown = shownId ? state.widgets[shownId] : undefined;
+  const panelOpen = editable && selected !== undefined;
   const move = (delta: { dx?: number; dy?: number; dw?: number; dh?: number }) => {
     if (!selected) return;
     const next = nudge(placements, selected.id, delta, cols, minSizeFor(selected.kind, cols));
     if (next) onPlacementsChange(next);
   };
 
-  const restoreLastSaved = () => change(() => loadState(engine));
+  const restoreLastSaved = () => change(() => loadState());
   const copyJson = async () => {
     try {
       await navigator.clipboard.writeText(JSON.stringify(state, null, 2));
@@ -182,16 +183,14 @@ export default function LabShell({ engine }: { engine: EngineName }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [fullscreenId]);
 
-  const Engine = engine === "gridstack" ? GridStackEngine : RglEngine;
   const empty = Object.keys(state.widgets).length === 0;
 
   return (
     <>
-      {watchScroll ? <ScrollWatch /> : null}
       <div className={styles.shell}>
         <div className={styles.toolbar}>
           <div className={styles.toolGroup}>
-            <strong className={styles.engineTag}>{engine === "gridstack" ? "GridStack 14" : "React Grid Layout 2"}</strong>
+            <strong className={styles.engineTag}>Prototype Lot 2</strong>
             <div className={styles.segment} role="group" aria-label="Mode">
               <button type="button" aria-pressed={editMode} className={editMode ? styles.active : undefined} onClick={() => setEditMode(true)}>Édition</button>
               <button type="button" aria-pressed={!editMode} className={!editMode ? styles.active : undefined} onClick={() => { setEditMode(false); setSelectedId(null); }}>Consultation</button>
@@ -233,25 +232,19 @@ export default function LabShell({ engine }: { engine: EngineName }) {
                   <button
                     key={m.kind}
                     type="button"
-                    data-lab-chip
                     data-kind={m.kind}
                     className={styles.chip2}
                     title={`${m.description} — cliquer pour ajouter, ou glisser sur la grille`}
-                    // React Grid Layout reçoit la dépose par le glisser-déposer HTML5 du navigateur ; GridStack a son propre mécanisme
-                    // à la souris (setupDragIn) et émet lui-même un « dragstart » sans données : on n'y branche rien.
-                    {...(engine === "rgl"
-                      ? {
-                          draggable: true,
-                          onDragStart: (event: React.DragEvent) => {
-                            libraryDragRef.current = m.kind;
-                            event.dataTransfer?.setData("text/plain", m.kind);
-                            if (event.dataTransfer) event.dataTransfer.effectAllowed = "copy";
-                          },
-                          onDragEnd: () => {
-                            libraryDragRef.current = null;
-                          },
-                        }
-                      : {})}
+                    // Glisser sur la grille : glisser-déposer natif du navigateur (la grille lit le module glissé dans libraryDragRef).
+                    draggable
+                    onDragStart={(event) => {
+                      libraryDragRef.current = m.kind;
+                      event.dataTransfer?.setData("text/plain", m.kind);
+                      if (event.dataTransfer) event.dataTransfer.effectAllowed = "copy";
+                    }}
+                    onDragEnd={() => {
+                      libraryDragRef.current = null;
+                    }}
                     onClick={() => addFromLibrary(m.kind)}
                   >
                     <b>{m.label}</b>
@@ -263,7 +256,7 @@ export default function LabShell({ engine }: { engine: EngineName }) {
           </section>
         ) : null}
 
-        <div className={styles.work} data-panel={editable && selected ? "" : undefined}>
+        <div className={styles.work}>
           <div className={styles.canvasOuter}>
             <div ref={canvasRef} className={styles.canvas} style={{ maxWidth: SIM_WIDTH[simulated] }} data-bp={breakpoint}>
               {empty ? (
@@ -274,7 +267,7 @@ export default function LabShell({ engine }: { engine: EngineName }) {
               ) : null}
               {/* La grille n'est montée qu'une fois la largeur mesurée : sinon un téléphone afficherait d'abord 12 colonnes. */}
               {width > 0 ? (
-              <Engine
+              <RglEngine
                 breakpoint={breakpoint}
                 cols={cols}
                 width={width}
@@ -292,18 +285,18 @@ export default function LabShell({ engine }: { engine: EngineName }) {
             </div>
           </div>
 
-          {editable && selected ? (
-            <aside className={styles.panel} aria-label="Configuration du module">
+          {shown ? (
+            <aside className={styles.panel} aria-label="Configuration du module" data-open={panelOpen ? "" : undefined} inert={!panelOpen}>
               <div className={styles.panelHead}>
-                <h2>{moduleDef(selected.kind).label}</h2>
+                <h2>{moduleDef(shown.kind).label}</h2>
                 <button type="button" className={styles.iconBtn} aria-label="Fermer" onClick={() => setSelectedId(null)}>✕</button>
               </div>
               <label className={styles.field}>
                 <span>Titre</span>
-                <input value={selected.title} maxLength={80} onChange={(event) => actions.update(selected.id, { title: event.target.value })} />
+                <input value={shown.title} maxLength={80} onChange={(event) => actions.update(shown.id, { title: event.target.value })} />
               </label>
               <label className={styles.check}>
-                <input type="checkbox" checked={selected.follow} onChange={(event) => actions.update(selected.id, { follow: event.target.checked })} />
+                <input type="checkbox" checked={shown.follow} onChange={(event) => actions.update(shown.id, { follow: event.target.checked })} />
                 <span>Suivre les filtres globaux</span>
               </label>
               <fieldset className={styles.fieldset}>
@@ -311,38 +304,38 @@ export default function LabShell({ engine }: { engine: EngineName }) {
                 <label className={styles.field}>
                   <span>Période</span>
                   <select
-                    value={selected.local.periodDays ?? ""}
+                    value={shown.local.periodDays ?? ""}
                     onChange={(event) => {
-                      const { periodDays: _removed, ...rest } = selected.local;
+                      const { periodDays: _removed, ...rest } = shown.local;
                       void _removed;
-                      actions.update(selected.id, { local: event.target.value ? { ...rest, periodDays: Number(event.target.value) } : rest });
+                      actions.update(shown.id, { local: event.target.value ? { ...rest, periodDays: Number(event.target.value) } : rest });
                     }}
                   >
-                    <option value="">{selected.follow ? "Globale" : "30 jours (défaut)"}</option>
+                    <option value="">{shown.follow ? "Globale" : "30 jours (défaut)"}</option>
                     {PERIODS.map((p) => (<option key={p} value={p}>{p} jours</option>))}
                   </select>
                 </label>
                 <label className={styles.field}>
                   <span>Thème</span>
                   <select
-                    value={selected.local.theme ?? ""}
+                    value={shown.local.theme ?? ""}
                     onChange={(event) => {
-                      const { theme: _removed, ...rest } = selected.local;
+                      const { theme: _removed, ...rest } = shown.local;
                       void _removed;
-                      actions.update(selected.id, { local: event.target.value ? { ...rest, theme: event.target.value as Theme } : rest });
+                      actions.update(shown.id, { local: event.target.value ? { ...rest, theme: event.target.value as Theme } : rest });
                     }}
                   >
-                    <option value="">{selected.follow ? "Global" : "Tous (défaut)"}</option>
+                    <option value="">{shown.follow ? "Global" : "Tous (défaut)"}</option>
                     {THEMES.filter((t) => t.key !== "all").map((t) => (<option key={t.key} value={t.key}>{t.label}</option>))}
                   </select>
                 </label>
-                {selected.follow && effectiveFilters(selected, state.globals).overridesGlobal ? (
+                {shown.follow && effectiveFilters(shown, state.globals).overridesGlobal ? (
                   <p className={styles.note}>Le filtre local explicite prévaut sur le filtre global.</p>
                 ) : null}
               </fieldset>
               <label className={styles.field}>
                 <span>État simulé</span>
-                <select value={selected.demoState} onChange={(event) => actions.update(selected.id, { demoState: event.target.value as (typeof DEMO_STATES)[number]["key"] })}>
+                <select value={shown.demoState} onChange={(event) => actions.update(shown.id, { demoState: event.target.value as (typeof DEMO_STATES)[number]["key"] })}>
                   {DEMO_STATES.map((s) => (<option key={s.key} value={s.key}>{s.label}</option>))}
                 </select>
               </label>
@@ -362,9 +355,9 @@ export default function LabShell({ engine }: { engine: EngineName }) {
                 </div>
               </fieldset>
               <div className={styles.panelActions}>
-                <button type="button" className={styles.btn} onClick={() => actions.reset(selected.id)}>Réinitialiser</button>
-                <button type="button" className={styles.btn} onClick={() => actions.duplicate(selected.id)}>Dupliquer</button>
-                <button type="button" className={`${styles.btn} ${styles.dangerBtn}`} onClick={() => actions.remove(selected.id)}>Supprimer</button>
+                <button type="button" className={styles.btn} onClick={() => actions.reset(shown.id)}>Réinitialiser</button>
+                <button type="button" className={styles.btn} onClick={() => actions.duplicate(shown.id)}>Dupliquer</button>
+                <button type="button" className={`${styles.btn} ${styles.dangerBtn}`} onClick={() => actions.remove(shown.id)}>Supprimer</button>
               </div>
             </aside>
           ) : null}
