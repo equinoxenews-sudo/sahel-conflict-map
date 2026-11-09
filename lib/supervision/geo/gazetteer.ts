@@ -84,6 +84,17 @@ export function parseGeonamesLine(line: string): PlaceRow[] {
 
 // --- Candidats dans un texte ------------------------------------------------------------------------------------------------
 
+/**
+ * Mots courants qui existent aussi comme noms de villages dans GeoNames (« North » au Nigeria) : « Nord du Nigeria » n'est pas un village.
+ * Un nom de lieu réel de cette liste serait écarté : on préfère ne pas localiser que mal localiser.
+ */
+const GENERIC_WORDS = new Set([
+  "north", "south", "east", "west", "central", "northern", "southern", "eastern", "western", "northwest", "northeast", "southwest", "southeast",
+  "nord", "sud", "est", "ouest", "centre", "state", "states", "federal", "national", "capital", "city", "town", "village", "market", "district",
+  "area", "region", "zone", "province", "local", "government", "general", "major", "upper", "lower", "new", "old", "great", "little", "grand", "petit",
+  "etat", "ville", "marche", "royaume", "union", "united", "kingdom", "republic", "republique", "africa", "afrique", "sahel", "desert",
+]);
+
 const CONNECTORS = new Set(["de", "du", "des", "la", "le", "el", "al", "en", "sur", "ben", "ould", "wa"]);
 const MAX_WORDS = 3;
 
@@ -195,6 +206,7 @@ export function locate(title: string, excerpt: string | null, rows: readonly Pla
     for (const candidate of candidates) {
       const length = candidate.key.length;
       if (taken.some((range) => candidate.start >= range.from && candidate.start < range.to)) continue;
+      if (candidate.words === 1 && GENERIC_WORDS.has(candidate.key)) continue;
       const matches = byKey.get(candidate.key);
       if (!matches) continue;
       const row = resolve(matches);

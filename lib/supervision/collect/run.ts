@@ -188,12 +188,13 @@ export async function collectForSupervision(
       if (error) throw new StoreError(`Lecture des publications : ${error.message}`, error);
       for (const row of (data ?? []) as { id: string; url_canonical: string }[]) idByCanonical.set(row.url_canonical, row.id);
     }
-    const alreadyMatched = new Set<string>();
+    /** Rattachements déjà en base → lieu qu'ils portent aujourd'hui (null : aucun), pour ne réécrire que ce qui change. */
+    const alreadyMatched = new Map<string, string | null>();
     const itemIds = [...idByCanonical.values()];
     for (const part of chunks(itemIds, CHUNK)) {
-      const { data, error } = await db.from("sv_matches").select("item_id").eq("supervision_id", supervisionId).in("item_id", part);
+      const { data, error } = await db.from("sv_matches").select(places.available ? "item_id, place_name" : "item_id").eq("supervision_id", supervisionId).in("item_id", part);
       if (error) throw new StoreError(`Lecture des rattachements : ${error.message}`, error);
-      for (const row of (data ?? []) as { item_id: string }[]) alreadyMatched.add(row.item_id);
+      for (const row of (data ?? []) as unknown as { item_id: string; place_name?: string | null }[]) alreadyMatched.set(row.item_id, row.place_name ?? null);
     }
     // Position : seulement si le dictionnaire est installé (sinon les colonnes de position n'existent peut-être pas encore).
     const geoFields = (entry: (typeof kept)[number]) => {
@@ -211,13 +212,17 @@ export async function collectForSupervision(
     }
     // Rattachements déjà connus : leur position est mise à jour (dictionnaire enrichi depuis), rien d'autre ne change.
     if (places.available) {
+      // Un vrai UPDATE (un upsert tenterait d'abord un INSERT, refusé : le score est obligatoire). Seuls les lieux qui CHANGENT sont réécrits,
+      // y compris un lieu retiré (une règle de localisation corrigée depuis ne doit pas laisser une position devenue fausse).
       const known = kept.flatMap((entry) => {
         const itemId = idByCanonical.get(entry.row.url_canonical);
-        return itemId && alreadyMatched.has(itemId) ? [{ supervision_id: supervisionId, item_id: itemId, ...geoFields(entry) }] : [];
+        const geo = geoFields(entry);
+        return itemId && alreadyMatched.has(itemId) && (geo.place_name ?? null) !== alreadyMatched.get(itemId) ? [{ itemId, geo }] : [];
       });
-      for (const part of chunks(known, CHUNK)) {
-        const { error } = await db.from("sv_matches").upsert(part, { onConflict: "supervision_id,item_id" });
-        if (error) throw new StoreError("Mise à jour des positions : " + error.message, error);
+      for (const part of chunks(known, 20)) {
+        const results = await Promise.all(part.map(({ itemId, geo }) => db.from("sv_matches").update(geo).eq("supervision_id", supervisionId).eq("item_id", itemId)));
+        const failed = results.find((result) => result.error);
+        if (failed?.error) throw new StoreError("Mise à jour des positions : " + failed.error.message, failed.error);
       }
     }
     stats.newMatches = links.length;

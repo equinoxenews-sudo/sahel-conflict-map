@@ -105,3 +105,13 @@ test("aucune ligne de la base, ou texte vide : aucune position", () => {
   assert.equal(locate("Attaque à Baïma", null, []), null);
   assert.equal(locate("", null, rows), null);
 });
+
+test("mots génériques : « Northern Nigeria » ou « State police » ne sont pas des villages, même si GeoNames en connaît de ce nom", () => {
+  const generic: PlaceRow[] = ["North", "State", "Central"].flatMap((name, index) =>
+    parseGeonamesLine(line(500 + index, name, 9 + index, 7, "P", "PPL", 100, "", "NG")),
+  );
+  assert.ok(generic.length >= 3, "ces villages existent bien dans le dictionnaire");
+  const locateIn = (text: string) => locate(text, null, generic);
+  assert.equal(locateIn("Attacks rise across North Nigeria"), null);
+  assert.equal(locateIn("State Police push: Central Nigeria"), null);
+});
