@@ -99,9 +99,15 @@ export async function collectForSupervision(
 
     // 2. Normalisation, dédoublonnage par adresse canonique, correspondance.
     const matched = new Map<string, { row: ItemRow; score: number; reason: string; terms: string[]; theme: string }>();
+    // Une même publication remonte souvent par plusieurs recherches : « fetched » compte les remontées, le reste compte chaque publication UNE fois.
+    const seen = new Set<string>();
     for (const items of feeds) {
       for (const item of items) {
         stats.fetched++;
+        if (item.url) {
+          if (seen.has(item.url)) continue;
+          seen.add(item.url);
+        }
         const normalized = normalizeFeedItem(item, { kind: "gnews", now, maxAgeDays: MAX_AGE_DAYS });
         if (!normalized.ok) {
           stats.skipped[normalized.reason] = (stats.skipped[normalized.reason] ?? 0) + 1;

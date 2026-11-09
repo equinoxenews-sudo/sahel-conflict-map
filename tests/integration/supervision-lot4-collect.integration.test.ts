@@ -77,7 +77,8 @@ test("premier passage : seules les publications qui correspondent sont rangées,
   assert.equal(out.stats.newItems, 1);
   assert.equal(out.stats.newMatches, 1);
   assert.equal(out.stats.rejected, 1, "l'article sur le Niger est écarté");
-  assert.equal(out.stats.skipped.too_old, out.stats.queries, "la publication trop ancienne est écartée à chaque requête");
+  assert.equal(out.stats.skipped.too_old, 1, "la publication trop ancienne est écartée, comptée une seule fois même si plusieurs recherches la ramènent");
+  assert.ok(out.stats.fetched >= 3 * 2, "« fetched » compte les remontées de chaque recherche");
   const { data: links } = await admin!.from("sv_matches").select("reason, theme, sv_items(title, source_name, url)").eq("supervision_id", id);
   assert.equal(links?.length, 1);
   assert.match(String(links?.[0].reason), /Cite « Nigeria »/);
