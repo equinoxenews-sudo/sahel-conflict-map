@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { extractArea, fitProjection, ringsToPath } from "../lib/supervision/dashboard/geo";
-import { briefToEvent, eventToEvent, matchCountry, priorityOfBrief, priorityOfEvent, themeOfBrief, verificationOfBrief, type BriefRow, type EventRow } from "../lib/supervision/data/mapping";
+import { briefToEvent, eventToEvent, matchCountry, matchToEvent, priorityOfBrief, priorityOfEvent, themeOfBrief, verificationOfBrief, type BriefRow, type EventRow } from "../lib/supervision/data/mapping";
 
 const brief: BriefRow = {
   id: 1908,
@@ -152,4 +152,20 @@ test("chemin SVG : un sous-chemin fermé par anneau", () => {
   const path = ringsToPath(area.rings, fitProjection(area));
   assert.equal((path.match(/M/g) ?? []).length, 2);
   assert.equal((path.match(/Z/g) ?? []).length, 2);
+});
+
+test("publication collectée → événement : sans priorité ni vérification inventées, raison et source conservées, thème inconnu replié", () => {
+  const row = { theme: "conflits", reason: "Cite « Nigeria » et : « attaque »", terms: ["attaque"], sv_items: { id: "i1", url: "https://www.journal.test/a?x=1", title: "Titre", excerpt: "Extrait", source_name: "Journal Test", published_at: "2026-11-09T08:00:00Z" } };
+  const event = matchToEvent(row, "Nigeria");
+  assert.ok(event);
+  assert.equal(event.id, "p-i1");
+  assert.equal(event.kind, "publication");
+  assert.equal(event.priority, "information");
+  assert.equal(event.verification, "signalement");
+  assert.equal(event.reason, row.reason);
+  assert.deepEqual(event.domains, ["Journal Test", "journal.test"]);
+  assert.equal(event.place, "Nigeria");
+  assert.equal(matchToEvent({ ...row, theme: "inconnu" }, "Nigeria")?.theme, "securite");
+  assert.equal(matchToEvent({ ...row, sv_items: null }, "Nigeria"), null);
+  assert.equal(matchToEvent({ ...row, sv_items: { ...row.sv_items, published_at: null } }, "Nigeria"), null, "sans date, pas de place dans une chronologie");
 });

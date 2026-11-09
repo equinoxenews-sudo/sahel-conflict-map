@@ -10,7 +10,7 @@ export interface BoardEvent {
   /** Texte : « a-123 » (article), « e-456 » (signalement médiatique) ; « 7 » pour les données fictives du prototype. */
   id: string;
   /** Absent pour les données fictives du prototype. */
-  kind?: "article" | "signal";
+  kind?: "article" | "signal" | "publication";
   title: string;
   summary?: string;
   theme: Exclude<Theme, "all">;
@@ -31,6 +31,8 @@ export interface BoardEvent {
   domains?: string[];
   /** Nombre d'entrées regroupées avec celle-ci (même publication citée plusieurs fois) ; absent si aucune. */
   merged?: number;
+  /** Pourquoi cet élément est rattaché à la Supervision (publications collectées) ; absent sinon. */
+  reason?: string;
 }
 
 /** Ancien nom, gardé pour le prototype. */

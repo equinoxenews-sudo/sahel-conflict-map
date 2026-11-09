@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { BoardEvent } from "@/lib/supervision/dashboard/fixtures";
 import { extractArea, type DataContext } from "@/lib/supervision/dashboard/geo";
 import { emptyState, parseState, type LabState } from "@/lib/supervision/dashboard/state";
+import CollectPanel from "./CollectPanel";
 import DashboardShell, { type ShellStatus } from "./DashboardShell";
 import { STATE_LABELS } from "./SupervisionList";
 import styles from "./Supervision.module.css";
@@ -34,7 +35,7 @@ interface Loaded {
 interface BoardPayload {
   events: BoardEvent[];
   countries: { iso3: string; name: string }[];
-  coverage: { articles: number; signals: number; merged: number; earliest: string | null; latest: string | null; truncated: boolean; method: string };
+  coverage: { articles: number; signals: number; publications: number; merged: number; earliest: string | null; latest: string | null; truncated: boolean; method: string };
   sample: boolean;
 }
 
@@ -81,6 +82,8 @@ export default function SupervisionBoard({ id }: { id: string }) {
       cancelled = true;
     };
   }, [id, attempt]);
+  /** Recharge les événements sans vider l'écran (après une collecte). */
+  const refreshData = () => setAttempt((n) => n + 1);
   const retryData = () => {
     setData({ status: "loading" });
     setAttempt((n) => n + 1);
@@ -122,13 +125,13 @@ export default function SupervisionBoard({ id }: { id: string }) {
       </div>
     );
   }
-  return <Editor supervision={loaded.supervision} initialRevision={loaded.dashboard.revision} initialState={loaded.dashboard.state ?? emptyState()} data={data} onRetryData={retryData} />;
+  return <Editor supervision={loaded.supervision} initialRevision={loaded.dashboard.revision} initialState={loaded.dashboard.state ?? emptyState()} data={data} onRetryData={retryData} onRefreshData={refreshData} />;
 }
 
 const NO_EVENTS: BoardEvent[] = [];
 const NO_DATA: DataContext = { area: null, latest: null, total: 0 };
 
-function Editor({ supervision, initialRevision, initialState, data, onRetryData }: { supervision: SupervisionInfo; initialRevision: number; initialState: LabState; data: DataState; onRetryData: () => void }) {
+function Editor({ supervision, initialRevision, initialState, data, onRetryData, onRefreshData }: { supervision: SupervisionInfo; initialRevision: number; initialState: LabState; data: DataState; onRetryData: () => void; onRefreshData: () => void }) {
   // Identités stables : tant que les données ne changent pas, aucun module n'est redessiné.
   const events = useMemo(() => (data.status === "ready" ? data.payload.events : NO_EVENTS), [data]);
   const context = useMemo(() => (data.status === "ready" ? data.context : NO_DATA), [data]);
@@ -298,6 +301,7 @@ function Editor({ supervision, initialRevision, initialState, data, onRetryData 
 
   const banner = (
     <>
+      <CollectPanel id={supervision.id} onCollected={onRefreshData} />
       {conflict ? (
         <div className={styles.notice} role="alert">
           <strong>Ce tableau a été modifié ailleurs (autre onglet ou autre appareil). Rien n&apos;a été écrasé.</strong>
@@ -376,7 +380,7 @@ function DataNotice({ data, onRetry }: { data: DataState; onRetry: () => void })
   return (
     <p className={styles.muted}>
       {payload.sample ? "Échantillon de données publiques du site. " : ""}
-      {where} : {coverage.articles} article{coverage.articles > 1 ? "s" : ""} analysé{coverage.articles > 1 ? "s" : ""} et {coverage.signals} signalement{coverage.signals > 1 ? "s" : ""} médiatique{coverage.signals > 1 ? "s" : ""}
+      {where} : {coverage.articles} article{coverage.articles > 1 ? "s" : ""} analysé{coverage.articles > 1 ? "s" : ""} et {coverage.signals} signalement{coverage.signals > 1 ? "s" : ""} médiatique{coverage.signals > 1 ? "s" : ""}{coverage.publications > 0 ? ` et ${coverage.publications} publication${coverage.publications > 1 ? "s" : ""} de presse collectée${coverage.publications > 1 ? "s" : ""}` : ""}
       {coverage.earliest && coverage.latest ? `, du ${dayFormat.format(new Date(coverage.earliest))} au ${dayFormat.format(new Date(coverage.latest))}` : ""}.
       {coverage.merged > 0 ? ` ${coverage.merged} entrée${coverage.merged > 1 ? "s" : ""} regroupée${coverage.merged > 1 ? "s" : ""} (même publication citée plusieurs fois).` : ""}
       {coverage.truncated ? " Attention : la lecture est limitée, tout n'est pas affiché." : ""}{" "}

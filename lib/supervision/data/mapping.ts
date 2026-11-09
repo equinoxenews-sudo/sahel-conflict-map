@@ -35,6 +35,14 @@ export interface BriefRow {
   longitude: number | null;
 }
 
+/** Publication de presse collectée pour UNE Supervision (sv_matches + sv_items). */
+export interface MatchRow {
+  theme: string;
+  reason: string;
+  terms: string[];
+  sv_items: { id: string; url: string; title: string; excerpt: string | null; source_name: string | null; published_at: string | null } | null;
+}
+
 export interface EventRow {
   id: number;
   event_date: string;
@@ -193,4 +201,36 @@ export function matchCountry(iso3: string): CountryMatch | null {
   const names = new Set<string>([code.name, unaccent(code.name)]);
   for (const [label, codes] of Object.entries(COUNTRY_TO_ISO3)) if (codes.includes(iso3)) names.add(label);
   return { iso3, name: code.name, eventNames: [...names] };
+}
+
+const BOARD_THEMES: readonly BoardTheme[] = ["conflits", "securite", "politique", "humanitaire"];
+
+/**
+ * Publication collectée → événement. Elle n'est ni classée par priorité (aucun tri par IA : « information ») ni vérifiée
+ * (« signalement ») ; la raison du rattachement est conservée pour le panneau « sources et preuves ».
+ */
+export function matchToEvent(row: MatchRow, placeLabel: string): BoardEvent | null {
+  const item = row.sv_items;
+  if (!item || !item.published_at) return null;
+  let host: string | null = null;
+  try {
+    host = new URL(item.url).hostname.replace(/^www./, "");
+  } catch {
+    /* adresse illisible : pas de domaine */
+  }
+  return {
+    id: `p-${item.id}`,
+    kind: "publication",
+    title: item.title,
+    summary: item.excerpt ?? undefined,
+    theme: (BOARD_THEMES as readonly string[]).includes(row.theme) ? (row.theme as BoardTheme) : "securite",
+    priority: "information",
+    verification: "signalement",
+    at: new Date(item.published_at).toISOString(),
+    place: placeLabel,
+    publications: 1,
+    url: item.url,
+    domains: [item.source_name, host].filter((value): value is string => !!value),
+    reason: row.reason,
+  };
 }

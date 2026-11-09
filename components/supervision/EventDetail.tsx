@@ -12,11 +12,12 @@ export const useOpenEvent = () => useContext(OpenEventContext);
 
 const THEME_LABEL: Record<BoardEvent["theme"], string> = { conflits: "Conflits", securite: "Sécurité", politique: "Politique", humanitaire: "Humanitaire" };
 
-const KIND_LABEL = { article: "Article analysé", signal: "Signalement médiatique" } as const;
+const KIND_LABEL = { article: "Article analysé", signal: "Signalement médiatique", publication: "Publication de presse" } as const;
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 
 function verificationNote(event: BoardEvent): string {
+  if (event.kind === "publication") return "Publication de presse repérée par la recherche de cette Supervision. Elle n'est pas vérifiée : son contenu est celui de l'éditeur, pas un fait établi.";
   if (event.kind === "signal") {
     return "Un signalement médiatique est un signal repéré dans la presse, pas un fait établi. Le nombre de publications n'est pas un indice de véracité : il ne fait jamais passer un signalement à « confirmé ».";
   }
@@ -27,6 +28,7 @@ function verificationNote(event: BoardEvent): string {
 }
 
 function priorityNote(event: BoardEvent): string {
+  if (event.kind === "publication") return "Pas de classement de priorité : le tri par IA n'est pas activé, toutes les publications sont au niveau information.";
   if (event.kind === "signal") return "Violent et très repris : critique à partir de 20 mentions, importante à partir de 6 ; sinon information.";
   if (event.kind === "article") return "Importance « haute » de l'analyse ; critique seulement si l'événement est violent (affrontement, frappe, attentat). Règle provisoire.";
   return "";
@@ -80,6 +82,12 @@ export default function EventDetailPanel({ event, onClose }: { event: BoardEvent
             <>
               <h4 className={styles.h4}>Résumé</h4>
               <p>{event.summary}</p>
+            </>
+          ) : null}
+          {event.reason ? (
+            <>
+              <h4 className={styles.h4}>Pourquoi cette publication est ici</h4>
+              <p>{event.reason}</p>
             </>
           ) : null}
           <h4 className={styles.h4}>Source</h4>

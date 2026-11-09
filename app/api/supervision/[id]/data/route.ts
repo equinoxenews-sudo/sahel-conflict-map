@@ -14,7 +14,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
     if (!supervision) return failure("not_found");
     const snapshot = supervision.currentScopeVersionId ? await getScopeSnapshot(owner.ownerId, id, supervision.currentScopeVersionId) : null;
     if (!snapshot) return failure("not_found");
-    return json(await loadBoardData(snapshot));
+    return json(await loadBoardData(snapshot, new Date(), undefined, id));
   } catch (error) {
     if (error instanceof DataError) return json({ error: "Les données de la Supervision sont momentanément indisponibles.", code: "data_unavailable" }, { status: 503 });
     return storeProblem(error);

@@ -42,7 +42,9 @@ export type FailureCode =
   | "already_settled"
   | "access_denied"
   | "revision_conflict"
-  | "read_only";
+  | "read_only"
+  | "already_running"
+  | "too_soon";
 
 export type Outcome<T = Record<string, never>> = ({ ok: true; replay: boolean } & T) | { ok: false; code: FailureCode; detail: Record<string, unknown> };
 
