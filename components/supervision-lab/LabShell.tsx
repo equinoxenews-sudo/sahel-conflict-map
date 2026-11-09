@@ -28,6 +28,7 @@ import {
   type Theme,
 } from "@/lib/supervision/lab/state";
 import LabFrame, { type LabActions } from "./LabFrame";
+import ScrollWatch from "./ScrollWatch";
 import type { GridEngineProps } from "./engines/types";
 import styles from "./Lab.module.css";
 
@@ -65,6 +66,8 @@ export default function LabShell({ engine }: { engine: EngineName }) {
   const [simulated, setSimulated] = useState<Simulated>("auto");
   const [saveStatus, setSaveStatus] = useState<{ kind: "saved" | "pending"; at: number }>({ kind: "saved", at: 0 });
   const [copied, setCopied] = useState(false);
+  // Journal de diagnostic du défilement : seulement avec « ?debug=scroll » dans l'adresse.
+  const [watchScroll] = useState(() => new URLSearchParams(window.location.search).get("debug") === "scroll");
   const libraryDragRef = useRef<ModuleKind | null>(null);
 
   // Largeur de la grille, mesurée : elle fixe le nombre de colonnes (12, 6 ou 1) et donc quelle disposition on édite.
@@ -184,6 +187,7 @@ export default function LabShell({ engine }: { engine: EngineName }) {
 
   return (
     <>
+      {watchScroll ? <ScrollWatch /> : null}
       <div className={styles.shell}>
         <div className={styles.toolbar}>
           <div className={styles.toolGroup}>

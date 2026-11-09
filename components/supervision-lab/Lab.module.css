@@ -1,4 +1,6 @@
 .shell {
+  /* Pas d'ancrage de défilement : le navigateur ne « corrige » pas la position quand la grille change de hauteur. */
+  overflow-anchor: none;
   --lab-bg: #0b1422;
   --lab-panel: var(--bg-panel, #101c2c);
   --lab-border: var(--border-subtle, #1c2b3f);
