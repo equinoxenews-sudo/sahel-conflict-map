@@ -34,7 +34,7 @@ interface Loaded {
 interface BoardPayload {
   events: BoardEvent[];
   countries: { iso3: string; name: string }[];
-  coverage: { articles: number; signals: number; earliest: string | null; latest: string | null; truncated: boolean; method: string };
+  coverage: { articles: number; signals: number; merged: number; earliest: string | null; latest: string | null; truncated: boolean; method: string };
   sample: boolean;
 }
 
@@ -72,7 +72,7 @@ export default function SupervisionBoard({ id }: { id: string }) {
           const geo = await fetch("/data/world-countries.geo.json").then((r) => (r.ok ? r.json() : null)).catch(() => null);
           area = geo ? extractArea(geo, payload.countries.map((country) => country.iso3)) : null;
         }
-        if (!cancelled) setData({ status: "ready", payload, context: { area, latest: payload.coverage.latest } });
+        if (!cancelled) setData({ status: "ready", payload, context: { area, latest: payload.coverage.latest, total: payload.events.length } });
       } catch {
         if (!cancelled) setData({ status: "error" });
       }
@@ -126,7 +126,7 @@ export default function SupervisionBoard({ id }: { id: string }) {
 }
 
 const NO_EVENTS: BoardEvent[] = [];
-const NO_DATA: DataContext = { area: null, latest: null };
+const NO_DATA: DataContext = { area: null, latest: null, total: 0 };
 
 function Editor({ supervision, initialRevision, initialState, data, onRetryData }: { supervision: SupervisionInfo; initialRevision: number; initialState: LabState; data: DataState; onRetryData: () => void }) {
   // Identités stables : tant que les données ne changent pas, aucun module n'est redessiné.
@@ -378,6 +378,7 @@ function DataNotice({ data, onRetry }: { data: DataState; onRetry: () => void })
       {payload.sample ? "Échantillon de données publiques du site. " : ""}
       {where} : {coverage.articles} article{coverage.articles > 1 ? "s" : ""} analysé{coverage.articles > 1 ? "s" : ""} et {coverage.signals} signalement{coverage.signals > 1 ? "s" : ""} médiatique{coverage.signals > 1 ? "s" : ""}
       {coverage.earliest && coverage.latest ? `, du ${dayFormat.format(new Date(coverage.earliest))} au ${dayFormat.format(new Date(coverage.latest))}` : ""}.
+      {coverage.merged > 0 ? ` ${coverage.merged} entrée${coverage.merged > 1 ? "s" : ""} regroupée${coverage.merged > 1 ? "s" : ""} (même publication citée plusieurs fois).` : ""}
       {coverage.truncated ? " Attention : la lecture est limitée, tout n'est pas affiché." : ""}{" "}
       <span title={coverage.method} style={{ textDecoration: "underline dotted", cursor: "help" }}>Comment sont rattachés les éléments ?</span>
     </p>

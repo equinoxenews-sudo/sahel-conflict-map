@@ -5,6 +5,7 @@
 import { adminDb, type Db } from "../core/store";
 import type { ScopeSnapshot } from "../core/majorChange";
 import type { BoardEvent } from "../dashboard/fixtures";
+import { dedupeEvents } from "./dedupe";
 import { briefToEvent, eventToEvent, matchCountry, type BriefRow, type CountryMatch, type EventRow } from "./mapping";
 
 export const HISTORY_DAYS = 90;
@@ -20,6 +21,8 @@ export interface BoardData {
   coverage: {
     articles: number;
     signals: number;
+    /** Entrées regroupées car elles décrivent la même publication (voir dedupe.ts). */
+    merged: number;
     /** Premier et dernier fait retrouvés (ISO) ; null s'il n'y en a aucun. */
     earliest: string | null;
     latest: string | null;
@@ -48,7 +51,7 @@ export async function loadBoardData(snapshot: ScopeSnapshot, now: Date = new Dat
   const sample = process.env.SUPERVISION_DATA_SAMPLE !== "0";
   const method = "Articles rattachés au pays (champ « pays » ou lieu) et signalements médiatiques portant ce pays. Un article qui n'a pas de pays renseigné peut manquer.";
   if (countries.length === 0) {
-    return { events: [], countries: [], coverage: { articles: 0, signals: 0, earliest: null, latest: null, truncated: false, method }, sample };
+    return { events: [], countries: [], coverage: { articles: 0, signals: 0, merged: 0, earliest: null, latest: null, truncated: false, method }, sample };
   }
   const since = new Date(now.getTime() - HISTORY_DAYS * 86_400_000);
   const codes = countries.map((country) => country.iso3).join(",");
@@ -76,13 +79,15 @@ export async function loadBoardData(snapshot: ScopeSnapshot, now: Date = new Dat
 
   const articleRows = (articles.data ?? []) as unknown as BriefRow[];
   const signalRows = (signals.data ?? []) as unknown as EventRow[];
-  const events = [...articleRows.map(briefToEvent), ...signalRows.map(eventToEvent)].sort((a, b) => b.at.localeCompare(a.at));
+  const sorted = [...articleRows.map(briefToEvent), ...signalRows.map(eventToEvent)].sort((a, b) => b.at.localeCompare(a.at));
+  const { events, merged } = dedupeEvents(sorted);
   return {
     events,
     countries: countries.map(({ iso3, name }) => ({ iso3, name })),
     coverage: {
-      articles: articleRows.length,
-      signals: signalRows.length,
+      articles: events.filter((event) => event.kind === "article").length,
+      signals: events.filter((event) => event.kind === "signal").length,
+      merged,
       earliest: events.length ? events[events.length - 1].at : null,
       latest: events.length ? events[0].at : null,
       truncated: articleRows.length >= ARTICLE_LIMIT || signalRows.length >= SIGNAL_LIMIT,

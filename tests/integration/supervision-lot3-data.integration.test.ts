@@ -9,6 +9,7 @@ import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
 import type { ScopeSnapshot } from "../../lib/supervision/core/majorChange";
 import { loadBoardData } from "../../lib/supervision/data/board";
+import { normalizeUrl } from "../../lib/supervision/data/dedupe";
 
 const STAGING_PROJECT_REF = "upoknwoctatqmlonitzx";
 dotenv.config({ path: ".env.local", quiet: true });
@@ -36,6 +37,9 @@ test("événements réels : le Nigeria renvoie articles et signalements, triés,
   assert.ok(data.events.length > 0, "l'échantillon contient des éléments sur le Nigeria");
   assert.ok(data.coverage.signals > 100, "plusieurs centaines de signalements attendus");
   assert.equal(data.events.length, data.coverage.articles + data.coverage.signals);
+  assert.ok(data.coverage.merged > 100, `l'échantillon contient des centaines de lignes qui citent la même publication, regroupées : ${data.coverage.merged}`);
+  const urls = data.events.map((e) => normalizeUrl(e.url)).filter((u): u is string => u !== null);
+  assert.equal(new Set(urls).size, urls.length, "une publication = une seule entrée");
   assert.deepEqual(data.countries, [{ iso3: "NGA", name: "Nigeria" }]);
   const times = data.events.map((e) => e.at);
   assert.deepEqual([...times].sort().reverse(), times, "du plus récent au plus ancien");

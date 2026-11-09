@@ -1,6 +1,7 @@
 "use client";
 
-import { memo, useMemo, useState } from "react";
+import { createContext, memo, useContext, useMemo, useState } from "react";
+import { useOpenEvent } from "./EventDetail";
 import { PRIORITY_LABELS, VERIFICATION_LABELS, type BoardEvent, type Priority } from "@/lib/supervision/dashboard/fixtures";
 import { fitProjection, ringsToPath, type DataContext } from "@/lib/supervision/dashboard/geo";
 import type { Band } from "@/lib/supervision/dashboard/layout";
@@ -36,8 +37,24 @@ function Chip({ priority }: { priority: Priority }) {
   );
 }
 
+/** Nombre total d'éléments du périmètre (avant filtres) ; null pour les données fictives du prototype. */
+const TotalContext = createContext<number | null>(null);
+
 function Empty() {
+  const total = useContext(TotalContext);
+  if (total === 0) return <p className={styles.muted}>Aucun article ni signalement retrouvé pour ce périmètre sur la période chargée. Ce n&apos;est pas une preuve qu&apos;il ne s&apos;y passe rien : la couverture des sources est partielle.</p>;
+  if (total !== null) return <p className={styles.muted}>Aucun résultat avec ces filtres, alors que {total} élément{total > 1 ? "s" : ""} existe{total > 1 ? "nt" : ""} sur la période chargée : élargis la période ou le thème.</p>;
   return <p className={styles.muted}>Aucun résultat dans la collecte disponible pour ces filtres.</p>;
+}
+
+/** Titre d'un événement : ouvre « sources et preuves ». */
+function EventLink({ event }: { event: BoardEvent }) {
+  const open = useOpenEvent();
+  return (
+    <button type="button" className={styles.srcLink} onClick={() => open(event)}>
+      {event.title}
+    </button>
+  );
 }
 
 const THEME_LABEL: Record<BoardEvent["theme"], string> = { conflits: "Conflits", securite: "Sécurité", politique: "Politique", humanitaire: "Humanitaire" };
@@ -72,14 +89,14 @@ function RealSummaryBody({ band, events, data }: BodyProps) {
         {events.length} éléments sur la période : {articles} article{articles > 1 ? "s" : ""} analysé{articles > 1 ? "s" : ""} et {signals} signalement{signals > 1 ? "s" : ""} médiatique{signals > 1 ? "s" : ""}, dont {critical} de priorité critique et {important} importante{important > 1 ? "s" : ""}.
       </p>
       {themes.length ? <p>Thèmes les plus présents : {themes.map((t) => `${t.label} (${t.n})`).join(", ")}.</p> : null}
-      {places.length ? <p>Lieux les plus cités dans les articles :{places.map((t) => `${t.label} (${t.n})`).join(", ")}.</p> : null}
+      {places.length ? <p>Lieux les plus cités dans les articles : {places.map((t) => `${t.label} (${t.n})`).join(", ")}.</p> : null}
       {notable.length ? (
         <>
           <h4 className={styles.h4}>Faits marquants</h4>
           <ul className={styles.bullets}>
             {notable.map((e) => (
               <li key={e.id}>
-                {e.title} — {formatDay(e.at)}
+                <EventLink event={e} /> — {formatDay(e.at)}
               </li>
             ))}
           </ul>
@@ -142,6 +159,7 @@ function SummaryBody(props: BodyProps) {
 
 /** Carte RÉELLE : contour du pays en fond, événements aux coordonnées retrouvées. Ceux sans coordonnées ne sont pas dessinés (ils restent dans le flux). */
 function RealMapBody({ band, events, data }: BodyProps) {
+  const open = useOpenEvent();
   const area = data?.area ?? null;
   const projection = useMemo(() => (area ? fitProjection(area) : null), [area]);
   if (!projection || !area) return <p className={styles.muted}>Fond de carte indisponible pour ce périmètre.</p>;
@@ -158,7 +176,7 @@ function RealMapBody({ band, events, data }: BodyProps) {
         {shown.map((e) => {
           const { x, y } = projection.project(e.lon!, e.lat!);
           return (
-            <circle key={e.id} cx={x} cy={y} r={e.priority === "critique" ? 1.6 : 1.1} fill={PRIORITY_COLOR[e.priority]} opacity={0.85}>
+            <circle key={e.id} cx={x} cy={y} r={e.priority === "critique" ? 1.6 : 1.1} fill={PRIORITY_COLOR[e.priority]} opacity={0.85} style={{ cursor: "pointer" }} onClick={() => open(e)}>
               <title>{`${e.title} — ${e.place} — ${formatDay(e.at)}`}</title>
             </circle>
           );
@@ -233,7 +251,7 @@ function FeedBody({ band, events }: BodyProps) {
     <ul className={styles.list}>
       {events.slice(0, limit).map((e) => (
         <li key={e.id}>
-          <strong>{e.url ? <a href={e.url} target="_blank" rel="noopener noreferrer" className={styles.srcLink}>{e.title}</a> : e.title}</strong>
+          <strong><EventLink event={e} /></strong>
           {band !== "compact" ? (
             <span className={styles.meta}>
               <Chip priority={e.priority} /> {VERIFICATION_LABELS[e.verification]} · {formatDay(e.at)}
@@ -262,7 +280,7 @@ function TimelineBody({ band, events, now }: BodyProps) {
         <ul className={styles.list}>
           {events.slice(0, 6).map((e) => (
             <li key={e.id}>
-              <strong>{formatDay(e.at)}</strong> — {e.title}
+              <strong>{formatDay(e.at)}</strong> — <EventLink event={e} />
             </li>
           ))}
         </ul>
@@ -273,7 +291,7 @@ function TimelineBody({ band, events, now }: BodyProps) {
     <ul className={styles.list}>
       {events.slice(0, band === "compact" ? 4 : 8).map((e) => (
         <li key={e.id}>
-          <strong>{formatDay(e.at)}</strong> {band === "standard" ? `— ${e.title}` : ""}
+          <strong>{formatDay(e.at)}</strong> {band === "standard" ? <>— <EventLink event={e} /></> : ""}
         </li>
       ))}
     </ul>
@@ -296,7 +314,7 @@ function AlertsBody({ band, events }: BodyProps) {
     <ul className={styles.list}>
       {urgent.slice(0, band === "standard" ? 4 : 8).map((e) => (
         <li key={e.id} className={read.has(e.id) ? styles.read : undefined}>
-          <strong>{e.title}</strong>
+          <strong><EventLink event={e} /></strong>
           <span className={styles.meta}>
             <Chip priority={e.priority} /> {VERIFICATION_LABELS[e.verification]}
             {band === "expanded" ? (
@@ -378,6 +396,14 @@ function NotesBody({ band }: BodyProps) {
 }
 
 function ModuleBodyView({ kind, ...props }: BodyProps & { kind: ModuleKind }) {
+  return (
+    <TotalContext.Provider value={props.data ? props.data.total : null}>
+      <ModuleBodySwitch kind={kind} {...props} />
+    </TotalContext.Provider>
+  );
+}
+
+function ModuleBodySwitch({ kind, ...props }: BodyProps & { kind: ModuleKind }) {
   switch (kind) {
     case "summary":
       return <SummaryBody {...props} />;

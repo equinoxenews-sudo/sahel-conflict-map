@@ -15,6 +15,8 @@ export interface DataContext {
   area: Area | null;
   /** Date (ISO) du fait le plus récent retrouvé, ou null. */
   latest: string | null;
+  /** Nombre d'éléments du périmètre sur toute la période chargée (avant filtres), pour distinguer « rien » de « rien avec ces filtres ». */
+  total: number;
 }
 
 interface GeoFeature {

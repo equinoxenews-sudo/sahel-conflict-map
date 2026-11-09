@@ -29,6 +29,8 @@ export interface BoardEvent {
   publications: number;
   url?: string;
   domains?: string[];
+  /** Nombre d'entrées regroupées avec celle-ci (même publication citée plusieurs fois) ; absent si aucune. */
+  merged?: number;
 }
 
 /** Ancien nom, gardé pour le prototype. */

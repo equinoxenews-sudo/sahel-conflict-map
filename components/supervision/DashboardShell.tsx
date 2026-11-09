@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { fakeEvents, type BoardEvent } from "@/lib/supervision/dashboard/fixtures";
+import EventDetailPanel, { OpenEventContext } from "./EventDetail";
 import type { DataContext } from "@/lib/supervision/dashboard/geo";
 import { COLUMNS, breakpointForWidth, minSizeFor, nudge, type Breakpoint, type Placement } from "@/lib/supervision/dashboard/layout";
 import { MODULES, moduleDef, type ModuleKind } from "@/lib/supervision/dashboard/modules";
@@ -85,6 +86,7 @@ export default function DashboardShell({ initialState, onStateChange, status, ba
   const [now] = useState(() => Date.now());
   const fallbackEvents = useMemo(() => fakeEvents(now), [now]);
   const events = eventsProp ?? fallbackEvents;
+  const [openEvent, setOpenEvent] = useState<BoardEvent | null>(null);
   const [editMode, setEditMode] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [fullscreenId, setFullscreenId] = useState<string | null>(null);
@@ -201,7 +203,7 @@ export default function DashboardShell({ initialState, onStateChange, status, ba
   const empty = Object.keys(state.widgets).length === 0;
 
   return (
-    <>
+    <OpenEventContext.Provider value={setOpenEvent}>
       <div className={styles.shell}>
         <div className={styles.toolbar}>
           <div className={styles.toolGroup}>
@@ -387,8 +389,9 @@ export default function DashboardShell({ initialState, onStateChange, status, ba
             <LabFrame widget={state.widgets[fullscreenId]} globals={state.globals} events={events} data={data} now={now} editable={false} selected={false} actions={actions} fullscreen />
           </div>
         ) : null}
+        <EventDetailPanel event={openEvent} onClose={() => setOpenEvent(null)} />
       </div>
-    </>
+    </OpenEventContext.Provider>
   );
 }
 
