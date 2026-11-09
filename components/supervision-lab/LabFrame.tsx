@@ -1,36 +1,79 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { applyFilters } from "@/lib/supervision/lab/fixtures";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
+import { applyFilters, type FakeEvent } from "@/lib/supervision/lab/fixtures";
 import { BAND_LABELS, bandFor } from "@/lib/supervision/lab/layout";
-import { effectiveFilters, THEMES } from "@/lib/supervision/lab/state";
-import { useLab } from "./LabContext";
+import { effectiveFilters, THEMES, type Filters, type WidgetConfig } from "@/lib/supervision/lab/state";
 import { ModuleBody } from "./LabModules";
 import styles from "./Lab.module.css";
 
-/** Taille (en pixels) d'un élément, tenue à jour par ResizeObserver : le rendu d'un module dépend de SES dimensions. */
+/**
+ * Taille (en pixels) d'un élément, tenue à jour par ResizeObserver : le rendu d'un module dépend de SES dimensions.
+ * Pendant une animation de la grille la taille change à chaque image : on ne redessine tout de suite que si le niveau de détail
+ * (compact, standard, développé) change, sinon au plus une fois toutes les 120 ms (sur téléphone, une mise à jour par image
+ * et par module dépassait les 200 ms d'interaction jugées acceptables).
+ */
+const SIZE_UPDATE_MS = 120;
+
 function useElementSize<T extends HTMLElement>() {
   const ref = useRef<T>(null);
   const [size, setSize] = useState({ w: 0, h: 0 });
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    let timer: number | undefined;
+    let latest = { w: 0, h: 0 };
+    const apply = () => {
+      timer = undefined;
+      setSize((previous) => (previous.w === latest.w && previous.h === latest.h ? previous : latest));
+    };
     const observer = new ResizeObserver(([entry]) => {
-      const box = entry.contentRect;
-      setSize((previous) => (Math.abs(previous.w - box.width) < 1 && Math.abs(previous.h - box.height) < 1 ? previous : { w: Math.round(box.width), h: Math.round(box.height) }));
+      latest = { w: Math.round(entry.contentRect.width), h: Math.round(entry.contentRect.height) };
+      setSize((previous) => {
+        if (previous.w === 0 || bandFor(previous.w, previous.h) !== bandFor(latest.w, latest.h)) return latest; // premier affichage, changement de niveau
+        return previous;
+      });
+      if (timer === undefined) timer = window.setTimeout(apply, SIZE_UPDATE_MS);
     });
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
   }, []);
   return { ref, size };
 }
 
-/** Cadre d'un module : titre (poignée de déplacement), fraîcheur, filtres, états vide/chargement/erreur/obsolète, boutons d'édition. */
-export default function LabFrame({ id, fullscreen = false }: { id: string; fullscreen?: boolean }) {
-  const { state, events, now, editable, selectedId, actions } = useLab();
-  const widget = state.widgets[id];
+export interface LabActions {
+  update: (id: string, patch: Partial<Omit<WidgetConfig, "id" | "kind">>) => void;
+  remove: (id: string) => void;
+  duplicate: (id: string) => void;
+  reset: (id: string) => void;
+  select: (id: string | null) => void;
+  fullscreen: (id: string | null) => void;
+}
+
+interface LabFrameProps {
+  widget: WidgetConfig | undefined;
+  globals: Filters;
+  events: FakeEvent[];
+  now: number;
+  editable: boolean;
+  selected: boolean;
+  /** Identité stable : ne change jamais d'un rendu à l'autre. */
+  actions: LabActions;
+  fullscreen?: boolean;
+}
+
+/**
+ * Cadre d'un module : titre (poignée de déplacement), fraîcheur, filtres, états vide/chargement/erreur/obsolète, boutons d'édition.
+ * Mémoïsé : un module ne se redessine que si SES propres réglages changent (sur téléphone, redessiner les huit à chaque clic
+ * dépassait 300 ms, seuil à partir duquel Vercel signale un problème d'interaction).
+ */
+function LabFrameView({ widget, globals, events, now, editable, selected, actions, fullscreen = false }: LabFrameProps) {
+  const id = widget?.id ?? "";
   const { ref, size } = useElementSize<HTMLDivElement>();
-  const { filters, overridesGlobal } = widget ? effectiveFilters(widget, state.globals) : { filters: state.globals, overridesGlobal: false };
+  const { filters, overridesGlobal } = widget ? effectiveFilters(widget, globals) : { filters: globals, overridesGlobal: false };
   const filtered = useMemo(() => applyFilters(events, filters, now), [events, filters, now]);
   if (!widget) return null;
 
@@ -41,7 +84,7 @@ export default function LabFrame({ id, fullscreen = false }: { id: string; fulls
   return (
     <section
       ref={ref}
-      className={`${styles.frame} ${selectedId === id && editable ? styles.frameSelected : ""} ${fullscreen ? styles.frameFull : ""}`}
+      className={`${styles.frame} ${selected && editable ? styles.frameSelected : ""} ${fullscreen ? styles.frameFull : ""}`}
       data-band={band}
       aria-label={widget.title}
       onPointerDownCapture={() => editable && !fullscreen && actions.select(id)}
@@ -97,3 +140,6 @@ export default function LabFrame({ id, fullscreen = false }: { id: string; fulls
     </section>
   );
 }
+
+const LabFrame = memo(LabFrameView);
+export default LabFrame;

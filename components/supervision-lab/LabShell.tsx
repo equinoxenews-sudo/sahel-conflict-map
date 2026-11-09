@@ -27,8 +27,7 @@ import {
   type LabState,
   type Theme,
 } from "@/lib/supervision/lab/state";
-import { LabContext, type LabActions } from "./LabContext";
-import LabFrame from "./LabFrame";
+import LabFrame, { type LabActions } from "./LabFrame";
 import type { GridEngineProps } from "./engines/types";
 import styles from "./Lab.module.css";
 
@@ -118,6 +117,12 @@ export default function LabShell({ engine }: { engine: EngineName }) {
     [change, breakpoint, state],
   );
 
+  // Dernier état connu, pour que les actions gardent une identité stable (sinon chaque changement redessinerait tous les modules).
+  const stateRef = useRef(state);
+  useEffect(() => {
+    stateRef.current = state;
+  }, [state]);
+
   const actions: LabActions = useMemo(
     () => ({
       update: (id, patch) => change((current) => updateWidget(current, id, patch)),
@@ -127,7 +132,7 @@ export default function LabShell({ engine }: { engine: EngineName }) {
         setFullscreenId((current) => (current === id ? null : current));
       },
       duplicate: (id) => {
-        const copy = duplicateWidget(state, id);
+        const copy = duplicateWidget(stateRef.current, id);
         if (!copy) return;
         change(() => copy.state);
         setSelectedId(copy.id);
@@ -136,7 +141,7 @@ export default function LabShell({ engine }: { engine: EngineName }) {
       select: setSelectedId,
       fullscreen: setFullscreenId,
     }),
-    [change, state],
+    [change],
   );
 
   const addFromLibrary = (kind: ModuleKind) => {
@@ -178,7 +183,7 @@ export default function LabShell({ engine }: { engine: EngineName }) {
   const empty = Object.keys(state.widgets).length === 0;
 
   return (
-    <LabContext.Provider value={{ state, events, now, editable, selectedId, actions }}>
+    <>
       <div className={styles.shell}>
         <div className={styles.toolbar}>
           <div className={styles.toolGroup}>
@@ -275,7 +280,9 @@ export default function LabShell({ engine }: { engine: EngineName }) {
                 onPlacementsChange={onPlacementsChange}
                 onLibraryDrop={onLibraryDrop}
                 libraryDragRef={libraryDragRef}
-                renderWidget={(id) => <LabFrame id={id} />}
+                renderWidget={(id) => (
+                  <LabFrame widget={state.widgets[id]} globals={state.globals} events={events} now={now} editable={editable} selected={selectedId === id} actions={actions} />
+                )}
               />
               ) : null}
             </div>
@@ -361,11 +368,11 @@ export default function LabShell({ engine }: { engine: EngineName }) {
 
         {fullscreenId && state.widgets[fullscreenId] ? (
           <div className={styles.fullscreen} role="dialog" aria-modal="true" aria-label="Module en plein écran">
-            <LabFrame id={fullscreenId} fullscreen />
+            <LabFrame widget={state.widgets[fullscreenId]} globals={state.globals} events={events} now={now} editable={false} selected={false} actions={actions} fullscreen />
           </div>
         ) : null}
       </div>
-    </LabContext.Provider>
+    </>
   );
 }
 

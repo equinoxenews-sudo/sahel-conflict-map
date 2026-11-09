@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { memo, useState } from "react";
 import { PRIORITY_LABELS, VERIFICATION_LABELS, type FakeEvent, type Priority } from "@/lib/supervision/lab/fixtures";
 import type { Band } from "@/lib/supervision/lab/layout";
 import type { ModuleKind } from "@/lib/supervision/lab/modules";
@@ -270,7 +270,7 @@ function NotesBody({ band }: BodyProps) {
   );
 }
 
-export function ModuleBody({ kind, ...props }: BodyProps & { kind: ModuleKind }) {
+function ModuleBodyView({ kind, ...props }: BodyProps & { kind: ModuleKind }) {
   switch (kind) {
     case "summary":
       return <SummaryBody {...props} />;
@@ -290,3 +290,6 @@ export function ModuleBody({ kind, ...props }: BodyProps & { kind: ModuleKind })
       return <NotesBody {...props} />;
   }
 }
+
+/** Mémoïsé : tant que ses données et son niveau de détail ne changent pas, un module n'est pas redessiné (par exemple pendant qu'on déplace son voisin). */
+export const ModuleBody = memo(ModuleBodyView);
