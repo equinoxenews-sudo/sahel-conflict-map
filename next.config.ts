@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
       { source: "/investigation/dossiers/:id", destination: "/mon-espace/dossier/:id", permanent: false },
       { source: "/investigation/recherche", destination: "/mon-espace/investigation", permanent: false },
       { source: "/investigation/toolbox", destination: "/mon-espace/outils", permanent: false },
+      // Prototype Supervision : les deux pages de comparaison des moteurs de grille ont fusionné en une seule.
+      { source: "/supervision-lab/:engine", destination: "/supervision-lab", permanent: false },
     ];
   },
 };
