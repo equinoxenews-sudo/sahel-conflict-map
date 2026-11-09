@@ -4,7 +4,7 @@ import ReactGridLayout, { type Layout } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import { useMemo } from "react";
-import { defaultSizeFor, minSizeFor, samePlacements, type Placement } from "@/lib/supervision/lab/layout";
+import { defaultSizeFor, minSizeFor, samePlacements, type Placement } from "@/lib/supervision/dashboard/layout";
 import { GAP, ROW_HEIGHT, type GridEngineProps } from "./types";
 
 const DROPPING_ID = "__dropping-elem__";

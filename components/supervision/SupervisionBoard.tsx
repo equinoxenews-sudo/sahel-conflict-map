@@ -1,0 +1,310 @@
+"use client";
+
+import Link from "next/link";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { emptyState, parseState, type LabState } from "@/lib/supervision/dashboard/state";
+import DashboardShell, { type ShellStatus } from "./DashboardShell";
+import { STATE_LABELS } from "./SupervisionList";
+import styles from "./Supervision.module.css";
+
+// Tableau de bord d'une Supervision, ENREGISTRÉ SUR LE SERVEUR avec contrôle de révision :
+//  - chaque modification est enregistrée après 0,8 s de calme, avec la révision que ce navigateur a lue ;
+//  - si le serveur en a une plus récente (autre onglet, autre appareil), RIEN n'est écrasé : on propose de charger la version du
+//    serveur ou de garder la sienne ;
+//  - les dernières révisions sont consultables et restaurables ;
+//  - à la fermeture de l'onglet, une dernière sauvegarde est tentée, et le navigateur prévient s'il reste des modifications non enregistrées.
+
+const SAVE_DELAY_MS = 800;
+const RETRY_MS = 4000;
+
+interface SupervisionInfo {
+  id: string;
+  name: string;
+  state: string;
+}
+
+interface Loaded {
+  supervision: SupervisionInfo;
+  dashboard: { revision: number; state: LabState | null };
+}
+
+interface Conflict {
+  currentRevision: number;
+  currentState: LabState | null;
+}
+
+const timeFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+
+function toState(value: unknown): LabState | null {
+  return value ? parseState(JSON.stringify(value)) : null;
+}
+
+export default function SupervisionBoard({ id }: { id: string }) {
+  const [loaded, setLoaded] = useState<Loaded | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const response = await fetch(`/api/supervision/${id}`, { cache: "no-store" });
+        const body = await response.json();
+        if (cancelled) return;
+        if (!response.ok) {
+          setError(body.code === "not_found" ? "Supervision introuvable." : (body.error ?? "Chargement impossible."));
+          return;
+        }
+        setLoaded({ supervision: body.supervision, dashboard: { revision: body.dashboard.revision, state: toState(body.dashboard.state) } });
+      } catch {
+        if (!cancelled) setError("Chargement impossible : réseau indisponible.");
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [id]);
+
+  if (error) {
+    return (
+      <div className={styles.page}>
+        <Link href="/mon-espace/supervision" className={styles.back}>← Mes Supervisions</Link>
+        <p className={styles.error} role="alert">{error}</p>
+      </div>
+    );
+  }
+  if (!loaded) {
+    return (
+      <div className={styles.page}>
+        <p className={styles.muted}>Chargement du tableau de bord…</p>
+      </div>
+    );
+  }
+  return <Editor supervision={loaded.supervision} initialRevision={loaded.dashboard.revision} initialState={loaded.dashboard.state ?? emptyState()} />;
+}
+
+function Editor({ supervision, initialRevision, initialState }: { supervision: SupervisionInfo; initialRevision: number; initialState: LabState }) {
+  const [shell, setShell] = useState<{ key: number; state: LabState }>({ key: 0, state: initialState });
+  const [status, setStatus] = useState<ShellStatus>({ kind: "saved", at: 0, message: initialRevision > 0 ? "Version enregistrée chargée" : "Tableau vierge : rien d'enregistré pour l'instant" });
+  const [conflict, setConflict] = useState<Conflict | null>(null);
+  const [history, setHistory] = useState<{ revision: number; savedAt: string }[] | null>(null);
+
+  const revisionRef = useRef(initialRevision);
+  const latestRef = useRef<LabState | null>(null);
+  const savingRef = useRef(false);
+  const conflictRef = useRef(false);
+  const readOnlyRef = useRef(false);
+  const timerRef = useRef<number | undefined>(undefined);
+  const flushRef = useRef<(keepalive?: boolean) => Promise<void>>(async () => {});
+
+  const flush = useCallback(
+    async (keepalive = false) => {
+      if (savingRef.current || conflictRef.current || readOnlyRef.current || !latestRef.current) return;
+      const state = latestRef.current;
+      latestRef.current = null;
+      savingRef.current = true;
+      setStatus({ kind: "saving", at: 0 });
+      let again = false;
+      const retryLater = () => {
+        latestRef.current = latestRef.current ?? state;
+        timerRef.current = window.setTimeout(() => void flushRef.current(), RETRY_MS);
+      };
+      try {
+        const response = await fetch(`/api/supervision/${supervision.id}/dashboard`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ expectedRevision: revisionRef.current, state }),
+          keepalive,
+        });
+        const body = await response.json().catch(() => ({}));
+        if (response.ok) {
+          revisionRef.current = body.revision;
+          setStatus({ kind: "saved", at: Date.now() });
+          again = latestRef.current !== null;
+        } else if (response.status === 409 && body.code === "revision_conflict") {
+          conflictRef.current = true;
+          latestRef.current = latestRef.current ?? state; // ma version reste prête si je choisis de la garder
+          setConflict({ currentRevision: body.currentRevision, currentState: toState(body.currentState) });
+          setStatus({ kind: "conflict", at: 0 });
+        } else if (body.code === "read_only") {
+          readOnlyRef.current = true;
+          setStatus({ kind: "readonly", at: 0 });
+        } else if (response.status >= 500 || response.status === 429) {
+          setStatus({ kind: "error", at: 0 });
+          retryLater();
+        } else {
+          setStatus({ kind: "error", at: 0, message: "Enregistrement refusé par le serveur : recharge la page." });
+        }
+      } catch {
+        setStatus({ kind: "error", at: 0 });
+        retryLater();
+      } finally {
+        savingRef.current = false;
+      }
+      if (again) void flushRef.current();
+    },
+    [supervision.id],
+  );
+  useEffect(() => {
+    flushRef.current = flush;
+  }, [flush]);
+
+  const onStateChange = useCallback(
+    (state: LabState) => {
+      latestRef.current = state;
+      if (conflictRef.current || readOnlyRef.current) return;
+      setStatus({ kind: "pending", at: 0 });
+      window.clearTimeout(timerRef.current);
+      timerRef.current = window.setTimeout(() => void flushRef.current(), SAVE_DELAY_MS);
+    },
+    [],
+  );
+
+  // Dernière tentative à la fermeture ou au passage en arrière-plan, et avertissement s'il reste des modifications non enregistrées.
+  useEffect(() => {
+    const onHide = () => {
+      if (document.visibilityState === "hidden" && latestRef.current) void flushRef.current(true);
+    };
+    const onBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (latestRef.current || savingRef.current || conflictRef.current) event.preventDefault();
+    };
+    document.addEventListener("visibilitychange", onHide);
+    window.addEventListener("pagehide", onHide);
+    window.addEventListener("beforeunload", onBeforeUnload);
+    return () => {
+      document.removeEventListener("visibilitychange", onHide);
+      window.removeEventListener("pagehide", onHide);
+      window.removeEventListener("beforeunload", onBeforeUnload);
+      window.clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  /** Remplace ce que l'éditeur affiche (version du serveur, restauration) : on le remonte avec le nouvel état. */
+  const replace = (state: LabState) => setShell((current) => ({ key: current.key + 1, state }));
+
+  const useServerVersion = () => {
+    if (!conflict) return;
+    revisionRef.current = conflict.currentRevision;
+    conflictRef.current = false;
+    latestRef.current = null;
+    setConflict(null);
+    replace(conflict.currentState ?? emptyState());
+    setStatus({ kind: "saved", at: Date.now(), message: "Version du serveur chargée" });
+  };
+
+  const keepMine = () => {
+    if (!conflict) return;
+    revisionRef.current = conflict.currentRevision;
+    conflictRef.current = false;
+    setConflict(null);
+    void flush();
+  };
+
+  const reload = async () => {
+    if ((latestRef.current || savingRef.current) && !window.confirm("Des modifications ne sont pas encore enregistrées : elles seront perdues. Recharger la version du serveur ?")) return;
+    try {
+      const response = await fetch(`/api/supervision/${supervision.id}`, { cache: "no-store" });
+      const body = await response.json();
+      if (!response.ok) return;
+      window.clearTimeout(timerRef.current);
+      latestRef.current = null;
+      conflictRef.current = false;
+      setConflict(null);
+      revisionRef.current = body.dashboard.revision;
+      replace(toState(body.dashboard.state) ?? emptyState());
+      setStatus({ kind: "saved", at: Date.now(), message: "Version du serveur chargée" });
+    } catch {
+      setStatus({ kind: "error", at: 0, message: "Rechargement impossible : réseau indisponible." });
+    }
+  };
+
+  const toggleHistory = async () => {
+    if (history) {
+      setHistory(null);
+      return;
+    }
+    try {
+      const response = await fetch(`/api/supervision/${supervision.id}/dashboard`, { cache: "no-store" });
+      const body = await response.json();
+      if (response.ok) setHistory(body.revisions);
+    } catch {
+      /* historique indisponible : sans conséquence pour le tableau */
+    }
+  };
+
+  const restore = async (revision: number) => {
+    if (conflictRef.current || readOnlyRef.current) return;
+    try {
+      const response = await fetch(`/api/supervision/${supervision.id}/dashboard?revision=${revision}`, { cache: "no-store" });
+      const body = await response.json();
+      const state = response.ok ? toState(body.state) : null;
+      if (!state) return;
+      replace(state);
+      latestRef.current = state;
+      setHistory(null);
+      void flush();
+    } catch {
+      setStatus({ kind: "error", at: 0, message: "Restauration impossible : réseau indisponible." });
+    }
+  };
+
+  const banner = (
+    <>
+      {conflict ? (
+        <div className={styles.notice} role="alert">
+          <strong>Ce tableau a été modifié ailleurs (autre onglet ou autre appareil). Rien n&apos;a été écrasé.</strong>
+          <button type="button" onClick={useServerVersion}>Charger la version du serveur (mes modifications non enregistrées seront perdues)</button>
+          <button type="button" onClick={keepMine}>Garder ma version (elle remplacera celle du serveur)</button>
+        </div>
+      ) : null}
+      {supervision.state === "read_only_grace" || supervision.state === "pending_deletion" ? <div className={styles.notice} role="status"><strong>Cette Supervision est en lecture seule.</strong></div> : null}
+      <p className={styles.muted} style={{ marginBottom: 8 }}>
+        <button type="button" onClick={toggleHistory} style={{ background: "none", border: 0, color: "var(--accent-gold-bright, #e0b44c)", cursor: "pointer", padding: 0, fontSize: 13 }}>
+          {history ? "Masquer l'historique" : "Historique des enregistrements"}
+        </button>
+      </p>
+      {history ? (
+        <div className={styles.history}>
+          {history.length === 0 ? (
+            "Aucun enregistrement pour l'instant."
+          ) : (
+            <>
+              Les {history.length} dernières versions enregistrées. Restaurer une version l&apos;enregistre comme une nouvelle révision (rien n&apos;est perdu).
+              <ul>
+                {history.map((entry) => (
+                  <li key={entry.revision}>
+                    <span>Révision {entry.revision}</span>
+                    <span className={styles.muted}>{timeFormat.format(new Date(entry.savedAt))}</span>
+                    <button type="button" onClick={() => void restore(entry.revision)} style={{ cursor: "pointer" }}>Restaurer</button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
+      ) : null}
+    </>
+  );
+
+  return (
+    <div className={styles.page} style={{ maxWidth: "none", padding: 0 }}>
+      <div style={{ maxWidth: 1480, margin: "0 auto", padding: "14px 16px 0" }}>
+        <div className={styles.head}>
+          <Link href="/mon-espace/supervision" className={styles.back}>← Mes Supervisions</Link>
+          <h1>{supervision.name}</h1>
+          <span className={styles.badge} data-state={supervision.state}>{STATE_LABELS[supervision.state] ?? supervision.state}</span>
+        </div>
+        <p className={styles.muted}>Données de démonstration : les modules seront branchés sur les événements réels du site à l&apos;étape suivante. La disposition, elle, est déjà enregistrée sur le serveur.</p>
+      </div>
+      <DashboardShell
+        key={shell.key}
+        initialState={shell.state}
+        onStateChange={onStateChange}
+        status={status}
+        badge="Tableau de bord"
+        onReload={() => void reload()}
+        reloadLabel="Recharger la version du serveur"
+        banner={banner}
+      />
+    </div>
+  );
+}

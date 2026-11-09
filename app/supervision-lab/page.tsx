@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import Header from "@/components/equinoxe/Header";
-import LabClient from "@/components/supervision-lab/LabClient";
+import LabClient from "@/components/supervision/LabClient";
 import { spaceAccount } from "@/lib/adminAuth";
 import { canOpenSection } from "@/lib/espaceAccess";
 

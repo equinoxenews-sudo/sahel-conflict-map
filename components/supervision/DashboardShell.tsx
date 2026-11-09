@@ -1,10 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { fakeEvents } from "@/lib/supervision/lab/fixtures";
-import { COLUMNS, breakpointForWidth, minSizeFor, nudge, type Breakpoint, type Placement } from "@/lib/supervision/lab/layout";
-import { MODULES, moduleDef, type ModuleKind } from "@/lib/supervision/lab/modules";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { fakeEvents, type FakeEvent } from "@/lib/supervision/dashboard/fixtures";
+import { COLUMNS, breakpointForWidth, minSizeFor, nudge, type Breakpoint, type Placement } from "@/lib/supervision/dashboard/layout";
+import { MODULES, moduleDef, type ModuleKind } from "@/lib/supervision/dashboard/modules";
 import {
   DEMO_STATES,
   PERIODS,
@@ -16,17 +16,15 @@ import {
   exampleState,
   kindsOf,
   layoutFor,
-  parseState,
   removeWidget,
   resetWidget,
-  serializeState,
   setGlobals,
   setLayout,
   updateWidget,
   type Filters,
   type LabState,
   type Theme,
-} from "@/lib/supervision/lab/state";
+} from "@/lib/supervision/dashboard/state";
 import LabFrame, { type LabActions } from "./LabFrame";
 import type { GridEngineProps } from "./engines/types";
 import styles from "./Lab.module.css";
@@ -34,35 +32,61 @@ import styles from "./Lab.module.css";
 // Moteur de grille retenu (décision du 09/11/2026) : React Grid Layout 2. L'interface GridEngineProps garde un changement de moteur peu coûteux.
 const RglEngine = dynamic<GridEngineProps>(() => import("./engines/RglEngine"), { ssr: false });
 
-// Clé gardée telle quelle pour ne pas perdre les dispositions déjà enregistrées pendant la comparaison des moteurs.
-const STORAGE_KEY = "equinoxe-supervision-lab-v1-rgl";
-const SAVE_DELAY_MS = 600;
-
 type Simulated = "auto" | Breakpoint;
 const SIM_WIDTH: Record<Simulated, string | undefined> = { auto: undefined, desktop: undefined, tablet: "720px", mobile: "380px" };
-
-function loadState(): LabState {
-  try {
-    return parseState(window.localStorage.getItem(STORAGE_KEY)) ?? emptyState();
-  } catch {
-    return emptyState();
-  }
-}
 
 function timeLabel(at: number): string {
   return new Intl.DateTimeFormat("fr-FR", { hour: "2-digit", minute: "2-digit", second: "2-digit" }).format(new Date(at));
 }
 
-export default function LabShell() {
-  const [state, setState] = useState<LabState>(() => loadState());
+export type ShellStatus = { kind: "saved" | "pending" | "saving" | "error" | "conflict" | "readonly"; at: number; message?: string };
+
+export interface DashboardShellProps {
+  /** État de départ. Pour en charger un autre (rechargement, restauration), le parent remonte l'éditeur avec une nouvelle clé. */
+  initialState: LabState;
+  /** Appelée à chaque modification (pas à l'ouverture) : le parent décide où et quand enregistrer. Doit avoir une identité stable. */
+  onStateChange: (state: LabState) => void;
+  status: ShellStatus;
+  /** Libellé de la pastille de la barre d'outils. */
+  badge: string;
+  /** Prototype : boutons « Charger l'exemple », « Tableau vierge » et « Copier la disposition ». */
+  samples?: boolean;
+  /** Si fourni : bouton pour recharger la dernière version enregistrée. */
+  onReload?: () => void;
+  reloadLabel?: string;
+  /** Événements affichés par les modules (fictifs par défaut). */
+  events?: FakeEvent[];
+  /** Bandeau sous les barres d'outils (conflit de sauvegarde, lecture seule…). */
+  banner?: ReactNode;
+}
+
+function statusText(status: ShellStatus): string {
+  switch (status.kind) {
+    case "pending":
+      return "Modifications en attente d'enregistrement…";
+    case "saving":
+      return "Enregistrement…";
+    case "error":
+      return status.message ?? "Enregistrement impossible : nouvelle tentative en cours.";
+    case "conflict":
+      return "Conflit : une version plus récente existe sur le serveur.";
+    case "readonly":
+      return "Lecture seule : ce tableau n'est plus modifiable.";
+    default:
+      return status.at ? `Enregistré à ${timeLabel(status.at)}` : status.message ?? "Aucune modification";
+  }
+}
+
+export default function DashboardShell({ initialState, onStateChange, status, badge, samples = false, onReload, reloadLabel = "Restaurer le dernier enregistrement", events: eventsProp, banner }: DashboardShellProps) {
+  const [state, setState] = useState<LabState>(initialState);
   const [now] = useState(() => Date.now());
-  const events = useMemo(() => fakeEvents(now), [now]);
+  const fallbackEvents = useMemo(() => fakeEvents(now), [now]);
+  const events = eventsProp ?? fallbackEvents;
   const [editMode, setEditMode] = useState(true);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [fullscreenId, setFullscreenId] = useState<string | null>(null);
   const [libraryOpen, setLibraryOpen] = useState(true);
   const [simulated, setSimulated] = useState<Simulated>("auto");
-  const [saveStatus, setSaveStatus] = useState<{ kind: "saved" | "pending"; at: number }>({ kind: "saved", at: 0 });
   const [copied, setCopied] = useState(false);
   const libraryDragRef = useRef<ModuleKind | null>(null);
 
@@ -82,26 +106,15 @@ export default function LabShell() {
   const placements = useMemo(() => layoutFor(state, breakpoint), [state, breakpoint]);
   const editable = editMode;
 
-  // Sauvegarde automatique, à retardement (les déplacements successifs ne font qu'une écriture).
-  const firstRender = useRef(true);
+  // Prévient le parent à chaque modification (jamais pour l'état d'ouverture, même quand React rejoue les effets en développement).
+  const lastNotified = useRef(initialState);
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-    const timer = window.setTimeout(() => {
-      try {
-        window.localStorage.setItem(STORAGE_KEY, serializeState(state));
-      } catch {
-        /* stockage indisponible : la démonstration continue sans sauvegarde */
-      }
-      setSaveStatus({ kind: "saved", at: Date.now() });
-    }, SAVE_DELAY_MS);
-    return () => window.clearTimeout(timer);
-  }, [state]);
+    if (state === lastNotified.current) return;
+    lastNotified.current = state;
+    onStateChange(state);
+  }, [state, onStateChange]);
 
   const change = useCallback((update: (current: LabState) => LabState) => {
-    setSaveStatus((s) => ({ ...s, kind: "pending" }));
     setState(update);
   }, []);
 
@@ -161,7 +174,6 @@ export default function LabShell() {
     if (next) onPlacementsChange(next);
   };
 
-  const restoreLastSaved = () => change(() => loadState());
   const copyJson = async () => {
     try {
       await navigator.clipboard.writeText(JSON.stringify(state, null, 2));
@@ -190,7 +202,7 @@ export default function LabShell() {
       <div className={styles.shell}>
         <div className={styles.toolbar}>
           <div className={styles.toolGroup}>
-            <strong className={styles.engineTag}>Prototype Lot 2</strong>
+            <strong className={styles.engineTag}>{badge}</strong>
             <div className={styles.segment} role="group" aria-label="Mode">
               <button type="button" aria-pressed={editMode} className={editMode ? styles.active : undefined} onClick={() => setEditMode(true)}>Édition</button>
               <button type="button" aria-pressed={!editMode} className={!editMode ? styles.active : undefined} onClick={() => { setEditMode(false); setSelectedId(null); }}>Consultation</button>
@@ -211,15 +223,19 @@ export default function LabShell() {
 
         <div className={styles.toolbar}>
           <div className={styles.toolGroup}>
-            <span className={styles.muted} role="status">
-              {saveStatus.kind === "pending" ? "Modifications en cours d'enregistrement…" : saveStatus.at ? `Enregistré à ${timeLabel(saveStatus.at)}` : "Enregistrement automatique (ce navigateur)"}
-            </span>
-            <button type="button" className={styles.btn} onClick={restoreLastSaved}>Restaurer le dernier enregistrement</button>
-            <button type="button" className={styles.btn} onClick={() => { change(() => exampleState()); setSelectedId(null); }}>Charger l&apos;exemple</button>
-            <button type="button" className={styles.btn} onClick={() => { change(() => emptyState()); setSelectedId(null); }}>Tableau vierge</button>
-            <button type="button" className={styles.btn} onClick={copyJson}>{copied ? "Copié" : "Copier la disposition (JSON)"}</button>
+            <span className={styles.muted} role="status" data-status={status.kind}>{statusText(status)}</span>
+            {onReload ? <button type="button" className={styles.btn} onClick={onReload}>{reloadLabel}</button> : null}
+            {samples ? (
+              <>
+                <button type="button" className={styles.btn} onClick={() => { change(() => exampleState()); setSelectedId(null); }}>Charger l&apos;exemple</button>
+                <button type="button" className={styles.btn} onClick={() => { change(() => emptyState()); setSelectedId(null); }}>Tableau vierge</button>
+                <button type="button" className={styles.btn} onClick={copyJson}>{copied ? "Copié" : "Copier la disposition (JSON)"}</button>
+              </>
+            ) : null}
           </div>
         </div>
+
+        {banner}
 
         {editable ? (
           <section className={styles.library} aria-label="Bibliothèque de modules">

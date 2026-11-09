@@ -1,9 +1,9 @@
 "use client";
 
 import { memo, useEffect, useMemo, useRef, useState } from "react";
-import { applyFilters, type FakeEvent } from "@/lib/supervision/lab/fixtures";
-import { BAND_LABELS, bandFor } from "@/lib/supervision/lab/layout";
-import { effectiveFilters, THEMES, type Filters, type WidgetConfig } from "@/lib/supervision/lab/state";
+import { applyFilters, type FakeEvent } from "@/lib/supervision/dashboard/fixtures";
+import { BAND_LABELS, bandFor } from "@/lib/supervision/dashboard/layout";
+import { effectiveFilters, THEMES, type Filters, type WidgetConfig } from "@/lib/supervision/dashboard/state";
 import { ModuleBody } from "./LabModules";
 import styles from "./Lab.module.css";
 

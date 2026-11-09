@@ -1,6 +1,6 @@
 import type { MutableRefObject, ReactNode } from "react";
-import type { Breakpoint, Placement } from "@/lib/supervision/lab/layout";
-import type { ModuleKind } from "@/lib/supervision/lab/modules";
+import type { Breakpoint, Placement } from "@/lib/supervision/dashboard/layout";
+import type { ModuleKind } from "@/lib/supervision/dashboard/modules";
 
 /** Hauteur d'une ligne de la grille et espace entre modules, en pixels : identiques pour les deux moteurs. */
 export const ROW_HEIGHT = 64;

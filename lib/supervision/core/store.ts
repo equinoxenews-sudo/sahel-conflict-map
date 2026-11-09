@@ -40,7 +40,9 @@ export type FailureCode =
   | "budget_exceeded"
   | "released"
   | "already_settled"
-  | "access_denied";
+  | "access_denied"
+  | "revision_conflict"
+  | "read_only";
 
 export type Outcome<T = Record<string, never>> = ({ ok: true; replay: boolean } & T) | { ok: false; code: FailureCode; detail: Record<string, unknown> };
 
@@ -311,3 +313,7 @@ export async function releaseAiBudget(ownerId: string, operationId: string, clie
 }
 
 export { decideReservation };
+
+/** Pour les modules voisins du même modèle (tableaux de bord…) : appel d'une fonction SQL avec le même format de résultat. */
+export { call as callRpc, db as adminDb };
+export type { Db };

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { applyFilters, fakeEvents } from "../lib/supervision/lab/fixtures";
-import { COLUMNS, bandFor, breakpointForWidth, clampPlacements, compact, deriveLayout, findFreeSpot, hasOverlap, minSizeFor, nudge, samePlacements } from "../lib/supervision/lab/layout";
+import { applyFilters, fakeEvents } from "../lib/supervision/dashboard/fixtures";
+import { COLUMNS, bandFor, breakpointForWidth, clampPlacements, compact, deriveLayout, findFreeSpot, hasOverlap, minSizeFor, nudge, samePlacements } from "../lib/supervision/dashboard/layout";
 import {
   DEFAULT_FILTERS,
   addWidget,
@@ -17,7 +17,7 @@ import {
   serializeState,
   setLayout,
   updateWidget,
-} from "../lib/supervision/lab/state";
+} from "../lib/supervision/dashboard/state";
 
 test("largeurs : 12 colonnes en bureau, 6 en tablette, 1 sur téléphone", () => {
   assert.equal(COLUMNS.desktop, 12);

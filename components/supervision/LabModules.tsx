@@ -1,9 +1,9 @@
 "use client";
 
 import { memo, useState } from "react";
-import { PRIORITY_LABELS, VERIFICATION_LABELS, type FakeEvent, type Priority } from "@/lib/supervision/lab/fixtures";
-import type { Band } from "@/lib/supervision/lab/layout";
-import type { ModuleKind } from "@/lib/supervision/lab/modules";
+import { PRIORITY_LABELS, VERIFICATION_LABELS, type FakeEvent, type Priority } from "@/lib/supervision/dashboard/fixtures";
+import type { Band } from "@/lib/supervision/dashboard/layout";
+import type { ModuleKind } from "@/lib/supervision/dashboard/modules";
 import styles from "./Lab.module.css";
 
 // Contenu des huit modules. Chacun reçoit les MÊMES données déjà filtrées et ne change que son niveau de détail selon le
