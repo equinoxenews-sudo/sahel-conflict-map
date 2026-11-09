@@ -2,7 +2,8 @@
 
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { fakeEvents, type FakeEvent } from "@/lib/supervision/dashboard/fixtures";
+import { fakeEvents, type BoardEvent } from "@/lib/supervision/dashboard/fixtures";
+import type { DataContext } from "@/lib/supervision/dashboard/geo";
 import { COLUMNS, breakpointForWidth, minSizeFor, nudge, type Breakpoint, type Placement } from "@/lib/supervision/dashboard/layout";
 import { MODULES, moduleDef, type ModuleKind } from "@/lib/supervision/dashboard/modules";
 import {
@@ -55,7 +56,9 @@ export interface DashboardShellProps {
   onReload?: () => void;
   reloadLabel?: string;
   /** Événements affichés par les modules (fictifs par défaut). */
-  events?: FakeEvent[];
+  events?: BoardEvent[];
+  /** Présent seulement avec des événements RÉELS : fond de carte et fraîcheur. Doit avoir une identité stable. */
+  data?: DataContext;
   /** Bandeau sous les barres d'outils (conflit de sauvegarde, lecture seule…). */
   banner?: ReactNode;
 }
@@ -77,7 +80,7 @@ function statusText(status: ShellStatus): string {
   }
 }
 
-export default function DashboardShell({ initialState, onStateChange, status, badge, samples = false, onReload, reloadLabel = "Restaurer le dernier enregistrement", events: eventsProp, banner }: DashboardShellProps) {
+export default function DashboardShell({ initialState, onStateChange, status, badge, samples = false, onReload, reloadLabel = "Restaurer le dernier enregistrement", events: eventsProp, data, banner }: DashboardShellProps) {
   const [state, setState] = useState<LabState>(initialState);
   const [now] = useState(() => Date.now());
   const fallbackEvents = useMemo(() => fakeEvents(now), [now]);
@@ -294,7 +297,7 @@ export default function DashboardShell({ initialState, onStateChange, status, ba
                 onLibraryDrop={onLibraryDrop}
                 libraryDragRef={libraryDragRef}
                 renderWidget={(id) => (
-                  <LabFrame widget={state.widgets[id]} globals={state.globals} events={events} now={now} editable={editable} selected={selectedId === id} actions={actions} />
+                  <LabFrame widget={state.widgets[id]} globals={state.globals} events={events} data={data} now={now} editable={editable} selected={selectedId === id} actions={actions} />
                 )}
               />
               ) : null}
@@ -381,7 +384,7 @@ export default function DashboardShell({ initialState, onStateChange, status, ba
 
         {fullscreenId && state.widgets[fullscreenId] ? (
           <div className={styles.fullscreen} role="dialog" aria-modal="true" aria-label="Module en plein écran">
-            <LabFrame widget={state.widgets[fullscreenId]} globals={state.globals} events={events} now={now} editable={false} selected={false} actions={actions} fullscreen />
+            <LabFrame widget={state.widgets[fullscreenId]} globals={state.globals} events={events} data={data} now={now} editable={false} selected={false} actions={actions} fullscreen />
           </div>
         ) : null}
       </div>

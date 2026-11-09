@@ -1,7 +1,8 @@
 "use client";
 
 import { memo, useEffect, useMemo, useRef, useState } from "react";
-import { applyFilters, type FakeEvent } from "@/lib/supervision/dashboard/fixtures";
+import { applyFilters, type BoardEvent } from "@/lib/supervision/dashboard/fixtures";
+import type { DataContext } from "@/lib/supervision/dashboard/geo";
 import { BAND_LABELS, bandFor } from "@/lib/supervision/dashboard/layout";
 import { effectiveFilters, THEMES, type Filters, type WidgetConfig } from "@/lib/supervision/dashboard/state";
 import { ModuleBody } from "./LabModules";
@@ -56,7 +57,9 @@ export interface LabActions {
 interface LabFrameProps {
   widget: WidgetConfig | undefined;
   globals: Filters;
-  events: FakeEvent[];
+  events: BoardEvent[];
+  /** Présent seulement avec des événements réels. */
+  data?: DataContext;
   now: number;
   editable: boolean;
   selected: boolean;
@@ -70,7 +73,7 @@ interface LabFrameProps {
  * Mémoïsé : un module ne se redessine que si SES propres réglages changent (sur téléphone, redessiner les huit à chaque clic
  * dépassait 300 ms, seuil à partir duquel Vercel signale un problème d'interaction).
  */
-function LabFrameView({ widget, globals, events, now, editable, selected, actions, fullscreen = false }: LabFrameProps) {
+function LabFrameView({ widget, globals, events, data, now, editable, selected, actions, fullscreen = false }: LabFrameProps) {
   const id = widget?.id ?? "";
   const { ref, size } = useElementSize<HTMLDivElement>();
   const { filters, overridesGlobal } = widget ? effectiveFilters(widget, globals) : { filters: globals, overridesGlobal: false };
@@ -79,7 +82,17 @@ function LabFrameView({ widget, globals, events, now, editable, selected, action
 
   const band = bandFor(size.w, size.h);
   const themeLabel = THEMES.find((t) => t.key === filters.theme)?.label ?? "";
-  const stale = widget.demoState === "stale";
+  // Données réelles : la fraîcheur est celle du dernier fait retrouvé, pas une valeur d'exemple ; au-delà de 48 h on le dit.
+  const latestFact = data?.latest ? Date.parse(data.latest) : null;
+  const realStale = data ? latestFact === null || now - latestFact > 48 * 3_600_000 : false;
+  const stale = widget.demoState === "stale" || realStale;
+  const freshLabel = data
+    ? latestFact === null
+      ? "Aucun fait retrouvé"
+      : `Dernier fait : ${new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" }).format(latestFact)}`
+    : stale
+      ? "Mis à jour il y a 3 jours"
+      : "Mis à jour il y a 12 min";
 
   return (
     <section
@@ -92,7 +105,7 @@ function LabFrameView({ widget, globals, events, now, editable, selected, action
       <header className={styles.frameHead}>
         <div className={`${styles.frameTitle} ${editable && !fullscreen ? styles.handle : ""}`} data-lab-handle>
           <h3>{widget.title}</h3>
-          <span className={styles.fresh} data-stale={stale || undefined}>{stale ? "Mis à jour il y a 3 jours" : "Mis à jour il y a 12 min"}</span>
+          <span className={styles.fresh} data-stale={stale || undefined}>{freshLabel}</span>
         </div>
         <div className={styles.frameActions}>
           <button type="button" className={styles.iconBtn} aria-label="Plein écran" title="Plein écran" onClick={() => actions.fullscreen(fullscreen ? null : id)}>
@@ -123,8 +136,7 @@ function LabFrameView({ widget, globals, events, now, editable, selected, action
       </div>
 
       <div className={styles.frameBody} data-stale={stale || undefined}>
-        {stale ? <p className={styles.staleNote}>Données de plus de 48 h : ce n&apos;est pas la situation actuelle.</p> : null}
-        {widget.demoState === "loading" ? (
+        {stale ? <p className={styles.staleNote}>Données de plus de 48 h : ce n&apos;est pas la situation actuelle.</p> : null}        {widget.demoState === "loading" ? (
           <div className={styles.skeleton} aria-busy="true"><i /><i /><i /></div>
         ) : widget.demoState === "error" ? (
           <div className={styles.errorBox}>
@@ -134,7 +146,7 @@ function LabFrameView({ widget, globals, events, now, editable, selected, action
         ) : widget.demoState === "empty" ? (
           <p className={styles.muted}>Aucun résultat dans la collecte disponible.</p>
         ) : (
-          <ModuleBody kind={widget.kind} band={band} events={filtered} now={now} />
+          <ModuleBody kind={widget.kind} band={band} events={filtered} now={now} data={data} />
         )}
       </div>
     </section>

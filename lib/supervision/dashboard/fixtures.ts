@@ -6,21 +6,33 @@ import type { Filters, Theme } from "./state";
 export type Priority = "information" | "importante" | "critique";
 export type Verification = "signalement" | "corrobore" | "conteste" | "confirme";
 
-export interface FakeEvent {
-  id: number;
+export interface BoardEvent {
+  /** Texte : « a-123 » (article), « e-456 » (signalement médiatique) ; « 7 » pour les données fictives du prototype. */
+  id: string;
+  /** Absent pour les données fictives du prototype. */
+  kind?: "article" | "signal";
   title: string;
+  summary?: string;
   theme: Exclude<Theme, "all">;
   priority: Priority;
   verification: Verification;
-  /** Date des faits (ISO). */
+  /** Date des faits ou de publication (ISO). */
   at: string;
-  /** Position abstraite sur la carte schématique (0 à 100). */
-  x: number;
-  y: number;
+  /** Position abstraite sur la carte schématique (0 à 100) : données fictives du prototype seulement. */
+  x?: number;
+  y?: number;
+  /** Coordonnées réelles : données réelles seulement. */
+  lat?: number;
+  lon?: number;
   place: string;
   /** Nombre de publications distinctes rattachées (jamais un indice de véracité). */
   publications: number;
+  url?: string;
+  domains?: string[];
 }
+
+/** Ancien nom, gardé pour le prototype. */
+export type FakeEvent = BoardEvent;
 
 const THEME_KEYS: FakeEvent["theme"][] = ["conflits", "securite", "politique", "humanitaire"];
 const PRIORITIES: Priority[] = ["information", "importante", "information", "critique", "information", "importante"];
@@ -38,7 +50,7 @@ export function fakeEvents(now: number): FakeEvent[] {
   for (let i = 0; i < 48; i++) {
     const ageDays = Math.floor(next() * next() * 90 * 1.6) % 90;
     out.push({
-      id: i + 1,
+      id: String(i + 1),
       title: `[DÉMO] Événement fictif n° ${i + 1}`,
       theme: THEME_KEYS[i % THEME_KEYS.length],
       priority: PRIORITIES[i % PRIORITIES.length],

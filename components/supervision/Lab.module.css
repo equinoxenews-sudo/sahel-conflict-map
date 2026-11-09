@@ -639,3 +639,19 @@
     font-size: 18px;
   }
 }
+
+/* Données réelles : contour du pays en fond de carte, liens vers les sources. */
+.mapLand {
+  fill: #16283e;
+  stroke: rgba(255, 255, 255, 0.28);
+  stroke-width: 0.25;
+  stroke-linejoin: round;
+}
+.srcLink {
+  color: inherit;
+  text-decoration: none;
+}
+.srcLink:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--lab-muted);
+}

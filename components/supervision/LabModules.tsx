@@ -1,7 +1,8 @@
 "use client";
 
-import { memo, useState } from "react";
-import { PRIORITY_LABELS, VERIFICATION_LABELS, type FakeEvent, type Priority } from "@/lib/supervision/dashboard/fixtures";
+import { memo, useMemo, useState } from "react";
+import { PRIORITY_LABELS, VERIFICATION_LABELS, type BoardEvent, type Priority } from "@/lib/supervision/dashboard/fixtures";
+import { fitProjection, ringsToPath, type DataContext } from "@/lib/supervision/dashboard/geo";
 import type { Band } from "@/lib/supervision/dashboard/layout";
 import type { ModuleKind } from "@/lib/supervision/dashboard/modules";
 import styles from "./Lab.module.css";
@@ -11,8 +12,10 @@ import styles from "./Lab.module.css";
 
 interface BodyProps {
   band: Band;
-  events: FakeEvent[];
+  events: BoardEvent[];
   now: number;
+  /** Présent seulement pour des données RÉELLES ; absent = données fictives du prototype. */
+  data?: DataContext;
 }
 
 const PRIORITY_COLOR: Record<Priority, string> = { information: "#3d9be9", importante: "#e87932", critique: "#d94a4a" };
@@ -21,7 +24,7 @@ function formatDay(iso: string): string {
   return new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short" }).format(new Date(iso));
 }
 
-function count(events: FakeEvent[], priority: Priority): number {
+function count(events: BoardEvent[], priority: Priority): number {
   return events.filter((e) => e.priority === priority).length;
 }
 
@@ -37,8 +40,69 @@ function Empty() {
   return <p className={styles.muted}>Aucun résultat dans la collecte disponible pour ces filtres.</p>;
 }
 
-function SummaryBody({ band, events }: BodyProps) {
+const THEME_LABEL: Record<BoardEvent["theme"], string> = { conflits: "Conflits", securite: "Sécurité", politique: "Politique", humanitaire: "Humanitaire" };
+
+function topCounts(values: string[], limit: number): { label: string; n: number }[] {
+  const counts = new Map<string, number>();
+  for (const value of values) counts.set(value, (counts.get(value) ?? 0) + 1);
+  return [...counts.entries()].sort((a, b) => b[1] - a[1]).slice(0, limit).map(([label, n]) => ({ label, n }));
+}
+
+/** Résumé CALCULÉ (comptages et faits marquants), sans IA : aucun coût, rien d'inventé. Une vraie synthèse rédigée viendra avec le budget IA. */
+function RealSummaryBody({ band, events, data }: BodyProps) {
+  const critical = count(events, "critique");
+  const important = count(events, "importante");
+  const articles = events.filter((e) => e.kind === "article").length;
+  const signals = events.length - articles;
+  const rank = { critique: 0, importante: 1, information: 2 } as const;
+  const notable = events
+    .filter((e) => e.priority !== "information")
+    .sort((a, b) => rank[a.priority] - rank[b.priority] || b.at.localeCompare(a.at))
+    .slice(0, band === "expanded" ? 6 : 3);
+  const themes = topCounts(events.map((e) => THEME_LABEL[e.theme]), 3);
+  // Seuls les articles ont de vrais lieux : le « lieu » d'un signalement est le pays, ce qui écraserait tout le classement.
+  const places = topCounts(events.filter((e) => e.kind === "article").map((e) => e.place).filter((place) => place !== "Lieu non précisé"), 3);
+  const domains = topCounts(events.flatMap((e) => e.domains ?? []), 6);
+  if (band === "compact") {
+    return <p className={styles.lead}>{events.length} éléments, dont {critical} critique{critical > 1 ? "s" : ""} et {important} importante{important > 1 ? "s" : ""}.</p>;
+  }
+  return (
+    <div className={styles.stack}>
+      <p className={styles.lead}>
+        {events.length} éléments sur la période : {articles} article{articles > 1 ? "s" : ""} analysé{articles > 1 ? "s" : ""} et {signals} signalement{signals > 1 ? "s" : ""} médiatique{signals > 1 ? "s" : ""}, dont {critical} de priorité critique et {important} importante{important > 1 ? "s" : ""}.
+      </p>
+      {themes.length ? <p>Thèmes les plus présents : {themes.map((t) => `${t.label} (${t.n})`).join(", ")}.</p> : null}
+      {places.length ? <p>Lieux les plus cités dans les articles :{places.map((t) => `${t.label} (${t.n})`).join(", ")}.</p> : null}
+      {notable.length ? (
+        <>
+          <h4 className={styles.h4}>Faits marquants</h4>
+          <ul className={styles.bullets}>
+            {notable.map((e) => (
+              <li key={e.id}>
+                {e.title} — {formatDay(e.at)}
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+      <p className={styles.muted}>
+        {data?.latest ? `Dernier fait retrouvé : ${formatDay(data.latest)} ` : ""}
+        Limites : résumé calculé automatiquement, sans IA, à partir des articles et signalements disponibles. Un signalement médiatique n&apos;est pas un fait confirmé.
+      </p>
+      {band === "expanded" && domains.length ? (
+        <>
+          <h4 className={styles.h4}>Sources les plus fréquentes</h4>
+          <p className={styles.muted}>{domains.map((d) => `${d.label} (${d.n})`).join(" · ")}</p>
+        </>
+      ) : null}
+    </div>
+  );
+}
+
+function SummaryBody(props: BodyProps) {
+  const { band, events } = props;
   if (events.length === 0) return <Empty />;
+  if (props.data) return <RealSummaryBody {...props} />;
   const critical = count(events, "critique");
   const top = events.filter((e) => e.priority !== "information").slice(0, 3);
   if (band === "compact") {
@@ -76,7 +140,50 @@ function SummaryBody({ band, events }: BodyProps) {
   );
 }
 
-function MapBody({ band, events }: BodyProps) {
+/** Carte RÉELLE : contour du pays en fond, événements aux coordonnées retrouvées. Ceux sans coordonnées ne sont pas dessinés (ils restent dans le flux). */
+function RealMapBody({ band, events, data }: BodyProps) {
+  const area = data?.area ?? null;
+  const projection = useMemo(() => (area ? fitProjection(area) : null), [area]);
+  if (!projection || !area) return <p className={styles.muted}>Fond de carte indisponible pour ce périmètre.</p>;
+  const located = events.filter((e) => e.lat !== undefined && e.lon !== undefined && projection.inside(e.lon, e.lat));
+  const shown = band === "compact" ? located.filter((e) => e.priority !== "information") : located;
+  const withoutPlace = events.length - events.filter((e) => e.lat !== undefined).length;
+  const outside = events.filter((e) => e.lat !== undefined && e.lon !== undefined && !projection.inside(e.lon, e.lat)).length;
+  if (events.length === 0) return <Empty />;
+  return (
+    <div className={styles.mapWrap}>
+      <svg className={styles.map} viewBox={`0 0 ${projection.width} ${projection.height}`} preserveAspectRatio="xMidYMid meet" role="img" aria-label="Carte des événements du périmètre">
+        <rect width={projection.width} height={projection.height} className={styles.mapBg} />
+        <path d={ringsToPath(area.rings, projection)} className={styles.mapLand} />
+        {shown.map((e) => {
+          const { x, y } = projection.project(e.lon!, e.lat!);
+          return (
+            <circle key={e.id} cx={x} cy={y} r={e.priority === "critique" ? 1.6 : 1.1} fill={PRIORITY_COLOR[e.priority]} opacity={0.85}>
+              <title>{`${e.title} — ${e.place} — ${formatDay(e.at)}`}</title>
+            </circle>
+          );
+        })}
+      </svg>
+      {band !== "compact" ? (
+        <div className={styles.legend}>
+          {(["critique", "importante", "information"] as Priority[]).map((p) => (
+            <span key={p}>
+              <i style={{ background: PRIORITY_COLOR[p] }} /> {PRIORITY_LABELS[p]}
+            </span>
+          ))}
+          <span className={styles.muted}>
+            {located.length} localisé{located.length > 1 ? "s" : ""}
+            {withoutPlace + outside > 0 ? ` · ${withoutPlace + outside} sans position utilisable (dans le flux)` : ""}
+          </span>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function MapBody(props: BodyProps) {
+  const { band, events } = props;
+  if (props.data) return <RealMapBody {...props} />;
   if (events.length === 0) return <Empty />;
   const shown = band === "compact" ? events.filter((e) => e.priority !== "information") : events;
   return (
@@ -90,7 +197,7 @@ function MapBody({ band, events }: BodyProps) {
             ])
           : null}
         {shown.map((e) => (
-          <circle key={e.id} cx={e.x} cy={e.y} r={e.priority === "critique" ? 2.6 : 1.8} fill={PRIORITY_COLOR[e.priority]} opacity={0.9}>
+          <circle key={e.id} cx={e.x ?? 0} cy={e.y ?? 0} r={e.priority === "critique" ? 2.6 : 1.8} fill={PRIORITY_COLOR[e.priority]} opacity={0.9}>
             <title>{`${e.title} — ${e.place}`}</title>
           </circle>
         ))}
@@ -99,7 +206,7 @@ function MapBody({ band, events }: BodyProps) {
               .filter((e) => e.priority === "critique")
               .slice(0, 6)
               .map((e) => (
-                <text key={`t${e.id}`} x={e.x + 3} y={e.y - 2} className={styles.mapLabel}>
+                <text key={`t${e.id}`} x={(e.x ?? 0) + 3} y={(e.y ?? 0) - 2} className={styles.mapLabel}>
                   {e.place.replace("Zone fictive ", "")}
                 </text>
               ))
@@ -126,11 +233,11 @@ function FeedBody({ band, events }: BodyProps) {
     <ul className={styles.list}>
       {events.slice(0, limit).map((e) => (
         <li key={e.id}>
-          <strong>{e.title}</strong>
+          <strong>{e.url ? <a href={e.url} target="_blank" rel="noopener noreferrer" className={styles.srcLink}>{e.title}</a> : e.title}</strong>
           {band !== "compact" ? (
             <span className={styles.meta}>
               <Chip priority={e.priority} /> {VERIFICATION_LABELS[e.verification]} · {formatDay(e.at)}
-              {band === "expanded" ? ` · ${e.place} · ${e.publications} publication${e.publications > 1 ? "s" : ""}` : ""}
+              {band === "expanded" ? ` · ${e.place} · ${e.publications} publication${e.publications > 1 ? "s" : ""}${e.domains?.length ? ` · ${e.domains[0]}` : ""}` : ""}
             </span>
           ) : null}
         </li>
@@ -174,7 +281,7 @@ function TimelineBody({ band, events, now }: BodyProps) {
 }
 
 function AlertsBody({ band, events }: BodyProps) {
-  const [read, setRead] = useState<Set<number>>(new Set());
+  const [read, setRead] = useState<Set<string>>(new Set());
   const urgent = events.filter((e) => e.priority !== "information");
   if (urgent.length === 0) return <Empty />;
   if (band === "compact") {

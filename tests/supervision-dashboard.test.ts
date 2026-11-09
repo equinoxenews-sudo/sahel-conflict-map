@@ -183,7 +183,7 @@ test("données fictives : toutes marquées [DÉMO], stables pour une date donné
   const quarter = applyFilters(events, { periodDays: 90, theme: "all" }, now);
   assert.ok(week.length < quarter.length);
   assert.ok(applyFilters(events, { periodDays: 90, theme: "conflits" }, now).every((e) => e.theme === "conflits"));
-  assert.ok(events.every((e) => e.x >= 0 && e.x <= 100 && e.y >= 0 && e.y <= 100), "positions abstraites, pas de coordonnées réelles");
+  assert.ok(events.every((e) => e.x !== undefined && e.y !== undefined && e.x >= 0 && e.x <= 100 && e.y >= 0 && e.y <= 100 && e.lat === undefined), "positions abstraites, pas de coordonnées réelles");
 });
 
 test("décalage au clavier : une cellule à la fois, jamais hors grille, sous le minimum ni sur un autre module", () => {

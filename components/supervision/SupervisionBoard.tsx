@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { BoardEvent } from "@/lib/supervision/dashboard/fixtures";
+import { extractArea, type DataContext } from "@/lib/supervision/dashboard/geo";
 import { emptyState, parseState, type LabState } from "@/lib/supervision/dashboard/state";
 import DashboardShell, { type ShellStatus } from "./DashboardShell";
 import { STATE_LABELS } from "./SupervisionList";
@@ -28,11 +30,22 @@ interface Loaded {
   dashboard: { revision: number; state: LabState | null };
 }
 
+/** Réponse de /api/supervision/[id]/data. */
+interface BoardPayload {
+  events: BoardEvent[];
+  countries: { iso3: string; name: string }[];
+  coverage: { articles: number; signals: number; earliest: string | null; latest: string | null; truncated: boolean; method: string };
+  sample: boolean;
+}
+
+type DataState = { status: "loading" } | { status: "error" } | { status: "ready"; payload: BoardPayload; context: DataContext };
+
 interface Conflict {
   currentRevision: number;
   currentState: LabState | null;
 }
 
+const dayFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "long", year: "numeric" });
 const timeFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", second: "2-digit" });
 
 function toState(value: unknown): LabState | null {
@@ -42,6 +55,36 @@ function toState(value: unknown): LabState | null {
 export default function SupervisionBoard({ id }: { id: string }) {
   const [loaded, setLoaded] = useState<Loaded | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [data, setData] = useState<DataState>({ status: "loading" });
+
+  // Événements réels du périmètre (lecture seule côté serveur) et contour du pays pour le fond de carte. Un échec ici n'empêche pas
+  // de disposer le tableau : les modules affichent alors « données indisponibles ».
+  const [attempt, setAttempt] = useState(0);
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const response = await fetch(`/api/supervision/${id}/data`, { cache: "no-store" });
+        if (!response.ok) throw new Error(String(response.status));
+        const payload = (await response.json()) as BoardPayload;
+        let area = null;
+        if (payload.countries.length > 0) {
+          const geo = await fetch("/data/world-countries.geo.json").then((r) => (r.ok ? r.json() : null)).catch(() => null);
+          area = geo ? extractArea(geo, payload.countries.map((country) => country.iso3)) : null;
+        }
+        if (!cancelled) setData({ status: "ready", payload, context: { area, latest: payload.coverage.latest } });
+      } catch {
+        if (!cancelled) setData({ status: "error" });
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [id, attempt]);
+  const retryData = () => {
+    setData({ status: "loading" });
+    setAttempt((n) => n + 1);
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -79,10 +122,16 @@ export default function SupervisionBoard({ id }: { id: string }) {
       </div>
     );
   }
-  return <Editor supervision={loaded.supervision} initialRevision={loaded.dashboard.revision} initialState={loaded.dashboard.state ?? emptyState()} />;
+  return <Editor supervision={loaded.supervision} initialRevision={loaded.dashboard.revision} initialState={loaded.dashboard.state ?? emptyState()} data={data} onRetryData={retryData} />;
 }
 
-function Editor({ supervision, initialRevision, initialState }: { supervision: SupervisionInfo; initialRevision: number; initialState: LabState }) {
+const NO_EVENTS: BoardEvent[] = [];
+const NO_DATA: DataContext = { area: null, latest: null };
+
+function Editor({ supervision, initialRevision, initialState, data, onRetryData }: { supervision: SupervisionInfo; initialRevision: number; initialState: LabState; data: DataState; onRetryData: () => void }) {
+  // Identités stables : tant que les données ne changent pas, aucun module n'est redessiné.
+  const events = useMemo(() => (data.status === "ready" ? data.payload.events : NO_EVENTS), [data]);
+  const context = useMemo(() => (data.status === "ready" ? data.context : NO_DATA), [data]);
   const [shell, setShell] = useState<{ key: number; state: LabState }>({ key: 0, state: initialState });
   const [status, setStatus] = useState<ShellStatus>({ kind: "saved", at: 0, message: initialRevision > 0 ? "Version enregistrée chargée" : "Tableau vierge : rien d'enregistré pour l'instant" });
   const [conflict, setConflict] = useState<Conflict | null>(null);
@@ -293,7 +342,7 @@ function Editor({ supervision, initialRevision, initialState }: { supervision: S
           <h1>{supervision.name}</h1>
           <span className={styles.badge} data-state={supervision.state}>{STATE_LABELS[supervision.state] ?? supervision.state}</span>
         </div>
-        <p className={styles.muted}>Données de démonstration : les modules seront branchés sur les événements réels du site à l&apos;étape suivante. La disposition, elle, est déjà enregistrée sur le serveur.</p>
+        <DataNotice data={data} onRetry={onRetryData} />
       </div>
       <DashboardShell
         key={shell.key}
@@ -304,7 +353,33 @@ function Editor({ supervision, initialRevision, initialState }: { supervision: S
         onReload={() => void reload()}
         reloadLabel="Recharger la version du serveur"
         banner={banner}
+        events={events}
+        data={context}
       />
     </div>
+  );
+}
+
+function DataNotice({ data, onRetry }: { data: DataState; onRetry: () => void }) {
+  if (data.status === "loading") return <p className={styles.muted}>Chargement des événements du périmètre…</p>;
+  if (data.status === "error") {
+    return (
+      <p className={styles.error} role="alert">
+        Les données de cette Supervision sont momentanément indisponibles (le tableau reste modifiable).{" "}
+        <button type="button" onClick={onRetry} style={{ cursor: "pointer" }}>Réessayer</button>
+      </p>
+    );
+  }
+  const { payload } = data;
+  const { coverage } = payload;
+  const where = payload.countries.map((country) => country.name).join(", ") || "aucun pays";
+  return (
+    <p className={styles.muted}>
+      {payload.sample ? "Échantillon de données publiques du site. " : ""}
+      {where} : {coverage.articles} article{coverage.articles > 1 ? "s" : ""} analysé{coverage.articles > 1 ? "s" : ""} et {coverage.signals} signalement{coverage.signals > 1 ? "s" : ""} médiatique{coverage.signals > 1 ? "s" : ""}
+      {coverage.earliest && coverage.latest ? `, du ${dayFormat.format(new Date(coverage.earliest))} au ${dayFormat.format(new Date(coverage.latest))}` : ""}.
+      {coverage.truncated ? " Attention : la lecture est limitée, tout n'est pas affiché." : ""}{" "}
+      <span title={coverage.method} style={{ textDecoration: "underline dotted", cursor: "help" }}>Comment sont rattachés les éléments ?</span>
+    </p>
   );
 }
