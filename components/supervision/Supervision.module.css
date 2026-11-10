@@ -176,3 +176,78 @@
   gap: 10px;
   align-items: center;
 }
+
+/* Périmètre modifiable : champs à pastilles. */
+.scopeForm {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.tagField {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 4px 3px 10px;
+  border: 1px solid var(--border-subtle, #1c2b3f);
+  border-radius: 999px;
+  background: rgba(224, 180, 76, 0.08);
+  font-size: 13px;
+}
+.chip button {
+  background: none;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1;
+  padding: 0 6px;
+  border-radius: 999px;
+}
+.chip button:hover:not(:disabled) {
+  background: rgba(255, 180, 180, 0.18);
+}
+.chip button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.tagInput {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.tagInput input,
+.tagInput select {
+  flex: 1 1 220px;
+  min-width: 0;
+  padding: 7px 10px;
+  border: 1px solid var(--border-subtle, #1c2b3f);
+  border-radius: 7px;
+  background: var(--bg-deep, #0a1420);
+  color: inherit;
+  font-size: 13.5px;
+}
+.tagInput button {
+  background: var(--bg-panel, #101c2c);
+  color: inherit;
+  border: 1px solid var(--border-subtle, #1c2b3f);
+  border-radius: 7px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.tagInput button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}

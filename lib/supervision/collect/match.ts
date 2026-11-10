@@ -44,7 +44,7 @@ export function matchItem(item: MatchInput, snapshot: ScopeSnapshot, exclusions:
   const fallback = THEME_OF_OBJECTIVE[snapshot.scope.objective] ?? "securite";
   const reject = (reason: string, terms: string[] = [], rejection: "topic" | "other" = "other"): MatchResult => ({ matched: false, score: 0, reason, terms, theme: fallback, rejection });
 
-  const excluded = exclusions.find((term) => containsTerm(text, term));
+  const excluded = [...exclusions, ...(snapshot.scope.exclusions ?? [])].find((term) => containsTerm(text, term));
   if (excluded) return reject(`Exclu : « ${excluded} »`);
 
   const place = zoneCountryWords(snapshot).find((word) => containsTerm(text, word));

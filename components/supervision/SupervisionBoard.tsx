@@ -6,6 +6,7 @@ import type { BoardEvent } from "@/lib/supervision/dashboard/fixtures";
 import { extractArea, type DataContext } from "@/lib/supervision/dashboard/geo";
 import { emptyState, parseState, type LabState } from "@/lib/supervision/dashboard/state";
 import CollectPanel from "./CollectPanel";
+import ScopePanel from "./ScopePanel";
 import DashboardShell, { type ShellStatus } from "./DashboardShell";
 import { STATE_LABELS } from "./SupervisionList";
 import styles from "./Supervision.module.css";
@@ -301,6 +302,7 @@ function Editor({ supervision, initialRevision, initialState, data, onRetryData,
 
   const banner = (
     <>
+      <ScopePanel id={supervision.id} onSaved={onRefreshData} />
       <CollectPanel id={supervision.id} onCollected={onRefreshData} />
       {conflict ? (
         <div className={styles.notice} role="alert">

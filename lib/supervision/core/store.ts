@@ -230,6 +230,28 @@ export interface ScopeChangeResult {
  * version en attente si majeur). Les estimations insuffisamment fiables sont renvoyées dans `classification.warnings` : à montrer à
  * l'utilisateur AVANT de confirmer.
  */
+/**
+ * Classe un périmètre proposé (mineur / majeur, avertissements) SANS rien écrire : sert à l'aperçu avant enregistrement.
+ * null si la Supervision n'existe pas pour ce propriétaire.
+ */
+export async function classifyProposal(
+  ownerId: string,
+  supervisionId: string,
+  next: ScopeSnapshot,
+  policy: SupervisionPolicy = getPolicy(),
+  client: Db = db(),
+): Promise<{ supervision: SupervisionRecord; classification: Classification } | null> {
+  const supervision = await getSupervision(ownerId, supervisionId, client);
+  if (!supervision) return null;
+  // Sans périmètre de référence (brouillon), tout changement est libre : on compare quand même au périmètre courant pour l'historique.
+  const referenceId = supervision.referenceScopeVersionId ?? supervision.currentScopeVersionId;
+  const reference = referenceId ? await getScopeSnapshot(ownerId, supervisionId, referenceId, client) : null;
+  const classification: Classification = reference
+    ? classifyScopeChange(reference, next, policy.majorChange)
+    : { major: false, reasons: [], warnings: [], volumeIncrease: null, costIncrease: null };
+  return { supervision, classification };
+}
+
 export async function proposeScopeChange(
   ownerId: string,
   supervisionId: string,
@@ -241,14 +263,9 @@ export async function proposeScopeChange(
   client: Db = db(),
 ): Promise<ScopeChangeResult | Outcome<never>> {
   if (access.mode !== "full") return denied(access);
-  const supervision = await getSupervision(ownerId, supervisionId, client);
-  if (!supervision) return { ok: false, code: "not_found", detail: {} };
-  // Sans périmètre de référence (brouillon), tout changement est libre : on compare quand même au périmètre courant pour l'historique.
-  const referenceId = supervision.referenceScopeVersionId ?? supervision.currentScopeVersionId;
-  const reference = referenceId ? await getScopeSnapshot(ownerId, supervisionId, referenceId, client) : null;
-  const classification: Classification = reference
-    ? classifyScopeChange(reference, next, policy.majorChange)
-    : { major: false, reasons: [], warnings: [], volumeIncrease: null, costIncrease: null };
+  const proposal = await classifyProposal(ownerId, supervisionId, next, policy, client);
+  if (!proposal) return { ok: false, code: "not_found", detail: {} };
+  const { classification } = proposal;
   const outcome = await call<{ operation_id: string; status: string; major: boolean; scope_version_id: string }>(client, "sv_apply_scope_change", {
     p_owner: ownerId,
     p_supervision_id: supervisionId,

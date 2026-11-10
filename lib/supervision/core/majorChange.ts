@@ -21,6 +21,8 @@ export interface ScopeDefinition {
   sources: string[];
   keywords: string[];
   entities: string[];
+  /** Termes qui écartent une publication (absent des anciennes versions : aucune exclusion). Restreindre n'est jamais un élargissement. */
+  exclusions?: string[];
 }
 
 export type Confidence = "measured" | "estimated" | "unknown";

@@ -30,6 +30,7 @@ const STATUS: Record<string, number> = {
   draft_limit_reached: 409,
   credit_exhausted: 409,
   change_pending: 409,
+  major_change_needs_confirmation: 409,
   idempotency_conflict: 409,
   revision_conflict: 409,
   already_running: 409,
