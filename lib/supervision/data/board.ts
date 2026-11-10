@@ -6,6 +6,7 @@ import { adminDb, type Db } from "../core/store";
 import type { ScopeSnapshot } from "../core/majorChange";
 import type { BoardEvent } from "../dashboard/fixtures";
 import { dedupeEvents } from "./dedupe";
+import { groupStories } from "./stories";
 import { briefToEvent, eventToEvent, matchCountry, matchToEvent, type BriefRow, type CountryMatch, type EventRow, type MatchRow } from "./mapping";
 
 export const HISTORY_DAYS = 90;
@@ -28,6 +29,8 @@ export interface BoardData {
     publications: number;
     /** Entrées regroupées car elles décrivent la même publication (voir dedupe.ts). */
     merged: number;
+    /** Publications de presse absorbées dans une histoire déjà présente (titres très proches, voir stories.ts). */
+    grouped: number;
     /** Premier et dernier fait retrouvés (ISO) ; null s'il n'y en a aucun. */
     earliest: string | null;
     latest: string | null;
@@ -74,7 +77,7 @@ export async function loadBoardData(snapshot: ScopeSnapshot, now: Date = new Dat
   const sample = process.env.SUPERVISION_DATA_SAMPLE !== "0";
   const method = "Articles rattachés au pays (champ « pays » ou lieu) et signalements médiatiques portant ce pays. Un article qui n'a pas de pays renseigné peut manquer.";
   if (countries.length === 0) {
-    return { events: [], countries: [], coverage: { articles: 0, signals: 0, publications: 0, merged: 0, earliest: null, latest: null, truncated: false, method }, sample };
+    return { events: [], countries: [], coverage: { articles: 0, signals: 0, publications: 0, merged: 0, grouped: 0, earliest: null, latest: null, truncated: false, method }, sample };
   }
   const since = new Date(now.getTime() - HISTORY_DAYS * 86_400_000);
   const codes = countries.map((country) => country.iso3).join(",");
@@ -108,7 +111,10 @@ export async function loadBoardData(snapshot: ScopeSnapshot, now: Date = new Dat
   const articleRows = (articles.data ?? []) as unknown as BriefRow[];
   const signalRows = (signals.data ?? []) as unknown as EventRow[];
   const sorted = [...articleRows.map(briefToEvent), ...signalRows.map(eventToEvent), ...publicationEvents].sort((a, b) => b.at.localeCompare(a.at));
-  const { events, merged } = dedupeEvents(sorted);
+  const deduped = dedupeEvents(sorted);
+  const merged = deduped.merged;
+  // Même histoire racontée par plusieurs médias (titres très proches, 72 h) : regroupée sous la publication la plus ancienne.
+  const { events, grouped } = groupStories(deduped.events);
   return {
     events,
     countries: countries.map(({ iso3, name }) => ({ iso3, name })),
@@ -117,6 +123,7 @@ export async function loadBoardData(snapshot: ScopeSnapshot, now: Date = new Dat
       signals: events.filter((event) => event.kind === "signal").length,
       publications: events.filter((event) => event.kind === "publication").length,
       merged,
+      grouped,
       earliest: events.length ? events[events.length - 1].at : null,
       latest: events.length ? events[0].at : null,
       truncated: articleRows.length >= ARTICLE_LIMIT || signalRows.length >= SIGNAL_LIMIT || matchRows.length >= PUBLICATION_LIMIT,

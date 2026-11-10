@@ -260,6 +260,7 @@ function FeedBody({ band, events }: BodyProps) {
             <span className={styles.meta}>
               <Chip priority={e.priority} /> {VERIFICATION_LABELS[e.verification]} · {formatDay(e.at)}
               {band === "expanded" ? ` · ${e.place} · ${e.publications} publication${e.publications > 1 ? "s" : ""}${e.domains?.length ? ` · ${e.domains[0]}` : ""}` : ""}
+              {e.story ? ` · même histoire reprise par ${e.story.members.length} autre${e.story.members.length > 1 ? "s" : ""}` : ""}
             </span>
           ) : null}
         </li>

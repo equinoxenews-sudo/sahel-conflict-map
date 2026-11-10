@@ -189,3 +189,19 @@ test("les notes d'une Supervision ne sont pas lisibles avec les clés publiques 
   const call = await client.rpc("sv_add_note", { p_owner: "x", p_supervision_id: "00000000-0000-0000-0000-000000000000", p_key: "xxxxxxxx", p_body: "x", p_event_ref: null, p_event_title: null });
   assert.ok(call.error, "fonction non exécutable avec la clé publique");
 });
+
+test("une histoire regroupée relit les notes de toutes ses publications ; sans filtre, toutes les notes ; une référence inconnue ne ramène rien", { skip }, async () => {
+  const o = `it-notes-${runId}-g`;
+  const id = await draft(o, "Veille notes G");
+  await addNote(o, id, key("g1"), { body: "Sur le représentant", eventRef: "p-rep", eventTitle: "Titre du représentant" });
+  await addNote(o, id, key("g2"), { body: "Sur une reprise", eventRef: "p-reprise", eventTitle: "Titre de la reprise" });
+  await addNote(o, id, key("g3"), { body: "Sur une autre histoire", eventRef: "p-autre", eventTitle: "Autre" });
+  await addNote(o, id, key("g4"), { body: "Générale", eventRef: null, eventTitle: null });
+
+  const story = await listNotes(o, id, { eventRef: "p-rep", eventRefs: ["p-reprise"] });
+  assert.deepEqual(story?.map((n) => n.body).sort(), ["Sur le représentant", "Sur une reprise"]);
+  assert.equal((await listNotes(o, id, { eventRef: "p-rep" }))?.length, 1);
+  assert.equal((await listNotes(o, id, { eventRefs: ["p-rep", "p-reprise", "p-autre"] }))?.length, 3, "la note générale n'a pas de référence");
+  assert.equal((await listNotes(o, id))?.length, 4);
+  assert.equal((await listNotes(o, id, { eventRef: "p-inconnue" }))?.length, 0);
+});

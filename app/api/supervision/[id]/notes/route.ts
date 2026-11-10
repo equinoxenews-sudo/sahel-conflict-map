@@ -15,10 +15,11 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   if (!owner.ok) return owner.response;
   const { id } = await params;
   if (!isUuid(id)) return failure("not_found");
-  const event = new URL(request.url).searchParams.get("event");
-  if (event !== null && !EVENT_REF.test(event)) return json({ error: "invalid_input", code: "invalid_input", message: noteMessage("invalid_input") }, { status: 400 });
+  // ?event=<réf> (répétable, 20 au plus) : notes de cette publication et, pour une histoire regroupée, de ses reprises.
+  const events = new URL(request.url).searchParams.getAll("event");
+  if (events.length > 20 || events.some((event) => !EVENT_REF.test(event))) return json({ error: "invalid_input", code: "invalid_input", message: noteMessage("invalid_input") }, { status: 400 });
   try {
-    const notes = await listNotes(owner.ownerId, id, { eventRef: event });
+    const notes = await listNotes(owner.ownerId, id, { eventRefs: events });
     if (!notes) return failure("not_found");
     const supervision = await getSupervision(owner.ownerId, id);
     const readOnly = supervision?.state === "read_only_grace" || supervision?.state === "pending_deletion";

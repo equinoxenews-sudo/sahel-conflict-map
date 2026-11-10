@@ -40,7 +40,7 @@ interface Loaded {
 interface BoardPayload {
   events: BoardEvent[];
   countries: { iso3: string; name: string }[];
-  coverage: { articles: number; signals: number; publications: number; merged: number; earliest: string | null; latest: string | null; truncated: boolean; method: string };
+  coverage: { articles: number; signals: number; publications: number; merged: number; grouped?: number; earliest: string | null; latest: string | null; truncated: boolean; method: string };
   sample: boolean;
 }
 
@@ -405,6 +405,7 @@ function DataNotice({ data, onRetry }: { data: DataState; onRetry: () => void })
       {where} : {coverage.articles} article{coverage.articles > 1 ? "s" : ""} analysé{coverage.articles > 1 ? "s" : ""} et {coverage.signals} signalement{coverage.signals > 1 ? "s" : ""} médiatique{coverage.signals > 1 ? "s" : ""}{coverage.publications > 0 ? ` et ${coverage.publications} publication${coverage.publications > 1 ? "s" : ""} de presse collectée${coverage.publications > 1 ? "s" : ""}` : ""}
       {coverage.earliest && coverage.latest ? `, du ${dayFormat.format(new Date(coverage.earliest))} au ${dayFormat.format(new Date(coverage.latest))}` : ""}.
       {coverage.merged > 0 ? ` ${coverage.merged} entrée${coverage.merged > 1 ? "s" : ""} regroupée${coverage.merged > 1 ? "s" : ""} (même publication citée plusieurs fois).` : ""}
+      {(coverage.grouped ?? 0) > 0 ? ` ${coverage.grouped} publication${coverage.grouped! > 1 ? "s" : ""} de presse regroupée${coverage.grouped! > 1 ? "s" : ""} sous une même histoire (titres très proches, 72 h) : le regroupement n'est pas une preuve.` : ""}
       {coverage.truncated ? " Attention : la lecture est limitée, tout n'est pas affiché." : ""}{" "}
       <span title={coverage.method} style={{ textDecoration: "underline dotted", cursor: "help" }}>Comment sont rattachés les éléments ?</span>
     </p>

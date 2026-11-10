@@ -75,6 +75,7 @@ export default function EventDetailPanel({ event, onClose }: { event: BoardEvent
             <dt>Lieu</dt>
             <dd>
               {event.place}
+              {event.storyGeo ? <span className={styles.muted}> (lieu repris d&apos;une autre publication du même récit)</span> : null}
               {event.lat !== undefined && event.lon !== undefined ? <span className={styles.muted}> — {event.lat.toFixed(2)}, {event.lon.toFixed(2)} ({event.geo ? `déduite du nom « ${event.geo.name} » cité dans le texte, précision ${event.geo.precision === "ville" ? "localité" : "région"}` : "position approximative"})</span> : <span className={styles.muted}> — pas de position retrouvée</span>}
             </dd>
             <dt>Publications</dt>
@@ -83,6 +84,20 @@ export default function EventDetailPanel({ event, onClose }: { event: BoardEvent
               {event.merged ? <span className={styles.muted}> — regroupe {event.merged + 1} entrées qui citent la même publication</span> : null}
             </dd>
           </dl>
+          {event.story && event.story.members.length > 0 ? (
+            <>
+              <h4 className={styles.h4}>Même histoire, {event.story.members.length} autre{event.story.members.length > 1 ? "s" : ""} publication{event.story.members.length > 1 ? "s" : ""}</h4>
+              <p className={styles.muted}>Titres très proches publiés à moins de 72 h d&apos;écart. Plusieurs médias qui reprennent une même information ne forment pas autant de sources indépendantes : le regroupement ne change ni la vérification ni la priorité.</p>
+              <ul style={{ margin: 0, paddingLeft: 18, display: "flex", flexDirection: "column", gap: 4 }}>
+                {event.story.members.map((member) => (
+                  <li key={member.id}>
+                    {member.url ? <a href={member.url} target="_blank" rel="noopener noreferrer" className={styles.detailLink}>{member.title} ↗</a> : member.title}
+                    <span className={styles.muted}>{member.source ? ` — ${member.source}` : ""} · {dateFormat.format(new Date(member.at))}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
           {event.summary ? (
             <>
               <h4 className={styles.h4}>Résumé</h4>
@@ -108,7 +123,7 @@ export default function EventDetailPanel({ event, onClose }: { event: BoardEvent
           {notesScope ? (
             <>
               <h4 className={styles.h4}>Mes notes</h4>
-              <NotesPanel key={event.id} eventRef={event.id} eventTitle={event.title} compact />
+              <NotesPanel key={event.id} eventRef={event.id} eventTitle={event.title} alsoRefs={event.story?.members.map((member) => member.id)} compact />
             </>
           ) : null}
           {event.domains && event.domains.length > 0 ? <p className={styles.muted}>Domaines : {event.domains.join(", ")}</p> : null}

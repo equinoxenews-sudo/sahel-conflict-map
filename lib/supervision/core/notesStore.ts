@@ -28,7 +28,7 @@ async function callNote(client: Db, fn: string, args: Record<string, unknown>): 
 }
 
 /** Notes (non supprimées) d'une Supervision du propriétaire, les plus récentes d'abord ; `eventRef` ne garde que celles d'une publication. */
-export async function listNotes(ownerId: string, supervisionId: string, options: { eventRef?: string | null } = {}, client: Db = db()): Promise<Note[] | null> {
+export async function listNotes(ownerId: string, supervisionId: string, options: { eventRef?: string | null; eventRefs?: string[] } = {}, client: Db = db()): Promise<Note[] | null> {
   // La lecture reste permise en lecture seule (consultation et export) ; une Supervision d'un autre compte n'existe pas pour ce compte.
   const owned = await getSupervision(ownerId, supervisionId, client);
   if (!owned) return null;
@@ -39,7 +39,9 @@ export async function listNotes(ownerId: string, supervisionId: string, options:
     .is("deleted_at", null)
     .order("created_at", { ascending: false })
     .limit(NOTES_MAX);
-  if (options.eventRef) query = query.eq("event_ref", options.eventRef);
+  const refs = [...new Set([options.eventRef, ...(options.eventRefs ?? [])].filter((ref): ref is string => !!ref))];
+  if (refs.length === 1) query = query.eq("event_ref", refs[0]);
+  else if (refs.length > 1) query = query.in("event_ref", refs);
   const { data, error } = await query;
   if (error) throw new StoreError(`Lecture des notes impossible : ${error.message}`, error);
   return ((data ?? []) as Record<string, unknown>[]).map(toNote);

@@ -32,7 +32,7 @@ export function useNotesScopeValue(supervisionId: string, readOnly: boolean): No
 
 type Message = { tone: "ok" | "error"; text: string } | null;
 
-export default function NotesPanel({ eventRef, eventTitle, compact = false }: { eventRef?: string; eventTitle?: string; compact?: boolean }) {
+export default function NotesPanel({ eventRef, eventTitle, compact = false, alsoRefs }: { eventRef?: string; eventTitle?: string; compact?: boolean; alsoRefs?: string[] }) {
   const scope = useNotesScope();
   const supervisionId = scope?.supervisionId ?? null;
   const version = scope?.version ?? 0;
@@ -48,7 +48,9 @@ export default function NotesPanel({ eventRef, eventTitle, compact = false }: { 
   const [editing, setEditing] = useState<{ id: string; text: string; revision: number } | null>(null);
   const [deleting, setDeleting] = useState<string | null>(null);
 
-  const listUrl = supervisionId ? `/api/supervision/${supervisionId}/notes${eventRef ? `?event=${encodeURIComponent(eventRef)}` : ""}` : null;
+  // Une histoire regroupée relit aussi les notes posées sur ses reprises (avant ou après le regroupement) : rien ne disparaît.
+  const refsKey = [eventRef, ...(alsoRefs ?? [])].filter(Boolean).slice(0, 20).map((ref) => `event=${encodeURIComponent(ref!)}`).join("&");
+  const listUrl = supervisionId ? `/api/supervision/${supervisionId}/notes${refsKey ? `?${refsKey}` : ""}` : null;
 
   useEffect(() => {
     if (!listUrl) return;
@@ -162,7 +164,7 @@ export default function NotesPanel({ eventRef, eventTitle, compact = false }: { 
               <div className={styles.muted} style={{ fontSize: 12 }}>
                 {dateFormat.format(new Date(note.createdAt))}
                 {note.revision > 1 ? ` · modifiée le ${dateFormat.format(new Date(note.updatedAt))}` : ""}
-                {!eventRef && note.eventTitle ? ` · sur « ${note.eventTitle} »` : ""}
+                {(!eventRef || note.eventRef !== eventRef) && note.eventTitle ? ` · sur « ${note.eventTitle} »` : ""}
               </div>
               {editing?.id === note.id ? (
                 <>

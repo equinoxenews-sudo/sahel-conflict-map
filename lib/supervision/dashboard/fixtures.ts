@@ -6,6 +6,14 @@ import type { Filters, Theme } from "./state";
 export type Priority = "information" | "importante" | "critique";
 export type Verification = "signalement" | "corrobore" | "conteste" | "confirme";
 
+export interface StoryMember {
+  id: string;
+  title: string;
+  source: string | null;
+  url?: string;
+  at: string;
+}
+
 export interface BoardEvent {
   /** Texte : « a-123 » (article), « e-456 » (signalement médiatique) ; « 7 » pour les données fictives du prototype. */
   id: string;
@@ -33,6 +41,10 @@ export interface BoardEvent {
   domains?: string[];
   /** Nombre d'entrées regroupées avec celle-ci (même publication citée plusieurs fois) ; absent si aucune. */
   merged?: number;
+  /** Autres publications de presse qui racontent la MÊME histoire (regroupées sous celle-ci, la plus ancienne) ; absent si aucune. Jamais une preuve indépendante. */
+  story?: { members: StoryMember[] };
+  /** Le lieu de cet événement vient d une autre publication du même récit (celle-ci n en donnait pas). */
+  storyGeo?: boolean;
   /** Pourquoi cet élément est rattaché à la Supervision (publications collectées) ; absent sinon. */
   reason?: string;
   /** Position DÉDUITE DU TEXTE avec le dictionnaire GeoNames (mention CC BY 4.0 obligatoire à l'affichage) ; absent sinon. */
