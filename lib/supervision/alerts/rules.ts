@@ -9,6 +9,7 @@
 // enregistrée, avec le niveau qu'avait l'alerte à ce moment-là.
 
 import type { BoardEvent, Priority } from "../dashboard/fixtures";
+import { SIGNAL_CRITICAL_MENTIONS, SIGNAL_IMPORTANT_MENTIONS } from "../data/thresholds";
 
 export type AlertLevel = Exclude<Priority, "information">;
 export const ALERT_LEVELS: readonly AlertLevel[] = ["critique", "importante"];
@@ -52,7 +53,7 @@ export function alertReason(event: BoardEvent, level: AlertLevel): string {
       : "Article analysé d'importance haute.";
   }
   if (event.kind === "signal") {
-    const base = `Signalement médiatique de violences repris par ${event.publications} mention${event.publications > 1 ? "s" : ""} (importante à partir de 6, critique à partir de 20).`;
+    const base = `Signalement médiatique de violences repris par ${event.publications} mention${event.publications > 1 ? "s" : ""} (importante à partir de ${SIGNAL_IMPORTANT_MENTIONS}, critique à partir de ${SIGNAL_CRITICAL_MENTIONS}).`;
     return `${base} Le nombre de reprises mesure l'attention des médias, pas la véracité.`;
   }
   return "Classement fixé par la priorité de l'événement.";

@@ -14,6 +14,7 @@ import { COUNTRY_CODES } from "../../countryCodes";
 import { COUNTRY_TO_ISO3 } from "../../countryToIso3";
 import type { BoardEvent, Priority, Verification } from "../dashboard/fixtures";
 import type { Theme } from "../dashboard/state";
+import { SIGNAL_CRITICAL_MENTIONS, SIGNAL_IMPORTANT_MENTIONS } from "./thresholds";
 
 export type BoardTheme = Exclude<Theme, "all">;
 
@@ -139,12 +140,14 @@ export function qualifierOfBrief(veracity: string | null): string | undefined {
   }
 }
 
-/** Un signalement médiatique est violent ET très repris : critique à partir de 20 mentions, importante à partir de 6. */
+export { SIGNAL_CRITICAL_MENTIONS, SIGNAL_IMPORTANT_MENTIONS };
+
+/** Un signalement médiatique est violent ET très repris : critique à partir de 20 mentions, importante à partir de 15. */
 export function priorityOfEvent(category: string, mentions: number | null): Priority {
   const info = EVENT_CATEGORIES[category];
   if (!info?.violent || mentions === null) return "information";
-  if (mentions >= 20) return "critique";
-  return mentions >= 6 ? "importante" : "information";
+  if (mentions >= SIGNAL_CRITICAL_MENTIONS) return "critique";
+  return mentions >= SIGNAL_IMPORTANT_MENTIONS ? "importante" : "information";
 }
 
 // --- Lignes → événements ----------------------------------------------------------------------------------------------------

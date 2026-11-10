@@ -3,6 +3,7 @@
 import { createContext, useContext } from "react";
 import { GEONAMES_ATTRIBUTION } from "@/lib/supervision/geo/gazetteer";
 import { PRIORITY_LABELS, VERIFICATION_LABELS, type BoardEvent } from "@/lib/supervision/dashboard/fixtures";
+import { SIGNAL_CRITICAL_MENTIONS, SIGNAL_IMPORTANT_MENTIONS } from "@/lib/supervision/data/thresholds";
 import NotesPanel, { useNotesScope } from "./NotesPanel";
 import styles from "./Lab.module.css";
 
@@ -31,7 +32,7 @@ function verificationNote(event: BoardEvent): string {
 
 function priorityNote(event: BoardEvent): string {
   if (event.kind === "publication") return "Pas de classement de priorité : le tri par IA n'est pas activé, toutes les publications sont au niveau information.";
-  if (event.kind === "signal") return "Violent et très repris : critique à partir de 20 mentions, importante à partir de 6 ; sinon information.";
+  if (event.kind === "signal") return `Violent et très repris : critique à partir de ${SIGNAL_CRITICAL_MENTIONS} mentions, importante à partir de ${SIGNAL_IMPORTANT_MENTIONS} ; sinon information.`;
   if (event.kind === "article") return "Importance « haute » de l'analyse ; critique seulement si l'événement est violent (affrontement, frappe, attentat). Règle provisoire.";
   return "";
 }

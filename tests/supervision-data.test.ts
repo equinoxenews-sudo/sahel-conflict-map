@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { extractArea, fitProjection, ringsToPath } from "../lib/supervision/dashboard/geo";
-import { briefToEvent, eventToEvent, matchCountry, matchToEvent, priorityOfBrief, priorityOfEvent, qualifierOfBrief, themeOfBrief, verificationOfBrief, type BriefRow, type EventRow } from "../lib/supervision/data/mapping";
+import { SIGNAL_CRITICAL_MENTIONS, SIGNAL_IMPORTANT_MENTIONS, briefToEvent, eventToEvent, matchCountry, matchToEvent, priorityOfBrief, priorityOfEvent, qualifierOfBrief, themeOfBrief, verificationOfBrief, type BriefRow, type EventRow } from "../lib/supervision/data/mapping";
 
 const brief: BriefRow = {
   id: 1908,
@@ -56,9 +56,14 @@ test("vérification (D4) : seul « Confirmé » est confirmé ; tout le reste es
 });
 
 test("priorité d'un signalement : violent et très repris seulement", () => {
+  assert.deepEqual([SIGNAL_IMPORTANT_MENTIONS, SIGNAL_CRITICAL_MENTIONS], [15, 20], "seuils décidés le 10/11/2026 (option A)");
   assert.equal(priorityOfEvent("Battles", 25), "critique");
-  assert.equal(priorityOfEvent("Battles", 6), "importante");
-  assert.equal(priorityOfEvent("Battles", 5), "information");
+  assert.equal(priorityOfEvent("Battles", 20), "critique");
+  assert.equal(priorityOfEvent("Battles", 19), "importante");
+  assert.equal(priorityOfEvent("Battles", 15), "importante");
+  assert.equal(priorityOfEvent("Battles", 14), "information");
+  assert.equal(priorityOfEvent("Violence against civilians", 10), "information", "le palier à 10 mentions, très fréquent, ne déclenche rien");
+  assert.equal(priorityOfEvent("Battles", 6), "information");
   assert.equal(priorityOfEvent("Protests", 80), "information");
   assert.equal(priorityOfEvent("Battles", null), "information");
 });

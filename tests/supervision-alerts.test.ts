@@ -49,7 +49,7 @@ test("l'origine du classement est dite en clair, sans score opaque ni preuve de 
   const signal = alertReason(event("e-4", "critique", "2026-11-09T09:00:00Z", { kind: "signal", publications: 25 }), "critique");
   assert.match(signal, /25 mentions/);
   assert.match(signal, /pas la véracité/);
-  assert.match(alertReason(event("e-5", "importante", "2026-11-09T09:00:00Z", { kind: "signal", publications: 1 }), "importante"), /1 mention \(/);
+  assert.match(alertReason(event("e-5", "importante", "2026-11-09T09:00:00Z", { kind: "signal", publications: 1 }), "importante"), /1 mention \(importante à partir de 15, critique à partir de 20\)/);
 });
 
 test("une décision vaut pour le niveau où elle a été prise ; si l'alerte monte, elle redevient à traiter", () => {
