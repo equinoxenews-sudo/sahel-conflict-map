@@ -7,6 +7,7 @@ import { extractArea, type DataContext } from "@/lib/supervision/dashboard/geo";
 import { emptyState, parseState, type LabState } from "@/lib/supervision/dashboard/state";
 import CollectPanel from "./CollectPanel";
 import LifecyclePanel from "./LifecyclePanel";
+import { AlertsScopeContext, type AlertsScope } from "./AlertsPanel";
 import { NotesScopeContext, useNotesScopeValue } from "./NotesPanel";
 import ScopePanel from "./ScopePanel";
 import DashboardShell, { type ShellStatus } from "./DashboardShell";
@@ -27,6 +28,7 @@ interface SupervisionInfo {
   id: string;
   name: string;
   state: string;
+  pausedAt?: string | null;
 }
 
 interface Loaded {
@@ -143,7 +145,9 @@ function Editor({ supervision, initialRevision, initialState, data, onRetryData,
   const [status, setStatus] = useState<ShellStatus>({ kind: "saved", at: 0, message: initialRevision > 0 ? "Version enregistrée chargée" : "Tableau vierge : rien d'enregistré pour l'instant" });
   const [conflict, setConflict] = useState<Conflict | null>(null);
   const [history, setHistory] = useState<{ revision: number; savedAt: string }[] | null>(null);
-  const notesScope = useNotesScopeValue(supervision.id, supervision.state === "read_only_grace" || supervision.state === "pending_deletion");
+  const readOnlyState = supervision.state === "read_only_grace" || supervision.state === "pending_deletion";
+  const notesScope = useNotesScopeValue(supervision.id, readOnlyState);
+  const alertsScope = useMemo<AlertsScope>(() => ({ supervisionId: supervision.id, state: supervision.state, pausedAt: supervision.pausedAt ?? null, readOnly: readOnlyState }), [supervision.id, supervision.state, supervision.pausedAt, readOnlyState]);
 
   const revisionRef = useRef(initialRevision);
   const latestRef = useRef<LabState | null>(null);
@@ -363,6 +367,7 @@ function Editor({ supervision, initialRevision, initialState, data, onRetryData,
         <DataNotice data={data} onRetry={onRetryData} />
       </div>
       <NotesScopeContext.Provider value={notesScope}>
+      <AlertsScopeContext.Provider value={alertsScope}>
       <DashboardShell
         key={shell.key}
         initialState={shell.state}
@@ -375,6 +380,7 @@ function Editor({ supervision, initialRevision, initialState, data, onRetryData,
         events={events}
         data={context}
       />
+      </AlertsScopeContext.Provider>
       </NotesScopeContext.Provider>
     </div>
   );

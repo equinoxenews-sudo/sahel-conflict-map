@@ -24,7 +24,7 @@ function verificationNote(event: BoardEvent): string {
     return "Un signalement médiatique est un signal repéré dans la presse, pas un fait établi. Le nombre de publications n'est pas un indice de véracité : il ne fait jamais passer un signalement à « confirmé ».";
   }
   if (event.kind === "article") {
-    return "Ce statut reprend le qualificatif de l'analyse de l'article (confirmé, très probable, peu probable…). Les autres qualificatifs (revendiqué, possible, non confirmé) restent affichés comme « signalement ». Règle provisoire.";
+    return "Seul « Confirmé » dans l'analyse de l'article donne le statut confirmé. Tout autre qualificatif (très probable, revendiqué, possible, peu probable, non confirmé) reste un signalement et s'affiche tel quel : c'est un jugement de probabilité, pas une recoupe de sources indépendantes. « Corroboré » et « contesté » ne sont pas déduits.";
   }
   return "Donnée de démonstration.";
 }
@@ -68,6 +68,7 @@ export default function EventDetailPanel({ event, onClose }: { event: BoardEvent
             <dt>Vérification</dt>
             <dd>
               {VERIFICATION_LABELS[event.verification]}
+              {event.qualifier ? <span> · {event.qualifier}</span> : null}
               <span className={styles.muted}> — {verificationNote(event)}</span>
             </dd>
             <dt>Lieu</dt>

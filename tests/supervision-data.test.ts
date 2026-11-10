@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { extractArea, fitProjection, ringsToPath } from "../lib/supervision/dashboard/geo";
-import { briefToEvent, eventToEvent, matchCountry, matchToEvent, priorityOfBrief, priorityOfEvent, themeOfBrief, verificationOfBrief, type BriefRow, type EventRow } from "../lib/supervision/data/mapping";
+import { briefToEvent, eventToEvent, matchCountry, matchToEvent, priorityOfBrief, priorityOfEvent, qualifierOfBrief, themeOfBrief, verificationOfBrief, type BriefRow, type EventRow } from "../lib/supervision/data/mapping";
 
 const brief: BriefRow = {
   id: 1908,
@@ -41,11 +41,16 @@ test("priorité : « critique » seulement pour une importance haute ET un évé
   assert.equal(priorityOfBrief(null, null), "information");
 });
 
-test("vérification : un article reprend son qualificatif, jamais plus fort ; un signalement reste un signalement", () => {
+test("vérification (D4) : seul « Confirmé » est confirmé ; tout le reste est un signalement, jamais « corroboré » ni « contesté »", () => {
   assert.equal(verificationOfBrief("Confirmé"), "confirme");
-  assert.equal(verificationOfBrief("Très probable"), "corrobore");
-  assert.equal(verificationOfBrief("Peu probable"), "conteste");
-  for (const value of ["Revendiqué", "Possible", "Non confirmé", null, "autre"]) assert.equal(verificationOfBrief(value), "signalement");
+  for (const value of ["Très probable", "Peu probable", "Revendiqué", "Possible", "Non confirmé", null, "autre"]) assert.equal(verificationOfBrief(value), "signalement", String(value));
+  // Le qualificatif de l'analyse est affiché tel quel à côté du statut.
+  assert.equal(qualifierOfBrief("Très probable"), "jugé très probable par l'analyse");
+  assert.equal(qualifierOfBrief("Peu probable"), "jugé peu probable par l'analyse");
+  assert.match(qualifierOfBrief("Confirmé") ?? "", /^confirmé par l'analyse/);
+  assert.match(qualifierOfBrief("Revendiqué") ?? "", /sans confirmation indépendante/);
+  assert.equal(qualifierOfBrief(null), undefined);
+  assert.equal(qualifierOfBrief("autre"), undefined);
   // Même avec 500 mentions, un signalement médiatique n'est jamais « confirmé » (le nombre de publications n'est pas un indice de véracité).
   assert.equal(eventToEvent({ ...signal, num_mentions: 500 }).verification, "signalement");
 });

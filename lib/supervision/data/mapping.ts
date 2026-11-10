@@ -6,7 +6,9 @@
 //    restent « signalement » quel que soit leur nombre de mentions (le nombre de publications n'est pas un indice de véracité) ;
 //  - la priorité vient de l'importance de l'article et de la nature de l'événement, pas d'un score opaque ;
 //  - ce qui n'est pas connu reste vide (pas de lieu inventé, pas de titre inventé : le titre d'un signalement dit ce qu'il est).
-// Les correspondances ci-dessous sont PROVISOIRES (décision D4, statuts de vérification, pas encore tranchée).
+// Décision D4 (10/11/2026) : seuls « signalement » et « confirmé » sont déduits. Le qualificatif d'un article (« très probable », « peu
+// probable »…) est un jugement de probabilité de l'IA de rédaction, pas une recoupe de sources indépendantes : il est affiché tel quel
+// à côté du statut, jamais traduit en « corroboré » ni en « contesté » (ces deux statuts attendent une vraie comparaison des sources).
 
 import { COUNTRY_CODES } from "../../countryCodes";
 import { COUNTRY_TO_ISO3 } from "../../countryToIso3";
@@ -114,15 +116,26 @@ export function priorityOfBrief(importance: string | null, eventType: string | n
 }
 
 export function verificationOfBrief(veracity: string | null): Verification {
+  return veracity === "Confirmé" ? "confirme" : "signalement"; // tout le reste (très probable, revendiqué, possible, peu probable, non confirmé, inconnu)
+}
+
+/** Qualificatif de l'analyse, repris tel quel (jamais un statut plus fort que celui de l'article) ; undefined si inconnu. */
+export function qualifierOfBrief(veracity: string | null): string | undefined {
   switch (veracity) {
     case "Confirmé":
-      return "confirme";
+      return "confirmé par l'analyse (source officielle ou indépendante)";
     case "Très probable":
-      return "corrobore";
+      return "jugé très probable par l'analyse";
+    case "Revendiqué":
+      return "revendiqué, sans confirmation indépendante";
+    case "Possible":
+      return "jugé possible par l'analyse";
     case "Peu probable":
-      return "conteste";
+      return "jugé peu probable par l'analyse";
+    case "Non confirmé":
+      return "non confirmé à ce stade";
     default:
-      return "signalement"; // revendiqué, possible, non confirmé ou inconnu
+      return undefined;
   }
 }
 
@@ -150,6 +163,7 @@ export function briefToEvent(row: BriefRow): BoardEvent {
     theme: themeOfBrief(row.primary_theme, row.event_type),
     priority: priorityOfBrief(row.importance, row.event_type),
     verification: verificationOfBrief(row.veracity),
+    qualifier: qualifierOfBrief(row.veracity),
     at: new Date(row.published_at).toISOString(),
     place: row.place_name ?? row.place_country ?? "Lieu non précisé",
     lat: geo ? row.latitude! : undefined,

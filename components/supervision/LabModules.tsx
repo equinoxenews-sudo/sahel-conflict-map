@@ -3,6 +3,7 @@
 import { createContext, memo, useContext, useMemo, useState } from "react";
 import { GEONAMES_ATTRIBUTION } from "@/lib/supervision/geo/gazetteer";
 import { useOpenEvent } from "./EventDetail";
+import AlertsPanel, { useAlertsScope } from "./AlertsPanel";
 import NotesPanel, { useNotesScope } from "./NotesPanel";
 import { PRIORITY_LABELS, VERIFICATION_LABELS, type BoardEvent, type Priority } from "@/lib/supervision/dashboard/fixtures";
 import { fitProjection, ringsToPath, type DataContext } from "@/lib/supervision/dashboard/geo";
@@ -301,7 +302,13 @@ function TimelineBody({ band, events, now }: BodyProps) {
   );
 }
 
-function AlertsBody({ band, events }: BodyProps) {
+/** Alertes d'une Supervision réelle (décisions enregistrées) ; dans le prototype, la liste fictive ci-dessous. */
+function AlertsBody(props: BodyProps) {
+  const scope = useAlertsScope();
+  return scope ? <AlertsPanel band={props.band} events={props.events} /> : <PrototypeAlertsBody {...props} />;
+}
+
+function PrototypeAlertsBody({ band, events }: BodyProps) {
   const [read, setRead] = useState<Set<string>>(new Set());
   const urgent = events.filter((e) => e.priority !== "information");
   if (urgent.length === 0) return <Empty />;

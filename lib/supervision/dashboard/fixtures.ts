@@ -16,6 +16,8 @@ export interface BoardEvent {
   theme: Exclude<Theme, "all">;
   priority: Priority;
   verification: Verification;
+  /** Qualificatif de l'analyse de l'article, affiché tel quel à côté du statut (ex. « jugé très probable par l'analyse ») ; absent sinon. */
+  qualifier?: string;
   /** Date des faits ou de publication (ISO). */
   at: string;
   /** Position abstraite sur la carte schématique (0 à 100) : données fictives du prototype seulement. */
