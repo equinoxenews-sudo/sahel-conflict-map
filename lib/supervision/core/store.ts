@@ -44,7 +44,8 @@ export type FailureCode =
   | "revision_conflict"
   | "read_only"
   | "already_running"
-  | "too_soon";
+  | "too_soon"
+  | "limit_reached";
 
 export type Outcome<T = Record<string, never>> = ({ ok: true; replay: boolean } & T) | { ok: false; code: FailureCode; detail: Record<string, unknown> };
 

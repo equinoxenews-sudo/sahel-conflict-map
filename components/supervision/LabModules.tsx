@@ -3,6 +3,7 @@
 import { createContext, memo, useContext, useMemo, useState } from "react";
 import { GEONAMES_ATTRIBUTION } from "@/lib/supervision/geo/gazetteer";
 import { useOpenEvent } from "./EventDetail";
+import NotesPanel, { useNotesScope } from "./NotesPanel";
 import { PRIORITY_LABELS, VERIFICATION_LABELS, type BoardEvent, type Priority } from "@/lib/supervision/dashboard/fixtures";
 import { fitProjection, ringsToPath, type DataContext } from "@/lib/supervision/dashboard/geo";
 import type { Band } from "@/lib/supervision/dashboard/layout";
@@ -375,7 +376,13 @@ function AssistantBody({ band }: BodyProps) {
   );
 }
 
-function NotesBody({ band }: BodyProps) {
+/** Notes enregistrées sur une Supervision réelle ; dans le prototype (sans Supervision), le bloc-notes local ci-dessous. */
+function NotesBody(props: BodyProps) {
+  const scope = useNotesScope();
+  return scope ? <NotesPanel compact={props.band === "compact"} /> : <PrototypeNotesBody {...props} />;
+}
+
+function PrototypeNotesBody({ band }: BodyProps) {
   const [text, setText] = useState("");
   return (
     <div className={styles.stack}>

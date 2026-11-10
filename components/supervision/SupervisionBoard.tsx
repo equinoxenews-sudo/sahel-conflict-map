@@ -7,6 +7,7 @@ import { extractArea, type DataContext } from "@/lib/supervision/dashboard/geo";
 import { emptyState, parseState, type LabState } from "@/lib/supervision/dashboard/state";
 import CollectPanel from "./CollectPanel";
 import LifecyclePanel from "./LifecyclePanel";
+import { NotesScopeContext, useNotesScopeValue } from "./NotesPanel";
 import ScopePanel from "./ScopePanel";
 import DashboardShell, { type ShellStatus } from "./DashboardShell";
 import { STATE_LABELS } from "./SupervisionList";
@@ -142,6 +143,7 @@ function Editor({ supervision, initialRevision, initialState, data, onRetryData,
   const [status, setStatus] = useState<ShellStatus>({ kind: "saved", at: 0, message: initialRevision > 0 ? "Version enregistrée chargée" : "Tableau vierge : rien d'enregistré pour l'instant" });
   const [conflict, setConflict] = useState<Conflict | null>(null);
   const [history, setHistory] = useState<{ revision: number; savedAt: string }[] | null>(null);
+  const notesScope = useNotesScopeValue(supervision.id, supervision.state === "read_only_grace" || supervision.state === "pending_deletion");
 
   const revisionRef = useRef(initialRevision);
   const latestRef = useRef<LabState | null>(null);
@@ -360,6 +362,7 @@ function Editor({ supervision, initialRevision, initialState, data, onRetryData,
         </div>
         <DataNotice data={data} onRetry={onRetryData} />
       </div>
+      <NotesScopeContext.Provider value={notesScope}>
       <DashboardShell
         key={shell.key}
         initialState={shell.state}
@@ -372,6 +375,7 @@ function Editor({ supervision, initialRevision, initialState, data, onRetryData,
         events={events}
         data={context}
       />
+      </NotesScopeContext.Provider>
     </div>
   );
 }

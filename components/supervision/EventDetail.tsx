@@ -3,6 +3,7 @@
 import { createContext, useContext } from "react";
 import { GEONAMES_ATTRIBUTION } from "@/lib/supervision/geo/gazetteer";
 import { PRIORITY_LABELS, VERIFICATION_LABELS, type BoardEvent } from "@/lib/supervision/dashboard/fixtures";
+import NotesPanel, { useNotesScope } from "./NotesPanel";
 import styles from "./Lab.module.css";
 
 // « Sources et preuves » d'un événement (cahier des charges, Lot 3) : tout ce que l'on sait de lui, d'où ça vient, et ce que ça ne prouve pas.
@@ -44,6 +45,7 @@ function hostOf(url: string): string {
 }
 
 export default function EventDetailPanel({ event, onClose }: { event: BoardEvent | null; onClose: () => void }) {
+  const notesScope = useNotesScope();
   return (
     <aside className={styles.panel} aria-label="Sources et preuves" data-open={event ? "" : undefined} inert={!event}>
       {event ? (
@@ -101,6 +103,12 @@ export default function EventDetailPanel({ event, onClose }: { event: BoardEvent
             <p className={styles.muted}>Aucune adresse de source enregistrée pour cet élément.</p>
           )}
           {event.geo ? <p className={styles.muted}>{GEONAMES_ATTRIBUTION}. La position est déduite automatiquement d&apos;un nom de lieu du texte, sans IA : elle peut être imprécise.</p> : null}
+          {notesScope ? (
+            <>
+              <h4 className={styles.h4}>Mes notes</h4>
+              <NotesPanel key={event.id} eventRef={event.id} eventTitle={event.title} compact />
+            </>
+          ) : null}
           {event.domains && event.domains.length > 0 ? <p className={styles.muted}>Domaines : {event.domains.join(", ")}</p> : null}
           <p className={styles.muted}>Équinoxe affiche ce qui a été retrouvé ; il ne garantit ni l&apos;exhaustivité ni l&apos;exactitude de la source citée.</p>
         </>
