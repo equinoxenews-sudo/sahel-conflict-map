@@ -32,6 +32,10 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
   const { id } = await params;
   if (!isUuid(id)) return failure("not_found");
   try {
+    // Une Supervision en pause (ou en erreur) ne collecte pas : « arrêt des collectes » (le brouillon, lui, collecte pour être cadré).
+    const supervision = await getSupervision(owner.ownerId, id);
+    if (!supervision) return failure("not_found");
+    if (supervision.state === "paused" || supervision.state === "error") return failure("paused", { state: supervision.state });
     const outcome = await collectForSupervision(owner.ownerId, id, { trigger: "manual" });
     if (!outcome.ok) return failure(outcome.code, outcome.detail);
     return json({ runId: outcome.runId, status: outcome.status, stats: outcome.stats });

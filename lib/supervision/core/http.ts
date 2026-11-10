@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import type { Tier } from "../../accounts";
 import { spaceAccount } from "../../adminAuth";
@@ -30,6 +31,8 @@ const STATUS: Record<string, number> = {
   draft_limit_reached: 409,
   credit_exhausted: 409,
   change_pending: 409,
+  activation_failed: 502,
+  paused: 409,
   major_change_needs_confirmation: 409,
   idempotency_conflict: 409,
   revision_conflict: 409,
@@ -61,6 +64,16 @@ export async function readJson(request: Request, maxBytes: number): Promise<{ ok
   } catch {
     return { ok: false, code: "invalid_state_document" };
   }
+}
+
+const OPERATION_KEY = /^[A-Za-z0-9_-]{8,80}$/;
+
+/**
+ * Clé d'idempotence d'une opération (activation, pause, reprise) : celle que le navigateur envoie pour un même clic (un double clic ou une
+ * relance la rejoue sans rien faire de plus), sinon une clé neuve. Jamais une valeur libre : 8 à 80 caractères simples.
+ */
+export function operationKey(value: unknown, prefix: string): string {
+  return typeof value === "string" && OPERATION_KEY.test(value) ? value : `${prefix}-${randomUUID()}`;
 }
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;

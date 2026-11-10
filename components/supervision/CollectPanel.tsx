@@ -31,7 +31,7 @@ function describe(run: Run): string {
   return parts.join(" · ");
 }
 
-export default function CollectPanel({ id, onCollected }: { id: string; onCollected: () => void }) {
+export default function CollectPanel({ id, onCollected, blocked = null }: { id: string; onCollected: () => void; blocked?: string | null }) {
   const [runs, setRuns] = useState<Run[] | null>(null);
   const [ready, setReady] = useState(true);
   const [busy, setBusy] = useState(false);
@@ -85,6 +85,8 @@ export default function CollectPanel({ id, onCollected }: { id: string; onCollec
         setMessage("Une collecte est déjà en cours.");
       } else if (body.code === "no_queries") {
         setMessage("Cette zone n'est pas encore prise en charge par la collecte.");
+      } else if (body.code === "paused") {
+        setMessage("Cette Supervision est en pause : reprends-la pour collecter.");
       } else if (body.code === "read_only") {
         setMessage("Cette Supervision est en lecture seule.");
       } else {
@@ -102,11 +104,13 @@ export default function CollectPanel({ id, onCollected }: { id: string; onCollec
   return (
     <div className={styles.history} style={{ marginBottom: 8 }}>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 12px", alignItems: "center" }}>
-        <button type="button" className={styles.primary} onClick={() => void collect()} disabled={busy || !ready}>
+        <button type="button" className={styles.primary} onClick={() => void collect()} disabled={busy || !ready || blocked !== null}>
           {busy ? "Collecte en cours…" : "Actualiser la collecte"}
         </button>
         <span className={styles.muted}>
-          {!ready
+          {blocked !== null
+            ? blocked
+            : !ready
             ? "Collecte non installée dans cette base."
             : last
               ? `Dernière collecte : ${timeFormat.format(new Date(last.started_at))} — ${describe(last)}`

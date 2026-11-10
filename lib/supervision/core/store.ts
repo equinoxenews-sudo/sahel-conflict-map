@@ -153,7 +153,8 @@ export async function listSupervisions(ownerId: string, client: Db = db()): Prom
 }
 
 export async function getSupervision(ownerId: string, id: string, client: Db = db()): Promise<SupervisionRecord | null> {
-  const { data, error } = await client.from("sv_supervisions").select(COLUMNS).eq("owner_id", ownerId).eq("id", id).maybeSingle();
+  // Une Supervision supprimée n'est plus visible (ni lisible, ni collectable) : elle se comporte comme si elle n'existait pas.
+  const { data, error } = await client.from("sv_supervisions").select(COLUMNS).eq("owner_id", ownerId).eq("id", id).neq("state", "deleted").maybeSingle();
   if (error) throw new StoreError(`Lecture impossible : ${error.message}`, error);
   return data ? toRecord(data as SupervisionDbRow) : null;
 }
@@ -177,6 +178,19 @@ export async function createDraft(
   client: Db = db(),
 ): Promise<Outcome<{ supervision_id: string; scope_version_id: string }>> {
   return call(client, "sv_create_draft", { p_owner: ownerId, p_name: name, p_scope: snapshot.scope, p_estimate: snapshot.estimate, p_max_drafts: policy.maxDraftsPerOwner });
+}
+
+/**
+ * Supprime un BROUILLON (jamais une Supervision active, en pause ou en lecture seule : leurs données suivent des règles de conservation).
+ * Le brouillon sort de la liste et libère une place de brouillon ; ses données ne sont pas effacées de la base (purge ultérieure).
+ * Une seule instruction gardée par l'état : sans condition de course possible avec une activation simultanée.
+ */
+export async function deleteDraft(ownerId: string, supervisionId: string, now: Date = new Date(), client: Db = db()): Promise<Outcome<{ state: "deleted" }>> {
+  const { data, error } = await client.from("sv_supervisions").update({ state: "deleted", state_changed_at: now.toISOString() }).eq("owner_id", ownerId).eq("id", supervisionId).eq("state", "draft").select("id");
+  if (error) throw new StoreError(`Suppression impossible : ${error.message}`, error);
+  if ((data ?? []).length === 1) return { ok: true, replay: false, state: "deleted" };
+  const existing = await getSupervision(ownerId, supervisionId, client);
+  return existing ? { ok: false, code: "invalid_state", detail: { state: existing.state } } : { ok: false, code: "not_found", detail: {} };
 }
 
 /**

@@ -6,6 +6,7 @@ import type { BoardEvent } from "@/lib/supervision/dashboard/fixtures";
 import { extractArea, type DataContext } from "@/lib/supervision/dashboard/geo";
 import { emptyState, parseState, type LabState } from "@/lib/supervision/dashboard/state";
 import CollectPanel from "./CollectPanel";
+import LifecyclePanel from "./LifecyclePanel";
 import ScopePanel from "./ScopePanel";
 import DashboardShell, { type ShellStatus } from "./DashboardShell";
 import { STATE_LABELS } from "./SupervisionList";
@@ -126,13 +127,14 @@ export default function SupervisionBoard({ id }: { id: string }) {
       </div>
     );
   }
-  return <Editor supervision={loaded.supervision} initialRevision={loaded.dashboard.revision} initialState={loaded.dashboard.state ?? emptyState()} data={data} onRetryData={retryData} onRefreshData={refreshData} />;
+  const changeState = (state: string) => setLoaded((current) => (current ? { ...current, supervision: { ...current.supervision, state } } : current));
+  return <Editor supervision={loaded.supervision} initialRevision={loaded.dashboard.revision} initialState={loaded.dashboard.state ?? emptyState()} data={data} onRetryData={retryData} onRefreshData={refreshData} onSupervisionState={changeState} />;
 }
 
 const NO_EVENTS: BoardEvent[] = [];
 const NO_DATA: DataContext = { area: null, latest: null, total: 0 };
 
-function Editor({ supervision, initialRevision, initialState, data, onRetryData, onRefreshData }: { supervision: SupervisionInfo; initialRevision: number; initialState: LabState; data: DataState; onRetryData: () => void; onRefreshData: () => void }) {
+function Editor({ supervision, initialRevision, initialState, data, onRetryData, onRefreshData, onSupervisionState }: { supervision: SupervisionInfo; initialRevision: number; initialState: LabState; data: DataState; onRetryData: () => void; onRefreshData: () => void; onSupervisionState: (state: string) => void }) {
   // Identités stables : tant que les données ne changent pas, aucun module n'est redessiné.
   const events = useMemo(() => (data.status === "ready" ? data.payload.events : NO_EVENTS), [data]);
   const context = useMemo(() => (data.status === "ready" ? data.context : NO_DATA), [data]);
@@ -302,8 +304,16 @@ function Editor({ supervision, initialRevision, initialState, data, onRetryData,
 
   const banner = (
     <>
+      <LifecyclePanel
+        id={supervision.id}
+        state={supervision.state}
+        onStateChange={(state) => {
+          onSupervisionState(state);
+          onRefreshData();
+        }}
+      />
       <ScopePanel id={supervision.id} onSaved={onRefreshData} />
-      <CollectPanel id={supervision.id} onCollected={onRefreshData} />
+      <CollectPanel key={supervision.state} id={supervision.id} onCollected={onRefreshData} blocked={supervision.state === "paused" ? "En pause : reprends la Supervision pour collecter." : supervision.state === "initializing" ? "Initialisation en cours." : null} />
       {conflict ? (
         <div className={styles.notice} role="alert">
           <strong>Ce tableau a été modifié ailleurs (autre onglet ou autre appareil). Rien n&apos;a été écrasé.</strong>
