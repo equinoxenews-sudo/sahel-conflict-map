@@ -12,6 +12,7 @@ import { fetchFeed as realFetchFeed, type FeedItem } from "../../rss";
 import { GEO_SOURCE, candidateKeys, locate, type Located, type PlaceRow } from "../geo/gazetteer";
 import { StoreError, adminDb, callRpc, getScopeSnapshot, getSupervision, type Db, type FailureCode } from "../core/store";
 import { matchItem } from "./match";
+import { applyReevaluation, loadStoredMatches, reevaluate } from "./reevaluate";
 import { normalizeFeedItem, type ItemRow } from "./normalize";
 import { buildQueries, type SearchQuery } from "./queries";
 
@@ -37,6 +38,12 @@ export interface CollectStats {
   located: number;
   /** Faux si le dictionnaire de lieux n'est pas installé dans cette base : rien n'est localisé. */
   locationAvailable: boolean;
+  /** Rattachements déjà connus MASQUÉS ce passage parce qu'ils ne correspondent plus au périmètre ou aux règles (rien n'est supprimé). */
+  hidden: number;
+  /** Rattachements masqués RÉTABLIS ce passage (une règle a été assouplie). */
+  restored: number;
+  /** Faux si la colonne de masquage n'existe pas dans cette base : aucune ré-évaluation. */
+  reevaluationAvailable: boolean;
   truncated: boolean;
 }
 
@@ -121,7 +128,7 @@ export async function collectForSupervision(
 
     // 1. Recherche : un flux en panne donne une liste vide (fetchFeed ne lève pas) ; on compte les requêtes sans aucun résultat.
     const feeds = await mapPool(queries, FETCH_CONCURRENCY, (query) => fetchFeed(query.url));
-    const stats: CollectStats = { queries: queries.length, failedQueries: feeds.filter((items) => items.length === 0).length, fetched: 0, skipped: {}, rejected: 0, rejectedTopic: 0, matched: 0, newItems: 0, newMatches: 0, located: 0, locationAvailable: false, truncated: false };
+    const stats: CollectStats = { queries: queries.length, failedQueries: feeds.filter((items) => items.length === 0).length, fetched: 0, skipped: {}, rejected: 0, rejectedTopic: 0, matched: 0, newItems: 0, newMatches: 0, located: 0, locationAvailable: false, hidden: 0, restored: 0, reevaluationAvailable: false, truncated: false };
 
     // 2. Normalisation, dédoublonnage par adresse canonique, correspondance.
     const matched = new Map<string, { row: ItemRow; score: number; reason: string; terms: string[]; theme: string }>();
@@ -229,6 +236,18 @@ export async function collectForSupervision(
       }
     }
     stats.newMatches = links.length;
+
+    // 3b. Ré-évaluation des rattachements déjà en base avec le périmètre COURANT : un rattachement qui ne correspond plus est masqué
+    // (jamais supprimé), un masqué qui correspond de nouveau est rétabli. Sans cela, changer de mots-clés ou corriger une règle
+    // laisserait d'anciennes publications affichées à tort.
+    const stored = await loadStoredMatches(db, supervisionId);
+    stats.reevaluationAvailable = stored.available;
+    if (stored.available) {
+      const plan = reevaluate(stored.rows, snapshot);
+      await applyReevaluation(plan, supervisionId, now, db);
+      stats.hidden = plan.hide.length;
+      stats.restored = plan.restore.length;
+    }
 
     // 4. Journal : « partiel » dès qu'une requête n'a rien rendu, « échec » si plus rien n'a répondu.
     const status = stats.failedQueries === 0 ? "ok" : stats.failedQueries === stats.queries ? "failed" : "partial";

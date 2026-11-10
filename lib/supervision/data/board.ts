@@ -56,10 +56,17 @@ const isMissingTable = (error: { code?: string; message?: string }) => error.cod
 
 /** Rattachements de la Supervision. Si les colonnes de position n'existent pas encore (script du dictionnaire pas exécuté), on relit sans elles. */
 async function readMatches(client: Db, supervisionId: string): Promise<{ data: unknown[] | null; error: { code?: string; message?: string } | null }> {
-  const read = (columns: string) => client.from("sv_matches").select(columns).eq("supervision_id", supervisionId).order("matched_at", { ascending: false }).limit(PUBLICATION_LIMIT);
-  const first = await read(MATCH_COLUMNS);
-  if (first.error && (first.error.code === "42703" || /column .* does not exist/i.test(first.error.message ?? ""))) return read(MATCH_COLUMNS_BASIC);
-  return first;
+  // Seuls les rattachements VISIBLES (hidden_at vide) : un rattachement masqué ne correspond plus au périmètre (voir collect/reevaluate.ts).
+  const read = (columns: string, visibleOnly: boolean) => {
+    const query = client.from("sv_matches").select(columns).eq("supervision_id", supervisionId);
+    return (visibleOnly ? query.is("hidden_at", null) : query).order("matched_at", { ascending: false }).limit(PUBLICATION_LIMIT);
+  };
+  const missingColumn = (error: { code?: string; message?: string } | null) => Boolean(error && (error.code === "42703" || /column .* does not exist/i.test(error.message ?? "")));
+  const first = await read(MATCH_COLUMNS, true);
+  if (!missingColumn(first.error)) return first;
+  const withoutHiding = await read(MATCH_COLUMNS, false); // colonne de masquage absente (script du Lot 5b pas exécuté)
+  if (!missingColumn(withoutHiding.error)) return withoutHiding;
+  return read(MATCH_COLUMNS_BASIC, false);
 }
 
 export async function loadBoardData(snapshot: ScopeSnapshot, now: Date = new Date(), client: Db = adminDb(), supervisionId?: string): Promise<BoardData> {

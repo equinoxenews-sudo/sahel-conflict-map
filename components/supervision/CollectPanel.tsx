@@ -11,7 +11,7 @@ interface Run {
   started_at: string;
   finished_at: string | null;
   status: "running" | "ok" | "partial" | "failed";
-  stats: { queries?: number; failedQueries?: number; fetched?: number; matched?: number; newItems?: number; newMatches?: number; rejected?: number; rejectedTopic?: number; located?: number; locationAvailable?: boolean } | null;
+  stats: { queries?: number; failedQueries?: number; fetched?: number; matched?: number; newItems?: number; newMatches?: number; rejected?: number; rejectedTopic?: number; located?: number; locationAvailable?: boolean; hidden?: number; restored?: number } | null;
   error: string | null;
 }
 
@@ -24,6 +24,8 @@ function describe(run: Run): string {
   if (run.status === "failed") return run.error ?? "La collecte a échoué.";
   const parts = [`${s.matched ?? 0} publication${(s.matched ?? 0) > 1 ? "s" : ""} retenue${(s.matched ?? 0) > 1 ? "s" : ""}`, `${s.newMatches ?? 0} nouvelle${(s.newMatches ?? 0) > 1 ? "s" : ""}`];
   if ((s.rejectedTopic ?? 0) > 0) parts.push(`${s.rejectedTopic} écartée${(s.rejectedTopic ?? 0) > 1 ? "s" : ""} : sujet sans fait`);
+  if ((s.hidden ?? 0) > 0) parts.push(`${s.hidden} masquée${(s.hidden ?? 0) > 1 ? "s" : ""} (ne correspond${(s.hidden ?? 0) > 1 ? "ent" : ""} plus au périmètre)`);
+  if ((s.restored ?? 0) > 0) parts.push(`${s.restored} rétablie${(s.restored ?? 0) > 1 ? "s" : ""}`);
   if (s.locationAvailable) parts.push(`${s.located ?? 0} localisée${(s.located ?? 0) > 1 ? "s" : ""}`);
   if ((s.failedQueries ?? 0) > 0) parts.push(`${s.failedQueries} recherche${(s.failedQueries ?? 0) > 1 ? "s" : ""} sans réponse sur ${s.queries ?? "?"}`);
   return parts.join(" · ");
