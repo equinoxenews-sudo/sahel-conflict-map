@@ -164,13 +164,16 @@ test("un moteur qui renvoie des tailles trop petites ou hors grille est ramené 
 });
 
 test("rendu adaptatif : compact, standard ou développé d'après les dimensions du module, jamais d'après l'écran", () => {
-  assert.equal(bandFor(299, 400), "compact");
+  assert.equal(bandFor(239, 400), "compact");
+  assert.equal(bandFor(293, 400), "standard", "un module pleine largeur d'un téléphone de 375 px est standard");
   assert.equal(bandFor(320, 400), "standard", "un module pleine largeur de téléphone est standard");
+  assert.equal(bandFor(360, 620), "expanded", "plein écran d'un téléphone : développé");
+  assert.equal(bandFor(293, 620), "standard", "un module en ligne reste standard même haut");
   assert.equal(bandFor(500, 200), "compact");
   assert.equal(bandFor(450, 320), "standard");
   assert.equal(bandFor(700, 420), "expanded");
   assert.equal(bandFor(700, 300), "standard");
-  assert.equal(bandFor(299, 600), "compact");
+  assert.equal(bandFor(239, 600), "compact");
 });
 
 test("données fictives : toutes marquées [DÉMO], stables pour une date donnée, filtrables", () => {

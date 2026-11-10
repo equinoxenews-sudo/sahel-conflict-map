@@ -72,6 +72,10 @@
   font-size: 12.5px;
   cursor: pointer;
 }
+.btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
 .btn:hover {
   border-color: var(--lab-gold);
 }
@@ -686,4 +690,31 @@
 }
 .detailLink {
   color: var(--lab-gold);
+}
+
+/* --- Téléphone : commandes assez grandes pour le doigt, outils de simulation inutiles --- */
+@media (max-width: 640px) {
+  .simOnly {
+    display: none;
+  }
+  .segment button,
+  .btn,
+  .globals select,
+  .globals button {
+    min-height: 40px;
+    padding-inline: 12px;
+    font-size: 14px;
+  }
+  .iconBtn {
+    min-width: 40px;
+    min-height: 40px;
+  }
+  .linkBtn {
+    min-height: 40px;
+    padding: 8px 10px;
+  }
+  .srcLink {
+    display: inline-block;
+    padding-block: 6px;
+  }
 }

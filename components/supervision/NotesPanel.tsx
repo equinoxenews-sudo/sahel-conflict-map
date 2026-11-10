@@ -140,7 +140,7 @@ export default function NotesPanel({ eventRef, eventTitle, compact = false, also
             aria-label={eventRef ? "Nouvelle note sur cette publication" : "Nouvelle note"}
           />
           <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 10px", alignItems: "center" }}>
-            <button type="button" onClick={() => void add()} disabled={busy || draft.trim().length === 0} style={{ cursor: "pointer" }}>
+            <button type="button" onClick={() => void add()} disabled={busy || draft.trim().length === 0} className={styles.btn}>
               Ajouter la note
             </button>
             <span className={styles.muted}>{draft.length}/{NOTE_MAX}</span>
@@ -177,8 +177,8 @@ export default function NotesPanel({ eventRef, eventTitle, compact = false, also
                     aria-label="Modifier la note"
                   />
                   <div style={{ display: "flex", gap: 8, marginTop: 4 }}>
-                    <button type="button" onClick={() => void saveEdit()} disabled={busy || editing.text.trim().length === 0} style={{ cursor: "pointer" }}>Enregistrer</button>
-                    <button type="button" onClick={() => setEditing(null)} disabled={busy} style={{ cursor: "pointer" }}>Annuler</button>
+                    <button type="button" onClick={() => void saveEdit()} disabled={busy || editing.text.trim().length === 0} className={styles.btn}>Enregistrer</button>
+                    <button type="button" onClick={() => setEditing(null)} disabled={busy} className={styles.btn}>Annuler</button>
                   </div>
                 </>
               ) : (
@@ -188,13 +188,13 @@ export default function NotesPanel({ eventRef, eventTitle, compact = false, also
                     deleting === note.id ? (
                       <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
                         <span className={styles.muted}>Supprimer cette note ? Elle disparaît de ta liste.</span>
-                        <button type="button" onClick={() => void remove(note.id)} disabled={busy} style={{ cursor: "pointer" }}>Supprimer</button>
-                        <button type="button" onClick={() => setDeleting(null)} disabled={busy} style={{ cursor: "pointer" }}>Annuler</button>
+                        <button type="button" onClick={() => void remove(note.id)} disabled={busy} className={styles.btn}>Supprimer</button>
+                        <button type="button" onClick={() => setDeleting(null)} disabled={busy} className={styles.btn}>Annuler</button>
                       </div>
                     ) : (
                       <div style={{ display: "flex", gap: 8 }}>
-                        <button type="button" onClick={() => { setDeleting(null); setEditing({ id: note.id, text: note.body, revision: note.revision }); }} style={{ cursor: "pointer" }}>Modifier</button>
-                        <button type="button" onClick={() => { setEditing(null); setDeleting(note.id); }} style={{ cursor: "pointer" }}>Supprimer</button>
+                        <button type="button" onClick={() => { setDeleting(null); setEditing({ id: note.id, text: note.body, revision: note.revision }); }} className={styles.btn}>Modifier</button>
+                        <button type="button" onClick={() => { setEditing(null); setDeleting(note.id); }} className={styles.btn}>Supprimer</button>
                       </div>
                     )
                   ) : null}

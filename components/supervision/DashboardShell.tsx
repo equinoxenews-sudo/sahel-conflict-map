@@ -212,14 +212,14 @@ export default function DashboardShell({ initialState, onStateChange, status, ba
               <button type="button" aria-pressed={editMode} className={editMode ? styles.active : undefined} onClick={() => setEditMode(true)}>Édition</button>
               <button type="button" aria-pressed={!editMode} className={!editMode ? styles.active : undefined} onClick={() => { setEditMode(false); setSelectedId(null); }}>Consultation</button>
             </div>
-            <div className={styles.segment} role="group" aria-label="Simuler la largeur">
+            <div className={`${styles.segment} ${styles.simOnly}`} role="group" aria-label="Simuler la largeur">
               {(["auto", "desktop", "tablet", "mobile"] as Simulated[]).map((s) => (
                 <button key={s} type="button" aria-pressed={simulated === s} className={simulated === s ? styles.active : undefined} onClick={() => setSimulated(s)}>
                   {s === "auto" ? "Auto" : s === "desktop" ? "Bureau" : s === "tablet" ? "Tablette" : "Téléphone"}
                 </button>
               ))}
             </div>
-            <span className={styles.muted}>{width} px · {cols} colonne{cols > 1 ? "s" : ""} · disposition « {breakpoint === "desktop" ? "bureau" : breakpoint === "tablet" ? "tablette" : "téléphone"} »</span>
+            <span className={`${styles.muted} ${styles.simOnly}`}>{width} px · {cols} colonne{cols > 1 ? "s" : ""} · disposition « {breakpoint === "desktop" ? "bureau" : breakpoint === "tablet" ? "tablette" : "téléphone"} »</span>
           </div>
           <div className={styles.toolGroup}>
             <GlobalFilters filters={state.globals} onChange={(patch) => change((current) => setGlobals(current, patch))} />

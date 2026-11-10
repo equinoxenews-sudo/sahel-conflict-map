@@ -122,8 +122,11 @@ export type Band = "compact" | "standard" | "expanded";
  * données structurées, présentées plus ou moins en détail.
  */
 export function bandFor(widthPx: number, heightPx: number): Band {
-  if (widthPx < 300 || heightPx < 230) return "compact";
+  // 240 px : un module pleine largeur d'un téléphone (écran de 360 à 390 px moins le menu latéral) mesure 280 à 310 px et doit rester lisible.
+  if (widthPx < 240 || heightPx < 230) return "compact";
   if (widthPx >= 620 && heightPx >= 400) return "expanded";
+  // Plein écran d'un téléphone (environ 340 × 600) : développé, pour que les actions (marquer lue, modifier…) restent accessibles.
+  if (widthPx >= 340 && heightPx >= 560) return "expanded";
   return "standard";
 }
 

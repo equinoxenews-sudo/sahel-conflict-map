@@ -126,12 +126,12 @@ export default function AlertsPanel({ band, events }: { band: Band; events: Boar
       {loadError ? <p className={styles.muted} role="alert">{loadError}</p> : null}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }} role="group" aria-label="Filtrer les alertes">
         {FILTERS.map(({ key, label }) => (
-          <button key={key} type="button" aria-pressed={filter === key} onClick={() => setFilter(key)} style={{ cursor: "pointer", fontWeight: filter === key ? 700 : 400 }}>
+          <button key={key} type="button" aria-pressed={filter === key} onClick={() => setFilter(key)} className={styles.btn} style={{ fontWeight: filter === key ? 700 : 400, borderColor: filter === key ? "var(--lab-gold)" : undefined }}>
             {label} ({counts[key]})
           </button>
         ))}
-        {editable && filter === "new" && counts.new > 1 && band === "expanded" ? (
-          <button type="button" disabled={busy} onClick={() => void decide("read", visible, `${Math.min(visible.length, 100)} alertes marquées lues.`)} style={{ cursor: "pointer" }}>Tout marquer comme lu</button>
+        {editable && filter === "new" && counts.new > 1 ? (
+          <button type="button" disabled={busy} onClick={() => void decide("read", visible, `${Math.min(visible.length, 100)} alertes marquées lues.`)} className={styles.btn}>Tout marquer comme lu</button>
         ) : null}
       </div>
       {message ? <p className={styles.muted} role="status">{message}</p> : null}
@@ -156,8 +156,7 @@ export default function AlertsPanel({ band, events }: { band: Band; events: Boar
                   {VERIFICATION_LABELS[event.verification]}
                   {event.qualifier ? ` · ${event.qualifier}` : ""} · {event.place} · {dateFormat.format(new Date(event.at))}
                 </span>
-                {band === "expanded" ? (
-                  <span className={styles.meta}>
+                <span className={styles.meta}>
                     <button type="button" className={styles.linkBtn} onClick={() => setWhyOpen(whyOpen === alert.id ? null : alert.id)}>{whyOpen === alert.id ? "masquer l'origine" : "pourquoi cette alerte ?"}</button>
                     {editable ? (
                       <>
@@ -167,9 +166,8 @@ export default function AlertsPanel({ band, events }: { band: Band; events: Boar
                         {status !== "new" ? <button type="button" className={styles.linkBtn} disabled={busy} onClick={() => void decide("new", [alert], "Alerte rétablie à traiter.")}>rétablir</button> : null}
                       </>
                     ) : null}
-                  </span>
-                ) : null}
-                {band === "expanded" && whyOpen === alert.id ? <span className={styles.muted}>{alert.why} Priorité et vérification sont indépendantes : cette alerte n&apos;est pas une preuve.</span> : null}
+                </span>
+                {whyOpen === alert.id ? <span className={styles.muted}>{alert.why} Priorité et vérification sont indépendantes : cette alerte n&apos;est pas une preuve.</span> : null}
               </li>
             );
           })}
