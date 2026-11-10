@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { monthStartUtc, monthlyCapUsd, decideReservation, serviceReserveUsd } from "../lib/supervision/core/budget";
+import { monthStartUtc, monthlyCapUsd, decideReservation, netRevenueEur, serviceReserveUsd, sharedMarginUsd, slotAllocationUsd, worstCaseAiShareOfNet } from "../lib/supervision/core/budget";
 import { creditStatus, type CreditOperation } from "../lib/supervision/core/credits";
 import { allowsProcessing, resolveAccess, type EntitlementRow } from "../lib/supervision/core/entitlements";
 import { STATES, canTransition, capabilities, occupiesActiveSlot, occupiesPausedSlot } from "../lib/supervision/core/lifecycle";
@@ -22,8 +22,12 @@ test("politique par défaut : exactement les règles validées par Nicolas (D2, 
   assert.equal(DEFAULT_POLICY.majorChange.volumeIncreaseThreshold, 0.3, "+30 %, pas ×1,5");
   assert.equal(DEFAULT_POLICY.majorChange.costIncreaseThreshold, 0.3);
   assert.equal(DEFAULT_POLICY.readOnlyGraceDays, 90);
-  assert.equal(t.intelligence.monthlyPriceEur, 19.99);
-  assert.equal(t.pro.monthlyPriceEur, 49.99);
+  // Offres ajustées le 10/11/2026 : budget IA 4 € / 12 € par mois, prix 24,99 € / 69,99 € TTC.
+  assert.deepEqual([t.intelligence.monthlyPriceEur, t.intelligence.aiBudgetEurPerMonth], [24.99, 4]);
+  assert.deepEqual([t.pro.monthlyPriceEur, t.pro.aiBudgetEurPerMonth], [69.99, 12]);
+  assert.equal(t.plus.aiBudgetEurPerMonth, 0, "« plus » : aucune IA de Supervision");
+  assert.equal(t.owner.aiBudgetEurPerMonth, null);
+  assert.equal(t.enterprise.aiBudgetEurPerMonth, null, "Enterprise : sur devis");
 });
 
 test("politique : réglages ajustables côté serveur, validés, jamais de plantage", () => {
@@ -36,7 +40,7 @@ test("politique : réglages ajustables côté serveur, validés, jamais de plant
   }
   assert.equal(DEFAULT_POLICY.majorChange.volumeIncreaseThreshold, 0.3, "les valeurs par défaut ne sont jamais modifiées");
 
-  for (const bad of [{ majorChange: { volumeIncreaseThreshold: -1 } }, { majorChange: { volumeIncreaseThreshold: 0 } }, { unknownKey: 1 }, { tiers: { pro: { activeLimit: 2.5 } } }, { ai: { safetyShare: 2 } }, { creditWindowDays: 0 }, { tiers: { pro: { activeLimit: "3" } } }]) {
+  for (const bad of [{ majorChange: { volumeIncreaseThreshold: -1 } }, { majorChange: { volumeIncreaseThreshold: 0 } }, { unknownKey: 1 }, { tiers: { pro: { activeLimit: 2.5 } } }, { ai: { safetyShare: 2 } }, { creditWindowDays: 0 }, { tiers: { pro: { activeLimit: "3" } } }, { ai: { sharedMarginShare: 1 } }, { ai: { costShareOfPrice: 0.1 } }, { tiers: { pro: { aiBudgetEurPerMonth: -1 } } }]) {
     assert.equal(applyPolicyOverride(bad).ok, false, JSON.stringify(bad));
   }
   assert.equal(policyFromEnv({ SUPERVISION_POLICY_JSON: "pas du json" }).ok, false);
@@ -217,11 +221,12 @@ test("droits : à l'expiration effective (pas avant), 90 jours de lecture seule 
 
 // --- Budget IA ----------------------------------------------------------------------------------------------------------
 
-test("budget IA : plafond = 10 % du prix, en dollars, avec marge de sécurité ; pas de plafond pour le fondateur", () => {
+test("budget IA : plafond = budget en euros de l'offre, en dollars, avec marge de sécurité ; pas de plafond pour le fondateur ni Enterprise, zéro pour « plus »", () => {
   const intelligence = monthlyCapUsd(DEFAULT_POLICY, "intelligence");
   const pro = monthlyCapUsd(DEFAULT_POLICY, "pro");
-  assert.ok(intelligence !== null && Math.abs(intelligence - 19.99 * 0.1 * 1.15 * 0.95) < 1e-4, `intelligence ${intelligence}`);
-  assert.ok(pro !== null && Math.abs(pro - 49.99 * 0.1 * 1.15 * 0.95) < 1e-4);
+  assert.ok(intelligence !== null && Math.abs(intelligence - 4 * 1.15 * 0.95) < 1e-4, `intelligence ${intelligence}`);
+  assert.ok(pro !== null && Math.abs(pro - 12 * 1.15 * 0.95) < 1e-4);
+  assert.equal(monthlyCapUsd(DEFAULT_POLICY, "plus"), 0);
   assert.equal(monthlyCapUsd(DEFAULT_POLICY, "owner"), null);
   assert.equal(monthlyCapUsd(DEFAULT_POLICY, "enterprise"), null);
   assert.equal(monthStartUtc(d("2026-11-09T12:00:00Z")).toISOString(), "2026-11-01T00:00:00.000Z");
@@ -239,4 +244,29 @@ test("budget IA : la réserve de service reste aux tâches essentielles ; à l'�
   assert.equal(decideReservation({ ...base, essential: true, spentUsd: 1.95, estimateUsd: 0.1 }).allowed, false, "jamais au-delà du plafond, même essentiel");
   assert.equal(decideReservation({ capUsd: null, serviceReserveUsd: 0, essential: false, spentUsd: 999, estimateUsd: 5 }).allowed, true, "sans plafond");
   assert.equal(decideReservation({ ...base, essential: false, spentUsd: 1.6, estimateUsd: 0 }).allowed, true, "exactement au plafond : accepté");
+});
+
+test("budget IA : une barre générale, découpée en places égales plus une marge commune — la même part par Supervision pour Intelligence et Pro", () => {
+  const slotIntelligence = slotAllocationUsd(DEFAULT_POLICY, "intelligence");
+  const slotPro = slotAllocationUsd(DEFAULT_POLICY, "pro");
+  assert.ok(slotIntelligence !== null && slotPro !== null);
+  // 4 € × 75 % / 1 place = 3 € ; 12 € × 75 % / 3 places = 3 € : ouvrir 3 Supervisions sur Pro ne rationne pas chacune plus qu'Intelligence.
+  assert.ok(Math.abs((slotIntelligence ?? 0) - 3 * 1.15 * 0.95) < 1e-4, `${slotIntelligence}`);
+  assert.ok(Math.abs((slotPro ?? 0) - (slotIntelligence ?? 0)) < 1e-4);
+  const capPro = monthlyCapUsd(DEFAULT_POLICY, "pro") ?? 0;
+  assert.ok(Math.abs(slotPro! * 3 + (sharedMarginUsd(DEFAULT_POLICY, "pro") ?? 0) - capPro) < 1e-3, "places + marge = plafond, rien ne se perd");
+  assert.equal(slotAllocationUsd(DEFAULT_POLICY, "owner"), null);
+  assert.equal(slotAllocationUsd(DEFAULT_POLICY, "plus"), 0);
+});
+
+test("contrôle de marge : même en consommant TOUT le budget IA, il reste ≈ 80 % de la recette nette (TVA et frais de paiement déduits)", () => {
+  assert.ok(Math.abs(netRevenueEur(24.99) - 20.2) < 0.1, `${netRevenueEur(24.99)}`);
+  for (const tier of ["intelligence", "pro"] as const) {
+    const share = worstCaseAiShareOfNet(DEFAULT_POLICY, tier);
+    assert.ok(share !== null && share > 0.15 && share <= 0.22, `${tier} : ${share}`);
+  }
+  assert.equal(worstCaseAiShareOfNet(DEFAULT_POLICY, "owner"), null);
+  // Garde-fou : un budget relevé sans relever le prix fait sortir l'offre de la fourchette.
+  const greedy = applyPolicyOverride({ tiers: { pro: { aiBudgetEurPerMonth: 20 } } });
+  assert.ok(greedy.ok && (worstCaseAiShareOfNet(greedy.policy, "pro") ?? 0) > 0.22);
 });

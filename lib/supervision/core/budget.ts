@@ -10,12 +10,52 @@ import type { SupervisionPolicy } from "./policy";
 // l'assistant et les analyses exceptionnelles ne peuvent pas consommer) ; à l'épuisement on suspend les NOUVEAUX enrichissements,
 // jamais l'accès aux archives.
 
-/** Plafond mensuel en dollars (null : pas de plafond automatique, fondateur ou contrat Enterprise). */
+const round5 = (value: number) => Math.round(value * 100_000) / 100_000;
+
+/**
+ * Plafond mensuel en dollars du COMPTE (null : pas de plafond automatique, fondateur ou contrat Enterprise). C'est la barre unique :
+ * budget en euros de l'offre, converti en dollars, moins la marge de sécurité de facturation.
+ */
 export function monthlyCapUsd(policy: SupervisionPolicy, tier: Tier): number | null {
-  const price = policy.tiers[tier].monthlyPriceEur;
-  if (price === null) return null;
-  const { costShareOfPrice, usdPerEur, safetyShare } = policy.ai;
-  return Math.round(price * costShareOfPrice * usdPerEur * safetyShare * 100_000) / 100_000;
+  const euros = policy.tiers[tier].aiBudgetEurPerMonth;
+  if (euros === null) return null;
+  const { usdPerEur, safetyShare } = policy.ai;
+  return round5(euros * usdPerEur * safetyShare);
+}
+
+/**
+ * Allocation STANDARD d'une place de Supervision (dollars par mois) : le plafond, moins la marge commune, réparti à parts égales entre
+ * les places de l'offre. Le fonctionnement par défaut de l'IA est calibré pour tenir dans cette part : ouvrir une 2e ou une 3e
+ * Supervision en cours de mois ne dégrade donc pas la première. null : pas de plafond.
+ */
+export function slotAllocationUsd(policy: SupervisionPolicy, tier: Tier): number | null {
+  const cap = monthlyCapUsd(policy, tier);
+  if (cap === null) return null;
+  const slots = policy.tiers[tier].activeLimit;
+  return slots > 0 ? round5((cap * (1 - policy.ai.sharedMarginShare)) / slots) : 0;
+}
+
+/** Marge COMMUNE aux places (dollars par mois) : pics d'assistant, rapports exceptionnels, nouveaux cadrages. */
+export function sharedMarginUsd(policy: SupervisionPolicy, tier: Tier): number | null {
+  const cap = monthlyCapUsd(policy, tier);
+  return cap === null ? null : round5(cap * policy.ai.sharedMarginShare);
+}
+
+// --- Contrôle de marge ----------------------------------------------------------------------------------------------------
+/** TVA française et frais de paiement : estimations pour juger la marge, pas des valeurs de facturation. */
+export const VAT_RATE = 0.2;
+export const PAYMENT_FEE_SHARE = 0.03;
+
+/** Recette nette estimée d'un abonnement mensuel TTC (après TVA et frais de paiement), en euros. */
+export function netRevenueEur(priceEurTtc: number): number {
+  return (priceEurTtc / (1 + VAT_RATE)) * (1 - PAYMENT_FEE_SHARE);
+}
+
+/** Part de la recette nette que le budget IA représenterait s'il était consommé EN ENTIER (pire cas). null : pas de prix ou pas de plafond. */
+export function worstCaseAiShareOfNet(policy: SupervisionPolicy, tier: Tier): number | null {
+  const { monthlyPriceEur, aiBudgetEurPerMonth } = policy.tiers[tier];
+  if (monthlyPriceEur === null || aiBudgetEurPerMonth === null || monthlyPriceEur <= 0) return null;
+  return aiBudgetEurPerMonth / netRevenueEur(monthlyPriceEur);
 }
 
 /** Part du plafond réservée aux tâches essentielles (dollars). */

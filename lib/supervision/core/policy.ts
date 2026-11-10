@@ -15,8 +15,13 @@ export interface TierPolicy {
   pausedLimit: number;
   /** Créations / refontes majeures par période glissante ; null = pas de plafond (fondateur, Enterprise sur devis). */
   majorCreditsPerWindow: number | null;
-  /** Prix mensuel affiché (euros), base du plafond de coût IA ; null = pas de plafond automatique. */
+  /** Prix mensuel TTC (euros), sert aux contrôles de marge ; null = sur devis ou sans prix. */
   monthlyPriceEur: number | null;
+  /**
+   * Budget IA MENSUEL du compte, en euros : une barre unique pour tout le compte (décision du 10/11/2026). null = pas de plafond
+   * automatique (fondateur, Enterprise sur devis) ; 0 = aucune IA. Il se répartit entre les places de Supervision (voir budget.ts).
+   */
+  aiBudgetEurPerMonth: number | null;
 }
 
 export interface MajorChangeRules {
@@ -38,8 +43,12 @@ export interface SupervisionPolicy {
   maxDraftsPerOwner: number;
   majorChange: MajorChangeRules;
   ai: {
-    /** Part du prix mensuel que le coût IA d'un abonnement ne doit pas dépasser (objectif interne, à recalibrer). */
-    costShareOfPrice: number;
+    /**
+     * Part du budget mensuel mise en COMMUN pour les pics (beaucoup de questions à l'assistant, rapport exceptionnel, nouveau cadrage).
+     * Le reste est réparti à parts égales entre les places de Supervision : ouvrir une 2e ou une 3e Supervision en cours de mois ne
+     * dégrade donc pas la première (décision du 10/11/2026).
+     */
+    sharedMarginShare: number;
     /** Dollars par euro (les appels sont facturés en dollars). */
     usdPerEur: number;
     /** On s'arrête à cette part du plafond pour absorber arrondis et écarts de facturation. */
@@ -51,22 +60,26 @@ export interface SupervisionPolicy {
   readOnlyGraceDays: number;
 }
 
-/** Règles validées le 09/11/2026. Les valeurs marquées « provisoire » restent à confirmer après mesures (Lot 4). */
+/**
+ * Règles validées le 09/11/2026. Le 10/11/2026 : budget IA fixé à 4 € (Intelligence) et 12 € (Pro) par mois, soit 3 € par place plus une
+ * marge commune, et prix ajustés en conséquence (24,99 € et 69,99 € TTC). Les valeurs marquées « provisoire » restent à confirmer
+ * après mesures du coût réel (phase enveloppe IA).
+ */
 export const DEFAULT_POLICY: SupervisionPolicy = {
   tiers: {
-    owner: { supervisionAccess: true, activeLimit: 3, pausedLimit: 10, majorCreditsPerWindow: null, monthlyPriceEur: null },
-    plus: { supervisionAccess: false, activeLimit: 0, pausedLimit: 0, majorCreditsPerWindow: 0, monthlyPriceEur: 7.99 },
-    intelligence: { supervisionAccess: true, activeLimit: 1, pausedLimit: 3, majorCreditsPerWindow: 1, monthlyPriceEur: 19.99 },
-    pro: { supervisionAccess: true, activeLimit: 3, pausedLimit: 10, majorCreditsPerWindow: 3, monthlyPriceEur: 49.99 },
+    owner: { supervisionAccess: true, activeLimit: 3, pausedLimit: 10, majorCreditsPerWindow: null, monthlyPriceEur: null, aiBudgetEurPerMonth: null },
+    plus: { supervisionAccess: false, activeLimit: 0, pausedLimit: 0, majorCreditsPerWindow: 0, monthlyPriceEur: 7.99, aiBudgetEurPerMonth: 0 },
+    intelligence: { supervisionAccess: true, activeLimit: 1, pausedLimit: 3, majorCreditsPerWindow: 1, monthlyPriceEur: 24.99, aiBudgetEurPerMonth: 4 },
+    pro: { supervisionAccess: true, activeLimit: 3, pausedLimit: 10, majorCreditsPerWindow: 3, monthlyPriceEur: 69.99, aiBudgetEurPerMonth: 12 },
     // Enterprise : sur devis, modalités à définir. Valeurs provisoires, surchargées compte par compte via les droits (sv_entitlements).
-    enterprise: { supervisionAccess: true, activeLimit: 10, pausedLimit: 30, majorCreditsPerWindow: null, monthlyPriceEur: null },
+    enterprise: { supervisionAccess: true, activeLimit: 10, pausedLimit: 30, majorCreditsPerWindow: null, monthlyPriceEur: null, aiBudgetEurPerMonth: null },
   },
   creditWindowDays: 30,
   pendingTtlMinutes: 30,
   maxDraftsPerOwner: 3,
   majorChange: { volumeIncreaseThreshold: 0.3, costIncreaseThreshold: 0.3, unreliableExpansionIsMajor: true },
-  // serviceReserveShare : provisoire (le cahier ne chiffre pas la réserve de service).
-  ai: { costShareOfPrice: 0.1, usdPerEur: 1.15, safetyShare: 0.95, serviceReserveShare: 0.2 },
+  // serviceReserveShare et sharedMarginShare : provisoires (à confirmer après mesures).
+  ai: { sharedMarginShare: 0.25, usdPerEur: 1.15, safetyShare: 0.95, serviceReserveShare: 0.2 },
   readOnlyGraceDays: 90,
 };
 
@@ -99,7 +112,7 @@ function merge<T>(base: T, override: unknown, path: string, errors: string[]): T
   if (base === null || typeof base === "number") {
     if (override === null) {
       // « null » (sans plafond) n'est permis que là où il a un sens ; ailleurs c'est une erreur, jamais ignorée en silence.
-      if (base === null || path.endsWith("majorCreditsPerWindow") || path.endsWith("monthlyPriceEur")) return null as T;
+      if (base === null || path.endsWith("majorCreditsPerWindow") || path.endsWith("monthlyPriceEur") || path.endsWith("aiBudgetEurPerMonth")) return null as T;
       errors.push(`${path} : nombre positif ou nul attendu (null n'est pas permis ici).`);
       return base;
     }
@@ -129,7 +142,7 @@ export function applyPolicyOverride(override: DeepPartial<SupervisionPolicy> | u
   if (majorChange.costIncreaseThreshold <= 0 || majorChange.costIncreaseThreshold > 10) errors.push("majorChange.costIncreaseThreshold : entre 0 (exclu) et 10.");
   if (ai.safetyShare <= 0 || ai.safetyShare > 1) errors.push("ai.safetyShare : entre 0 (exclu) et 1.");
   if (ai.serviceReserveShare < 0 || ai.serviceReserveShare >= 1) errors.push("ai.serviceReserveShare : entre 0 et 1 (exclu).");
-  if (ai.costShareOfPrice <= 0 || ai.costShareOfPrice > 1) errors.push("ai.costShareOfPrice : entre 0 (exclu) et 1.");
+  if (ai.sharedMarginShare < 0 || ai.sharedMarginShare >= 1) errors.push("ai.sharedMarginShare : entre 0 et 1 (exclu).");
   if (ai.usdPerEur <= 0) errors.push("ai.usdPerEur : positif.");
   if (!Number.isInteger(creditWindowDays) || creditWindowDays < 1) errors.push("creditWindowDays : entier d'au moins 1 jour.");
   if (!Number.isInteger(pendingTtlMinutes) || pendingTtlMinutes < 1) errors.push("pendingTtlMinutes : entier d'au moins 1 minute.");

@@ -10,6 +10,7 @@ import assert from "node:assert/strict";
 import { after, before, test } from "node:test";
 import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
+import { monthlyCapUsd } from "../../lib/supervision/core/budget";
 import { resolveAccess, type AccessProfile } from "../../lib/supervision/core/entitlements";
 import type { Confidence, ScopeSnapshot } from "../../lib/supervision/core/majorChange";
 import { DEFAULT_POLICY } from "../../lib/supervision/core/policy";
@@ -300,21 +301,24 @@ test("budget IA : 20 réservations simultanées de 0,10 $ sous un plafond de 1 $
 test("budget IA : règlement au coût réel, libération, rejeu idempotent, réserve de service et expiration des réservations oubliées", { skip }, async () => {
   const o = owner("budget2");
   const base = { ownerId: o, tier: "intelligence" as const, supervisionId: null, job: "test", model: "haiku" };
-  // Plafond Intelligence ≈ 2,18 $ ; réserve de service 20 % (≈ 0,44 $) : une tâche non essentielle ne dépasse pas ≈ 1,75 $.
-  const first = await store.reserveAiBudget({ ...base, operationId: "r1", estimateUsd: 1.7, essential: false });
+  // Plafond Intelligence = 4 € × 1,15 × 0,95 ≈ 4,37 $ (offres du 10/11/2026) ; réserve de service 20 % (≈ 0,87 $) : une tâche non essentielle
+  // ne dépasse pas ≈ 3,50 $. Si les offres changent, ces montants sont à recalculer : le contrôle ci-dessous le signale.
+  const cap = monthlyCapUsd(DEFAULT_POLICY, "intelligence") ?? 0;
+  assert.ok(Math.abs(cap - 4.37) < 0.005, `plafond Intelligence ${cap} : adapter les montants de ce test`);
+  const first = await store.reserveAiBudget({ ...base, operationId: "r1", estimateUsd: 3.4, essential: false });
   assert.ok(first.ok && !first.replay);
-  assert.ok((await store.reserveAiBudget({ ...base, operationId: "r1", estimateUsd: 1.7, essential: false })).ok, "rejeu : la même opération ne réserve pas deux fois");
+  assert.ok((await store.reserveAiBudget({ ...base, operationId: "r1", estimateUsd: 3.4, essential: false })).ok, "rejeu : la même opération ne réserve pas deux fois");
   const refused = await store.reserveAiBudget({ ...base, operationId: "r2", estimateUsd: 0.2, essential: false });
   assert.ok(!refused.ok && refused.code === "budget_exceeded", "non essentiel : la réserve de service est intouchable");
   const essential = await store.reserveAiBudget({ ...base, operationId: "r3", estimateUsd: 0.2, essential: true });
   assert.ok(essential.ok, "essentiel : peut puiser dans la réserve");
   assert.ok((await store.settleAiBudget(o, "r1", { costUsd: 0.3, inputTokens: 1000, outputTokens: 500, ok: true })).ok);
-  assert.ok((await store.reserveAiBudget({ ...base, operationId: "r4", estimateUsd: 1.2, essential: false })).ok, "le coût réel (0,3 $) a remplacé la réservation (1,7 $) : de la place est revenue");
+  assert.ok((await store.reserveAiBudget({ ...base, operationId: "r4", estimateUsd: 2.9, essential: false })).ok, "le coût réel (0,3 $) a remplacé la réservation (3,4 $) : de la place est revenue");
   assert.ok((await store.releaseAiBudget(o, "r4")).ok);
-  assert.ok((await store.reserveAiBudget({ ...base, operationId: "r5", estimateUsd: 1.2, essential: false })).ok, "réservation libérée : la place revient");
+  assert.ok((await store.reserveAiBudget({ ...base, operationId: "r5", estimateUsd: 2.9, essential: false })).ok, "réservation libérée : la place revient");
   // Une réservation oubliée (plantage avant règlement) expire : 3 heures plus tard elle ne pèse plus.
   const later = new Date(NOW.getTime() + 3 * 3_600_000);
-  assert.ok((await store.reserveAiBudget({ ...base, operationId: "r6", estimateUsd: 1.2, essential: false }, later)).ok);
+  assert.ok((await store.reserveAiBudget({ ...base, operationId: "r6", estimateUsd: 2.9, essential: false }, later)).ok);
 });
 
 test("sécurité : les clés publiques n'atteignent rien (ni tables, ni fonctions) ; une version de périmètre est immuable", { skip }, async () => {
