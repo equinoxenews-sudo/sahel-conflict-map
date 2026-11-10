@@ -206,30 +206,38 @@ test("activer les notifications ne rejoue pas l'historique : seules les alertes 
   assert.equal(report.queued, 0, "activées dans le futur par rapport aux données : aucune alerte éligible");
 });
 
-test("digest : un seul par jour, mis en file une fois, envoyé en un message ; aucun message sans alerte", { skip }, async () => {
+test("digest : aucun message sans alerte dans la période ; sinon un seul par jour, mis en file une fois, envoyé en un message", { skip }, async () => {
   const o = `it-notify-${runId}-f`;
   const id = await ready(o, "Veille notif F", { levels: [], digest: "daily" });
   const provider = new FakeProvider();
-  const morning = new Date("2026-11-10T08:00:00Z"); // 9 h à Paris
+
+  // Les dernières alertes de l'échantillon datent du 8 novembre : le 10 au matin, les dernières 24 h n'en contiennent aucune.
+  const quiet = emptyReport();
+  await queueAlerts(deps(provider, new Date("2026-11-10T08:00:00Z")), quiet, { only: [id] });
+  assert.equal(quiet.digests, 0, "aucune alerte sur la période : aucun digest");
+  assert.equal((await rows(id)).length, 0);
+
+  // Le 8 novembre à 21 h (Paris), les dernières 24 h contiennent des alertes du matin.
+  const evening = new Date("2026-11-08T20:00:00Z");
   const first = emptyReport();
-  await queueAlerts(deps(provider, morning), first, { only: [id] });
+  await queueAlerts(deps(provider, evening), first, { only: [id] });
   assert.equal(first.digests, 1);
   assert.equal(first.queued, 0, "pas d'e-mail immédiat : seulement le digest");
   const again = emptyReport();
-  await queueAlerts(deps(provider, new Date(morning.getTime() + 3_600_000)), again, { only: [id] });
+  await queueAlerts(deps(provider, new Date(evening.getTime() + 3_600_000)), again, { only: [id] });
   assert.equal(again.digests, 0, "un seul digest par jour");
 
-  await sendDue(deps(provider, morning), emptyReport(), { only: [id] });
+  await sendDue(deps(provider, evening), emptyReport(), { only: [id] });
   assert.equal(provider.sent.length, 1);
   assert.match(provider.sent[0].subject, /^\[Équinoxe\] Digest quotidien — \d+ alertes? — Veille notif F$/);
   assert.equal((await rows(id, "dry_run")).length, 1);
 
-  // Avant 7 h à Paris : rien n'est dû.
+  // Avant 7 h à Paris le lendemain : rien n'est dû ; ensuite, le digest du jour suivant (les alertes du 8 au matin sont encore dans les 24 h).
   const early = emptyReport();
-  await queueAlerts(deps(provider, new Date("2026-11-11T05:00:00Z")), early, { only: [id] });
+  await queueAlerts(deps(provider, new Date("2026-11-09T05:00:00Z")), early, { only: [id] });
   assert.equal(early.digests, 0);
   const nextDay = emptyReport();
-  await queueAlerts(deps(provider, new Date("2026-11-11T06:30:00Z")), nextDay, { only: [id] });
+  await queueAlerts(deps(provider, new Date("2026-11-09T06:30:00Z")), nextDay, { only: [id] });
   assert.equal(nextDay.digests, 1, "le lendemain, le digest du jour suivant");
 });
 
