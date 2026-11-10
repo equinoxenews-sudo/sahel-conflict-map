@@ -121,3 +121,38 @@ test("correspondance : déterministe (même entrée, même verdict) et le thème
   assert.deepEqual(matchItem(input, s), matchItem(input, s));
   assert.equal(matchItem(input, s).theme, "politique");
 });
+
+test("correspondance : un mot de sujet seul (« sécurité », « military ») ne suffit plus — il faut un fait ou un groupe armé", () => {
+  const topicOnly = [
+    "Nigeria : partenariat de sécurité renforcé avec le Royaume-Uni",
+    "Nigeria Raises Military Pay up to 80% as Security Threats Persist",
+    "Nigeria: Foundation advocates police reforms to ease military burden",
+  ];
+  for (const title of topicOnly) {
+    const verdict = matchItem({ title, excerpt: null }, snapshot());
+    assert.equal(verdict.matched, false, title);
+    assert.match(verdict.reason, /^Sujet sans fait/);
+    assert.equal(verdict.rejection, "topic");
+  }
+  const facts = [
+    "Nigeria gunmen kill 10 relatives and abduct 13 in Zamfara",
+    "Nigeria Rules Out Ceasefire With Boko Haram, ISWAP",
+    "Nigeria : cinq soldats tués dans une embuscade",
+    "Nigeria Records Fewer Security Incidents In October As Cult Violence Surges",
+  ];
+  for (const title of facts) assert.equal(matchItem({ title, excerpt: null }, snapshot()).matched, true, title);
+  assert.equal(matchItem({ title: "Le groupe Lakurawa revendique le contrôle d'un secteur au Nigeria, selon l'armée", excerpt: null }, snapshot()).matched, true, "un groupe armé vaut un fait");
+});
+
+test("correspondance : « food security » et consorts sont hors-sujet pour la sécurité, mais pas pour l'humanitaire", () => {
+  const hors = matchItem({ title: "Nigeria must turn climate promises into food security", excerpt: null }, snapshot());
+  assert.equal(hors.matched, false);
+  assert.match(hors.reason, /^Hors sujet : « food security »/);
+  assert.equal(hors.rejection, "topic");
+  assert.equal(matchItem({ title: "Nigeria : la famine menace, la sécurité alimentaire se dégrade", excerpt: null }, snapshot({ objective: "humanitaire" })).matched, true);
+});
+
+test("correspondance : un mot-clé choisi par l'utilisateur prime sur la règle des faits", () => {
+  const s = snapshot({ keywords: ["partenariat"] });
+  assert.equal(matchItem({ title: "Nigeria : partenariat de sécurité avec le Royaume-Uni", excerpt: null }, s).matched, true);
+});

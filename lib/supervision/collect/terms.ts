@@ -31,6 +31,26 @@ export const OBJECTIVE_TERMS: Record<string, Record<Lang, readonly string[]>> = 
   },
 };
 
+/**
+ * FAITS : pour certains objectifs, un mot de SUJET (« sécurité », « armée ») ne suffit pas, car il fait entrer des articles qui parlent
+ * du thème sans rapporter aucun événement (« partenariat de sécurité », « budget militaire »). Il faut au moins un mot de fait
+ * (tués, enlevés, attaque, hommes armés, frappe, bilan…) ou le nom d'un groupe armé. Objectifs sans entrée ici : règle inchangée.
+ */
+export const FACT_TERMS: Record<string, Record<Lang, readonly string[]>> = {
+  securite: {
+    fr: ["attaque", "attaques", "attaqué", "attentat", "attentats", "tués", "tué", "tuée", "tuées", "morts", "bilan", "blessés", "enlevés", "enlevé", "enlèvement", "enlèvements", "otages", "embuscade", "affrontement", "affrontements", "combats", "frappe", "frappes", "bombardement", "bombardements", "fusillade", "explosion", "massacre", "offensive", "cessez-le-feu", "hommes armés", "bandits", "terroristes", "jihadistes", "insurgés", "violence", "violences"],
+    en: ["attack", "attacks", "attacked", "killed", "kill", "kills", "killing", "killings", "dead", "deaths", "death toll", "wounded", "injured", "abducted", "abduct", "abducts", "kidnapped", "kidnapping", "kidnappings", "hostages", "gunmen", "bandits", "ambush", "clash", "clashes", "fighting", "airstrike", "airstrikes", "drone strike", "bomb", "bombing", "bombings", "explosion", "shooting", "massacre", "offensive", "ceasefire", "raid", "raids", "insurgents", "militants", "terrorists", "jihadists", "violence"],
+  },
+};
+
+/** Groupes armés : leur nom seul vaut un fait (la publication doit toujours citer le pays de la zone). */
+export const ARMED_GROUPS: readonly string[] = ["boko haram", "iswap", "lakurawa", "ansaru", "jnim", "isgs", "al shabaab", "al qaida", "al qaeda", "aqim", "islamic state", "état islamique", "wagner", "africa corps", "rapid support forces", "forces de soutien rapide", "mnla"];
+
+/** Expressions qui contiennent un mot de l'objectif mais changent de sujet (« food security » n'est pas de la sécurité armée). */
+export const OFFTOPIC_PHRASES: Record<string, readonly string[]> = {
+  securite: ["food security", "sécurité alimentaire", "social security", "sécurité sociale", "cyber security", "cybersecurity", "cybersécurité", "energy security", "sécurité énergétique", "water security", "job security"],
+};
+
 /** Thème de repli quand le texte n'en désigne aucun : celui de l'objectif. */
 export const THEME_OF_OBJECTIVE: Record<string, ThemeKey> = {
   securite: "securite",

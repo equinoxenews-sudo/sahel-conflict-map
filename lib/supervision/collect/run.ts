@@ -28,6 +28,8 @@ export interface CollectStats {
   fetched: number;
   skipped: Record<string, number>;
   rejected: number;
+  /** Parmi les écartées : parlent du sujet sans rapporter de fait (ou hors-sujet). Montre ce que le filtre « il faut un fait » retire. */
+  rejectedTopic: number;
   matched: number;
   newItems: number;
   newMatches: number;
@@ -119,7 +121,7 @@ export async function collectForSupervision(
 
     // 1. Recherche : un flux en panne donne une liste vide (fetchFeed ne lève pas) ; on compte les requêtes sans aucun résultat.
     const feeds = await mapPool(queries, FETCH_CONCURRENCY, (query) => fetchFeed(query.url));
-    const stats: CollectStats = { queries: queries.length, failedQueries: feeds.filter((items) => items.length === 0).length, fetched: 0, skipped: {}, rejected: 0, matched: 0, newItems: 0, newMatches: 0, located: 0, locationAvailable: false, truncated: false };
+    const stats: CollectStats = { queries: queries.length, failedQueries: feeds.filter((items) => items.length === 0).length, fetched: 0, skipped: {}, rejected: 0, rejectedTopic: 0, matched: 0, newItems: 0, newMatches: 0, located: 0, locationAvailable: false, truncated: false };
 
     // 2. Normalisation, dédoublonnage par adresse canonique, correspondance.
     const matched = new Map<string, { row: ItemRow; score: number; reason: string; terms: string[]; theme: string }>();
@@ -141,6 +143,7 @@ export async function collectForSupervision(
         const verdict = matchItem({ title: normalized.row.title, excerpt: normalized.row.excerpt }, snapshot);
         if (!verdict.matched) {
           stats.rejected++;
+          if (verdict.rejection === "topic") stats.rejectedTopic++;
           continue;
         }
         matched.set(normalized.row.url_canonical, { row: normalized.row, score: verdict.score, reason: verdict.reason, terms: verdict.terms, theme: verdict.theme });
