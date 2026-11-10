@@ -7,6 +7,7 @@ import { extractArea, type DataContext } from "@/lib/supervision/dashboard/geo";
 import { emptyState, parseState, type LabState } from "@/lib/supervision/dashboard/state";
 import CollectPanel from "./CollectPanel";
 import ExportPanel from "./ExportPanel";
+import NotificationsPanel from "./NotificationsPanel";
 import LifecyclePanel from "./LifecyclePanel";
 import { AlertsScopeContext, type AlertsScope } from "./AlertsPanel";
 import { NotesScopeContext, useNotesScopeValue } from "./NotesPanel";
@@ -322,6 +323,7 @@ function Editor({ supervision, initialRevision, initialState, data, onRetryData,
       <ScopePanel id={supervision.id} onSaved={onRefreshData} />
       <CollectPanel key={supervision.state} id={supervision.id} onCollected={onRefreshData} blocked={supervision.state === "paused" ? "En pause : reprends la Supervision pour collecter." : supervision.state === "initializing" ? "Initialisation en cours." : null} />
       <ExportPanel id={supervision.id} state={supervision.state} />
+      <NotificationsPanel id={supervision.id} state={supervision.state} />
       {conflict ? (
         <div className={styles.notice} role="alert">
           <strong>Ce tableau a été modifié ailleurs (autre onglet ou autre appareil). Rien n&apos;a été écrasé.</strong>

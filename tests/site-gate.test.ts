@@ -9,6 +9,8 @@ test("la maintenance s'active par SITE_MAINTENANCE et épargne seulement les rou
   assert.equal(maintenanceOn({}), false);
   assert.equal(isMachinePath("/api/sync-briefs"), true);
   assert.equal(isMachinePath("/api/admin/login"), false);
+  assert.equal(isMachinePath("/api/supervision-notify/confirm"), true, "lien de confirmation d’adresse : jeton signé, sans cookie");
+  assert.equal(isMachinePath("/api/supervision/abc/notifications"), false, "les préférences, elles, exigent la session");
   assert.equal(isMachinePath("/acces"), false);
 });
 

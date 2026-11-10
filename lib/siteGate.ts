@@ -8,7 +8,9 @@ const OPEN_EXACT = new Set(["/acces", "/api/admin/login", "/favicon.ico", "/robo
  * Routes appelées par des machines (tâches planifiées de Vercel, GitHub Actions, Telegram) : elles n'ont pas de cookie,
  * mais chacune exige son propre secret (CRON_SECRET en « Authorization: Bearer », TELEGRAM_WEBHOOK_SECRET).
  */
-const OPEN_PREFIXES = ["/api/sync-", "/api/cron/", "/api/revalidate", "/api/telegram/webhook"];
+// « /api/supervision-notify/ » : lien de confirmation d’adresse e-mail ouvert depuis une boîte de réception, sans cookie ; il exige un jeton
+// signé et expirant (lib/supervision/notify/token.ts) et ne fait rien d autre que confirmer l’adresse déjà saisie par le propriétaire.
+const OPEN_PREFIXES = ["/api/sync-", "/api/cron/", "/api/revalidate", "/api/telegram/webhook", "/api/supervision-notify/"];
 
 /** Routes des machines seulement (sans la page de connexion) : elles restent actives pendant une maintenance. */
 export function isMachinePath(pathname: string): boolean {

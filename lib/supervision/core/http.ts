@@ -40,6 +40,8 @@ const STATUS: Record<string, number> = {
   too_soon: 429,
   limit_reached: 409,
   export_unavailable: 409,
+  no_recipient: 422,
+  not_verified: 409,
   invalid_input: 400,
   no_queries: 422,
   collect_failed: 502,
