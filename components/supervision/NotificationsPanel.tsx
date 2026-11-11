@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { FILTER_TERMS_MAX, FILTER_THEMES, describeFilters, type AlertFilters, type FilterTheme } from "@/lib/supervision/notify/filters";
 import { notifyMessage, type DigestMode } from "@/lib/supervision/notify/rules";
 import styles from "./Supervision.module.css";
 
@@ -14,6 +15,7 @@ interface Rules {
   digest: DigestMode;
   recipient: string | null;
   recipientVerified: boolean;
+  filters: AlertFilters;
 }
 
 interface JournalEntry {
@@ -28,6 +30,11 @@ interface JournalEntry {
 const KIND_LABEL: Record<JournalEntry["kind"], string> = { immediate: "Alertes", digest: "Digest", test: "Test", confirm: "Confirmation" };
 const STATUS_LABEL: Record<JournalEntry["status"], string> = { pending: "En attente", sending: "En cours", sent: "Envoyé", failed: "Échec", dry_run: "Sans envoi (journal seulement)", skipped: "Annulé" };
 const dateFormat = new Intl.DateTimeFormat("fr-FR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+
+const THEME_LABEL: Record<FilterTheme, string> = { conflits: "Conflits", securite: "Sécurité", politique: "Politique", humanitaire: "Humanitaire" };
+
+/** Termes saisis séparés par des virgules ou des retours à la ligne. */
+const splitTerms = (text: string) => text.split(/[,\n;]+/).map((term) => term.trim()).filter((term) => term.length > 0);
 
 export default function NotificationsPanel({ id, state }: { id: string; state: string }) {
   const [rules, setRules] = useState<Rules | null>(null);
@@ -71,6 +78,7 @@ export default function NotificationsPanel({ id, state }: { id: string; state: s
   if (!rules || !form) return null;
 
   const dirty = JSON.stringify({ ...form, recipientVerified: 0 }) !== JSON.stringify({ ...rules, recipientVerified: 0 });
+  const toggleTheme = (theme: FilterTheme) => setForm({ ...form, filters: { ...form.filters, themes: form.filters.themes.includes(theme) ? form.filters.themes.filter((entry) => entry !== theme) : [...form.filters.themes, theme] } });
   const toggleLevel = (level: "critique" | "importante") => setForm({ ...form, immediateLevels: form.immediateLevels.includes(level) ? form.immediateLevels.filter((entry) => entry !== level) : [...form.immediateLevels, level] });
 
   async function call(url: string, init: RequestInit, done: string) {
@@ -94,7 +102,7 @@ export default function NotificationsPanel({ id, state }: { id: string; state: s
   }
 
   const save = () =>
-    call(`/api/supervision/${id}/notifications`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ enabled: form.enabled, immediateLevels: form.immediateLevels, digest: form.digest, recipient: form.recipient ?? "" }) }, "Préférences enregistrées.");
+    call(`/api/supervision/${id}/notifications`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ enabled: form.enabled, immediateLevels: form.immediateLevels, digest: form.digest, recipient: form.recipient ?? "", filters: form.filters }) }, "Préférences enregistrées.");
   const post = (action: "confirm" | "test", done: string) => call(`/api/supervision/${id}/notifications`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action }) }, done);
 
   const locked = readOnly || busy;
@@ -149,6 +157,27 @@ export default function NotificationsPanel({ id, state }: { id: string; state: s
             <option value="weekly">Hebdomadaire (le lundi vers 7 h)</option>
           </select>
         </label>
+        <fieldset style={{ border: 0, padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 6 }} disabled={locked}>
+          <legend className={styles.muted} style={{ padding: 0, marginBottom: 4 }}>Règles d&apos;alerte (elles restreignent les e-mails, elles n&apos;ajoutent jamais une alerte)</legend>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", alignItems: "center" }}>
+            <span className={styles.muted}>Thèmes (aucun coché = tous)</span>
+            {FILTER_THEMES.map((theme) => (
+              <label key={theme} style={{ display: "inline-flex", gap: 6, alignItems: "center" }}>
+                <input type="checkbox" checked={form.filters.themes.includes(theme)} onChange={() => toggleTheme(theme)} />
+                {THEME_LABEL[theme]}
+              </label>
+            ))}
+          </div>
+          <label style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
+            Citant l&apos;un de (lieux, entités, sujets)
+            <input type="text" defaultValue={form.filters.keywords.join(", ")} key={`kw-${rules.filters.keywords.join("|")}`} aria-label="Mots-clés des alertes" placeholder="Zamfara, Boko Haram" maxLength={900} onBlur={(event) => setForm({ ...form, filters: { ...form.filters, keywords: splitTerms(event.target.value) } })} style={{ minWidth: 260 }} />
+          </label>
+          <label style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
+            Sans (exclusions)
+            <input type="text" defaultValue={form.filters.exclusions.join(", ")} key={`ex-${rules.filters.exclusions.join("|")}`} aria-label="Exclusions des alertes" placeholder="football, match" maxLength={900} onBlur={(event) => setForm({ ...form, filters: { ...form.filters, exclusions: splitTerms(event.target.value) } })} style={{ minWidth: 260 }} />
+          </label>
+          <span className={styles.muted}>{FILTER_TERMS_MAX} termes au plus par liste, séparés par des virgules. {describeFilters(form.filters)}</span>
+        </fieldset>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           <button type="button" className={styles.primary} disabled={locked || !dirty} onClick={() => void save()}>Enregistrer</button>
           <button type="button" disabled={locked || !rules.recipientVerified || dirty} onClick={() => void post("test", "E-mail de test demandé.")}>Envoyer un e-mail de test</button>

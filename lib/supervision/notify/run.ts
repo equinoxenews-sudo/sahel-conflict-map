@@ -3,6 +3,7 @@ import { listAlertStates } from "../alerts/store";
 import { adminDb, getScopeSnapshot, getSupervision, type Db } from "../core/store";
 import { loadBoardData } from "../data/board";
 import { confirmationEmail, digestEmail, immediateEmail, testEmail, type EmailMessage } from "./message";
+import { matchesFilters } from "./filters";
 import { chooseProvider, type EmailProvider, type FetchLike } from "./provider";
 import { ENQUEUE_PER_RUN_MAX, IMMEDIATE_DELAY_MINUTES, alertKey, canNotify, digestDue, selectAlertsToQueue, type QueuedAlert } from "./rules";
 import { alreadyQueued, claimDue, enqueueEmail, finishEmail, hasEmail, listNotifiable, recentCount, rulesById, supervisionsById, type OutboxRow } from "./store";
@@ -74,7 +75,7 @@ export async function queueAlerts(deps: NotifyDeps, report: NotifyReport, option
       const slot = digestDue(target.rules.digest, deps.now);
       if (slot && !(await hasEmail(target.supervisionId, slot.key, deps.db))) {
         const since = deps.now.getTime() - slot.days * 86_400_000;
-        const inPeriod = alerts.filter((alert) => Date.parse(alert.event.at) >= since && effectiveStatus(alert, decisions.get(alert.id)) !== "hidden");
+        const inPeriod = alerts.filter((alert) => Date.parse(alert.event.at) >= since && effectiveStatus(alert, decisions.get(alert.id)) !== "hidden" && matchesFilters(alert.event, target.rules.filters));
         if (inPeriod.length > 0) {
           const queued: QueuedAlert[] = inPeriod.map((alert) => ({ eventRef: alert.id, level: alert.level, title: alert.event.title, at: alert.event.at, place: alert.event.place, verification: alert.event.verification, qualifier: alert.event.qualifier ?? null, url: alert.event.url ?? null, why: alert.why }));
           const { inserted } = await enqueueEmail(target.supervisionId, "digest", slot.key, target.rules.recipient, { label: slot.label, days: slot.days, total: queued.length, alerts: queued.slice(0, 15) }, deps.now, deps.now, deps.db);

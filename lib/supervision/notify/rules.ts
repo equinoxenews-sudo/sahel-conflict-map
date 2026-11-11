@@ -8,6 +8,7 @@
 // Ce qui est envoyé reprend les alertes du tableau (alerts/rules.ts) : critique et importante seulement, jamais « information ».
 
 import { ALERT_LEVELS, type Alert, type AlertLevel, type StoredDecision, effectiveStatus } from "../alerts/rules";
+import { matchesFilters, validateFilters, type AlertFilters } from "./filters";
 
 export const DIGEST_MODES = ["off", "daily", "weekly"] as const;
 export type DigestMode = (typeof DIGEST_MODES)[number];
@@ -29,9 +30,11 @@ export interface NotificationRules {
   recipient: string | null;
   recipientVerified: boolean;
   enabledAt: string | null;
+  /** Règles d'alerte de l'utilisateur (thèmes, mots-clés, exclusions) ; vides = aucune restriction. */
+  filters: AlertFilters;
 }
 
-export type RulesInput = { ok: true; value: { enabled: boolean; immediateLevels: AlertLevel[]; digest: DigestMode; recipient: string | null } } | { ok: false; errors: string[] };
+export type RulesInput = { ok: true; value: { enabled: boolean; immediateLevels: AlertLevel[]; digest: DigestMode; recipient: string | null; filters: AlertFilters } } | { ok: false; errors: string[] };
 
 /** Adresse e-mail simple et prudente : une seule adresse, pas d'espace, pas de nom affiché, pas de caractère de contrôle. */
 export const EMAIL_PATTERN = /^[^@\s<>(),;:"\\]+@[^@\s<>(),;:"\\]+\.[^@\s<>(),;:"\\]+$/;
@@ -66,7 +69,9 @@ export function validateRules(payload: unknown): RulesInput {
   }
   if (record.enabled === true && recipient === null) errors.push("Renseigne une adresse e-mail pour activer les notifications.");
   if (record.enabled === true && levels.length === 0 && digest === "off") errors.push("Choisis au moins un niveau d'e-mail immédiat ou un digest.");
-  return errors.length > 0 ? { ok: false, errors } : { ok: true, value: { enabled: record.enabled === true, immediateLevels: ALERT_LEVELS.filter((level) => levels.includes(level)), digest: digest as DigestMode, recipient } };
+  const filters = validateFilters(record.filters);
+  if (!filters.ok) errors.push(...filters.errors);
+  return errors.length > 0 || !filters.ok ? { ok: false, errors } : { ok: true, value: { enabled: record.enabled === true, immediateLevels: ALERT_LEVELS.filter((level) => levels.includes(level)), digest: digest as DigestMode, recipient, filters: filters.value } };
 }
 
 // --- Qui reçoit quoi ----------------------------------------------------------------------------------------------------
@@ -93,6 +98,7 @@ export const alertKey = (id: string, level: AlertLevel) => `alert:${id}:${level}
 /**
  * Alertes à mettre en file à ce passage. Une alerte est retenue si :
  *  - son niveau fait partie des niveaux d'e-mail immédiat ;
+ *  - elle passe les règles de l'utilisateur (thèmes, mots-clés, exclusions) ;
  *  - son événement date d'APRÈS l'activation des notifications (pas d'avalanche d'historique) ;
  *  - l'utilisateur n'a pas déjà tranché (lue, conservée ou masquée) pour CE niveau ;
  *  - elle n'est pas déjà en file ou envoyée (la base refuse le doublon : clé alertKey).
@@ -106,6 +112,7 @@ export function selectAlertsToQueue(alerts: readonly Alert[], rules: Notificatio
     if (out.length >= ENQUEUE_PER_RUN_MAX) break;
     if (!rules.immediateLevels.includes(alert.level)) continue;
     if (!(Date.parse(alert.event.at) >= since)) continue;
+    if (!matchesFilters(alert.event, rules.filters)) continue;
     if (effectiveStatus(alert, decisions.get(alert.id)) !== "new") continue;
     if (already.has(alertKey(alert.id, alert.level))) continue;
     out.push({

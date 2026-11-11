@@ -14,7 +14,7 @@ const alert = (id: string, level: "critique" | "importante", at = "2026-11-10T10
   return { id, level, event, why: "Article analysé d'importance haute." };
 };
 
-const rules = (extra: Partial<NotificationRules> = {}): NotificationRules => ({ enabled: true, immediateLevels: ["critique"], digest: "off", recipient: "moi@exemple.fr", recipientVerified: true, enabledAt: "2026-11-09T00:00:00Z", ...extra });
+const rules = (extra: Partial<NotificationRules> = {}): NotificationRules => ({ enabled: true, immediateLevels: ["critique"], digest: "off", recipient: "moi@exemple.fr", recipientVerified: true, enabledAt: "2026-11-09T00:00:00Z", filters: { themes: [], keywords: [], exclusions: [] }, ...extra });
 
 const queued = (id: string, level: "critique" | "importante" = "critique", extra: Partial<QueuedAlert> = {}): QueuedAlert => ({ eventRef: id, level, title: `Événement ${id}`, at: "2026-11-10T10:00:00Z", place: "Nigeria", verification: "signalement", qualifier: null, url: `https://example.com/${id}`, why: "Article analysé d'importance haute.", ...extra });
 
@@ -28,7 +28,7 @@ test("adresse e-mail : une seule adresse simple ; espaces, noms affichés, virgu
 test("préférences : activer exige une adresse et un niveau ou un digest ; les niveaux inconnus sont refusés ; l'adresse est mise en minuscules", () => {
   const ok = validateRules({ enabled: true, immediateLevels: ["importante", "critique", "critique"], digest: "daily", recipient: "  Moi@Exemple.FR " });
   assert.ok(ok.ok);
-  if (ok.ok) assert.deepEqual(ok.value, { enabled: true, immediateLevels: ["critique", "importante"], digest: "daily", recipient: "moi@exemple.fr" });
+  if (ok.ok) assert.deepEqual(ok.value, { enabled: true, immediateLevels: ["critique", "importante"], digest: "daily", recipient: "moi@exemple.fr", filters: { themes: [], keywords: [], exclusions: [] } });
   assert.equal(validateRules({ enabled: true, immediateLevels: ["critique"], digest: "off", recipient: "" }).ok, false, "adresse requise");
   assert.equal(validateRules({ enabled: true, immediateLevels: [], digest: "off", recipient: "moi@exemple.fr" }).ok, false, "niveau ou digest requis");
   assert.ok(validateRules({ enabled: true, immediateLevels: [], digest: "weekly", recipient: "moi@exemple.fr" }).ok, "un digest seul suffit");

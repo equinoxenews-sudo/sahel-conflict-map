@@ -1,4 +1,5 @@
 import { StoreError, adminDb, getSupervision, type Db, type FailureCode, type Outcome } from "../core/store";
+import { EMPTY_FILTERS, filtersOf, type AlertFilters } from "./filters";
 import { alertKey, type DigestMode, type NotificationRules, type QueuedAlert } from "./rules";
 import type { AlertLevel } from "../alerts/rules";
 
@@ -7,7 +8,7 @@ import type { AlertLevel } from "../alerts/rules";
 // les fonctions de file (enqueue, claim, finish) ne sont appelées que par les tâches serveur, jamais depuis une saisie du navigateur.
 // Aucune IA.
 
-export const DEFAULT_RULES: NotificationRules = { enabled: false, immediateLevels: [], digest: "off", recipient: null, recipientVerified: false, enabledAt: null };
+export const DEFAULT_RULES: NotificationRules = { enabled: false, immediateLevels: [], digest: "off", recipient: null, recipientVerified: false, enabledAt: null, filters: { ...EMPTY_FILTERS } };
 
 export type EmailKind = "immediate" | "digest" | "test" | "confirm";
 export type EmailStatus = "pending" | "sending" | "sent" | "failed" | "dry_run" | "skipped";
@@ -42,10 +43,11 @@ function toRules(row: Record<string, unknown> | null | undefined): NotificationR
     recipient: typeof row.recipient === "string" ? row.recipient : null,
     recipientVerified: row.recipient_verified === true,
     enabledAt: typeof row.enabled_at === "string" ? row.enabled_at : null,
+    filters: filtersOf(row.filters),
   };
 }
 
-const RULE_COLUMNS = "enabled, immediate_levels, digest, recipient, recipient_verified, enabled_at";
+const RULE_COLUMNS = "enabled, immediate_levels, digest, recipient, recipient_verified, enabled_at, filters";
 
 /** Préférences d'une Supervision du propriétaire (valeurs par défaut s'il n'en a pas encore) ; null si elle n'existe pas pour lui. */
 export async function getRules(ownerId: string, supervisionId: string, client: Db = adminDb()): Promise<NotificationRules | null> {
@@ -59,7 +61,7 @@ export async function getRules(ownerId: string, supervisionId: string, client: D
 export async function setRules(
   ownerId: string,
   supervisionId: string,
-  input: { enabled: boolean; immediateLevels: AlertLevel[]; digest: DigestMode; recipient: string | null },
+  input: { enabled: boolean; immediateLevels: AlertLevel[]; digest: DigestMode; recipient: string | null; filters?: AlertFilters },
   now?: Date,
   client: Db = adminDb(),
 ): Promise<Outcome<{ rules: NotificationRules }>> {
@@ -70,6 +72,7 @@ export async function setRules(
     p_levels: input.immediateLevels,
     p_digest: input.digest,
     p_recipient: input.recipient,
+    p_filters: input.filters ?? EMPTY_FILTERS,
     ...(now ? { p_now: now.toISOString() } : {}),
   });
   if (error) throw new StoreError(`sv_set_notification_rules : ${error.message}`, error);

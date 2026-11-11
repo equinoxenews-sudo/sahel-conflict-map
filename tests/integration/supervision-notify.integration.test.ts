@@ -367,3 +367,49 @@ test("les préférences et la file ne sont ni lisibles ni écrivables avec les c
   ]);
   for (const call of calls) assert.ok(call.error, "fonction non exécutable avec la clé publique");
 });
+
+test("règles d'alerte : enregistrées avec les préférences, relues telles quelles, et appliquées à la mise en file (thèmes, mots-clés, exclusions)", { skip }, async () => {
+  const o = `it-notify-${runId}-r`;
+  const id = await ready(o, "Veille notif R", { levels: ["critique"] });
+  const provider = new FakeProvider();
+
+  // Sans règle : des alertes critiques sont mises en file (point de comparaison).
+  const open = emptyReport();
+  await queueAlerts(deps(provider), open, { only: [id] });
+  assert.ok(open.queued >= 2, `alertes sans règle : ${open.queued}`);
+  await admin!.from("sv_email_outbox").delete().eq("supervision_id", id);
+
+  // Un mot-clé qu'aucun événement ne cite : rien n'est envoyé.
+  const none = await setRules(o, id, { enabled: true, immediateLevels: ["critique"], digest: "off", recipient: EMAIL, filters: { themes: [], keywords: ["zzz-terme-introuvable"], exclusions: [] } }, T0, admin! as never);
+  assert.ok(none.ok, JSON.stringify(none));
+  if (none.ok) assert.deepEqual(none.rules.filters, { themes: [], keywords: ["zzz-terme-introuvable"], exclusions: [] });
+  assert.deepEqual((await getRules(o, id, admin! as never))?.filters, { themes: [], keywords: ["zzz-terme-introuvable"], exclusions: [] }, "relues telles quelles");
+  const filtered = emptyReport();
+  await queueAlerts(deps(provider), filtered, { only: [id] });
+  assert.equal(filtered.queued, 0, "les règles restreignent : aucun message");
+  assert.ok((await getRules(o, id, admin! as never))?.recipientVerified, "enregistrer des règles ne défait pas la confirmation de l'adresse");
+
+  // Un thème exclu par les règles : seules les alertes du thème choisi partent, donc moins que sans règle.
+  await setRules(o, id, { enabled: true, immediateLevels: ["critique"], digest: "off", recipient: EMAIL, filters: { themes: ["securite"], keywords: [], exclusions: [] } }, T0, admin! as never);
+  const security = emptyReport();
+  await queueAlerts(deps(provider), security, { only: [id] });
+  assert.ok(security.queued > 0 && security.queued <= open.queued, `thème « sécurité » : ${security.queued} sur ${open.queued}`);
+
+  // Retirer les règles rétablit le comportement d'origine.
+  await admin!.from("sv_email_outbox").delete().eq("supervision_id", id);
+  await setRules(o, id, { enabled: true, immediateLevels: ["critique"], digest: "off", recipient: EMAIL }, T0, admin! as never);
+  assert.deepEqual((await getRules(o, id, admin! as never))?.filters, { themes: [], keywords: [], exclusions: [] });
+  const reopened = emptyReport();
+  await queueAlerts(deps(provider), reopened, { only: [id] });
+  assert.equal(reopened.queued, open.queued);
+});
+
+test("règles d'alerte : la base refuse un objet démesuré ou mal formé", { skip }, async () => {
+  const o = `it-notify-${runId}-r2`;
+  const id = await ready(o, "Veille notif R2");
+  const tooMany = await admin!.rpc("sv_set_notification_rules", { p_owner: o, p_supervision_id: id, p_enabled: false, p_levels: [], p_digest: "off", p_recipient: EMAIL, p_filters: { keywords: Array.from({ length: 11 }, (_, n) => `terme ${n}`) } });
+  assert.ok(tooMany.error, "plus de 10 mots-clés : refusé par la contrainte");
+  const notObject = await admin!.rpc("sv_set_notification_rules", { p_owner: o, p_supervision_id: id, p_enabled: false, p_levels: [], p_digest: "off", p_recipient: EMAIL, p_filters: ["x"] });
+  assert.equal(notObject.data?.code, "invalid_input");
+  assert.deepEqual((await getRules(o, id, admin! as never))?.filters, { themes: [], keywords: [], exclusions: [] }, "rien n'a été enregistré");
+});
