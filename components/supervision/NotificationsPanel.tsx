@@ -39,6 +39,8 @@ const splitTerms = (text: string) => text.split(/[,\n;]+/).map((term) => term.tr
 export default function NotificationsPanel({ id, state }: { id: string; state: string }) {
   const [rules, setRules] = useState<Rules | null>(null);
   const [form, setForm] = useState<Rules | null>(null);
+  // Texte brut des deux listes de termes : la saisie compte tout de suite (pas seulement en quittant le champ).
+  const [terms, setTerms] = useState<{ keywords: string; exclusions: string } | null>(null);
   const [journal, setJournal] = useState<JournalEntry[]>([]);
   const [mode, setMode] = useState<{ mode: "live" | "dry_run"; reason: string | null } | null>(null);
   const [readOnly, setReadOnly] = useState(false);
@@ -61,6 +63,7 @@ export default function NotificationsPanel({ id, state }: { id: string; state: s
         const next = body.rules as Rules;
         setRules(next);
         setForm((current) => current ?? next);
+        setTerms((current) => current ?? { keywords: next.filters.keywords.join(", "), exclusions: next.filters.exclusions.join(", ") });
         setJournal(body.journal as JournalEntry[]);
         setMode({ mode: body.mode, reason: body.reason });
         setReadOnly(body.readOnly === true);
@@ -75,9 +78,11 @@ export default function NotificationsPanel({ id, state }: { id: string; state: s
   }, [id, version]);
 
   if (loadError) return <p className={styles.muted} role="alert" style={{ marginBottom: 8 }}>{loadError}</p>;
-  if (!rules || !form) return null;
+  if (!rules || !form || !terms) return null;
+  // Valeurs effectives du formulaire : les listes sont lues dans le texte saisi.
+  const effective: Rules = { ...form, filters: { ...form.filters, keywords: splitTerms(terms.keywords), exclusions: splitTerms(terms.exclusions) } };
 
-  const dirty = JSON.stringify({ ...form, recipientVerified: 0 }) !== JSON.stringify({ ...rules, recipientVerified: 0 });
+  const dirty = JSON.stringify({ ...effective, recipientVerified: 0 }) !== JSON.stringify({ ...rules, recipientVerified: 0 });
   const toggleTheme = (theme: FilterTheme) => setForm({ ...form, filters: { ...form.filters, themes: form.filters.themes.includes(theme) ? form.filters.themes.filter((entry) => entry !== theme) : [...form.filters.themes, theme] } });
   const toggleLevel = (level: "critique" | "importante") => setForm({ ...form, immediateLevels: form.immediateLevels.includes(level) ? form.immediateLevels.filter((entry) => entry !== level) : [...form.immediateLevels, level] });
 
@@ -92,7 +97,10 @@ export default function NotificationsPanel({ id, state }: { id: string; state: s
         return;
       }
       setMessage({ tone: "ok", text: done });
-      if (url.endsWith("/notifications") && init.method === "PUT") setForm(null);
+      if (url.endsWith("/notifications") && init.method === "PUT") {
+        setForm(null);
+        setTerms(null);
+      }
       setVersion((v) => v + 1);
     } catch {
       setMessage({ tone: "error", text: "Opération impossible : réseau interrompu." });
@@ -102,7 +110,7 @@ export default function NotificationsPanel({ id, state }: { id: string; state: s
   }
 
   const save = () =>
-    call(`/api/supervision/${id}/notifications`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ enabled: form.enabled, immediateLevels: form.immediateLevels, digest: form.digest, recipient: form.recipient ?? "", filters: form.filters }) }, "Préférences enregistrées.");
+    call(`/api/supervision/${id}/notifications`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ enabled: form.enabled, immediateLevels: form.immediateLevels, digest: form.digest, recipient: form.recipient ?? "", filters: effective.filters }) }, "Préférences enregistrées.");
   const post = (action: "confirm" | "test", done: string) => call(`/api/supervision/${id}/notifications`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action }) }, done);
 
   const locked = readOnly || busy;
@@ -170,13 +178,13 @@ export default function NotificationsPanel({ id, state }: { id: string; state: s
           </div>
           <label style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
             Citant l&apos;un de (lieux, entités, sujets)
-            <input type="text" defaultValue={form.filters.keywords.join(", ")} key={`kw-${rules.filters.keywords.join("|")}`} aria-label="Mots-clés des alertes" placeholder="Zamfara, Boko Haram" maxLength={900} onBlur={(event) => setForm({ ...form, filters: { ...form.filters, keywords: splitTerms(event.target.value) } })} style={{ minWidth: 260 }} />
+            <input type="text" value={terms.keywords} aria-label="Mots-clés des alertes" placeholder="Zamfara, Boko Haram" maxLength={900} onChange={(event) => setTerms({ ...terms, keywords: event.target.value })} style={{ minWidth: 260 }} />
           </label>
           <label style={{ display: "flex", flexWrap: "wrap", gap: 6, alignItems: "center" }}>
             Sans (exclusions)
-            <input type="text" defaultValue={form.filters.exclusions.join(", ")} key={`ex-${rules.filters.exclusions.join("|")}`} aria-label="Exclusions des alertes" placeholder="football, match" maxLength={900} onBlur={(event) => setForm({ ...form, filters: { ...form.filters, exclusions: splitTerms(event.target.value) } })} style={{ minWidth: 260 }} />
+            <input type="text" value={terms.exclusions} aria-label="Exclusions des alertes" placeholder="football, match" maxLength={900} onChange={(event) => setTerms({ ...terms, exclusions: event.target.value })} style={{ minWidth: 260 }} />
           </label>
-          <span className={styles.muted}>{FILTER_TERMS_MAX} termes au plus par liste, séparés par des virgules. {describeFilters(form.filters)}</span>
+          <span className={styles.muted}>{FILTER_TERMS_MAX} termes au plus par liste, séparés par des virgules. {describeFilters(effective.filters)}</span>
         </fieldset>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           <button type="button" className={styles.primary} disabled={locked || !dirty} onClick={() => void save()}>Enregistrer</button>

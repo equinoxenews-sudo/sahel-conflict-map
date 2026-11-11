@@ -61,7 +61,7 @@ test("les trois règles se cumulent : thème ET (un mot-clé) ET aucune exclusio
   assert.equal(matchesFilters(event("a-2", { theme: "politique" }), f), false);
   assert.equal(matchesFilters(event("a-3", { title: "Autre lieu" }), f), false);
   assert.equal(matchesFilters(event("a-4", { title: "Attaque à Zamfara, football" }), f), false);
-  assert.equal(describeFilters(f), "Seules les alertes thèmes : securite ; citant l'un de : Zamfara ; sans : football.");
+  assert.equal(describeFilters(f), "Seules les alertes thèmes : sécurité ; citant l'un de : Zamfara ; sans : football.");
 });
 
 test("forme comparable : minuscules, sans accents, ponctuation en espaces, bordée d'espaces", () => {

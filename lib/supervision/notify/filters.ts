@@ -25,6 +25,8 @@ export interface AlertFilters {
 
 export const EMPTY_FILTERS: AlertFilters = { themes: [], keywords: [], exclusions: [] };
 
+export const THEME_LABELS: Record<FilterTheme, string> = { conflits: "conflits", securite: "sécurité", politique: "politique", humanitaire: "humanitaire" };
+
 export const isFilterTheme = (value: unknown): value is FilterTheme => (FILTER_THEMES as readonly unknown[]).includes(value);
 
 /** Forme comparable : minuscules, sans accents, ponctuation en espaces, espaces simples, bordée d'espaces pour chercher des mots entiers. */
@@ -124,7 +126,7 @@ export function matchesFilters(event: Pick<BoardEvent, "theme" | "title" | "summ
 export function describeFilters(filters: AlertFilters): string {
   if (!hasFilters(filters)) return "Aucune restriction : toutes les alertes des niveaux choisis sont envoyées.";
   const parts: string[] = [];
-  if (filters.themes.length > 0) parts.push(`thèmes : ${filters.themes.join(", ")}`);
+  if (filters.themes.length > 0) parts.push(`thèmes : ${filters.themes.map((theme) => THEME_LABELS[theme]).join(", ")}`);
   if (filters.keywords.length > 0) parts.push(`citant l'un de : ${filters.keywords.join(", ")}`);
   if (filters.exclusions.length > 0) parts.push(`sans : ${filters.exclusions.join(", ")}`);
   return `Seules les alertes ${parts.join(" ; ")}.`;
