@@ -1,0 +1,823 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "ETH",
+  "slug": "ethiopie",
+  "zoneSlug": "afrique",
+  "name": "Éthiopie",
+  "officialName": "République fédérale démocratique d’Éthiopie",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S-ETH-P",
+      "publisher": "Bureau du Premier ministre éthiopien",
+      "title": "Administration du Premier ministre",
+      "canonicalUrl": "https://pmo.gov.et/administration",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Bureau du Premier ministre éthiopien",
+      "methodNotes": "Paraphrase et citation de faits propres à Éthiopie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-ETH-A",
+      "publisher": "Agence éthiopienne de presse",
+      "title": "Abiy Ahmed nommé Premier ministre le 5 octobre 2026",
+      "canonicalUrl": "https://www.ena.et/web/eng/w/eng_9680061",
+      "publishedAt": "2026-10-05",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Agence éthiopienne de presse",
+      "methodNotes": "Paraphrase et citation de faits propres à Éthiopie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-ETH-D",
+      "publisher": "Gouvernement australien",
+      "title": "Éthiopie — chefs de l’État et du gouvernement",
+      "canonicalUrl": "https://www.dfat.gov.au/geo/heads-of-government/ethiopia",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Gouvernement australien",
+      "methodNotes": "Paraphrase et citation de faits propres à Éthiopie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-ETH-W",
+      "publisher": "Banque mondiale",
+      "title": "Éthiopie — situation et économie",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/ethiopia",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Paraphrase et citation de faits propres à Éthiopie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-ETH-U",
+      "publisher": "Nations unies",
+      "title": "Déclaration du Secrétaire général sur le regain des combats dans le Nord",
+      "canonicalUrl": "https://ethiopia.un.org/en/324191-un-secretary-generals-statement-ethiopia",
+      "publishedAt": "2026-10-10",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Nations unies",
+      "methodNotes": "Paraphrase et citation de faits propres à Éthiopie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-ETH-AU",
+      "publisher": "Union africaine",
+      "title": "Appel à la retenue : Éthiopie, Érythrée et Égypte",
+      "canonicalUrl": "https://au.int/en/pressreleases/20261001/statement-auc-escalating-tensions-between-ethiopia-eritrea-and-egypt",
+      "publishedAt": "2026-10-01",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Union africaine",
+      "methodNotes": "Paraphrase et citation de faits propres à Éthiopie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    }
+  ],
+  "observations": [
+    {
+      "id": "eth-obs-1",
+      "countryCode": "ETH",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Addis-Abeba",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Éthiopie",
+      "methodology": "Relevé daté d'après D ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-ETH-D"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eth-obs-2",
+      "countryCode": "ETH",
+      "key": "politics.head_of_state",
+      "label": "Président",
+      "value": "Taye Atske-Selassie",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Éthiopie",
+      "methodology": "Relevé daté d'après D ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-ETH-D"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eth-obs-3",
+      "countryCode": "ETH",
+      "key": "politics.head_of_government",
+      "label": "Premier ministre",
+      "value": "Abiy Ahmed",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Éthiopie",
+      "methodology": "Relevé daté d'après A,P ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-ETH-A",
+        "S-ETH-P"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eth-obs-4",
+      "countryCode": "ETH",
+      "key": "politics.prime_minister_appointed_2026",
+      "label": "Date de nouvelle nomination du Premier ministre",
+      "value": "2026-10-05",
+      "unit": null,
+      "referencePeriod": "2026-10-05",
+      "geographicScope": "Éthiopie",
+      "methodology": "Relevé daté d'après A ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-ETH-A"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eth-obs-5",
+      "countryCode": "ETH",
+      "key": "economy.growth_fy2024_25_wb",
+      "label": "Croissance du PIB (exercice 2024/25)",
+      "value": 9.2,
+      "unit": "%",
+      "referencePeriod": "2024/25",
+      "geographicScope": "Éthiopie",
+      "methodology": "Exercice budgétaire éthiopien FY2024/25, non une année civile.",
+      "sourceIds": [
+        "S-ETH-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "eth-obs-6",
+      "countryCode": "ETH",
+      "key": "demography.population_2025_wb_country",
+      "label": "Population estimée par la Banque mondiale",
+      "value": 135900000,
+      "unit": "personnes",
+      "referencePeriod": "2025",
+      "geographicScope": "Éthiopie",
+      "methodology": "Environ 135,9 millions, arrondi par la source.",
+      "sourceIds": [
+        "S-ETH-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "population"
+    },
+    {
+      "id": "eth-obs-7",
+      "countryCode": "ETH",
+      "key": "economy.gdp_per_capita_wb_country",
+      "label": "PIB par habitant (présentation Banque mondiale)",
+      "value": 979,
+      "unit": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Éthiopie",
+      "methodology": "Montant présenté dans la page pays ; vérifier le millésime de série avant rapprochement avec la tuile automatique.",
+      "sourceIds": [
+        "S-ETH-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "gdp_per_capita"
+    },
+    {
+      "id": "eth-obs-8",
+      "countryCode": "ETH",
+      "key": "security.northern_renewed_fighting_oct2026",
+      "label": "Reprise des combats au Tigré, Afar et Amhara",
+      "value": "Signalée par les Nations unies",
+      "unit": null,
+      "referencePeriod": "2026-10",
+      "geographicScope": "Éthiopie",
+      "methodology": "Relevé daté d'après U ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-ETH-U"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eth-obs-9",
+      "countryCode": "ETH",
+      "key": "diplomacy.regional_tensions_oct2026",
+      "label": "Tensions régionales Éthiopie–Érythrée–Égypte",
+      "value": "Appel à la retenue de l’Union africaine",
+      "unit": null,
+      "referencePeriod": "2026-10",
+      "geographicScope": "Éthiopie",
+      "methodology": "Relevé daté d'après AU ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-ETH-AU"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "eth-claim-1",
+      "countryCode": "ETH",
+      "statement": "Abiy Ahmed a été reconduit comme Premier ministre le 5 octobre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-ETH-A"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "eth-claim-2",
+      "countryCode": "ETH",
+      "statement": "Les Nations unies ont signalé le 10 octobre 2026 de nouveaux combats dans plusieurs régions du nord de l’Éthiopie.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-ETH-U"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "eth-claim-3",
+      "countryCode": "ETH",
+      "statement": "La Banque mondiale situe la croissance éthiopienne à 9,2 % pour l’exercice 2024/25.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-ETH-W"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "eth-claim-4",
+      "countryCode": "ETH",
+      "statement": "L’Union africaine a appelé l’Éthiopie, l’Érythrée et l’Égypte à faire preuve de retenue en octobre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-ETH-AU"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "eth-rel-1",
+      "countryCode": "ETH",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Nations unies",
+      "relationType": "cooperation",
+      "title": "Dialogue de désescalade",
+      "topics": [],
+      "summary": "L’ONU appelle les signataires de l’accord de Pretoria à revenir au dialogue.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-ETH-U"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "eth-rel-2",
+      "countryCode": "ETH",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Érythrée",
+      "relationType": "tension",
+      "title": "Tensions dans la Corne de l’Afrique",
+      "topics": [],
+      "summary": "L’Union africaine s’inquiète de l’aggravation des tensions entre les deux voisins.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-ETH-AU"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "eth-strength-1",
+          "title": "Poids démographique continental",
+          "summary": "Le marché intérieur éthiopien est l’un des plus importants du continent africain.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-W"
+          ]
+        },
+        {
+          "id": "eth-strength-2",
+          "title": "Investissements en infrastructures",
+          "summary": "Des programmes publics ont élargi l’accès à l’électricité et aux services de base.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-W"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "eth-challenge-1",
+          "title": "Conflits régionaux renouvelés",
+          "summary": "Les nouveaux affrontements au Nord fragilisent la mise en œuvre des compromis de paix.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-U"
+          ]
+        },
+        {
+          "id": "eth-challenge-2",
+          "title": "Financement de la transformation",
+          "summary": "La croissance doit soutenir davantage l’emploi et la productivité du secteur privé.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "eth-timeline-1",
+          "title": "Nouvelle nomination d’Abiy Ahmed",
+          "summary": "Le parlement reconduit Abiy Ahmed à la tête de l’exécutif fédéral.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-A"
+          ],
+          "date": "2026-10-05"
+        },
+        {
+          "id": "eth-timeline-2",
+          "title": "Alerte onusienne sur le Nord",
+          "summary": "L’ONU exprime sa préoccupation pour les combats au Tigré, Afar et Amhara.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-U"
+          ],
+          "date": "2026-10-10"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "eth-sector-1",
+          "title": "Agriculture et demande intérieure",
+          "summary": "La population nombreuse soutient les marchés mais dépend de revenus souvent vulnérables.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-W"
+          ]
+        },
+        {
+          "id": "eth-sector-2",
+          "title": "Infrastructures de développement",
+          "summary": "L’extension de l’accès à l’eau et à l’électricité améliore le socle productif.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-W"
+          ]
+        },
+        {
+          "id": "eth-sector-3",
+          "title": "Réformes du modèle économique",
+          "summary": "Les ajustements macroéconomiques visent à améliorer la compétitivité et le financement privé.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "eth-resource-1",
+          "title": "Capital humain",
+          "summary": "La poursuite des gains éducatifs et sanitaires dépend de la sécurité et de l’accès aux services.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "eth-security-1",
+          "title": "Nord de l’Éthiopie",
+          "summary": "Le retour de combats dans trois régions accroît les risques pour les civils et l’acheminement des biens.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-U"
+          ]
+        },
+        {
+          "id": "eth-security-2",
+          "title": "Tensions internationales",
+          "summary": "Les différends avec l’Érythrée et l’Égypte appellent une vigilance diplomatique.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-AU"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "eth-issue-1",
+          "title": "Accord de Pretoria et combats dans le Nord",
+          "summary": "La reprise des hostilités fragilise les perspectives de stabilisation.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-U"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "L’ONU appelle les parties à cesser les combats et à reprendre les discussions.",
+          "whyStrategic": "Une nouvelle escalade pourrait peser sur les flux commerciaux et les services aux populations.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Violations de cessez-le-feu et accès humanitaire au Tigré"
+          ],
+          "uncertainties": [
+            "Pour « Accord de Pretoria et combats dans le Nord », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "eth-issue-2",
+          "title": "Transformation macroéconomique",
+          "summary": "La croissance forte coexiste avec de fortes contraintes de productivité.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale décrit les limites d’un modèle dominé par l’investissement public et le contrôle des changes.",
+          "whyStrategic": "Le financement des entreprises et les créations d’emplois détermineront la durabilité de la dynamique.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Investissement privé, taux de change et création d’emplois"
+          ],
+          "uncertainties": [
+            "Pour « Transformation macroéconomique », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "eth-issue-3",
+          "title": "Tensions autour de la mer Rouge",
+          "summary": "L’accès maritime et les relations avec les voisins sont un facteur stratégique.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-AU"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "L’Union africaine s’est inquiétée des tensions avec l’Érythrée et l’Égypte.",
+          "whyStrategic": "La diplomatie régionale peut conditionner les coûts logistiques et le risque de confrontation.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Communiqués tripartites et incidents frontaliers vérifiés"
+          ],
+          "uncertainties": [
+            "Pour « Tensions autour de la mer Rouge », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "eth-opportunity-1",
+          "title": "Reconstruction de services",
+          "summary": "Une stabilisation du Nord permettrait de remettre en état les réseaux essentiels.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-U"
+          ]
+        },
+        {
+          "id": "eth-opportunity-2",
+          "title": "Développement des entreprises",
+          "summary": "Un accès plus simple au financement favoriserait l’emploi privé.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "eth-risk-1",
+          "title": "Extension des combats",
+          "summary": "La pression sécuritaire augmenterait les déplacements internes.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-U"
+          ]
+        },
+        {
+          "id": "eth-risk-2",
+          "title": "Tensions sur les échanges",
+          "summary": "La méfiance régionale pourrait pénaliser l’approvisionnement.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-AU"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "eth-swot-strengths-1",
+            "title": "Grand marché intérieur",
+            "summary": "La population importante crée une base de demande et de main-d’œuvre.",
+            "tags": [],
+            "sourceIds": [
+              "S-ETH-W"
+            ]
+          },
+          {
+            "id": "eth-swot-strengths-2",
+            "title": "Progression des équipements",
+            "summary": "Les investissements passés ont développé l’accès à l’électricité et à l’eau.",
+            "tags": [],
+            "sourceIds": [
+              "S-ETH-W"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "eth-swot-weaknesses-1",
+            "title": "Tensions interrégionales",
+            "summary": "Les combats compliquent la circulation et l’administration dans le Nord.",
+            "tags": [],
+            "sourceIds": [
+              "S-ETH-U"
+            ]
+          },
+          {
+            "id": "eth-swot-weaknesses-2",
+            "title": "Productivité à relever",
+            "summary": "La transformation économique peine à absorber l’arrivée de nouveaux actifs.",
+            "tags": [],
+            "sourceIds": [
+              "S-ETH-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "eth-swot-opportunities-1",
+            "title": "Financement privé",
+            "summary": "Des réformes crédibles pourraient ouvrir des possibilités d’investissement.",
+            "tags": [],
+            "sourceIds": [
+              "S-ETH-W"
+            ]
+          },
+          {
+            "id": "eth-swot-opportunities-2",
+            "title": "Dialogue régional",
+            "summary": "Une désescalade offrirait davantage de prévisibilité aux échanges.",
+            "tags": [],
+            "sourceIds": [
+              "S-ETH-AU"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "eth-swot-threats-1",
+            "title": "Nouvelle escalade nordique",
+            "summary": "Des combats prolongés aggraveraient la vulnérabilité des populations.",
+            "tags": [],
+            "sourceIds": [
+              "S-ETH-U"
+            ]
+          },
+          {
+            "id": "eth-swot-threats-2",
+            "title": "Confrontation diplomatique",
+            "summary": "Le durcissement avec l’Érythrée accroîtrait les coûts de sécurité et de transport.",
+            "tags": [],
+            "sourceIds": [
+              "S-ETH-AU"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "eth-scenario-1",
+          "title": "Reprise du dialogue de Pretoria",
+          "summary": "Un cessez-le-feu plus robuste réduit les déplacements et rouvre des liaisons régionales.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-U"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Acceptation par les parties d’un calendrier de négociation"
+          ],
+          "triggers": [
+            "Annonce de mesures vérifiables de désescalade"
+          ],
+          "weakSignals": [
+            "Accès des observateurs aux zones de tension du Nord"
+          ],
+          "consequences": [
+            "Reprise graduelle des services publics"
+          ],
+          "limits": [
+            "Ce scénario « Reprise du dialogue de Pretoria » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "eth-scenario-2",
+          "title": "Escalade entre voisins",
+          "summary": "Les accusations militaires et différends régionaux débouchent sur une crise prolongée.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-AU",
+            "S-ETH-U"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Absence de mécanisme diplomatique efficace"
+          ],
+          "triggers": [
+            "Incidents frontaliers documentés et rupture des consultations"
+          ],
+          "weakSignals": [
+            "Mobilisation de forces et alertes de l’Union africaine"
+          ],
+          "consequences": [
+            "Hausse des besoins sécuritaires et perturbation des corridors"
+          ],
+          "limits": [
+            "Ce scénario « Escalade entre voisins » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "eth-scenario-3",
+          "title": "Réformes et investissement",
+          "summary": "Une amélioration du financement des entreprises consolide les gains de croissance.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Cadre macroéconomique plus lisible pour le secteur privé"
+          ],
+          "triggers": [
+            "Progression durable des nouveaux investissements productifs"
+          ],
+          "weakSignals": [
+            "Accès des PME aux devises et au crédit"
+          ],
+          "consequences": [
+            "Diversification de la croissance au-delà des grands projets"
+          ],
+          "limits": [
+            "Ce scénario « Réformes et investissement » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "eth-watch-1",
+          "title": "Accord de Pretoria",
+          "summary": "Suivre les engagements de cessez-le-feu et leur mise en œuvre.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-U"
+          ]
+        },
+        {
+          "id": "eth-watch-2",
+          "title": "Liaisons maritimes",
+          "summary": "Vérifier les initiatives diplomatiques relatives aux débouchés régionaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-AU"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "eth-vulnerability-1",
+          "title": "Fracture territoriale",
+          "summary": "Le retour de violences armées réduit la continuité des services publics dans le Nord.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-U"
+          ]
+        },
+        {
+          "id": "eth-vulnerability-2",
+          "title": "Sensibilité aux financements",
+          "summary": "Le modèle productif dépend de la réussite de réformes économiques profondes.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-W"
+          ]
+        },
+        {
+          "id": "eth-vulnerability-3",
+          "title": "Exposition régionale",
+          "summary": "Des tensions avec des États voisins peuvent amplifier une crise intérieure.",
+          "tags": [],
+          "sourceIds": [
+            "S-ETH-AU"
+          ]
+        }
+      ]
+    }
+  }
+}

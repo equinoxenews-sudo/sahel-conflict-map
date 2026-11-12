@@ -1,0 +1,774 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "DJI",
+  "slug": "djibouti",
+  "zoneSlug": "afrique",
+  "name": "Djibouti",
+  "officialName": "République de Djibouti",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S-DJI-P",
+      "publisher": "Présidence de Djibouti",
+      "title": "Biographie d’Ismaïl Omar Guelleh",
+      "canonicalUrl": "https://www.presidence.dj/page/biographie-du-president",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Présidence de Djibouti",
+      "methodNotes": "Paraphrase et citation de faits propres à Djibouti ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-DJI-G",
+      "publisher": "Présidence de Djibouti",
+      "title": "Composition du gouvernement",
+      "canonicalUrl": "https://presidence.dj/composition",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Présidence de Djibouti",
+      "methodNotes": "Paraphrase et citation de faits propres à Djibouti ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-DJI-J",
+      "publisher": "Journal officiel de Djibouti",
+      "title": "Proclamation définitive de la présidentielle du 10 avril 2026",
+      "canonicalUrl": "https://www.journalofficiel.dj/texte-juridique/decision-n03-2026-cc-du-21-avril-2026-portant-proclamation-des-resultats-definitifs-de-lelection-presidentielle-du-10-avril-2026/",
+      "publishedAt": "2026-04-21",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Journal officiel de Djibouti",
+      "methodNotes": "Paraphrase et citation de faits propres à Djibouti ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-DJI-W",
+      "publisher": "Banque mondiale",
+      "title": "Djibouti — projets et diversification",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/djibouti",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Paraphrase et citation de faits propres à Djibouti ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    }
+  ],
+  "observations": [
+    {
+      "id": "dji-obs-1",
+      "countryCode": "DJI",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Djibouti",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Djibouti",
+      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-DJI-P"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "dji-obs-2",
+      "countryCode": "DJI",
+      "key": "politics.head_of_state",
+      "label": "Président",
+      "value": "Ismaïl Omar Guelleh",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Djibouti",
+      "methodology": "Relevé daté d'après P,J ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-DJI-P",
+        "S-DJI-J"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "dji-obs-3",
+      "countryCode": "DJI",
+      "key": "politics.head_of_government",
+      "label": "Premier ministre",
+      "value": "Abdoulkader Kamil Mohamed",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Djibouti",
+      "methodology": "Relevé daté d'après G ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-DJI-G"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "dji-obs-4",
+      "countryCode": "DJI",
+      "key": "politics.presidential_vote_apr2026",
+      "label": "Suffrages recueillis par Ismaïl Omar Guelleh",
+      "value": 97.01,
+      "unit": "%",
+      "referencePeriod": "2026-04-10",
+      "geographicScope": "Djibouti",
+      "methodology": "Pourcentage des suffrages exprimés selon la proclamation définitive du Conseil constitutionnel ; ne renseigne pas le taux de participation.",
+      "sourceIds": [
+        "S-DJI-J"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "dji-obs-5",
+      "countryCode": "DJI",
+      "key": "economy.wb_active_projects_sep2026",
+      "label": "Projets nationaux actifs (Banque mondiale)",
+      "value": 16,
+      "unit": "projets",
+      "referencePeriod": "2026-09",
+      "geographicScope": "Djibouti",
+      "methodology": "Ne comprend pas les trois opérations régionales distinctes.",
+      "sourceIds": [
+        "S-DJI-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "dji-obs-6",
+      "countryCode": "DJI",
+      "key": "economy.wb_regional_operations_sep2026",
+      "label": "Opérations régionales (Banque mondiale)",
+      "value": 3,
+      "unit": "opérations",
+      "referencePeriod": "2026-09",
+      "geographicScope": "Djibouti",
+      "methodology": "À distinguer des seize projets nationaux.",
+      "sourceIds": [
+        "S-DJI-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "dji-obs-7",
+      "countryCode": "DJI",
+      "key": "economy.wb_portfolio_usd_sep2026",
+      "label": "Financements du portefeuille Banque mondiale",
+      "value": 577500000,
+      "unit": "USD",
+      "referencePeriod": "2026-09",
+      "geographicScope": "Djibouti",
+      "methodology": "Montant approximatif associé aux opérations actives nationales et régionales ; ne pas additionner aux montants de projets.",
+      "sourceIds": [
+        "S-DJI-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "dji-obs-8",
+      "countryCode": "DJI",
+      "key": "policy.mission300_joined_2026",
+      "label": "Participation à Mission 300",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Djibouti",
+      "methodology": "Relevé daté d'après W ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-DJI-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "dji-claim-1",
+      "countryCode": "DJI",
+      "statement": "Le Conseil constitutionnel a proclamé Ismaïl Omar Guelleh élu après le scrutin du 10 avril 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-DJI-J"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "dji-claim-2",
+      "countryCode": "DJI",
+      "statement": "Abdoulkader Kamil Mohamed figure comme Premier ministre dans la composition gouvernementale officielle.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-DJI-G"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "dji-claim-3",
+      "countryCode": "DJI",
+      "statement": "Le portefeuille Banque mondiale à Djibouti représentait environ 577,5 millions USD en septembre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-DJI-W"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "dji-claim-4",
+      "countryCode": "DJI",
+      "statement": "La Banque mondiale identifie des possibilités de diversification économique au-delà du transport portuaire.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-DJI-W"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "dji-rel-1",
+      "countryCode": "DJI",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Groupe de la Banque mondiale",
+      "relationType": "cooperation",
+      "title": "Financement du développement",
+      "topics": [],
+      "summary": "Le portefeuille de projets finance notamment transport, eau, services et gouvernance.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-DJI-W"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "dji-rel-2",
+      "countryCode": "DJI",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Corridor éthiopien",
+      "relationType": "cooperation",
+      "title": "Transit vers l’Éthiopie",
+      "topics": [],
+      "summary": "Les infrastructures de Djibouti sont liées aux échanges de son voisin enclavé.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-DJI-W"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "dji-strength-1",
+          "title": "Position à l’entrée de la mer Rouge",
+          "summary": "Les installations de transit occupent un emplacement stratégique sur les routes maritimes.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        },
+        {
+          "id": "dji-strength-2",
+          "title": "Ports et logistique",
+          "summary": "Les services de transport constituent un moteur économique du pays.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "dji-challenge-1",
+          "title": "Dépendance à quelques corridors",
+          "summary": "Une perturbation du transit régional affecterait rapidement les recettes.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        },
+        {
+          "id": "dji-challenge-2",
+          "title": "Contraintes d’eau et d’emplois",
+          "summary": "La diversification requiert un accès amélioré aux services essentiels.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "dji-timeline-1",
+          "title": "Résultats présidentiels définitifs",
+          "summary": "Le Conseil constitutionnel proclame Ismaïl Omar Guelleh réélu.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-J"
+          ],
+          "date": "2026-04-21"
+        },
+        {
+          "id": "dji-timeline-2",
+          "title": "Portefeuille Banque mondiale",
+          "summary": "La Banque mondiale fait état de seize projets nationaux et trois opérations régionales.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ],
+          "date": "2026-09-30"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "dji-sector-1",
+          "title": "Transport et entreposage",
+          "summary": "Le commerce maritime et les connexions intérieures structurent l’activité.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        },
+        {
+          "id": "dji-sector-2",
+          "title": "Services aux entreprises",
+          "summary": "La demande de logistique favorise les activités de manutention et de support.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        },
+        {
+          "id": "dji-sector-3",
+          "title": "Diversification productive",
+          "summary": "Les programmes ciblent notamment énergie, agriculture et formation.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "dji-resource-1",
+          "title": "Position géographique",
+          "summary": "La proximité du détroit de Bab el-Mandeb représente un avantage de transit.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "dji-security-1",
+          "title": "Sûreté des corridors",
+          "summary": "Les échanges dépendent de la continuité des infrastructures et des routes régionales.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        },
+        {
+          "id": "dji-security-2",
+          "title": "Résilience de l’eau et de l’énergie",
+          "summary": "La chaleur et la rareté des ressources imposent des investissements soutenus.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "dji-issue-1",
+          "title": "Dépendance au commerce de transit",
+          "summary": "Les recettes et les emplois sont sensibles au trafic d’un nombre limité de corridors.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale décrit une économie liée aux ports et à la connectivité régionale.",
+          "whyStrategic": "Une interruption logistique pourrait se répercuter sur les recettes et l’activité privée.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Volumétrie portuaire et disponibilité des axes de transit"
+          ],
+          "uncertainties": [
+            "Pour « Dépendance au commerce de transit », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "dji-issue-2",
+          "title": "Diversification et emplois",
+          "summary": "La croissance portuaire ne garantit pas un nombre suffisant de postes productifs.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale prépare des opérations centrées sur l’investissement privé et les emplois.",
+          "whyStrategic": "L’amélioration des compétences détermine la création de valeur au-delà du transit.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Emplois créés dans les activités hors transport"
+          ],
+          "uncertainties": [
+            "Pour « Diversification et emplois », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "dji-issue-3",
+          "title": "Accès aux services essentiels",
+          "summary": "L’eau, l’énergie et la sécurité alimentaire restent au cœur des programmes.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le pays a rejoint Mission 300 et engagé un programme AgriConnect selon la Banque mondiale.",
+          "whyStrategic": "Une diversification durable exige une baisse des coûts d’accès aux services.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Nombre de ménages raccordés et disponibilité d’eau"
+          ],
+          "uncertainties": [
+            "Pour « Accès aux services essentiels », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "dji-opportunity-1",
+          "title": "Services énergétiques",
+          "summary": "La modernisation des infrastructures soutiendrait les PME éloignées des ports.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        },
+        {
+          "id": "dji-opportunity-2",
+          "title": "Chaînes de valeur régionales",
+          "summary": "L’amélioration du transit peut valoriser le rôle de Djibouti.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "dji-risk-1",
+          "title": "Concentration des recettes",
+          "summary": "Une baisse des échanges terrestres fragiliserait les finances.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        },
+        {
+          "id": "dji-risk-2",
+          "title": "Vulnérabilité hydrique",
+          "summary": "La ressource en eau limite certaines possibilités agricoles et industrielles.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "dji-swot-strengths-1",
+            "title": "Débouché maritime",
+            "summary": "La situation aux portes de la mer Rouge soutient les flux commerciaux.",
+            "tags": [],
+            "sourceIds": [
+              "S-DJI-W"
+            ]
+          },
+          {
+            "id": "dji-swot-strengths-2",
+            "title": "Investissements multilatéraux",
+            "summary": "Les programmes de la Banque mondiale renforcent plusieurs infrastructures.",
+            "tags": [],
+            "sourceIds": [
+              "S-DJI-W"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "dji-swot-weaknesses-1",
+            "title": "Base productive étroite",
+            "summary": "Les secteurs de transit concentrent les sources d’activité.",
+            "tags": [],
+            "sourceIds": [
+              "S-DJI-W"
+            ]
+          },
+          {
+            "id": "dji-swot-weaknesses-2",
+            "title": "Accès aux ressources",
+            "summary": "L’alimentation en eau et en électricité demeure un enjeu central.",
+            "tags": [],
+            "sourceIds": [
+              "S-DJI-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "dji-swot-opportunities-1",
+            "title": "Énergies et numérique",
+            "summary": "Les nouveaux programmes encouragent des investissements plus diversifiés.",
+            "tags": [],
+            "sourceIds": [
+              "S-DJI-W"
+            ]
+          },
+          {
+            "id": "dji-swot-opportunities-2",
+            "title": "Formation logistique",
+            "summary": "La spécialisation peut soutenir des services à plus forte valeur ajoutée.",
+            "tags": [],
+            "sourceIds": [
+              "S-DJI-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "dji-swot-threats-1",
+            "title": "Choc de transit",
+            "summary": "Les perturbations maritimes ou routières fragiliseraient la croissance.",
+            "tags": [],
+            "sourceIds": [
+              "S-DJI-W"
+            ]
+          },
+          {
+            "id": "dji-swot-threats-2",
+            "title": "Coûts des intrants",
+            "summary": "Les contraintes hydriques et énergétiques pourraient freiner l’industrie.",
+            "tags": [],
+            "sourceIds": [
+              "S-DJI-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "dji-scenario-1",
+          "title": "Diversification hors ports",
+          "summary": "Les nouveaux investissements génèrent des activités moins dépendantes du transit.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Exécution des programmes d’énergie et d’investissement privé"
+          ],
+          "triggers": [
+            "Création vérifiée d’entreprises non logistiques"
+          ],
+          "weakSignals": [
+            "Emploi sectoriel et financements engagés"
+          ],
+          "consequences": [
+            "Atténuation de la concentration économique"
+          ],
+          "limits": [
+            "Ce scénario « Diversification hors ports » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "dji-scenario-2",
+          "title": "Ralentissement du corridor",
+          "summary": "Une crise extérieure réduit les flux et les services portuaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Dépendance persistante à la demande de transit"
+          ],
+          "triggers": [
+            "Baisse durable des marchandises en transit"
+          ],
+          "weakSignals": [
+            "Trafic portuaire et recettes douanières"
+          ],
+          "consequences": [
+            "Tension sur l’emploi et les recettes de transport"
+          ],
+          "limits": [
+            "Ce scénario « Ralentissement du corridor » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "dji-scenario-3",
+          "title": "Accélération des raccordements",
+          "summary": "Les programmes d’accès à l’énergie facilitent l’implantation productive.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Mise en œuvre opérationnelle des engagements de Mission 300"
+          ],
+          "triggers": [
+            "Nouveaux raccordements électriques vérifiables"
+          ],
+          "weakSignals": [
+            "Taux de couverture et coûts de l’électricité"
+          ],
+          "consequences": [
+            "Attractivité accrue des investissements locaux"
+          ],
+          "limits": [
+            "Ce scénario « Accélération des raccordements » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "dji-watch-1",
+          "title": "Infrastructures de transit",
+          "summary": "Suivre la capacité opérationnelle plutôt que les seules annonces d’investissements.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        },
+        {
+          "id": "dji-watch-2",
+          "title": "Diversification mesurée",
+          "summary": "Vérifier les emplois et entreprises effectivement créés hors logistique.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "dji-vulnerability-1",
+          "title": "Dépendance aux flux régionaux",
+          "summary": "Les activités principales sont concentrées sur le transit des marchandises.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        },
+        {
+          "id": "dji-vulnerability-2",
+          "title": "Disponibilité en eau",
+          "summary": "Les contraintes hydriques imposent des coûts d’investissement.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        },
+        {
+          "id": "dji-vulnerability-3",
+          "title": "Emploi hors logistique",
+          "summary": "La concentration sectorielle réduit la diversité des débouchés de travail.",
+          "tags": [],
+          "sourceIds": [
+            "S-DJI-W"
+          ]
+        }
+      ]
+    }
+  }
+}

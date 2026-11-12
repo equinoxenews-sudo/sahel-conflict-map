@@ -1,0 +1,792 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "RWA",
+  "slug": "rwanda",
+  "zoneSlug": "afrique",
+  "name": "Rwanda",
+  "officialName": "République du Rwanda",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S-RWA-P",
+      "publisher": "Primature du Rwanda",
+      "title": "Présentation du Premier ministre Justin Nsengiyumva",
+      "canonicalUrl": "https://www.primature.gov.rw/about",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Primature du Rwanda",
+      "methodNotes": "Paraphrase et citation de faits propres à Rwanda ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-RWA-C",
+      "publisher": "Gouvernement américain",
+      "title": "Rwanda — dirigeants en juin 2026",
+      "canonicalUrl": "https://www.cia.gov/resources/world-leaders/foreign-governments/rwanda",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Gouvernement américain",
+      "methodNotes": "Paraphrase et citation de faits propres à Rwanda ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-RWA-W",
+      "publisher": "Banque mondiale",
+      "title": "Rwanda — performances et défis économiques",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/rwanda",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Paraphrase et citation de faits propres à Rwanda ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-RWA-E",
+      "publisher": "Communauté d’Afrique de l’Est",
+      "title": "États partenaires EAC",
+      "canonicalUrl": "https://www.eac.int/eac-partner-states",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Communauté d’Afrique de l’Est",
+      "methodNotes": "Paraphrase et citation de faits propres à Rwanda ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    }
+  ],
+  "observations": [
+    {
+      "id": "rwa-obs-1",
+      "countryCode": "RWA",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Kigali",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Rwanda",
+      "methodology": "Relevé daté d'après W ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-RWA-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "rwa-obs-2",
+      "countryCode": "RWA",
+      "key": "politics.head_of_state",
+      "label": "Président",
+      "value": "Paul Kagame",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Rwanda",
+      "methodology": "Relevé daté d'après C ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-RWA-C"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "rwa-obs-3",
+      "countryCode": "RWA",
+      "key": "politics.head_of_government",
+      "label": "Premier ministre",
+      "value": "Justin Nsengiyumva",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Rwanda",
+      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-RWA-P"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "rwa-obs-4",
+      "countryCode": "RWA",
+      "key": "institutions.eac",
+      "label": "Membre de l’EAC",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Rwanda",
+      "methodology": "Relevé daté d'après E ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-RWA-E"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "rwa-obs-5",
+      "countryCode": "RWA",
+      "key": "economy.gdp_growth_2025_wb",
+      "label": "Croissance du PIB 2025",
+      "value": 9.4,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Rwanda",
+      "methodology": "Relevé daté d'après W ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-RWA-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "rwa-obs-6",
+      "countryCode": "RWA",
+      "key": "economy.gdp_growth_2026_h1_wb",
+      "label": "Croissance du PIB au premier semestre 2026",
+      "value": 9.7,
+      "unit": "%",
+      "referencePeriod": "2026-S1",
+      "geographicScope": "Rwanda",
+      "methodology": "Variation mesurée sur le premier semestre ; pas un résultat annuel.",
+      "sourceIds": [
+        "S-RWA-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "rwa-obs-7",
+      "countryCode": "RWA",
+      "key": "economy.industry_growth_2026_h1_wb",
+      "label": "Croissance industrielle au premier semestre 2026",
+      "value": 15.5,
+      "unit": "%",
+      "referencePeriod": "2026-S1",
+      "geographicScope": "Rwanda",
+      "methodology": "Variation du secteur industriel au semestre, non taux national de PIB.",
+      "sourceIds": [
+        "S-RWA-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "rwa-obs-8",
+      "countryCode": "RWA",
+      "key": "economy.agriculture_growth_2026_h1_wb",
+      "label": "Croissance agricole au premier semestre 2026",
+      "value": 5.9,
+      "unit": "%",
+      "referencePeriod": "2026-S1",
+      "geographicScope": "Rwanda",
+      "methodology": "Croissance sectorielle au premier semestre 2026.",
+      "sourceIds": [
+        "S-RWA-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "rwa-obs-9",
+      "countryCode": "RWA",
+      "key": "policy.nst2_2030_horizon",
+      "label": "Stratégie nationale de transformation NST2",
+      "value": null,
+      "unit": null,
+      "referencePeriod": "2024-2029",
+      "geographicScope": "Rwanda",
+      "methodology": "Période de mise en œuvre à vérifier selon les documents officiels ; ne pas en inférer de résultats.",
+      "sourceIds": [
+        "S-RWA-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": null,
+      "status": "pending",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "rwa-claim-1",
+      "countryCode": "RWA",
+      "statement": "Justin Nsengiyumva a pris ses fonctions de Premier ministre en juillet 2025.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-RWA-P"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "rwa-claim-2",
+      "countryCode": "RWA",
+      "statement": "Paul Kagame est le président du Rwanda selon la liste des dirigeants publiée en 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-RWA-C"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "rwa-claim-3",
+      "countryCode": "RWA",
+      "statement": "La Banque mondiale rapporte une croissance de 9,7 % au premier semestre 2026, non équivalente à une croissance annuelle.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-RWA-W"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "rwa-claim-4",
+      "countryCode": "RWA",
+      "statement": "Le Rwanda est membre de la Communauté d’Afrique de l’Est.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-RWA-E"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rwa-rel-1",
+      "countryCode": "RWA",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Communauté d’Afrique de l’Est",
+      "relationType": "cooperation",
+      "title": "Marché est-africain",
+      "topics": [],
+      "summary": "Le Rwanda participe aux mécanismes de coopération de la Communauté d’Afrique de l’Est.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-RWA-E"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "rwa-rel-2",
+      "countryCode": "RWA",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Banque mondiale",
+      "relationType": "cooperation",
+      "title": "Transformation économique",
+      "topics": [],
+      "summary": "La Banque mondiale documente la forte expansion des services et les difficultés d’emploi.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-RWA-W"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "rwa-strength-1",
+          "title": "Services dynamiques",
+          "summary": "Les services soutiennent une croissance élevée observée en 2025 et début 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        },
+        {
+          "id": "rwa-strength-2",
+          "title": "Organisation des réformes",
+          "summary": "La stratégie nationale de transformation structure les priorités économiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "rwa-challenge-1",
+          "title": "Productivité et emploi",
+          "summary": "La progression du PIB ne résout pas le manque d’emplois productifs.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        },
+        {
+          "id": "rwa-challenge-2",
+          "title": "Enclavement commercial",
+          "summary": "Les échanges extérieurs dépendent de corridors traversant les États voisins.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-E"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "rwa-timeline-1",
+          "title": "Installation du Premier ministre",
+          "summary": "Justin Nsengiyumva est investi après sa nomination.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-P"
+          ],
+          "date": "2025-07-25"
+        },
+        {
+          "id": "rwa-timeline-2",
+          "title": "Fortes croissances sectorielles",
+          "summary": "La Banque mondiale indique une expansion de la construction et des services au premier semestre.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ],
+          "date": "2026-06-30"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "rwa-sector-1",
+          "title": "Services et commerce",
+          "summary": "Les services constituent le principal moteur récent de la croissance.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        },
+        {
+          "id": "rwa-sector-2",
+          "title": "Construction et industrie",
+          "summary": "La construction explique une partie de la forte progression industrielle semestrielle.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        },
+        {
+          "id": "rwa-sector-3",
+          "title": "Agriculture",
+          "summary": "L’activité agricole demeure essentielle à l’emploi et à la résilience des ménages.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "rwa-resource-1",
+          "title": "Capital humain",
+          "summary": "La création d’emplois doit rattraper la croissance rapide de la population active.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "rwa-security-1",
+          "title": "Sécurité régionale des échanges",
+          "summary": "Les liaisons commerciales restent exposées aux tensions des pays voisins.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-E"
+          ]
+        },
+        {
+          "id": "rwa-security-2",
+          "title": "Pression sur les moyens de subsistance",
+          "summary": "L’insuffisance d’emplois et la faible productivité freinent l’amélioration des revenus.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "rwa-issue-1",
+          "title": "Croissance rapide et productivité",
+          "summary": "Des taux de croissance élevés doivent se traduire en capacités productives durables.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale décrit une expansion des services et de l’industrie au premier semestre 2026.",
+          "whyStrategic": "L’enjeu est de transformer la croissance en emplois de qualité et en revenus diversifiés.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Part des emplois productifs dans les nouveaux secteurs"
+          ],
+          "uncertainties": [
+            "Pour « Croissance rapide et productivité », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "rwa-issue-2",
+          "title": "Corridors d’un pays enclavé",
+          "summary": "La fiabilité des trajets transfrontaliers conditionne les importations et exportations.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-E"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le Rwanda dépend des échanges au sein du réseau de la Communauté d’Afrique de l’Est.",
+          "whyStrategic": "Une perturbation prolongée de corridor affecterait approvisionnement et entreprises.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Coûts de transport et temps de passage douanier"
+          ],
+          "uncertainties": [
+            "Pour « Corridors d’un pays enclavé », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "rwa-issue-3",
+          "title": "Développement du capital humain",
+          "summary": "Les gains de productivité nécessitent une formation adaptée aux secteurs en expansion.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale signale un manque de créations d’emplois et des lacunes d’innovation.",
+          "whyStrategic": "Les choix éducatifs peuvent déterminer la répartition des fruits de la croissance.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Emploi qualifié, formation et productivité"
+          ],
+          "uncertainties": [
+            "Pour « Développement du capital humain », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "rwa-opportunity-1",
+          "title": "Services qualifiés",
+          "summary": "La demande régionale peut soutenir les activités de connaissance et de gestion.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        },
+        {
+          "id": "rwa-opportunity-2",
+          "title": "Harmonisation EAC",
+          "summary": "Des procédures régionales plus fluides peuvent réduire le coût du commerce.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-E"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "rwa-risk-1",
+          "title": "Ralentissement de l’investissement",
+          "summary": "Un changement du cycle de construction pourrait fragiliser l’industrie.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        },
+        {
+          "id": "rwa-risk-2",
+          "title": "Friction frontalière",
+          "summary": "Une hausse des délais d’acheminement pèserait sur les entreprises.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-E"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "rwa-swot-strengths-1",
+            "title": "Dynamique des services",
+            "summary": "Le tertiaire apporte une contribution importante à la production nationale.",
+            "tags": [],
+            "sourceIds": [
+              "S-RWA-W"
+            ]
+          },
+          {
+            "id": "rwa-swot-strengths-2",
+            "title": "Gouvernance de programmes",
+            "summary": "Les objectifs de transformation fournissent un cadre d’action structuré.",
+            "tags": [],
+            "sourceIds": [
+              "S-RWA-W"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "rwa-swot-weaknesses-1",
+            "title": "Insuffisance d’emplois",
+            "summary": "Le marché du travail n’absorbe pas suffisamment l’essor économique.",
+            "tags": [],
+            "sourceIds": [
+              "S-RWA-W"
+            ]
+          },
+          {
+            "id": "rwa-swot-weaknesses-2",
+            "title": "Surcoût de l’enclavement",
+            "summary": "Le commerce exige des passages terrestres par les pays voisins.",
+            "tags": [],
+            "sourceIds": [
+              "S-RWA-E"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "rwa-swot-opportunities-1",
+            "title": "Montée en compétences",
+            "summary": "L’innovation et la formation peuvent valoriser les investissements réalisés.",
+            "tags": [],
+            "sourceIds": [
+              "S-RWA-W"
+            ]
+          },
+          {
+            "id": "rwa-swot-opportunities-2",
+            "title": "Accès au marché EAC",
+            "summary": "L’intégration régionale offre des débouchés aux entreprises.",
+            "tags": [],
+            "sourceIds": [
+              "S-RWA-E"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "rwa-swot-threats-1",
+            "title": "Perturbation du transit",
+            "summary": "Une rupture des corridors élèverait rapidement les coûts logistiques.",
+            "tags": [],
+            "sourceIds": [
+              "S-RWA-E"
+            ]
+          },
+          {
+            "id": "rwa-swot-threats-2",
+            "title": "Croissance mal répartie",
+            "summary": "Des gains concentrés limiteraient la réduction de la pauvreté.",
+            "tags": [],
+            "sourceIds": [
+              "S-RWA-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "rwa-scenario-1",
+          "title": "Investissement plus inclusif",
+          "summary": "Les services et l’industrie recrutent davantage grâce à des gains de formation.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Financement des PME et compétences adaptées"
+          ],
+          "triggers": [
+            "Augmentation mesurée des emplois formels"
+          ],
+          "weakSignals": [
+            "Évolution de la productivité par secteur"
+          ],
+          "consequences": [
+            "Diffusion plus large des gains de croissance"
+          ],
+          "limits": [
+            "Ce scénario « Investissement plus inclusif » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "rwa-scenario-2",
+          "title": "Ralentissement des corridors",
+          "summary": "Des tensions de transit renchérissent les intrants et les échanges.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-E"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Dépendance prolongée aux axes routiers régionaux"
+          ],
+          "triggers": [
+            "Perturbations persistantes des passages frontaliers"
+          ],
+          "weakSignals": [
+            "Délais et coûts de fret au départ des ports régionaux"
+          ],
+          "consequences": [
+            "Recul des marges des entreprises importatrices"
+          ],
+          "limits": [
+            "Ce scénario « Ralentissement des corridors » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "rwa-scenario-3",
+          "title": "Construction moins porteuse",
+          "summary": "Une décélération du bâtiment révèle une croissance insuffisamment diversifiée.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ],
+          "kind": "pressure",
+          "assumptions": [
+            "Dépendance continue à quelques moteurs sectoriels"
+          ],
+          "triggers": [
+            "Baisse des nouveaux chantiers productifs"
+          ],
+          "weakSignals": [
+            "Évolution des commandes de construction et de crédit"
+          ],
+          "consequences": [
+            "Repli des investissements et de l’emploi du secteur"
+          ],
+          "limits": [
+            "Ce scénario « Construction moins porteuse » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "rwa-watch-1",
+          "title": "Écarts entre PIB et emplois",
+          "summary": "Suivre la création réelle d’emplois malgré une croissance trimestrielle élevée.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        },
+        {
+          "id": "rwa-watch-2",
+          "title": "Dépendance des routes",
+          "summary": "Comparer régulièrement les coûts logistiques des principaux corridors.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-E"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "rwa-vulnerability-1",
+          "title": "Dépendance des voies extérieures",
+          "summary": "L’absence d’accès maritime accroît le poids des pays de transit.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-E"
+          ]
+        },
+        {
+          "id": "rwa-vulnerability-2",
+          "title": "Formation et emplois",
+          "summary": "Le décalage entre compétences disponibles et besoins productifs peut persister.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        },
+        {
+          "id": "rwa-vulnerability-3",
+          "title": "Concentration de moteurs économiques",
+          "summary": "Un ralentissement du bâtiment pèserait sur la dynamique industrielle.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-W"
+          ]
+        }
+      ]
+    }
+  }
+}

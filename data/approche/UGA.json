@@ -1,0 +1,828 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "UGA",
+  "slug": "ouganda",
+  "zoneSlug": "afrique",
+  "name": "Ouganda",
+  "officialName": "République d’Ouganda",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S-UGA-P",
+      "publisher": "Présidence ougandaise",
+      "title": "Composition du Cabinet 2026–2031",
+      "canonicalUrl": "https://statehouse.go.ug/the-cabinet/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Présidence ougandaise",
+      "methodNotes": "Paraphrase et citation de faits propres à Ouganda ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-UGA-W",
+      "publisher": "Banque mondiale",
+      "title": "Ouganda — économie et démographie",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/uganda",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Paraphrase et citation de faits propres à Ouganda ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-UGA-H",
+      "publisher": "HCR",
+      "title": "Ouganda — population réfugiée au 31 octobre 2026",
+      "canonicalUrl": "https://data.unhcr.org/en/country/uga",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "HCR",
+      "methodNotes": "Paraphrase et citation de faits propres à Ouganda ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-UGA-E",
+      "publisher": "Communauté d’Afrique de l’Est",
+      "title": "États membres EAC",
+      "canonicalUrl": "https://www.eac.int/eac-partner-states",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Communauté d’Afrique de l’Est",
+      "methodNotes": "Paraphrase et citation de faits propres à Ouganda ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-UGA-IP",
+      "publisher": "Union interparlementaire",
+      "title": "Élections législatives ougandaises 2026",
+      "canonicalUrl": "https://data.ipu.org/parliament/UG/UG-LC01/election/UG-LC01-E20250115/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Union interparlementaire",
+      "methodNotes": "Paraphrase et citation de faits propres à Ouganda ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    }
+  ],
+  "observations": [
+    {
+      "id": "uga-obs-1",
+      "countryCode": "UGA",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Kampala",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Ouganda",
+      "methodology": "Relevé daté d'après W ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-UGA-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "uga-obs-2",
+      "countryCode": "UGA",
+      "key": "politics.head_of_state",
+      "label": "Président",
+      "value": "Yoweri Museveni",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Ouganda",
+      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-UGA-P"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "uga-obs-3",
+      "countryCode": "UGA",
+      "key": "politics.head_of_government",
+      "label": "Chef de l’exécutif",
+      "value": "Yoweri Museveni",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Ouganda",
+      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-UGA-P"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "uga-obs-4",
+      "countryCode": "UGA",
+      "key": "politics.prime_minister",
+      "label": "Première ministre",
+      "value": "Robinah Nabbanja",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Ouganda",
+      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-UGA-P"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "uga-obs-5",
+      "countryCode": "UGA",
+      "key": "institutions.eac",
+      "label": "Membre de l’EAC",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Ouganda",
+      "methodology": "Relevé daté d'après E ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-UGA-E"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "uga-obs-6",
+      "countryCode": "UGA",
+      "key": "humanitarian.refugees_asylum_oct2026_unhcr",
+      "label": "Réfugiés et demandeurs d’asile enregistrés",
+      "value": 2061006,
+      "unit": "personnes",
+      "referencePeriod": "2026-10-31",
+      "geographicScope": "Ouganda",
+      "methodology": "Total HCR au 31 octobre, incluant réfugiés et demandeurs d’asile ; ne pas additionner à nouveau les composantes.",
+      "sourceIds": [
+        "S-UGA-H"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "theme": "Situation humanitaire"
+    },
+    {
+      "id": "uga-obs-7",
+      "countryCode": "UGA",
+      "key": "humanitarian.refugees_oct2026_unhcr",
+      "label": "Réfugiés enregistrés",
+      "value": 1972339,
+      "unit": "personnes",
+      "referencePeriod": "2026-10-31",
+      "geographicScope": "Ouganda",
+      "methodology": "Sous-ensemble du total HCR, réfugiés uniquement.",
+      "sourceIds": [
+        "S-UGA-H"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "theme": "Situation humanitaire"
+    },
+    {
+      "id": "uga-obs-8",
+      "countryCode": "UGA",
+      "key": "humanitarian.asylum_oct2026_unhcr",
+      "label": "Demandeurs d’asile enregistrés",
+      "value": 88667,
+      "unit": "personnes",
+      "referencePeriod": "2026-10-31",
+      "geographicScope": "Ouganda",
+      "methodology": "Sous-ensemble du total HCR, demandeurs d’asile uniquement.",
+      "sourceIds": [
+        "S-UGA-H"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "theme": "Situation humanitaire"
+    },
+    {
+      "id": "uga-obs-9",
+      "countryCode": "UGA",
+      "key": "demography.population_2024_wb_country",
+      "label": "Population selon Banque mondiale",
+      "value": 45900000,
+      "unit": "personnes",
+      "referencePeriod": "2024",
+      "geographicScope": "Ouganda",
+      "methodology": "Valeur arrondie 45,9 millions fournie par la Banque mondiale ; sa définition diffère de l’ONU.",
+      "sourceIds": [
+        "S-UGA-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "uga-obs-10",
+      "countryCode": "UGA",
+      "key": "politics.election_2026_president",
+      "label": "Résultat de la présidentielle de janvier 2026",
+      "value": "Museveni déclaré vainqueur ; résultat contesté par l’opposition",
+      "unit": null,
+      "referencePeriod": "2026-01",
+      "geographicScope": "Ouganda",
+      "methodology": "Relevé daté d'après IP ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-UGA-IP"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "uga-claim-1",
+      "countryCode": "UGA",
+      "statement": "Yoweri Museveni est présenté comme président par la Présidence ougandaise ; Robinah Nabbanja occupe la Primature.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-UGA-P"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "uga-claim-2",
+      "countryCode": "UGA",
+      "statement": "Le HCR comptabilisait 2 061 006 réfugiés et demandeurs d’asile au 31 octobre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-UGA-H"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "uga-claim-3",
+      "countryCode": "UGA",
+      "statement": "La contestation par l’opposition du résultat présidentiel de janvier 2026 est signalée dans les données de l’Union interparlementaire.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-UGA-IP"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "uga-claim-4",
+      "countryCode": "UGA",
+      "statement": "L’Ouganda appartient à la Communauté d’Afrique de l’Est.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-UGA-E"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "uga-rel-1",
+      "countryCode": "UGA",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "HCR",
+      "relationType": "cooperation",
+      "title": "Accueil des réfugiés",
+      "topics": [],
+      "summary": "L’Ouganda accueille un nombre élevé de déplacés forcés des pays voisins.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-UGA-H"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "uga-rel-2",
+      "countryCode": "UGA",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Communauté d’Afrique de l’Est",
+      "relationType": "cooperation",
+      "title": "Intégration commerciale",
+      "topics": [],
+      "summary": "L’Ouganda participe aux institutions et aux initiatives de l’EAC.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-UGA-E"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "uga-strength-1",
+          "title": "Plateau agricole fertile",
+          "summary": "Les terres cultivables et la variété des milieux soutiennent l’économie agricole.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-W"
+          ]
+        },
+        {
+          "id": "uga-strength-2",
+          "title": "Dispositif d’accueil régional",
+          "summary": "Le cadre d’asile permet l’accès aux services et au travail sous conditions légales.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-H"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "uga-challenge-1",
+          "title": "Charge croissante pour les services",
+          "summary": "La concentration de réfugiés sollicite les moyens sanitaires et éducatifs locaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-H"
+          ]
+        },
+        {
+          "id": "uga-challenge-2",
+          "title": "Débat sur les libertés électorales",
+          "summary": "La présidentielle de 2026 a été contestée par l’opposition.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-IP"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "uga-timeline-1",
+          "title": "Résultat présidentiel déclaré",
+          "summary": "La commission électorale annonce la victoire de Yoweri Museveni ; l’opposition la conteste.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-IP"
+          ],
+          "date": "2026-01-17"
+        },
+        {
+          "id": "uga-timeline-2",
+          "title": "Actualisation du HCR",
+          "summary": "Les registres indiquent plus de deux millions de personnes réfugiées ou demandeuses d’asile.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-H"
+          ],
+          "date": "2026-10-31"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "uga-sector-1",
+          "title": "Agriculture et élevage",
+          "summary": "L’agriculture mobilise une large part des actifs et demeure sensible au climat.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-W"
+          ]
+        },
+        {
+          "id": "uga-sector-2",
+          "title": "Exportations de café et d’or",
+          "summary": "La Banque mondiale cite ces activités parmi les sources de devises.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-W"
+          ]
+        },
+        {
+          "id": "uga-sector-3",
+          "title": "Activité de transit régional",
+          "summary": "La position enclavée rend les connexions avec les voisins essentielles.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-E"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "uga-resource-1",
+          "title": "Terres agricoles",
+          "summary": "La disponibilité de terres ne suffit pas sans réseaux routiers et accès aux marchés.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "uga-security-1",
+          "title": "Tensions électorales",
+          "summary": "La contestation de janvier 2026 justifie un suivi de l’espace politique.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-IP"
+          ]
+        },
+        {
+          "id": "uga-security-2",
+          "title": "Services des districts d’accueil",
+          "summary": "Le poids des déplacements prolongés impose des arbitrages entre aide et services publics.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-H"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "uga-issue-1",
+          "title": "Accueil de populations déplacées",
+          "summary": "Le système national doit intégrer plus de deux millions de personnes réfugiées ou demandeuses d’asile.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-H"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le HCR documente des flux importants venus principalement du Soudan du Sud et de la RDC.",
+          "whyStrategic": "Les financements internationaux et l’accès aux terres influencent la cohésion des communautés d’accueil.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Nombre total HCR et financement des structures locales"
+          ],
+          "uncertainties": [
+            "Pour « Accueil de populations déplacées », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "uga-issue-2",
+          "title": "Légitimité électorale",
+          "summary": "Le scrutin de 2026 a cristallisé des oppositions politiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-IP"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "L’Union interparlementaire reprend le résultat proclamé et la contestation de l’opposition.",
+          "whyStrategic": "La confiance institutionnelle conditionne l’environnement d’investissement et le débat public.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Décisions électorales et espace civique"
+          ],
+          "uncertainties": [
+            "Pour « Légitimité électorale », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "uga-issue-3",
+          "title": "Productivité agricole",
+          "summary": "L’économie dépend fortement d’une agriculture exposée aux aléas.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-W",
+            "S-UGA-E"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale souligne le rôle des productions agricoles et des exportations primaires.",
+          "whyStrategic": "La diversification des revenus dépend de la transformation et de la logistique.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Prix agricoles et accès aux marchés régionaux"
+          ],
+          "uncertainties": [
+            "Pour « Productivité agricole », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "uga-opportunity-1",
+          "title": "Services partagés",
+          "summary": "Les investissements communs en santé soutiendraient réfugiés et communautés locales.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-H"
+          ]
+        },
+        {
+          "id": "uga-opportunity-2",
+          "title": "Marchés régionaux",
+          "summary": "La coopération est-africaine peut développer la distribution des produits agricoles.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-E"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "uga-risk-1",
+          "title": "Sous-financement humanitaire",
+          "summary": "Le manque de ressources peut interrompre des prestations essentielles.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-H"
+          ]
+        },
+        {
+          "id": "uga-risk-2",
+          "title": "Contestations prolongées",
+          "summary": "L’absence de compromis politique peut fragiliser la gouvernance.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-IP"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "uga-swot-strengths-1",
+            "title": "Réserve agricole",
+            "summary": "La diversité agroécologique soutient production vivrière et cultures commerciales.",
+            "tags": [],
+            "sourceIds": [
+              "S-UGA-W"
+            ]
+          },
+          {
+            "id": "uga-swot-strengths-2",
+            "title": "Cadre d’accueil des réfugiés",
+            "summary": "La législation prévoit un accès au travail et à certains services nationaux.",
+            "tags": [],
+            "sourceIds": [
+              "S-UGA-H"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "uga-swot-weaknesses-1",
+            "title": "Dépendance aux récoltes",
+            "summary": "Une grande part des emplois reste liée aux aléas agricoles.",
+            "tags": [],
+            "sourceIds": [
+              "S-UGA-W"
+            ]
+          },
+          {
+            "id": "uga-swot-weaknesses-2",
+            "title": "Pression sur les districts d’asile",
+            "summary": "Les infrastructures des zones d’accueil supportent de fortes charges.",
+            "tags": [],
+            "sourceIds": [
+              "S-UGA-H"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "uga-swot-opportunities-1",
+            "title": "Transformation agroalimentaire",
+            "summary": "Une meilleure valorisation locale des cultures augmenterait les revenus.",
+            "tags": [],
+            "sourceIds": [
+              "S-UGA-W"
+            ]
+          },
+          {
+            "id": "uga-swot-opportunities-2",
+            "title": "Chaînes de valeur EAC",
+            "summary": "L’intégration régionale peut élargir les débouchés des producteurs.",
+            "tags": [],
+            "sourceIds": [
+              "S-UGA-E"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "uga-swot-threats-1",
+            "title": "Baisse des aides",
+            "summary": "La réduction de moyens humanitaires fragiliserait l’accès aux soins et à l’éducation.",
+            "tags": [],
+            "sourceIds": [
+              "S-UGA-H"
+            ]
+          },
+          {
+            "id": "uga-swot-threats-2",
+            "title": "Polarisation électorale",
+            "summary": "Des tensions politiques prolongées limiteraient l’espace de négociation.",
+            "tags": [],
+            "sourceIds": [
+              "S-UGA-IP"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "uga-scenario-1",
+          "title": "Renforcement des services d’accueil",
+          "summary": "L’appui budgétaire et humanitaire stabilise les districts accueillant des réfugiés.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-H"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Maintien de soutiens internationaux et locaux"
+          ],
+          "triggers": [
+            "Hausse des financements affectés aux établissements des zones d’accueil"
+          ],
+          "weakSignals": [
+            "Délais de prise en charge sanitaire dans les districts concernés"
+          ],
+          "consequences": [
+            "Amélioration des services pour réfugiés et communautés hôtes"
+          ],
+          "limits": [
+            "Ce scénario « Renforcement des services d’accueil » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "uga-scenario-2",
+          "title": "Restriction de l’espace politique",
+          "summary": "La controverse électorale s’installe et dégrade la confiance civique.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-IP"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Absence de dialogue politique reconnu"
+          ],
+          "triggers": [
+            "Mesures restrictives ou contestations institutionnelles renouvelées"
+          ],
+          "weakSignals": [
+            "Décisions de justice et communiqués des formations politiques"
+          ],
+          "consequences": [
+            "Détérioration de la perception des institutions"
+          ],
+          "limits": [
+            "Ce scénario « Restriction de l’espace politique » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "uga-scenario-3",
+          "title": "Progression de la valeur ajoutée agricole",
+          "summary": "Une transformation locale plus importante élargit les revenus ruraux.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-W",
+            "S-UGA-E"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Accès amélioré au crédit et à la logistique"
+          ],
+          "triggers": [
+            "Mise en service d’unités de transformation commercialement viables"
+          ],
+          "weakSignals": [
+            "Évolution des exportations de produits transformés"
+          ],
+          "consequences": [
+            "Emplois non agricoles dans les bassins de production"
+          ],
+          "limits": [
+            "Ce scénario « Progression de la valeur ajoutée agricole » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "uga-watch-1",
+          "title": "Indicateurs HCR",
+          "summary": "Suivre séparément réfugiés et demandeurs d’asile, sans double comptage.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-H"
+          ]
+        },
+        {
+          "id": "uga-watch-2",
+          "title": "Processus postélectoral",
+          "summary": "Distinguer résultats officiels, recours et positions de l’opposition.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-IP"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "uga-vulnerability-1",
+          "title": "Concentration des besoins",
+          "summary": "Les écoles et dispensaires des districts d’accueil subissent une forte pression.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-H"
+          ]
+        },
+        {
+          "id": "uga-vulnerability-2",
+          "title": "Incertitude politique",
+          "summary": "Les contestations de légitimité peuvent polariser le débat institutionnel.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-IP"
+          ]
+        },
+        {
+          "id": "uga-vulnerability-3",
+          "title": "Chocs agricoles",
+          "summary": "La dépendance aux cultures expose les revenus aux variations météorologiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-UGA-W"
+          ]
+        }
+      ]
+    }
+  }
+}

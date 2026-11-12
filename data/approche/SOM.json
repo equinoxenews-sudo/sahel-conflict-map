@@ -1,0 +1,846 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "SOM",
+  "slug": "somalie",
+  "zoneSlug": "afrique",
+  "name": "Somalie",
+  "officialName": "République fédérale de Somalie",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S-SOM-G",
+      "publisher": "Gouvernement fédéral de Somalie",
+      "title": "Présentation du président Hassan Sheikh Mohamud",
+      "canonicalUrl": "https://www.somalia.gov.so/excutive/the-president",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Gouvernement fédéral de Somalie",
+      "methodNotes": "Paraphrase et citation de faits propres à Somalie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SOM-D",
+      "publisher": "Gouvernement australien",
+      "title": "Somalie — chefs d’État et de gouvernement",
+      "canonicalUrl": "https://www.dfat.gov.au/geo/heads-of-government/somalia",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Gouvernement australien",
+      "methodNotes": "Paraphrase et citation de faits propres à Somalie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SOM-W",
+      "publisher": "Banque mondiale",
+      "title": "Somalie — économie, chocs et reprise",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/somalia",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Paraphrase et citation de faits propres à Somalie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SOM-AU",
+      "publisher": "Union africaine",
+      "title": "Mandat de l’AUSSOM",
+      "canonicalUrl": "https://au-ssom.org/fr/aussom-mandate/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "Union africaine",
+      "methodNotes": "Paraphrase et citation de faits propres à Somalie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SOM-E",
+      "publisher": "Communauté d’Afrique de l’Est",
+      "title": "Somalie : État partenaire depuis 2024",
+      "canonicalUrl": "https://www.eac.int/eac-partner-states",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Communauté d’Afrique de l’Est",
+      "methodNotes": "Paraphrase et citation de faits propres à Somalie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SOM-J",
+      "publisher": "Garowe Online",
+      "title": "Arrêt de la Cour suprême sur les mandats politiques",
+      "canonicalUrl": "https://www.garoweonline.com/index.php/en/news/somalia/somalia-supreme-court-rules-president-parliament-terms-expired-orders-elections-within-90-days",
+      "publishedAt": "2026-11-05",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Garowe Online",
+      "methodNotes": "Paraphrase et citation de faits propres à Somalie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SOM-R",
+      "publisher": "Somalia Today",
+      "title": "Réaction du procureur général à l’arrêt",
+      "canonicalUrl": "https://somaliatoday.com/politics/somalia-attorney-general-rejects-court-ruling-on-presidents-term-2026-11-07/",
+      "publishedAt": "2026-11-07",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Somalia Today",
+      "methodNotes": "Paraphrase et citation de faits propres à Somalie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    }
+  ],
+  "observations": [
+    {
+      "id": "som-obs-1",
+      "countryCode": "SOM",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Mogadiscio",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Somalie",
+      "methodology": "Relevé daté d'après D ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-SOM-D"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "som-obs-2",
+      "countryCode": "SOM",
+      "key": "politics.head_of_state",
+      "label": "Présidence exercée, durée du mandat contestée",
+      "value": "Hassan Sheikh Mohamud",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Somalie",
+      "methodology": "Le chef de l’État continue d’exercer ; la Cour suprême conteste la validité de la prolongation du mandat et la position est rejetée par le procureur général.",
+      "sourceIds": [
+        "S-SOM-G",
+        "S-SOM-D",
+        "S-SOM-J"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": null,
+      "status": "conflicting",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "som-obs-3",
+      "countryCode": "SOM",
+      "key": "politics.head_of_government",
+      "label": "Premier ministre en fonction, mandat gouvernemental contesté",
+      "value": "Hamza Abdi Barre",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Somalie",
+      "methodology": "La durée légale du mandat des institutions fédérales fait l’objet d’un conflit d’interprétation.",
+      "sourceIds": [
+        "S-SOM-D",
+        "S-SOM-J",
+        "S-SOM-R"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": null,
+      "status": "conflicting",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "som-obs-4",
+      "countryCode": "SOM",
+      "key": "institutions.eac",
+      "label": "Membre de l’EAC depuis 2024",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2024-03",
+      "geographicScope": "Somalie",
+      "methodology": "Relevé daté d'après E ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-SOM-E"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "som-obs-5",
+      "countryCode": "SOM",
+      "key": "economy.gdp_growth_2025_wb",
+      "label": "Croissance du PIB 2025",
+      "value": 3.1,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Somalie",
+      "methodology": "Chiffre courant de la Banque mondiale, pouvant différer de la publication initiale de mai.",
+      "sourceIds": [
+        "S-SOM-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "som-obs-6",
+      "countryCode": "SOM",
+      "key": "economy.gdp_growth_projection_2026_wb",
+      "label": "Croissance projetée en 2026",
+      "value": 2.5,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Somalie",
+      "methodology": "Projection, non résultat réalisé.",
+      "sourceIds": [
+        "S-SOM-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "editorial_analysis"
+    },
+    {
+      "id": "som-obs-7",
+      "countryCode": "SOM",
+      "key": "economy.inflation_jul2026_wb",
+      "label": "Inflation en glissement annuel (juillet 2026)",
+      "value": 6.7,
+      "unit": "%",
+      "referencePeriod": "2026-07",
+      "geographicScope": "Somalie",
+      "methodology": "Inflation sur douze mois en juillet 2026 ; ne pas comparer directement à une moyenne annuelle.",
+      "sourceIds": [
+        "S-SOM-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "som-obs-8",
+      "countryCode": "SOM",
+      "key": "politics.supreme_court_nov2026",
+      "label": "Arrêt de la Cour suprême du 5 novembre 2026",
+      "value": "La Cour juge la prolongation du mandat irrégulière",
+      "unit": null,
+      "referencePeriod": "2026-11-05",
+      "geographicScope": "Somalie",
+      "methodology": "Décision décrite par source de presse ; réponse du procureur général signalée séparément.",
+      "sourceIds": [
+        "S-SOM-J"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "som-obs-9",
+      "countryCode": "SOM",
+      "key": "security.aussom_support",
+      "label": "Mission de l’Union africaine AUSSOM",
+      "value": "Opérationnelle pour la stabilisation et la protection des civils",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Somalie",
+      "methodology": "Relevé daté d'après AU ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-SOM-AU"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "som-claim-1",
+      "countryCode": "SOM",
+      "statement": "La Somalie est devenue État partenaire de l’EAC en mars 2024.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SOM-E"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "som-claim-2",
+      "countryCode": "SOM",
+      "statement": "L’AUSSOM est mandatée pour soutenir les forces somaliennes et protéger les civils.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SOM-AU"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "som-claim-3",
+      "countryCode": "SOM",
+      "statement": "Le 5 novembre 2026, un arrêt rapporté de la Cour suprême a contesté la prolongation des mandats des institutions fédérales ; le procureur général en conteste la portée.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SOM-J",
+        "S-SOM-R"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "som-claim-4",
+      "countryCode": "SOM",
+      "statement": "La Banque mondiale anticipe une croissance de 2,5 % en 2026, sous réserve de chocs sécuritaires et climatiques.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SOM-W"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "som-rel-1",
+      "countryCode": "SOM",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Union africaine",
+      "relationType": "cooperation",
+      "title": "Appui de l’AUSSOM",
+      "topics": [],
+      "summary": "L’Union africaine fournit une assistance de stabilisation aux forces somaliennes.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SOM-AU"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "som-rel-2",
+      "countryCode": "SOM",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Communauté d’Afrique de l’Est",
+      "relationType": "cooperation",
+      "title": "Adhésion au bloc est-africain",
+      "topics": [],
+      "summary": "La Somalie participe à l’EAC depuis 2024.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SOM-E"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "som-strength-1",
+          "title": "Dynamique numérique et commerciale",
+          "summary": "La Banque mondiale relève le potentiel de connectivité et de services financiers numériques.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-W"
+          ]
+        },
+        {
+          "id": "som-strength-2",
+          "title": "Appui multilatéral",
+          "summary": "L’AUSSOM contribue à la protection des villes et des infrastructures.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-AU"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "som-challenge-1",
+          "title": "Légitimité fédérale disputée",
+          "summary": "Les juridictions et les autorités exécutives divergent sur la prolongation des mandats.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-J"
+          ]
+        },
+        {
+          "id": "som-challenge-2",
+          "title": "Sécheresse et insécurité",
+          "summary": "Le cumul des aléas climatiques et des attaques pèse sur les moyens de subsistance.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "som-timeline-1",
+          "title": "Arrêt sur la durée des mandats",
+          "summary": "La Cour suprême conteste les extensions institutionnelles ; l’interprétation reste disputée.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-J"
+          ],
+          "date": "2026-11-05"
+        },
+        {
+          "id": "som-timeline-2",
+          "title": "Réaction du procureur général",
+          "summary": "Le parquet fédéral rejette les effets juridiques attribués à l’arrêt.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-R"
+          ],
+          "date": "2026-11-07"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "som-sector-1",
+          "title": "Services et transferts",
+          "summary": "Les connexions et systèmes financiers participent à la résilience de ménages.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-W"
+          ]
+        },
+        {
+          "id": "som-sector-2",
+          "title": "Ports et échanges",
+          "summary": "Les infrastructures maritimes jouent un rôle dans l’approvisionnement et le commerce.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-W"
+          ]
+        },
+        {
+          "id": "som-sector-3",
+          "title": "Élevage et agriculture",
+          "summary": "Les moyens de subsistance ruraux sont menacés par les épisodes de sécheresse.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "som-resource-1",
+          "title": "Littoral commercial",
+          "summary": "Le développement portuaire nécessiterait sécurité, infrastructures et cadres juridiques stabilisés.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "som-security-1",
+          "title": "Menace Al-Shabaab",
+          "summary": "L’AUSSOM appuie la lutte contre les groupes armés et le transfert des responsabilités de sécurité.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-AU"
+          ]
+        },
+        {
+          "id": "som-security-2",
+          "title": "Contestation constitutionnelle",
+          "summary": "Le conflit juridique sur les mandats complique les compromis politiques entre institutions.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-J",
+            "S-SOM-R"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "som-issue-1",
+          "title": "Calendrier constitutionnel disputé",
+          "summary": "Le mandat présidentiel et parlementaire fait l’objet de décisions et réactions opposées.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-J",
+            "S-SOM-R"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Une formation de la Cour suprême a jugé illégale la prolongation ; le procureur général rejette cette lecture.",
+          "whyStrategic": "La légitimité institutionnelle est un facteur décisif de coopération fédérale.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Éventuel accord électoral et nouvelles décisions judiciaires"
+          ],
+          "uncertainties": [
+            "Pour « Calendrier constitutionnel disputé », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "som-issue-2",
+          "title": "Transition sécuritaire AUSSOM",
+          "summary": "Les forces somaliennes assument progressivement davantage de responsabilités.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-AU"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le mandat de l’AUSSOM vise à contenir Al-Shabaab et protéger les civils.",
+          "whyStrategic": "Un transfert sans soutien logistique suffisant créerait des risques pour les centres urbains.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Capacités de la police et sécurité des infrastructures"
+          ],
+          "uncertainties": [
+            "Pour « Transition sécuritaire AUSSOM », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "som-issue-3",
+          "title": "Chocs climatiques et aide",
+          "summary": "Le ralentissement économique reflète aussi la sécheresse et le recul des appuis extérieurs.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale prévoit une croissance inférieure à celle de 2025.",
+          "whyStrategic": "L’alimentation des ménages et les services locaux dépendront de l’aide et de la reprise rurale.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Prix alimentaires, précipitations et financement des opérations"
+          ],
+          "uncertainties": [
+            "Pour « Chocs climatiques et aide », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "som-opportunity-1",
+          "title": "Financement des services",
+          "summary": "Les réformes peuvent attirer des ressources pour les infrastructures sociales.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-W"
+          ]
+        },
+        {
+          "id": "som-opportunity-2",
+          "title": "Partenariats EAC",
+          "summary": "Les entreprises locales pourraient accéder à de nouveaux marchés.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-E"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "som-risk-1",
+          "title": "Choc d’aide extérieure",
+          "summary": "Une baisse supplémentaire des dons réduirait l’accès aux services.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-W"
+          ]
+        },
+        {
+          "id": "som-risk-2",
+          "title": "Recul territorial",
+          "summary": "Les offensives d’Al-Shabaab peuvent désorganiser le commerce local.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-AU"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "som-swot-strengths-1",
+            "title": "Relance institutionnelle progressive",
+            "summary": "Le cadre macroéconomique a progressé malgré les contraintes.",
+            "tags": [],
+            "sourceIds": [
+              "S-SOM-W"
+            ]
+          },
+          {
+            "id": "som-swot-strengths-2",
+            "title": "Mission de soutien régionale",
+            "summary": "La présence AUSSOM apporte une capacité de stabilisation et de protection.",
+            "tags": [],
+            "sourceIds": [
+              "S-SOM-AU"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "som-swot-weaknesses-1",
+            "title": "Conflit constitutionnel",
+            "summary": "Les institutions divergent sur la validité des prolongations de mandat.",
+            "tags": [],
+            "sourceIds": [
+              "S-SOM-J",
+              "S-SOM-R"
+            ]
+          },
+          {
+            "id": "som-swot-weaknesses-2",
+            "title": "Base exportatrice étroite",
+            "summary": "La dépendance aux importations et à l’aide limite l’autonomie économique.",
+            "tags": [],
+            "sourceIds": [
+              "S-SOM-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "som-swot-opportunities-1",
+            "title": "Intégration EAC",
+            "summary": "L’adhésion peut ouvrir de nouveaux débouchés commerciaux.",
+            "tags": [],
+            "sourceIds": [
+              "S-SOM-E"
+            ]
+          },
+          {
+            "id": "som-swot-opportunities-2",
+            "title": "Connectivité numérique",
+            "summary": "Les services financiers et télécommunications peuvent faciliter l’inclusion.",
+            "tags": [],
+            "sourceIds": [
+              "S-SOM-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "som-swot-threats-1",
+            "title": "Insécurité persistante",
+            "summary": "Les attaques d’Al-Shabaab affectent les routes et les centres de population.",
+            "tags": [],
+            "sourceIds": [
+              "S-SOM-AU"
+            ]
+          },
+          {
+            "id": "som-swot-threats-2",
+            "title": "Rupture des compromis",
+            "summary": "Une crise prolongée des mandats pourrait entraver le processus fédéral.",
+            "tags": [],
+            "sourceIds": [
+              "S-SOM-J"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "som-scenario-1",
+          "title": "Compromis électoral",
+          "summary": "Les autorités et oppositions s’entendent sur des étapes constitutionnelles acceptées.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-J",
+            "S-SOM-R"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Négociations inclusives et reconnaissance d’un calendrier légal"
+          ],
+          "triggers": [
+            "Publication d’un accord sur les mandats et élections"
+          ],
+          "weakSignals": [
+            "Déclarations communes des acteurs fédéraux et régionaux"
+          ],
+          "consequences": [
+            "Réduction des tensions et plus grande prévisibilité"
+          ],
+          "limits": [
+            "Ce scénario « Compromis électoral » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "som-scenario-2",
+          "title": "Vide politique prolongé",
+          "summary": "La querelle judiciaire empêche l’adoption de compromis politiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-J",
+            "S-SOM-R"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Persistance des interprétations constitutionnelles opposées"
+          ],
+          "triggers": [
+            "Rejet de nouvelles décisions par les institutions"
+          ],
+          "weakSignals": [
+            "Déclarations du pouvoir judiciaire et du parquet"
+          ],
+          "consequences": [
+            "Affaiblissement de la coordination fédérale"
+          ],
+          "limits": [
+            "Ce scénario « Vide politique prolongé » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "som-scenario-3",
+          "title": "Transition sécuritaire sous pression",
+          "summary": "Le retrait de certains appuis dépasse les capacités de relève somaliennes.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-AU"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Moyens d’AUSSOM insuffisants pour le rythme prévu"
+          ],
+          "triggers": [
+            "Perte ou abandon d’un centre de population sécurisé"
+          ],
+          "weakSignals": [
+            "Capacité de relève locale et incidents contre civils"
+          ],
+          "consequences": [
+            "Dégradation de la stabilité des liaisons et des services"
+          ],
+          "limits": [
+            "Ce scénario « Transition sécuritaire sous pression » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "som-watch-1",
+          "title": "Mandat de l’exécutif",
+          "summary": "Surveiller séparément décisions de la Cour et positions du procureur général.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-J",
+            "S-SOM-R"
+          ]
+        },
+        {
+          "id": "som-watch-2",
+          "title": "Relève AUSSOM",
+          "summary": "Suivre la sécurité des villes et la capacité des forces somaliennes.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-AU"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "som-vulnerability-1",
+          "title": "Constitution disputée",
+          "summary": "Les lectures concurrentes de la durée des mandats risquent de bloquer le dialogue.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-J",
+            "S-SOM-R"
+          ]
+        },
+        {
+          "id": "som-vulnerability-2",
+          "title": "Dépendance aux aides",
+          "summary": "Le recul des financements externes limiterait les services publics.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-W"
+          ]
+        },
+        {
+          "id": "som-vulnerability-3",
+          "title": "Aléas climatiques répétés",
+          "summary": "Les ménages d’élevage et d’agriculture sont exposés aux sécheresses.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-W"
+          ]
+        }
+      ]
+    }
+  }
+}

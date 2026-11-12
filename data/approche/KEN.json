@@ -1,0 +1,802 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "KEN",
+  "slug": "kenya",
+  "zoneSlug": "afrique",
+  "name": "Kenya",
+  "officialName": "République du Kenya",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S-KEN-P",
+      "publisher": "Présidence du Kenya",
+      "title": "Composition officielle du Cabinet",
+      "canonicalUrl": "https://www.president.go.ke/cabinet/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Présidence du Kenya",
+      "methodNotes": "Paraphrase et citation de faits propres à Kenya ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-KEN-W",
+      "publisher": "Banque mondiale",
+      "title": "Kenya — économie et développement",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/kenya",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Paraphrase et citation de faits propres à Kenya ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-KEN-T",
+      "publisher": "Trésor kényan",
+      "title": "Public Debt Management Office — tableau de dette",
+      "canonicalUrl": "https://pdmo.treasury.go.ke/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Trésor kényan",
+      "methodNotes": "Paraphrase et citation de faits propres à Kenya ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-KEN-E",
+      "publisher": "Communauté d’Afrique de l’Est",
+      "title": "États partenaires de l’EAC",
+      "canonicalUrl": "https://www.eac.int/eac-partner-states",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Communauté d’Afrique de l’Est",
+      "methodNotes": "Paraphrase et citation de faits propres à Kenya ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    }
+  ],
+  "observations": [
+    {
+      "id": "ken-obs-1",
+      "countryCode": "KEN",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Nairobi",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Kenya",
+      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-KEN-P"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ken-obs-2",
+      "countryCode": "KEN",
+      "key": "politics.head_of_state",
+      "label": "Président",
+      "value": "William Ruto",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Kenya",
+      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-KEN-P"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ken-obs-3",
+      "countryCode": "KEN",
+      "key": "politics.head_of_government",
+      "label": "Chef de l’exécutif",
+      "value": "William Ruto",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Kenya",
+      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-KEN-P"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ken-obs-4",
+      "countryCode": "KEN",
+      "key": "politics.prime_cabinet_secretary",
+      "label": "Premier secrétaire du Cabinet",
+      "value": "Musalia Mudavadi",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Kenya",
+      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-KEN-P"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ken-obs-5",
+      "countryCode": "KEN",
+      "key": "institutions.eac",
+      "label": "Membre de la Communauté d’Afrique de l’Est",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Kenya",
+      "methodology": "Relevé daté d'après E ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-KEN-E"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ken-obs-6",
+      "countryCode": "KEN",
+      "key": "economy.growth_projection_2026_wb",
+      "label": "Croissance du PIB prévue en 2026",
+      "value": 4.6,
+      "unit": "%",
+      "referencePeriod": "2026",
+      "geographicScope": "Kenya",
+      "methodology": "Projection, et non résultat constaté.",
+      "sourceIds": [
+        "S-KEN-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "editorial_analysis"
+    },
+    {
+      "id": "ken-obs-7",
+      "countryCode": "KEN",
+      "key": "economy.public_debt_ratio_aug2026_treasury",
+      "label": "Dette publique rapportée au PIB (Trésor)",
+      "value": 66.9,
+      "unit": "%",
+      "referencePeriod": "2026-08",
+      "geographicScope": "Kenya",
+      "methodology": "Chiffre du Trésor kényan, août 2026 ; la méthode peut différer des séries multilatérales.",
+      "sourceIds": [
+        "S-KEN-T"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "ken-obs-8",
+      "countryCode": "KEN",
+      "key": "economy.public_debt_stock_aug2026_treasury",
+      "label": "Encours de dette publique",
+      "value": 13.47,
+      "unit": "billions KES",
+      "referencePeriod": "2026-08",
+      "geographicScope": "Kenya",
+      "methodology": "Encours publié par le Trésor kényan.",
+      "sourceIds": [
+        "S-KEN-T"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "ken-obs-9",
+      "countryCode": "KEN",
+      "key": "development.poverty_2025_wb_3usd_ppp",
+      "label": "Pauvreté au seuil de 3 USD/jour (PPA 2021)",
+      "value": 43.3,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Kenya",
+      "methodology": "Seuil Banque mondiale de 3 USD par jour, PPA 2021 ; ne pas confondre avec le seuil national.",
+      "sourceIds": [
+        "S-KEN-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "theme": "Développement humain"
+    },
+    {
+      "id": "ken-obs-10",
+      "countryCode": "KEN",
+      "key": "labour.formal_jobs_share_wb",
+      "label": "Part des emplois formels",
+      "value": 16.2,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Kenya",
+      "methodology": "Indicateur de structure de l’emploi cité par la Banque mondiale.",
+      "sourceIds": [
+        "S-KEN-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "ken-claim-1",
+      "countryCode": "KEN",
+      "statement": "William Ruto exerce la présidence du Kenya ; le poste de Prime Cabinet Secretary est distinct de celui de Premier ministre.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-KEN-P"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "ken-claim-2",
+      "countryCode": "KEN",
+      "statement": "Le Trésor kényan rapporte une dette publique équivalant à 66,9 % du PIB en août 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-KEN-T"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "ken-claim-3",
+      "countryCode": "KEN",
+      "statement": "La Banque mondiale prévoit une croissance de 4,6 % du PIB kényan en 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-KEN-W"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "ken-claim-4",
+      "countryCode": "KEN",
+      "statement": "Le Kenya est un État partenaire de la Communauté d’Afrique de l’Est.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-KEN-E"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "ken-rel-1",
+      "countryCode": "KEN",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Communauté d’Afrique de l’Est",
+      "relationType": "cooperation",
+      "title": "Intégration est-africaine",
+      "topics": [],
+      "summary": "Le Kenya appartient au marché et aux institutions de la Communauté d’Afrique de l’Est.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-KEN-E"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "ken-rel-2",
+      "countryCode": "KEN",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Groupe de la Banque mondiale",
+      "relationType": "cooperation",
+      "title": "Développement économique",
+      "topics": [],
+      "summary": "La Banque mondiale analyse les enjeux de dette, de pauvreté et de création d’emplois du Kenya.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-KEN-W"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "ken-strength-1",
+          "title": "Plateforme régionale de services",
+          "summary": "Nairobi concentre des fonctions économiques et de coordination régionale.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ]
+        },
+        {
+          "id": "ken-strength-2",
+          "title": "Accès maritime",
+          "summary": "Le débouché sur l’océan Indien soutient les échanges avec l’intérieur est-africain.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-E"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "ken-challenge-1",
+          "title": "Dette et service des intérêts",
+          "summary": "Le service de la dette restreint l’espace budgétaire consacré aux politiques sociales.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ]
+        },
+        {
+          "id": "ken-challenge-2",
+          "title": "Emploi formel insuffisant",
+          "summary": "La croissance économique ne se traduit pas encore par suffisamment d’emplois productifs déclarés.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "ken-timeline-1",
+          "title": "Dette publique publiée par le Trésor",
+          "summary": "Le tableau du Trésor situe la dette publique à 66,9 % du PIB en août 2026.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-T"
+          ],
+          "date": "2026-08-31"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "ken-sector-1",
+          "title": "Services, commerce et technologies",
+          "summary": "L’écosystème urbain soutient l’activité de services mais ne résout pas le déficit d’emplois formels.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ]
+        },
+        {
+          "id": "ken-sector-2",
+          "title": "Agriculture et exportations",
+          "summary": "La faible diversification de certains débouchés expose les ménages aux chocs de prix et de climat.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ]
+        },
+        {
+          "id": "ken-sector-3",
+          "title": "Financement public",
+          "summary": "Les arbitrages fiscaux sont contraints par un endettement élevé et les intérêts.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-T"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "ken-resource-1",
+          "title": "Capital humain et marché intérieur",
+          "summary": "L’élargissement de l’emploi productif est un levier central de réduction durable de la pauvreté.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "ken-security-1",
+          "title": "Pression sociale et fiscale",
+          "summary": "L’ajustement des finances publiques nécessite de préserver les services et les revenus les plus fragiles.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ]
+        },
+        {
+          "id": "ken-security-2",
+          "title": "Résilience économique régionale",
+          "summary": "Les liaisons commerciales du Kenya peuvent subir des perturbations régionales et climatiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-E"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "ken-issue-1",
+          "title": "Trajectoire de dette",
+          "summary": "Le coût du financement limite les marges de manœuvre budgétaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-T",
+            "S-KEN-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale souligne une vulnérabilité fiscale persistante malgré la stabilité macroéconomique.",
+          "whyStrategic": "La capacité à financer les services publics dépendra d’un équilibre entre recettes, dépenses et coût de la dette.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Écart entre dette mesurée par le Trésor et par les institutions internationales"
+          ],
+          "uncertainties": [
+            "Pour « Trajectoire de dette », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "ken-issue-2",
+          "title": "Marché du travail et pauvreté",
+          "summary": "L’emploi formel ne suit pas automatiquement la progression du PIB.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale estime à 16,2 % seulement la proportion d’emplois formels.",
+          "whyStrategic": "Une croissance sans gains d’emploi productif nourrit un risque de contestation sociale.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Créations d’emplois formels et pauvreté au seuil de 3 USD"
+          ],
+          "uncertainties": [
+            "Pour « Marché du travail et pauvreté », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "ken-issue-3",
+          "title": "Corridors régionaux",
+          "summary": "La connectivité vers les marchés de l’EAC est un atout stratégique.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-E"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le Kenya appartient à un espace régional regroupant plusieurs partenaires enclavés.",
+          "whyStrategic": "Toute perturbation des flux logistiques affecterait les échanges et la compétitivité.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Temps de passage frontalier et coûts de transport vers les États voisins"
+          ],
+          "uncertainties": [
+            "Pour « Corridors régionaux », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "ken-opportunity-1",
+          "title": "Financement des services",
+          "summary": "Un meilleur ciblage des dépenses pourrait protéger les ménages vulnérables.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ]
+        },
+        {
+          "id": "ken-opportunity-2",
+          "title": "Intégration commerciale",
+          "summary": "La baisse des frictions douanières pourrait renforcer l’offre exportatrice.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-E"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "ken-risk-1",
+          "title": "Contrainte de la dette",
+          "summary": "Un refinancement plus coûteux réduirait l’investissement public disponible.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-T"
+          ]
+        },
+        {
+          "id": "ken-risk-2",
+          "title": "Croissance peu inclusive",
+          "summary": "Le maintien d’un emploi largement informel entretiendrait la pauvreté.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "ken-swot-strengths-1",
+            "title": "Nœud de commerce est-africain",
+            "summary": "Les échanges et les services régionaux soutiennent l’activité de Nairobi et des corridors.",
+            "tags": [],
+            "sourceIds": [
+              "S-KEN-E"
+            ]
+          },
+          {
+            "id": "ken-swot-strengths-2",
+            "title": "Stabilisation macroéconomique",
+            "summary": "Le cadre monétaire a regagné en stabilité selon la Banque mondiale.",
+            "tags": [],
+            "sourceIds": [
+              "S-KEN-W"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "ken-swot-weaknesses-1",
+            "title": "Poids des intérêts",
+            "summary": "Une part élevée des recettes publiques est consacrée au paiement de la dette.",
+            "tags": [],
+            "sourceIds": [
+              "S-KEN-W"
+            ]
+          },
+          {
+            "id": "ken-swot-weaknesses-2",
+            "title": "Faible formalisation",
+            "summary": "La place réduite de l’emploi formel freine la diffusion sociale de la croissance.",
+            "tags": [],
+            "sourceIds": [
+              "S-KEN-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "ken-swot-opportunities-1",
+            "title": "Transformation productive",
+            "summary": "Des investissements dans la productivité pourraient accroître les revenus non agricoles.",
+            "tags": [],
+            "sourceIds": [
+              "S-KEN-W"
+            ]
+          },
+          {
+            "id": "ken-swot-opportunities-2",
+            "title": "Réseaux du marché commun",
+            "summary": "Des procédures commerciales améliorées favoriseraient les flux régionaux.",
+            "tags": [],
+            "sourceIds": [
+              "S-KEN-E"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "ken-swot-threats-1",
+            "title": "Tension de refinancement",
+            "summary": "Un coût d’emprunt accru compliquerait les arbitrages budgétaires.",
+            "tags": [],
+            "sourceIds": [
+              "S-KEN-T"
+            ]
+          },
+          {
+            "id": "ken-swot-threats-2",
+            "title": "Chocs climatiques",
+            "summary": "Des récoltes perturbées pèseraient sur les prix et les ménages pauvres.",
+            "tags": [],
+            "sourceIds": [
+              "S-KEN-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "ken-scenario-1",
+          "title": "Consolidation budgétaire graduelle",
+          "summary": "Le rééquilibrage fiscal réduit la pression de financement sans compromettre les services essentiels.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-T",
+            "S-KEN-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Recettes plus régulières et contrôle des charges d’intérêt"
+          ],
+          "triggers": [
+            "Publication de budgets et de résultats d’exécution cohérents"
+          ],
+          "weakSignals": [
+            "Ralentissement de l’endettement rapporté au PIB"
+          ],
+          "consequences": [
+            "Meilleure prévisibilité des dépenses publiques"
+          ],
+          "limits": [
+            "Ce scénario « Consolidation budgétaire graduelle » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "ken-scenario-2",
+          "title": "Tensions autour de l’ajustement",
+          "summary": "Un effort fiscal socialement mal réparti fragilise l’adhésion aux réformes.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Difficulté persistante à créer des emplois formels"
+          ],
+          "triggers": [
+            "Nouvelles mesures fiscales sans amortisseur social"
+          ],
+          "weakSignals": [
+            "Évolution du chômage urbain et mobilisation sociale"
+          ],
+          "consequences": [
+            "Report des investissements et polarisation du débat économique"
+          ],
+          "limits": [
+            "Ce scénario « Tensions autour de l’ajustement » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "ken-scenario-3",
+          "title": "Accélération des échanges EAC",
+          "summary": "Le Kenya convertit ses liaisons régionales en gains logistiques et productifs.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-E"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Déblocage des procédures douanières et investissements de corridor"
+          ],
+          "triggers": [
+            "Réduction durable des coûts de transit"
+          ],
+          "weakSignals": [
+            "Délais de transport vers les partenaires enclavés"
+          ],
+          "consequences": [
+            "Progression des échanges transfrontaliers"
+          ],
+          "limits": [
+            "Ce scénario « Accélération des échanges EAC » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "ken-watch-1",
+          "title": "Suivi de la dette",
+          "summary": "Comparer mensuellement les séries du Trésor avec leur périmètre déclaré.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-T"
+          ]
+        },
+        {
+          "id": "ken-watch-2",
+          "title": "Emplois formels",
+          "summary": "Surveiller si la croissance projetée se traduit en emplois productifs.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "ken-vulnerability-1",
+          "title": "Exposition budgétaire",
+          "summary": "Les paiements d’intérêts absorbent des ressources pouvant soutenir les services de base.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ]
+        },
+        {
+          "id": "ken-vulnerability-2",
+          "title": "Pauvreté persistante",
+          "summary": "Le taux mesuré par la Banque mondiale reste élevé malgré une stabilité accrue.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-W"
+          ]
+        },
+        {
+          "id": "ken-vulnerability-3",
+          "title": "Dépendance aux corridors",
+          "summary": "La fluidité des échanges dépend d’infrastructures et de frontières extérieures au contrôle exclusif de Nairobi.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-E"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,828 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "SDN",
+  "slug": "soudan",
+  "zoneSlug": "afrique",
+  "name": "Soudan",
+  "officialName": "République du Soudan",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S-SDN-D",
+      "publisher": "Gouvernement australien",
+      "title": "Soudan — dirigeants de transition",
+      "canonicalUrl": "https://www.dfat.gov.au/geo/heads-of-government/sudan",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Gouvernement australien",
+      "methodNotes": "Paraphrase et citation de faits propres à Soudan ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SDN-EU",
+      "publisher": "Agence de l’Union européenne pour l’asile",
+      "title": "Sudan security situation — October 2026",
+      "canonicalUrl": "https://www.euaa.europa.eu/coi/sudan-security-situation/1-general-description-security-situation",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Agence de l’Union européenne pour l’asile",
+      "methodNotes": "Paraphrase et citation de faits propres à Soudan ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SDN-W",
+      "publisher": "Banque mondiale",
+      "title": "Soudan — conséquences économiques de la guerre",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/sudan",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Paraphrase et citation de faits propres à Soudan ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SDN-H",
+      "publisher": "HCR et OIM",
+      "title": "Alerte commune sur les besoins en abris au Soudan",
+      "canonicalUrl": "https://www.unhcr.org/news/press-releases/unhcr-and-iom-warn-millions-sudan-risk-losing-emergency-shelter-funding-runs",
+      "publishedAt": "2026-11-06",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "HCR et OIM",
+      "methodNotes": "Paraphrase et citation de faits propres à Soudan ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SDN-R",
+      "publisher": "HCR",
+      "title": "Situation du Soudan — tableau régional de déplacements",
+      "canonicalUrl": "https://data.unhcr.org/fr/situations/sudansituation",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "HCR",
+      "methodNotes": "Paraphrase et citation de faits propres à Soudan ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SDN-UK",
+      "publisher": "Gouvernement britannique",
+      "title": "Sudan — situation humanitaire septembre 2026",
+      "canonicalUrl": "https://www.gov.uk/government/publications/sudan-country-policy-and-information-notes/country-policy-and-information-note-humanitarian-situation-sudan-september-2026-accessible",
+      "publishedAt": "2026-09-07",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Gouvernement britannique",
+      "methodNotes": "Paraphrase et citation de faits propres à Soudan ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    }
+  ],
+  "observations": [
+    {
+      "id": "sdn-obs-1",
+      "countryCode": "SDN",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Khartoum",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Soudan",
+      "methodology": "Relevé daté d'après D ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-SDN-D"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sdn-obs-2",
+      "countryCode": "SDN",
+      "key": "politics.head_of_state",
+      "label": "Président du Conseil souverain de transition",
+      "value": "Abdel Fattah al-Burhan",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Soudan",
+      "methodology": "Relevé daté d'après D,EU ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-SDN-D",
+        "S-SDN-EU"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sdn-obs-3",
+      "countryCode": "SDN",
+      "key": "politics.head_of_government",
+      "label": "Premier ministre (autorités de transition)",
+      "value": "Kamil Idris",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Soudan",
+      "methodology": "Relevé daté d'après D,EU ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-SDN-D",
+        "S-SDN-EU"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sdn-obs-4",
+      "countryCode": "SDN",
+      "key": "politics.regime",
+      "label": "Situation institutionnelle",
+      "value": "Autorités de transition en guerre ; contrôle du territoire fragmenté",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Soudan",
+      "methodology": "Relevé daté d'après EU ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-SDN-EU"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sdn-obs-5",
+      "countryCode": "SDN",
+      "key": "humanitarian.displaced_total_nov2026_unhcr",
+      "label": "Personnes déplacées de force (situation Soudan)",
+      "value": 11347007,
+      "unit": "personnes",
+      "referencePeriod": "2026-11-02",
+      "geographicScope": "Soudan",
+      "methodology": "Agrégat HCR, incluant diverses catégories de déplacements internes et externes ; vérifier les définitions avant comparaison.",
+      "sourceIds": [
+        "S-SDN-R"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "theme": "Situation humanitaire"
+    },
+    {
+      "id": "sdn-obs-6",
+      "countryCode": "SDN",
+      "key": "humanitarian.emergency_shelter_needs_nov2026",
+      "label": "Personnes ayant besoin d’abris et biens essentiels",
+      "value": 15400000,
+      "unit": "personnes",
+      "referencePeriod": "2026-11-06",
+      "geographicScope": "Soudan",
+      "methodology": "Estimation HCR/OIM, population dans le besoin ; ne pas assimiler aux personnes déplacées.",
+      "sourceIds": [
+        "S-SDN-H"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "theme": "Situation humanitaire"
+    },
+    {
+      "id": "sdn-obs-7",
+      "countryCode": "SDN",
+      "key": "economy.growth_estimate_2025_wb",
+      "label": "Croissance 2025 estimée après l’effondrement",
+      "value": 3.1,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Soudan",
+      "methodology": "Rebond depuis une base très basse, ne signifie pas un rétablissement du niveau d’avant-guerre.",
+      "sourceIds": [
+        "S-SDN-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "sdn-obs-8",
+      "countryCode": "SDN",
+      "key": "economy.gdp_contraction_2023_wb",
+      "label": "Contraction du PIB en 2023",
+      "value": -29.4,
+      "unit": "%",
+      "referencePeriod": "2023",
+      "geographicScope": "Soudan",
+      "methodology": "Estimation Banque mondiale ; variation annuelle du PIB réel.",
+      "sourceIds": [
+        "S-SDN-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "sdn-obs-9",
+      "countryCode": "SDN",
+      "key": "economy.gdp_contraction_2024_wb",
+      "label": "Contraction du PIB en 2024",
+      "value": -14.0,
+      "unit": "%",
+      "referencePeriod": "2024",
+      "geographicScope": "Soudan",
+      "methodology": "Estimation Banque mondiale ; variation annuelle du PIB réel.",
+      "sourceIds": [
+        "S-SDN-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "sdn-claim-1",
+      "countryCode": "SDN",
+      "statement": "Le Soudan reste affecté par un conflit entre les Forces armées soudanaises et les Forces de soutien rapide.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SDN-EU",
+        "S-SDN-UK"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "sdn-claim-2",
+      "countryCode": "SDN",
+      "statement": "Le HCR et l’OIM estimaient à 15,4 millions les personnes ayant besoin d’abris et de biens essentiels en novembre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SDN-H"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "sdn-claim-3",
+      "countryCode": "SDN",
+      "statement": "Abdel Fattah al-Burhan dirige le Conseil souverain ; Kamil Idris est présenté comme Premier ministre de transition.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SDN-D"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "sdn-claim-4",
+      "countryCode": "SDN",
+      "statement": "Le rebond économique estimé en 2025 suit des contractions très fortes en 2023 et 2024.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SDN-W"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "sdn-rel-1",
+      "countryCode": "SDN",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "HCR et OIM",
+      "relationType": "cooperation",
+      "title": "Intervention humanitaire",
+      "topics": [],
+      "summary": "Les agences coordonnent des besoins urgents en abris, protection et biens essentiels.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SDN-H"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "sdn-rel-2",
+      "countryCode": "SDN",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Partenaires régionaux",
+      "relationType": "tension",
+      "title": "Externalisation de la crise",
+      "topics": [],
+      "summary": "Les déplacements issus du conflit concernent plusieurs États voisins.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SDN-R"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "sdn-strength-1",
+          "title": "Capacités agricoles historiques",
+          "summary": "Les terres et réseaux ruraux constituent un potentiel de relèvement à long terme.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-W"
+          ]
+        },
+        {
+          "id": "sdn-strength-2",
+          "title": "Réseaux d’assistance internationale",
+          "summary": "Le HCR et l’OIM documentent et coordonnent une réponse d’urgence.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-H"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "sdn-challenge-1",
+          "title": "Fragmentation armée",
+          "summary": "Les forces rivales et les administrations concurrentes limitent la continuité de l’État.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-EU"
+          ]
+        },
+        {
+          "id": "sdn-challenge-2",
+          "title": "Destruction des infrastructures",
+          "summary": "La guerre a endommagé production, santé, écoles et transports.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "sdn-timeline-1",
+          "title": "Début de la guerre SAF–RSF",
+          "summary": "Les affrontements entre les forces armées et les Forces de soutien rapide s’installent.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-UK"
+          ],
+          "date": "2023-04-15"
+        },
+        {
+          "id": "sdn-timeline-2",
+          "title": "Nouvelle alerte humanitaire",
+          "summary": "Le HCR et l’OIM alertent sur les stocks et financements d’abris d’urgence.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-H"
+          ],
+          "date": "2026-11-06"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "sdn-sector-1",
+          "title": "Agriculture sous contrainte",
+          "summary": "Déplacements, pillages et manque d’intrants paralysent la production agricole.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-W"
+          ]
+        },
+        {
+          "id": "sdn-sector-2",
+          "title": "Services essentiels fragilisés",
+          "summary": "Les structures de santé et les réseaux marchands ont subi de vastes destructions.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-W"
+          ]
+        },
+        {
+          "id": "sdn-sector-3",
+          "title": "Échanges et redémarrage localisé",
+          "summary": "Des reprises sectorielles ne représentent pas un retour général à la normale.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "sdn-resource-1",
+          "title": "Remise en état productive",
+          "summary": "La relance agricole exigerait sécurité, moyens d’irrigation et accès aux marchés.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "sdn-security-1",
+          "title": "Conflit SAF–RSF",
+          "summary": "L’accès des populations aux zones de combat est soumis à des risques majeurs.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-EU"
+          ]
+        },
+        {
+          "id": "sdn-security-2",
+          "title": "Aide entravée",
+          "summary": "La faiblesse des ressources et des voies d’accès menace les opérations de secours.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-H"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "sdn-issue-1",
+          "title": "Protection des civils",
+          "summary": "La fragmentation des zones de contrôle rend la protection et l’accès humanitaire critiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-EU",
+            "S-SDN-UK"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La documentation de l’EUAA relève des violences sévères au Darfour et au Kordofan.",
+          "whyStrategic": "Le contrôle des axes d’approvisionnement conditionne la survie des populations.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Accès des organisations humanitaires et incidents dirigés contre des civils"
+          ],
+          "uncertainties": [
+            "Pour « Protection des civils », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "sdn-issue-2",
+          "title": "Déplacement et abris",
+          "summary": "Les besoins en biens essentiels dépassent la seule population recensée comme déplacée.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-H"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La déclaration HCR/OIM estime les besoins d’abris à 15,4 millions en novembre 2026.",
+          "whyStrategic": "Les ruptures de financement peuvent amplifier les retours dans des zones détruites.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Taux de financement et capacité de distribution d’abris"
+          ],
+          "uncertainties": [
+            "Pour « Déplacement et abris », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "sdn-issue-3",
+          "title": "Économie de guerre",
+          "summary": "Une croissance statistique positive reste compatible avec un appareil productif dévasté.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale décrit deux années de contraction exceptionnellement forte.",
+          "whyStrategic": "La reprise dépendra d’une sécurité durable et d’un financement de reconstruction.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Services publics effectifs et production agricole remise en service"
+          ],
+          "uncertainties": [
+            "Pour « Économie de guerre », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "sdn-opportunity-1",
+          "title": "Préservation des vies",
+          "summary": "Les négociations d’accès pourraient améliorer rapidement les distributions d’urgence.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-H"
+          ]
+        },
+        {
+          "id": "sdn-opportunity-2",
+          "title": "Agriculture de relèvement",
+          "summary": "La remise en culture des terres favoriserait les ressources locales.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "sdn-risk-1",
+          "title": "Approfondissement de la famine",
+          "summary": "La destruction des réseaux d’approvisionnement accroîtrait l’insécurité alimentaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-UK"
+          ]
+        },
+        {
+          "id": "sdn-risk-2",
+          "title": "Sous-financement des abris",
+          "summary": "La contraction des contributions limiterait les prises en charge.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-H"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "sdn-swot-strengths-1",
+            "title": "Potentiel agricole",
+            "summary": "La capacité de production rurale reste importante malgré les dégâts du conflit.",
+            "tags": [],
+            "sourceIds": [
+              "S-SDN-W"
+            ]
+          },
+          {
+            "id": "sdn-swot-strengths-2",
+            "title": "Expertise humanitaire mobilisée",
+            "summary": "Les réseaux du HCR et de l’OIM permettent une cartographie des besoins.",
+            "tags": [],
+            "sourceIds": [
+              "S-SDN-H"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "sdn-swot-weaknesses-1",
+            "title": "Contrôle territorial fragmenté",
+            "summary": "Les centres de décision concurrents compliquent l’administration.",
+            "tags": [],
+            "sourceIds": [
+              "S-SDN-EU"
+            ]
+          },
+          {
+            "id": "sdn-swot-weaknesses-2",
+            "title": "Infrastructures détruites",
+            "summary": "La guerre a privé de nombreux territoires de services essentiels.",
+            "tags": [],
+            "sourceIds": [
+              "S-SDN-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "sdn-swot-opportunities-1",
+            "title": "Accès humanitaire négocié",
+            "summary": "Des accords locaux pourraient faciliter la protection et les fournitures.",
+            "tags": [],
+            "sourceIds": [
+              "S-SDN-H"
+            ]
+          },
+          {
+            "id": "sdn-swot-opportunities-2",
+            "title": "Relèvement agricole",
+            "summary": "Une sécurité accrue ouvrirait la voie aux récoltes et aux marchés.",
+            "tags": [],
+            "sourceIds": [
+              "S-SDN-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "sdn-swot-threats-1",
+            "title": "Expansion des hostilités",
+            "summary": "Une intensification au Darfour ou au Kordofan aggraverait les pertes civiles.",
+            "tags": [],
+            "sourceIds": [
+              "S-SDN-EU"
+            ]
+          },
+          {
+            "id": "sdn-swot-threats-2",
+            "title": "Épuisement des stocks d’urgence",
+            "summary": "Des ruptures de financement mettraient en danger les ménages sans abri.",
+            "tags": [],
+            "sourceIds": [
+              "S-SDN-H"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "sdn-scenario-1",
+          "title": "Couloirs humanitaires élargis",
+          "summary": "Des arrangements de sécurité permettent des distributions plus régulières.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-H",
+            "S-SDN-EU"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Accord entre acteurs de terrain sur des accès surveillés"
+          ],
+          "triggers": [
+            "Ouverture durable d’itinéraires pour l’aide"
+          ],
+          "weakSignals": [
+            "Nombre de convois et stocks disponibles par zone"
+          ],
+          "consequences": [
+            "Réduction des besoins critiques non couverts"
+          ],
+          "limits": [
+            "Ce scénario « Couloirs humanitaires élargis » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "sdn-scenario-2",
+          "title": "Aggravation du déplacement",
+          "summary": "La poursuite des violences provoque de nouvelles sorties des zones de combat.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-R",
+            "S-SDN-UK"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Combats prolongés sans protection des civils"
+          ],
+          "triggers": [
+            "Nouvelles vagues de déplacements enregistrées"
+          ],
+          "weakSignals": [
+            "Évolution des statistiques HCR par type de déplacement"
+          ],
+          "consequences": [
+            "Pression accrue sur les villes et pays d’accueil"
+          ],
+          "limits": [
+            "Ce scénario « Aggravation du déplacement » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "sdn-scenario-3",
+          "title": "Relèvement économique local",
+          "summary": "Une désescalade ciblée facilite un redémarrage agricole partiel.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Sécurisation des terres et transport d’intrants"
+          ],
+          "triggers": [
+            "Réouverture vérifiée de marchés agricoles"
+          ],
+          "weakSignals": [
+            "Disponibilité de semences et flux de commerce intérieur"
+          ],
+          "consequences": [
+            "Amélioration limitée des revenus dans les zones stabilisées"
+          ],
+          "limits": [
+            "Ce scénario « Relèvement économique local » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "sdn-watch-1",
+          "title": "Différencier les déplacés",
+          "summary": "Ne pas confondre déplacés internes, réfugiés et personnes ayant besoin d’abris.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-R"
+          ]
+        },
+        {
+          "id": "sdn-watch-2",
+          "title": "Accès terrain",
+          "summary": "Identifier chaque nouvelle fermeture d’axe et les restrictions de secours.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-H"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "sdn-vulnerability-1",
+          "title": "Violences persistantes",
+          "summary": "Les fronts multiples entraînent une exposition différenciée des civils.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-EU"
+          ]
+        },
+        {
+          "id": "sdn-vulnerability-2",
+          "title": "Dépendance aux financements humanitaires",
+          "summary": "Les stocks disponibles ne couvrent qu’une fraction des besoins annoncés.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-H"
+          ]
+        },
+        {
+          "id": "sdn-vulnerability-3",
+          "title": "Érosion des fonctions publiques",
+          "summary": "L’effondrement des recettes fiscales affecte la continuité de l’État.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-W"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,791 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "TZA",
+  "slug": "tanzanie",
+  "zoneSlug": "afrique",
+  "name": "Tanzanie",
+  "officialName": "République unie de Tanzanie",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S-TZA-P",
+      "publisher": "Gouvernement tanzanien",
+      "title": "Composition du Cabinet",
+      "canonicalUrl": "https://www.chiefsecretary.go.tz/cabinet",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "sw",
+      "originalPublisher": "Gouvernement tanzanien",
+      "methodNotes": "Paraphrase et citation de faits propres à Tanzanie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-TZA-W",
+      "publisher": "Banque mondiale",
+      "title": "Tanzanie — économie et développement",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/tanzania",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Paraphrase et citation de faits propres à Tanzanie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-TZA-IP",
+      "publisher": "Union interparlementaire",
+      "title": "Élections tanzaniennes 2025",
+      "canonicalUrl": "https://data.ipu.org/parliament/TZ/TZ-LC01/election/TZ-LC01-E20251029/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Union interparlementaire",
+      "methodNotes": "Paraphrase et citation de faits propres à Tanzanie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-TZA-HR",
+      "publisher": "Human Rights Watch",
+      "title": "Absence de reddition de comptes après les violences électorales",
+      "canonicalUrl": "https://www.hrw.org/news/2026/10/28/no-accountability-one-year-after-tanzania-election-violence",
+      "publishedAt": "2026-10-28",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Human Rights Watch",
+      "methodNotes": "Paraphrase et citation de faits propres à Tanzanie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-TZA-E",
+      "publisher": "Communauté d’Afrique de l’Est",
+      "title": "Siège de l’EAC et États partenaires",
+      "canonicalUrl": "https://www.eac.int/eac-partner-states",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Communauté d’Afrique de l’Est",
+      "methodNotes": "Paraphrase et citation de faits propres à Tanzanie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    }
+  ],
+  "observations": [
+    {
+      "id": "tza-obs-1",
+      "countryCode": "TZA",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Dodoma",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tanzanie",
+      "methodology": "Relevé daté d'après E ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-TZA-E"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tza-obs-2",
+      "countryCode": "TZA",
+      "key": "politics.head_of_state",
+      "label": "Présidente",
+      "value": "Samia Suluhu Hassan",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tanzanie",
+      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-TZA-P"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tza-obs-3",
+      "countryCode": "TZA",
+      "key": "politics.head_of_government",
+      "label": "Premier ministre",
+      "value": "Mwigulu Lameck Nchemba",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tanzanie",
+      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-TZA-P"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tza-obs-4",
+      "countryCode": "TZA",
+      "key": "institutions.eac",
+      "label": "Membre et siège de l’EAC",
+      "value": "Oui ; siège à Arusha",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tanzanie",
+      "methodology": "Relevé daté d'après E ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-TZA-E"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tza-obs-5",
+      "countryCode": "TZA",
+      "key": "economy.gdp_growth_2025_wb_country",
+      "label": "Croissance du PIB (2025)",
+      "value": 5.9,
+      "unit": "%",
+      "referencePeriod": "2025",
+      "geographicScope": "Tanzanie",
+      "methodology": "Relevé daté d'après W ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-TZA-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "growth"
+    },
+    {
+      "id": "tza-obs-6",
+      "countryCode": "TZA",
+      "key": "economy.gdp_growth_projection_2026_wb",
+      "label": "Projection de croissance 2026",
+      "value": "Supérieure à 6 %",
+      "unit": null,
+      "referencePeriod": "2026",
+      "geographicScope": "Tanzanie",
+      "methodology": "Prévision exprimée comme strictement supérieure à 6 % dans la source.",
+      "sourceIds": [
+        "S-TZA-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "editorial_analysis"
+    },
+    {
+      "id": "tza-obs-7",
+      "countryCode": "TZA",
+      "key": "politics.presidential_election_2025",
+      "label": "Présidentielle 2025",
+      "value": "Samia Suluhu Hassan déclarée réélue",
+      "unit": null,
+      "referencePeriod": "2025-11",
+      "geographicScope": "Tanzanie",
+      "methodology": "Relevé daté d'après IP ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-TZA-IP"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tza-obs-8",
+      "countryCode": "TZA",
+      "key": "security.post_election_2025",
+      "label": "Violences postélectorales de 2025",
+      "value": "Signalées par des organisations de défense des droits",
+      "unit": null,
+      "referencePeriod": "2025-10",
+      "geographicScope": "Tanzanie",
+      "methodology": "Relevé daté d'après HR ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-TZA-HR"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "tza-claim-1",
+      "countryCode": "TZA",
+      "statement": "Samia Suluhu Hassan dirige l’État tanzanien ; Mwigulu Lameck Nchemba est Premier ministre.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-TZA-P"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "tza-claim-2",
+      "countryCode": "TZA",
+      "statement": "La Banque mondiale estime la croissance du PIB de Tanzanie à 5,9 % pour 2025.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-TZA-W"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "tza-claim-3",
+      "countryCode": "TZA",
+      "statement": "Le bilan des élections de 2025 fait l’objet de préoccupations concernant les violences et les libertés publiques.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-TZA-IP",
+        "S-TZA-HR"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "tza-claim-4",
+      "countryCode": "TZA",
+      "statement": "La Tanzanie abrite à Arusha le siège de la Communauté d’Afrique de l’Est.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-TZA-E"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "tza-rel-1",
+      "countryCode": "TZA",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Communauté d’Afrique de l’Est",
+      "relationType": "cooperation",
+      "title": "Centre des institutions est-africaines",
+      "topics": [],
+      "summary": "La Tanzanie accueille le siège de l’EAC à Arusha.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-TZA-E"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "tza-rel-2",
+      "countryCode": "TZA",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Banque mondiale",
+      "relationType": "cooperation",
+      "title": "Croissance et infrastructures",
+      "topics": [],
+      "summary": "Les investissements dans les infrastructures et les services soutiennent les perspectives de croissance.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-TZA-W"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "tza-strength-1",
+          "title": "Économie diversifiée",
+          "summary": "Agriculture, industrie et services contribuent aux moteurs de la croissance.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ]
+        },
+        {
+          "id": "tza-strength-2",
+          "title": "Ancrage dans l’EAC",
+          "summary": "La présence du siège régional soutient son rôle de coordination est-africaine.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-E"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "tza-challenge-1",
+          "title": "Crise de confiance électorale",
+          "summary": "Les violences autour du scrutin de 2025 continuent de faire l’objet de critiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-HR"
+          ]
+        },
+        {
+          "id": "tza-challenge-2",
+          "title": "Poids des emplois agricoles",
+          "summary": "Une majorité des actifs dépend d’activités sensibles aux aléas climatiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "tza-timeline-1",
+          "title": "Élections générales contestées",
+          "summary": "Le scrutin présidentiel et parlementaire a été marqué par des violences et exclusions dénoncées.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-IP"
+          ],
+          "date": "2025-10-29"
+        },
+        {
+          "id": "tza-timeline-2",
+          "title": "Bilan d’un an des violences",
+          "summary": "Human Rights Watch signale des demandes persistantes de justice et d’enquête.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-HR"
+          ],
+          "date": "2026-10-28"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "tza-sector-1",
+          "title": "Agriculture et transformation",
+          "summary": "Les emplois agricoles soutiennent les revenus mais requièrent une hausse de productivité.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ]
+        },
+        {
+          "id": "tza-sector-2",
+          "title": "Tourisme et services",
+          "summary": "Les services tirent parti des infrastructures et des échanges régionaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ]
+        },
+        {
+          "id": "tza-sector-3",
+          "title": "Transport et infrastructures",
+          "summary": "Les projets de connectivité contribuent aux perspectives de croissance.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "tza-resource-1",
+          "title": "Position sur les corridors EAC",
+          "summary": "La situation géographique et le siège à Arusha favorisent la coordination des flux.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-E"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "tza-security-1",
+          "title": "Contestation civique",
+          "summary": "Le suivi des enquêtes liées aux violences électorales demeure un enjeu de droits fondamentaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-HR"
+          ]
+        },
+        {
+          "id": "tza-security-2",
+          "title": "Chocs climatiques agricoles",
+          "summary": "L’importance de l’emploi agricole expose de nombreux ménages aux épisodes de sécheresse.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "tza-issue-1",
+          "title": "Suites des élections de 2025",
+          "summary": "La restauration de la confiance exige un suivi des violences documentées.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-IP",
+            "S-TZA-HR"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "L’Union interparlementaire et Human Rights Watch décrivent des troubles et exclusions électorales.",
+          "whyStrategic": "Le traitement des plaintes pèse sur la crédibilité des institutions et l’environnement social.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Publication et suivi des enquêtes sur les violences de 2025"
+          ],
+          "uncertainties": [
+            "Pour « Suites des élections de 2025 », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "tza-issue-2",
+          "title": "Passage à une croissance inclusive",
+          "summary": "Les prévisions économiques sont favorables mais les emplois productifs restent un défi.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale décrit une activité portée par les services et les infrastructures.",
+          "whyStrategic": "La qualité des emplois et l’urbanisation doivent accompagner la croissance agrégée.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Créations d’emplois hors agriculture et revenus des ménages"
+          ],
+          "uncertainties": [
+            "Pour « Passage à une croissance inclusive », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "tza-issue-3",
+          "title": "Logistique est-africaine",
+          "summary": "La Tanzanie occupe un rôle de jonction entre intérieur continental et marchés extérieurs.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-E"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "L’EAC siège à Arusha, et les connexions régionales comptent pour la compétitivité.",
+          "whyStrategic": "La réduction des coûts de transport pourrait multiplier les débouchés des entreprises.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Délais sur les corridors vers les États partenaires"
+          ],
+          "uncertainties": [
+            "Pour « Logistique est-africaine », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "tza-opportunity-1",
+          "title": "Secteur privé de services",
+          "summary": "La stabilité macroéconomique peut attirer de nouveaux investissements.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ]
+        },
+        {
+          "id": "tza-opportunity-2",
+          "title": "Commerce régional",
+          "summary": "Le réseau EAC ouvre des possibilités de transit et de coopération.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-E"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "tza-risk-1",
+          "title": "Risque de défiance durable",
+          "summary": "L’absence de réponses aux abus allégués pourrait entretenir des fractures.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-HR"
+          ]
+        },
+        {
+          "id": "tza-risk-2",
+          "title": "Exposition climatique",
+          "summary": "Une mauvaise saison agricole toucherait une forte part des emplois.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "tza-swot-strengths-1",
+            "title": "Services en expansion",
+            "summary": "L’activité tertiaire contribue à une croissance soutenue.",
+            "tags": [],
+            "sourceIds": [
+              "S-TZA-W"
+            ]
+          },
+          {
+            "id": "tza-swot-strengths-2",
+            "title": "Siège de l’intégration EAC",
+            "summary": "Arusha concentre des fonctions institutionnelles régionales.",
+            "tags": [],
+            "sourceIds": [
+              "S-TZA-E"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "tza-swot-weaknesses-1",
+            "title": "Emploi agricole prédominant",
+            "summary": "La majorité des actifs dépend encore de la production rurale.",
+            "tags": [],
+            "sourceIds": [
+              "S-TZA-W"
+            ]
+          },
+          {
+            "id": "tza-swot-weaknesses-2",
+            "title": "Défi de responsabilité publique",
+            "summary": "Les plaintes relatives aux violences électorales restent sensibles.",
+            "tags": [],
+            "sourceIds": [
+              "S-TZA-HR"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "tza-swot-opportunities-1",
+            "title": "Modernisation logistique",
+            "summary": "L’extension des infrastructures pourrait rendre les chaînes régionales plus efficaces.",
+            "tags": [],
+            "sourceIds": [
+              "S-TZA-W"
+            ]
+          },
+          {
+            "id": "tza-swot-opportunities-2",
+            "title": "Productivité des campagnes",
+            "summary": "Les investissements agricoles peuvent accroître les revenus en milieu rural.",
+            "tags": [],
+            "sourceIds": [
+              "S-TZA-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "tza-swot-threats-1",
+            "title": "Nouvelle polarisation",
+            "summary": "Des tensions politiques non résolues pourraient relancer la contestation.",
+            "tags": [],
+            "sourceIds": [
+              "S-TZA-HR"
+            ]
+          },
+          {
+            "id": "tza-swot-threats-2",
+            "title": "Variabilité météorologique",
+            "summary": "Des chocs climatiques peuvent déstabiliser les revenus agricoles.",
+            "tags": [],
+            "sourceIds": [
+              "S-TZA-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "tza-scenario-1",
+          "title": "Progrès de la logistique",
+          "summary": "L’investissement améliore la continuité du transport vers les marchés régionaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W",
+            "S-TZA-E"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Exécution soutenue des projets de transport"
+          ],
+          "triggers": [
+            "Baisse documentée du temps de transit"
+          ],
+          "weakSignals": [
+            "Évolution des coûts de fret sur les corridors tanzaniens"
+          ],
+          "consequences": [
+            "Développement des services associés au commerce"
+          ],
+          "limits": [
+            "Ce scénario « Progrès de la logistique » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "tza-scenario-2",
+          "title": "Réouverture du dialogue civique",
+          "summary": "Un suivi public crédible des violences restaure partiellement la confiance.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-HR"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Accès effectif des victimes aux procédures"
+          ],
+          "triggers": [
+            "Publication et mise en œuvre de recommandations d’enquête"
+          ],
+          "weakSignals": [
+            "Décisions de justice et communication des parties concernées"
+          ],
+          "consequences": [
+            "Apaisement du climat politique"
+          ],
+          "limits": [
+            "Ce scénario « Réouverture du dialogue civique » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "tza-scenario-3",
+          "title": "Sécheresse et tensions rurales",
+          "summary": "Des chocs de production affaiblissent les revenus des ménages agricoles.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Précipitations déficitaires dans les zones de culture"
+          ],
+          "triggers": [
+            "Baisse confirmée des récoltes et hausse des prix"
+          ],
+          "weakSignals": [
+            "Prix alimentaires et état des campagnes"
+          ],
+          "consequences": [
+            "Détérioration du pouvoir d’achat rural"
+          ],
+          "limits": [
+            "Ce scénario « Sécheresse et tensions rurales » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "tza-watch-1",
+          "title": "Enquêtes électorales",
+          "summary": "Mesurer les suites données aux faits de 2025 et distinguer annonces et actes.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-HR"
+          ]
+        },
+        {
+          "id": "tza-watch-2",
+          "title": "Corridors de transport",
+          "summary": "Observer la disponibilité des nouvelles infrastructures et leur usage effectif.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "tza-vulnerability-1",
+          "title": "Fracture politique",
+          "summary": "Les controverses sur les violences électorales ont des effets durables sur la confiance.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-HR"
+          ]
+        },
+        {
+          "id": "tza-vulnerability-2",
+          "title": "Dépendance au rendement agricole",
+          "summary": "Les revenus d’une majorité d’actifs restent sensibles aux conditions climatiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ]
+        },
+        {
+          "id": "tza-vulnerability-3",
+          "title": "Besoins d’emplois urbains",
+          "summary": "L’urbanisation rapide impose une création régulière d’emplois hors agriculture.",
+          "tags": [],
+          "sourceIds": [
+            "S-TZA-W"
+          ]
+        }
+      ]
+    }
+  }
+}

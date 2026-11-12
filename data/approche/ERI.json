@@ -1,0 +1,828 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "ERI",
+  "slug": "erythree",
+  "zoneSlug": "afrique",
+  "name": "Érythrée",
+  "officialName": "État d’Érythrée",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S-ERI-F",
+      "publisher": "France Diplomatie",
+      "title": "Présentation de l’Érythrée, mise à jour octobre 2026",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/erythree/presentation-de-l-erythree",
+      "publishedAt": "2026-10-08",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Paraphrase et citation de faits propres à Érythrée ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-ERI-D",
+      "publisher": "Gouvernement australien",
+      "title": "Érythrée — chef de l’État et du gouvernement",
+      "canonicalUrl": "https://www.dfat.gov.au/geo/heads-of-government/eritrea",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Gouvernement australien",
+      "methodNotes": "Paraphrase et citation de faits propres à Érythrée ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-ERI-W",
+      "publisher": "Banque mondiale",
+      "title": "Érythrée — économie et lacunes statistiques",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/eritrea",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Paraphrase et citation de faits propres à Érythrée ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-ERI-HR",
+      "publisher": "Human Rights Watch",
+      "title": "World Report 2026 — Érythrée",
+      "canonicalUrl": "https://www.hrw.org/world-report/2026/country-chapters/eritrea",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Human Rights Watch",
+      "methodNotes": "Paraphrase et citation de faits propres à Érythrée ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-ERI-AU",
+      "publisher": "Union africaine",
+      "title": "Appel à la retenue : Éthiopie, Érythrée et Égypte",
+      "canonicalUrl": "https://au.int/en/pressreleases/20261001/statement-auc-escalating-tensions-between-ethiopia-eritrea-and-egypt",
+      "publishedAt": "2026-10-01",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Union africaine",
+      "methodNotes": "Paraphrase et citation de faits propres à Érythrée ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-ERI-U",
+      "publisher": "Nations unies",
+      "title": "Préoccupation au sujet des combats du Nord éthiopien",
+      "canonicalUrl": "https://ethiopia.un.org/en/324191-un-secretary-generals-statement-ethiopia",
+      "publishedAt": "2026-10-10",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Nations unies",
+      "methodNotes": "Paraphrase et citation de faits propres à Érythrée ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    }
+  ],
+  "observations": [
+    {
+      "id": "eri-obs-1",
+      "countryCode": "ERI",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Asmara",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Érythrée",
+      "methodology": "Relevé daté d'après F,D ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-ERI-F",
+        "S-ERI-D"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eri-obs-2",
+      "countryCode": "ERI",
+      "key": "politics.head_of_state",
+      "label": "Président",
+      "value": "Isaias Afwerki",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Érythrée",
+      "methodology": "Relevé daté d'après F,D ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-ERI-F",
+        "S-ERI-D"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eri-obs-3",
+      "countryCode": "ERI",
+      "key": "politics.head_of_government",
+      "label": "Chef du gouvernement",
+      "value": "Isaias Afwerki",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Érythrée",
+      "methodology": "Relevé daté d'après D ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-ERI-D"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eri-obs-4",
+      "countryCode": "ERI",
+      "key": "politics.regime",
+      "label": "Système politique",
+      "value": "Régime à parti unique, sans élections nationales depuis l’indépendance",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Érythrée",
+      "methodology": "Relevé daté d'après F,HR ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-ERI-F",
+        "S-ERI-HR"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eri-obs-5",
+      "countryCode": "ERI",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Nakfa (ERN)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Érythrée",
+      "methodology": "Relevé daté d'après F ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-ERI-F"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eri-obs-6",
+      "countryCode": "ERI",
+      "key": "geography.area_official_2026",
+      "label": "Superficie",
+      "value": 117600,
+      "unit": "km²",
+      "referencePeriod": "2026-10",
+      "geographicScope": "Érythrée",
+      "methodology": "Superficie de la fiche de synthèse diplomatique, sans vérification géodésique.",
+      "sourceIds": [
+        "S-ERI-F"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "topic": "area"
+    },
+    {
+      "id": "eri-obs-7",
+      "countryCode": "ERI",
+      "key": "security.national_service_hrw_2026",
+      "label": "Service national et militaire",
+      "value": "Durée indéfinie dénoncée par Human Rights Watch",
+      "unit": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Érythrée",
+      "methodology": "Évaluation de l’ONG sur les événements de 2025, publiée dans le World Report 2026.",
+      "sourceIds": [
+        "S-ERI-HR"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eri-obs-8",
+      "countryCode": "ERI",
+      "key": "diplomacy.regional_tensions_oct2026",
+      "label": "Tensions avec l’Éthiopie",
+      "value": "Appel à la désescalade par l’Union africaine",
+      "unit": null,
+      "referencePeriod": "2026-10",
+      "geographicScope": "Érythrée",
+      "methodology": "Relevé daté d'après AU ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-ERI-AU"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eri-obs-9",
+      "countryCode": "ERI",
+      "key": "economy.statistical_gaps_wb",
+      "label": "Disponibilité des données récentes",
+      "value": "Insuffisante pour plusieurs indicateurs sociaux et macroéconomiques",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Érythrée",
+      "methodology": "La présentation Banque mondiale comporte des statistiques historiques ; ne pas réutiliser celles-ci comme résultats récents.",
+      "sourceIds": [
+        "S-ERI-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    }
+  ],
+  "claims": [
+    {
+      "id": "eri-claim-1",
+      "countryCode": "ERI",
+      "statement": "Isaias Afwerki est présenté comme chef de l’État et du gouvernement érythréens dans les références diplomatiques disponibles.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-ERI-D"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "eri-claim-2",
+      "countryCode": "ERI",
+      "statement": "France Diplomatie décrit un régime à parti unique et l’absence d’élections nationales régulières.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-ERI-F"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "eri-claim-3",
+      "countryCode": "ERI",
+      "statement": "L’Union africaine a demandé une désescalade des tensions impliquant l’Éthiopie et l’Érythrée en octobre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-ERI-AU"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "eri-claim-4",
+      "countryCode": "ERI",
+      "statement": "La Banque mondiale signale des lacunes importantes de données, notamment sur la pauvreté.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-ERI-W"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "eri-rel-1",
+      "countryCode": "ERI",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Éthiopie",
+      "relationType": "tension",
+      "title": "Tensions diplomatiques et sécuritaires",
+      "topics": [],
+      "summary": "L’Union africaine a appelé à des mécanismes pacifiques de résolution des différends.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-ERI-AU"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "eri-rel-2",
+      "countryCode": "ERI",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Banque mondiale",
+      "relationType": "cooperation",
+      "title": "Dialogue économique limité",
+      "topics": [],
+      "summary": "La Banque mondiale décrit une relation institutionnelle réduite par les arriérés de remboursement.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-ERI-W"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "eri-strength-1",
+          "title": "Façade sur la mer Rouge",
+          "summary": "Les installations de Massawa et d’Assab constituent des atouts géographiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-F"
+          ]
+        },
+        {
+          "id": "eri-strength-2",
+          "title": "Ressources minières",
+          "summary": "Des ressources extractives existent mais les performances récentes restent difficiles à comparer.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-W"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "eri-challenge-1",
+          "title": "Documentation statistique limitée",
+          "summary": "Le manque de séries récentes empêche plusieurs comparaisons internationales fiables.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-W"
+          ]
+        },
+        {
+          "id": "eri-challenge-2",
+          "title": "Libertés publiques restreintes",
+          "summary": "Human Rights Watch décrit la persistance de violations graves des droits fondamentaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-HR"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "eri-timeline-1",
+          "title": "Indépendance de l’Érythrée",
+          "summary": "L’État indépendant est établi en mai 1993 ; Isaias Afwerki dirige depuis cette période.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-F"
+          ],
+          "date": "1993-05-24"
+        },
+        {
+          "id": "eri-timeline-2",
+          "title": "Appel de l’Union africaine",
+          "summary": "L’Union africaine appelle à la retenue dans les tensions régionales.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-AU"
+          ],
+          "date": "2026-10-01"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "eri-sector-1",
+          "title": "Agriculture pluviale",
+          "summary": "Les rendements sont sensibles à l’irrégularité des précipitations.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-W"
+          ]
+        },
+        {
+          "id": "eri-sector-2",
+          "title": "Secteur minier étroit",
+          "summary": "L’économie repose sur un ensemble limité de productions extractives.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-W"
+          ]
+        },
+        {
+          "id": "eri-sector-3",
+          "title": "Transport maritime",
+          "summary": "La côte de la mer Rouge constitue un potentiel sous conditions politiques et d’investissement.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-F"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "eri-resource-1",
+          "title": "Ressources minières identifiées",
+          "summary": "Le potentiel extractif ne doit pas être confondu avec une production annuelle vérifiée.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "eri-security-1",
+          "title": "Tension avec l’Éthiopie",
+          "summary": "Des déclarations antagonistes et accusations militaires requièrent un suivi sourcé.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-AU",
+            "S-ERI-U"
+          ]
+        },
+        {
+          "id": "eri-security-2",
+          "title": "Droits humains et conscription",
+          "summary": "Les restrictions et le service national prolongé font l’objet de critiques internationales.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-HR"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "eri-issue-1",
+          "title": "Relations avec l’Éthiopie",
+          "summary": "La sécurité du Nord de la Corne est liée au dialogue entre les deux pays.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-AU",
+            "S-ERI-U"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "L’Union africaine et l’ONU ont exprimé leur inquiétude en octobre 2026.",
+          "whyStrategic": "Un incident frontalier pourrait entraîner des effets régionaux disproportionnés.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Déclarations officielles croisées et vérifications indépendantes d’incidents"
+          ],
+          "uncertainties": [
+            "Pour « Relations avec l’Éthiopie », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "eri-issue-2",
+          "title": "Service national et libertés",
+          "summary": "Le cadre intérieur suscite des critiques persistantes en matière de droits humains.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-HR"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Human Rights Watch rapporte la durée indéfinie du service et des restrictions civiques.",
+          "whyStrategic": "Ces facteurs influencent mobilité, formation et perception internationale du pays.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Évolutions normatives et communications des mécanismes de l’ONU"
+          ],
+          "uncertainties": [
+            "Pour « Service national et libertés », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "eri-issue-3",
+          "title": "Économie peu documentée",
+          "summary": "Plusieurs indicateurs récents ne disposent pas de base statistique comparable.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale diffuse des séries anciennes et souligne l’absence de données d’enquête.",
+          "whyStrategic": "Toute analyse chiffrée doit être datée et contextualisée pour éviter de fausses comparaisons.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Publication de nouveaux comptes nationaux ou enquêtes ménages"
+          ],
+          "uncertainties": [
+            "Pour « Économie peu documentée », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "eri-opportunity-1",
+          "title": "Réduction des tensions",
+          "summary": "Un dialogue encouragé par l’Union africaine pourrait préserver la stabilité.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-AU"
+          ]
+        },
+        {
+          "id": "eri-opportunity-2",
+          "title": "Réengagement technique",
+          "summary": "Des données mieux documentées pourraient faciliter les coopérations économiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "eri-risk-1",
+          "title": "Conflit avec un voisin",
+          "summary": "Une extension des combats au-delà de la frontière aurait de fortes conséquences.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-U"
+          ]
+        },
+        {
+          "id": "eri-risk-2",
+          "title": "Visibilité insuffisante des besoins",
+          "summary": "Les lacunes statistiques compliquent l’évaluation des politiques publiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-W"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "eri-swot-strengths-1",
+            "title": "Ouverture maritime",
+            "summary": "La façade de la mer Rouge représente une ressource géographique.",
+            "tags": [],
+            "sourceIds": [
+              "S-ERI-F"
+            ]
+          },
+          {
+            "id": "eri-swot-strengths-2",
+            "title": "Ressources naturelles",
+            "summary": "Le potentiel extractif permet d’envisager une diversification à long terme.",
+            "tags": [],
+            "sourceIds": [
+              "S-ERI-W"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "eri-swot-weaknesses-1",
+            "title": "Données économiques lacunaires",
+            "summary": "L’absence d’enquêtes récentes limite l’évaluation de la pauvreté.",
+            "tags": [],
+            "sourceIds": [
+              "S-ERI-W"
+            ]
+          },
+          {
+            "id": "eri-swot-weaknesses-2",
+            "title": "Contraintes de libertés",
+            "summary": "La société civile et les médias opèrent sous fortes restrictions.",
+            "tags": [],
+            "sourceIds": [
+              "S-ERI-HR"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "eri-swot-opportunities-1",
+            "title": "Dialogue frontalier",
+            "summary": "Une désescalade diplomatique diminuerait le risque de confrontation.",
+            "tags": [],
+            "sourceIds": [
+              "S-ERI-AU"
+            ]
+          },
+          {
+            "id": "eri-swot-opportunities-2",
+            "title": "Relance des statistiques",
+            "summary": "Des enquêtes fiables éclaireraient les besoins sociaux et économiques.",
+            "tags": [],
+            "sourceIds": [
+              "S-ERI-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "eri-swot-threats-1",
+            "title": "Escalade régionale",
+            "summary": "Des tensions persistantes avec l’Éthiopie accroîtraient le risque militaire.",
+            "tags": [],
+            "sourceIds": [
+              "S-ERI-U"
+            ]
+          },
+          {
+            "id": "eri-swot-threats-2",
+            "title": "Dégradation sociale difficile à mesurer",
+            "summary": "Le déficit d’information peut masquer des besoins importants.",
+            "tags": [],
+            "sourceIds": [
+              "S-ERI-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "eri-scenario-1",
+          "title": "Désescalade au Nord",
+          "summary": "Des canaux diplomatiques réduisent progressivement les tensions bilatérales.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-AU",
+            "S-ERI-U"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Consultations politiques poursuivies dans un cadre régional"
+          ],
+          "triggers": [
+            "Communiqués concordants sur la baisse des tensions"
+          ],
+          "weakSignals": [
+            "Absence de nouveaux incidents frontaliers confirmés"
+          ],
+          "consequences": [
+            "Meilleure prévisibilité pour les échanges transfrontaliers"
+          ],
+          "limits": [
+            "Ce scénario « Désescalade au Nord » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "eri-scenario-2",
+          "title": "Confrontation frontalière",
+          "summary": "Une multiplication d’incidents fait monter les risques sécuritaires.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-U",
+            "S-ERI-AU"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Maintien de positions antagonistes et communication restreinte"
+          ],
+          "triggers": [
+            "Rapports vérifiés de mouvements et affrontements"
+          ],
+          "weakSignals": [
+            "Prises de position des parties et appels diplomatiques"
+          ],
+          "consequences": [
+            "Accroissement des risques humanitaires régionaux"
+          ],
+          "limits": [
+            "Ce scénario « Confrontation frontalière » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "eri-scenario-3",
+          "title": "Retour des enquêtes économiques",
+          "summary": "Une production de données plus régulière améliore la lecture de l’économie.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Moyens disponibles et publication ouverte des statistiques"
+          ],
+          "triggers": [
+            "Diffusion d’enquêtes nationales récentes"
+          ],
+          "weakSignals": [
+            "Révisions documentées des séries de pauvreté et de production"
+          ],
+          "consequences": [
+            "Décisions publiques mieux fondées sur des indicateurs comparables"
+          ],
+          "limits": [
+            "Ce scénario « Retour des enquêtes économiques » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "eri-watch-1",
+          "title": "Position éthiopienne et érythréenne",
+          "summary": "Attribuer les accusations à leurs auteurs sans les convertir en faits établis.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-AU",
+            "S-ERI-U"
+          ]
+        },
+        {
+          "id": "eri-watch-2",
+          "title": "Couverture statistique",
+          "summary": "Documenter la date des séries avant toute comparaison régionale.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "eri-vulnerability-1",
+          "title": "Risque de confrontation régionale",
+          "summary": "Les avertissements de l’Union africaine soulignent la gravité des tensions récentes.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-AU"
+          ]
+        },
+        {
+          "id": "eri-vulnerability-2",
+          "title": "Service national prolongé",
+          "summary": "Les restrictions dénoncées limitent les possibilités individuelles.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-HR"
+          ]
+        },
+        {
+          "id": "eri-vulnerability-3",
+          "title": "Incertitude statistique",
+          "summary": "Les résultats économiques récents restent difficilement vérifiables faute de séries ouvertes.",
+          "tags": [],
+          "sourceIds": [
+            "S-ERI-W"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -21,6 +21,9 @@ import COG from "@/data/approche/COG.json";
 import COG_WORLDBANK from "@/data/approche/COG.worldbank.json";
 import CPV from "@/data/approche/CPV.json";
 import CPV_WORLDBANK from "@/data/approche/CPV.worldbank.json";
+import DJI from "@/data/approche/DJI.json";
+import ERI from "@/data/approche/ERI.json";
+import ETH from "@/data/approche/ETH.json";
 import FRA from "@/data/approche/FRA.json";
 import FRA_WORLDBANK from "@/data/approche/FRA.worldbank.json";
 import FRA_EUROSTAT from "@/data/approche/FRA.eurostat.json";
@@ -36,6 +39,7 @@ import GNB from "@/data/approche/GNB.json";
 import GNB_WORLDBANK from "@/data/approche/GNB.worldbank.json";
 import GNQ from "@/data/approche/GNQ.json";
 import GNQ_WORLDBANK from "@/data/approche/GNQ.worldbank.json";
+import KEN from "@/data/approche/KEN.json";
 import LBR from "@/data/approche/LBR.json";
 import LBR_WORLDBANK from "@/data/approche/LBR.worldbank.json";
 import MLI from "@/data/approche/MLI.json";
@@ -46,16 +50,22 @@ import NER from "@/data/approche/NER.json";
 import NER_WORLDBANK from "@/data/approche/NER.worldbank.json";
 import NGA from "@/data/approche/NGA.json";
 import NGA_WORLDBANK from "@/data/approche/NGA.worldbank.json";
+import RWA from "@/data/approche/RWA.json";
+import SDN from "@/data/approche/SDN.json";
 import SEN from "@/data/approche/SEN.json";
 import SEN_WORLDBANK from "@/data/approche/SEN.worldbank.json";
 import SLE from "@/data/approche/SLE.json";
 import SLE_WORLDBANK from "@/data/approche/SLE.worldbank.json";
+import SOM from "@/data/approche/SOM.json";
+import SSD from "@/data/approche/SSD.json";
 import STP from "@/data/approche/STP.json";
 import STP_WORLDBANK from "@/data/approche/STP.worldbank.json";
 import TCD from "@/data/approche/TCD.json";
 import TCD_WORLDBANK from "@/data/approche/TCD.worldbank.json";
 import TGO from "@/data/approche/TGO.json";
 import TGO_WORLDBANK from "@/data/approche/TGO.worldbank.json";
+import TZA from "@/data/approche/TZA.json";
+import UGA from "@/data/approche/UGA.json";
 
 export const COUNTRY_FILES: Record<string, { curated: unknown; worldbank?: unknown; eurostat?: unknown }> = {
   AGO: { curated: AGO, worldbank: AGO_WORLDBANK },
@@ -69,6 +79,9 @@ export const COUNTRY_FILES: Record<string, { curated: unknown; worldbank?: unkno
   COD: { curated: COD, worldbank: COD_WORLDBANK },
   COG: { curated: COG, worldbank: COG_WORLDBANK },
   CPV: { curated: CPV, worldbank: CPV_WORLDBANK },
+  DJI: { curated: DJI },
+  ERI: { curated: ERI },
+  ETH: { curated: ETH },
   FRA: { curated: FRA, worldbank: FRA_WORLDBANK, eurostat: FRA_EUROSTAT },
   GAB: { curated: GAB, worldbank: GAB_WORLDBANK },
   GHA: { curated: GHA, worldbank: GHA_WORLDBANK },
@@ -76,14 +89,21 @@ export const COUNTRY_FILES: Record<string, { curated: unknown; worldbank?: unkno
   GMB: { curated: GMB, worldbank: GMB_WORLDBANK },
   GNB: { curated: GNB, worldbank: GNB_WORLDBANK },
   GNQ: { curated: GNQ, worldbank: GNQ_WORLDBANK },
+  KEN: { curated: KEN },
   LBR: { curated: LBR, worldbank: LBR_WORLDBANK },
   MLI: { curated: MLI, worldbank: MLI_WORLDBANK },
   MRT: { curated: MRT, worldbank: MRT_WORLDBANK },
   NER: { curated: NER, worldbank: NER_WORLDBANK },
   NGA: { curated: NGA, worldbank: NGA_WORLDBANK },
+  RWA: { curated: RWA },
+  SDN: { curated: SDN },
   SEN: { curated: SEN, worldbank: SEN_WORLDBANK },
   SLE: { curated: SLE, worldbank: SLE_WORLDBANK },
+  SOM: { curated: SOM },
+  SSD: { curated: SSD },
   STP: { curated: STP, worldbank: STP_WORLDBANK },
   TCD: { curated: TCD, worldbank: TCD_WORLDBANK },
   TGO: { curated: TGO, worldbank: TGO_WORLDBANK },
+  TZA: { curated: TZA },
+  UGA: { curated: UGA },
 };

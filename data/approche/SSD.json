@@ -1,0 +1,809 @@
+{
+  "schemaVersion": 1,
+  "countryCode": "SSD",
+  "slug": "soudan-du-sud",
+  "zoneSlug": "afrique",
+  "name": "Soudan du Sud",
+  "officialName": "République du Soudan du Sud",
+  "publication": "draft",
+  "lastCheckedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S-SSD-U",
+      "publisher": "Mission des Nations unies au Soudan du Sud",
+      "title": "Déclaration au Conseil de sécurité le 10 novembre 2026",
+      "canonicalUrl": "https://unmiss.unmissions.org/en/press-releases/remarks-by-anita-kiki-gbeho-special-representative-of-the-secretary-general-1",
+      "publishedAt": "2026-11-10",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Mission des Nations unies au Soudan du Sud",
+      "methodNotes": "Paraphrase et citation de faits propres à Soudan du Sud ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SSD-UN",
+      "publisher": "UNMISS",
+      "title": "Appel au dialogue inclusif en prévision des élections",
+      "canonicalUrl": "https://unmiss.unmissions.org/en/news/press-release-unmiss-urges-inclusive-dialogue-protection-of-civilians-and-renewed",
+      "publishedAt": "2026-11-10",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "UNMISS",
+      "methodNotes": "Paraphrase et citation de faits propres à Soudan du Sud ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SSD-W",
+      "publisher": "Banque mondiale",
+      "title": "Soudan du Sud — économie, pétrole et crise humanitaire",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/southsudan",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Paraphrase et citation de faits propres à Soudan du Sud ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SSD-E",
+      "publisher": "Communauté d’Afrique de l’Est",
+      "title": "Membres et adhésion du Soudan du Sud",
+      "canonicalUrl": "https://www.eac.int/eac-partner-states",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Communauté d’Afrique de l’Est",
+      "methodNotes": "Paraphrase et citation de faits propres à Soudan du Sud ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SSD-SC",
+      "publisher": "Security Council Report",
+      "title": "Prévisions de novembre 2026 pour le Soudan du Sud",
+      "canonicalUrl": "https://www.securitycouncilreport.org/monthly-forecast/2026-11/south-sudan-41.php",
+      "publishedAt": "2026-11-02",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Security Council Report",
+      "methodNotes": "Paraphrase et citation de faits propres à Soudan du Sud ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    }
+  ],
+  "observations": [
+    {
+      "id": "ssd-obs-1",
+      "countryCode": "SSD",
+      "key": "identity.capital",
+      "label": "Capitale",
+      "value": "Djouba",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Soudan du Sud",
+      "methodology": "Relevé daté d'après U ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-SSD-U"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ssd-obs-2",
+      "countryCode": "SSD",
+      "key": "politics.head_of_state",
+      "label": "Président",
+      "value": "Salva Kiir Mayardit",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Soudan du Sud",
+      "methodology": "Relevé daté d'après SC ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-SSD-SC"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ssd-obs-3",
+      "countryCode": "SSD",
+      "key": "politics.regime",
+      "label": "Situation institutionnelle",
+      "value": "Administration intérimaire après dissolution du gouvernement de transition",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Soudan du Sud",
+      "methodology": "Relevé daté d'après U ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-SSD-U"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ssd-obs-4",
+      "countryCode": "SSD",
+      "key": "institutions.eac",
+      "label": "Membre de l’EAC depuis 2016",
+      "value": "Oui",
+      "unit": null,
+      "referencePeriod": "2016-09",
+      "geographicScope": "Soudan du Sud",
+      "methodology": "Relevé daté d'après E ; périmètre et millésime spécifiés dans la source.",
+      "sourceIds": [
+        "S-SSD-E"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ssd-obs-5",
+      "countryCode": "SSD",
+      "key": "politics.planned_elections_dec2026",
+      "label": "Élections annoncées",
+      "value": "22 décembre 2026 (prévision ; tenue incertaine)",
+      "unit": null,
+      "referencePeriod": "2026-12-22",
+      "geographicScope": "Soudan du Sud",
+      "methodology": "Date prévue, non résultat acquis ; le mandat et les conditions électorales sont contestés.",
+      "sourceIds": [
+        "S-SSD-UN"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ssd-obs-6",
+      "countryCode": "SSD",
+      "key": "humanitarian.people_needing_aid_2026_wb",
+      "label": "Personnes nécessitant une assistance en 2026",
+      "value": "Plus de 10 millions",
+      "unit": "personnes",
+      "referencePeriod": "2026",
+      "geographicScope": "Soudan du Sud",
+      "methodology": "La Banque mondiale indique « plus de 10 millions » ; la valeur numérique est un seuil inférieur, pas un décompte exact.",
+      "sourceIds": [
+        "S-SSD-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "theme": "Situation humanitaire"
+    },
+    {
+      "id": "ssd-obs-7",
+      "countryCode": "SSD",
+      "key": "economy.oil_production_early_fy2026_wb",
+      "label": "Production pétrolière au début de l’exercice 2026",
+      "value": 157000,
+      "unit": "barils/jour",
+      "referencePeriod": "FY2026-début",
+      "geographicScope": "Soudan du Sud",
+      "methodology": "Chiffre du début de FY2026 ; aucune extrapolation annuelle.",
+      "sourceIds": [
+        "S-SSD-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "ssd-obs-8",
+      "countryCode": "SSD",
+      "key": "economy.food_inflation_fy2025_wb",
+      "label": "Inflation alimentaire moyenne annuelle",
+      "value": 234,
+      "unit": "%",
+      "referencePeriod": "FY2025",
+      "geographicScope": "Soudan du Sud",
+      "methodology": "Proxy d’inflation calculé sur les prix alimentaires dans le rapport de la Banque mondiale, pas IPC général.",
+      "sourceIds": [
+        "S-SSD-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    },
+    {
+      "id": "ssd-obs-9",
+      "countryCode": "SSD",
+      "key": "economy.fiscal_deficit_fy2025_wb",
+      "label": "Déficit budgétaire",
+      "value": 6.7,
+      "unit": "% du PIB",
+      "referencePeriod": "FY2025",
+      "geographicScope": "Soudan du Sud",
+      "methodology": "Estimation budgétaire FY2025 publiée par la Banque mondiale.",
+      "sourceIds": [
+        "S-SSD-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed"
+    }
+  ],
+  "claims": [
+    {
+      "id": "ssd-claim-1",
+      "countryCode": "SSD",
+      "statement": "Les autorités sud-soudanaises ont dissous le gouvernement de transition le 22 septembre 2026 et installé une administration intérimaire.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SSD-U"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "ssd-claim-2",
+      "countryCode": "SSD",
+      "statement": "L’UNMISS avertit que les élections prévues le 22 décembre 2026 ne sont pas garanties dans des conditions inclusives.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SSD-UN"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "ssd-claim-3",
+      "countryCode": "SSD",
+      "statement": "Le Soudan du Sud est membre de la Communauté d’Afrique de l’Est depuis septembre 2016.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SSD-E"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    },
+    {
+      "id": "ssd-claim-4",
+      "countryCode": "SSD",
+      "statement": "La dépendance des recettes pétrolières aux infrastructures d’exportation traversant le Soudan accroît la vulnérabilité budgétaire.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SSD-W"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "ssd-rel-1",
+      "countryCode": "SSD",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "UNMISS",
+      "relationType": "cooperation",
+      "title": "Soutien à la protection des civils",
+      "topics": [],
+      "summary": "L’ONU accompagne le suivi du processus de paix et appelle à un dialogue politique inclusif.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SSD-UN"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "ssd-rel-2",
+      "countryCode": "SSD",
+      "targetCode": null,
+      "targetIso2": null,
+      "targetName": "Communauté d’Afrique de l’Est",
+      "relationType": "cooperation",
+      "title": "Intégration régionale",
+      "topics": [],
+      "summary": "Le Soudan du Sud est État partenaire de l’EAC depuis 2016.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SSD-E"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    }
+  ],
+  "modules": {
+    "hero": {},
+    "overview": {
+      "strengths": [
+        {
+          "id": "ssd-strength-1",
+          "title": "Potentiel d’hydrocarbures",
+          "summary": "La production de pétrole fournit un levier de revenus lorsque les exportations sont disponibles.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ]
+        },
+        {
+          "id": "ssd-strength-2",
+          "title": "Appui international au processus de paix",
+          "summary": "L’UNMISS soutient la protection des civils et le dialogue.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-UN"
+          ]
+        }
+      ],
+      "challenges": [
+        {
+          "id": "ssd-challenge-1",
+          "title": "Transition politique fragile",
+          "summary": "Le remplacement des institutions de transition soulève des objections des parties au compromis de 2018.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-SC"
+          ]
+        },
+        {
+          "id": "ssd-challenge-2",
+          "title": "Dépendance au transit pétrolier",
+          "summary": "Une panne d’oléoduc dans le Soudan voisin pèse sur les revenus publics.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ]
+        }
+      ],
+      "timeline": [
+        {
+          "id": "ssd-timeline-1",
+          "title": "Dissolution du gouvernement de transition",
+          "summary": "Le président Kiir met en place une administration de transition intérimaire.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-U"
+          ],
+          "date": "2026-09-22"
+        },
+        {
+          "id": "ssd-timeline-2",
+          "title": "Mise en garde avant le vote",
+          "summary": "L’UNMISS estime que les conditions de l’élection annoncée demeurent incertaines.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-UN"
+          ],
+          "date": "2026-11-10"
+        }
+      ]
+    },
+    "relations": {},
+    "economy": {
+      "sectors": [
+        {
+          "id": "ssd-sector-1",
+          "title": "Production pétrolière",
+          "summary": "Les exportations dépendent du bon fonctionnement d’un système traversant le Soudan.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ]
+        },
+        {
+          "id": "ssd-sector-2",
+          "title": "Agriculture et moyens de subsistance",
+          "summary": "Les violences et les inondations fragilisent l’approvisionnement et les revenus ruraux.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ]
+        },
+        {
+          "id": "ssd-sector-3",
+          "title": "Financement public",
+          "summary": "Les déficits et arriérés de salaires perturbent l’appareil administratif.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ]
+        }
+      ],
+      "resources": [
+        {
+          "id": "ssd-resource-1",
+          "title": "Recettes pétrolières",
+          "summary": "La sécurisation des flux d’exportation conditionne le budget.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ]
+        }
+      ]
+    },
+    "defense": {
+      "internalSecurity": [
+        {
+          "id": "ssd-security-1",
+          "title": "Tensions autour du scrutin",
+          "summary": "L’UNMISS appelle à préserver les garanties politiques avant les élections prévues.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-UN"
+          ]
+        },
+        {
+          "id": "ssd-security-2",
+          "title": "Violences communautaires",
+          "summary": "Les affrontements et les risques de protection restent importants en dehors des discussions nationales.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-UN"
+          ]
+        }
+      ]
+    },
+    "issues": {
+      "issues": [
+        {
+          "id": "ssd-issue-1",
+          "title": "Transition et scrutin de décembre",
+          "summary": "Le calendrier annoncé se heurte à des conditions de sécurité et de consensus fragiles.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-U",
+            "S-SSD-SC"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "Le gouvernement de transition a été dissous, et le mandat des institutions fait l’objet d’oppositions.",
+          "whyStrategic": "Une élection non inclusive pourrait aggraver les fractures issues de la guerre civile.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Accords sur le cadre électoral et accès effectif au vote"
+          ],
+          "uncertainties": [
+            "Pour « Transition et scrutin de décembre », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "ssd-issue-2",
+          "title": "Transport du pétrole",
+          "summary": "La production nationale dépend de l’acheminement par le pays voisin en guerre.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale relie la contraction économique à l’interruption passée d’un oléoduc.",
+          "whyStrategic": "La continuité des recettes détermine les capacités de paiement de l’État.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Production mensuelle et flux exportés par oléoduc"
+          ],
+          "uncertainties": [
+            "Pour « Transport du pétrole », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "ssd-issue-3",
+          "title": "Détresse humanitaire",
+          "summary": "La crise des services touche une part majeure de la population.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W",
+            "S-SSD-UN"
+          ],
+          "horizon": "1–3 ans",
+          "scope": [
+            "national",
+            "international"
+          ],
+          "subthemes": [],
+          "situation": "La Banque mondiale estime que plus de dix millions de personnes ont besoin d’aide en 2026.",
+          "whyStrategic": "La combinaison des déplacements, maladies et inondations impose des priorités de protection.",
+          "actors": [],
+          "interests": [],
+          "recentDevelopments": [],
+          "indicators": [
+            "Accès humanitaire et besoins par comté"
+          ],
+          "uncertainties": [
+            "Pour « Détresse humanitaire », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
+          ],
+          "updatedAt": "2026-11-12"
+        }
+      ],
+      "opportunities": [
+        {
+          "id": "ssd-opportunity-1",
+          "title": "Dialogue pour la paix",
+          "summary": "L’UNMISS encourage un compromis sur les dispositions institutionnelles.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-UN"
+          ]
+        },
+        {
+          "id": "ssd-opportunity-2",
+          "title": "Services de base",
+          "summary": "Une mobilisation financière pourrait améliorer l’accès aux soins.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ]
+        }
+      ],
+      "risks": [
+        {
+          "id": "ssd-risk-1",
+          "title": "Accrochages électoraux",
+          "summary": "Une absence de garanties augmenterait la violence politique.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-U"
+          ]
+        },
+        {
+          "id": "ssd-risk-2",
+          "title": "Blocage des recettes",
+          "summary": "Un incident sur la voie pétrolière réduirait les rentrées de devises.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ]
+        }
+      ]
+    },
+    "outlook": {
+      "swot": {
+        "strengths": [
+          {
+            "id": "ssd-swot-strengths-1",
+            "title": "Ressource pétrolière",
+            "summary": "Des recettes sont possibles lorsque la chaîne d’exportation reste ouverte.",
+            "tags": [],
+            "sourceIds": [
+              "S-SSD-W"
+            ]
+          },
+          {
+            "id": "ssd-swot-strengths-2",
+            "title": "Présence onusienne",
+            "summary": "L’UNMISS documente les besoins sécuritaires et protège certains convois.",
+            "tags": [],
+            "sourceIds": [
+              "S-SSD-UN"
+            ]
+          }
+        ],
+        "weaknesses": [
+          {
+            "id": "ssd-swot-weaknesses-1",
+            "title": "Institutions fragiles",
+            "summary": "La dissolution des structures de transition a modifié l’équilibre politique.",
+            "tags": [],
+            "sourceIds": [
+              "S-SSD-SC"
+            ]
+          },
+          {
+            "id": "ssd-swot-weaknesses-2",
+            "title": "Dépendance à un seul flux",
+            "summary": "La route d’exportation pétrolière est vulnérable au conflit soudanais.",
+            "tags": [],
+            "sourceIds": [
+              "S-SSD-W"
+            ]
+          }
+        ],
+        "opportunities": [
+          {
+            "id": "ssd-swot-opportunities-1",
+            "title": "Dialogue inclusif",
+            "summary": "Une négociation sur les règles électorales permettrait de réduire les tensions.",
+            "tags": [],
+            "sourceIds": [
+              "S-SSD-UN"
+            ]
+          },
+          {
+            "id": "ssd-swot-opportunities-2",
+            "title": "Stabilisation des recettes",
+            "summary": "Une reprise sûre du transit énergétique améliorerait les paiements publics.",
+            "tags": [],
+            "sourceIds": [
+              "S-SSD-W"
+            ]
+          }
+        ],
+        "threats": [
+          {
+            "id": "ssd-swot-threats-1",
+            "title": "Scrutin contesté",
+            "summary": "Un vote sans consensus pourrait provoquer des violences.",
+            "tags": [],
+            "sourceIds": [
+              "S-SSD-U"
+            ]
+          },
+          {
+            "id": "ssd-swot-threats-2",
+            "title": "Choc pétrolier externe",
+            "summary": "Une rupture de l’oléoduc provoquerait une crise de recettes.",
+            "tags": [],
+            "sourceIds": [
+              "S-SSD-W"
+            ]
+          }
+        ]
+      },
+      "scenarios": [
+        {
+          "id": "ssd-scenario-1",
+          "title": "Accord politique avant le vote",
+          "summary": "Les principales forces conviennent d’une procédure électorale crédible.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-UN",
+            "S-SSD-SC"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Ouverture d’un dialogue avec les acteurs du compromis de 2018"
+          ],
+          "triggers": [
+            "Accord public sur les étapes et garanties du processus"
+          ],
+          "weakSignals": [
+            "Participation des forces concernées aux réunions"
+          ],
+          "consequences": [
+            "Réduction du risque de contestation violente"
+          ],
+          "limits": [
+            "Ce scénario « Accord politique avant le vote » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "ssd-scenario-2",
+          "title": "Élections sans consensus",
+          "summary": "Un scrutin préparé dans l’urgence accroît les fractures politiques.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-U"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Désaccord durable sur la légalité des institutions intérimaires"
+          ],
+          "triggers": [
+            "Reports de préparatifs ou affrontements autour du vote"
+          ],
+          "weakSignals": [
+            "Incidents localisés et accès aux bureaux de vote"
+          ],
+          "consequences": [
+            "Aggravation des tensions politiques et communautaires"
+          ],
+          "limits": [
+            "Ce scénario « Élections sans consensus » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        },
+        {
+          "id": "ssd-scenario-3",
+          "title": "Stabilisation des flux pétroliers",
+          "summary": "La production exportable redonne de la trésorerie à l’État.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ],
+          "kind": "reinforcement",
+          "assumptions": [
+            "Sécurisation des infrastructures traversant le Soudan"
+          ],
+          "triggers": [
+            "Séries d’exportation régulièrement publiées"
+          ],
+          "weakSignals": [
+            "Retards salariaux et volumes de pétrole commercialisés"
+          ],
+          "consequences": [
+            "Amélioration partielle de l’activité publique"
+          ],
+          "limits": [
+            "Ce scénario « Stabilisation des flux pétroliers » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+          ]
+        }
+      ],
+      "watchAxes": [
+        {
+          "id": "ssd-watch-1",
+          "title": "Scrutin annoncé",
+          "summary": "Vérifier si le calendrier du 22 décembre est maintenu ou modifié.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-U"
+          ]
+        },
+        {
+          "id": "ssd-watch-2",
+          "title": "Paiements publics",
+          "summary": "Suivre ensemble exportations de pétrole et arriérés salariaux.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ]
+        }
+      ],
+      "domains": [
+        {
+          "id": "ssd-vulnerability-1",
+          "title": "Crise institutionnelle",
+          "summary": "La dissolution du système de partage du pouvoir fragilise le compromis de paix.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-SC"
+          ]
+        },
+        {
+          "id": "ssd-vulnerability-2",
+          "title": "Forte demande humanitaire",
+          "summary": "Plus de dix millions de personnes pourraient nécessiter une assistance.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ]
+        },
+        {
+          "id": "ssd-vulnerability-3",
+          "title": "Exposition pétrolière",
+          "summary": "Les recettes dépendent de routes d’exportation traversant une zone de guerre.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-W"
+          ]
+        }
+      ]
+    }
+  }
+}
