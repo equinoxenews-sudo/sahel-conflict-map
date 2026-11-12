@@ -135,6 +135,22 @@ a.newsItem.briefCard:hover {
   white-space: nowrap;
 }
 
+/* Date et heure de publication, sur leur propre ligne entre les catégories et le titre. */
+.briefDate {
+  display: block;
+  margin-top: 8px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+  opacity: 0.85;
+}
+
+.briefDate + .briefHead {
+  margin-top: 4px;
+}
+
 .briefHead {
   display: flex;
   align-items: center;

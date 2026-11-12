@@ -6,7 +6,7 @@ import { flagsInText } from "@/lib/flagMentions";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { DEFAULT_PERIOD, PERIODS, periodCutoff, useZonePeriod, type Period } from "./ZonePeriod";
-import { formatDate } from "@/lib/formatDate";
+import { formatDate, formatDateTimeParis } from "@/lib/formatDate";
 import {
   EVENT_TYPES, isThemeKey, resolveEventType, resolveTheme, THEMES, themeShortLabel,
 } from "@/lib/themes";
@@ -214,8 +214,10 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
               const isGenericImage = b.image_url?.startsWith("/equinoxe/hero-") ?? false;
               // Drapeau du pays cité dans le titre (comme le bandeau), à défaut celui du lieu de la synthèse.
               const flag = flagsInText(b.title, 1)[0] ?? flagsInText(b.place_country ?? "", 1)[0];
+              // Date et heure de publication (Paris), écrites sur la carte : au doigt, il n'y a pas d'info-bulle.
+              const publishedLabel = formatDateTimeParis(b.published_at);
               return (
-                <Link key={b.id} href={`/briefs/${b.id}`} className={`${styles.newsItem} ${styles.briefCard}`} title={formatDate(b.published_at)}>
+                <Link key={b.id} href={`/briefs/${b.id}`} className={`${styles.newsItem} ${styles.briefCard}`}>
                   <BriefImage url={b.image_url} generic={isGenericImage} />
                   <div className={styles.newsItemBody}>
                     <div className={styles.briefTop}>
@@ -242,6 +244,11 @@ export default function ZoneNewsList({ briefs, articles, newsItems }: ZoneNewsLi
                         </span>
                       )}
                     </div>
+                    {publishedLabel ? (
+                      <time className={styles.briefDate} dateTime={b.published_at ?? undefined}>
+                        {publishedLabel}
+                      </time>
+                    ) : null}
                     <div className={styles.briefHead}>
                       {flag ? (
                         <span className={styles.briefFlag}>
