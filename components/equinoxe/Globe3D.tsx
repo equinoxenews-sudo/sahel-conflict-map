@@ -16,6 +16,7 @@ import { CESIUM_BASE_URL } from "@/lib/cesiumCdn";
 import { INTRO_ATTR, INTRO_EVENTS } from "@/lib/homeIntro";
 import { isHomeZone, ZONE_GLOBE_VIEWS, type ZoneSlug } from "@/lib/homeZones";
 import { countryCodeOfEntityId, globeCountryInfo } from "@/lib/globeCountry";
+import { MOUSE_CLICK_TOLERANCE, touchClickTolerance } from "@/lib/globeTouch";
 import { getHoveredBrief, onHoveredBrief } from "@/lib/briefHover";
 import { CLUSTER_MIN_SIZE, CLUSTER_PIXEL_RANGE, GLOBE_CLUSTERING_ENABLED, GLOBE_TEST_TOOLS, RING_DOUBLE_FROM, blinkLevel, clusterDotCanvasSize, clusterDotDiameter, distinctIds, explodedAtHeight, isColocated, pointStyleFromSearch, ringCanvasSize, ringDiameter, type EventMode } from "@/lib/globeClustering";
 import styles from "./Globe3D.module.css";
@@ -926,6 +927,27 @@ export default function Globe3D({
       }
 
       clickHandler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+      // Au doigt : le moteur ne compte un toucher comme un clic que si le doigt a bougé de moins de 5 px de la page. Sur téléphone la page
+      // fait 980 px de large, réduite à l'écran : 5 px de la page = 2 px d'écran, et presque aucun toucher n'ouvrait le pays (ni un point).
+      // La tolérance est recalculée à chaque appui (page agrandie, téléphone tourné) ; à la souris elle reste celle du moteur. Le champ est
+      // interne au moteur : s'il disparaît dans une version future, on ne touche à rien.
+      const tapHandler = clickHandler as unknown as { _clickPixelTolerance?: number };
+      viewer.scene.canvas.addEventListener(
+        "pointerdown",
+        (event) => {
+          if (typeof tapHandler._clickPixelTolerance !== "number") return;
+          tapHandler._clickPixelTolerance =
+            event.pointerType === "touch"
+              ? touchClickTolerance({
+                  visibleWidth: window.visualViewport?.width ?? window.innerWidth,
+                  visibleHeight: window.visualViewport?.height ?? window.innerHeight,
+                  screenWidth: window.screen.width,
+                  screenHeight: window.screen.height,
+                })
+              : MOUSE_CLICK_TOLERANCE;
+        },
+        { capture: true },
+      );
       clickHandler.setInputAction((click: CesiumNS.ScreenSpaceEventHandler.PositionedEvent) => {
         const hit = pickPointNear(click.position);
         if (Array.isArray(hit)) {
