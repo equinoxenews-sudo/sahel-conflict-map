@@ -1,0 +1,610 @@
+{
+  "countryCode": "DJI",
+  "fetchedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=DJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/DJI/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=DJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/DJI/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=DJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/DJI/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=DJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/DJI/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=DJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/DJI/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=DJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/DJI/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=DJ",
+      "apiUrl": "https://api.worldbank.org/v2/country/DJI/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "dji-demography-population-2025",
+      "countryCode": "DJI",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 1184076,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Djibouti, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1002717
+        },
+        {
+          "period": "2015",
+          "value": 1020313
+        },
+        {
+          "period": "2016",
+          "value": 1037653
+        },
+        {
+          "period": "2017",
+          "value": 1054841
+        },
+        {
+          "period": "2018",
+          "value": 1071882
+        },
+        {
+          "period": "2019",
+          "value": 1088709
+        },
+        {
+          "period": "2020",
+          "value": 1105188
+        },
+        {
+          "period": "2021",
+          "value": 1121248
+        },
+        {
+          "period": "2022",
+          "value": 1137096
+        },
+        {
+          "period": "2023",
+          "value": 1152944
+        },
+        {
+          "period": "2024",
+          "value": 1168722
+        },
+        {
+          "period": "2025",
+          "value": 1184076
+        }
+      ]
+    },
+    {
+      "id": "dji-economy-gdp_nominal_usd-2025",
+      "countryCode": "DJI",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 4624533092.31886,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Djibouti, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 2220637966.25047
+        },
+        {
+          "period": "2015",
+          "value": 2424391785.43897
+        },
+        {
+          "period": "2016",
+          "value": 2604955228.70117
+        },
+        {
+          "period": "2017",
+          "value": 2762581334.22612
+        },
+        {
+          "period": "2018",
+          "value": 2913464658.08768
+        },
+        {
+          "period": "2019",
+          "value": 3088851450.30694
+        },
+        {
+          "period": "2020",
+          "value": 3144136196.6228
+        },
+        {
+          "period": "2021",
+          "value": 3392796953.08939
+        },
+        {
+          "period": "2022",
+          "value": 3562814908.76149
+        },
+        {
+          "period": "2023",
+          "value": 3898447007.38798
+        },
+        {
+          "period": "2024",
+          "value": 4152145939.98458
+        },
+        {
+          "period": "2025",
+          "value": 4624533092.31886
+        }
+      ]
+    },
+    {
+      "id": "dji-economy-gdp_per_capita_usd-2025",
+      "countryCode": "DJI",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 3905.604954681,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Djibouti, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 2214.62084142432
+        },
+        {
+          "period": "2015",
+          "value": 2376.12554719873
+        },
+        {
+          "period": "2016",
+          "value": 2510.4300076241
+        },
+        {
+          "period": "2017",
+          "value": 2618.95521147369
+        },
+        {
+          "period": "2018",
+          "value": 2718.08338799203
+        },
+        {
+          "period": "2019",
+          "value": 2837.16902340932
+        },
+        {
+          "period": "2020",
+          "value": 2844.88810647853
+        },
+        {
+          "period": "2021",
+          "value": 3025.91126413549
+        },
+        {
+          "period": "2022",
+          "value": 3133.25779772463
+        },
+        {
+          "period": "2023",
+          "value": 3381.29779710722
+        },
+        {
+          "period": "2024",
+          "value": 3552.72335079222
+        },
+        {
+          "period": "2025",
+          "value": 3905.604954681
+        }
+      ]
+    },
+    {
+      "id": "dji-economy-gdp_growth-2025",
+      "countryCode": "DJI",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 6.4954610524268,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Djibouti, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 7.19298728463697
+        },
+        {
+          "period": "2015",
+          "value": 7.30898563450799
+        },
+        {
+          "period": "2016",
+          "value": 7.1234323372872
+        },
+        {
+          "period": "2017",
+          "value": 5.458091517212
+        },
+        {
+          "period": "2018",
+          "value": 4.77433934943193
+        },
+        {
+          "period": "2019",
+          "value": 5.54508081154978
+        },
+        {
+          "period": "2020",
+          "value": 1.2021151728969
+        },
+        {
+          "period": "2021",
+          "value": 4.40715667561153
+        },
+        {
+          "period": "2022",
+          "value": 5.16653702854374
+        },
+        {
+          "period": "2023",
+          "value": 6.80733529403308
+        },
+        {
+          "period": "2024",
+          "value": 6.98048467276334
+        },
+        {
+          "period": "2025",
+          "value": 6.4954610524268
+        }
+      ]
+    },
+    {
+      "id": "dji-economy-inflation_cpi-2025",
+      "countryCode": "DJI",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": -0.31373179953348,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Djibouti, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1.34186494340162
+        },
+        {
+          "period": "2015",
+          "value": -0.522166521445793
+        },
+        {
+          "period": "2016",
+          "value": 2.40252905434889
+        },
+        {
+          "period": "2017",
+          "value": 0.57728572456066
+        },
+        {
+          "period": "2018",
+          "value": 0.138836400011405
+        },
+        {
+          "period": "2019",
+          "value": 3.31763203299602
+        },
+        {
+          "period": "2020",
+          "value": 1.77900535643955
+        },
+        {
+          "period": "2021",
+          "value": 1.18086783934059
+        },
+        {
+          "period": "2022",
+          "value": 5.17222088647605
+        },
+        {
+          "period": "2023",
+          "value": 1.44905087029085
+        },
+        {
+          "period": "2024",
+          "value": 2.1120116728497
+        },
+        {
+          "period": "2025",
+          "value": -0.31373179953348
+        }
+      ]
+    },
+    {
+      "id": "dji-labour-unemployment_ilo-2025",
+      "countryCode": "DJI",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 26.015,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Djibouti, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 26.16
+        },
+        {
+          "period": "2015",
+          "value": 26.063
+        },
+        {
+          "period": "2016",
+          "value": 25.982
+        },
+        {
+          "period": "2017",
+          "value": 26.064
+        },
+        {
+          "period": "2018",
+          "value": 26.18
+        },
+        {
+          "period": "2019",
+          "value": 26.257
+        },
+        {
+          "period": "2020",
+          "value": 27.701
+        },
+        {
+          "period": "2021",
+          "value": 27.628
+        },
+        {
+          "period": "2022",
+          "value": 26.272
+        },
+        {
+          "period": "2023",
+          "value": 26.074
+        },
+        {
+          "period": "2024",
+          "value": 26.007
+        },
+        {
+          "period": "2025",
+          "value": 26.015
+        }
+      ]
+    },
+    {
+      "id": "dji-geography-surface_area-2024",
+      "countryCode": "DJI",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 23200,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Djibouti, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 23200
+        },
+        {
+          "period": "2014",
+          "value": 23200
+        },
+        {
+          "period": "2015",
+          "value": 23200
+        },
+        {
+          "period": "2016",
+          "value": 23200
+        },
+        {
+          "period": "2017",
+          "value": 23200
+        },
+        {
+          "period": "2018",
+          "value": 23200
+        },
+        {
+          "period": "2019",
+          "value": 23200
+        },
+        {
+          "period": "2020",
+          "value": 23200
+        },
+        {
+          "period": "2021",
+          "value": 23200
+        },
+        {
+          "period": "2022",
+          "value": 23200
+        },
+        {
+          "period": "2023",
+          "value": 23200
+        },
+        {
+          "period": "2024",
+          "value": 23200
+        }
+      ]
+    }
+  ]
+}

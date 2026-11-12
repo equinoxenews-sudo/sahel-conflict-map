@@ -1,0 +1,610 @@
+{
+  "countryCode": "SDN",
+  "fetchedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=SD",
+      "apiUrl": "https://api.worldbank.org/v2/country/SDN/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=SD",
+      "apiUrl": "https://api.worldbank.org/v2/country/SDN/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=SD",
+      "apiUrl": "https://api.worldbank.org/v2/country/SDN/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=SD",
+      "apiUrl": "https://api.worldbank.org/v2/country/SDN/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=SD",
+      "apiUrl": "https://api.worldbank.org/v2/country/SDN/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=SD",
+      "apiUrl": "https://api.worldbank.org/v2/country/SDN/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=SD",
+      "apiUrl": "https://api.worldbank.org/v2/country/SDN/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "sdn-demography-population-2025",
+      "countryCode": "SDN",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 51662147,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Sudan, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 38823318
+        },
+        {
+          "period": "2015",
+          "value": 40024431
+        },
+        {
+          "period": "2016",
+          "value": 41259892
+        },
+        {
+          "period": "2017",
+          "value": 42714306
+        },
+        {
+          "period": "2018",
+          "value": 44230596
+        },
+        {
+          "period": "2019",
+          "value": 45548175
+        },
+        {
+          "period": "2020",
+          "value": 46789231
+        },
+        {
+          "period": "2021",
+          "value": 48066924
+        },
+        {
+          "period": "2022",
+          "value": 49383346
+        },
+        {
+          "period": "2023",
+          "value": 50042791
+        },
+        {
+          "period": "2024",
+          "value": 50448963
+        },
+        {
+          "period": "2025",
+          "value": 51662147
+        }
+      ]
+    },
+    {
+      "id": "sdn-economy-gdp_nominal_usd-2025",
+      "countryCode": "SDN",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 60162634574.4689,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Sudan, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 49516748617.9775
+        },
+        {
+          "period": "2015",
+          "value": 51726758676.7677
+        },
+        {
+          "period": "2016",
+          "value": 42630376000
+        },
+        {
+          "period": "2017",
+          "value": 41283617976.1905
+        },
+        {
+          "period": "2018",
+          "value": 32333780383.2924
+        },
+        {
+          "period": "2019",
+          "value": 32338079165.2893
+        },
+        {
+          "period": "2020",
+          "value": 27034593750
+        },
+        {
+          "period": "2021",
+          "value": 34229513774.9936
+        },
+        {
+          "period": "2022",
+          "value": 51666875363.0963
+        },
+        {
+          "period": "2023",
+          "value": 39898289820.7951
+        },
+        {
+          "period": "2024",
+          "value": 49672435513.1126
+        },
+        {
+          "period": "2025",
+          "value": 60162634574.4689
+        }
+      ]
+    },
+    {
+      "id": "sdn-economy-gdp_per_capita_usd-2025",
+      "countryCode": "SDN",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 1164.53991699219,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Sudan, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 1275.43835449219
+        },
+        {
+          "period": "2015",
+          "value": 1292.37963867188
+        },
+        {
+          "period": "2016",
+          "value": 1033.21594238281
+        },
+        {
+          "period": "2017",
+          "value": 966.505676269531
+        },
+        {
+          "period": "2018",
+          "value": 731.027465820313
+        },
+        {
+          "period": "2019",
+          "value": 709.975280761719
+        },
+        {
+          "period": "2020",
+          "value": 577.795227050781
+        },
+        {
+          "period": "2021",
+          "value": 712.122009277344
+        },
+        {
+          "period": "2022",
+          "value": 1046.24084472656
+        },
+        {
+          "period": "2023",
+          "value": 797.283447265625
+        },
+        {
+          "period": "2024",
+          "value": 984.607666015625
+        },
+        {
+          "period": "2025",
+          "value": 1164.53991699219
+        }
+      ]
+    },
+    {
+      "id": "sdn-economy-gdp_growth-2025",
+      "countryCode": "SDN",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 3.06427942935869,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Sudan, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 4.66137954229873
+        },
+        {
+          "period": "2015",
+          "value": 1.91017689052751
+        },
+        {
+          "period": "2016",
+          "value": 3.46764218409288
+        },
+        {
+          "period": "2017",
+          "value": 0.70925628476644
+        },
+        {
+          "period": "2018",
+          "value": -2.6809305497999
+        },
+        {
+          "period": "2019",
+          "value": -2.17825104530091
+        },
+        {
+          "period": "2020",
+          "value": -3.62980082410752
+        },
+        {
+          "period": "2021",
+          "value": -1.8685204827207
+        },
+        {
+          "period": "2022",
+          "value": -0.957816591119183
+        },
+        {
+          "period": "2023",
+          "value": -29.4332716274387
+        },
+        {
+          "period": "2024",
+          "value": -13.9643378424022
+        },
+        {
+          "period": "2025",
+          "value": 3.06427942935869
+        }
+      ]
+    },
+    {
+      "id": "sdn-economy-inflation_cpi-2022",
+      "countryCode": "SDN",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 138.80846024176,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2022",
+      "geographicScope": "Sudan, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2011",
+          "value": 18.0966171221351
+        },
+        {
+          "period": "2012",
+          "value": 35.5590574147024
+        },
+        {
+          "period": "2013",
+          "value": 36.5223449139154
+        },
+        {
+          "period": "2014",
+          "value": 36.9066427863595
+        },
+        {
+          "period": "2015",
+          "value": 16.9095706050977
+        },
+        {
+          "period": "2016",
+          "value": 17.7502538311959
+        },
+        {
+          "period": "2017",
+          "value": 32.3516260968436
+        },
+        {
+          "period": "2018",
+          "value": 63.2925073455887
+        },
+        {
+          "period": "2019",
+          "value": 50.9940515002964
+        },
+        {
+          "period": "2020",
+          "value": 163.257782355457
+        },
+        {
+          "period": "2021",
+          "value": 359.093040778998
+        },
+        {
+          "period": "2022",
+          "value": 138.80846024176
+        }
+      ]
+    },
+    {
+      "id": "sdn-labour-unemployment_ilo-2022",
+      "countryCode": "SDN",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 7.53,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2022",
+      "geographicScope": "Sudan, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2011",
+          "value": 17.44
+        },
+        {
+          "period": "2012",
+          "value": 16.973
+        },
+        {
+          "period": "2013",
+          "value": 16.273
+        },
+        {
+          "period": "2014",
+          "value": 15.41
+        },
+        {
+          "period": "2015",
+          "value": 14.39
+        },
+        {
+          "period": "2016",
+          "value": 13.656
+        },
+        {
+          "period": "2017",
+          "value": 13
+        },
+        {
+          "period": "2018",
+          "value": 12.347
+        },
+        {
+          "period": "2019",
+          "value": 11.697
+        },
+        {
+          "period": "2020",
+          "value": 11.995
+        },
+        {
+          "period": "2021",
+          "value": 11.087
+        },
+        {
+          "period": "2022",
+          "value": 7.53
+        }
+      ]
+    },
+    {
+      "id": "sdn-geography-surface_area-2024",
+      "countryCode": "SDN",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 1878000,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Sudan, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 1878000
+        },
+        {
+          "period": "2014",
+          "value": 1878000
+        },
+        {
+          "period": "2015",
+          "value": 1878000
+        },
+        {
+          "period": "2016",
+          "value": 1878000
+        },
+        {
+          "period": "2017",
+          "value": 1878000
+        },
+        {
+          "period": "2018",
+          "value": 1878000
+        },
+        {
+          "period": "2019",
+          "value": 1878000
+        },
+        {
+          "period": "2020",
+          "value": 1878000
+        },
+        {
+          "period": "2021",
+          "value": 1878000
+        },
+        {
+          "period": "2022",
+          "value": 1878000
+        },
+        {
+          "period": "2023",
+          "value": 1878000
+        },
+        {
+          "period": "2024",
+          "value": 1878000
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,428 @@
+{
+  "countryCode": "ERI",
+  "fetchedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=ER",
+      "apiUrl": "https://api.worldbank.org/v2/country/ERI/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=ER",
+      "apiUrl": "https://api.worldbank.org/v2/country/ERI/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=ER",
+      "apiUrl": "https://api.worldbank.org/v2/country/ERI/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=ER",
+      "apiUrl": "https://api.worldbank.org/v2/country/ERI/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=ER",
+      "apiUrl": "https://api.worldbank.org/v2/country/ERI/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=ER",
+      "apiUrl": "https://api.worldbank.org/v2/country/ERI/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "eri-demography-population-2025",
+      "countryCode": "ERI",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 3607003,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Eritrea, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 3095173
+        },
+        {
+          "period": "2015",
+          "value": 3105546
+        },
+        {
+          "period": "2016",
+          "value": 3124698
+        },
+        {
+          "period": "2017",
+          "value": 3150347
+        },
+        {
+          "period": "2018",
+          "value": 3192760
+        },
+        {
+          "period": "2019",
+          "value": 3240194
+        },
+        {
+          "period": "2020",
+          "value": 3291271
+        },
+        {
+          "period": "2021",
+          "value": 3350183
+        },
+        {
+          "period": "2022",
+          "value": 3409447
+        },
+        {
+          "period": "2023",
+          "value": 3470390
+        },
+        {
+          "period": "2024",
+          "value": 3535603
+        },
+        {
+          "period": "2025",
+          "value": 3607003
+        }
+      ]
+    },
+    {
+      "id": "eri-economy-gdp_nominal_usd-2011",
+      "countryCode": "ERI",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 2065001626.01626,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2011",
+      "geographicScope": "Eritrea, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2008",
+          "value": 1380188800
+        },
+        {
+          "period": "2009",
+          "value": 1856695551.21951
+        },
+        {
+          "period": "2010",
+          "value": 1589515447.15447
+        },
+        {
+          "period": "2011",
+          "value": 2065001626.01626
+        }
+      ]
+    },
+    {
+      "id": "eri-economy-gdp_per_capita_usd-2011",
+      "countryCode": "ERI",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 688.68165957684,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2011",
+      "geographicScope": "Eritrea, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2008",
+          "value": 490.066956003333
+        },
+        {
+          "period": "2009",
+          "value": 642.92572288007
+        },
+        {
+          "period": "2010",
+          "value": 539.699512069686
+        },
+        {
+          "period": "2011",
+          "value": 688.68165957684
+        }
+      ]
+    },
+    {
+      "id": "eri-economy-gdp_growth-2011",
+      "countryCode": "ERI",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 8.67980010138049,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2011",
+      "geographicScope": "Eritrea, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2008",
+          "value": -9.78303001782456
+        },
+        {
+          "period": "2009",
+          "value": 3.8765015275421
+        },
+        {
+          "period": "2010",
+          "value": 2.19419034888082
+        },
+        {
+          "period": "2011",
+          "value": 8.67980010138049
+        }
+      ]
+    },
+    {
+      "id": "eri-labour-unemployment_ilo-2025",
+      "countryCode": "ERI",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 5.978,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Eritrea, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 5.637
+        },
+        {
+          "period": "2015",
+          "value": 5.751
+        },
+        {
+          "period": "2016",
+          "value": 5.772
+        },
+        {
+          "period": "2017",
+          "value": 5.804
+        },
+        {
+          "period": "2018",
+          "value": 5.756
+        },
+        {
+          "period": "2019",
+          "value": 5.812
+        },
+        {
+          "period": "2020",
+          "value": 6.375
+        },
+        {
+          "period": "2021",
+          "value": 6.489
+        },
+        {
+          "period": "2022",
+          "value": 6.033
+        },
+        {
+          "period": "2023",
+          "value": 5.909
+        },
+        {
+          "period": "2024",
+          "value": 5.947
+        },
+        {
+          "period": "2025",
+          "value": 5.978
+        }
+      ]
+    },
+    {
+      "id": "eri-geography-surface_area-2024",
+      "countryCode": "ERI",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 121630,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Eritrea, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 121640
+        },
+        {
+          "period": "2014",
+          "value": 121630
+        },
+        {
+          "period": "2015",
+          "value": 121640
+        },
+        {
+          "period": "2016",
+          "value": 121630
+        },
+        {
+          "period": "2017",
+          "value": 121630
+        },
+        {
+          "period": "2018",
+          "value": 121640
+        },
+        {
+          "period": "2019",
+          "value": 121640
+        },
+        {
+          "period": "2020",
+          "value": 121630
+        },
+        {
+          "period": "2021",
+          "value": 121630
+        },
+        {
+          "period": "2022",
+          "value": 121630
+        },
+        {
+          "period": "2023",
+          "value": 121630
+        },
+        {
+          "period": "2024",
+          "value": 121630
+        }
+      ]
+    }
+  ]
+}

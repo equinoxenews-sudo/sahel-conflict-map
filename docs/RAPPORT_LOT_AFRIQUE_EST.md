@@ -23,7 +23,7 @@ Les dix JSON sont identiques octet pour octet à l'archive (empreintes du manife
 - **Configurations du site** : fiche du modèle historique (`lib/countries/`), configuration cartographique, liste de la zone Afrique et contour GeoJSON présents pour les dix pays. Rien à créer.
 - **Tests** : 593 passent. **TypeScript** : propre. **ESLint** (`app`, `components`, `lib`, `scripts`, `types`) : propre. **Validateur Zod** : dix fichiers valides.
 - **Smoke test** : dix pays × six onglets répondent, tous les libellés attendus retrouvés.
-- **Séries Banque mondiale** : voir § 1.
+- **Séries Banque mondiale** : huit pays sur dix, voir § 1.
 
 ## Affichage vérifié dans les pages servies
 
@@ -38,9 +38,13 @@ Contrôle fait sur le HTML visible de chaque onglet, texte par texte.
 
 ## Anomalies techniques
 
-### 1. Séries Banque mondiale
+### 1. Séries Banque mondiale : huit pays sur dix
 
-À compléter : voir la mise à jour en fin de rapport. Le service de la Banque mondiale ne répondait que par intermittence le 12 novembre (erreurs 502 et délais dépassés). Tant qu'une série manque, les tuiles population, PIB, PIB par habitant, croissance, inflation, chômage et superficie du pays affichent « Donnée non disponible ». Le contrôle des collisions avec les clés réservées est fait et propre ; le contrôle après récupération reste à refaire pour chaque pays dont la série arrive.
+Le service de la Banque mondiale n'a répondu que par intermittence le 12 novembre (erreurs 502 et délais dépassés), malgré de nombreuses relances.
+
+- **Récupérées et enregistrées** (`<ISO3>.worldbank.json`) : Djibouti, Érythrée, Kenya, Soudan, Somalie, Soudan du Sud, Tanzanie, Ouganda. Contrôle des collisions refait avec ces séries : aucune anomalie, huit pays sur huit.
+- **Manquantes** : Éthiopie et Rwanda. Leurs tuiles population, PIB, PIB par habitant, croissance, inflation, chômage et superficie affichent « Donnée non disponible ». À relancer quand le service répond : `npx tsx scripts/sync-approche-worldbank.ts ETH RWA`, puis `npm run approche:contract` et un nouveau contrôle des collisions. Le contrôle des collisions avec les clés réservées, lui, est déjà fait et propre pour ces deux pays.
+- Le smoke test et le contrôle d'affichage ont été faits avant l'arrivée des séries ; le rendu des tuiles alimentées par la Banque mondiale n'a pas été revu page par page.
 
 ### 2. Somalie : le statut `conflicting` est masqué par le moteur
 
