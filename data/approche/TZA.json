@@ -77,6 +77,48 @@
       "language": "en",
       "originalPublisher": "Communauté d’Afrique de l’Est",
       "methodNotes": "Paraphrase et citation de faits propres à Tanzanie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-TZA-UNDATA",
+      "publisher": "Division de statistique des Nations unies (UNData)",
+      "title": "Profil national UNData — Tanzanie",
+      "canonicalUrl": "https://data.un.org/legacy/en/iso/tz.html",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Division de statistique des Nations unies (UNData)",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-TZA-LANG",
+      "publisher": "France Diplomatie",
+      "title": "Langues et institutions — Tanzanie",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/tanzanie/presentation-de-la-tanzanie",
+      "publishedAt": "2026-10-30",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-TZA-KEN",
+      "publisher": "Communauté d’Afrique de l’Est",
+      "title": "Corridor routier Kenya–Tanzanie : Arusha–Namanga–Athi River",
+      "canonicalUrl": "https://www.eac.int/infrastructure/road-transport-sub-sector/projects",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Communauté d’Afrique de l’Est",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
     }
   ],
   "observations": [
@@ -138,7 +180,7 @@
       "id": "tza-obs-4",
       "countryCode": "TZA",
       "key": "institutions.eac",
-      "label": "Membre et siège de l’EAC",
+      "label": "Membre de la Communauté d’Afrique de l’Est (EAC)",
       "value": "Oui ; siège à Arusha",
       "unit": null,
       "referencePeriod": "2026-11",
@@ -219,6 +261,60 @@
       "methodology": "Relevé daté d'après HR ; périmètre et millésime spécifiés dans la source.",
       "sourceIds": [
         "S-TZA-HR"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tza-obs-v11-1",
+      "countryCode": "TZA",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Shilling tanzanien (TZS)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tanzanie",
+      "methodology": "Unité monétaire nationale selon le profil pays UNData ; n’implique pas une parité de change ou une date d’estimation.",
+      "sourceIds": [
+        "S-TZA-UNDATA"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tza-obs-v11-2",
+      "countryCode": "TZA",
+      "key": "identity.language",
+      "label": "Langue(s)",
+      "value": "Swahili et anglais (langues officielles selon la présentation diplomatique)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tanzanie",
+      "methodology": "Langues et qualification institutionnelle reprises de la page citée ; la situation de plurilinguisme n’est pas réduite à une seule langue.",
+      "sourceIds": [
+        "S-TZA-LANG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "tza-obs-v11-3",
+      "countryCode": "TZA",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République unie à régime présidentiel",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Tanzanie",
+      "methodology": "Description institutionnelle prudente ; les fonctions des dirigeants ne préjugent pas de la situation politique ou de la légitimité contestée de certains mandats.",
+      "sourceIds": [
+        "S-TZA-LANG"
       ],
       "collectedAt": "2026-11-12",
       "verifiedAt": "2026-11-12",
@@ -314,6 +410,24 @@
       "validTo": null,
       "sourceIds": [
         "S-TZA-W"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "tza-rel-v11-1",
+      "countryCode": "TZA",
+      "targetCode": "KEN",
+      "targetIso2": "KE",
+      "targetName": "Kenya",
+      "relationType": "cooperation",
+      "title": "Coopération routière transfrontalière",
+      "topics": [],
+      "summary": "Le corridor Arusha–Namanga–Athi River et le poste à guichet unique de Namanga relient les réseaux de transport tanzanien et kényan.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-TZA-KEN"
       ],
       "lastReviewedAt": "2026-11-12",
       "status": "verified"

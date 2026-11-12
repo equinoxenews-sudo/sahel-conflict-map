@@ -105,6 +105,62 @@
       "language": "en",
       "originalPublisher": "Somalia Today",
       "methodNotes": "Paraphrase et citation de faits propres à Somalie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SOM-CAB",
+      "publisher": "Gouvernement fédéral somalien",
+      "title": "Cabinet et Premier ministre Hamza Abdi Barre",
+      "canonicalUrl": "https://www.somalia.gov.so/excutive/cabinet",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Gouvernement fédéral somalien",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-SOM-UNDATA",
+      "publisher": "Division de statistique des Nations unies (UNData)",
+      "title": "Profil national UNData — Somalie",
+      "canonicalUrl": "https://data.un.org/legacy/en/iso/so.html",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Division de statistique des Nations unies (UNData)",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-SOM-LANG",
+      "publisher": "France Diplomatie (section linguistique uniquement ; dirigeants obsolètes)",
+      "title": "Langues et institutions — Somalie",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/somalie/presentation-de-la-somalie",
+      "publishedAt": "2026-05-15",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie (section linguistique uniquement ; dirigeants obsolètes)",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-SOM-ETH",
+      "publisher": "Ministère turc des Affaires étrangères",
+      "title": "Déclaration d’Ankara, Éthiopie–Somalie (11 décembre 2024)",
+      "canonicalUrl": "https://www.mfa.gov.tr/etiyopya-federal-demokratik-cumhuriyeti-ve-somali-federal-cumhuriyeti-nin-ankara-bildirisi.en.mfa",
+      "publishedAt": "2024-12-11",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Ministère turc des Affaires étrangères",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
     }
   ],
   "observations": [
@@ -157,6 +213,7 @@
       "geographicScope": "Somalie",
       "methodology": "La durée légale du mandat des institutions fédérales fait l’objet d’un conflit d’interprétation.",
       "sourceIds": [
+        "S-SOM-CAB",
         "S-SOM-D",
         "S-SOM-J",
         "S-SOM-R"
@@ -170,7 +227,7 @@
       "id": "som-obs-4",
       "countryCode": "SOM",
       "key": "institutions.eac",
-      "label": "Membre de l’EAC depuis 2024",
+      "label": "Membre de la Communauté d’Afrique de l’Est (EAC)",
       "value": "Oui",
       "unit": null,
       "referencePeriod": "2024-03",
@@ -193,7 +250,7 @@
       "unit": "%",
       "referencePeriod": "2025",
       "geographicScope": "Somalie",
-      "methodology": "Chiffre courant de la Banque mondiale, pouvant différer de la publication initiale de mai.",
+      "methodology": "Croissance du PIB réel en année civile 2025 selon la page pays de la Banque mondiale. La même valeur numérique qu’au Soudan ne constitue pas une identité de situation économique.",
       "sourceIds": [
         "S-SOM-W"
       ],
@@ -274,6 +331,60 @@
       "verifiedAt": "2026-11-12",
       "status": "verified",
       "dataKind": "official_statement"
+    },
+    {
+      "id": "som-obs-v11-1",
+      "countryCode": "SOM",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Shilling somalien (SOS)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Somalie",
+      "methodology": "Unité monétaire nationale selon le profil pays UNData ; n’implique pas une parité de change ou une date d’estimation.",
+      "sourceIds": [
+        "S-SOM-UNDATA"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "som-obs-v11-2",
+      "countryCode": "SOM",
+      "key": "identity.language",
+      "label": "Langue(s)",
+      "value": "Somali ; arabe (également utilisé dans les institutions), autres langues courantes",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Somalie",
+      "methodology": "Langues et qualification institutionnelle reprises de la page citée ; la situation de plurilinguisme n’est pas réduite à une seule langue.",
+      "sourceIds": [
+        "S-SOM-LANG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "som-obs-v11-3",
+      "countryCode": "SOM",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République fédérale ; différend sur la durée des mandats",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Somalie",
+      "methodology": "Description institutionnelle prudente ; les fonctions des dirigeants ne préjugent pas de la situation politique ou de la légitimité contestée de certains mandats.",
+      "sourceIds": [
+        "S-SOM-G"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
     }
   ],
   "claims": [
@@ -329,6 +440,19 @@
       "reviewer": null,
       "status": "verified",
       "caveats": []
+    },
+    {
+      "id": "som-claim-v11-1",
+      "countryCode": "SOM",
+      "statement": "La déclaration d’Ankara du 11 décembre 2024 engage la Somalie et l’Éthiopie à privilégier le dialogue dans le respect de la souveraineté des deux États.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-SOM-ETH"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
     }
   ],
   "relationships": [
@@ -364,6 +488,24 @@
       "validTo": null,
       "sourceIds": [
         "S-SOM-E"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "som-rel-v11-1",
+      "countryCode": "SOM",
+      "targetCode": "ETH",
+      "targetIso2": "ET",
+      "targetName": "Éthiopie",
+      "relationType": "cooperation",
+      "title": "Processus d’Ankara",
+      "topics": [],
+      "summary": "La Somalie et l’Éthiopie ont réaffirmé le respect de leur souveraineté mutuelle et engagé un processus de négociations commerciales encadré par la Türkiye.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SOM-ETH"
       ],
       "lastReviewedAt": "2026-11-12",
       "status": "verified"
@@ -432,6 +574,16 @@
             "S-SOM-R"
           ],
           "date": "2026-11-07"
+        },
+        {
+          "id": "som-timeline-v11-1",
+          "title": "Déclaration d’Ankara",
+          "summary": "La Somalie et l’Éthiopie réaffirment leurs engagements de souveraineté et un cadre de négociation sur l’accès à la mer.",
+          "tags": [],
+          "sourceIds": [
+            "S-SOM-ETH"
+          ],
+          "date": "2024-12-11"
         }
       ]
     },

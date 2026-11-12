@@ -63,6 +63,62 @@
       "language": "en",
       "originalPublisher": "Communauté d’Afrique de l’Est",
       "methodNotes": "Paraphrase et citation de faits propres à Kenya ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-KEN-PRES",
+      "publisher": "Présidence du Kenya",
+      "title": "William Ruto, président et chef de l’exécutif",
+      "canonicalUrl": "https://www.president.go.ke/administration/office-of-the-president/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Présidence du Kenya",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-KEN-UNDATA",
+      "publisher": "Division de statistique des Nations unies (UNData)",
+      "title": "Profil national UNData — Kenya",
+      "canonicalUrl": "https://data.un.org/legacy/en/iso/ke.html",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Division de statistique des Nations unies (UNData)",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-KEN-LANG",
+      "publisher": "Ambassade du Kenya à Paris",
+      "title": "Langues et institutions — Kenya",
+      "canonicalUrl": "https://kenyaembassyparis.fr/kenya-at-a-glance/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Ambassade du Kenya à Paris",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-KEN-UGA",
+      "publisher": "Communauté d’Afrique de l’Est",
+      "title": "Lwakhakha, Busia et Malaba : passage transfrontalier Kenya–Ouganda",
+      "canonicalUrl": "https://www.eac.int/press-releases/150-infrastructure/3139-eac-embarks-on-the-upgrade-of-the-lwakhakha-border-to-one-stop-border-post-to-decongest-the-busia-and-malaba-border-posts",
+      "publishedAt": "2024-07-19",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Communauté d’Afrique de l’Est",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
     }
   ],
   "observations": [
@@ -95,24 +151,7 @@
       "geographicScope": "Kenya",
       "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
       "sourceIds": [
-        "S-KEN-P"
-      ],
-      "collectedAt": "2026-11-12",
-      "verifiedAt": "2026-11-12",
-      "status": "verified",
-      "dataKind": "official_statement"
-    },
-    {
-      "id": "ken-obs-3",
-      "countryCode": "KEN",
-      "key": "politics.head_of_government",
-      "label": "Chef de l’exécutif",
-      "value": "William Ruto",
-      "unit": null,
-      "referencePeriod": "2026-11",
-      "geographicScope": "Kenya",
-      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
-      "sourceIds": [
+        "S-KEN-PRES",
         "S-KEN-P"
       ],
       "collectedAt": "2026-11-12",
@@ -142,7 +181,7 @@
       "id": "ken-obs-5",
       "countryCode": "KEN",
       "key": "institutions.eac",
-      "label": "Membre de la Communauté d’Afrique de l’Est",
+      "label": "Membre de la Communauté d’Afrique de l’Est (EAC)",
       "value": "Oui",
       "unit": null,
       "referencePeriod": "2026-11",
@@ -227,7 +266,7 @@
       "verifiedAt": "2026-11-12",
       "status": "verified",
       "dataKind": "observed",
-      "theme": "Développement humain"
+      "theme": "developpement"
     },
     {
       "id": "ken-obs-10",
@@ -246,6 +285,60 @@
       "verifiedAt": "2026-11-12",
       "status": "verified",
       "dataKind": "observed"
+    },
+    {
+      "id": "ken-obs-v11-1",
+      "countryCode": "KEN",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Shilling kényan (KES)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Kenya",
+      "methodology": "Unité monétaire nationale selon le profil pays UNData ; n’implique pas une parité de change ou une date d’estimation.",
+      "sourceIds": [
+        "S-KEN-UNDATA"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ken-obs-v11-2",
+      "countryCode": "KEN",
+      "key": "identity.language",
+      "label": "Langue(s)",
+      "value": "Kiswahili et anglais (officielles)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Kenya",
+      "methodology": "Langues et qualification institutionnelle reprises de la page citée ; la situation de plurilinguisme n’est pas réduite à une seule langue.",
+      "sourceIds": [
+        "S-KEN-LANG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ken-obs-v11-3",
+      "countryCode": "KEN",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République à régime présidentiel",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Kenya",
+      "methodology": "Description institutionnelle prudente ; les fonctions des dirigeants ne préjugent pas de la situation politique ou de la légitimité contestée de certains mandats.",
+      "sourceIds": [
+        "S-KEN-LANG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
     }
   ],
   "claims": [
@@ -338,6 +431,24 @@
       ],
       "lastReviewedAt": "2026-11-12",
       "status": "verified"
+    },
+    {
+      "id": "ken-rel-v11-1",
+      "countryCode": "KEN",
+      "targetCode": "UGA",
+      "targetIso2": "UG",
+      "targetName": "Ouganda",
+      "relationType": "cooperation",
+      "title": "Passages frontaliers de Malaba, Busia et Lwakhakha",
+      "topics": [],
+      "summary": "Les deux États travaillent dans le cadre de l’EAC à réduire les délais de transit routier et douanier le long du corridor Nord.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-KEN-UGA"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
     }
   ],
   "modules": {
@@ -393,6 +504,16 @@
             "S-KEN-T"
           ],
           "date": "2026-08-31"
+        },
+        {
+          "id": "ken-timeline-v11-1",
+          "title": "Modernisation du poste-frontière de Lwakhakha",
+          "summary": "L’EAC annonce le projet de modernisation du passage Kenya–Ouganda afin de désengorger Malaba et Busia.",
+          "tags": [],
+          "sourceIds": [
+            "S-KEN-UGA"
+          ],
+          "date": "2024-07-19"
         }
       ]
     },

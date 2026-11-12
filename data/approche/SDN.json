@@ -91,6 +91,62 @@
       "language": "en",
       "originalPublisher": "Gouvernement britannique",
       "methodNotes": "Paraphrase et citation de faits propres à Soudan ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SDN-GOV",
+      "publisher": "Ministère soudanais de la Culture et de l’Information",
+      "title": "Réunion gouvernementale à Khartoum après le retour des institutions",
+      "canonicalUrl": "https://mociat.gov.sd/en/chaired-by-burhan-the-sovereignty-council-and-the-council-of-ministers-hold-a-joint-meeting-in-the-capital-khartoum-the-meeting-approves-the-states-emergency-budget-for-the-year-2026/",
+      "publishedAt": "2026-01-22",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Ministère soudanais de la Culture et de l’Information",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-SDN-UNDATA",
+      "publisher": "Division de statistique des Nations unies (UNData)",
+      "title": "Profil national UNData — Soudan",
+      "canonicalUrl": "https://data.un.org/legacy/en/iso/sd.html",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Division de statistique des Nations unies (UNData)",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-SDN-LANG",
+      "publisher": "France Diplomatie",
+      "title": "Langues et institutions — Soudan",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/soudan/presentation-du-soudan",
+      "publishedAt": "2026-05-15",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-SDN-SSD",
+      "publisher": "HCR",
+      "title": "Situation des réfugiés sud-soudanais au Soudan",
+      "canonicalUrl": "https://data.unhcr.org/en/situations/southsudan",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "HCR",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
     }
   ],
   "observations": [
@@ -103,8 +159,9 @@
       "unit": null,
       "referencePeriod": "2026-11",
       "geographicScope": "Soudan",
-      "methodology": "Relevé daté d'après D ; périmètre et millésime spécifiés dans la source.",
+      "methodology": "Khartoum est la capitale officielle. Le gouvernement lié aux Forces armées, temporairement installé à Port-Soudan pendant la guerre, a annoncé le retour de ses institutions à Khartoum en janvier 2026 ; le conflit continue de fragmenter le contrôle territorial.",
       "sourceIds": [
+        "S-SDN-GOV",
         "S-SDN-D"
       ],
       "collectedAt": "2026-11-12",
@@ -154,7 +211,7 @@
       "id": "sdn-obs-4",
       "countryCode": "SDN",
       "key": "politics.regime",
-      "label": "Situation institutionnelle",
+      "label": "Régime politique",
       "value": "Autorités de transition en guerre ; contrôle du territoire fragmenté",
       "unit": null,
       "referencePeriod": "2026-11",
@@ -185,7 +242,7 @@
       "verifiedAt": "2026-11-12",
       "status": "verified",
       "dataKind": "observed",
-      "theme": "Situation humanitaire"
+      "theme": "humanitaire"
     },
     {
       "id": "sdn-obs-6",
@@ -204,7 +261,7 @@
       "verifiedAt": "2026-11-12",
       "status": "verified",
       "dataKind": "observed",
-      "theme": "Situation humanitaire"
+      "theme": "humanitaire"
     },
     {
       "id": "sdn-obs-7",
@@ -215,13 +272,13 @@
       "unit": "%",
       "referencePeriod": "2025",
       "geographicScope": "Soudan",
-      "methodology": "Rebond depuis une base très basse, ne signifie pas un rétablissement du niveau d’avant-guerre.",
+      "methodology": "La Banque mondiale affiche +3,1 % pour 2025 dans sa série actuelle, alors que le profil UNData publie une estimation 2025 de -12 %. Divergence majeure de millésime, révision ou méthode à réconcilier avant publication d’un chiffre unique.",
       "sourceIds": [
         "S-SDN-W"
       ],
       "collectedAt": "2026-11-12",
       "verifiedAt": "2026-11-12",
-      "status": "verified",
+      "status": "conflicting",
       "dataKind": "observed",
       "topic": "growth"
     },
@@ -234,7 +291,7 @@
       "unit": "%",
       "referencePeriod": "2023",
       "geographicScope": "Soudan",
-      "methodology": "Estimation Banque mondiale ; variation annuelle du PIB réel.",
+      "methodology": "Contraction du PIB réel pour l’année civile 2023 selon la Banque mondiale ; donnée historique, sans indication sur 2026.",
       "sourceIds": [
         "S-SDN-W"
       ],
@@ -260,6 +317,42 @@
       "verifiedAt": "2026-11-12",
       "status": "verified",
       "dataKind": "observed"
+    },
+    {
+      "id": "sdn-obs-v11-1",
+      "countryCode": "SDN",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Livre soudanaise (SDG)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Soudan",
+      "methodology": "Unité monétaire nationale selon le profil pays UNData ; n’implique pas une parité de change ou une date d’estimation.",
+      "sourceIds": [
+        "S-SDN-UNDATA"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "sdn-obs-v11-2",
+      "countryCode": "SDN",
+      "key": "identity.language",
+      "label": "Langue(s)",
+      "value": "Arabe (officielle) ; anglais et langues locales couramment employés",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Soudan",
+      "methodology": "Langues et qualification institutionnelle reprises de la page citée ; la situation de plurilinguisme n’est pas réduite à une seule langue.",
+      "sourceIds": [
+        "S-SDN-LANG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
     }
   ],
   "claims": [
@@ -353,6 +446,25 @@
       ],
       "lastReviewedAt": "2026-11-12",
       "status": "verified"
+    },
+    {
+      "id": "sdn-rel-v11-1",
+      "countryCode": "SDN",
+      "targetCode": "SSD",
+      "targetIso2": "SS",
+      "targetName": "Soudan du Sud",
+      "relationType": "cooperation",
+      "title": "Réfugiés et routes énergétiques transfrontalières",
+      "topics": [],
+      "summary": "Les violences au Soudan affectent les déplacements vers et depuis le Soudan du Sud, tandis que les infrastructures transfrontalières participent à leur interdépendance économique.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SDN-SSD",
+        "S-SDN-W"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
     }
   ],
   "modules": {
@@ -418,6 +530,16 @@
             "S-SDN-H"
           ],
           "date": "2026-11-06"
+        },
+        {
+          "id": "sdn-timeline-v11-1",
+          "title": "Retour annoncé des institutions à Khartoum",
+          "summary": "Le gouvernement soutenu par les Forces armées a annoncé le retour de ses institutions à Khartoum après leur installation provisoire à Port-Soudan.",
+          "tags": [],
+          "sourceIds": [
+            "S-SDN-GOV"
+          ],
+          "date": "2026-01-22"
         }
       ]
     },
@@ -750,27 +872,29 @@
         },
         {
           "id": "sdn-scenario-3",
-          "title": "Relèvement économique local",
-          "summary": "Une désescalade ciblée facilite un redémarrage agricole partiel.",
+          "title": "Fragmentation durable de l’aide et de la gouvernance",
+          "summary": "Le prolongement des combats et des restrictions d’accès empêche de stabiliser les services de base malgré des initiatives locales.",
           "tags": [],
           "sourceIds": [
-            "S-SDN-W"
+            "S-SDN-EU",
+            "S-SDN-R",
+            "S-SDN-UK"
           ],
-          "kind": "reinforcement",
+          "kind": "pressure",
           "assumptions": [
-            "Sécurisation des terres et transport d’intrants"
+            "Absence d’accord politique et humanitaire suffisamment appliqué"
           ],
           "triggers": [
-            "Réouverture vérifiée de marchés agricoles"
+            "Nouvelles restrictions documentées sur les accès et l’acheminement des secours"
           ],
           "weakSignals": [
-            "Disponibilité de semences et flux de commerce intérieur"
+            "Allongement des délais d’acheminement et mouvements secondaires de population"
           ],
           "consequences": [
-            "Amélioration limitée des revenus dans les zones stabilisées"
+            "Aggravation possible des besoins de protection et de la fragilité institutionnelle"
           ],
           "limits": [
-            "Ce scénario « Relèvement économique local » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+            "Hypothèse de risque ; ne constitue ni prévision certaine ni cartographie prédictive des combats."
           ]
         }
       ],

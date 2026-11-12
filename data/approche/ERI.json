@@ -91,6 +91,34 @@
       "language": "en",
       "originalPublisher": "Nations unies",
       "methodNotes": "Paraphrase et citation de faits propres à Érythrée ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-ERI-UNDATA",
+      "publisher": "Division de statistique des Nations unies (UNData)",
+      "title": "Profil national UNData — Érythrée",
+      "canonicalUrl": "https://data.un.org/legacy/en/iso/er.html",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Division de statistique des Nations unies (UNData)",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-ERI-LANG",
+      "publisher": "Ambassade d’Érythrée en Suisse",
+      "title": "Langues et institutions — Érythrée",
+      "canonicalUrl": "https://home.eritreaembassy.ch/discover-eritrea/fact-and-figures",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Ambassade d’Érythrée en Suisse",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
     }
   ],
   "observations": [
@@ -133,28 +161,10 @@
       "dataKind": "official_statement"
     },
     {
-      "id": "eri-obs-3",
-      "countryCode": "ERI",
-      "key": "politics.head_of_government",
-      "label": "Chef du gouvernement",
-      "value": "Isaias Afwerki",
-      "unit": null,
-      "referencePeriod": "2026-11",
-      "geographicScope": "Érythrée",
-      "methodology": "Relevé daté d'après D ; périmètre et millésime spécifiés dans la source.",
-      "sourceIds": [
-        "S-ERI-D"
-      ],
-      "collectedAt": "2026-11-12",
-      "verifiedAt": "2026-11-12",
-      "status": "verified",
-      "dataKind": "official_statement"
-    },
-    {
       "id": "eri-obs-4",
       "countryCode": "ERI",
       "key": "politics.regime",
-      "label": "Système politique",
+      "label": "Régime politique",
       "value": "Régime à parti unique, sans élections nationales depuis l’indépendance",
       "unit": null,
       "referencePeriod": "2026-11",
@@ -180,7 +190,8 @@
       "geographicScope": "Érythrée",
       "methodology": "Relevé daté d'après F ; périmètre et millésime spécifiés dans la source.",
       "sourceIds": [
-        "S-ERI-F"
+        "S-ERI-F",
+        "S-ERI-UNDATA"
       ],
       "collectedAt": "2026-11-12",
       "verifiedAt": "2026-11-12",
@@ -240,7 +251,8 @@
       "collectedAt": "2026-11-12",
       "verifiedAt": "2026-11-12",
       "status": "verified",
-      "dataKind": "official_statement"
+      "dataKind": "official_statement",
+      "theme": "securite"
     },
     {
       "id": "eri-obs-9",
@@ -254,6 +266,24 @@
       "methodology": "La présentation Banque mondiale comporte des statistiques historiques ; ne pas réutiliser celles-ci comme résultats récents.",
       "sourceIds": [
         "S-ERI-W"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eri-obs-v11-1",
+      "countryCode": "ERI",
+      "key": "identity.language",
+      "label": "Langue(s)",
+      "value": "Tigrigna, arabe et anglais (langues de travail de facto ; pas de langue officielle déclarée selon l’ambassade)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Érythrée",
+      "methodology": "Langues et qualification institutionnelle reprises de la page citée ; la situation de plurilinguisme n’est pas réduite à une seule langue.",
+      "sourceIds": [
+        "S-ERI-LANG"
       ],
       "collectedAt": "2026-11-12",
       "verifiedAt": "2026-11-12",
@@ -319,8 +349,8 @@
     {
       "id": "eri-rel-1",
       "countryCode": "ERI",
-      "targetCode": null,
-      "targetIso2": null,
+      "targetCode": "ETH",
+      "targetIso2": "ET",
       "targetName": "Éthiopie",
       "relationType": "tension",
       "title": "Tensions diplomatiques et sécuritaires",
@@ -749,27 +779,28 @@
         },
         {
           "id": "eri-scenario-3",
-          "title": "Retour des enquêtes économiques",
-          "summary": "Une production de données plus régulière améliore la lecture de l’économie.",
+          "title": "Tensions diplomatiques durables dans la Corne de l’Afrique",
+          "summary": "Un durcissement des positions régionales pourrait compliquer les échanges et réduire les possibilités de dialogue entre voisins.",
           "tags": [],
           "sourceIds": [
-            "S-ERI-W"
+            "S-ERI-AU",
+            "S-ERI-F"
           ],
-          "kind": "reinforcement",
+          "kind": "pressure",
           "assumptions": [
-            "Moyens disponibles et publication ouverte des statistiques"
+            "Maintien de différends régionaux non résolus"
           ],
           "triggers": [
-            "Diffusion d’enquêtes nationales récentes"
+            "Échec documenté d’une initiative de désescalade"
           ],
           "weakSignals": [
-            "Révisions documentées des séries de pauvreté et de production"
+            "Multiplication de prises de position diplomatiques incompatibles"
           ],
           "consequences": [
-            "Décisions publiques mieux fondées sur des indicateurs comparables"
+            "Risque de fermeture politique et de pression commerciale accrue"
           ],
           "limits": [
-            "Ce scénario « Retour des enquêtes économiques » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+            "Ne préjuge ni du déclenchement de hostilités ni des intentions des gouvernements."
           ]
         }
       ],

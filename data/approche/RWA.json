@@ -63,6 +63,76 @@
       "language": "en",
       "originalPublisher": "Communauté d’Afrique de l’Est",
       "methodNotes": "Paraphrase et citation de faits propres à Rwanda ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-RWA-PRIM",
+      "publisher": "Primature rwandaise",
+      "title": "Justin Nsengiyumva, Premier ministre",
+      "canonicalUrl": "https://www.primature.gov.rw/about",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Primature rwandaise",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-RWA-UNDATA",
+      "publisher": "Division de statistique des Nations unies (UNData)",
+      "title": "Profil national UNData — Rwanda",
+      "canonicalUrl": "https://data.un.org/legacy/en/iso/rw.html",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Division de statistique des Nations unies (UNData)",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-RWA-LANG",
+      "publisher": "Gouvernement rwandais",
+      "title": "Langues et institutions — Rwanda",
+      "canonicalUrl": "https://www.gov.rw/about",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Gouvernement rwandais",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-RWA-DRC-UN",
+      "publisher": "Conseil de sécurité des Nations unies",
+      "title": "Résolution 2773 (2025) : RDC, Rwanda et M23",
+      "canonicalUrl": "https://mandates.un.org/mandate/S/RES/2773%282025%29?subject=Democratic+Republic+of+the+Congo+Situation",
+      "publishedAt": "2025-02-21",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Conseil de sécurité des Nations unies",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-RWA-HCR",
+      "publisher": "HCR / MINEMA",
+      "title": "Réfugiés congolais accueillis au Rwanda (septembre 2026)",
+      "canonicalUrl": "https://data.unhcr.org/en/country/RWA/719",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "HCR / MINEMA",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
     }
   ],
   "observations": [
@@ -124,7 +194,7 @@
       "id": "rwa-obs-4",
       "countryCode": "RWA",
       "key": "institutions.eac",
-      "label": "Membre de l’EAC",
+      "label": "Membre de la Communauté d’Afrique de l’Est (EAC)",
       "value": "Oui",
       "unit": null,
       "referencePeriod": "2026-11",
@@ -228,6 +298,60 @@
       "verifiedAt": null,
       "status": "pending",
       "dataKind": "official_statement"
+    },
+    {
+      "id": "rwa-obs-v11-1",
+      "countryCode": "RWA",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc rwandais (RWF)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Rwanda",
+      "methodology": "Unité monétaire nationale selon le profil pays UNData ; n’implique pas une parité de change ou une date d’estimation.",
+      "sourceIds": [
+        "S-RWA-UNDATA"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "rwa-obs-v11-2",
+      "countryCode": "RWA",
+      "key": "identity.language",
+      "label": "Langue(s)",
+      "value": "Kinyarwanda, anglais, français et kiswahili (officielles)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Rwanda",
+      "methodology": "Langues et qualification institutionnelle reprises de la page citée ; la situation de plurilinguisme n’est pas réduite à une seule langue.",
+      "sourceIds": [
+        "S-RWA-LANG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "rwa-obs-v11-3",
+      "countryCode": "RWA",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République ; exécutif structuré autour de la présidence et de la Primature",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Rwanda",
+      "methodology": "Description institutionnelle prudente ; les fonctions des dirigeants ne préjugent pas de la situation politique ou de la légitimité contestée de certains mandats.",
+      "sourceIds": [
+        "S-RWA-PRIM"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
     }
   ],
   "claims": [
@@ -282,6 +406,19 @@
       "reviewer": null,
       "status": "verified",
       "caveats": []
+    },
+    {
+      "id": "rwa-claim-v11-1",
+      "countryCode": "RWA",
+      "statement": "Selon le HCR, le Rwanda accueillait 85 042 personnes déplacées de RDC dans le relevé de septembre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-RWA-HCR"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
     }
   ],
   "relationships": [
@@ -317,6 +454,25 @@
       "validTo": null,
       "sourceIds": [
         "S-RWA-W"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "rwa-rel-v11-1",
+      "countryCode": "RWA",
+      "targetCode": "COD",
+      "targetIso2": "CD",
+      "targetName": "République démocratique du Congo",
+      "relationType": "tension",
+      "title": "Sécurité régionale et déplacements de population",
+      "topics": [],
+      "summary": "Le Conseil de sécurité a appelé le Rwanda et la RDC à reprendre le dialogue et demandé le retrait des forces rwandaises du territoire congolais ; le Rwanda accueille également des réfugiés congolais.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-RWA-DRC-UN",
+        "S-RWA-HCR"
       ],
       "lastReviewedAt": "2026-11-12",
       "status": "verified"
@@ -385,6 +541,16 @@
             "S-RWA-W"
           ],
           "date": "2026-06-30"
+        },
+        {
+          "id": "rwa-timeline-v11-1",
+          "title": "Résolution 2773 du Conseil de sécurité",
+          "summary": "Le Conseil de sécurité condamne l’offensive du M23 et appelle notamment à des mesures concernant les forces rwandaises en RDC.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-DRC-UN"
+          ],
+          "date": "2025-02-21"
         }
       ]
     },
@@ -535,6 +701,15 @@
             "Pour « Développement du capital humain », les indicateurs ne sont pas des preuves suffisantes de causalité ; recouper les nouveaux éléments."
           ],
           "updatedAt": "2026-11-12"
+        },
+        {
+          "id": "rwa-issues-v11-1",
+          "title": "Crise sécuritaire à l’est de la RDC",
+          "summary": "La situation dans l’est congolais constitue un enjeu diplomatique et sécuritaire majeur pour Kigali ; le Conseil de sécurité a appelé les États à reprendre les discussions et les forces rwandaises à se retirer de RDC.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-DRC-UN"
+          ]
         }
       ],
       "opportunities": [
@@ -736,6 +911,32 @@
           "limits": [
             "Ce scénario « Construction moins porteuse » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
           ]
+        },
+        {
+          "id": "rwa-scenario-v11-drc",
+          "title": "Durcissement de la crise frontalière avec la RDC",
+          "summary": "Une nouvelle détérioration sécuritaire dans l’Est congolais accroît la pression diplomatique et sur les flux civils au Rwanda.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-DRC-UN",
+            "S-RWA-HCR"
+          ],
+          "kind": "fragility",
+          "assumptions": [
+            "Absence de mise en œuvre durable des engagements de désescalade"
+          ],
+          "triggers": [
+            "Reprise ou extension d’incidents transfrontaliers documentés"
+          ],
+          "weakSignals": [
+            "Multiplication des alertes humanitaires et des déclarations contradictoires des parties"
+          ],
+          "consequences": [
+            "Nouvelle pression sur les mouvements de population et les échanges régionaux"
+          ],
+          "limits": [
+            "Scénario conditionnel ; il ne présume pas d’une reprise effective des combats ni des responsabilités individuelles."
+          ]
         }
       ],
       "watchAxes": [
@@ -755,6 +956,16 @@
           "tags": [],
           "sourceIds": [
             "S-RWA-E"
+          ]
+        },
+        {
+          "id": "rwa-watchAxes-v11-1",
+          "title": "Relations Rwanda–RDC",
+          "summary": "Suivre les déclarations conjointes, les mécanismes de cessez-le-feu, les sanctions et les données du HCR relatives aux arrivées de réfugiés congolais.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-DRC-UN",
+            "S-RWA-HCR"
           ]
         }
       ],
@@ -784,6 +995,16 @@
           "tags": [],
           "sourceIds": [
             "S-RWA-W"
+          ]
+        },
+        {
+          "id": "rwa-domains-v11-1",
+          "title": "Exposition à la crise de l’Est congolais",
+          "summary": "Les tensions avec la RDC peuvent peser sur les échanges frontaliers, les déplacements civils et les relations diplomatiques du Rwanda.",
+          "tags": [],
+          "sourceIds": [
+            "S-RWA-DRC-UN",
+            "S-RWA-HCR"
           ]
         }
       ]

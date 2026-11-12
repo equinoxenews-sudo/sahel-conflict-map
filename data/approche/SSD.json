@@ -26,7 +26,7 @@
       "id": "S-SSD-UN",
       "publisher": "UNMISS",
       "title": "Appel au dialogue inclusif en prévision des élections",
-      "canonicalUrl": "https://unmiss.unmissions.org/en/news/press-release-unmiss-urges-inclusive-dialogue-protection-of-civilians-and-renewed",
+      "canonicalUrl": "https://unmiss.unmissions.org/en/press-releases/press-release-unmiss-urges-inclusive-dialogue-protection-of-civilians-and",
       "publishedAt": "2026-11-10",
       "accessedAt": "2026-11-12",
       "license": null,
@@ -77,6 +77,48 @@
       "language": "en",
       "originalPublisher": "Security Council Report",
       "methodNotes": "Paraphrase et citation de faits propres à Soudan du Sud ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-SSD-UNDATA",
+      "publisher": "Division de statistique des Nations unies (UNData)",
+      "title": "Profil national UNData — Soudan du Sud",
+      "canonicalUrl": "https://data.un.org/legacy/en/iso/ss.html",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Division de statistique des Nations unies (UNData)",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-SSD-LANG",
+      "publisher": "France Diplomatie",
+      "title": "Langues et institutions — Soudan du Sud",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/soudan-du-sud/presentation-du-soudan-du-sud",
+      "publishedAt": "2026-10-30",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-SSD-SDN",
+      "publisher": "Banque mondiale",
+      "title": "Soudan du Sud : pipeline pétrolier traversant le Soudan et crise économique",
+      "canonicalUrl": "https://www.worldbank.org/ext/en/country/southsudan",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
     }
   ],
   "observations": [
@@ -120,7 +162,7 @@
       "id": "ssd-obs-3",
       "countryCode": "SSD",
       "key": "politics.regime",
-      "label": "Situation institutionnelle",
+      "label": "Régime politique",
       "value": "Administration intérimaire après dissolution du gouvernement de transition",
       "unit": null,
       "referencePeriod": "2026-11",
@@ -138,7 +180,7 @@
       "id": "ssd-obs-4",
       "countryCode": "SSD",
       "key": "institutions.eac",
-      "label": "Membre de l’EAC depuis 2016",
+      "label": "Membre de la Communauté d’Afrique de l’Est (EAC)",
       "value": "Oui",
       "unit": null,
       "referencePeriod": "2016-09",
@@ -187,7 +229,7 @@
       "verifiedAt": "2026-11-12",
       "status": "verified",
       "dataKind": "observed",
-      "theme": "Situation humanitaire"
+      "theme": "humanitaire"
     },
     {
       "id": "ssd-obs-7",
@@ -242,6 +284,42 @@
       "verifiedAt": "2026-11-12",
       "status": "verified",
       "dataKind": "observed"
+    },
+    {
+      "id": "ssd-obs-v11-1",
+      "countryCode": "SSD",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Livre sud-soudanaise (SSP)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Soudan du Sud",
+      "methodology": "Unité monétaire nationale selon le profil pays UNData ; n’implique pas une parité de change ou une date d’estimation.",
+      "sourceIds": [
+        "S-SSD-UNDATA"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "ssd-obs-v11-2",
+      "countryCode": "SSD",
+      "key": "identity.language",
+      "label": "Langue(s)",
+      "value": "Anglais (officielle) ; arabe de Djouba et langues locales courants",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Soudan du Sud",
+      "methodology": "Langues et qualification institutionnelle reprises de la page citée ; la situation de plurilinguisme n’est pas réduite à une seule langue.",
+      "sourceIds": [
+        "S-SSD-LANG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
     }
   ],
   "claims": [
@@ -334,6 +412,24 @@
       ],
       "lastReviewedAt": "2026-11-12",
       "status": "verified"
+    },
+    {
+      "id": "ssd-rel-v11-1",
+      "countryCode": "SSD",
+      "targetCode": "SDN",
+      "targetIso2": "SD",
+      "targetName": "Soudan",
+      "relationType": "cooperation",
+      "title": "Dépendance à l’oléoduc de transit",
+      "topics": [],
+      "summary": "Le pétrole du Soudan du Sud est exporté en transitant par le Soudan ; les interruptions de l’oléoduc ont pesé sur les recettes publiques et la sécurité économique.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-SSD-SDN"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
     }
   ],
   "modules": {
@@ -394,6 +490,16 @@
           "id": "ssd-timeline-2",
           "title": "Mise en garde avant le vote",
           "summary": "L’UNMISS estime que les conditions de l’élection annoncée demeurent incertaines.",
+          "tags": [],
+          "sourceIds": [
+            "S-SSD-UN"
+          ],
+          "date": "2026-11-10"
+        },
+        {
+          "id": "ssd-timeline-v11-1",
+          "title": "Alerte UNMISS sur la transition",
+          "summary": "Le 10 novembre, l’UNMISS avertit le Conseil de sécurité des difficultés à tenir des élections crédibles le 22 décembre.",
           "tags": [],
           "sourceIds": [
             "S-SSD-UN"
@@ -731,27 +837,28 @@
         },
         {
           "id": "ssd-scenario-3",
-          "title": "Stabilisation des flux pétroliers",
-          "summary": "La production exportable redonne de la trésorerie à l’État.",
+          "title": "Nouvelle rupture du corridor pétrolier",
+          "summary": "Une perturbation prolongée des voies d’exportation via le Soudan réduit les recettes publiques et complique la fourniture des services essentiels.",
           "tags": [],
           "sourceIds": [
+            "S-SSD-SDN",
             "S-SSD-W"
           ],
-          "kind": "reinforcement",
+          "kind": "pressure",
           "assumptions": [
-            "Sécurisation des infrastructures traversant le Soudan"
+            "Dépendance persistante du budget aux recettes d’hydrocarbures"
           ],
           "triggers": [
-            "Séries d’exportation régulièrement publiées"
+            "Interruption des flux d’exportation pétrolière via le Soudan"
           ],
           "weakSignals": [
-            "Retards salariaux et volumes de pétrole commercialisés"
+            "Retards de paiement et révisions budgétaires annoncées"
           ],
           "consequences": [
-            "Amélioration partielle de l’activité publique"
+            "Pression supplémentaire sur les importations, les prix et les dépenses sociales"
           ],
           "limits": [
-            "Ce scénario « Stabilisation des flux pétroliers » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+            "Scénario conditionnel : aucune nouvelle interruption n’est affirmée à la date de vérification."
           ]
         }
       ],

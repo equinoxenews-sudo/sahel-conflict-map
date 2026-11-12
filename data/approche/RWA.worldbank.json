@@ -1,0 +1,660 @@
+{
+  "countryCode": "RWA",
+  "fetchedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=RW",
+      "apiUrl": "https://api.worldbank.org/v2/country/RWA/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=RW",
+      "apiUrl": "https://api.worldbank.org/v2/country/RWA/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=RW",
+      "apiUrl": "https://api.worldbank.org/v2/country/RWA/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=RW",
+      "apiUrl": "https://api.worldbank.org/v2/country/RWA/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=RW",
+      "apiUrl": "https://api.worldbank.org/v2/country/RWA/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=RW",
+      "apiUrl": "https://api.worldbank.org/v2/country/RWA/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=RW",
+      "apiUrl": "https://api.worldbank.org/v2/country/RWA/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-GB.XPD.RSDV.GD.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Dépenses de recherche-développement (% du PIB)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS?locations=RW",
+      "apiUrl": "https://api.worldbank.org/v2/country/RWA/indicator/GB.XPD.RSDV.GD.ZS?format=json&per_page=18",
+      "datasetId": "GB.XPD.RSDV.GD.ZS",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "rwa-demography-population-2025",
+      "countryCode": "RWA",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 14569341,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Rwanda, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 11364757
+        },
+        {
+          "period": "2015",
+          "value": 11640022
+        },
+        {
+          "period": "2016",
+          "value": 11919183
+        },
+        {
+          "period": "2017",
+          "value": 12202060
+        },
+        {
+          "period": "2018",
+          "value": 12487996
+        },
+        {
+          "period": "2019",
+          "value": 12776103
+        },
+        {
+          "period": "2020",
+          "value": 13065837
+        },
+        {
+          "period": "2021",
+          "value": 13355260
+        },
+        {
+          "period": "2022",
+          "value": 13651030
+        },
+        {
+          "period": "2023",
+          "value": 13954471
+        },
+        {
+          "period": "2024",
+          "value": 14256567
+        },
+        {
+          "period": "2025",
+          "value": 14569341
+        }
+      ]
+    },
+    {
+      "id": "rwa-economy-gdp_nominal_usd-2025",
+      "countryCode": "RWA",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 16372132990.2271,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Rwanda, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 8129984483.78727
+        },
+        {
+          "period": "2015",
+          "value": 8447064078.84373
+        },
+        {
+          "period": "2016",
+          "value": 8596812240.52305
+        },
+        {
+          "period": "2017",
+          "value": 9164345443.2575
+        },
+        {
+          "period": "2018",
+          "value": 9650161136.17648
+        },
+        {
+          "period": "2019",
+          "value": 10519272170.3346
+        },
+        {
+          "period": "2020",
+          "value": 10487146253.4025
+        },
+        {
+          "period": "2021",
+          "value": 11252894909.5043
+        },
+        {
+          "period": "2022",
+          "value": 13747404814.2677
+        },
+        {
+          "period": "2023",
+          "value": 14806501437.282
+        },
+        {
+          "period": "2024",
+          "value": 15111064181.9687
+        },
+        {
+          "period": "2025",
+          "value": 16372132990.2271
+        }
+      ]
+    },
+    {
+      "id": "rwa-economy-gdp_per_capita_usd-2025",
+      "countryCode": "RWA",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 1123.73874633225,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Rwanda, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 715.36808783393
+        },
+        {
+          "period": "2015",
+          "value": 725.691418696952
+        },
+        {
+          "period": "2016",
+          "value": 721.258515833094
+        },
+        {
+          "period": "2017",
+          "value": 751.049039527547
+        },
+        {
+          "period": "2018",
+          "value": 772.754982959354
+        },
+        {
+          "period": "2019",
+          "value": 823.355304065304
+        },
+        {
+          "period": "2020",
+          "value": 802.638686936204
+        },
+        {
+          "period": "2021",
+          "value": 842.581492947672
+        },
+        {
+          "period": "2022",
+          "value": 1007.05989322914
+        },
+        {
+          "period": "2023",
+          "value": 1061.05788154076
+        },
+        {
+          "period": "2024",
+          "value": 1059.93709298801
+        },
+        {
+          "period": "2025",
+          "value": 1123.73874633225
+        }
+      ]
+    },
+    {
+      "id": "rwa-economy-gdp_growth-2025",
+      "countryCode": "RWA",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 9.37579834182446,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Rwanda, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 5.66845354233575
+        },
+        {
+          "period": "2015",
+          "value": 8.87036752872743
+        },
+        {
+          "period": "2016",
+          "value": 5.65874584202778
+        },
+        {
+          "period": "2017",
+          "value": 4.70393439751061
+        },
+        {
+          "period": "2018",
+          "value": 8.07084254621641
+        },
+        {
+          "period": "2019",
+          "value": 9.28613387454543
+        },
+        {
+          "period": "2020",
+          "value": -2.77710485515125
+        },
+        {
+          "period": "2021",
+          "value": 8.41140448646523
+        },
+        {
+          "period": "2022",
+          "value": 9.82497394651698
+        },
+        {
+          "period": "2023",
+          "value": 8.55964292914153
+        },
+        {
+          "period": "2024",
+          "value": 7.22717103344534
+        },
+        {
+          "period": "2025",
+          "value": 9.37579834182446
+        }
+      ]
+    },
+    {
+      "id": "rwa-economy-inflation_cpi-2025",
+      "countryCode": "RWA",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 5.91300016882599,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Rwanda, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 2.35449052820358
+        },
+        {
+          "period": "2015",
+          "value": 2.5285028419242
+        },
+        {
+          "period": "2016",
+          "value": 7.17434301982008
+        },
+        {
+          "period": "2017",
+          "value": 8.27953672260832
+        },
+        {
+          "period": "2018",
+          "value": -0.311210160390699
+        },
+        {
+          "period": "2019",
+          "value": 3.34787655037647
+        },
+        {
+          "period": "2020",
+          "value": 9.85039902274206
+        },
+        {
+          "period": "2021",
+          "value": -0.391346748300791
+        },
+        {
+          "period": "2022",
+          "value": 17.6892095588153
+        },
+        {
+          "period": "2023",
+          "value": 19.7895467464669
+        },
+        {
+          "period": "2024",
+          "value": 1.77029240198634
+        },
+        {
+          "period": "2025",
+          "value": 5.91300016882599
+        }
+      ]
+    },
+    {
+      "id": "rwa-labour-unemployment_ilo-2025",
+      "countryCode": "RWA",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 11.363,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Rwanda, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 11.837
+        },
+        {
+          "period": "2015",
+          "value": 11.831
+        },
+        {
+          "period": "2016",
+          "value": 11.788
+        },
+        {
+          "period": "2017",
+          "value": 11.875
+        },
+        {
+          "period": "2018",
+          "value": 10.759
+        },
+        {
+          "period": "2019",
+          "value": 11.236
+        },
+        {
+          "period": "2020",
+          "value": 11.829
+        },
+        {
+          "period": "2021",
+          "value": 15.775
+        },
+        {
+          "period": "2022",
+          "value": 15.084
+        },
+        {
+          "period": "2023",
+          "value": 12.352
+        },
+        {
+          "period": "2024",
+          "value": 11.331
+        },
+        {
+          "period": "2025",
+          "value": 11.363
+        }
+      ]
+    },
+    {
+      "id": "rwa-geography-surface_area-2024",
+      "countryCode": "RWA",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 26340,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Rwanda, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 26340
+        },
+        {
+          "period": "2014",
+          "value": 26340
+        },
+        {
+          "period": "2015",
+          "value": 26340
+        },
+        {
+          "period": "2016",
+          "value": 26340
+        },
+        {
+          "period": "2017",
+          "value": 26340
+        },
+        {
+          "period": "2018",
+          "value": 26340
+        },
+        {
+          "period": "2019",
+          "value": 26340
+        },
+        {
+          "period": "2020",
+          "value": 26340
+        },
+        {
+          "period": "2021",
+          "value": 26340
+        },
+        {
+          "period": "2022",
+          "value": 26340
+        },
+        {
+          "period": "2023",
+          "value": 26340
+        },
+        {
+          "period": "2024",
+          "value": 26340
+        }
+      ]
+    },
+    {
+      "id": "rwa-research-rd_gdp-2023",
+      "countryCode": "RWA",
+      "key": "research.rd_gdp",
+      "topic": "rd",
+      "value": 0.78149,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2023",
+      "geographicScope": "Rwanda, périmètre Banque mondiale",
+      "methodology": "Dépenses intérieures de recherche-développement, en pourcentage du PIB.",
+      "sourceIds": [
+        "S01-WB-GB.XPD.RSDV.GD.ZS"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2016",
+          "value": 0.64945
+        },
+        {
+          "period": "2019",
+          "value": 0.75853
+        },
+        {
+          "period": "2023",
+          "value": 0.78149
+        }
+      ]
+    }
+  ]
+}

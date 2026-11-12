@@ -26,7 +26,7 @@
       "id": "S-DJI-G",
       "publisher": "Présidence de Djibouti",
       "title": "Composition du gouvernement",
-      "canonicalUrl": "https://presidence.dj/composition",
+      "canonicalUrl": "https://www.presidence.dj/index.php/composition",
       "publishedAt": null,
       "accessedAt": "2026-11-12",
       "license": null,
@@ -63,6 +63,48 @@
       "language": "en",
       "originalPublisher": "Banque mondiale",
       "methodNotes": "Paraphrase et citation de faits propres à Djibouti ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-DJI-UNDATA",
+      "publisher": "Division de statistique des Nations unies (UNData)",
+      "title": "Profil national UNData — Djibouti",
+      "canonicalUrl": "https://data.un.org/legacy/en/iso/dj.html",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Division de statistique des Nations unies (UNData)",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-DJI-LANG",
+      "publisher": "France Diplomatie",
+      "title": "Langues et institutions — Djibouti",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/djibouti/presentation-de-djibouti",
+      "publishedAt": "2026-10-23",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-DJI-ETH",
+      "publisher": "Banque mondiale",
+      "title": "Djibouti Country Climate and Development Report — dépendance au corridor éthiopien",
+      "canonicalUrl": "https://www.worldbank.org/en/country/djibouti/publication/djibouti-country-climate-and-development-report",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Banque mondiale",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
     }
   ],
   "observations": [
@@ -209,6 +251,61 @@
       "collectedAt": "2026-11-12",
       "verifiedAt": "2026-11-12",
       "status": "verified",
+      "dataKind": "official_statement",
+      "theme": "energie"
+    },
+    {
+      "id": "dji-obs-v11-1",
+      "countryCode": "DJI",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Franc djiboutien (DJF)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Djibouti",
+      "methodology": "Unité monétaire nationale selon le profil pays UNData ; n’implique pas une parité de change ou une date d’estimation.",
+      "sourceIds": [
+        "S-DJI-UNDATA"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "dji-obs-v11-2",
+      "countryCode": "DJI",
+      "key": "identity.language",
+      "label": "Langue(s)",
+      "value": "Français et arabe (officielles) ; somali et afar (nationales)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Djibouti",
+      "methodology": "Langues et qualification institutionnelle reprises de la page citée ; la situation de plurilinguisme n’est pas réduite à une seule langue.",
+      "sourceIds": [
+        "S-DJI-LANG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "dji-obs-v11-3",
+      "countryCode": "DJI",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République ; chef de l’État et Premier ministre distincts",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Djibouti",
+      "methodology": "Description institutionnelle prudente ; les fonctions des dirigeants ne préjugent pas de la situation politique ou de la légitimité contestée de certains mandats.",
+      "sourceIds": [
+        "S-DJI-G"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
       "dataKind": "official_statement"
     }
   ],
@@ -264,6 +361,19 @@
       "reviewer": null,
       "status": "verified",
       "caveats": []
+    },
+    {
+      "id": "dji-claim-v11-1",
+      "countryCode": "DJI",
+      "statement": "La Banque mondiale estime que les ports de Djibouti traitent la majeure partie des importations éthiopiennes.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-DJI-ETH"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
     }
   ],
   "relationships": [
@@ -288,16 +398,17 @@
     {
       "id": "dji-rel-2",
       "countryCode": "DJI",
-      "targetCode": null,
-      "targetIso2": null,
-      "targetName": "Corridor éthiopien",
+      "targetCode": "ETH",
+      "targetIso2": "ET",
+      "targetName": "Éthiopie",
       "relationType": "cooperation",
-      "title": "Transit vers l’Éthiopie",
+      "title": "Corridor portuaire Djibouti–Éthiopie",
       "topics": [],
-      "summary": "Les infrastructures de Djibouti sont liées aux échanges de son voisin enclavé.",
+      "summary": "Les terminaux djiboutiens assurent l’essentiel du transit des importations éthiopiennes ; une perturbation portuaire ou routière affecterait les deux économies.",
       "validFrom": null,
       "validTo": null,
       "sourceIds": [
+        "S-DJI-ETH",
         "S-DJI-W"
       ],
       "lastReviewedAt": "2026-11-12",

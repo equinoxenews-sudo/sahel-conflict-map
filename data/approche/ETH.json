@@ -91,6 +91,48 @@
       "language": "en",
       "originalPublisher": "Union africaine",
       "methodNotes": "Paraphrase et citation de faits propres à Éthiopie ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-ETH-UNDATA",
+      "publisher": "Division de statistique des Nations unies (UNData)",
+      "title": "Profil national UNData — Éthiopie",
+      "canonicalUrl": "https://data.un.org/legacy/en/iso/et.html",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Division de statistique des Nations unies (UNData)",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-ETH-LANG",
+      "publisher": "France Diplomatie",
+      "title": "Langues et institutions — Éthiopie",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/ethiopie/presentation-de-l-ethiopie",
+      "publishedAt": "2026-10-23",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-ETH-SOM",
+      "publisher": "Ministère turc des Affaires étrangères",
+      "title": "Déclaration d’Ankara entre Éthiopie et Somalie (11 décembre 2024)",
+      "canonicalUrl": "https://www.mfa.gov.tr/etiyopya-federal-demokratik-cumhuriyeti-ve-somali-federal-cumhuriyeti-nin-ankara-bildirisi.en.mfa",
+      "publishedAt": "2024-12-11",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Ministère turc des Affaires étrangères",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
     }
   ],
   "observations": [
@@ -176,14 +218,15 @@
       "unit": "%",
       "referencePeriod": "2024/25",
       "geographicScope": "Éthiopie",
-      "methodology": "Exercice budgétaire éthiopien FY2024/25, non une année civile.",
+      "methodology": "Croissance réelle de 9,2 % pour l’exercice budgétaire éthiopien FY2024/25, reprise par la Banque mondiale et également présentée dans les tableaux du FMI ; ne pas assimiler à l’année civile 2025.",
       "sourceIds": [
         "S-ETH-W"
       ],
       "collectedAt": "2026-11-12",
       "verifiedAt": "2026-11-12",
       "status": "verified",
-      "dataKind": "observed"
+      "dataKind": "observed",
+      "topic": "growth"
     },
     {
       "id": "eth-obs-6",
@@ -213,13 +256,13 @@
       "unit": "USD",
       "referencePeriod": "2025",
       "geographicScope": "Éthiopie",
-      "methodology": "Montant présenté dans la page pays ; vérifier le millésime de série avant rapprochement avec la tuile automatique.",
+      "methodology": "Montant de 979 USD affiché comme chiffre de contexte dans la synthèse Banque mondiale ; millésime non précisé. La série Banque mondiale par année présente une valeur différente pour 2025 : ne pas présenter 979 USD comme observation 2025 vérifiée.",
       "sourceIds": [
         "S-ETH-W"
       ],
       "collectedAt": "2026-11-12",
       "verifiedAt": "2026-11-12",
-      "status": "verified",
+      "status": "pending",
       "dataKind": "observed",
       "topic": "gdp_per_capita"
     },
@@ -253,6 +296,61 @@
       "methodology": "Relevé daté d'après AU ; périmètre et millésime spécifiés dans la source.",
       "sourceIds": [
         "S-ETH-AU"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement",
+      "theme": "securite"
+    },
+    {
+      "id": "eth-obs-v11-1",
+      "countryCode": "ETH",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Birr éthiopien (ETB)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Éthiopie",
+      "methodology": "Unité monétaire nationale selon le profil pays UNData ; n’implique pas une parité de change ou une date d’estimation.",
+      "sourceIds": [
+        "S-ETH-UNDATA"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eth-obs-v11-2",
+      "countryCode": "ETH",
+      "key": "identity.language",
+      "label": "Langue(s)",
+      "value": "Amharique ; autres langues régionales et de travail, notamment oromo, tigrinya et somali",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Éthiopie",
+      "methodology": "Langues et qualification institutionnelle reprises de la page citée ; la situation de plurilinguisme n’est pas réduite à une seule langue.",
+      "sourceIds": [
+        "S-ETH-LANG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "eth-obs-v11-3",
+      "countryCode": "ETH",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République fédérale ; le Premier ministre exerce l’exécutif",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Éthiopie",
+      "methodology": "Description institutionnelle prudente ; les fonctions des dirigeants ne préjugent pas de la situation politique ou de la légitimité contestée de certains mandats.",
+      "sourceIds": [
+        "S-ETH-LANG"
       ],
       "collectedAt": "2026-11-12",
       "verifiedAt": "2026-11-12",
@@ -336,8 +434,8 @@
     {
       "id": "eth-rel-2",
       "countryCode": "ETH",
-      "targetCode": null,
-      "targetIso2": null,
+      "targetCode": "ERI",
+      "targetIso2": "ER",
       "targetName": "Érythrée",
       "relationType": "tension",
       "title": "Tensions dans la Corne de l’Afrique",
@@ -347,6 +445,24 @@
       "validTo": null,
       "sourceIds": [
         "S-ETH-AU"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "eth-rel-v11-1",
+      "countryCode": "ETH",
+      "targetCode": "SOM",
+      "targetIso2": "SO",
+      "targetName": "Somalie",
+      "relationType": "cooperation",
+      "title": "Dialogue sur l’accès à la mer",
+      "topics": [],
+      "summary": "La déclaration d’Ankara de décembre 2024 engage les deux États à rechercher un accès éthiopien à la mer conforme à la souveraineté somalienne. Le suivi de la mise en œuvre reste distinct des intentions annoncées.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-ETH-SOM"
       ],
       "lastReviewedAt": "2026-11-12",
       "status": "verified"
@@ -745,27 +861,29 @@
         },
         {
           "id": "eth-scenario-3",
-          "title": "Réformes et investissement",
-          "summary": "Une amélioration du financement des entreprises consolide les gains de croissance.",
+          "title": "Dégradation des accès commerciaux régionaux",
+          "summary": "Une nouvelle tension diplomatique ou sécuritaire pourrait renchérir l’accès aux voies maritimes et réduire la marge de manœuvre des réformes économiques.",
           "tags": [],
           "sourceIds": [
-            "S-ETH-W"
+            "S-ETH-W",
+            "S-ETH-SOM",
+            "S-ETH-AU"
           ],
-          "kind": "reinforcement",
+          "kind": "pressure",
           "assumptions": [
-            "Cadre macroéconomique plus lisible pour le secteur privé"
+            "Risque persistant sur les corridors commerciaux et la sécurité régionale"
           ],
           "triggers": [
-            "Progression durable des nouveaux investissements productifs"
+            "Suspension documentée d’un mécanisme de dialogue ou perturbation des flux commerciaux"
           ],
           "weakSignals": [
-            "Accès des PME aux devises et au crédit"
+            "Renchérissement des délais logistiques et des coûts de transport"
           ],
           "consequences": [
-            "Diversification de la croissance au-delà des grands projets"
+            "Hausse potentielle du coût des importations et des pressions sur les entreprises"
           ],
           "limits": [
-            "Ce scénario « Réformes et investissement » reste conditionnel ; il ne constitue ni prédiction datée ni résultat constaté."
+            "Un scénario de risque, et non l’annonce d’une rupture déjà constatée."
           ]
         }
       ],

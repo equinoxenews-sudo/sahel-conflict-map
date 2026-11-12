@@ -77,6 +77,62 @@
       "language": "en",
       "originalPublisher": "Union interparlementaire",
       "methodNotes": "Paraphrase et citation de faits propres à Ouganda ; aucun média ni texte long reproduit. Conditions de réutilisation des œuvres à vérifier séparément."
+    },
+    {
+      "id": "S-UGA-UNDATA",
+      "publisher": "Division de statistique des Nations unies (UNData)",
+      "title": "Profil national UNData — Ouganda",
+      "canonicalUrl": "https://data.un.org/legacy/en/iso/ug.html",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Division de statistique des Nations unies (UNData)",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-UGA-LANG",
+      "publisher": "France Diplomatie",
+      "title": "Langues et institutions — Ouganda",
+      "canonicalUrl": "https://www.diplomatie.gouv.fr/fr/information-par-pays/ouganda/presentation-de-l-ouganda",
+      "publishedAt": "2026-05-13",
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "fr",
+      "originalPublisher": "France Diplomatie",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-UGA-UBOS",
+      "publisher": "Uganda Bureau of Statistics",
+      "title": "2024 National Population and Housing Census — population totale",
+      "canonicalUrl": "https://www.ubos.org/uganda-profile/",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "Uganda Bureau of Statistics",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
+    },
+    {
+      "id": "S-UGA-SSD",
+      "publisher": "HCR / Bureau du Premier ministre ougandais",
+      "title": "Réfugiés du Soudan du Sud accueillis en Ouganda (31 octobre 2026)",
+      "canonicalUrl": "https://data.unhcr.org/en/situations/southsudan",
+      "publishedAt": null,
+      "accessedAt": "2026-11-12",
+      "license": null,
+      "licenseUrl": null,
+      "reuse": "citation_only",
+      "language": "en",
+      "originalPublisher": "HCR / Bureau du Premier ministre ougandais",
+      "methodNotes": "Faits et synthèse uniquement ; contenu original non reproduit. Licence de réutilisation des œuvres non établie."
     }
   ],
   "observations": [
@@ -120,30 +176,12 @@
       "id": "uga-obs-3",
       "countryCode": "UGA",
       "key": "politics.head_of_government",
-      "label": "Chef de l’exécutif",
-      "value": "Yoweri Museveni",
-      "unit": null,
-      "referencePeriod": "2026-11",
-      "geographicScope": "Ouganda",
-      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
-      "sourceIds": [
-        "S-UGA-P"
-      ],
-      "collectedAt": "2026-11-12",
-      "verifiedAt": "2026-11-12",
-      "status": "verified",
-      "dataKind": "official_statement"
-    },
-    {
-      "id": "uga-obs-4",
-      "countryCode": "UGA",
-      "key": "politics.prime_minister",
       "label": "Première ministre",
       "value": "Robinah Nabbanja",
       "unit": null,
       "referencePeriod": "2026-11",
       "geographicScope": "Ouganda",
-      "methodology": "Relevé daté d'après P ; périmètre et millésime spécifiés dans la source.",
+      "methodology": "Robinah Nabbanja est présentée comme Première ministre dans la composition officielle du Cabinet ougandais 2026–2031 ; cette fonction est distincte de la Présidence de Yoweri Museveni.",
       "sourceIds": [
         "S-UGA-P"
       ],
@@ -156,7 +194,7 @@
       "id": "uga-obs-5",
       "countryCode": "UGA",
       "key": "institutions.eac",
-      "label": "Membre de l’EAC",
+      "label": "Membre de la Communauté d’Afrique de l’Est (EAC)",
       "value": "Oui",
       "unit": null,
       "referencePeriod": "2026-11",
@@ -187,7 +225,7 @@
       "verifiedAt": "2026-11-12",
       "status": "verified",
       "dataKind": "observed",
-      "theme": "Situation humanitaire"
+      "theme": "humanitaire"
     },
     {
       "id": "uga-obs-7",
@@ -206,7 +244,7 @@
       "verifiedAt": "2026-11-12",
       "status": "verified",
       "dataKind": "observed",
-      "theme": "Situation humanitaire"
+      "theme": "humanitaire"
     },
     {
       "id": "uga-obs-8",
@@ -225,7 +263,7 @@
       "verifiedAt": "2026-11-12",
       "status": "verified",
       "dataKind": "observed",
-      "theme": "Situation humanitaire"
+      "theme": "humanitaire"
     },
     {
       "id": "uga-obs-9",
@@ -236,14 +274,16 @@
       "unit": "personnes",
       "referencePeriod": "2024",
       "geographicScope": "Ouganda",
-      "methodology": "Valeur arrondie 45,9 millions fournie par la Banque mondiale ; sa définition diffère de l’ONU.",
+      "methodology": "45,9 millions : chiffre du recensement national ougandais de 2024 (UBOS : 45 905 417), arrondi et également repris par la page pays Banque mondiale. Ne pas confondre avec les estimations démographiques de l’ONU.",
       "sourceIds": [
+        "S-UGA-UBOS",
         "S-UGA-W"
       ],
       "collectedAt": "2026-11-12",
       "verifiedAt": "2026-11-12",
       "status": "verified",
-      "dataKind": "observed"
+      "dataKind": "observed",
+      "topic": "population"
     },
     {
       "id": "uga-obs-10",
@@ -257,6 +297,60 @@
       "methodology": "Relevé daté d'après IP ; périmètre et millésime spécifiés dans la source.",
       "sourceIds": [
         "S-UGA-IP"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "uga-obs-v11-1",
+      "countryCode": "UGA",
+      "key": "identity.currency",
+      "label": "Monnaie",
+      "value": "Shilling ougandais (UGX)",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Ouganda",
+      "methodology": "Unité monétaire nationale selon le profil pays UNData ; n’implique pas une parité de change ou une date d’estimation.",
+      "sourceIds": [
+        "S-UGA-UNDATA"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "uga-obs-v11-2",
+      "countryCode": "UGA",
+      "key": "identity.language",
+      "label": "Langue(s)",
+      "value": "Anglais (officielle) ; luganda et swahili couramment utilisés",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Ouganda",
+      "methodology": "Langues et qualification institutionnelle reprises de la page citée ; la situation de plurilinguisme n’est pas réduite à une seule langue.",
+      "sourceIds": [
+        "S-UGA-LANG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "official_statement"
+    },
+    {
+      "id": "uga-obs-v11-3",
+      "countryCode": "UGA",
+      "key": "politics.regime",
+      "label": "Régime politique",
+      "value": "République à régime présidentiel",
+      "unit": null,
+      "referencePeriod": "2026-11",
+      "geographicScope": "Ouganda",
+      "methodology": "Description institutionnelle prudente ; les fonctions des dirigeants ne préjugent pas de la situation politique ou de la légitimité contestée de certains mandats.",
+      "sourceIds": [
+        "S-UGA-LANG"
       ],
       "collectedAt": "2026-11-12",
       "verifiedAt": "2026-11-12",
@@ -316,6 +410,19 @@
       "reviewer": null,
       "status": "verified",
       "caveats": []
+    },
+    {
+      "id": "uga-claim-v11-1",
+      "countryCode": "UGA",
+      "statement": "Le HCR dénombrait 1 050 189 réfugiés sud-soudanais en Ouganda au 31 octobre 2026.",
+      "claimType": "fact",
+      "sourceIds": [
+        "S-UGA-SSD"
+      ],
+      "validAsOf": "2026-11-12",
+      "reviewer": null,
+      "status": "verified",
+      "caveats": []
     }
   ],
   "relationships": [
@@ -351,6 +458,24 @@
       "validTo": null,
       "sourceIds": [
         "S-UGA-E"
+      ],
+      "lastReviewedAt": "2026-11-12",
+      "status": "verified"
+    },
+    {
+      "id": "uga-rel-v11-1",
+      "countryCode": "UGA",
+      "targetCode": "SSD",
+      "targetIso2": "SS",
+      "targetName": "Soudan du Sud",
+      "relationType": "cooperation",
+      "title": "Accueil des réfugiés sud-soudanais",
+      "topics": [],
+      "summary": "Selon les statistiques du HCR et de la Primature ougandaise, plus d’un million de réfugiés sud-soudanais étaient accueillis en Ouganda fin octobre 2026.",
+      "validFrom": null,
+      "validTo": null,
+      "sourceIds": [
+        "S-UGA-SSD"
       ],
       "lastReviewedAt": "2026-11-12",
       "status": "verified"

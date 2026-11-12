@@ -26,6 +26,7 @@ import DJI_WORLDBANK from "@/data/approche/DJI.worldbank.json";
 import ERI from "@/data/approche/ERI.json";
 import ERI_WORLDBANK from "@/data/approche/ERI.worldbank.json";
 import ETH from "@/data/approche/ETH.json";
+import ETH_WORLDBANK from "@/data/approche/ETH.worldbank.json";
 import FRA from "@/data/approche/FRA.json";
 import FRA_WORLDBANK from "@/data/approche/FRA.worldbank.json";
 import FRA_EUROSTAT from "@/data/approche/FRA.eurostat.json";
@@ -54,6 +55,7 @@ import NER_WORLDBANK from "@/data/approche/NER.worldbank.json";
 import NGA from "@/data/approche/NGA.json";
 import NGA_WORLDBANK from "@/data/approche/NGA.worldbank.json";
 import RWA from "@/data/approche/RWA.json";
+import RWA_WORLDBANK from "@/data/approche/RWA.worldbank.json";
 import SDN from "@/data/approche/SDN.json";
 import SDN_WORLDBANK from "@/data/approche/SDN.worldbank.json";
 import SEN from "@/data/approche/SEN.json";
@@ -89,7 +91,7 @@ export const COUNTRY_FILES: Record<string, { curated: unknown; worldbank?: unkno
   CPV: { curated: CPV, worldbank: CPV_WORLDBANK },
   DJI: { curated: DJI, worldbank: DJI_WORLDBANK },
   ERI: { curated: ERI, worldbank: ERI_WORLDBANK },
-  ETH: { curated: ETH },
+  ETH: { curated: ETH, worldbank: ETH_WORLDBANK },
   FRA: { curated: FRA, worldbank: FRA_WORLDBANK, eurostat: FRA_EUROSTAT },
   GAB: { curated: GAB, worldbank: GAB_WORLDBANK },
   GHA: { curated: GHA, worldbank: GHA_WORLDBANK },
@@ -103,7 +105,7 @@ export const COUNTRY_FILES: Record<string, { curated: unknown; worldbank?: unkno
   MRT: { curated: MRT, worldbank: MRT_WORLDBANK },
   NER: { curated: NER, worldbank: NER_WORLDBANK },
   NGA: { curated: NGA, worldbank: NGA_WORLDBANK },
-  RWA: { curated: RWA },
+  RWA: { curated: RWA, worldbank: RWA_WORLDBANK },
   SDN: { curated: SDN, worldbank: SDN_WORLDBANK },
   SEN: { curated: SEN, worldbank: SEN_WORLDBANK },
   SLE: { curated: SLE, worldbank: SLE_WORLDBANK },

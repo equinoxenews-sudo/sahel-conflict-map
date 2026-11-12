@@ -1,0 +1,660 @@
+{
+  "countryCode": "ETH",
+  "fetchedAt": "2026-11-12",
+  "sources": [
+    {
+      "id": "S01-WB-SP.POP.TOTL",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Population totale",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SP.POP.TOTL?locations=ET",
+      "apiUrl": "https://api.worldbank.org/v2/country/ETH/indicator/SP.POP.TOTL?format=json&per_page=18",
+      "datasetId": "SP.POP.TOTL",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…",
+      "methodNotes": "Organisme d'origine déclaré : World Population Prospects, United Nations (UN) publisher: UN Population Division; Statistical databases and publications from national statistical offices, National Statistical Offices (NSOs) publisher: National Statistical Offices; Eurostat: Demographic Sta…. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=ET",
+      "apiUrl": "https://api.worldbank.org/v2/country/ETH/indicator/NY.GDP.MKTP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.CD",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.PCAP.CD",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — PIB par habitant (dollars américains courants)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=ET",
+      "apiUrl": "https://api.worldbank.org/v2/country/ETH/indicator/NY.GDP.PCAP.CD?format=json&per_page=18",
+      "datasetId": "NY.GDP.PCAP.CD",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-NY.GDP.MKTP.KD.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Croissance annuelle du PIB réel",
+      "canonicalUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=ET",
+      "apiUrl": "https://api.worldbank.org/v2/country/ETH/indicator/NY.GDP.MKTP.KD.ZG?format=json&per_page=18",
+      "datasetId": "NY.GDP.MKTP.KD.ZG",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Country official statistics, National Statistical Organizations and/or Central Banks; National Accounts data files, Organisation for Economic Co-operation and Development (OECD); Staff estimates, World Bank (WB) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-FP.CPI.TOTL.ZG",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Inflation, indice des prix à la consommation (variation annuelle)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=ET",
+      "apiUrl": "https://api.worldbank.org/v2/country/ETH/indicator/FP.CPI.TOTL.ZG?format=json&per_page=18",
+      "datasetId": "FP.CPI.TOTL.ZG",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : International Financial Statistics database, International Monetary Fund (IMF) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-SL.UEM.TOTL.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Chômage, total (% de la population active, estimation modélisée de l'OIT)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=ET",
+      "apiUrl": "https://api.worldbank.org/v2/country/ETH/indicator/SL.UEM.TOTL.ZS?format=json&per_page=18",
+      "datasetId": "SL.UEM.TOTL.ZS",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO) publisher: ILOSTAT, type: external database, date accessed: January 17, 2026 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-AG.SRF.TOTL.K2",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Superficie (km²)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/AG.SRF.TOTL.K2?locations=ET",
+      "apiUrl": "https://api.worldbank.org/v2/country/ETH/indicator/AG.SRF.TOTL.K2?format=json&per_page=18",
+      "datasetId": "AG.SRF.TOTL.K2",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : FAO electronic files and web site, Food and Agriculture Organization of the United Nations (FAO), publisher: Food and Agriculture Organization of the United Nations (FAO) World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    },
+    {
+      "id": "S01-WB-GB.XPD.RSDV.GD.ZS",
+      "publisher": "Banque mondiale",
+      "title": "World Development Indicators — Dépenses de recherche-développement (% du PIB)",
+      "canonicalUrl": "https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS?locations=ET",
+      "apiUrl": "https://api.worldbank.org/v2/country/ETH/indicator/GB.XPD.RSDV.GD.ZS?format=json&per_page=18",
+      "datasetId": "GB.XPD.RSDV.GD.ZS",
+      "datasetVersion": "2026-11-11",
+      "publishedAt": "2026-11-11",
+      "accessedAt": "2026-11-12",
+      "license": "CC BY 4.0 (Banque mondiale, données ouvertes)",
+      "reuse": "allowed",
+      "originalPublisher": "Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators",
+      "methodNotes": "Organisme d'origine déclaré : Stat Bulk Data Download Service, UN Educational, Scientific and Cultural Organization (UNESCO) publisher: UNESCO Institute for Statistics (UIS), date accessed: 2025-03-26, date published: 2025-02 World Development Indicators. Série révisable ; vérifier l'origine de la donnée avant toute réutilisation commerciale.",
+      "language": "fr"
+    }
+  ],
+  "observations": [
+    {
+      "id": "eth-demography-population-2025",
+      "countryCode": "ETH",
+      "key": "demography.population",
+      "topic": "population",
+      "value": 135472051,
+      "unit": "habitants",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Ethiopia, périmètre Banque mondiale",
+      "methodology": "Estimation de la population totale au milieu de l'année (définition de fait : tous les résidents, quelle que soit leur nationalité).",
+      "sourceIds": [
+        "S01-WB-SP.POP.TOTL"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 101115610
+        },
+        {
+          "period": "2015",
+          "value": 103867135
+        },
+        {
+          "period": "2016",
+          "value": 106718162
+        },
+        {
+          "period": "2017",
+          "value": 109666481
+        },
+        {
+          "period": "2018",
+          "value": 112664152
+        },
+        {
+          "period": "2019",
+          "value": 115737383
+        },
+        {
+          "period": "2020",
+          "value": 118917671
+        },
+        {
+          "period": "2021",
+          "value": 122138588
+        },
+        {
+          "period": "2022",
+          "value": 125384287
+        },
+        {
+          "period": "2023",
+          "value": 128691692
+        },
+        {
+          "period": "2024",
+          "value": 132059767
+        },
+        {
+          "period": "2025",
+          "value": 135472051
+        }
+      ]
+    },
+    {
+      "id": "eth-economy-gdp_nominal_usd-2025",
+      "countryCode": "ETH",
+      "key": "economy.gdp_nominal_usd",
+      "topic": "gdp",
+      "value": 126358758448.356,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Ethiopia, périmètre Banque mondiale",
+      "methodology": "Produit intérieur brut aux prix courants converti en dollars américains au taux de change officiel moyen de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.CD"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 55612228233.5179
+        },
+        {
+          "period": "2015",
+          "value": 62103418181.8182
+        },
+        {
+          "period": "2016",
+          "value": 68475871209.607
+        },
+        {
+          "period": "2017",
+          "value": 76366081766.6667
+        },
+        {
+          "period": "2018",
+          "value": 83337901071.9697
+        },
+        {
+          "period": "2019",
+          "value": 91834517113.6386
+        },
+        {
+          "period": "2020",
+          "value": 98676811061.9985
+        },
+        {
+          "period": "2021",
+          "value": 109070960370.972
+        },
+        {
+          "period": "2022",
+          "value": 123140304665.399
+        },
+        {
+          "period": "2023",
+          "value": 135874093203.18
+        },
+        {
+          "period": "2024",
+          "value": 149740297952.375
+        },
+        {
+          "period": "2025",
+          "value": 126358758448.356
+        }
+      ]
+    },
+    {
+      "id": "eth-economy-gdp_per_capita_usd-2025",
+      "countryCode": "ETH",
+      "key": "economy.gdp_per_capita_usd",
+      "topic": "gdp_per_capita",
+      "value": 932.729352775179,
+      "unit": "USD",
+      "currency": "USD",
+      "referencePeriod": "2025",
+      "geographicScope": "Ethiopia, périmètre Banque mondiale",
+      "methodology": "PIB nominal en dollars courants divisé par la population au milieu de l'année.",
+      "sourceIds": [
+        "S01-WB-NY.GDP.PCAP.CD"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 549.986577082588
+        },
+        {
+          "period": "2015",
+          "value": 597.912113218663
+        },
+        {
+          "period": "2016",
+          "value": 641.651523286233
+        },
+        {
+          "period": "2017",
+          "value": 696.348429076216
+        },
+        {
+          "period": "2018",
+          "value": 739.702022272086
+        },
+        {
+          "period": "2019",
+          "value": 793.473247218996
+        },
+        {
+          "period": "2020",
+          "value": 829.790982552951
+        },
+        {
+          "period": "2021",
+          "value": 893.009835441784
+        },
+        {
+          "period": "2022",
+          "value": 982.103161502198
+        },
+        {
+          "period": "2023",
+          "value": 1055.81091593061
+        },
+        {
+          "period": "2024",
+          "value": 1133.88279681256
+        },
+        {
+          "period": "2025",
+          "value": 932.729352775179
+        }
+      ]
+    },
+    {
+      "id": "eth-economy-gdp_growth-2025",
+      "countryCode": "ETH",
+      "key": "economy.gdp_growth",
+      "topic": "growth",
+      "value": 9.7715182202934,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Ethiopia, périmètre Banque mondiale",
+      "methodology": "Variation annuelle du PIB aux prix constants (volumes).",
+      "sourceIds": [
+        "S01-WB-NY.GDP.MKTP.KD.ZG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 10.2574929627477
+        },
+        {
+          "period": "2015",
+          "value": 10.3924630141307
+        },
+        {
+          "period": "2016",
+          "value": 9.43348265981905
+        },
+        {
+          "period": "2017",
+          "value": 9.56418965754014
+        },
+        {
+          "period": "2018",
+          "value": 6.81614778557282
+        },
+        {
+          "period": "2019",
+          "value": 8.36408573111346
+        },
+        {
+          "period": "2020",
+          "value": 6.05953089248577
+        },
+        {
+          "period": "2021",
+          "value": 5.64153069324176
+        },
+        {
+          "period": "2022",
+          "value": 5.32175988485454
+        },
+        {
+          "period": "2023",
+          "value": 6.59424599054353
+        },
+        {
+          "period": "2024",
+          "value": 7.61277447616879
+        },
+        {
+          "period": "2025",
+          "value": 9.7715182202934
+        }
+      ]
+    },
+    {
+      "id": "eth-economy-inflation_cpi-2025",
+      "countryCode": "ETH",
+      "key": "economy.inflation_cpi",
+      "topic": "inflation",
+      "value": 13.2296432836808,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Ethiopia, périmètre Banque mondiale",
+      "methodology": "Variation annuelle de l'indice des prix à la consommation (IPC) national.",
+      "sourceIds": [
+        "S01-WB-FP.CPI.TOTL.ZG"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 6.89001951597191
+        },
+        {
+          "period": "2015",
+          "value": 9.56889955968623
+        },
+        {
+          "period": "2016",
+          "value": 6.62813337230924
+        },
+        {
+          "period": "2017",
+          "value": 10.6871150284238
+        },
+        {
+          "period": "2018",
+          "value": 13.8330356586661
+        },
+        {
+          "period": "2019",
+          "value": 15.8096321719344
+        },
+        {
+          "period": "2020",
+          "value": 20.3563468559061
+        },
+        {
+          "period": "2021",
+          "value": 26.8395221557722
+        },
+        {
+          "period": "2022",
+          "value": 33.8898797100898
+        },
+        {
+          "period": "2023",
+          "value": 30.2188278135278
+        },
+        {
+          "period": "2024",
+          "value": 21.037746057771
+        },
+        {
+          "period": "2025",
+          "value": 13.2296432836808
+        }
+      ]
+    },
+    {
+      "id": "eth-labour-unemployment_ilo-2025",
+      "countryCode": "ETH",
+      "key": "labour.unemployment_ilo",
+      "topic": "unemployment",
+      "value": 3.323,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2025",
+      "geographicScope": "Ethiopia, périmètre Banque mondiale",
+      "methodology": "Estimation modélisée de l'OIT : à distinguer du taux de chômage au sens du BIT publié par l'INSEE.",
+      "sourceIds": [
+        "S01-WB-SL.UEM.TOTL.ZS"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2014",
+          "value": 2.361
+        },
+        {
+          "period": "2015",
+          "value": 2.442
+        },
+        {
+          "period": "2016",
+          "value": 2.556
+        },
+        {
+          "period": "2017",
+          "value": 2.665
+        },
+        {
+          "period": "2018",
+          "value": 2.811
+        },
+        {
+          "period": "2019",
+          "value": 2.928
+        },
+        {
+          "period": "2020",
+          "value": 3.998
+        },
+        {
+          "period": "2021",
+          "value": 3.935
+        },
+        {
+          "period": "2022",
+          "value": 3.386
+        },
+        {
+          "period": "2023",
+          "value": 3.375
+        },
+        {
+          "period": "2024",
+          "value": 3.357
+        },
+        {
+          "period": "2025",
+          "value": 3.323
+        }
+      ]
+    },
+    {
+      "id": "eth-geography-surface_area-2024",
+      "countryCode": "ETH",
+      "key": "geography.surface_area",
+      "topic": "area",
+      "value": 1129818.8,
+      "unit": "km²",
+      "currency": null,
+      "referencePeriod": "2024",
+      "geographicScope": "Ethiopia, périmètre Banque mondiale",
+      "methodology": "Superficie totale du pays, eaux intérieures comprises, selon la définition de la Banque mondiale.",
+      "sourceIds": [
+        "S01-WB-AG.SRF.TOTL.K2"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2013",
+          "value": 1129818.7
+        },
+        {
+          "period": "2014",
+          "value": 1129818.6
+        },
+        {
+          "period": "2015",
+          "value": 1129818.6
+        },
+        {
+          "period": "2016",
+          "value": 1129818.8
+        },
+        {
+          "period": "2017",
+          "value": 1129818.7
+        },
+        {
+          "period": "2018",
+          "value": 1129818.5
+        },
+        {
+          "period": "2019",
+          "value": 1129818.6
+        },
+        {
+          "period": "2020",
+          "value": 1129818.8
+        },
+        {
+          "period": "2021",
+          "value": 1129818.7
+        },
+        {
+          "period": "2022",
+          "value": 1129818.8
+        },
+        {
+          "period": "2023",
+          "value": 1129818.8
+        },
+        {
+          "period": "2024",
+          "value": 1129818.8
+        }
+      ]
+    },
+    {
+      "id": "eth-research-rd_gdp-2017",
+      "countryCode": "ETH",
+      "key": "research.rd_gdp",
+      "topic": "rd",
+      "value": 0.27437,
+      "unit": "%",
+      "currency": null,
+      "referencePeriod": "2017",
+      "geographicScope": "Ethiopia, périmètre Banque mondiale",
+      "methodology": "Dépenses intérieures de recherche-développement, en pourcentage du PIB.",
+      "sourceIds": [
+        "S01-WB-GB.XPD.RSDV.GD.ZS"
+      ],
+      "collectedAt": "2026-11-12",
+      "verifiedAt": "2026-11-12",
+      "status": "verified",
+      "dataKind": "observed",
+      "calculationFormula": null,
+      "history": [
+        {
+          "period": "2010",
+          "value": 0.24137
+        },
+        {
+          "period": "2013",
+          "value": 0.60474
+        },
+        {
+          "period": "2017",
+          "value": 0.27437
+        }
+      ]
+    }
+  ]
+}
