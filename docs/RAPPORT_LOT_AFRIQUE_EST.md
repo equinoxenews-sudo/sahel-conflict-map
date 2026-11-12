@@ -2,7 +2,7 @@
 
 Branche `approche-v1` (avancée sur `main` avant l'import). Archive : `EQUINOXE_APPROCHE_AFRIQUE_EST_10_PAYS_V1.zip`, passe documentaire du 12 novembre 2026. Dix pays : Djibouti, Érythrée, Éthiopie, Kenya, Rwanda, Soudan, Somalie, Soudan du Sud, Tanzanie, Ouganda.
 
-Les dix JSON sont identiques octet pour octet à l'archive (empreintes du manifeste : 10 sur 10), tous en `draft`. Rien n'est dans `main`. Aucun contenu géopolitique, aucun millésime, aucun libellé n'a été modifié par moi. Aucun changement de design ni de niveau documentaire.
+**Mise à jour du 12 novembre 2026 (soir) : sur ordre de Nicolas, les dix fiches sont passées de `draft` à `published` et fusionnées dans `main`.** Seul le champ `publication` a changé ; pour le reste, les dix JSON sont identiques à l'archive (empreintes du manifeste vérifiées à l'import : 10 sur 10). Les défauts décrits ci-dessous sont donc en ligne tant qu'ils ne sont pas corrigés : dirigeants somaliens masqués (§ 2), onglet Défense annoncé vide (§ 3), intitulé « Premier ministre » pour le Kenya, l'Ouganda et l'Érythrée (§ 4), séries Banque mondiale absentes pour l'Éthiopie et le Rwanda (§ 1). Aucun contenu géopolitique, aucun millésime, aucun libellé n'a été modifié par moi. Aucun changement de design ni de niveau documentaire.
 
 ## Résultat
 
@@ -156,4 +156,4 @@ Je n'ai pas pu vérifier l'exactitude des faits de 2026 : le contrôle porte sur
 3. Intitulé des tuiles de dirigeants (§ 4).
 4. Renvoi à ChatGPT des points éditoriaux et des § 5, 7 et 8.
 
-Les dix fiches restent `draft` ; aucune n'est publiée ni fusionnée dans `main` sans accord.
+Les dix fiches sont publiées dans `main` depuis le 12 novembre 2026 (ordre de Nicolas). Les JSON corrigés de ChatGPT suivront la procédure habituelle : import en `draft` sur une branche annexe, publication après validation.

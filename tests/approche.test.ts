@@ -235,9 +235,9 @@ test("les onglets sont des sous-pages pré-rendues, la vue d'ensemble est la pag
   assert.equal(tabHref("/zones/europe/approche/pays/france", "defense"), "/zones/europe/approche/pays/france/defense");
   assert.equal(validateTab("defense"), "defense");
   assert.equal(validateTab("nimporte-quoi"), "overview");
-  // Les vingt-huit fiches validées sont publiées : toutes sont pré-rendues, la France comprise.
+  // Les trente-huit fiches validées sont publiées : toutes sont pré-rendues, la France comprise.
   const served = listApprocheCountries();
-  assert.equal(served.length, 28);
+  assert.equal(served.length, 38);
   assert.ok(served.some((country) => country.slug === "france" && country.zoneSlug === "europe"));
   assert.ok(served.some((country) => country.slug === "cap-vert" && country.zoneSlug === "afrique"));
 });

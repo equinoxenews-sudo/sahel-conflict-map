@@ -267,7 +267,24 @@ test("le lot Afrique centrale (dix pays) est enregistré, publié (validation de
     const report = analyzeCountry(read(code), `${code}.json`, ctx());
     assert.deepEqual(Object.values(report.errors).flat(), [], `${code} : ${JSON.stringify(report.errors)}`);
   }
-  assert.equal(listApprocheCountries().length, 28, "les vingt-huit fiches validées sont servies");
+  assert.equal(listApprocheCountries().length, 38, "les trente-huit fiches validées sont servies");
+});
+
+const BATCH_EA = ["DJI", "ERI", "ETH", "KEN", "RWA", "SDN", "SOM", "SSD", "TZA", "UGA"];
+
+test("le lot Afrique de l'Est (dix pays) est enregistré, publié (ordre de Nicolas, 12/11/2026) et sans erreur", () => {
+  for (const code of BATCH_EA) {
+    assert.ok(COUNTRY_FILES[code], `${code} enregistré`);
+    assert.equal(read(code).publication, "published", code);
+    assert.ok(getApprocheData(code), `${code} est servi par le nouveau modèle`);
+    const report = analyzeCountry(read(code), `${code}.json`, ctx());
+    assert.deepEqual(Object.values(report.errors).flat(), [], `${code} : ${JSON.stringify(report.errors)}`);
+  }
+  // Somalie : les deux dirigeants sont en « conflicting » ; le moteur ne les présente pas comme des faits vérifiés.
+  const somalia = read("SOM");
+  assert.deepEqual(somalia.observations.filter((o) => o.status === "conflicting").map((o) => o.key).sort(), ["politics.head_of_government", "politics.head_of_state"]);
+  // Rwanda : l'observation en attente n'a pas de valeur.
+  assert.deepEqual(read("RWA").observations.filter((o) => o.status === "pending").map((o) => o.value), [null]);
 });
 
 test("São Tomé-et-Príncipe a de quoi s'afficher : fiche de l'ancien modèle, configuration de carte, liste de la zone Afrique et contour dans le fond de carte du site", () => {
